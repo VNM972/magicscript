@@ -1921,7 +1921,10 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
     const config = configFromEnv(env);
     if (config.sendingEnabled && config.emailProvider === 'amen-smtp') {
-      runnerKinds.push('SEND_EMAIL', 'SEND_FOLLOW_UP');
+      const capacity = await sendCapacity(env, db);
+      if (capacity.available > 0) {
+        runnerKinds.push('SEND_EMAIL', 'SEND_FOLLOW_UP');
+      }
     }
     const job = await queue.next(new Date(), runnerId, runnerKinds);
 
