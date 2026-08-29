@@ -9,6 +9,10 @@ function valueOrDash(value: number | undefined): string {
 export default async function Page() {
   const data = await getControlCenterData();
   const overview = data.overview;
+  const now = Date.now();
+  const onlineRunners = data.runners.filter(
+    (runner) => now - new Date(runner.last_seen_at).getTime() < 60_000,
+  );
 
   const stats = [
     ['Prospects découverts', valueOrDash(overview?.prospects)],
@@ -95,10 +99,37 @@ export default async function Page() {
               <p className="eyebrow">WORKERS</p>
               <h2>Active jobs</h2>
             </div>
-            <span className="count">{data.runningJobs.length}</span>
+            <span className="count">{onlineRunners.length}</span>
           </div>
 
           <div className="agentList">
+            {data.runners.length === 0 ? (
+              <div className="agentRow">
+                <span>Aucun runner enregistré</span>
+                <span className="badge waiting">OFFLINE</span>
+              </div>
+            ) : (
+              data.runners.slice(0, 4).map((runner) => {
+                const online =
+                  now - new Date(runner.last_seen_at).getTime() < 60_000;
+                return (
+                  <div className="agentRow" key={runner.runner_id}>
+                    <span>
+                      {runner.hostname || runner.runner_id}
+                      {runner.current_job_id ? ` · ${runner.current_job_id}` : ''}
+                    </span>
+                    <span className={`badge ${online ? 'running' : 'waiting'}`}>
+                      {online ? runner.status : 'OFFLINE'}
+                    </span>
+                  </div>
+                );
+              })
+            )}
+
+            <div className="agentRow">
+              <span>Jobs actifs</span>
+              <span className="badge running">{data.runningJobs.length}</span>
+            </div>
             {data.runningJobs.length === 0 ? (
               <div className="agentRow">
                 <span>Aucun job actif</span>
