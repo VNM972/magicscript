@@ -8,7 +8,7 @@ If a fact cannot be verified, omit it or lower confidence.
 `;
 
 export function buildPrompt(claim: ClaimedJob): string {
-  const { job, prospect, contacts, outreachDraft } = claim;
+  const { job, prospect, contacts, outreachDraft, researchContext } = claim;
 
   switch (job.kind) {
     case 'DISCOVER_PROSPECTS': {
@@ -153,6 +153,9 @@ ${JSON.stringify(prospect, null, 2)}
 Validated contacts:
 ${JSON.stringify(contacts, null, 2)}
 
+Verified research context:
+${JSON.stringify(researchContext ?? null, null, 2)}
+
 Write a concise first-contact B2B email in French.
 Use one verified commercial asset and one precise digital gap.
 Do not insult or criticize the prospect's current site.
@@ -166,6 +169,7 @@ Required schema:
   "subject": "string",
   "body": "string",
   "factsUsed": ["string"],
+  "sourceRefs": ["https://source-used.example"],
   "confidence": 0,
   "readyToSend": true,
   "blockingReasons": []
@@ -189,6 +193,9 @@ ${JSON.stringify(contacts, null, 2)}
 
 Draft:
 ${JSON.stringify(outreachDraft ?? null, null, 2)}
+
+Verified research context:
+${JSON.stringify(researchContext ?? null, null, 2)}
 
 Check whether every factual claim in the email is supported by the prospect data and whether the message is appropriate for a professional B2B first contact.
 Reject the draft if it invents a fact, overstates a weakness, implies a relationship that does not exist, or contains an unsupported promise.
