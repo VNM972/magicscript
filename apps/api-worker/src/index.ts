@@ -88,6 +88,21 @@ interface FactCheckResult {
   reasons?: string[];
 }
 
+interface ClassificationResult {
+  classification:
+    | 'NO_INTEREST'
+    | 'AUTO_REPLY'
+    | 'INFORMATION_REQUEST'
+    | 'POSITIVE_INTEREST'
+    | 'PRICING_REQUESTED'
+    | 'MEETING_REQUESTED'
+    | 'CUSTOM_REQUEST'
+    | 'COMPLAINT_OR_LEGAL';
+  confidence: number;
+  summary: string;
+  doNotContact?: boolean;
+}
+
 function json(data: unknown, init: ResponseInit = {}): Response {
   const headers = new Headers(init.headers);
   headers.set('content-type', 'application/json; charset=utf-8');
@@ -638,6 +653,158 @@ async function processFactCheckResult(
   return { prospectId: job.prospectId, approved: false, escalated: false };
 }
 
+async function createEscalation(
+  db: D1DatabaseLike,
+  prospectId: string,
+  category: string,
+  summary: string,
+): Promise<void> {
+  const existing = await db
+    .prepare(
+      "SELECT id FROM human_escalations WHERE prospect_id = ? AND category = ? AND status = 'OPEN' LIMIT 1",
+    )
+    .bind(prospectId, category)
+    .first<{ id: string }>();
+
+  if (existing) return;
+
+  await db
+    .prepare(
+      `INSERT INTO human_escalations (
+        id, prospect_id, category, summary, status, source_event_id, created_at, resolved_at
+      ) VALUES (?, ?, ?, ?, 'OPEN', NULL, ?, NULL)`,
+    )
+    .bind(crypto.randomUUID(), prospectId, category, summary, new Date().toISOString())
+    .run();
+}
+
+async function processClassificationResult(
+  job: MagicScriptJob,
+  result: ClassificationResult,
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ prospectId: string; classification: string; humanRequired: boolean }> {
+  if (!job.prospectId) throw new Error('Classification job has no prospectId');
+
+  const reply = await db
+    .prepare(
+      `SELECT r.id, r.contact_id, r.raw_text, c.email
+       FROM replies r
+       LEFT JOIN contacts c ON c.id = r.contact_id
+       WHERE r.prospect_id = ? AND r.classification IS NULL
+       ORDER BY r.received_at DESC LIMIT 1`,
+    )
+    .bind(job.prospectId)
+    .first<{ id: string; contact_id: string | null; raw_text: string; email: string | null }>();
+
+  if (!reply) throw new Error('No unclassified reply found');
+
+  const confidence = Math.max(0, Math.min(100, Number(result.confidence) || 0));
+  await db
+    .prepare('UPDATE replies SET classification = ?, confidence = ? WHERE id = ?')
+    .bind(result.classification, confidence, reply.id)
+    .run();
+
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(job.prospectId);
+  if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
+
+  if (prospect.state !== 'REPLY_RECEIVED') {
+    throw new Error(`Cannot classify reply while prospect is ${prospect.state}`);
+  }
+
+  let humanRequired = false;
+
+  switch (result.classification) {
+    case 'NO_INTEREST': {
+      await repo.transitionProspect(prospect.id, 'NEGATIVE_REPLY', 'Reply classified as no interest');
+
+      if (result.doNotContact === true && reply.email) {
+        await db
+          .prepare(
+            `INSERT INTO suppression_list (email, reason, source, created_at)
+             VALUES (?, 'recipient_opt_out', 'reply_classifier', ?)
+             ON CONFLICT(email) DO NOTHING`,
+          )
+          .bind(reply.email.toLowerCase(), new Date().toISOString())
+          .run();
+
+        await db
+          .prepare('UPDATE contacts SET is_suppressed = 1, updated_at = ? WHERE lower(email) = lower(?)')
+          .bind(new Date().toISOString(), reply.email)
+          .run();
+
+        await repo.transitionProspect(prospect.id, 'DO_NOT_CONTACT', 'Recipient requested no further contact');
+      } else {
+        await repo.transitionProspect(prospect.id, 'CLOSED_LOST', 'Prospect declined');
+      }
+      break;
+    }
+
+    case 'AUTO_REPLY':
+      await repo.transitionProspect(prospect.id, 'WAITING_REPLY', 'Automated reply detected');
+      break;
+
+    case 'POSITIVE_INTEREST':
+      await repo.transitionProspect(prospect.id, 'POSITIVE_REPLY', 'Positive commercial interest detected');
+      if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+        await orchestrator(env, db).planProspect(prospect.id);
+      }
+      break;
+
+    case 'INFORMATION_REQUEST':
+      await repo.transitionProspect(prospect.id, 'HOT_LEAD', 'Prospect requested additional information');
+      await createEscalation(db, prospect.id, 'HOT_LEAD', result.summary);
+      humanRequired = true;
+      break;
+
+    case 'PRICING_REQUESTED':
+      await repo.transitionProspect(prospect.id, 'PRICING_REQUESTED', 'Prospect requested pricing');
+      await createEscalation(db, prospect.id, 'PRICING_REQUESTED', result.summary);
+      humanRequired = true;
+      break;
+
+    case 'MEETING_REQUESTED':
+      await repo.transitionProspect(prospect.id, 'MEETING_REQUESTED', 'Prospect requested a meeting');
+      await createEscalation(db, prospect.id, 'MEETING_REQUESTED', result.summary);
+      humanRequired = true;
+      break;
+
+    case 'CUSTOM_REQUEST':
+      await repo.transitionProspect(prospect.id, 'CUSTOM_REQUEST', 'Prospect requested customization');
+      await createEscalation(db, prospect.id, 'CUSTOM_REQUEST', result.summary);
+      humanRequired = true;
+      break;
+
+    case 'COMPLAINT_OR_LEGAL':
+      await repo.transitionProspect(prospect.id, 'HUMAN_ACTION_REQUIRED', 'Complaint or legal issue detected');
+      await createEscalation(db, prospect.id, 'LEGAL_REVIEW_REQUIRED', result.summary);
+      humanRequired = true;
+      break;
+  }
+
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId: prospect.id,
+    actor: 'response-agent',
+    type: 'reply.classified',
+    payload: {
+      classification: result.classification,
+      confidence,
+      summary: result.summary,
+      humanRequired,
+      doNotContact: result.doNotContact === true,
+    },
+    createdAt: new Date().toISOString(),
+  });
+
+  return {
+    prospectId: prospect.id,
+    classification: result.classification,
+    humanRequired,
+  };
+}
+
 async function processRunnerSuccess(
   job: MagicScriptJob,
   output: unknown,
@@ -673,6 +840,10 @@ async function processRunnerSuccess(
 
   if (job.kind === 'FACT_CHECK_OUTREACH') {
     return processFactCheckResult(job, output as FactCheckResult, env, db);
+  }
+
+  if (job.kind === 'CLASSIFY_REPLY') {
+    return processClassificationResult(job, output as ClassificationResult, env, db);
   }
 
   return { stored: true, processed: false };
@@ -776,6 +947,98 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json({ escalations: result.results ?? [] });
   }
 
+  if (request.method === 'POST' && url.pathname === '/api/email/inbound') {
+    const body = (await request.json()) as {
+      inReplyToProviderMessageId?: string;
+      providerMessageId?: string;
+      fromEmail?: string;
+      rawText?: string;
+      receivedAt?: string;
+    };
+
+    if (!body.inReplyToProviderMessageId?.trim() || !body.rawText?.trim()) {
+      return json(
+        { error: 'inReplyToProviderMessageId and rawText are required' },
+        { status: 400 },
+      );
+    }
+
+    const db = requireDb(env);
+    const outbound = await db
+      .prepare(
+        `SELECT id, prospect_id, contact_id
+         FROM outreach_messages
+         WHERE provider_message_id = ?
+         ORDER BY sent_at DESC LIMIT 1`,
+      )
+      .bind(body.inReplyToProviderMessageId.trim())
+      .first<{ id: string; prospect_id: string; contact_id: string }>();
+
+    if (!outbound) {
+      return json({ error: 'Related outbound message not found' }, { status: 404 });
+    }
+
+    if (body.providerMessageId) {
+      const duplicate = await db
+        .prepare('SELECT id FROM replies WHERE provider_message_id = ? LIMIT 1')
+        .bind(body.providerMessageId)
+        .first<{ id: string }>();
+      if (duplicate) {
+        return json({ ok: true, duplicate: true, replyId: duplicate.id });
+      }
+    }
+
+    const now = new Date().toISOString();
+    const replyId = crypto.randomUUID();
+    await db
+      .prepare(
+        `INSERT INTO replies (
+          id, prospect_id, contact_id, provider_message_id, from_email,
+          raw_text, classification, confidence, received_at, created_at
+        ) VALUES (?, ?, ?, ?, ?, ?, NULL, NULL, ?, ?)`,
+      )
+      .bind(
+        replyId,
+        outbound.prospect_id,
+        outbound.contact_id,
+        body.providerMessageId ?? null,
+        body.fromEmail ?? null,
+        body.rawText.trim(),
+        body.receivedAt ?? now,
+        now,
+      )
+      .run();
+
+    const repo = new D1ProspectRepository(db);
+    const prospect = await repo.getProspect(outbound.prospect_id);
+    if (!prospect) throw new Error('Prospect not found for inbound reply');
+
+    if (
+      prospect.state === 'EMAIL_SENT' ||
+      prospect.state === 'WAITING_REPLY' ||
+      prospect.state === 'FOLLOW_UP_DUE' ||
+      prospect.state === 'FOLLOW_UP_SENT'
+    ) {
+      await repo.transitionProspect(prospect.id, 'REPLY_RECEIVED', 'Inbound email reply received');
+    }
+
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'system',
+      type: 'email.reply_received',
+      payload: { replyId, providerMessageId: body.providerMessageId ?? null },
+      createdAt: now,
+    });
+
+    const updated = await repo.getProspect(prospect.id);
+    if (updated?.state === 'REPLY_RECEIVED' && env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+      await orchestrator(env, db).planProspect(prospect.id);
+    }
+
+    return json({ ok: true, replyId, prospectId: prospect.id });
+  }
+
   if (request.method === 'POST' && url.pathname === '/api/autopilot/tick') {
     return json(await enqueueDiscoveryIfNeeded(env, requireDb(env)));
   }
@@ -875,7 +1138,26 @@ async function handle(request: Request, env: Env): Promise<Response> {
       ? (JSON.parse(researchRow.output_json) as Record<string, unknown>)
       : null;
 
-    return json({ job, prospect, contacts, outreachDraft, researchContext });
+    const latestReply = job.prospectId
+      ? await db
+          .prepare(
+            `SELECT id, raw_text, received_at, from_email
+             FROM replies
+             WHERE prospect_id = ? AND classification IS NULL
+             ORDER BY received_at DESC LIMIT 1`,
+          )
+          .bind(job.prospectId)
+          .first<Record<string, unknown>>()
+      : null;
+
+    return json({
+      job,
+      prospect,
+      contacts,
+      outreachDraft,
+      researchContext,
+      latestReply,
+    });
   }
 
   const successMatch = url.pathname.match(/^\/api\/runner\/jobs\/([^/]+)\/succeed$/);
@@ -898,6 +1180,8 @@ async function handle(request: Request, env: Env): Promise<Response> {
         created_at: string;
         updated_at: string;
         last_error: string | null;
+        claimed_by: string | null;
+        claimed_at: string | null;
       }>();
 
     if (!row) return json({ error: 'Job not found' }, { status: 404 });
@@ -914,6 +1198,8 @@ async function handle(request: Request, env: Env): Promise<Response> {
       createdAt: row.created_at,
       updatedAt: row.updated_at,
       lastError: row.last_error ?? undefined,
+      claimedBy: row.claimed_by ?? undefined,
+      claimedAt: row.claimed_at ?? undefined,
     };
 
     const body = (await request.json()) as { output?: unknown };
