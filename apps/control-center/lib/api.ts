@@ -37,12 +37,23 @@ export interface Job {
   updatedAt: string;
 }
 
+export interface Runner {
+  runner_id: string;
+  hostname?: string;
+  status: string;
+  version?: string;
+  current_job_id?: string | null;
+  started_at: string;
+  last_seen_at: string;
+}
+
 export interface ControlCenterData {
   connected: boolean;
   health: ApiHealth | null;
   overview: Overview | null;
   escalations: Escalation[];
   runningJobs: Job[];
+  runners: Runner[];
   error?: string;
 }
 
@@ -82,14 +93,16 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
         overview: null,
         escalations: [],
         runningJobs: [],
+        runners: [],
         error: 'API connected, but D1 is not configured yet.',
       };
     }
 
-    const [overview, escalationData, jobData] = await Promise.all([
+    const [overview, escalationData, jobData, runnerData] = await Promise.all([
       getJson<Overview>('/api/overview'),
       getJson<{ escalations: Escalation[] }>('/api/escalations?limit=20'),
       getJson<{ jobs: Job[] }>('/api/jobs?status=RUNNING'),
+      getJson<{ runners: Runner[] }>('/api/runners'),
     ]);
 
     return {
@@ -98,6 +111,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       overview,
       escalations: escalationData.escalations,
       runningJobs: jobData.jobs,
+      runners: runnerData.runners,
     };
   } catch (error) {
     return {
@@ -106,6 +120,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       overview: null,
       escalations: [],
       runningJobs: [],
+      runners: [],
       error: error instanceof Error ? error.message : 'Unknown backend error',
     };
   }
