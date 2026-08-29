@@ -236,7 +236,13 @@ export default async function Page() {
             <h2>Outbound switches</h2>
           </div>
           <span className="muted">
-            Email sending: {data.health?.sendingEnabled ? 'ENABLED' : 'DISABLED'} · Prototype deploy:{' '}
+            Email transport:{' '}
+            {data.health?.sendingEnabled
+              ? data.health.emailProvider === 'dry-run'
+                ? 'DRY RUN ONLY'
+                : `ENABLED · ${data.health.emailProvider}`
+              : 'DISABLED'}{' '}
+            · Prototype deploy:{' '}
             {data.health?.prototypeDeployEnabled ? 'ENABLED' : 'DISABLED'}
           </span>
         </div>
