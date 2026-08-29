@@ -3,6 +3,9 @@
   "name": "magicscript-api",
   "main": "src/index.ts",
   "compatibility_date": "2026-08-29",
+  "triggers": {
+    "crons": ["0 */6 * * *"]
+  },
   "vars": {
     "MAGICSCRIPT_AUTOPILOT_ENABLED": "false",
     "MAGICSCRIPT_SENDING_ENABLED": "false",
