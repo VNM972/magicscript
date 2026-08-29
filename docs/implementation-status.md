@@ -18,6 +18,8 @@ Development branch: `magic-script-v2`
 - fact-check rules
 - suppression-list rule
 - no paid API without explicit approval
+- automatic reconciliation of actionable prospects
+- terminal-failure escalation only after retry exhaustion
 
 ### Core
 
@@ -30,7 +32,22 @@ Development branch: `magic-script-v2`
 - D1 repository adapters
 - atomic D1 job claiming
 - retry / dead-letter behavior
+- stale-runner lease recovery
 - runner claim ownership
+- runner affinity for prototype build / QA / deploy work
+- duplicate pending/running job protection
+
+### Continuous integration
+
+GitHub Actions now runs:
+
+- core typecheck
+- core tests
+- API Worker typecheck
+- agent runner typecheck
+- Control Center production build
+
+A complete CI run passed after the first TypeScript regressions were corrected. New commits continue to run through the same workflow.
 
 ### Control plane
 
@@ -39,15 +56,20 @@ Cloudflare Worker API with:
 - health
 - overview
 - prospects
+- prototype status
+- provider usage
+- outreach / follow-up status
 - events
 - jobs
 - runners
 - escalations
-- autopilot tick
+- autopilot discovery tick
+- autopilot reconciliation
 - runner claim / success / failure
 - runner heartbeat
 - inbound reply ingestion
 - deterministic job drain
+- stale-job recovery
 
 ### Agent execution plane
 
@@ -59,6 +81,10 @@ Local Kimi Code runner with:
 - job polling
 - retry callbacks
 - JSON result parsing
+- prototype work-directory persistence
+- deterministic prototype build verification
+- prototype QA pass
+- Cloudflare Pages deployment adapter behind a safety switch
 
 Supported agent jobs:
 
@@ -68,113 +94,145 @@ Supported agent jobs:
 - GENERATE_OUTREACH
 - FACT_CHECK_OUTREACH
 - CLASSIFY_REPLY
+- BUILD_PROTOTYPE
+- RUN_PROTOTYPE_QA
+- DEPLOY_PROTOTYPE
+- SEND_EMAIL / SEND_FOLLOW_UP / SEND_DEMO_LINK through the configured transport
 
 ### Hunter free fallback
 
-Contact discovery now follows this order:
+Contact discovery follows this order:
 
 1. public-source Kimi/Swarm discovery;
 2. second public-source pass;
 3. Hunter free API fallback only if the first two passes fail.
 
 The Hunter fallback:
-- runs Email Count first because that endpoint is free;
+
+- runs Email Count first;
 - calls Domain Search only when Hunter reports available emails;
-- prefers sourced generic business addresses;
-- enforces the same confidence + suppression gates;
+- prefers sourced business addresses;
+- enforces confidence and suppression gates;
 - tracks monthly Hunter usage in D1;
-- defaults to a 40-credit internal budget to preserve part of the 50-credit free allowance.
+- defaults to a 40-credit internal budget to preserve part of the free allowance.
 
-Hunter is not used for sending. The existing Amen mailbox remains the outbound/inbound transport.
-
-### Funnel implemented before real sending
-
-```text
-DISCOVERY
-→ RESEARCH SWARM
-→ SCORE
-→ QUALIFY / DISQUALIFY
-→ CONTACT DISCOVERY
-→ CONTACT VALIDATION
-→ OUTREACH DRAFT
-→ FACT CHECK
-→ OUTREACH VERIFIED
-→ SEND GATE
-```
-
-### Reply pipeline
-
-Provider-agnostic inbound endpoint exists.
-
-```text
-REPLY
-→ REPLY_RECEIVED
-→ CLASSIFY_REPLY
-→ refusal / auto-reply / positive interest / price / meeting / custom / legal
-→ automatic continuation or human escalation
-```
-
-### Control Center
-
-- real backend data, not fake counters
-- active jobs
-- runner heartbeat status
-- open human escalations
-- outbound safety switches
+Hunter is not used for sending.
 
 ### Email transport
 
-Two paths now exist:
+Two paths exist:
 
 1. `dry-run` for zero-risk end-to-end testing;
 2. `amen-smtp` for the existing Magic Script mailbox, using Amen SMTP outbound and IMAP inbound.
 
 The Amen adapter includes:
+
 - SMTP authentication check without sending;
-- real SMTP send implementation behind the sending safety switch;
+- real SMTP sending behind the sending safety switch;
 - IMAP polling;
 - MIME reply parsing;
 - In-Reply-To correlation;
+- threaded follow-ups and demo replies;
 - forwarding replies to the response-classification pipeline.
 
-No real email is sent while the sending switch remains disabled.
+### Autonomous follow-ups
 
-## Deliberately disabled
+Implemented:
 
-- real email sending
-- real email provider
+- configurable daily send limit;
+- max follow-up count;
+- D+3 first follow-up by default;
+- D+5 second follow-up by default;
+- suppression-list check before scheduling;
+- automatic stop after a reply;
+- reply threading;
+- Control Center visibility.
+
+### Prototype pipeline
+
+Implemented behind deployment/sending safety switches:
+
+```text
+POSITIVE_REPLY
+→ BUILD_PROTOTYPE
+→ deterministic npm install/build
+→ static out/ verification
+→ PROTOTYPE_QA
+→ fact/mobile/conversion/technical swarm
+→ correction cycle on failure
+→ PROTOTYPE_READY
+→ Cloudflare Pages deploy
+→ DEMO_REPLY_READY
+→ threaded demo link reply
+→ WAITING_REPLY
+```
+
+The QA correction cycle stays on the same runner/work directory to avoid multi-agent file conflicts.
+
+### Control Center
+
+The dashboard now reads real backend data for:
+
+- prospects
+- qualified leads
+- emails
+- replies
+- hot leads
+- prototypes
+- live runners
+- active jobs
+- open human escalations
+- Hunter usage
+- outreach/follow-up limits
+- prototype build / QA status
+- safety switches
+
+### Local first-run tooling
+
+Implemented:
+
+- local-only D1 config
+- one-command PowerShell start script
+- one-command stop script
+- smoke-test probe
+- local logs under `.magicscript/`
+
+The local smoke mode enables only internal `dry-run` delivery. It does not send external email.
+
+## Deliberately disabled by default
+
+- real outbound email
 - automatic prototype deployment
 - production D1
-- production Cloudflare Worker
-- autopilot
-- prototype code-writing runner
+- production Worker deployment
+- production autopilot
+- paid APIs
 
-## Not yet completed
+## Remaining before first real commercial activation
 
-1. execute repository typecheck/tests/build in a real runtime;
-2. provision development D1 and apply schema;
-3. deploy development API Worker;
-4. start authenticated Kimi runner;
-5. run dry-run end-to-end smoke test;
-6. configure the existing Amen mailbox runtime secrets;
-7. run SMTP/IMAP connectivity check;
-8. verify SPF/DKIM/DMARC;
-9. run a controlled Amen SMTP test only after explicit approval;
-10. implement follow-up scheduler;
-11. implement prototype builder + QA + Cloudflare demo deployment;
-12. finalize Control Center visual polish and live swarm graph;
-13. enable autopilot only after the dry-run gates pass.
+1. run the one-command local swarm smoke test on a machine with authenticated Kimi Code;
+2. verify D1 + Kimi discovery/research/contact/outreach in that runtime;
+3. optionally add the Hunter Free key as a secret and validate fallback behavior;
+4. configure Amen mailbox credentials as runtime secrets;
+5. run SMTP/IMAP connectivity checks without sending;
+6. verify SPF/DKIM/DMARC;
+7. deploy the development Worker / D1 / Control Center;
+8. run an end-to-end dry-run against public prospects;
+9. validate prototype build + QA + Pages preview in development;
+10. explicitly approve real outbound email before enabling the production sending switch.
 
 ## Production gate
 
 No real prospect must receive an email until all of the following are true:
 
-- build/tests pass;
-- D1 state transitions pass smoke tests;
+- CI is green;
+- local/development smoke tests pass;
+- D1 state transitions pass;
 - suppression list is enforced;
 - contact confidence gate is enforced;
 - outreach fact-check passes;
 - domain authentication is verified;
 - daily send limits are configured;
-- bounce/reply ingestion is working;
-- user explicitly approves activation of real sending.
+- bounce/reply ingestion works;
+- prototype QA works when a demo is generated;
+- real sending is explicitly approved.
