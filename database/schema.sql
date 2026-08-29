@@ -162,9 +162,13 @@ CREATE TABLE IF NOT EXISTS prototypes (
   id TEXT PRIMARY KEY,
   prospect_id TEXT NOT NULL,
   repo_path TEXT NOT NULL,
+  runner_id TEXT,
   deployment_url TEXT,
   status TEXT NOT NULL,
   qa_status TEXT,
+  build_manifest_json TEXT,
+  qa_findings_json TEXT,
+  last_error TEXT,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,
   FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE
