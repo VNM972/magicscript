@@ -43,6 +43,7 @@ export interface ClaimedJob {
     body_text: string;
     confidence?: number;
   } | null;
+  researchContext?: Record<string, unknown> | null;
 }
 
 export class MagicScriptApi {
