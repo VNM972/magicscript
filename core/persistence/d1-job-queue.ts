@@ -76,27 +76,44 @@ export class D1JobQueue implements JobQueue {
     return job;
   }
 
-  async next(now = new Date(), claimedBy?: string): Promise<MagicScriptJob | null> {
+  async next(
+    now = new Date(),
+    claimedBy?: string,
+    allowedKinds?: readonly MagicScriptJob['kind'][],
+  ): Promise<MagicScriptJob | null> {
     const claimedAt = now.toISOString();
-    const row = await this.db
-      .prepare(
-        `UPDATE jobs
-         SET status = 'RUNNING',
-             attempts = attempts + 1,
-             claimed_by = ?,
-             claimed_at = ?,
-             updated_at = ?
-         WHERE id = (
-           SELECT id
-           FROM jobs
-           WHERE status = 'PENDING' AND run_after <= ?
-           ORDER BY created_at ASC
-           LIMIT 1
-         )
-         AND status = 'PENDING'
-         RETURNING *`,
+    const kinds = allowedKinds?.length ? [...allowedKinds] : null;
+    const kindFilter = kinds
+      ? ` AND kind IN (${kinds.map(() => '?').join(', ')})`
+      : '';
+
+    const sql = `UPDATE jobs
+      SET status = 'RUNNING',
+          attempts = attempts + 1,
+          claimed_by = ?,
+          claimed_at = ?,
+          updated_at = ?
+      WHERE id = (
+        SELECT id
+        FROM jobs
+        WHERE status = 'PENDING' AND run_after <= ?${kindFilter}
+        ORDER BY created_at ASC
+        LIMIT 1
       )
-      .bind(claimedBy ?? null, claimedAt, claimedAt, claimedAt)
+      AND status = 'PENDING'
+      RETURNING *`;
+
+    const bindings: unknown[] = [
+      claimedBy ?? null,
+      claimedAt,
+      claimedAt,
+      claimedAt,
+      ...(kinds ?? []),
+    ];
+
+    const row = await this.db
+      .prepare(sql)
+      .bind(...bindings)
       .first<JobRow>();
 
     return row ? fromRow(row) : null;
