@@ -6,6 +6,7 @@ import { MagicScriptApi, type ClaimedJob } from './api';
 import { loadAmenMailConfig } from './email/config';
 import { fetchAmenInboxSince, sendAmenEmail } from './email/amen';
 import { runKimi, parseJsonOutput } from './kimi';
+import { deployPrototypeToPages } from './deploy';
 import { buildPrompt } from './prompts';
 import { verifyPrototypeBuild } from './prototype';
 
@@ -217,6 +218,22 @@ async function executePrototypeQa(
   };
 }
 
+async function executePrototypeDeploy(
+  claim: ClaimedJob,
+  workDir: string,
+): Promise<Record<string, unknown>> {
+  if (!claim.prospect) {
+    throw new Error('Prototype deploy job missing prospect context');
+  }
+
+  return deployPrototypeToPages({
+    workDir,
+    companyName: claim.prospect.companyName,
+    prospectId: claim.prospect.id,
+  });
+}
+
+
 async function runOne(): Promise<boolean> {
   const claim = await api.claim();
   if (!claim) return false;
@@ -224,7 +241,8 @@ async function runOne(): Promise<boolean> {
   const jobDir = join(runnerRoot, claim.job.id);
   const executionDir =
     claim.job.kind === 'BUILD_PROTOTYPE' ||
-    claim.job.kind === 'RUN_PROTOTYPE_QA'
+    claim.job.kind === 'RUN_PROTOTYPE_QA' ||
+    claim.job.kind === 'DEPLOY_PROTOTYPE'
       ? getPrototypeWorkDir(claim)
       : jobDir;
 
@@ -243,7 +261,9 @@ async function runOne(): Promise<boolean> {
           ? await executePrototypeBuild(claim, executionDir)
           : claim.job.kind === 'RUN_PROTOTYPE_QA'
             ? await executePrototypeQa(claim, executionDir)
-            : await executeAgentJob(claim, executionDir);
+            : claim.job.kind === 'DEPLOY_PROTOTYPE'
+              ? await executePrototypeDeploy(claim, executionDir)
+              : await executeAgentJob(claim, executionDir);
 
     await api.succeed(claim.job.id, output);
   } catch (error) {
