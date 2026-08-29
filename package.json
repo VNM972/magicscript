@@ -10,12 +10,15 @@
     "dev:control-center": "npm --workspace magic-script-control-center run dev",
     "build:control-center": "npm --workspace magic-script-control-center run build",
     "dev:api": "npm --workspace magic-script-api-worker run dev",
+    "dev:api:local": "npm --workspace magic-script-api-worker run dev:local",
+    "d1:local:init": "npm --workspace magic-script-api-worker run d1:local:init",
     "typecheck:api": "npm --workspace magic-script-api-worker run typecheck",
     "typecheck:core": "npm --workspace @magicscript/core run typecheck",
     "test:core": "npm --workspace @magicscript/core run test",
     "check": "npm run typecheck:core && npm run test:core && npm run typecheck:api && npm run typecheck:runner && npm run build:control-center",
     "dev:runner": "npm --workspace magic-script-agent-runner run dev",
-    "typecheck:runner": "npm --workspace magic-script-agent-runner run typecheck"
+    "typecheck:runner": "npm --workspace magic-script-agent-runner run typecheck",
+    "smoke:swarm": "node scripts/smoke-swarm.mjs"
   },
   "devDependencies": {
     "typescript": "^7.0.2"
