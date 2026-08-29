@@ -9,6 +9,7 @@ import {
   type JobStatus,
   type MagicScriptJob,
   type Prospect,
+  type ProspectContact,
   type ProspectOpportunity,
 } from '@magicscript/core';
 
@@ -59,6 +60,31 @@ interface DiscoveryResult {
     websiteUrl?: string;
     sourceUrl: string;
   }>;
+}
+
+interface ContactResult {
+  contacts: Array<{
+    email: string;
+    sourceUrl: string;
+    sourceType: ProspectContact['sourceType'];
+    confidence: number;
+    verified: boolean;
+  }>;
+}
+
+interface OutreachResult {
+  subject: string;
+  body: string;
+  factsUsed?: string[];
+  confidence: number;
+  readyToSend: boolean;
+  blockingReasons?: string[];
+}
+
+interface FactCheckResult {
+  approved: boolean;
+  confidence: number;
+  reasons?: string[];
 }
 
 function json(data: unknown, init: ResponseInit = {}): Response {
@@ -326,6 +352,254 @@ async function processResearchResult(
   return { prospectId: job.prospectId, score: scoring.score, qualified };
 }
 
+async function processContactResult(
+  job: MagicScriptJob,
+  result: ContactResult,
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ prospectId: string; validContact: boolean; retrying: boolean }> {
+  if (!job.prospectId) throw new Error('Contact job has no prospectId');
+
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(job.prospectId);
+  if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
+
+  const minConfidence = configFromEnv(env).minContactConfidence;
+  let best: ProspectContact | null = null;
+
+  for (const candidate of result.contacts ?? []) {
+    if (!candidate.email?.trim() || !candidate.sourceUrl?.trim()) continue;
+
+    const suppressed = await db
+      .prepare('SELECT email FROM suppression_list WHERE lower(email) = lower(?) LIMIT 1')
+      .bind(candidate.email.trim())
+      .first<{ email: string }>();
+
+    const confidence = Math.max(0, Math.min(100, Number(candidate.confidence) || 0));
+    const now = new Date().toISOString();
+    const contact: ProspectContact = {
+      id: crypto.randomUUID(),
+      prospectId: job.prospectId,
+      email: candidate.email.trim().toLowerCase(),
+      sourceUrl: candidate.sourceUrl,
+      sourceType: candidate.sourceType ?? 'other_public_source',
+      confidence,
+      isValidated: candidate.verified === true && confidence >= minConfidence && !suppressed,
+      isSuppressed: Boolean(suppressed),
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    await repo.saveContact(contact);
+
+    if (
+      contact.isValidated &&
+      !contact.isSuppressed &&
+      (!best || (contact.confidence ?? 0) > (best.confidence ?? 0))
+    ) {
+      best = contact;
+    }
+  }
+
+  const current = await repo.getProspect(job.prospectId);
+  if (!current) throw new Error('Prospect disappeared during contact processing');
+
+  if (best) {
+    if (current.state === 'CONTACT_DISCOVERY') {
+      await repo.transitionProspect(current.id, 'CONTACT_FOUND', 'Validated professional email found');
+      await repo.transitionProspect(current.id, 'OUTREACH_READY', 'Contact passed automatic validation');
+    }
+
+    if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+      await orchestrator(env, db).planProspect(job.prospectId);
+    }
+
+    return { prospectId: job.prospectId, validContact: true, retrying: false };
+  }
+
+  if (current.state === 'CONTACT_DISCOVERY') {
+    await repo.transitionProspect(current.id, 'CONTACT_INVALID', 'No reliable professional email found');
+  }
+
+  const prior = await db
+    .prepare(
+      "SELECT COUNT(*) AS count FROM jobs WHERE prospect_id = ? AND kind = 'DISCOVER_CONTACT' AND status = 'SUCCEEDED'",
+    )
+    .bind(job.prospectId)
+    .first<{ count: number }>();
+
+  const alreadyRetried = (prior?.count ?? 0) >= 1;
+  const afterInvalid = await repo.getProspect(job.prospectId);
+
+  if (alreadyRetried && afterInvalid?.state === 'CONTACT_INVALID') {
+    await repo.transitionProspect(
+      job.prospectId,
+      'DISQUALIFIED',
+      'No reliable contact after two discovery passes',
+    );
+    return { prospectId: job.prospectId, validContact: false, retrying: false };
+  }
+
+  if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+    await orchestrator(env, db).planProspect(job.prospectId);
+  }
+
+  return { prospectId: job.prospectId, validContact: false, retrying: true };
+}
+
+async function processOutreachResult(
+  job: MagicScriptJob,
+  result: OutreachResult,
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ prospectId: string; messageId: string }> {
+  if (!job.prospectId) throw new Error('Outreach job has no prospectId');
+  if (!result.readyToSend) {
+    throw new Error(
+      `Outreach draft blocked: ${(result.blockingReasons ?? ['unknown reason']).join('; ')}`,
+    );
+  }
+  if (!result.subject?.trim() || !result.body?.trim()) {
+    throw new Error('Outreach draft is missing subject or body');
+  }
+
+  const contact = await db
+    .prepare(
+      `SELECT id FROM contacts
+       WHERE prospect_id = ? AND is_validated = 1 AND is_suppressed = 0
+       ORDER BY confidence DESC LIMIT 1`,
+    )
+    .bind(job.prospectId)
+    .first<{ id: string }>();
+
+  if (!contact) throw new Error('No validated unsuppressed contact for outreach');
+
+  const now = new Date().toISOString();
+  const messageId = crypto.randomUUID();
+
+  await db
+    .prepare(
+      `INSERT INTO outreach_messages (
+        id, prospect_id, contact_id, kind, subject, body_text,
+        facts_json, source_refs_json, confidence, status,
+        provider_message_id, sent_at, created_at, updated_at
+      ) VALUES (?, ?, ?, 'INITIAL', ?, ?, ?, '[]', ?, 'DRAFT', NULL, NULL, ?, ?)`,
+    )
+    .bind(
+      messageId,
+      job.prospectId,
+      contact.id,
+      result.subject.trim(),
+      result.body.trim(),
+      JSON.stringify(result.factsUsed ?? []),
+      Math.max(0, Math.min(100, Number(result.confidence) || 0)),
+      now,
+      now,
+    )
+    .run();
+
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(job.prospectId);
+  if (prospect?.state === 'OUTREACH_READY') {
+    await repo.transitionProspect(prospect.id, 'OUTREACH_DRAFTED', 'Outreach draft generated');
+  }
+
+  if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+    await orchestrator(env, db).planProspect(job.prospectId);
+  }
+
+  return { prospectId: job.prospectId, messageId };
+}
+
+async function processFactCheckResult(
+  job: MagicScriptJob,
+  result: FactCheckResult,
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ prospectId: string; approved: boolean; escalated: boolean }> {
+  if (!job.prospectId) throw new Error('Fact-check job has no prospectId');
+
+  const draft = await db
+    .prepare(
+      "SELECT id FROM outreach_messages WHERE prospect_id = ? AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
+    )
+    .bind(job.prospectId)
+    .first<{ id: string }>();
+
+  if (!draft) throw new Error('No outreach draft found for fact-check');
+
+  const confidence = Math.max(0, Math.min(100, Number(result.confidence) || 0));
+  const approved =
+    result.approved === true && confidence >= configFromEnv(env).minOutreachConfidence;
+
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(job.prospectId);
+  if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
+
+  if (approved) {
+    await db
+      .prepare("UPDATE outreach_messages SET status = 'VERIFIED', confidence = ?, updated_at = ? WHERE id = ?")
+      .bind(confidence, new Date().toISOString(), draft.id)
+      .run();
+
+    if (prospect.state === 'OUTREACH_DRAFTED') {
+      await repo.transitionProspect(prospect.id, 'OUTREACH_VERIFIED', 'Outreach fact-check passed');
+    }
+
+    if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+      await orchestrator(env, db).planProspect(job.prospectId);
+    }
+
+    return { prospectId: job.prospectId, approved: true, escalated: false };
+  }
+
+  await db
+    .prepare("UPDATE outreach_messages SET status = 'REJECTED', updated_at = ? WHERE id = ?")
+    .bind(new Date().toISOString(), draft.id)
+    .run();
+
+  const rejected = await db
+    .prepare(
+      "SELECT COUNT(*) AS count FROM outreach_messages WHERE prospect_id = ? AND status = 'REJECTED'",
+    )
+    .bind(job.prospectId)
+    .first<{ count: number }>();
+
+  if ((rejected?.count ?? 0) >= 2 && prospect.state === 'OUTREACH_DRAFTED') {
+    await repo.transitionProspect(
+      prospect.id,
+      'HUMAN_ACTION_REQUIRED',
+      'Two outreach drafts failed automatic fact-check',
+    );
+
+    await db
+      .prepare(
+        `INSERT INTO human_escalations (
+          id, prospect_id, category, summary, status, source_event_id, created_at, resolved_at
+        ) VALUES (?, ?, 'MANUAL_REVIEW_REQUIRED', ?, 'OPEN', NULL, ?, NULL)`,
+      )
+      .bind(
+        crypto.randomUUID(),
+        prospect.id,
+        `Outreach automation blocked after repeated fact-check failures: ${(result.reasons ?? []).join('; ')}`,
+        new Date().toISOString(),
+      )
+      .run();
+
+    return { prospectId: job.prospectId, approved: false, escalated: true };
+  }
+
+  if (prospect.state === 'OUTREACH_DRAFTED') {
+    await repo.transitionProspect(prospect.id, 'OUTREACH_READY', 'Outreach fact-check rejected draft');
+  }
+
+  if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+    await orchestrator(env, db).planProspect(job.prospectId);
+  }
+
+  return { prospectId: job.prospectId, approved: false, escalated: false };
+}
+
 async function processRunnerSuccess(
   job: MagicScriptJob,
   output: unknown,
@@ -349,6 +623,18 @@ async function processRunnerSuccess(
 
   if (job.kind === 'RUN_RESEARCH_SWARM') {
     return processResearchResult(job, output as ResearchResult, env, db);
+  }
+
+  if (job.kind === 'DISCOVER_CONTACT') {
+    return processContactResult(job, output as ContactResult, env, db);
+  }
+
+  if (job.kind === 'GENERATE_OUTREACH') {
+    return processOutreachResult(job, output as OutreachResult, env, db);
+  }
+
+  if (job.kind === 'FACT_CHECK_OUTREACH') {
+    return processFactCheckResult(job, output as FactCheckResult, env, db);
   }
 
   return { stored: true, processed: false };
@@ -495,8 +781,16 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
     const prospect = job.prospectId ? await repo.getProspect(job.prospectId) : null;
     const contacts = job.prospectId ? await repo.listContacts(job.prospectId) : [];
+    const outreachDraft = job.prospectId
+      ? await db
+          .prepare(
+            "SELECT id, subject, body_text, confidence FROM outreach_messages WHERE prospect_id = ? AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
+          )
+          .bind(job.prospectId)
+          .first<Record<string, unknown>>()
+      : null;
 
-    return json({ job, prospect, contacts });
+    return json({ job, prospect, contacts, outreachDraft });
   }
 
   const successMatch = url.pathname.match(/^\/api\/runner\/jobs\/([^/]+)\/succeed$/);
