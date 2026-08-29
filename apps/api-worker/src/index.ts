@@ -1970,10 +1970,10 @@ async function handle(request: Request, env: Env): Promise<Response> {
       ? await db
           .prepare(
             job.kind === 'SEND_EMAIL'
-              ? "SELECT id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND kind = 'INITIAL' AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
+              ? "SELECT id, contact_id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND kind = 'INITIAL' AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
               : job.kind === 'SEND_FOLLOW_UP'
-                ? "SELECT id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND kind = 'FOLLOW_UP' AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
-                : "SELECT id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
+                ? "SELECT id, contact_id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND kind = 'FOLLOW_UP' AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
+                : "SELECT id, contact_id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
           )
           .bind(job.prospectId)
           .first<Record<string, unknown>>()
