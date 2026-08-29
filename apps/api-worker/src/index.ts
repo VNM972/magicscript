@@ -1775,7 +1775,18 @@ async function processPrototypeBuildResult(
   });
 
   if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
-    await orchestrator(env, db).planProspect(job.prospectId);
+    const plan = await orchestrator(env, db).planProspect(job.prospectId);
+    if (plan.queuedJobId && job.claimedBy) {
+      await db
+        .prepare(
+          `UPDATE jobs
+           SET payload_json = json_set(payload_json, '$.requiredRunnerId', ?),
+               updated_at = ?
+           WHERE id = ?`,
+        )
+        .bind(job.claimedBy, new Date().toISOString(), plan.queuedJobId)
+        .run();
+    }
   }
 
   return { prospectId: job.prospectId, prototypeId };
