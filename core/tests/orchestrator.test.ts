@@ -72,3 +72,102 @@ test('sending switch blocks email jobs', async () => {
   assert.equal(plan.queuedJobId, undefined);
   assert.equal(plan.reason, 'Sending disabled');
 });
+
+test('deployment switch blocks prototype deploy jobs', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+
+  await prospects.saveProspect({
+    id: 'p3',
+    companyName: 'Prototype Prospect',
+    state: 'PROTOTYPE_READY',
+    createdAt: '2026-08-29T00:00:00.000Z',
+    updatedAt: '2026-08-29T00:00:00.000Z',
+  });
+
+  const engine = new OrchestratorEngine({
+    config: loadConfig({
+      MAGICSCRIPT_AUTOPILOT_ENABLED: 'true',
+      MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED: 'false',
+    }),
+    prospects,
+    events,
+    jobs,
+    idFactory: () => 'deploy-blocked',
+    now: () => new Date('2026-08-29T12:00:00.000Z'),
+  });
+
+  const plan = await engine.planProspect('p3');
+
+  assert.equal(plan.nextAction, 'DEPLOY_PROTOTYPE');
+  assert.equal(plan.queuedJobId, undefined);
+  assert.equal(plan.reason, 'Prototype deployment disabled');
+});
+
+test('enabled deployment queues a prototype deploy job', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+
+  await prospects.saveProspect({
+    id: 'p4',
+    companyName: 'Prototype Prospect Ready',
+    state: 'PROTOTYPE_READY',
+    createdAt: '2026-08-29T00:00:00.000Z',
+    updatedAt: '2026-08-29T00:00:00.000Z',
+  });
+
+  let id = 0;
+  const engine = new OrchestratorEngine({
+    config: loadConfig({
+      MAGICSCRIPT_AUTOPILOT_ENABLED: 'true',
+      MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED: 'true',
+    }),
+    prospects,
+    events,
+    jobs,
+    idFactory: () => `deploy-${++id}`,
+    now: () => new Date('2026-08-29T12:00:00.000Z'),
+  });
+
+  const plan = await engine.planProspect('p4');
+
+  assert.equal(plan.nextAction, 'DEPLOY_PROTOTYPE');
+  assert.ok(plan.queuedJobId);
+
+  const pending = await jobs.list('PENDING');
+  assert.equal(pending[0]?.kind, 'DEPLOY_PROTOTYPE');
+});
+
+test('demo link sending obeys the outbound safety switch', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+
+  await prospects.saveProspect({
+    id: 'p5',
+    companyName: 'Demo Ready Prospect',
+    state: 'DEMO_REPLY_READY',
+    createdAt: '2026-08-29T00:00:00.000Z',
+    updatedAt: '2026-08-29T00:00:00.000Z',
+  });
+
+  const engine = new OrchestratorEngine({
+    config: loadConfig({
+      MAGICSCRIPT_AUTOPILOT_ENABLED: 'true',
+      MAGICSCRIPT_SENDING_ENABLED: 'false',
+    }),
+    prospects,
+    events,
+    jobs,
+    idFactory: () => 'demo-blocked',
+    now: () => new Date('2026-08-29T12:00:00.000Z'),
+  });
+
+  const plan = await engine.planProspect('p5');
+
+  assert.equal(plan.nextAction, 'SEND_DEMO_LINK');
+  assert.equal(plan.queuedJobId, undefined);
+  assert.equal(plan.reason, 'Sending disabled');
+});
