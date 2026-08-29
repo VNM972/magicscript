@@ -151,6 +151,17 @@ export class OrchestratorEngine {
     const kind = actionToJob[action];
     if (!kind) throw new Error(`No job mapping for action: ${action}`);
 
+    const existing = (await this.deps.jobs.list()).find(
+      (job) =>
+        job.prospectId === prospect.id &&
+        job.kind === kind &&
+        (job.status === 'PENDING' || job.status === 'RUNNING'),
+    );
+
+    if (existing) {
+      return existing.id;
+    }
+
     const now = this.now();
     const id = this.idFactory();
 
