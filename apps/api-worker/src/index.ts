@@ -45,6 +45,8 @@ interface Env {
   MAGICSCRIPT_MIN_QUALIFY_SCORE?: string;
   MAGICSCRIPT_DATABASE_PROVIDER?: string;
   MAGICSCRIPT_EMAIL_PROVIDER?: string;
+  MAGICSCRIPT_TEST_EMAIL_MODE?: string;
+  MAGICSCRIPT_TEST_RECIPIENT?: string;
   MAGICSCRIPT_CONTROL_CENTER_ORIGIN?: string;
   MAGICSCRIPT_API_TOKEN?: string;
   MAGICSCRIPT_RUNNER_TOKEN?: string;
@@ -114,6 +116,8 @@ interface ExternalSendResult {
   provider: 'amen-smtp';
   providerMessageId: string;
   recipient: string;
+  originalRecipient?: string;
+  testMode?: boolean;
   accepted?: string[];
   rejected?: string[];
   deliveredExternally: boolean;
@@ -1618,7 +1622,7 @@ async function sendCapacity(
     .prepare(
       `SELECT COUNT(*) AS count
        FROM outreach_messages
-       WHERE status IN ('SENT', 'DRY_RUN')
+       WHERE status IN ('SENT', 'DRY_RUN', 'TEST_SENT')
          AND sent_at >= ?`,
     )
     .bind(since)
@@ -1700,7 +1704,7 @@ async function scheduleDueFollowUps(
          MAX(om.sent_at) AS last_sent_at,
          SUM(
            CASE
-             WHEN om.kind = 'FOLLOW_UP' AND om.status IN ('SENT', 'DRY_RUN')
+             WHEN om.kind = 'FOLLOW_UP' AND om.status IN ('SENT', 'DRY_RUN', 'TEST_SENT')
              THEN 1
              ELSE 0
            END
@@ -1709,7 +1713,7 @@ async function scheduleDueFollowUps(
        JOIN outreach_messages om ON om.prospect_id = p.id
        WHERE p.state = 'WAITING_REPLY'
          AND om.sent_at IS NOT NULL
-         AND om.status IN ('SENT', 'DRY_RUN')
+         AND om.status IN ('SENT', 'DRY_RUN', 'TEST_SENT')
          AND NOT EXISTS (
            SELECT 1 FROM replies r WHERE r.prospect_id = p.id
          )
@@ -1762,7 +1766,7 @@ async function scheduleDueFollowUps(
          FROM outreach_messages
          WHERE prospect_id = ?
            AND sent_at IS NOT NULL
-           AND status IN ('SENT', 'DRY_RUN')
+           AND status IN ('SENT', 'DRY_RUN', 'TEST_SENT')
          ORDER BY sent_at DESC
          LIMIT 1`,
       )
@@ -2162,16 +2166,24 @@ async function processExternalSendResult(
 
   const now = new Date().toISOString();
 
+  const persistedStatus = result.testMode === true ? 'TEST_SENT' : 'SENT';
+
   await db
     .prepare(
       `UPDATE outreach_messages
-       SET status = 'SENT',
+       SET status = ?,
            provider_message_id = ?,
            sent_at = ?,
            updated_at = ?
        WHERE id = ?`,
     )
-    .bind(result.providerMessageId.trim(), now, now, message.id)
+    .bind(
+      persistedStatus,
+      result.providerMessageId.trim(),
+      now,
+      now,
+      message.id,
+    )
     .run();
 
   const repo = new D1ProspectRepository(db);
@@ -2788,6 +2800,8 @@ async function handle(request: Request, env: Env): Promise<Response> {
       autopilotEnabled: env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true',
       sendingEnabled: env.MAGICSCRIPT_SENDING_ENABLED === 'true',
       emailProvider: env.MAGICSCRIPT_EMAIL_PROVIDER ?? 'disabled',
+      testEmailMode: env.MAGICSCRIPT_TEST_EMAIL_MODE === 'true',
+      testRecipientConfigured: Boolean(env.MAGICSCRIPT_TEST_RECIPIENT?.trim()),
       prototypeDeployEnabled: env.MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED === 'true',
     });
   }
@@ -3286,7 +3300,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
                  WHERE prospect_id = ?
                    AND sent_at IS NOT NULL
                    AND provider_message_id IS NOT NULL
-                   AND status IN ('SENT', 'DRY_RUN')
+                   AND status IN ('SENT', 'DRY_RUN', 'TEST_SENT')
                  ORDER BY sent_at DESC
                  LIMIT 1`,
               )
