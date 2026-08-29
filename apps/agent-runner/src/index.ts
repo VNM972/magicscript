@@ -25,7 +25,7 @@ const runnerRoot = resolve(
 const runnerHostname = hostname();
 const runnerId =
   process.env.MAGICSCRIPT_RUNNER_ID?.trim() ||
-  `${runnerHostname}-${process.pid}`;
+  `magicscript-${runnerHostname}`;
 const runnerVersion = '0.2.0';
 
 const emailProvider = process.env.MAGICSCRIPT_EMAIL_PROVIDER?.trim() || 'disabled';
