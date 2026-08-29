@@ -8,7 +8,7 @@ export interface MagicScriptConfig {
   minOutreachConfidence: number;
   autoPrototypeScore: number;
   databaseProvider: 'memory' | 'sqlite' | 'd1';
-  emailProvider: 'disabled' | 'smtp' | 'resend' | 'other';
+  emailProvider: 'disabled' | 'dry-run' | 'smtp' | 'resend' | 'other';
 }
 
 function bool(value: string | undefined, fallback = false): boolean {
@@ -31,7 +31,7 @@ export function loadConfig(
     throw new Error(`Unsupported database provider: ${databaseProvider}`);
   }
 
-  if (!['disabled', 'smtp', 'resend', 'other'].includes(emailProvider)) {
+  if (!['disabled', 'dry-run', 'smtp', 'resend', 'other'].includes(emailProvider)) {
     throw new Error(`Unsupported email provider: ${emailProvider}`);
   }
 
