@@ -26,5 +26,9 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
+      - name: Free API preflight
+        continue-on-error: true
+        run: npm run check:free-api
+
       - name: Typecheck, tests and Control Center build
         run: npm run check

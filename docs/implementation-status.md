@@ -47,7 +47,7 @@ GitHub Actions now runs:
 - agent runner typecheck
 - Control Center production build
 
-Automatic CI runs are disabled on `magic-script-v2` to prevent notification storms. Validation is now deliberate: the workflow runs only on the dedicated `ci-check` branch or by manual dispatch. This lets development continue in batched commits, then triggers exactly one CI run when the branch is moved to the current V2 head.
+Automatic CI runs are disabled on `magic-script-v2` to prevent notification storms. Validation is deliberate: the workflow runs only on the dedicated `ci-check` branch or by manual dispatch. The first controlled validation run completed successfully: core tests, API Worker typecheck, runner typecheck and Control Center production build all passed. The workflow also performs a non-blocking live preflight against the free public business API.
 
 ### Control plane
 
