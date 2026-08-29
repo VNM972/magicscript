@@ -1438,7 +1438,12 @@ async function processExternalSendResult(
   result: ExternalSendResult,
   db: D1DatabaseLike,
 ): Promise<{ prospectId: string; providerMessageId: string }> {
-  if (!job.prospectId) throw new Error('SEND_EMAIL job has no prospectId');
+  if (!job.prospectId) throw new Error(`${job.kind} job has no prospectId`);
+
+  if (job.kind !== 'SEND_EMAIL' && job.kind !== 'SEND_FOLLOW_UP') {
+    throw new Error(`Unsupported external send job: ${job.kind}`);
+  }
+
   if (
     result.provider !== 'amen-smtp' ||
     !result.providerMessageId?.trim() ||
@@ -1447,19 +1452,23 @@ async function processExternalSendResult(
     throw new Error('Amen SMTP runner did not report a successful external send');
   }
 
+  const messageKind = job.kind === 'SEND_EMAIL' ? 'INITIAL' : 'FOLLOW_UP';
+
   const message = await db
     .prepare(
       `SELECT id
        FROM outreach_messages
-       WHERE prospect_id = ? AND status = 'VERIFIED'
+       WHERE prospect_id = ?
+         AND kind = ?
+         AND status = 'VERIFIED'
        ORDER BY created_at DESC
        LIMIT 1`,
     )
-    .bind(job.prospectId)
+    .bind(job.prospectId, messageKind)
     .first<{ id: string }>();
 
   if (!message) {
-    throw new Error('No VERIFIED outreach message found after Amen SMTP send');
+    throw new Error(`No VERIFIED ${messageKind} message found after Amen SMTP send`);
   }
 
   const now = new Date().toISOString();
@@ -1480,22 +1489,44 @@ async function processExternalSendResult(
   const prospect = await repo.getProspect(job.prospectId);
   if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
 
-  if (prospect.state === 'OUTREACH_VERIFIED') {
-    await repo.transitionProspect(prospect.id, 'EMAIL_SENT', 'Amen SMTP accepted the outbound email');
-    await repo.transitionProspect(prospect.id, 'WAITING_REPLY', 'Outbound email sent; waiting for reply');
+  if (job.kind === 'SEND_EMAIL' && prospect.state === 'OUTREACH_VERIFIED') {
+    await repo.transitionProspect(
+      prospect.id,
+      'EMAIL_SENT',
+      'Amen SMTP accepted the outbound email',
+    );
+    await repo.transitionProspect(
+      prospect.id,
+      'WAITING_REPLY',
+      'Outbound email sent; waiting for reply',
+    );
+  }
+
+  if (job.kind === 'SEND_FOLLOW_UP' && prospect.state === 'FOLLOW_UP_DUE') {
+    await repo.transitionProspect(
+      prospect.id,
+      'FOLLOW_UP_SENT',
+      'Amen SMTP accepted the follow-up',
+    );
+    await repo.transitionProspect(
+      prospect.id,
+      'WAITING_REPLY',
+      'Follow-up sent; waiting for reply',
+    );
   }
 
   await new D1EventStore(db).append({
     id: crypto.randomUUID(),
     prospectId: prospect.id,
     actor: 'system',
-    type: 'email.sent',
+    type: job.kind === 'SEND_EMAIL' ? 'email.sent' : 'followup.sent',
     payload: {
       provider: result.provider,
       providerMessageId: result.providerMessageId,
       recipient: result.recipient,
       accepted: result.accepted ?? [],
       rejected: result.rejected ?? [],
+      kind: messageKind,
     },
     createdAt: now,
   });
