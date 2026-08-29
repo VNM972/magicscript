@@ -148,6 +148,29 @@ export class MagicScriptApi {
     }
   }
 
+  async bounce(input: {
+    inReplyToProviderMessageId: string;
+    recipient?: string;
+    reason?: string;
+    receivedAt?: string;
+  }): Promise<void> {
+    const response = await fetch(`${this.baseUrl}/api/runner/email/bounce`, {
+      method: 'POST',
+      headers: this.headers(),
+      body: JSON.stringify(input),
+    });
+
+    if (response.status === 404) {
+      return;
+    }
+
+    if (!response.ok) {
+      throw new Error(
+        `Bounce callback failed ${response.status}: ${await response.text()}`,
+      );
+    }
+  }
+
   async fail(jobId: string, error: string, retryDelayMs = 30_000): Promise<void> {
     const response = await fetch(
       `${this.baseUrl}/api/runner/jobs/${encodeURIComponent(jobId)}/fail`,
