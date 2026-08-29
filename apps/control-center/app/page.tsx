@@ -259,11 +259,11 @@ export default async function Page() {
         <div className="panelTitle" style={{ marginBottom: 0 }}>
           <div>
             <p className="eyebrow">FREE PROVIDERS</p>
-            <h2>Hunter fallback</h2>
+            <h2>SIRENE discovery + Hunter fallback</h2>
           </div>
           <span className="muted">
             {data.providerUsage
-              ? `${data.providerUsage.hunter.used}/${data.providerUsage.hunter.budget} credits · ${data.providerUsage.hunter.remainingInternalBudget} reserved budget remaining · ${data.providerUsage.hunter.configured ? 'API READY' : 'API KEY MISSING'}`
+              ? `SIRENE ${data.providerUsage.sirene.configured ? 'READY' : 'KEY MISSING'} · Hunter ${data.providerUsage.hunter.used}/${data.providerUsage.hunter.budget} · ${data.providerUsage.hunter.remainingInternalBudget} credits reserved`
               : 'Usage unavailable'}
           </span>
         </div>
