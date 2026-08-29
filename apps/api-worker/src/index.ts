@@ -2752,11 +2752,17 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
     return json({
       period,
+      sirene: {
+        configured: Boolean(env.INSEE_SIRENE_API_KEY),
+        cost: 'free',
+        purpose: 'primary_business_discovery',
+      },
       hunter: {
         configured: Boolean(env.HUNTER_API_KEY),
         used: hunterUsed,
         budget: hunterBudget,
         remainingInternalBudget: Math.max(0, hunterBudget - hunterUsed),
+        purpose: 'contact_fallback_only',
       },
     });
   }
