@@ -1427,20 +1427,22 @@ async function drainDeterministicJobs(
   limit = 10,
 ): Promise<{ processed: number; failed: number }> {
   const queue = new D1JobQueue(db);
-  const deterministicKinds: MagicScriptJob['kind'][] = [
-    'ESCALATE_TO_HUMAN',
-  ];
-
   const config = configFromEnv(env);
-  if (config.sendingEnabled && config.emailProvider === 'dry-run') {
-    deterministicKinds.unshift('SEND_EMAIL', 'SEND_FOLLOW_UP');
-  }
 
   let processed = 0;
   let failed = 0;
 
   for (let index = 0; index < Math.max(1, Math.min(limit, 50)); index += 1) {
-    const job = await queue.next(new Date(), 'cloudflare-system', deterministicKinds);
+    const allowedKinds: MagicScriptJob['kind'][] = ['ESCALATE_TO_HUMAN'];
+
+    if (config.sendingEnabled && config.emailProvider === 'dry-run') {
+      const capacity = await sendCapacity(env, db);
+      if (capacity.available > 0) {
+        allowedKinds.unshift('SEND_EMAIL', 'SEND_FOLLOW_UP');
+      }
+    }
+
+    const job = await queue.next(new Date(), 'cloudflare-system', allowedKinds);
     if (!job) break;
 
     try {
