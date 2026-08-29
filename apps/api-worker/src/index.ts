@@ -1578,7 +1578,7 @@ async function processRunnerSuccess(
     return processClassificationResult(job, output as ClassificationResult, env, db);
   }
 
-  if (job.kind === 'SEND_EMAIL') {
+  if (job.kind === 'SEND_EMAIL' || job.kind === 'SEND_FOLLOW_UP') {
     return processExternalSendResult(job, output as ExternalSendResult, db);
   }
 
