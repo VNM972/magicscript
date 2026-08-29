@@ -15,11 +15,10 @@ export async function runKimi(options: KimiRunOptions): Promise<string> {
     const child = spawn(
       options.executable,
       [
-        '--quiet',
-        '--max-steps-per-turn',
-        '60',
         '--prompt',
         options.prompt,
+        '--output-format',
+        'text',
       ],
       {
         cwd: options.cwd,
@@ -28,6 +27,7 @@ export async function runKimi(options: KimiRunOptions): Promise<string> {
           KIMI_CODE_AGENT_SWARM_MAX_CONCURRENCY: String(
             options.swarmMaxConcurrency ?? 8,
           ),
+          KIMI_LOOP_MAX_STEPS_PER_TURN: '60',
         },
         windowsHide: true,
         stdio: ['ignore', 'pipe', 'pipe'],
