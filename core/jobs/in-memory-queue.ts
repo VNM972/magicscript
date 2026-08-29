@@ -22,9 +22,19 @@ export class InMemoryJobQueue implements JobQueue {
     return job;
   }
 
-  async next(now = new Date(), claimedBy?: string): Promise<MagicScriptJob | null> {
+  async next(
+    now = new Date(),
+    claimedBy?: string,
+    allowedKinds?: readonly MagicScriptJob['kind'][],
+  ): Promise<MagicScriptJob | null> {
+    const allowed = allowedKinds ? new Set(allowedKinds) : null;
     const candidate = [...this.jobs.values()]
-      .filter((job) => job.status === 'PENDING' && new Date(job.runAfter) <= now)
+      .filter(
+        (job) =>
+          job.status === 'PENDING' &&
+          new Date(job.runAfter) <= now &&
+          (!allowed || allowed.has(job.kind)),
+      )
       .sort((a, b) => a.createdAt.localeCompare(b.createdAt))[0];
 
     if (!candidate) return null;
