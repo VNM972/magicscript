@@ -61,6 +61,8 @@ CREATE TABLE IF NOT EXISTS jobs (
   max_attempts INTEGER NOT NULL DEFAULT 3,
   run_after TEXT NOT NULL,
   last_error TEXT,
+  claimed_by TEXT,
+  claimed_at TEXT,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,
   FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE SET NULL
@@ -68,6 +70,23 @@ CREATE TABLE IF NOT EXISTS jobs (
 
 CREATE INDEX IF NOT EXISTS idx_jobs_status_run_after
   ON jobs(status, run_after);
+
+CREATE INDEX IF NOT EXISTS idx_jobs_claimed_by
+  ON jobs(claimed_by, status);
+
+CREATE TABLE IF NOT EXISTS runners (
+  runner_id TEXT PRIMARY KEY,
+  hostname TEXT,
+  status TEXT NOT NULL,
+  version TEXT,
+  current_job_id TEXT,
+  started_at TEXT NOT NULL,
+  last_seen_at TEXT NOT NULL,
+  FOREIGN KEY (current_job_id) REFERENCES jobs(id) ON DELETE SET NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_runners_last_seen
+  ON runners(last_seen_at DESC);
 
 CREATE TABLE IF NOT EXISTS job_results (
   job_id TEXT PRIMARY KEY,
