@@ -22,7 +22,7 @@ function int(value: string | undefined, fallback: number): number {
 }
 
 export function loadConfig(
-  env: Record<string, string | undefined> = process.env,
+  env: Record<string, string | undefined> = {},
 ): MagicScriptConfig {
   const databaseProvider = env.MAGICSCRIPT_DATABASE_PROVIDER ?? 'memory';
   const emailProvider = env.MAGICSCRIPT_EMAIL_PROVIDER ?? 'disabled';
