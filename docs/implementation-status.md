@@ -99,6 +99,21 @@ Supported agent jobs:
 - DEPLOY_PROTOTYPE
 - SEND_EMAIL / SEND_FOLLOW_UP / SEND_DEMO_LINK through the configured transport
 
+### INSEE SIRENE discovery
+
+The discovery layer can now use the free INSEE SIRENE API as the first structured source for Martinique.
+
+When `INSEE_SIRENE_API_KEY` is configured:
+
+- active establishments with Martinique postal codes are scanned;
+- activity codes are filtered toward local-business categories relevant to Magic Script;
+- the public Annuaire des Entreprises page is stored as the existence source;
+- a persisted D1 cursor avoids restarting the same page on every discovery cycle;
+- newly created prospects immediately enter the normal research/scoring funnel;
+- any SIRENE API failure falls back to the Kimi discovery swarm instead of stopping autopilot.
+
+The SIRENE source discovers companies; it does not replace the deeper web research swarm.
+
 ### Hunter free fallback
 
 Contact discovery follows this order:
@@ -233,6 +248,6 @@ No real prospect must receive an email until all of the following are true:
 - outreach fact-check passes;
 - domain authentication is verified;
 - daily send limits are configured;
-- bounce/reply ingestion works;
+- bounce/reply ingestion works, including hard-bounce suppression;
 - prototype QA works when a demo is generated;
 - real sending is explicitly approved.
