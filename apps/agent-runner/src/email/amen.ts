@@ -135,6 +135,10 @@ export async function fetchAmenInboxSince(
         if (!message.source) continue;
 
         const parsed = await simpleParser(message.source);
+        if (parsed.date && parsed.date < since) {
+          continue;
+        }
+
         const fromAddress =
           parsed.from?.value?.[0]?.address ??
           message.envelope?.from?.[0]?.address;
