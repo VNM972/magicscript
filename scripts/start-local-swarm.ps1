@@ -17,7 +17,9 @@ Set-Location $RepoRoot
 
 Require-Command 'node' 'Install Node.js first.'
 Require-Command 'npm' 'Install Node.js/npm first.'
-Require-Command 'kimi' 'Install and authenticate Kimi Code before starting the swarm runner.'
+$KimiExecutable = if ($env:KIMI_EXECUTABLE) { $env:KIMI_EXECUTABLE } else { 'kimi' }
+Require-Command $KimiExecutable 'Install and authenticate Kimi Code before starting the swarm runner.'
+$env:KIMI_EXECUTABLE = $KimiExecutable
 
 $RuntimeDir = Join-Path $RepoRoot '.magicscript'
 $LogsDir = Join-Path $RuntimeDir 'logs'
