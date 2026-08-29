@@ -805,6 +805,192 @@ async function processClassificationResult(
   };
 }
 
+async function processSendEmailJob(
+  job: MagicScriptJob,
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<Record<string, unknown>> {
+  if (!job.prospectId) throw new Error('SEND_EMAIL job has no prospectId');
+
+  const config = configFromEnv(env);
+  if (!config.sendingEnabled) {
+    throw new Error('Email sending is disabled');
+  }
+
+  const message = await db
+    .prepare(
+      `SELECT
+         om.id,
+         om.subject,
+         om.body_text,
+         om.contact_id,
+         c.email
+       FROM outreach_messages om
+       JOIN contacts c ON c.id = om.contact_id
+       WHERE om.prospect_id = ?
+         AND om.status = 'VERIFIED'
+         AND c.is_validated = 1
+         AND c.is_suppressed = 0
+       ORDER BY om.created_at DESC
+       LIMIT 1`,
+    )
+    .bind(job.prospectId)
+    .first<{
+      id: string;
+      subject: string | null;
+      body_text: string;
+      contact_id: string;
+      email: string;
+    }>();
+
+  if (!message) {
+    throw new Error('No verified outreach message with a valid contact');
+  }
+
+  const suppressed = await db
+    .prepare('SELECT email FROM suppression_list WHERE lower(email) = lower(?) LIMIT 1')
+    .bind(message.email)
+    .first<{ email: string }>();
+
+  if (suppressed) {
+    throw new Error('Recipient is present in suppression list');
+  }
+
+  if (config.emailProvider !== 'dry-run') {
+    throw new Error(
+      `Email provider "${config.emailProvider}" is not wired yet; real sending remains blocked`,
+    );
+  }
+
+  const now = new Date().toISOString();
+  const providerMessageId = `dryrun-${crypto.randomUUID()}`;
+
+  await db
+    .prepare(
+      `UPDATE outreach_messages
+       SET status = 'DRY_RUN',
+           provider_message_id = ?,
+           sent_at = ?,
+           updated_at = ?
+       WHERE id = ?`,
+    )
+    .bind(providerMessageId, now, now, message.id)
+    .run();
+
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(job.prospectId);
+  if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
+
+  if (prospect.state === 'OUTREACH_VERIFIED') {
+    await repo.transitionProspect(prospect.id, 'EMAIL_SENT', 'Dry-run email accepted by safe provider');
+    await repo.transitionProspect(prospect.id, 'WAITING_REPLY', 'Dry-run email moved to waiting state');
+  }
+
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId: prospect.id,
+    actor: 'system',
+    type: 'email.dry_run',
+    payload: {
+      messageId: message.id,
+      providerMessageId,
+      recipient: message.email,
+    },
+    createdAt: now,
+  });
+
+  return {
+    provider: 'dry-run',
+    providerMessageId,
+    recipient: message.email,
+    deliveredExternally: false,
+  };
+}
+
+async function processEscalationJob(
+  job: MagicScriptJob,
+  db: D1DatabaseLike,
+): Promise<Record<string, unknown>> {
+  if (!job.prospectId) throw new Error('ESCALATE_TO_HUMAN job has no prospectId');
+
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(job.prospectId);
+  if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
+
+  const category =
+    prospect.state === 'MEETING_REQUESTED'
+      ? 'MEETING_REQUESTED'
+      : prospect.state === 'PRICING_REQUESTED'
+        ? 'PRICING_REQUESTED'
+        : prospect.state === 'CUSTOM_REQUEST'
+          ? 'CUSTOM_REQUEST'
+          : prospect.state === 'HOT_LEAD'
+            ? 'HOT_LEAD'
+            : 'MANUAL_REVIEW_REQUIRED';
+
+  await createEscalation(
+    db,
+    prospect.id,
+    category,
+    `Magic Script requires human action for prospect in state ${prospect.state}.`,
+  );
+
+  return { escalated: true, category, state: prospect.state };
+}
+
+async function drainDeterministicJobs(
+  env: Env,
+  db: D1DatabaseLike,
+  limit = 10,
+): Promise<{ processed: number; failed: number }> {
+  const queue = new D1JobQueue(db);
+  const deterministicKinds: MagicScriptJob['kind'][] = [
+    'SEND_EMAIL',
+    'ESCALATE_TO_HUMAN',
+  ];
+
+  let processed = 0;
+  let failed = 0;
+
+  for (let index = 0; index < Math.max(1, Math.min(limit, 50)); index += 1) {
+    const job = await queue.next(new Date(), 'cloudflare-system', deterministicKinds);
+    if (!job) break;
+
+    try {
+      let output: Record<string, unknown>;
+      if (job.kind === 'SEND_EMAIL') {
+        output = await processSendEmailJob(job, env, db);
+      } else {
+        output = await processEscalationJob(job, db);
+      }
+
+      await db
+        .prepare(
+          `INSERT INTO job_results (job_id, output_json, created_at)
+           VALUES (?, ?, ?)
+           ON CONFLICT(job_id) DO UPDATE SET
+             output_json = excluded.output_json,
+             created_at = excluded.created_at`,
+        )
+        .bind(job.id, JSON.stringify(output), new Date().toISOString())
+        .run();
+
+      await queue.markSucceeded(job.id);
+      processed += 1;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      await queue.markFailed(
+        job.id,
+        message,
+        new Date(Date.now() + 60_000),
+      );
+      failed += 1;
+    }
+  }
+
+  return { processed, failed };
+}
+
 async function processRunnerSuccess(
   job: MagicScriptJob,
   output: unknown,
@@ -1043,6 +1229,12 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json(await enqueueDiscoveryIfNeeded(env, requireDb(env)));
   }
 
+  if (request.method === 'POST' && url.pathname === '/api/system/drain') {
+    const db = requireDb(env);
+    const body = (await request.json().catch(() => ({}))) as { limit?: number };
+    return json(await drainDeterministicJobs(env, db, body.limit ?? 10));
+  }
+
   if (request.method === 'POST' && url.pathname === '/api/orchestrator/plan') {
     const body = (await request.json()) as { prospectId?: string };
     if (!body.prospectId) {
@@ -1213,6 +1405,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
     const body = (await request.json()) as { output?: unknown };
     const processed = await processRunnerSuccess(job, body.output, env, db);
     await queue.markSucceeded(job.id);
+    await drainDeterministicJobs(env, db, 3);
 
     if (job.claimedBy) {
       await db
@@ -1274,5 +1467,6 @@ export default {
   async scheduled(_controller: unknown, env: Env): Promise<void> {
     if (!env.DB) return;
     await enqueueDiscoveryIfNeeded(env, env.DB);
+    await drainDeterministicJobs(env, env.DB, 10);
   },
 };
