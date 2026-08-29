@@ -197,3 +197,12 @@ CREATE TABLE IF NOT EXISTS provider_usage (
   updated_at TEXT NOT NULL,
   PRIMARY KEY (provider, period)
 );
+
+
+CREATE TABLE IF NOT EXISTS provider_state (
+  provider TEXT NOT NULL,
+  key TEXT NOT NULL,
+  value TEXT,
+  updated_at TEXT NOT NULL,
+  PRIMARY KEY (provider, key)
+);
