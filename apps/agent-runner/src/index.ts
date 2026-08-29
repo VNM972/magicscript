@@ -1,12 +1,13 @@
 import { mkdir } from 'node:fs/promises';
 import { hostname, tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { join, resolve, sep } from 'node:path';
 
 import { MagicScriptApi, type ClaimedJob } from './api';
 import { loadAmenMailConfig } from './email/config';
 import { fetchAmenInboxSince, sendAmenEmail } from './email/amen';
 import { runKimi, parseJsonOutput } from './kimi';
 import { buildPrompt } from './prompts';
+import { verifyPrototypeBuild } from './prototype';
 
 const baseUrl = process.env.MAGICSCRIPT_API_BASE_URL?.replace(/\/$/, '');
 const runnerToken = process.env.MAGICSCRIPT_RUNNER_TOKEN;
@@ -145,12 +146,85 @@ async function executeAgentJob(claim: ClaimedJob, jobDir: string): Promise<unkno
   return parseJsonOutput(raw);
 }
 
+function getPrototypeWorkDir(claim: ClaimedJob): string {
+  const root = resolve(runnerRoot);
+
+  if (claim.prototypeContext?.repo_path) {
+    const existing = resolve(claim.prototypeContext.repo_path);
+    if (existing !== root && !existing.startsWith(`${root}${sep}`)) {
+      throw new Error('Prototype path escaped the configured runner root');
+    }
+    return existing;
+  }
+
+  const rawId = claim.prospect?.id || claim.job.prospectId || claim.job.id;
+  const safeId = rawId.replace(/[^a-zA-Z0-9_-]/g, '-');
+  return join(root, 'prototypes', safeId);
+}
+
+async function executePrototypeBuild(
+  claim: ClaimedJob,
+  workDir: string,
+): Promise<Record<string, unknown>> {
+  const agentOutput = (await executeAgentJob(claim, workDir)) as Record<
+    string,
+    unknown
+  >;
+  const build = await verifyPrototypeBuild(workDir);
+
+  return {
+    workDir,
+    buildPassed: build.passed,
+    buildOutput: build.output,
+    filesCreated: build.filesCreated,
+    agentSummary:
+      typeof agentOutput.summary === 'string'
+        ? agentOutput.summary
+        : JSON.stringify(agentOutput).slice(0, 4000),
+  };
+}
+
+async function executePrototypeQa(
+  claim: ClaimedJob,
+  workDir: string,
+): Promise<Record<string, unknown>> {
+  const agentOutput = (await executeAgentJob(claim, workDir)) as Record<
+    string,
+    unknown
+  >;
+  const build = await verifyPrototypeBuild(workDir);
+
+  const blockingFindings = Array.isArray(agentOutput.blockingFindings)
+    ? agentOutput.blockingFindings.map(String)
+    : [];
+
+  if (!build.passed) {
+    blockingFindings.push(
+      `Deterministic npm build failed: ${build.output.slice(-3000)}`,
+    );
+  }
+
+  return {
+    ...agentOutput,
+    pass: agentOutput.pass === true && build.passed,
+    safeForOutreach: agentOutput.safeForOutreach === true && build.passed,
+    blockingFindings,
+    technicalBuildPassed: build.passed,
+  };
+}
+
 async function runOne(): Promise<boolean> {
   const claim = await api.claim();
   if (!claim) return false;
 
   const jobDir = join(runnerRoot, claim.job.id);
-  await mkdir(jobDir, { recursive: true });
+  const executionDir =
+    claim.job.kind === 'BUILD_PROTOTYPE' ||
+    claim.job.kind === 'RUN_PROTOTYPE_QA'
+      ? getPrototypeWorkDir(claim)
+      : jobDir;
+
+  await mkdir(executionDir, { recursive: true });
   await heartbeat('BUSY', claim.job.id);
 
   const heartbeatTimer = setInterval(() => {
@@ -161,7 +235,11 @@ async function runOne(): Promise<boolean> {
     const output =
       claim.job.kind === 'SEND_EMAIL' || claim.job.kind === 'SEND_FOLLOW_UP'
         ? await executeAmenSend(claim)
-        : await executeAgentJob(claim, jobDir);
+        : claim.job.kind === 'BUILD_PROTOTYPE'
+          ? await executePrototypeBuild(claim, executionDir)
+          : claim.job.kind === 'RUN_PROTOTYPE_QA'
+            ? await executePrototypeQa(claim, executionDir)
+            : await executeAgentJob(claim, executionDir);
 
     await api.succeed(claim.job.id, output);
   } catch (error) {
