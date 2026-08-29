@@ -121,3 +121,85 @@ prioriser la clarté, la conversion, la crédibilité et l’expérience utilisa
 Magic Script doit produire des sites qui donnent envie au prospect de dire :
 
 « Mon entreprise devrait avoir ce site. »
+
+## 11. MAGIC SCRIPT V2 — AUTONOMIE ET ORCHESTRATION
+
+La V2 transforme le workflow documentaire Agent 1 → Agent 2 → Agent 3 en système orchestré et quasi autonome.
+
+### Principe produit central
+
+Magic Script doit exécuter sans intervention humaine toute action routinière, réversible, traçable et bornée par des règles explicites.
+
+L'utilisateur ne doit être sollicité que lorsqu'une décision commerciale ou engageante apporte réellement de la valeur humaine.
+
+### Escalade humaine
+
+Notifier ou demander une action humaine uniquement pour :
+
+- lead commercial qualifié
+- demande de rendez-vous
+- demande de prix
+- demande de personnalisation substantielle
+- négociation
+- contrat
+- paiement
+- question juridique
+- incident ou ambiguïté à fort enjeu
+- blocage persistant après épuisement des retries automatiques
+
+Ne pas interrompre l'utilisateur pour :
+
+- découverte de prospects
+- recherche publique
+- audit digital
+- scoring
+- recherche d'email professionnel
+- déduplication
+- personnalisation d'email
+- fact-check
+- relance standard
+- bounce simple
+- refus simple
+- désinscription
+- retry technique
+- génération de prototype standard
+- QA standard
+
+### Swarm
+
+Utiliser plusieurs agents en parallèle uniquement lorsque le travail est naturellement parallélisable.
+
+Un agent orchestrateur consolide les résultats et tranche les contradictions.
+
+Un seul agent codeur peut modifier un même prototype à la fois.
+
+### Source de vérité opérationnelle
+
+Les fichiers Markdown restent une mémoire métier lisible.
+
+La V2 doit aussi maintenir des données structurées pour :
+
+- prospects
+- contacts
+- recherches
+- scores
+- campagnes
+- emails
+- réponses
+- événements
+- runs agents
+- prototypes
+- escalades humaines
+- suppression list
+
+### Coûts
+
+Ne jamais activer, configurer ou consommer une API payante sans autorisation explicite de l'utilisateur.
+
+Privilégier les solutions gratuites ou quasi gratuites pendant la phase de construction et de validation.
+
+### Développement
+
+La branche `main` reste stable.
+
+Les travaux de transformation V2 doivent être réalisés sur la branche `magic-script-v2` tant qu'une migration n'a pas été explicitement validée.
