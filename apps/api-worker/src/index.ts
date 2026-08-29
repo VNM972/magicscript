@@ -1648,6 +1648,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
       runnerAuthConfigured: Boolean(env.MAGICSCRIPT_RUNNER_TOKEN),
       autopilotEnabled: env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true',
       sendingEnabled: env.MAGICSCRIPT_SENDING_ENABLED === 'true',
+      emailProvider: env.MAGICSCRIPT_EMAIL_PROVIDER ?? 'disabled',
       prototypeDeployEnabled: env.MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED === 'true',
     });
   }
