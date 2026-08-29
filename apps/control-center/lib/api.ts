@@ -188,6 +188,8 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       providerUsage,
       outreachStatus,
       prototypeData,
+      eventData,
+      prospectData,
     ] = await Promise.all([
       getJson<Overview>('/api/overview'),
       getJson<{ escalations: Escalation[] }>('/api/escalations?limit=20'),
@@ -196,6 +198,8 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       getJson<ProviderUsage>('/api/providers/usage'),
       getJson<OutreachStatus>('/api/outreach/status'),
       getJson<{ prototypes: PrototypeSummary[] }>('/api/prototypes'),
+      getJson<{ events: LiveEvent[] }>('/api/events?limit=20'),
+      getJson<{ prospects: ProspectSummary[] }>('/api/prospects'),
     ]);
 
     return {
