@@ -4,6 +4,7 @@ import {
   D1ProspectRepository,
   HunterClient,
   OrchestratorEngine,
+  canTransition,
   domainFromWebsite,
   loadConfig,
   scoreProspect,
@@ -233,6 +234,98 @@ function orchestrator(env: Env, db: D1DatabaseLike): OrchestratorEngine {
   });
 }
 
+async function handleTerminalJobFailure(
+  prospectId: string,
+  kind: MagicScriptJob['kind'],
+  error: string,
+  db: D1DatabaseLike,
+): Promise<void> {
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(prospectId);
+  if (!prospect) return;
+
+  const terminalStates = new Set([
+    'DISQUALIFIED',
+    'DO_NOT_CONTACT',
+    'CLOSED_WON',
+    'CLOSED_LOST',
+  ]);
+
+  if (terminalStates.has(prospect.state)) return;
+
+  if (
+    kind === 'RUN_RESEARCH_SWARM' &&
+    prospect.state === 'RESEARCHING' &&
+    canTransition(prospect.state, 'DISQUALIFIED')
+  ) {
+    await repo.transitionProspect(
+      prospect.id,
+      'DISQUALIFIED',
+      'Research automation exhausted technical retries',
+    );
+
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'system',
+      type: 'automation.terminal_failure_archived',
+      payload: { kind, error },
+      createdAt: new Date().toISOString(),
+    });
+    return;
+  }
+
+  if (
+    kind === 'DISCOVER_CONTACT' &&
+    (prospect.state === 'CONTACT_DISCOVERY' ||
+      prospect.state === 'CONTACT_INVALID') &&
+    canTransition(prospect.state, 'DISQUALIFIED')
+  ) {
+    await repo.transitionProspect(
+      prospect.id,
+      'DISQUALIFIED',
+      'Contact discovery exhausted technical retries',
+    );
+
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'system',
+      type: 'automation.terminal_failure_archived',
+      payload: { kind, error },
+      createdAt: new Date().toISOString(),
+    });
+    return;
+  }
+
+  if (
+    prospect.state !== 'HUMAN_ACTION_REQUIRED' &&
+    canTransition(prospect.state, 'HUMAN_ACTION_REQUIRED')
+  ) {
+    await repo.transitionProspect(
+      prospect.id,
+      'HUMAN_ACTION_REQUIRED',
+      `Automation job ${kind} exhausted retries`,
+    );
+  }
+
+  await createEscalation(
+    db,
+    prospect.id,
+    'MANUAL_REVIEW_REQUIRED',
+    `Automation job ${kind} could not recover after retries: ${error.slice(0, 1200)}`,
+  );
+
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId: prospect.id,
+    actor: 'system',
+    type: 'automation.terminal_failure',
+    payload: { kind, error },
+    createdAt: new Date().toISOString(),
+  });
+}
+
 async function recoverStaleJobs(
   env: Env,
   db: D1DatabaseLike,
@@ -295,11 +388,11 @@ async function recoverStaleJobs(
       deadLettered += 1;
 
       if (job.prospect_id) {
-        await createEscalation(
-          db,
+        await handleTerminalJobFailure(
           job.prospect_id,
-          'MANUAL_REVIEW_REQUIRED',
-          `Automation job ${job.kind} exhausted its retries after a stale runner lease.`,
+          job.kind,
+          `Runner lease expired after ${leaseMinutes} minutes`,
+          db,
         );
       }
     } else {
@@ -2875,6 +2968,19 @@ async function handle(request: Request, env: Env): Promise<Response> {
     );
 
     const failedJob = (await queue.list()).find((item) => item.id === jobId);
+
+    if (
+      failedJob?.status === 'DEAD_LETTER' &&
+      failedJob.prospectId
+    ) {
+      await handleTerminalJobFailure(
+        failedJob.prospectId,
+        failedJob.kind,
+        failedJob.lastError ?? body.error ?? 'Runner reported terminal failure',
+        db,
+      );
+    }
+
     if (failedJob?.claimedBy) {
       await db
         .prepare(
