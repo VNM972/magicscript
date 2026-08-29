@@ -309,7 +309,7 @@ Mandatory rules:
 - no fake booking, payment, form submission or other connected functionality;
 - if a demonstration feature is not connected, present it clearly as a demo;
 - prefer Next.js + React + TypeScript;
-- the prototype must be compatible with static export and `npm run build` must produce an `out/` directory for Cloudflare Pages;
+- the prototype must be compatible with static export and npm run build must produce an out/ directory for Cloudflare Pages;
 - configure Next.js with static export and avoid server-only routes/features unless absolutely necessary;
 - keep dependencies minimal;
 - prioritize conversion, credibility, accessibility and performance over decorative animation;
