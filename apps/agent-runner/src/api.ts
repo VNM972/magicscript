@@ -53,6 +53,16 @@ export interface ClaimedJob {
     from_email?: string;
   } | null;
   threadParentMessageId?: string | null;
+  prototypeContext?: {
+    id: string;
+    prospect_id: string;
+    repo_path: string;
+    runner_id?: string | null;
+    status: string;
+    qa_status?: string | null;
+    build_manifest_json?: string | null;
+    qa_findings_json?: string | null;
+  } | null;
 }
 
 export class MagicScriptApi {
