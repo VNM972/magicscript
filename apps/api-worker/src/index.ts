@@ -308,7 +308,7 @@ async function transitionOnClaim(
     await repo.transitionProspect(prospect.id, 'CONTACT_DISCOVERY', 'Contact job claimed');
   } else if (
     job.kind === 'BUILD_PROTOTYPE' &&
-    (prospect.state === 'PROTOTYPE_REQUIRED' || prospect.state === 'POSITIVE_REPLY')
+    prospect.state === 'PROTOTYPE_REQUIRED'
   ) {
     await repo.transitionProspect(prospect.id, 'PROTOTYPE_BUILDING', 'Prototype job claimed');
   } else if (
@@ -976,7 +976,16 @@ async function processClassificationResult(
       break;
 
     case 'POSITIVE_INTEREST':
-      await repo.transitionProspect(prospect.id, 'POSITIVE_REPLY', 'Positive commercial interest detected');
+      await repo.transitionProspect(
+        prospect.id,
+        'POSITIVE_REPLY',
+        'Positive commercial interest detected',
+      );
+      await repo.transitionProspect(
+        prospect.id,
+        'PROTOTYPE_REQUIRED',
+        'Positive interest qualifies the prospect for an automatic prototype',
+      );
       if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
         await orchestrator(env, db).planProspect(prospect.id);
       }
