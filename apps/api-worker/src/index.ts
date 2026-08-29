@@ -2891,6 +2891,112 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json({ ok: true, replyId, prospectId: prospect.id });
   }
 
+  if (
+    request.method === 'POST' &&
+    (url.pathname === '/api/email/bounce' ||
+      url.pathname === '/api/runner/email/bounce')
+  ) {
+    const body = (await request.json()) as {
+      inReplyToProviderMessageId?: string;
+      recipient?: string;
+      reason?: string;
+      receivedAt?: string;
+    };
+
+    if (!body.inReplyToProviderMessageId?.trim()) {
+      return json(
+        { error: 'inReplyToProviderMessageId is required' },
+        { status: 400 },
+      );
+    }
+
+    const db = requireDb(env);
+    const outbound = await db
+      .prepare(
+        `SELECT id, prospect_id, contact_id
+         FROM outreach_messages
+         WHERE provider_message_id = ?
+         ORDER BY sent_at DESC
+         LIMIT 1`,
+      )
+      .bind(body.inReplyToProviderMessageId.trim())
+      .first<{ id: string; prospect_id: string; contact_id: string }>();
+
+    if (!outbound) {
+      return json({ error: 'Related outbound message not found' }, { status: 404 });
+    }
+
+    const contact = await db
+      .prepare('SELECT email FROM contacts WHERE id = ? LIMIT 1')
+      .bind(outbound.contact_id)
+      .first<{ email: string }>();
+
+    const bouncedEmail = body.recipient?.trim().toLowerCase() || contact?.email?.toLowerCase();
+    const now = body.receivedAt ?? new Date().toISOString();
+    const reason = body.reason?.trim() || 'Delivery failure reported by mail server';
+
+    if (bouncedEmail) {
+      await db
+        .prepare(
+          `UPDATE contacts
+           SET is_validated = 0,
+               is_suppressed = 1,
+               updated_at = ?
+           WHERE lower(email) = lower(?)`,
+        )
+        .bind(now, bouncedEmail)
+        .run();
+
+      await db
+        .prepare(
+          `INSERT INTO suppression_list (email, reason, source, created_at)
+           VALUES (?, ?, 'hard_bounce', ?)
+           ON CONFLICT(email) DO UPDATE SET
+             reason = excluded.reason,
+             source = excluded.source`,
+        )
+        .bind(bouncedEmail, reason.slice(0, 1000), now)
+        .run();
+    }
+
+    const repo = new D1ProspectRepository(db);
+    const prospect = await repo.getProspect(outbound.prospect_id);
+    if (!prospect) throw new Error('Prospect not found for bounce');
+
+    if (canTransition(prospect.state, 'BOUNCED')) {
+      await repo.transitionProspect(
+        prospect.id,
+        'BOUNCED',
+        'Hard bounce detected for outbound email',
+      );
+    }
+
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'system',
+      type: 'email.bounced',
+      payload: {
+        outboundMessageId: outbound.id,
+        providerMessageId: body.inReplyToProviderMessageId,
+        recipient: bouncedEmail ?? null,
+        reason,
+      },
+      createdAt: now,
+    });
+
+    const updated = await repo.getProspect(prospect.id);
+    if (updated?.state === 'BOUNCED' && env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+      await orchestrator(env, db).planProspect(prospect.id);
+    }
+
+    return json({
+      ok: true,
+      prospectId: prospect.id,
+      recipient: bouncedEmail ?? null,
+    });
+  }
+
   if (request.method === 'POST' && url.pathname === '/api/autopilot/tick') {
     return json(await enqueueDiscoveryIfNeeded(env, requireDb(env)));
   }
