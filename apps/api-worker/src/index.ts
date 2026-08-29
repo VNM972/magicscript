@@ -2448,12 +2448,18 @@ async function handle(request: Request, env: Env): Promise<Response> {
     ];
 
     const config = configFromEnv(env);
+
+    if (config.prototypeDeployEnabled) {
+      runnerKinds.push('DEPLOY_PROTOTYPE');
+    }
+
     if (config.sendingEnabled && config.emailProvider === 'amen-smtp') {
       const capacity = await sendCapacity(env, db);
       if (capacity.available > 0) {
-        runnerKinds.push('SEND_EMAIL', 'SEND_FOLLOW_UP');
+        runnerKinds.push('SEND_EMAIL', 'SEND_FOLLOW_UP', 'SEND_DEMO_LINK');
       }
     }
+
     const job = await queue.next(new Date(), runnerId, runnerKinds);
 
     if (!job) {
@@ -2472,7 +2478,9 @@ async function handle(request: Request, env: Env): Promise<Response> {
               ? "SELECT id, contact_id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND kind = 'INITIAL' AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
               : job.kind === 'SEND_FOLLOW_UP'
                 ? "SELECT id, contact_id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND kind = 'FOLLOW_UP' AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
-                : "SELECT id, contact_id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
+                : job.kind === 'SEND_DEMO_LINK'
+                  ? "SELECT id, contact_id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND kind = 'REPLY' AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
+                  : "SELECT id, contact_id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
           )
           .bind(job.prospectId)
           .first<Record<string, unknown>>()
@@ -2495,7 +2503,21 @@ async function handle(request: Request, env: Env): Promise<Response> {
               .bind(job.prospectId)
               .first<{ provider_message_id: string }>()
           )?.provider_message_id ?? null
-        : null;
+        : job.prospectId && job.kind === 'SEND_DEMO_LINK'
+          ? (
+              await db
+                .prepare(
+                  `SELECT provider_message_id
+                   FROM replies
+                   WHERE prospect_id = ?
+                     AND provider_message_id IS NOT NULL
+                   ORDER BY received_at DESC
+                   LIMIT 1`,
+                )
+                .bind(job.prospectId)
+                .first<{ provider_message_id: string }>()
+            )?.provider_message_id ?? null
+          : null;
 
     const researchRow = job.prospectId
       ? await db
