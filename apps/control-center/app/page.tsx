@@ -6,6 +6,21 @@ function valueOrDash(value: number | undefined): string {
   return typeof value === 'number' ? String(value) : '—';
 }
 
+function jobFamily(kind: string): string {
+  if (kind.includes('DISCOVER')) return 'DISCOVERY';
+  if (kind.includes('RESEARCH')) return 'RESEARCH';
+  if (kind.includes('CONTACT')) return 'CONTACT';
+  if (kind.includes('SCORE')) return 'SCORING';
+  if (kind.includes('OUTREACH') || kind.includes('SEND_')) return 'OUTREACH';
+  if (kind.includes('REPLY') || kind.includes('CLASSIFY')) return 'REPLIES';
+  if (kind.includes('PROTOTYPE') || kind.includes('DEPLOY')) return 'PROTOTYPE';
+  return 'ORCHESTRATOR';
+}
+
+function shortEvent(type: string): string {
+  return type.replaceAll('.', ' › ').replaceAll('_', ' ').toUpperCase();
+}
+
 export default async function Page() {
   const data = await getControlCenterData();
   const overview = data.overview;
@@ -22,6 +37,17 @@ export default async function Page() {
     ['Leads positifs', valueOrDash(overview?.hotLeads)],
     ['Prototypes', valueOrDash(overview?.prototypes)],
   ];
+
+  const activeFamilies = new Set(
+    data.runningJobs.map((job) => jobFamily(job.kind)),
+  );
+  const stateCounts = data.prospects.reduce<Record<string, number>>(
+    (acc, prospect) => {
+      acc[prospect.state] = (acc[prospect.state] ?? 0) + 1;
+      return acc;
+    },
+    {},
+  );
 
   const statusLabel = !data.connected
     ? 'BACKEND OFFLINE'
@@ -75,20 +101,44 @@ export default async function Page() {
           </div>
 
           <div className="swarmMap">
-            <div className="node coreNode">ORCHESTRATOR</div>
+            <div className={`node coreNode ${activeFamilies.size ? 'nodeActive' : ''}`}>
+              <span>ORCHESTRATOR</span>
+              <small>{data.runningJobs.length} jobs</small>
+            </div>
             <div className="line vertical one" />
             <div className="lane">
-              <div className="node">DISCOVERY</div>
-              <div className="node">RESEARCH</div>
-              <div className="node">CONTACT</div>
+              <div className={`node ${activeFamilies.has('DISCOVERY') ? 'nodeActive' : ''}`}>
+                <span>DISCOVERY</span>
+                <small>{stateCounts.DISCOVERED ?? 0} queued</small>
+              </div>
+              <div className={`node ${activeFamilies.has('RESEARCH') ? 'nodeActive' : ''}`}>
+                <span>RESEARCH</span>
+                <small>{stateCounts.RESEARCHING ?? 0} active</small>
+              </div>
+              <div className={`node ${activeFamilies.has('CONTACT') ? 'nodeActive' : ''}`}>
+                <span>CONTACT</span>
+                <small>{stateCounts.CONTACT_DISCOVERY ?? 0} searching</small>
+              </div>
             </div>
             <div className="line vertical two" />
-            <div className="node scoreNode">SCORING</div>
+            <div className={`node scoreNode ${activeFamilies.has('SCORING') ? 'nodeActive' : ''}`}>
+              <span>SCORING</span>
+              <small>{stateCounts.RESEARCH_COMPLETE ?? 0} ready</small>
+            </div>
             <div className="line vertical three" />
             <div className="lane">
-              <div className="node">OUTREACH</div>
-              <div className="node">REPLIES</div>
-              <div className="node">PROTOTYPE</div>
+              <div className={`node ${activeFamilies.has('OUTREACH') ? 'nodeActive' : ''}`}>
+                <span>OUTREACH</span>
+                <small>{stateCounts.OUTREACH_READY ?? 0} ready</small>
+              </div>
+              <div className={`node ${activeFamilies.has('REPLIES') ? 'nodeActive' : ''}`}>
+                <span>REPLIES</span>
+                <small>{data.outreachStatus?.waitingReply ?? 0} waiting</small>
+              </div>
+              <div className={`node ${activeFamilies.has('PROTOTYPE') ? 'nodeActive' : ''}`}>
+                <span>PROTOTYPE</span>
+                <small>{data.prototypes.length} tracked</small>
+              </div>
             </div>
           </div>
         </article>
@@ -148,6 +198,47 @@ export default async function Page() {
             )}
           </div>
         </article>
+      </section>
+
+      <section className="panel liveFeed">
+        <div className="panelTitle">
+          <div>
+            <p className="eyebrow">LIVE EVENT STREAM</p>
+            <h2>What the swarm is doing</h2>
+          </div>
+          <span className="count">{data.recentEvents.length}</span>
+        </div>
+
+        <div className="eventList">
+          {data.recentEvents.length === 0 ? (
+            <div className="eventRow">
+              <span className="eventDot" />
+              <div>
+                <strong>Waiting for runtime events</strong>
+                <p>No swarm activity recorded yet.</p>
+              </div>
+            </div>
+          ) : (
+            data.recentEvents.slice(0, 10).map((event) => (
+              <div className="eventRow" key={event.id}>
+                <span className="eventDot" />
+                <div>
+                  <strong>{shortEvent(event.type)}</strong>
+                  <p>
+                    {event.actor}
+                    {event.prospectId ? ` · ${event.prospectId}` : ''}
+                    {' · '}
+                    {new Date(event.createdAt).toLocaleTimeString('fr-FR', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      second: '2-digit',
+                    })}
+                  </p>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
       </section>
 
       <section className="panel actions">
@@ -277,11 +368,15 @@ export default async function Page() {
           </div>
           <span className="muted">
             Email transport:{' '}
-            {data.health?.sendingEnabled
-              ? data.health.emailProvider === 'dry-run'
-                ? 'DRY RUN ONLY'
-                : `ENABLED · ${data.health.emailProvider}`
-              : 'DISABLED'}{' '}
+            {data.health?.testEmailMode
+              ? data.health.testRecipientConfigured
+                ? 'TEST SINK ONLY'
+                : 'TEST SINK MISCONFIGURED'
+              : data.health?.sendingEnabled
+                ? data.health.emailProvider === 'dry-run'
+                  ? 'DRY RUN ONLY'
+                  : `ENABLED · ${data.health.emailProvider}`
+                : 'DISABLED'}{' '}
             · Prototype deploy:{' '}
             {data.health?.prototypeDeployEnabled ? 'ENABLED' : 'DISABLED'}
           </span>
