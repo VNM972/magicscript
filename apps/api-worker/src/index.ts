@@ -176,6 +176,42 @@ function orchestrator(env: Env, db: D1DatabaseLike): OrchestratorEngine {
   });
 }
 
+async function enqueueDiscoveryIfNeeded(
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ queued: boolean; reason?: string; jobId?: string }> {
+  if (env.MAGICSCRIPT_AUTOPILOT_ENABLED !== 'true') {
+    return { queued: false, reason: 'Autopilot disabled' };
+  }
+
+  const existing = await db
+    .prepare(
+      "SELECT id FROM jobs WHERE kind = 'DISCOVER_PROSPECTS' AND status IN ('PENDING','RUNNING') LIMIT 1",
+    )
+    .first<{ id: string }>();
+
+  if (existing) {
+    return {
+      queued: false,
+      reason: 'Discovery job already active',
+      jobId: existing.id,
+    };
+  }
+
+  const location = env.MAGICSCRIPT_TARGET_LOCATION?.trim() || 'Martinique';
+  const limit = Number.parseInt(env.MAGICSCRIPT_DISCOVERY_BATCH_SIZE ?? '20', 10) || 20;
+  const queue = new D1JobQueue(db);
+  const job = await queue.enqueue({
+    id: crypto.randomUUID(),
+    kind: 'DISCOVER_PROSPECTS',
+    payload: { location, limit },
+    maxAttempts: 3,
+    runAfter: new Date().toISOString(),
+  });
+
+  return { queued: true, jobId: job.id };
+}
+
 async function overview(db: D1DatabaseLike): Promise<Record<string, number>> {
   const queries = {
     prospects: 'SELECT COUNT(*) AS count FROM prospects',
@@ -727,35 +763,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
   }
 
   if (request.method === 'POST' && url.pathname === '/api/autopilot/tick') {
-    if (env.MAGICSCRIPT_AUTOPILOT_ENABLED !== 'true') {
-      return json({ queued: false, reason: 'Autopilot disabled' });
-    }
-
-    const db = requireDb(env);
-    const existing = await db
-      .prepare(
-        "SELECT id FROM jobs WHERE kind = 'DISCOVER_PROSPECTS' AND status IN ('PENDING','RUNNING') LIMIT 1",
-      )
-      .first<{ id: string }>();
-
-    if (existing) {
-      return json({ queued: false, reason: 'Discovery job already active', jobId: existing.id });
-    }
-
-    const location = env.MAGICSCRIPT_TARGET_LOCATION?.trim() || 'Martinique';
-    const limit = Number.parseInt(env.MAGICSCRIPT_DISCOVERY_BATCH_SIZE ?? '20', 10) || 20;
-    const queue = new D1JobQueue(db);
-    const now = new Date().toISOString();
-
-    const job = await queue.enqueue({
-      id: crypto.randomUUID(),
-      kind: 'DISCOVER_PROSPECTS',
-      payload: { location, limit },
-      maxAttempts: 3,
-      runAfter: now,
-    });
-
-    return json({ queued: true, job });
+    return json(await enqueueDiscoveryIfNeeded(env, requireDb(env)));
   }
 
   if (request.method === 'POST' && url.pathname === '/api/orchestrator/plan') {
@@ -869,5 +877,10 @@ export default {
         request,
       );
     }
+  },
+
+  async scheduled(_controller: unknown, env: Env): Promise<void> {
+    if (!env.DB) return;
+    await enqueueDiscoveryIfNeeded(env, env.DB);
   },
 };
