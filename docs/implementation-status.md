@@ -47,7 +47,7 @@ GitHub Actions now runs:
 - agent runner typecheck
 - Control Center production build
 
-Automatic CI runs are currently disabled during active development to prevent notification storms. The latest automatic run passed all 15 core tests and then failed API typecheck on two missing SIRENE helper imports. Those imports have been corrected. A post-fix full CI run has not yet been executed; the workflow remains available through manual dispatch.
+Automatic CI runs are disabled on `magic-script-v2` to prevent notification storms. Validation is now deliberate: the workflow runs only on the dedicated `ci-check` branch or by manual dispatch. This lets development continue in batched commits, then triggers exactly one CI run when the branch is moved to the current V2 head.
 
 ### Control plane
 
