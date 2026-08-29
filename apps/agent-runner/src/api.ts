@@ -42,6 +42,7 @@ export interface ClaimedJob {
     subject?: string;
     body_text: string;
     confidence?: number;
+    status?: string;
   } | null;
   researchContext?: Record<string, unknown> | null;
   latestReply?: {
@@ -108,6 +109,30 @@ export class MagicScriptApi {
 
     if (!response.ok) {
       throw new Error(`Success callback failed ${response.status}: ${await response.text()}`);
+    }
+  }
+
+  async inboundEmail(input: {
+    inReplyToProviderMessageId: string;
+    providerMessageId?: string;
+    fromEmail?: string;
+    rawText: string;
+    receivedAt?: string;
+  }): Promise<void> {
+    const response = await fetch(`${this.baseUrl}/api/email/inbound`, {
+      method: 'POST',
+      headers: this.headers(),
+      body: JSON.stringify(input),
+    });
+
+    if (response.status === 404) {
+      return;
+    }
+
+    if (!response.ok) {
+      throw new Error(
+        `Inbound callback failed ${response.status}: ${await response.text()}`,
+      );
     }
   }
 
