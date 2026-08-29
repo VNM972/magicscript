@@ -3,12 +3,16 @@ import {
   D1JobQueue,
   D1ProspectRepository,
   HunterClient,
+  InseeSireneClient,
   OrchestratorEngine,
   canTransition,
   domainFromWebsite,
   getNextAction,
   loadConfig,
   scoreProspect,
+  sireneBusinessName,
+  sireneLocation,
+  sirenePublicSourceUrl,
   type D1DatabaseLike,
   type JobStatus,
   type MagicScriptJob,
@@ -40,6 +44,7 @@ interface Env {
   MAGICSCRIPT_DISCOVERY_BATCH_SIZE?: string;
   HUNTER_API_KEY?: string;
   HUNTER_MONTHLY_CREDIT_BUDGET?: string;
+  INSEE_SIRENE_API_KEY?: string;
 }
 
 interface ResearchResult {
@@ -476,12 +481,174 @@ async function reconcileAutopilot(
   };
 }
 
+async function getProviderState(
+  db: D1DatabaseLike,
+  provider: string,
+  key: string,
+): Promise<string | null> {
+  const row = await db
+    .prepare(
+      'SELECT value FROM provider_state WHERE provider = ? AND key = ? LIMIT 1',
+    )
+    .bind(provider, key)
+    .first<{ value: string | null }>();
+
+  return row?.value ?? null;
+}
+
+async function setProviderState(
+  db: D1DatabaseLike,
+  provider: string,
+  key: string,
+  value: string | null,
+): Promise<void> {
+  await db
+    .prepare(
+      `INSERT INTO provider_state (provider, key, value, updated_at)
+       VALUES (?, ?, ?, ?)
+       ON CONFLICT(provider, key) DO UPDATE SET
+         value = excluded.value,
+         updated_at = excluded.updated_at`,
+    )
+    .bind(provider, key, value, new Date().toISOString())
+    .run();
+}
+
+async function discoverViaSirene(
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{
+  attempted: boolean;
+  created: string[];
+  skipped: string[];
+  scanned: number;
+}> {
+  const apiKey = env.INSEE_SIRENE_API_KEY?.trim();
+  if (!apiKey) {
+    return { attempted: false, created: [], skipped: [], scanned: 0 };
+  }
+
+  const batchSize =
+    Number.parseInt(env.MAGICSCRIPT_DISCOVERY_BATCH_SIZE ?? '20', 10) || 20;
+  const pageSize = Math.max(50, Math.min(batchSize * 5, 200));
+  const storedCursor =
+    (await getProviderState(db, 'insee-sirene', 'martinique-cursor')) || '*';
+
+  const client = new InseeSireneClient(apiKey);
+  const page = await client.searchEstablishments({
+    query:
+      'periode(etatAdministratifEtablissement:A) AND codePostalEtablissement:[97200 TO 97299]',
+    number: pageSize,
+    cursor: storedCursor,
+  });
+
+  const nextCursor =
+    page.nextCursor && page.nextCursor !== storedCursor
+      ? page.nextCursor
+      : '*';
+
+  await setProviderState(
+    db,
+    'insee-sirene',
+    'martinique-cursor',
+    nextCursor,
+  );
+
+  const candidates: DiscoveryResult['prospects'] = [];
+
+  for (const establishment of page.establishments) {
+    if (candidates.length >= batchSize) break;
+
+    const period = currentSirenePeriod(establishment);
+    if (
+      period?.etatAdministratifEtablissement !== 'A' ||
+      !isMagicScriptTargetActivity(period.activitePrincipaleEtablissement)
+    ) {
+      continue;
+    }
+
+    const companyName = sireneBusinessName(establishment);
+    if (!companyName) continue;
+
+    candidates.push({
+      companyName,
+      activity: period.activitePrincipaleEtablissement ?? undefined,
+      location: sireneLocation(establishment),
+      sourceUrl: sirenePublicSourceUrl(establishment.siret),
+    });
+  }
+
+  const processed = await processDiscoveryResult(
+    { prospects: candidates },
+    env,
+    db,
+  );
+
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    actor: 'system',
+    type: 'discovery.sirene_batch',
+    payload: {
+      scanned: page.establishments.length,
+      eligible: candidates.length,
+      created: processed.created.length,
+      skipped: processed.skipped.length,
+      totalAvailable: page.total,
+      cursorAdvanced: nextCursor !== '*',
+    },
+    createdAt: new Date().toISOString(),
+  });
+
+  return {
+    attempted: true,
+    created: processed.created,
+    skipped: processed.skipped,
+    scanned: page.establishments.length,
+  };
+}
+
 async function enqueueDiscoveryIfNeeded(
   env: Env,
   db: D1DatabaseLike,
-): Promise<{ queued: boolean; reason?: string; jobId?: string }> {
+): Promise<{
+  queued: boolean;
+  reason?: string;
+  jobId?: string;
+  provider?: 'insee-sirene' | 'kimi';
+  created?: number;
+  scanned?: number;
+}> {
   if (env.MAGICSCRIPT_AUTOPILOT_ENABLED !== 'true') {
     return { queued: false, reason: 'Autopilot disabled' };
+  }
+
+  if (env.INSEE_SIRENE_API_KEY?.trim()) {
+    try {
+      const sirene = await discoverViaSirene(env, db);
+      if (sirene.attempted) {
+        return {
+          queued: false,
+          provider: 'insee-sirene',
+          created: sirene.created.length,
+          scanned: sirene.scanned,
+          reason:
+            sirene.created.length > 0
+              ? 'Free INSEE Sirene discovery completed'
+              : 'INSEE Sirene page contained no new eligible prospects',
+        };
+      }
+    } catch (error) {
+      await new D1EventStore(db).append({
+        id: crypto.randomUUID(),
+        actor: 'system',
+        type: 'discovery.sirene_failed',
+        payload: {
+          message: error instanceof Error ? error.message : String(error),
+          fallback: 'kimi',
+        },
+        createdAt: new Date().toISOString(),
+      });
+    }
   }
 
   const existing = await db
@@ -509,7 +676,7 @@ async function enqueueDiscoveryIfNeeded(
     runAfter: new Date().toISOString(),
   });
 
-  return { queued: true, jobId: job.id };
+  return { queued: true, jobId: job.id, provider: 'kimi' };
 }
 
 async function overview(db: D1DatabaseLike): Promise<Record<string, number>> {
