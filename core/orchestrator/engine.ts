@@ -37,6 +37,8 @@ const actionToJob: Partial<Record<NextAction, JobKind>> = {
   CLASSIFY_REPLY: 'CLASSIFY_REPLY',
   BUILD_PROTOTYPE: 'BUILD_PROTOTYPE',
   RUN_PROTOTYPE_QA: 'RUN_PROTOTYPE_QA',
+  DEPLOY_PROTOTYPE: 'DEPLOY_PROTOTYPE',
+  SEND_DEMO_LINK: 'SEND_DEMO_LINK',
   ESCALATE_TO_HUMAN: 'ESCALATE_TO_HUMAN',
 };
 
@@ -83,7 +85,9 @@ export class OrchestratorEngine {
     }
 
     if (
-      (nextAction === 'SEND_EMAIL' || nextAction === 'SEND_FOLLOW_UP') &&
+      (nextAction === 'SEND_EMAIL' ||
+        nextAction === 'SEND_FOLLOW_UP' ||
+        nextAction === 'SEND_DEMO_LINK') &&
       !this.deps.config.sendingEnabled
     ) {
       await this.record('orchestrator.send_blocked', prospect.id, {
@@ -96,6 +100,23 @@ export class OrchestratorEngine {
         nextAction,
         humanRequired: false,
         reason: 'Sending disabled',
+      };
+    }
+
+    if (
+      nextAction === 'DEPLOY_PROTOTYPE' &&
+      !this.deps.config.prototypeDeployEnabled
+    ) {
+      await this.record('orchestrator.deploy_blocked', prospect.id, {
+        reason: 'Prototype deployment disabled',
+      });
+
+      return {
+        prospectId,
+        state: prospect.state,
+        nextAction,
+        humanRequired: false,
+        reason: 'Prototype deployment disabled',
       };
     }
 
