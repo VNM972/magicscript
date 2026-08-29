@@ -22,11 +22,11 @@ async function main() {
   if (!health?.ok) throw new Error('Health check failed');
   if (!health.databaseConfigured) throw new Error('D1 is not configured');
   if (!health.autopilotEnabled) throw new Error('Local autopilot must be enabled for smoke test');
-  if (health.sendingEnabled) throw new Error('Smoke test refuses to run while real sending is enabled');
+  if (health.sendingEnabled && health.emailProvider !== 'dry-run') throw new Error(`Smoke test refuses external email provider: ${health.emailProvider}`);
   console.log('OK API healthy');
   console.log('OK D1 configured');
   console.log('OK Autopilot enabled locally');
-  console.log('OK Real email sending disabled');
+  console.log(`OK Email transport safety: ${health.emailProvider}${health.sendingEnabled ? ' (internal dry-run enabled)' : ' (disabled)'}`);
 
   const tick = await request('/api/autopilot/tick', { method: 'POST', body: '{}' });
   console.log(tick?.queued ? `OK Discovery job queued: ${tick.jobId}` : `Discovery job not queued: ${tick?.reason || 'already active'}`);
