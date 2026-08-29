@@ -11,6 +11,8 @@ export type JobKind =
   | 'CLASSIFY_REPLY'
   | 'BUILD_PROTOTYPE'
   | 'RUN_PROTOTYPE_QA'
+  | 'DEPLOY_PROTOTYPE'
+  | 'SEND_DEMO_LINK'
   | 'ESCALATE_TO_HUMAN';
 
 export type JobStatus = 'PENDING' | 'RUNNING' | 'SUCCEEDED' | 'FAILED' | 'DEAD_LETTER';
