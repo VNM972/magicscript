@@ -70,6 +70,28 @@ export default async function Page() {
         </div>
       </header>
 
+      {data.readiness ? (
+        <section className="panel readinessPanel">
+          <div className="panelTitle">
+            <div>
+              <p className="eyebrow">V1 READINESS</p>
+              <h2>{data.readiness.dryRunReady ? 'Dry-run ready' : 'Bring-up in progress'}</h2>
+            </div>
+            <span className={`badge ${data.readiness.dryRunReady ? 'running' : 'waiting'}`}>
+              {data.readiness.dryRunReady ? 'READY' : 'CHECKS'}
+            </span>
+          </div>
+          <div className="readinessGrid">
+            {Object.entries(data.readiness.checks).map(([name, ok]) => (
+              <div className="readinessItem" key={name}>
+                <span>{name}</span>
+                <strong>{ok ? 'PASS' : 'WAIT'}</strong>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       {data.error ? (
         <section className="panel" style={{ marginBottom: 12 }}>
           <p className="eyebrow">SYSTEM STATUS</p>
