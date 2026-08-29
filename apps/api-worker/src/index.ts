@@ -1062,7 +1062,7 @@ async function sendCapacity(
     .prepare(
       `SELECT COUNT(*) AS count
        FROM jobs
-       WHERE kind IN ('SEND_EMAIL', 'SEND_FOLLOW_UP')
+       WHERE kind IN ('SEND_EMAIL', 'SEND_FOLLOW_UP', 'SEND_DEMO_LINK')
          AND status = 'RUNNING'
          AND claimed_at >= ?`,
     )
