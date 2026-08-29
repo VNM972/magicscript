@@ -51,6 +51,7 @@ export interface ClaimedJob {
     received_at: string;
     from_email?: string;
   } | null;
+  threadParentMessageId?: string | null;
 }
 
 export class MagicScriptApi {
