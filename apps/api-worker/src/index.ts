@@ -748,6 +748,18 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json({ jobs: await jobs.list(status) });
   }
 
+  if (request.method === 'GET' && url.pathname === '/api/runners') {
+    const result = await requireDb(env)
+      .prepare(
+        `SELECT runner_id, hostname, status, version, current_job_id, started_at, last_seen_at
+         FROM runners
+         ORDER BY last_seen_at DESC`,
+      )
+      .all<Record<string, unknown>>();
+
+    return json({ runners: result.results ?? [] });
+  }
+
   if (request.method === 'GET' && url.pathname === '/api/escalations') {
     const limit = Math.max(
       1,
@@ -777,10 +789,56 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json(await orchestrator(env, requireDb(env)).planProspect(body.prospectId));
   }
 
+  if (request.method === 'POST' && url.pathname === '/api/runner/heartbeat') {
+    const body = (await request.json()) as {
+      runnerId?: string;
+      hostname?: string;
+      status?: string;
+      version?: string;
+      currentJobId?: string | null;
+    };
+
+    const runnerId =
+      body.runnerId?.trim() || request.headers.get('x-magicscript-runner-id')?.trim();
+
+    if (!runnerId) {
+      return json({ error: 'runnerId is required' }, { status: 400 });
+    }
+
+    const now = new Date().toISOString();
+    const status = body.status?.trim() || 'IDLE';
+
+    await requireDb(env)
+      .prepare(
+        `INSERT INTO runners (
+          runner_id, hostname, status, version, current_job_id, started_at, last_seen_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(runner_id) DO UPDATE SET
+          hostname = excluded.hostname,
+          status = excluded.status,
+          version = excluded.version,
+          current_job_id = excluded.current_job_id,
+          last_seen_at = excluded.last_seen_at`,
+      )
+      .bind(
+        runnerId,
+        body.hostname ?? null,
+        status,
+        body.version ?? null,
+        body.currentJobId ?? null,
+        now,
+        now,
+      )
+      .run();
+
+    return json({ ok: true, runnerId, lastSeenAt: now });
+  }
+
   if (request.method === 'POST' && url.pathname === '/api/runner/jobs/claim') {
     const db = requireDb(env);
     const queue = new D1JobQueue(db);
-    const job = await queue.next();
+    const runnerId = request.headers.get('x-magicscript-runner-id')?.trim() || undefined;
+    const job = await queue.next(new Date(), runnerId);
 
     if (!job) {
       return new Response(null, { status: 204 });
@@ -862,6 +920,15 @@ async function handle(request: Request, env: Env): Promise<Response> {
     const processed = await processRunnerSuccess(job, body.output, env, db);
     await queue.markSucceeded(job.id);
 
+    if (job.claimedBy) {
+      await db
+        .prepare(
+          "UPDATE runners SET status = 'IDLE', current_job_id = NULL, last_seen_at = ? WHERE runner_id = ?",
+        )
+        .bind(new Date().toISOString(), job.claimedBy)
+        .run();
+    }
+
     return json({ ok: true, processed });
   }
 
@@ -871,11 +938,23 @@ async function handle(request: Request, env: Env): Promise<Response> {
     const body = (await request.json()) as { error?: string; retryDelayMs?: number };
     const retryDelayMs = Math.max(1_000, Math.min(body.retryDelayMs ?? 30_000, 15 * 60_000));
     const retryAfter = new Date(Date.now() + retryDelayMs);
-    await new D1JobQueue(requireDb(env)).markFailed(
+    const db = requireDb(env);
+    const queue = new D1JobQueue(db);
+    await queue.markFailed(
       jobId,
       body.error ?? 'Runner reported failure',
       retryAfter,
     );
+
+    const failedJob = (await queue.list()).find((item) => item.id === jobId);
+    if (failedJob?.claimedBy) {
+      await db
+        .prepare(
+          "UPDATE runners SET status = 'IDLE', current_job_id = NULL, last_seen_at = ? WHERE runner_id = ?",
+        )
+        .bind(new Date().toISOString(), failedJob.claimedBy)
+        .run();
+    }
 
     return json({ ok: true, retryAfter: retryAfter.toISOString() });
   }
