@@ -69,6 +69,13 @@ CREATE TABLE IF NOT EXISTS jobs (
 CREATE INDEX IF NOT EXISTS idx_jobs_status_run_after
   ON jobs(status, run_after);
 
+CREATE TABLE IF NOT EXISTS job_results (
+  job_id TEXT PRIMARY KEY,
+  output_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS outreach_messages (
   id TEXT PRIMARY KEY,
   prospect_id TEXT NOT NULL,
