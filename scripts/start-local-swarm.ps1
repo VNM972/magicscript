@@ -46,6 +46,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Local D1 initialization failed' }
 $env:MAGICSCRIPT_API_BASE_URL = 'http://127.0.0.1:8787'
 $env:MAGICSCRIPT_API_TOKEN = 'dev-api-token'
 $env:MAGICSCRIPT_RUNNER_TOKEN = 'dev-runner-token'
+$env:MAGICSCRIPT_RUNNER_WORK_DIR = Join-Path $RuntimeDir 'runner'
 $env:MAGICSCRIPT_SENDING_ENABLED = 'false'
 $env:MAGICSCRIPT_EMAIL_PROVIDER = 'disabled'
 $env:MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED = 'false'
