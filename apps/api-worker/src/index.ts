@@ -126,6 +126,14 @@ interface PrototypeBuildResult {
   filesCreated?: number;
 }
 
+interface PrototypeDeployResult {
+  deployed: boolean;
+  deploymentUrl: string;
+  projectName: string;
+  branch: string;
+  output?: string;
+}
+
 interface PrototypeQaResult {
   pass: boolean;
   safeForOutreach: boolean;
@@ -303,6 +311,15 @@ async function transitionOnClaim(
     (prospect.state === 'PROTOTYPE_REQUIRED' || prospect.state === 'POSITIVE_REPLY')
   ) {
     await repo.transitionProspect(prospect.id, 'PROTOTYPE_BUILDING', 'Prototype job claimed');
+  } else if (
+    job.kind === 'DEPLOY_PROTOTYPE' &&
+    prospect.state === 'PROTOTYPE_READY'
+  ) {
+    await repo.transitionProspect(
+      prospect.id,
+      'PROTOTYPE_DEPLOYING',
+      'Prototype deployment job claimed',
+    );
   }
 }
 
