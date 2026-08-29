@@ -19,3 +19,5 @@ export * from './persistence/d1-event-store';
 export * from './persistence/d1-job-queue';
 
 export * from './providers/hunter';
+
+export * from './providers/insee-sirene';
