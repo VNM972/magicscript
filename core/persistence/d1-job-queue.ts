@@ -86,6 +86,9 @@ export class D1JobQueue implements JobQueue {
     const kindFilter = kinds
       ? ` AND kind IN (${kinds.map(() => '?').join(', ')})`
       : '';
+    const affinityFilter = claimedBy
+      ? " AND (json_extract(payload_json, '$.requiredRunnerId') IS NULL OR json_extract(payload_json, '$.requiredRunnerId') = ?)"
+      : " AND json_extract(payload_json, '$.requiredRunnerId') IS NULL";
 
     const sql = `UPDATE jobs
       SET status = 'RUNNING',
@@ -96,7 +99,7 @@ export class D1JobQueue implements JobQueue {
       WHERE id = (
         SELECT id
         FROM jobs
-        WHERE status = 'PENDING' AND run_after <= ?${kindFilter}
+        WHERE status = 'PENDING' AND run_after <= ?${kindFilter}${affinityFilter}
         ORDER BY created_at ASC
         LIMIT 1
       )
@@ -109,6 +112,7 @@ export class D1JobQueue implements JobQueue {
       claimedAt,
       claimedAt,
       ...(kinds ?? []),
+      ...(claimedBy ? [claimedBy] : []),
     ];
 
     const row = await this.db
