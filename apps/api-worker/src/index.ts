@@ -1702,6 +1702,31 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json({ jobs: await jobs.list(status) });
   }
 
+  if (request.method === 'GET' && url.pathname === '/api/outreach/status') {
+    const db = requireDb(env);
+    const capacity = await sendCapacity(env, db);
+    const waiting = await db
+      .prepare("SELECT COUNT(*) AS count FROM prospects WHERE state = 'WAITING_REPLY'")
+      .first<{ count: number }>();
+    const followupDue = await db
+      .prepare("SELECT COUNT(*) AS count FROM prospects WHERE state = 'FOLLOW_UP_DUE'")
+      .first<{ count: number }>();
+    const config = configFromEnv(env);
+
+    return json({
+      sendingEnabled: config.sendingEnabled,
+      provider: config.emailProvider,
+      daily: capacity,
+      maxFollowups: config.maxFollowups,
+      followup1Days:
+        Number.parseInt(env.MAGICSCRIPT_FOLLOWUP_1_DAYS ?? '3', 10) || 3,
+      followup2Days:
+        Number.parseInt(env.MAGICSCRIPT_FOLLOWUP_2_DAYS ?? '5', 10) || 5,
+      waitingReply: Number(waiting?.count ?? 0),
+      followupDue: Number(followupDue?.count ?? 0),
+    });
+  }
+
   if (request.method === 'GET' && url.pathname === '/api/providers/usage') {
     const db = requireDb(env);
     const period = currentPeriod();
