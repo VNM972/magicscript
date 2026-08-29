@@ -84,6 +84,14 @@ Write-Host 'Magic Script V2 local stack started.'
 Write-Host "API Worker      PID $($ApiProcess.Id)  http://127.0.0.1:8787"
 Write-Host "Kimi runner     PID $($RunnerProcess.Id)"
 Write-Host "Control Center  PID $($ControlProcess.Id)  http://127.0.0.1:3000"
+
+$PidFile = Join-Path $RuntimeDir 'pids.json'
+@{
+    api = $ApiProcess.Id
+    runner = $RunnerProcess.Id
+    controlCenter = $ControlProcess.Id
+} | ConvertTo-Json | Set-Content -Path $PidFile -Encoding UTF8
+
 Write-Host 'Safety: real email sending is DISABLED.'
 Write-Host "Logs: $LogsDir"
 Write-Host ''
