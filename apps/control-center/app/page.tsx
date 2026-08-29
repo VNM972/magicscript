@@ -182,6 +182,46 @@ export default async function Page() {
       <section className="panel" style={{ marginTop: 12 }}>
         <div className="panelTitle">
           <div>
+            <p className="eyebrow">PROTOTYPES</p>
+            <h2>Build & QA pipeline</h2>
+          </div>
+          <span className="count">{data.prototypes.length}</span>
+        </div>
+
+        <div className="agentList">
+          {data.prototypes.length === 0 ? (
+            <div className="agentRow">
+              <span>Aucun prototype actif</span>
+              <span className="badge waiting">WAITING</span>
+            </div>
+          ) : (
+            data.prototypes.slice(0, 6).map((prototype) => {
+              const active =
+                prototype.status === 'BUILT' ||
+                prototype.status === 'READY' ||
+                prototype.status === 'DEPLOYING';
+
+              return (
+                <div className="agentRow" key={prototype.id}>
+                  <span>
+                    {prototype.company_name}
+                    {prototype.deployment_url ? ' · deployed' : ''}
+                  </span>
+                  <span className={`badge ${active ? 'running' : 'waiting'}`}>
+                    {prototype.qa_status
+                      ? `${prototype.status} · QA ${prototype.qa_status}`
+                      : prototype.status}
+                  </span>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </section>
+
+      <section className="panel" style={{ marginTop: 12 }}>
+        <div className="panelTitle">
+          <div>
             <p className="eyebrow">OUTREACH</p>
             <h2>Autonomous follow-ups</h2>
           </div>
