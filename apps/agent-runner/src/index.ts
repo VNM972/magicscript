@@ -291,6 +291,9 @@ async function runOne(): Promise<boolean> {
     await api.succeed(claim.job.id, output);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
+    process.stderr.write(
+      `Job ${claim.job.id} (${claim.job.kind}) failed: ${message}\n`,
+    );
     await api.fail(claim.job.id, message);
   } finally {
     clearInterval(heartbeatTimer);
