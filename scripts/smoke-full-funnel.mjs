@@ -32,6 +32,7 @@ async function request(path, init = {}) {
 }
 
 async function main() {
+  const smokeStartedAt = new Date().toISOString();
   console.log(`Magic Script FULL funnel smoke -> ${baseUrl}`);
 
   const health = await request('/health');
@@ -81,8 +82,9 @@ async function main() {
 
     const safeSendEvent = events.find(
       (event) =>
-        event.type === 'email.dry_run' ||
-        (event.type === 'email.sent' && event.payload?.testMode === true),
+        event.createdAt >= smokeStartedAt &&
+        (event.type === 'email.dry_run' ||
+          (event.type === 'email.sent' && event.payload?.testMode === true)),
     );
 
     const waiting = prospects.find(
@@ -104,7 +106,11 @@ async function main() {
       return;
     }
 
-    const deadLetters = jobs.filter((job) => job.status === 'DEAD_LETTER');
+    const deadLetters = jobs.filter(
+      (job) =>
+        job.status === 'DEAD_LETTER' &&
+        (!job.createdAt || job.createdAt >= smokeStartedAt),
+    );
     if (deadLetters.length) {
       throw new Error(
         `DEAD_LETTER: ${deadLetters
