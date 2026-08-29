@@ -4,7 +4,11 @@ import { join, resolve, sep } from 'node:path';
 
 import { MagicScriptApi, type ClaimedJob } from './api';
 import { loadAmenMailConfig } from './email/config';
-import { fetchAmenInboxSince, sendAmenEmail } from './email/amen';
+import {
+  fetchAmenInboxSince,
+  sendAmenEmail,
+  type AmenInboundMessage,
+} from './email/amen';
 import { runKimi, parseJsonOutput } from './kimi';
 import { deployPrototypeToPages } from './deploy';
 import { buildPrompt } from './prompts';
@@ -284,6 +288,41 @@ async function runOne(): Promise<boolean> {
   return true;
 }
 
+function isLikelyBounce(message: AmenInboundMessage): boolean {
+  const from = message.fromEmail?.toLowerCase() ?? '';
+  const subject = message.subject?.toLowerCase() ?? '';
+
+  return (
+    from.includes('mailer-daemon') ||
+    from.includes('postmaster') ||
+    /undeliver|delivery[ -]?(status|failure|failed)|mail delivery failed|failure notice/.test(
+      subject,
+    )
+  );
+}
+
+function relatedMessageId(message: AmenInboundMessage): string | undefined {
+  if (message.inReplyTo) return message.inReplyTo;
+
+  const reference = message.references?.at(-1);
+  if (reference) return reference;
+
+  const ids = message.text.match(/<[^<>\s]+@[^<>\s]+>/g) ?? [];
+  return ids.find((id) => id !== message.messageId);
+}
+
+function bouncedRecipient(message: AmenInboundMessage): string | undefined {
+  const finalRecipient = message.text.match(
+    /Final-Recipient:\s*(?:rfc822;)?\s*([^\s<>;]+@[^\s<>;]+)/i,
+  );
+  if (finalRecipient?.[1]) return finalRecipient[1].trim().toLowerCase();
+
+  const originalRecipient = message.text.match(
+    /Original-Recipient:\s*(?:rfc822;)?\s*([^\s<>;]+@[^\s<>;]+)/i,
+  );
+  return originalRecipient?.[1]?.trim().toLowerCase();
+}
+
 let inboxPollRunning = false;
 let inboxCursor = new Date(Date.now() - 5 * 60_000);
 
@@ -298,10 +337,24 @@ async function pollAmenInbox(): Promise<void> {
     const now = new Date();
 
     for (const message of messages) {
-      if (!message.inReplyTo || !message.text.trim()) continue;
+      if (!message.text.trim()) continue;
+
+      const relatedId = relatedMessageId(message);
+
+      if (isLikelyBounce(message) && relatedId) {
+        await api.bounce({
+          inReplyToProviderMessageId: relatedId,
+          recipient: bouncedRecipient(message),
+          reason: message.subject || message.text.slice(0, 500),
+          receivedAt: message.date,
+        });
+        continue;
+      }
+
+      if (!relatedId) continue;
 
       await api.inboundEmail({
-        inReplyToProviderMessageId: message.inReplyTo,
+        inReplyToProviderMessageId: relatedId,
         providerMessageId: message.messageId,
         fromEmail: message.fromEmail,
         rawText: message.text,
