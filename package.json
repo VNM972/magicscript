@@ -21,7 +21,8 @@
     "smoke:swarm": "node scripts/smoke-swarm.mjs",
     "start:local:swarm": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-local-swarm.ps1",
     "stop:local:swarm": "powershell -ExecutionPolicy Bypass -File .\\scripts\\stop-local-swarm.ps1",
-    "check:free-api": "node scripts/check-free-directory.mjs"
+    "check:free-api": "node scripts/check-free-directory.mjs",
+    "smoke:full": "node scripts/smoke-full-funnel.mjs"
   },
   "devDependencies": {
     "typescript": "^7.0.2"
