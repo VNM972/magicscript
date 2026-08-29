@@ -17,6 +17,7 @@ const allowedTransitions: Record<ProspectState, ProspectState[]> = {
   FOLLOW_UP_DUE: ['FOLLOW_UP_SENT', 'DO_NOT_CONTACT'],
   FOLLOW_UP_SENT: ['WAITING_REPLY', 'REPLY_RECEIVED', 'BOUNCED', 'DO_NOT_CONTACT'],
   REPLY_RECEIVED: [
+    'WAITING_REPLY',
     'POSITIVE_REPLY',
     'NEGATIVE_REPLY',
     'HOT_LEAD',
