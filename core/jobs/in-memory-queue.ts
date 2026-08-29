@@ -4,7 +4,10 @@ export class InMemoryJobQueue implements JobQueue {
   private readonly jobs = new Map<string, MagicScriptJob>();
 
   async enqueue<TPayload>(
-    input: Omit<MagicScriptJob<TPayload>, 'status' | 'attempts' | 'createdAt' | 'updatedAt'>,
+    input: Omit<
+      MagicScriptJob<TPayload>,
+      'status' | 'attempts' | 'createdAt' | 'updatedAt' | 'claimedBy' | 'claimedAt'
+    >,
   ): Promise<MagicScriptJob<TPayload>> {
     const now = new Date().toISOString();
     const job: MagicScriptJob<TPayload> = {
@@ -19,18 +22,21 @@ export class InMemoryJobQueue implements JobQueue {
     return job;
   }
 
-  async next(now = new Date()): Promise<MagicScriptJob | null> {
+  async next(now = new Date(), claimedBy?: string): Promise<MagicScriptJob | null> {
     const candidate = [...this.jobs.values()]
       .filter((job) => job.status === 'PENDING' && new Date(job.runAfter) <= now)
       .sort((a, b) => a.createdAt.localeCompare(b.createdAt))[0];
 
     if (!candidate) return null;
 
+    const claimedAt = now.toISOString();
     const running: MagicScriptJob = {
       ...candidate,
       status: 'RUNNING',
       attempts: candidate.attempts + 1,
-      updatedAt: now.toISOString(),
+      claimedBy,
+      claimedAt,
+      updatedAt: claimedAt,
     };
 
     this.jobs.set(running.id, running);
