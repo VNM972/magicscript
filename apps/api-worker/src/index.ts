@@ -88,6 +88,15 @@ interface FactCheckResult {
   reasons?: string[];
 }
 
+interface ExternalSendResult {
+  provider: 'amen-smtp';
+  providerMessageId: string;
+  recipient: string;
+  accepted?: string[];
+  rejected?: string[];
+  deliveredExternally: boolean;
+}
+
 interface ClassificationResult {
   classification:
     | 'NO_INTEREST'
@@ -945,9 +954,13 @@ async function drainDeterministicJobs(
 ): Promise<{ processed: number; failed: number }> {
   const queue = new D1JobQueue(db);
   const deterministicKinds: MagicScriptJob['kind'][] = [
-    'SEND_EMAIL',
     'ESCALATE_TO_HUMAN',
   ];
+
+  const config = configFromEnv(env);
+  if (config.sendingEnabled && config.emailProvider === 'dry-run') {
+    deterministicKinds.unshift('SEND_EMAIL');
+  }
 
   let processed = 0;
   let failed = 0;
@@ -991,6 +1004,79 @@ async function drainDeterministicJobs(
   return { processed, failed };
 }
 
+async function processExternalSendResult(
+  job: MagicScriptJob,
+  result: ExternalSendResult,
+  db: D1DatabaseLike,
+): Promise<{ prospectId: string; providerMessageId: string }> {
+  if (!job.prospectId) throw new Error('SEND_EMAIL job has no prospectId');
+  if (
+    result.provider !== 'amen-smtp' ||
+    !result.providerMessageId?.trim() ||
+    result.deliveredExternally !== true
+  ) {
+    throw new Error('Amen SMTP runner did not report a successful external send');
+  }
+
+  const message = await db
+    .prepare(
+      `SELECT id
+       FROM outreach_messages
+       WHERE prospect_id = ? AND status = 'VERIFIED'
+       ORDER BY created_at DESC
+       LIMIT 1`,
+    )
+    .bind(job.prospectId)
+    .first<{ id: string }>();
+
+  if (!message) {
+    throw new Error('No VERIFIED outreach message found after Amen SMTP send');
+  }
+
+  const now = new Date().toISOString();
+
+  await db
+    .prepare(
+      `UPDATE outreach_messages
+       SET status = 'SENT',
+           provider_message_id = ?,
+           sent_at = ?,
+           updated_at = ?
+       WHERE id = ?`,
+    )
+    .bind(result.providerMessageId.trim(), now, now, message.id)
+    .run();
+
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(job.prospectId);
+  if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
+
+  if (prospect.state === 'OUTREACH_VERIFIED') {
+    await repo.transitionProspect(prospect.id, 'EMAIL_SENT', 'Amen SMTP accepted the outbound email');
+    await repo.transitionProspect(prospect.id, 'WAITING_REPLY', 'Outbound email sent; waiting for reply');
+  }
+
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId: prospect.id,
+    actor: 'system',
+    type: 'email.sent',
+    payload: {
+      provider: result.provider,
+      providerMessageId: result.providerMessageId,
+      recipient: result.recipient,
+      accepted: result.accepted ?? [],
+      rejected: result.rejected ?? [],
+    },
+    createdAt: now,
+  });
+
+  return {
+    prospectId: prospect.id,
+    providerMessageId: result.providerMessageId,
+  };
+}
+
 async function processRunnerSuccess(
   job: MagicScriptJob,
   output: unknown,
@@ -1030,6 +1116,10 @@ async function processRunnerSuccess(
 
   if (job.kind === 'CLASSIFY_REPLY') {
     return processClassificationResult(job, output as ClassificationResult, env, db);
+  }
+
+  if (job.kind === 'SEND_EMAIL') {
+    return processExternalSendResult(job, output as ExternalSendResult, db);
   }
 
   return { stored: true, processed: false };
@@ -1133,7 +1223,11 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json({ escalations: result.results ?? [] });
   }
 
-  if (request.method === 'POST' && url.pathname === '/api/email/inbound') {
+  if (
+    request.method === 'POST' &&
+    (url.pathname === '/api/email/inbound' ||
+      url.pathname === '/api/runner/email/inbound')
+  ) {
     const body = (await request.json()) as {
       inReplyToProviderMessageId?: string;
       providerMessageId?: string;
@@ -1301,6 +1395,11 @@ async function handle(request: Request, env: Env): Promise<Response> {
       'FACT_CHECK_OUTREACH',
       'CLASSIFY_REPLY',
     ];
+
+    const config = configFromEnv(env);
+    if (config.sendingEnabled && config.emailProvider === 'amen-smtp') {
+      runnerKinds.push('SEND_EMAIL');
+    }
     const job = await queue.next(new Date(), runnerId, runnerKinds);
 
     if (!job) {
@@ -1315,7 +1414,9 @@ async function handle(request: Request, env: Env): Promise<Response> {
     const outreachDraft = job.prospectId
       ? await db
           .prepare(
-            "SELECT id, subject, body_text, confidence FROM outreach_messages WHERE prospect_id = ? AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
+            job.kind === 'SEND_EMAIL'
+              ? "SELECT id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
+              : "SELECT id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
           )
           .bind(job.prospectId)
           .first<Record<string, unknown>>()
