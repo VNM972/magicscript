@@ -229,11 +229,13 @@ async function executePrototypeDeploy(
     throw new Error('Prototype deploy job missing prospect context');
   }
 
-  return deployPrototypeToPages({
+  const result = await deployPrototypeToPages({
     workDir,
     companyName: claim.prospect.companyName,
     prospectId: claim.prospect.id,
   });
+
+  return { ...result };
 }
 
 
