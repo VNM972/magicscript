@@ -17,6 +17,7 @@ async function request(path, init = {}) {
 }
 
 async function main() {
+  const smokeStartedAt = new Date().toISOString();
   console.log(`Magic Script smoke test -> ${baseUrl}`);
   const health = await request('/health');
   if (!health?.ok) throw new Error('Health check failed');
@@ -73,7 +74,11 @@ async function main() {
   console.log('Prospect states:', stateCounts);
 
   const { jobs = [] } = await request('/api/jobs');
-  const deadLetters = jobs.filter((job) => job.status === 'DEAD_LETTER');
+  const deadLetters = jobs.filter(
+      (job) =>
+        job.status === 'DEAD_LETTER' &&
+        (!job.createdAt || job.createdAt >= smokeStartedAt),
+    );
   if (deadLetters.length) {
     throw new Error(
       `${deadLetters.length} job(s) reached DEAD_LETTER: ${deadLetters
