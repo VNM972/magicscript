@@ -1,0 +1,127 @@
+import type { JobQueue, JobStatus, MagicScriptJob } from '../jobs/types';
+import type { D1DatabaseLike } from './d1-types';
+
+interface JobRow {
+  id: string;
+  kind: MagicScriptJob['kind'];
+  prospect_id: string | null;
+  payload_json: string;
+  status: JobStatus;
+  attempts: number;
+  max_attempts: number;
+  run_after: string;
+  last_error: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+function fromRow(row: JobRow): MagicScriptJob {
+  return {
+    id: row.id,
+    kind: row.kind,
+    prospectId: row.prospect_id ?? undefined,
+    payload: JSON.parse(row.payload_json) as Record<string, unknown>,
+    status: row.status,
+    attempts: row.attempts,
+    maxAttempts: row.max_attempts,
+    runAfter: row.run_after,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+    lastError: row.last_error ?? undefined,
+  };
+}
+
+export class D1JobQueue implements JobQueue {
+  constructor(private readonly db: D1DatabaseLike) {}
+
+  async enqueue<TPayload>(
+    input: Omit<MagicScriptJob<TPayload>, 'status' | 'attempts' | 'createdAt' | 'updatedAt'>,
+  ): Promise<MagicScriptJob<TPayload>> {
+    const now = new Date().toISOString();
+    const job: MagicScriptJob<TPayload> = {
+      ...input,
+      status: 'PENDING',
+      attempts: 0,
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    await this.db.prepare(
+      `INSERT INTO jobs (
+        id, kind, prospect_id, payload_json, status, attempts,
+        max_attempts, run_after, last_error, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    ).bind(
+      job.id,
+      job.kind,
+      job.prospectId ?? null,
+      JSON.stringify(job.payload),
+      job.status,
+      job.attempts,
+      job.maxAttempts,
+      job.runAfter,
+      null,
+      job.createdAt,
+      job.updatedAt,
+    ).run();
+
+    return job;
+  }
+
+  async next(now = new Date()): Promise<MagicScriptJob | null> {
+    const row = await this.db
+      .prepare(
+        "SELECT * FROM jobs WHERE status = 'PENDING' AND run_after <= ? ORDER BY created_at ASC LIMIT 1",
+      )
+      .bind(now.toISOString())
+      .first<JobRow>();
+
+    if (!row) return null;
+
+    const attempts = row.attempts + 1;
+    const updatedAt = now.toISOString();
+
+    await this.db
+      .prepare("UPDATE jobs SET status = 'RUNNING', attempts = ?, updated_at = ? WHERE id = ? AND status = 'PENDING'")
+      .bind(attempts, updatedAt, row.id)
+      .run();
+
+    return fromRow({
+      ...row,
+      status: 'RUNNING',
+      attempts,
+      updated_at: updatedAt,
+    });
+  }
+
+  async markSucceeded(id: string): Promise<void> {
+    await this.db
+      .prepare("UPDATE jobs SET status = 'SUCCEEDED', updated_at = ? WHERE id = ?")
+      .bind(new Date().toISOString(), id)
+      .run();
+  }
+
+  async markFailed(id: string, error: string, retryAfter = new Date()): Promise<void> {
+    const row = await this.db
+      .prepare('SELECT * FROM jobs WHERE id = ? LIMIT 1')
+      .bind(id)
+      .first<JobRow>();
+
+    if (!row) throw new Error(`Job not found: ${id}`);
+
+    const status: JobStatus = row.attempts >= row.max_attempts ? 'DEAD_LETTER' : 'PENDING';
+
+    await this.db
+      .prepare('UPDATE jobs SET status = ?, run_after = ?, last_error = ?, updated_at = ? WHERE id = ?')
+      .bind(status, retryAfter.toISOString(), error, new Date().toISOString(), id)
+      .run();
+  }
+
+  async list(status?: JobStatus): Promise<MagicScriptJob[]> {
+    const result = status
+      ? await this.db.prepare('SELECT * FROM jobs WHERE status = ? ORDER BY created_at ASC').bind(status).all<JobRow>()
+      : await this.db.prepare('SELECT * FROM jobs ORDER BY created_at ASC').all<JobRow>();
+
+    return (result.results ?? []).map(fromRow);
+  }
+}
