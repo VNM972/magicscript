@@ -1299,7 +1299,11 @@ async function processDryRunSendJob(
 ): Promise<Record<string, unknown>> {
   if (!job.prospectId) throw new Error(`${job.kind} job has no prospectId`);
 
-  if (job.kind !== 'SEND_EMAIL' && job.kind !== 'SEND_FOLLOW_UP') {
+  if (
+    job.kind !== 'SEND_EMAIL' &&
+    job.kind !== 'SEND_FOLLOW_UP' &&
+    job.kind !== 'SEND_DEMO_LINK'
+  ) {
     throw new Error(`Unsupported dry-run send job: ${job.kind}`);
   }
 
@@ -1308,7 +1312,12 @@ async function processDryRunSendJob(
     throw new Error('Email sending is disabled');
   }
 
-  const messageKind = job.kind === 'SEND_EMAIL' ? 'INITIAL' : 'FOLLOW_UP';
+  const messageKind =
+    job.kind === 'SEND_EMAIL'
+      ? 'INITIAL'
+      : job.kind === 'SEND_FOLLOW_UP'
+        ? 'FOLLOW_UP'
+        : 'REPLY';
 
   const message = await db
     .prepare(
@@ -1401,11 +1410,31 @@ async function processDryRunSendJob(
     );
   }
 
+  if (job.kind === 'SEND_DEMO_LINK' && prospect.state === 'DEMO_REPLY_READY') {
+    await repo.transitionProspect(
+      prospect.id,
+      'DEMO_REPLY_SENT',
+      'Dry-run demo reply accepted by safe provider',
+    );
+    await repo.transitionProspect(
+      prospect.id,
+      'WAITING_REPLY',
+      'Dry-run demo reply moved to waiting state',
+    );
+  }
+
+  const eventType =
+    job.kind === 'SEND_EMAIL'
+      ? 'email.dry_run'
+      : job.kind === 'SEND_FOLLOW_UP'
+        ? 'followup.dry_run'
+        : 'demo_reply.dry_run';
+
   await new D1EventStore(db).append({
     id: crypto.randomUUID(),
     prospectId: prospect.id,
     actor: 'system',
-    type: job.kind === 'SEND_EMAIL' ? 'email.dry_run' : 'followup.dry_run',
+    type: eventType,
     payload: {
       messageId: message.id,
       providerMessageId,
@@ -1521,7 +1550,11 @@ async function processExternalSendResult(
 ): Promise<{ prospectId: string; providerMessageId: string }> {
   if (!job.prospectId) throw new Error(`${job.kind} job has no prospectId`);
 
-  if (job.kind !== 'SEND_EMAIL' && job.kind !== 'SEND_FOLLOW_UP') {
+  if (
+    job.kind !== 'SEND_EMAIL' &&
+    job.kind !== 'SEND_FOLLOW_UP' &&
+    job.kind !== 'SEND_DEMO_LINK'
+  ) {
     throw new Error(`Unsupported external send job: ${job.kind}`);
   }
 
@@ -1533,7 +1566,12 @@ async function processExternalSendResult(
     throw new Error('Amen SMTP runner did not report a successful external send');
   }
 
-  const messageKind = job.kind === 'SEND_EMAIL' ? 'INITIAL' : 'FOLLOW_UP';
+  const messageKind =
+    job.kind === 'SEND_EMAIL'
+      ? 'INITIAL'
+      : job.kind === 'SEND_FOLLOW_UP'
+        ? 'FOLLOW_UP'
+        : 'REPLY';
 
   const message = await db
     .prepare(
@@ -1596,11 +1634,31 @@ async function processExternalSendResult(
     );
   }
 
+  if (job.kind === 'SEND_DEMO_LINK' && prospect.state === 'DEMO_REPLY_READY') {
+    await repo.transitionProspect(
+      prospect.id,
+      'DEMO_REPLY_SENT',
+      'Amen SMTP accepted the demo reply',
+    );
+    await repo.transitionProspect(
+      prospect.id,
+      'WAITING_REPLY',
+      'Demo link sent; waiting for prospect feedback',
+    );
+  }
+
+  const eventType =
+    job.kind === 'SEND_EMAIL'
+      ? 'email.sent'
+      : job.kind === 'SEND_FOLLOW_UP'
+        ? 'followup.sent'
+        : 'demo_reply.sent';
+
   await new D1EventStore(db).append({
     id: crypto.randomUUID(),
     prospectId: prospect.id,
     actor: 'system',
-    type: job.kind === 'SEND_EMAIL' ? 'email.sent' : 'followup.sent',
+    type: eventType,
     payload: {
       provider: result.provider,
       providerMessageId: result.providerMessageId,
