@@ -223,6 +223,8 @@ The dashboard now reads real backend data for:
 
 Implemented:
 
+- zero-key public discovery preflight through `npm run check:free-api`;
+
 - local-only D1 config
 - one-command PowerShell start script
 - one-command stop script

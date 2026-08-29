@@ -51,6 +51,8 @@ Wrangler local mode keeps D1 separate from the remote Cloudflare database unless
 
 The local config starts with only 3 businesses in Martinique.
 
+Discovery now tries the official no-key API Recherche d’entreprises first. If that source creates prospects directly, the smoke test accepts that path and does not wait for a Kimi DISCOVER_PROSPECTS job. Kimi remains the fallback and performs the deeper research jobs.
+
 This validates:
 
 ```text
@@ -106,3 +108,16 @@ The smoke test passes only if:
 - a runner heartbeat is live.
 
 A successful smoke test still does not authorize real outbound email.
+
+
+## Zero-key API preflight
+
+Before starting the full swarm, the public French business API can be tested independently:
+
+```powershell
+npm run check:free-api
+```
+
+This performs a read-only request for active Martinique businesses.
+
+It requires no Hunter key, no INSEE key, no mailbox password and sends no email.

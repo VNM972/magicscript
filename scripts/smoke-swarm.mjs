@@ -28,21 +28,71 @@ async function main() {
   console.log('OK Autopilot enabled locally');
   console.log(`OK Email transport safety: ${health.emailProvider}${health.sendingEnabled ? ' (internal dry-run enabled)' : ' (disabled)'}`);
 
-  const tick = await request('/api/autopilot/tick', { method: 'POST', body: '{}' });
-  console.log(tick?.queued ? `OK Discovery job queued: ${tick.jobId}` : `Discovery job not queued: ${tick?.reason || 'already active'}`);
+  const tick = await request('/api/autopilot/tick', {
+    method: 'POST',
+    body: '{}',
+  });
+
+  let discoveryComplete =
+    tick?.provider === 'recherche-entreprises' ||
+    tick?.provider === 'insee-sirene';
+
+  if (discoveryComplete) {
+    console.log(
+      `OK Structured discovery provider=${tick.provider} created=${tick.created ?? 0} scanned=${tick.scanned ?? 0}`,
+    );
+  } else {
+    console.log(
+      tick?.queued
+        ? `OK Kimi discovery job queued: ${tick.jobId}`
+        : `Discovery fallback: ${tick?.reason || 'already active'}`,
+    );
+  }
 
   const deadline = Date.now() + timeoutMs;
-  let discoveryComplete = false;
-  while (Date.now() < deadline) {
+
+  while (!discoveryComplete && Date.now() < deadline) {
     const { jobs = [] } = await request('/api/jobs');
-    const discovery = jobs.filter((job) => job.kind === 'DISCOVER_PROSPECTS').sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)))[0];
-    if (!discovery) { await sleep(3000); continue; }
-    console.log(`Discovery status=${discovery.status} attempts=${discovery.attempts}/${discovery.maxAttempts}`);
-    if (discovery.status === 'SUCCEEDED') { discoveryComplete = true; break; }
-    if (discovery.status === 'DEAD_LETTER') throw new Error(`Discovery DEAD_LETTER: ${discovery.lastError || 'unknown error'}`);
+    const discovery = jobs
+      .filter((job) => job.kind === 'DISCOVER_PROSPECTS')
+      .sort((a, b) =>
+        String(b.createdAt).localeCompare(String(a.createdAt)),
+      )[0];
+
+    if (!discovery) {
+      const { prospects = [] } = await request('/api/prospects');
+      if (prospects.length > 0) {
+        discoveryComplete = true;
+        break;
+      }
+
+      await sleep(3000);
+      continue;
+    }
+
+    console.log(
+      `Kimi discovery status=${discovery.status} attempts=${discovery.attempts}/${discovery.maxAttempts}`,
+    );
+
+    if (discovery.status === 'SUCCEEDED') {
+      discoveryComplete = true;
+      break;
+    }
+
+    if (discovery.status === 'DEAD_LETTER') {
+      throw new Error(
+        `Discovery DEAD_LETTER: ${discovery.lastError || 'unknown error'}`,
+      );
+    }
+
     await sleep(5000);
   }
-  if (!discoveryComplete) throw new Error(`Timed out after ${Math.round(timeoutMs / 1000)}s waiting for discovery`);
+
+  if (!discoveryComplete) {
+    throw new Error(
+      `Timed out after ${Math.round(timeoutMs / 1000)}s waiting for discovery`,
+    );
+  }
 
   const { prospects = [] } = await request('/api/prospects');
   if (!prospects.length) throw new Error('Discovery completed but created no prospects');
