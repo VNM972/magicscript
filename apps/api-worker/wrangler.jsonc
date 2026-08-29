@@ -27,7 +27,8 @@
     "HUNTER_MONTHLY_CREDIT_BUDGET": "40"
   }
 
-  // Secret required only for Hunter fallback:
+  // Optional free-provider secrets:
+  //   wrangler secret put INSEE_SIRENE_API_KEY
   //   wrangler secret put HUNTER_API_KEY
   //
   // Add a D1 binding only after a development database has been created.
