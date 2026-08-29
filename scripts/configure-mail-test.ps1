@@ -1,6 +1,6 @@
 param(
     [string]$Mailbox = 'commercial@magicscript.fr',
-    [string]$ReplyTo = 'contact@magicscript.fr',
+    [string]$ReplyTo = 'commercial@magicscript.fr',
     [string]$TestRecipient,
     [switch]$SendTest
 )
