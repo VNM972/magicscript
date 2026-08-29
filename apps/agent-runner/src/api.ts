@@ -39,6 +39,7 @@ export interface ClaimedJob {
   contacts: RunnerContact[];
   outreachDraft?: {
     id: string;
+    contact_id?: string;
     subject?: string;
     body_text: string;
     confidence?: number;
