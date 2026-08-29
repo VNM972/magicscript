@@ -180,6 +180,42 @@ export default async function Page() {
       </section>
 
       <section className="panel" style={{ marginTop: 12 }}>
+        <div className="panelTitle">
+          <div>
+            <p className="eyebrow">OUTREACH</p>
+            <h2>Autonomous follow-ups</h2>
+          </div>
+          <span className="muted">
+            {data.outreachStatus
+              ? `${data.outreachStatus.daily.sent}/${data.outreachStatus.daily.limit} sent today · ${data.outreachStatus.daily.available} slots left`
+              : 'Status unavailable'}
+          </span>
+        </div>
+        <div className="agentList">
+          <div className="agentRow">
+            <span>Waiting for reply</span>
+            <span className="badge waiting">
+              {data.outreachStatus?.waitingReply ?? 0}
+            </span>
+          </div>
+          <div className="agentRow">
+            <span>Follow-ups due</span>
+            <span className="badge waiting">
+              {data.outreachStatus?.followupDue ?? 0}
+            </span>
+          </div>
+          <div className="agentRow">
+            <span>Follow-up policy</span>
+            <span className="muted">
+              {data.outreachStatus
+                ? `D+${data.outreachStatus.followup1Days} / D+${data.outreachStatus.followup2Days} · max ${data.outreachStatus.maxFollowups}`
+                : '—'}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section className="panel" style={{ marginTop: 12 }}>
         <div className="panelTitle" style={{ marginBottom: 0 }}>
           <div>
             <p className="eyebrow">FREE PROVIDERS</p>
