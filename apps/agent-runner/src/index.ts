@@ -177,6 +177,8 @@ async function executePrototypeBuild(
     buildPassed: build.passed,
     buildOutput: build.output,
     filesCreated: build.filesCreated,
+    staticOutputReady: build.staticOutputReady,
+    outputDir: build.outputDir,
     agentSummary:
       typeof agentOutput.summary === 'string'
         ? agentOutput.summary
@@ -210,6 +212,8 @@ async function executePrototypeQa(
     safeForOutreach: agentOutput.safeForOutreach === true && build.passed,
     blockingFindings,
     technicalBuildPassed: build.passed,
+    staticOutputReady: build.staticOutputReady,
+    outputDir: build.outputDir,
   };
 }
 
