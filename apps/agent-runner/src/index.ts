@@ -77,7 +77,7 @@ async function executeAmenSend(claim: ClaimedJob): Promise<Record<string, unknow
   }
 
   if (emailProvider !== 'amen-smtp') {
-    throw new Error(`SEND_EMAIL claimed with unsupported provider: ${emailProvider}`);
+    throw new Error(`${claim.job.kind} claimed with unsupported provider: ${emailProvider}`);
   }
 
   if (!amenConfigured) {
@@ -102,6 +102,14 @@ async function executeAmenSend(claim: ClaimedJob): Promise<Record<string, unknow
     to: contact.email,
     subject: message.subject,
     text: message.body_text,
+    inReplyTo:
+      claim.job.kind === 'SEND_FOLLOW_UP'
+        ? claim.threadParentMessageId ?? undefined
+        : undefined,
+    references:
+      claim.job.kind === 'SEND_FOLLOW_UP' && claim.threadParentMessageId
+        ? [claim.threadParentMessageId]
+        : undefined,
   });
 
   return {
@@ -141,7 +149,7 @@ async function runOne(): Promise<boolean> {
 
   try {
     const output =
-      claim.job.kind === 'SEND_EMAIL'
+      claim.job.kind === 'SEND_EMAIL' || claim.job.kind === 'SEND_FOLLOW_UP'
         ? await executeAmenSend(claim)
         : await executeAgentJob(claim, jobDir);
 
