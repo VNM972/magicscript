@@ -1,0 +1,19 @@
+{
+  "name": "magicscript",
+  "private": true,
+  "version": "0.2.0",
+  "workspaces": [
+    "apps/*",
+    "core"
+  ],
+  "scripts": {
+    "dev:control-center": "npm --workspace magic-script-control-center run dev",
+    "build:control-center": "npm --workspace magic-script-control-center run build",
+    "typecheck:core": "npm --workspace @magicscript/core run typecheck",
+    "test:core": "npm --workspace @magicscript/core run test",
+    "check": "npm run typecheck:core && npm run test:core && npm run build:control-center"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}
