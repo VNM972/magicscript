@@ -1,0 +1,17 @@
+{
+  "name": "magic-script-api-worker",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@magicscript/core": "0.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "wrangler": "^4.0.0"
+  }
+}
