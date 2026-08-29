@@ -47,14 +47,21 @@ export interface ControlCenterData {
 }
 
 const baseUrl = process.env.MAGICSCRIPT_API_BASE_URL?.replace(/\/$/, '');
+const apiToken = process.env.MAGICSCRIPT_API_TOKEN;
 
 async function getJson<T>(path: string): Promise<T> {
   if (!baseUrl) {
     throw new Error('MAGICSCRIPT_API_BASE_URL is not configured');
   }
 
+  const headers = new Headers();
+  if (apiToken) {
+    headers.set('authorization', `Bearer ${apiToken}`);
+  }
+
   const response = await fetch(`${baseUrl}${path}`, {
     cache: 'no-store',
+    headers,
   });
 
   if (!response.ok) {
