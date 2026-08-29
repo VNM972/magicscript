@@ -119,6 +119,25 @@ export interface ProspectSummary {
   updatedAt: string;
 }
 
+export interface Readiness {
+  dryRunReady: boolean;
+  checks: {
+    database: boolean;
+    autopilot: boolean;
+    runnerOnline: boolean;
+    safeTransport: boolean;
+    publicDiscovery: boolean;
+    noDeadLetters: boolean;
+  };
+  runner: {
+    runner_id: string;
+    status: string;
+    last_seen_at: string;
+  } | null;
+  prospects: number;
+  timestamp: string;
+}
+
 export interface ControlCenterData {
   connected: boolean;
   health: ApiHealth | null;
@@ -131,6 +150,7 @@ export interface ControlCenterData {
   prototypes: PrototypeSummary[];
   recentEvents: LiveEvent[];
   prospects: ProspectSummary[];
+  readiness: Readiness | null;
   error?: string;
 }
 
@@ -176,6 +196,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
         prototypes: [],
         recentEvents: [],
         prospects: [],
+        readiness: null,
         error: 'API connected, but D1 is not configured yet.',
       };
     }
@@ -190,6 +211,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       prototypeData,
       eventData,
       prospectData,
+      readiness,
     ] = await Promise.all([
       getJson<Overview>('/api/overview'),
       getJson<{ escalations: Escalation[] }>('/api/escalations?limit=20'),
@@ -200,6 +222,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       getJson<{ prototypes: PrototypeSummary[] }>('/api/prototypes'),
       getJson<{ events: LiveEvent[] }>('/api/events?limit=20'),
       getJson<{ prospects: ProspectSummary[] }>('/api/prospects'),
+      getJson<Readiness>('/api/readiness'),
     ]);
 
     return {
@@ -214,6 +237,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       prototypes: prototypeData.prototypes,
       recentEvents: eventData.events,
       prospects: prospectData.prospects,
+      readiness,
     };
   } catch (error) {
     return {
@@ -228,6 +252,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       prototypes: [],
       recentEvents: [],
       prospects: [],
+      readiness: null,
       error: error instanceof Error ? error.message : 'Unknown backend error',
     };
   }
