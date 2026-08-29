@@ -184,3 +184,12 @@ CREATE TABLE IF NOT EXISTS human_escalations (
 
 CREATE INDEX IF NOT EXISTS idx_escalations_status
   ON human_escalations(status, created_at DESC);
+
+
+CREATE TABLE IF NOT EXISTS provider_usage (
+  provider TEXT NOT NULL,
+  period TEXT NOT NULL,
+  units INTEGER NOT NULL DEFAULT 0,
+  updated_at TEXT NOT NULL,
+  PRIMARY KEY (provider, period)
+);
