@@ -112,7 +112,7 @@ It is used before SIRENE and Kimi because it:
 - has a documented maximum of 7 requests/second per IP, while Magic Script uses only one paginated request per discovery cycle;
 - persists the next Martinique page in D1 so discovery progresses instead of repeatedly scanning page 1.
 
-Magic Script currently queries businesses with active establishments in Martinique in sections F, G, I, L, M, N, R and S. It explicitly reads the API's `matching_etablissements` and accepts only an active establishment in department 972, instead of incorrectly assuming the legal-unit head office is local. The selected local SIRET/address/activity is then sent through the existing research/scoring funnel.
+Magic Script currently queries non-association, non-administration businesses with active establishments in Martinique in sections F, G, I, L, M, N, R and S. It explicitly reads the API's `matching_etablissements` and accepts only an active establishment in department 972, instead of incorrectly assuming the legal-unit head office is local. The selected local SIRET/address/activity is then sent through the existing research/scoring funnel.
 
 If the public directory API is unavailable or yields no new prospects, Magic Script falls back to optional SIRENE and then the Kimi discovery swarm.
 

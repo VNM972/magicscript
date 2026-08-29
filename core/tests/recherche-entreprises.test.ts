@@ -97,6 +97,8 @@ test('builds a no-key establishment-filtered search request', async () => {
 
   assert.equal(url.searchParams.get('departement'), '972');
   assert.equal(url.searchParams.get('etat_administratif'), 'A');
+  assert.equal(url.searchParams.get('est_association'), 'false');
+  assert.equal(url.searchParams.get('est_administration'), 'false');
   assert.equal(url.searchParams.get('section_activite_principale'), 'F,G,I');
   assert.equal(url.searchParams.get('page'), '2');
   assert.equal(url.searchParams.get('per_page'), '25');

@@ -2,6 +2,8 @@ const url = new URL('https://recherche-entreprises.api.gouv.fr/search');
 
 url.searchParams.set('departement', '972');
 url.searchParams.set('etat_administratif', 'A');
+url.searchParams.set('est_association', 'false');
+url.searchParams.set('est_administration', 'false');
 url.searchParams.set(
   'section_activite_principale',
   'F,G,I,L,M,N,R,S',

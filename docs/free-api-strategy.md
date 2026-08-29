@@ -16,6 +16,7 @@ Role:
 - filter establishments in Martinique through department 972;
 - retrieve `matching_etablissements`, because the legal unit/head office may be located outside Martinique;
 - use the matching 972 establishment address, SIRET, activity and trade name as the local prospect context;
+- exclude associations and administrations at the query layer;
 - filter relevant activity sections;
 - provide company identity plus a verifiable official establishment source.
 

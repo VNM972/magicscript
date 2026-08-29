@@ -65,6 +65,8 @@ export class RechercheEntreprisesClient {
 
     url.searchParams.set('departement', input.departement);
     url.searchParams.set('etat_administratif', 'A');
+    url.searchParams.set('est_association', 'false');
+    url.searchParams.set('est_administration', 'false');
     url.searchParams.set(
       'page',
       String(Math.max(1, Math.trunc(input.page ?? 1))),
