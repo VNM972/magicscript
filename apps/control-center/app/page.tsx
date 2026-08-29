@@ -182,6 +182,20 @@ export default async function Page() {
       <section className="panel" style={{ marginTop: 12 }}>
         <div className="panelTitle" style={{ marginBottom: 0 }}>
           <div>
+            <p className="eyebrow">FREE PROVIDERS</p>
+            <h2>Hunter fallback</h2>
+          </div>
+          <span className="muted">
+            {data.providerUsage
+              ? `${data.providerUsage.hunter.used}/${data.providerUsage.hunter.budget} credits · ${data.providerUsage.hunter.remainingInternalBudget} reserved budget remaining · ${data.providerUsage.hunter.configured ? 'API READY' : 'API KEY MISSING'}`
+              : 'Usage unavailable'}
+          </span>
+        </div>
+      </section>
+
+      <section className="panel" style={{ marginTop: 12 }}>
+        <div className="panelTitle" style={{ marginBottom: 0 }}>
+          <div>
             <p className="eyebrow">SAFETY</p>
             <h2>Outbound switches</h2>
           </div>
