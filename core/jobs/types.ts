@@ -38,7 +38,11 @@ export interface JobQueue {
       'status' | 'attempts' | 'createdAt' | 'updatedAt' | 'claimedBy' | 'claimedAt'
     >,
   ): Promise<MagicScriptJob<TPayload>>;
-  next(now?: Date, claimedBy?: string): Promise<MagicScriptJob | null>;
+  next(
+    now?: Date,
+    claimedBy?: string,
+    allowedKinds?: readonly JobKind[],
+  ): Promise<MagicScriptJob | null>;
   markSucceeded(id: string): Promise<void>;
   markFailed(id: string, error: string, retryAfter?: Date): Promise<void>;
   list(status?: JobStatus): Promise<MagicScriptJob[]>;
