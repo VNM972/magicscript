@@ -76,6 +76,7 @@ interface OutreachResult {
   subject: string;
   body: string;
   factsUsed?: string[];
+  sourceRefs?: string[];
   confidence: number;
   readyToSend: boolean;
   blockingReasons?: string[];
@@ -519,7 +520,7 @@ async function processOutreachResult(
         id, prospect_id, contact_id, kind, subject, body_text,
         facts_json, source_refs_json, confidence, status,
         provider_message_id, sent_at, created_at, updated_at
-      ) VALUES (?, ?, ?, 'INITIAL', ?, ?, ?, '[]', ?, 'DRAFT', NULL, NULL, ?, ?)`,
+      ) VALUES (?, ?, ?, 'INITIAL', ?, ?, ?, ?, ?, 'DRAFT', NULL, NULL, ?, ?)`,
     )
     .bind(
       messageId,
@@ -528,6 +529,7 @@ async function processOutreachResult(
       result.subject.trim(),
       result.body.trim(),
       JSON.stringify(result.factsUsed ?? []),
+      JSON.stringify(result.sourceRefs ?? []),
       Math.max(0, Math.min(100, Number(result.confidence) || 0)),
       now,
       now,
@@ -798,7 +800,24 @@ async function handle(request: Request, env: Env): Promise<Response> {
           .first<Record<string, unknown>>()
       : null;
 
-    return json({ job, prospect, contacts, outreachDraft });
+    const researchRow = job.prospectId
+      ? await db
+          .prepare(
+            `SELECT jr.output_json
+             FROM job_results jr
+             JOIN jobs j ON j.id = jr.job_id
+             WHERE j.prospect_id = ? AND j.kind = 'RUN_RESEARCH_SWARM'
+             ORDER BY jr.created_at DESC LIMIT 1`,
+          )
+          .bind(job.prospectId)
+          .first<{ output_json: string }>()
+      : null;
+
+    const researchContext = researchRow
+      ? (JSON.parse(researchRow.output_json) as Record<string, unknown>)
+      : null;
+
+    return json({ job, prospect, contacts, outreachDraft, researchContext });
   }
 
   const successMatch = url.pathname.match(/^\/api\/runner\/jobs\/([^/]+)\/succeed$/);
