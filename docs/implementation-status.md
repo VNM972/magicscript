@@ -69,6 +69,24 @@ Supported agent jobs:
 - FACT_CHECK_OUTREACH
 - CLASSIFY_REPLY
 
+### Hunter free fallback
+
+Contact discovery now follows this order:
+
+1. public-source Kimi/Swarm discovery;
+2. second public-source pass;
+3. Hunter free API fallback only if the first two passes fail.
+
+The Hunter fallback:
+- runs Email Count first because that endpoint is free;
+- calls Domain Search only when Hunter reports available emails;
+- prefers sourced generic business addresses;
+- enforces the same confidence + suppression gates;
+- tracks monthly Hunter usage in D1;
+- defaults to a 40-credit internal budget to preserve part of the 50-credit free allowance.
+
+Hunter is not used for sending. The existing Amen mailbox remains the outbound/inbound transport.
+
 ### Funnel implemented before real sending
 
 ```text
