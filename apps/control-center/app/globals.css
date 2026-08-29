@@ -339,3 +339,85 @@ h2 {
     grid-template-columns: 1fr;
   }
 }
+
+
+.node {
+  display: grid;
+  gap: 5px;
+}
+
+.node small {
+  color: #63736b;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.nodeActive {
+  border-color: rgba(113, 255, 183, 0.78);
+  box-shadow:
+    0 0 34px rgba(113, 255, 183, 0.14),
+    inset 0 0 18px rgba(113, 255, 183, 0.04);
+  animation: nodeGlow 1.8s ease-in-out infinite;
+}
+
+.nodeActive small {
+  color: #8fffc9;
+}
+
+@keyframes nodeGlow {
+  0%, 100% {
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+  50% {
+    transform: translateY(-1px);
+    filter: brightness(1.18);
+  }
+}
+
+.liveFeed {
+  margin-bottom: 12px;
+}
+
+.eventList {
+  display: grid;
+  gap: 2px;
+}
+
+.eventRow {
+  display: grid;
+  grid-template-columns: 12px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.eventRow:last-child {
+  border-bottom: 0;
+}
+
+.eventRow strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #dfffee;
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+}
+
+.eventRow p {
+  margin: 0;
+  color: #63736b;
+  font-size: 0.72rem;
+}
+
+.eventDot {
+  width: 7px;
+  height: 7px;
+  margin-top: 5px;
+  border-radius: 999px;
+  background: #71ffb7;
+  box-shadow: 0 0 14px rgba(113, 255, 183, 0.55);
+}
