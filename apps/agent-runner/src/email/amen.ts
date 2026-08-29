@@ -31,6 +31,7 @@ export interface AmenInboundMessage {
   uid: number;
   messageId?: string;
   inReplyTo?: string;
+  references?: string[];
   fromEmail?: string;
   subject?: string;
   text: string;
@@ -150,11 +151,17 @@ export async function fetchAmenInboxSince(
         const inReplyTo = Array.isArray(parsed.inReplyTo)
           ? parsed.inReplyTo[0]
           : parsed.inReplyTo;
+        const references = Array.isArray(parsed.references)
+          ? parsed.references
+          : parsed.references
+            ? [parsed.references]
+            : [];
 
         messages.push({
           uid: message.uid,
           messageId: parsed.messageId ?? undefined,
           inReplyTo: inReplyTo ?? undefined,
+          references,
           fromEmail: fromAddress ?? undefined,
           subject: parsed.subject ?? message.envelope?.subject ?? undefined,
           text:
