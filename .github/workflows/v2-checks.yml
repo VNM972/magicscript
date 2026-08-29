@@ -1,12 +1,6 @@
 name: Magic Script V2 checks
 
 on:
-  push:
-    branches:
-      - magic-script-v2
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
