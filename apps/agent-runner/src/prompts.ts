@@ -169,6 +169,8 @@ Use one verified commercial asset and one precise digital gap.
 Do not insult or criticize the prospect's current site.
 Do not claim a prototype exists unless the prospect context explicitly says one exists.
 Do not invent prices, clients, results, certifications or urgency.
+Do not include or promote the Magic Script public website until the runtime explicitly provides a verified live website URL.
+Do not imply that magicscript.fr is already publicly finished or commercially live.
 Use one simple CTA.
 Include a simple sentence allowing the recipient to say they do not want further messages.
 
