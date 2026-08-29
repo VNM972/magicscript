@@ -2,7 +2,9 @@ import {
   D1EventStore,
   D1JobQueue,
   D1ProspectRepository,
+  HunterClient,
   OrchestratorEngine,
+  domainFromWebsite,
   loadConfig,
   scoreProspect,
   type D1DatabaseLike,
@@ -31,6 +33,8 @@ interface Env {
   MAGICSCRIPT_RUNNER_TOKEN?: string;
   MAGICSCRIPT_TARGET_LOCATION?: string;
   MAGICSCRIPT_DISCOVERY_BATCH_SIZE?: string;
+  HUNTER_API_KEY?: string;
+  HUNTER_MONTHLY_CREDIT_BUDGET?: string;
 }
 
 interface ResearchResult {
@@ -413,6 +417,152 @@ async function processResearchResult(
   return { prospectId: job.prospectId, score: scoring.score, qualified };
 }
 
+function currentPeriod(date = new Date()): string {
+  return date.toISOString().slice(0, 7);
+}
+
+async function hunterCreditsUsed(
+  db: D1DatabaseLike,
+  period = currentPeriod(),
+): Promise<number> {
+  const row = await db
+    .prepare(
+      "SELECT units FROM provider_usage WHERE provider = 'hunter' AND period = ? LIMIT 1",
+    )
+    .bind(period)
+    .first<{ units: number }>();
+
+  return row?.units ?? 0;
+}
+
+async function incrementHunterCredits(
+  db: D1DatabaseLike,
+  units = 1,
+  period = currentPeriod(),
+): Promise<void> {
+  await db
+    .prepare(
+      `INSERT INTO provider_usage (provider, period, units, updated_at)
+       VALUES ('hunter', ?, ?, ?)
+       ON CONFLICT(provider, period) DO UPDATE SET
+         units = provider_usage.units + excluded.units,
+         updated_at = excluded.updated_at`,
+    )
+    .bind(period, units, new Date().toISOString())
+    .run();
+}
+
+async function tryHunterContactFallback(
+  prospect: Prospect,
+  env: Env,
+  db: D1DatabaseLike,
+  minConfidence: number,
+): Promise<ProspectContact | null> {
+  const apiKey = env.HUNTER_API_KEY?.trim();
+  if (!apiKey) return null;
+
+  const budget =
+    Number.parseInt(env.HUNTER_MONTHLY_CREDIT_BUDGET ?? '40', 10) || 40;
+  const used = await hunterCreditsUsed(db);
+  if (used >= budget) {
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'contact-agent',
+      type: 'contact.hunter_budget_exhausted',
+      payload: { used, budget, period: currentPeriod() },
+      createdAt: new Date().toISOString(),
+    });
+    return null;
+  }
+
+  const domain = domainFromWebsite(prospect.websiteUrl);
+  const lookup = domain
+    ? { domain }
+    : { company: prospect.companyName };
+
+  const hunter = new HunterClient(apiKey);
+
+  const count = await hunter.emailCount(lookup);
+  if (count.total <= 0) {
+    return null;
+  }
+
+  const search = await hunter.domainSearch({
+    ...lookup,
+    limit: 10,
+  });
+
+  if (search.emails.length > 0) {
+    await incrementHunterCredits(db, 1);
+  }
+
+  const ranked = [...search.emails]
+    .filter((candidate) => candidate.value?.trim())
+    .sort((a, b) => {
+      const genericA = a.type === 'generic' ? 1 : 0;
+      const genericB = b.type === 'generic' ? 1 : 0;
+      if (genericA !== genericB) return genericB - genericA;
+      return (b.confidence ?? 0) - (a.confidence ?? 0);
+    });
+
+  for (const candidate of ranked) {
+    const email = candidate.value.trim().toLowerCase();
+    const confidence = Math.max(
+      0,
+      Math.min(100, Number(candidate.confidence) || 0),
+    );
+    const sourceUrl = candidate.sources?.find((source) => source.uri)?.uri;
+
+    if (confidence < minConfidence || !sourceUrl) continue;
+
+    const suppressed = await db
+      .prepare(
+        'SELECT email FROM suppression_list WHERE lower(email) = lower(?) LIMIT 1',
+      )
+      .bind(email)
+      .first<{ email: string }>();
+
+    if (suppressed) continue;
+
+    const now = new Date().toISOString();
+    const contact: ProspectContact = {
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      email,
+      sourceUrl,
+      sourceType: 'other_public_source',
+      confidence,
+      isValidated: true,
+      isSuppressed: false,
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    await new D1ProspectRepository(db).saveContact(contact);
+
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'contact-agent',
+      type: 'contact.hunter_fallback_found',
+      payload: {
+        email,
+        confidence,
+        type: candidate.type ?? null,
+        sourceUrl,
+        creditsUsedThisPeriod: await hunterCreditsUsed(db),
+        creditBudget: budget,
+      },
+      createdAt: now,
+    });
+
+    return contact;
+  }
+
+  return null;
+}
+
 async function processContactResult(
   job: MagicScriptJob,
   result: ContactResult,
@@ -493,10 +643,45 @@ async function processContactResult(
   const afterInvalid = await repo.getProspect(job.prospectId);
 
   if (alreadyRetried && afterInvalid?.state === 'CONTACT_INVALID') {
+    const hunterContact = await tryHunterContactFallback(
+      afterInvalid,
+      env,
+      db,
+      minConfidence,
+    );
+
+    if (hunterContact) {
+      await repo.transitionProspect(
+        job.prospectId,
+        'CONTACT_DISCOVERY',
+        'Hunter free API fallback returned a sourced professional email',
+      );
+      await repo.transitionProspect(
+        job.prospectId,
+        'CONTACT_FOUND',
+        'Hunter fallback contact passed confidence and source gates',
+      );
+      await repo.transitionProspect(
+        job.prospectId,
+        'OUTREACH_READY',
+        'Validated fallback contact is ready for outreach',
+      );
+
+      if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+        await orchestrator(env, db).planProspect(job.prospectId);
+      }
+
+      return {
+        prospectId: job.prospectId,
+        validContact: true,
+        retrying: false,
+      };
+    }
+
     await repo.transitionProspect(
       job.prospectId,
       'DISQUALIFIED',
-      'No reliable contact after two discovery passes',
+      'No reliable contact after public-source retries and Hunter fallback',
     );
     return { prospectId: job.prospectId, validContact: false, retrying: false };
   }
