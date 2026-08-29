@@ -1,9 +1,10 @@
-export interface RechercheEntreprisesSiege {
+export interface RechercheEntreprisesEtablissement {
   siret?: string;
   activite_principale?: string | null;
   adresse?: string | null;
   code_postal?: string | null;
   libelle_commune?: string | null;
+  departement?: string | null;
   etat_administratif?: string | null;
   nom_commercial?: string | null;
   liste_enseignes?: string[] | null;
@@ -16,7 +17,8 @@ export interface RechercheEntreprisesResult {
   etat_administratif?: string | null;
   activite_principale?: string | null;
   section_activite_principale?: string | null;
-  siege?: RechercheEntreprisesSiege | null;
+  siege?: RechercheEntreprisesEtablissement | null;
+  matching_etablissements?: RechercheEntreprisesEtablissement[] | null;
 }
 
 export interface RechercheEntreprisesPage {
@@ -72,7 +74,8 @@ export class RechercheEntreprisesClient {
       String(Math.max(1, Math.min(Math.trunc(input.perPage ?? 25), 25))),
     );
     url.searchParams.set('minimal', 'true');
-    url.searchParams.set('include', 'siege');
+    url.searchParams.set('include', 'matching_etablissements');
+    url.searchParams.set('limite_matching_etablissements', '10');
 
     if (input.sections?.length) {
       url.searchParams.set(
@@ -115,14 +118,30 @@ export class RechercheEntreprisesClient {
   }
 }
 
+export function rechercheEntrepriseMatchingEtablissement(
+  result: RechercheEntreprisesResult,
+  departement: string,
+): RechercheEntreprisesEtablissement | undefined {
+  return (result.matching_etablissements ?? []).find((establishment) => {
+    if (establishment.etat_administratif === 'F') return false;
+
+    const department = establishment.departement?.trim();
+    if (department) return department === departement;
+
+    const postalCode = establishment.code_postal?.trim();
+    return Boolean(postalCode?.startsWith(departement));
+  });
+}
+
 export function rechercheEntrepriseName(
   result: RechercheEntreprisesResult,
+  establishment?: RechercheEntreprisesEtablissement,
 ): string | undefined {
   const candidates = [
+    establishment?.nom_commercial,
+    establishment?.liste_enseignes?.find(Boolean),
     result.nom_complet,
     result.nom_raison_sociale,
-    result.siege?.nom_commercial,
-    result.siege?.liste_enseignes?.find(Boolean),
   ];
 
   return candidates
@@ -132,12 +151,14 @@ export function rechercheEntrepriseName(
 
 export function rechercheEntrepriseLocation(
   result: RechercheEntreprisesResult,
+  establishment?: RechercheEntreprisesEtablissement,
 ): string | undefined {
-  const address = result.siege?.adresse?.trim();
+  const selected = establishment ?? result.siege ?? undefined;
+  const address = selected?.adresse?.trim();
   if (address) return address;
 
-  const postalCode = result.siege?.code_postal?.trim();
-  const city = result.siege?.libelle_commune?.trim();
+  const postalCode = selected?.code_postal?.trim();
+  const city = selected?.libelle_commune?.trim();
 
   if (postalCode && city) return `${postalCode} ${city}`;
   return postalCode || city || undefined;
@@ -145,16 +166,25 @@ export function rechercheEntrepriseLocation(
 
 export function rechercheEntrepriseActivity(
   result: RechercheEntreprisesResult,
+  establishment?: RechercheEntreprisesEtablissement,
 ): string | undefined {
   return (
-    result.siege?.activite_principale?.trim() ||
+    establishment?.activite_principale?.trim() ||
     result.activite_principale?.trim() ||
     undefined
   );
 }
 
-export function rechercheEntrepriseSourceUrl(siren: string): string {
+export function rechercheEntrepriseSourceUrl(
+  result: RechercheEntreprisesResult,
+  establishment?: RechercheEntreprisesEtablissement,
+): string {
+  const siret = establishment?.siret?.trim();
+  if (siret) {
+    return `https://annuaire-entreprises.data.gouv.fr/etablissement/${encodeURIComponent(siret)}`;
+  }
+
   const url = new URL('https://recherche-entreprises.api.gouv.fr/search');
-  url.searchParams.set('q', siren);
+  url.searchParams.set('q', result.siren);
   return url.toString();
 }

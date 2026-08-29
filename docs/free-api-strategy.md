@@ -13,9 +13,11 @@ Service:
 
 Role:
 - discover real French businesses;
-- filter Martinique through department 972;
+- filter establishments in Martinique through department 972;
+- retrieve `matching_etablissements`, because the legal unit/head office may be located outside Martinique;
+- use the matching 972 establishment address, SIRET, activity and trade name as the local prospect context;
 - filter relevant activity sections;
-- provide company identity, SIREN, activity and establishment data.
+- provide company identity plus a verifiable official establishment source.
 
 Properties:
 - open access;
@@ -26,6 +28,8 @@ Properties:
 - Magic Script uses one paginated request per discovery cycle.
 
 This is now the default structured discovery source.
+
+Important: the API geographic filter applies to establishments, not necessarily the legal unit's registered head office. Magic Script therefore never treats the returned `siege` as proof of local presence; it explicitly selects a `matching_etablissements` record in department 972.
 
 ### 2. INSEE SIRENE — optional secondary
 

@@ -13,6 +13,7 @@ import {
   isMagicScriptTargetActivity,
   rechercheEntrepriseActivity,
   rechercheEntrepriseLocation,
+  rechercheEntrepriseMatchingEtablissement,
   rechercheEntrepriseName,
   rechercheEntrepriseSourceUrl,
   loadConfig,
@@ -566,14 +567,30 @@ async function discoverViaRechercheEntreprises(
       continue;
     }
 
-    const companyName = rechercheEntrepriseName(result);
+    const localEstablishment =
+      rechercheEntrepriseMatchingEtablissement(result, '972');
+    if (!localEstablishment) continue;
+
+    const companyName = rechercheEntrepriseName(
+      result,
+      localEstablishment,
+    );
     if (!companyName || !result.siren) continue;
 
     candidates.push({
       companyName,
-      activity: rechercheEntrepriseActivity(result),
-      location: rechercheEntrepriseLocation(result),
-      sourceUrl: rechercheEntrepriseSourceUrl(result.siren),
+      activity: rechercheEntrepriseActivity(
+        result,
+        localEstablishment,
+      ),
+      location: rechercheEntrepriseLocation(
+        result,
+        localEstablishment,
+      ),
+      sourceUrl: rechercheEntrepriseSourceUrl(
+        result,
+        localEstablishment,
+      ),
     });
   }
 
