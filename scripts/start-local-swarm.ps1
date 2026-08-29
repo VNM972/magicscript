@@ -79,7 +79,7 @@ $RunnerProcess = Start-Process -FilePath 'npm.cmd' -ArgumentList 'run','dev:runn
 Write-Host '[6/6] Starting Control Center...'
 $ControlOut = Join-Path $LogsDir 'control-center.out.log'
 $ControlErr = Join-Path $LogsDir 'control-center.err.log'
-$ControlProcess = Start-Process -FilePath 'npm.cmd' -ArgumentList 'run','dev:control-center','--','-H','127.0.0.1' -WorkingDirectory $RepoRoot -RedirectStandardOutput $ControlOut -RedirectStandardError $ControlErr -PassThru
+$ControlProcess = Start-Process -FilePath 'npm.cmd' -ArgumentList '--workspace','magic-script-control-center','run','dev','--','-H','127.0.0.1' -WorkingDirectory $RepoRoot -RedirectStandardOutput $ControlOut -RedirectStandardError $ControlErr -PassThru
 
 Start-Sleep -Seconds 2
 
