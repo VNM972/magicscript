@@ -2905,6 +2905,55 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json({ prototypes: result.results ?? [] });
   }
 
+  if (request.method === 'GET' && url.pathname === '/api/readiness') {
+    const db = requireDb(env);
+    const now = new Date();
+    const runnerCutoff = new Date(now.getTime() - 60_000).toISOString();
+
+    const runner = await db
+      .prepare(
+        `SELECT runner_id, status, last_seen_at
+         FROM runners
+         WHERE last_seen_at >= ?
+         ORDER BY last_seen_at DESC
+         LIMIT 1`,
+      )
+      .bind(runnerCutoff)
+      .first<{ runner_id: string; status: string; last_seen_at: string }>();
+
+    const deadLetter = await db
+      .prepare(
+        "SELECT COUNT(*) AS count FROM jobs WHERE status = 'DEAD_LETTER'",
+      )
+      .first<{ count: number }>();
+
+    const prospectCount = await db
+      .prepare('SELECT COUNT(*) AS count FROM prospects')
+      .first<{ count: number }>();
+
+    const safeTransport =
+      env.MAGICSCRIPT_EMAIL_PROVIDER === 'dry-run' ||
+      (env.MAGICSCRIPT_TEST_EMAIL_MODE === 'true' &&
+        Boolean(env.MAGICSCRIPT_TEST_RECIPIENT?.trim()));
+
+    const checks = {
+      database: true,
+      autopilot: env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true',
+      runnerOnline: Boolean(runner),
+      safeTransport,
+      publicDiscovery: true,
+      noDeadLetters: Number(deadLetter?.count ?? 0) === 0,
+    };
+
+    return json({
+      dryRunReady: Object.values(checks).every(Boolean),
+      checks,
+      runner: runner ?? null,
+      prospects: Number(prospectCount?.count ?? 0),
+      timestamp: now.toISOString(),
+    });
+  }
+
   if (request.method === 'GET' && url.pathname === '/api/providers/usage') {
     const db = requireDb(env);
     const period = currentPeriod();
