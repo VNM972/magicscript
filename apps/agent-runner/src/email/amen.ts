@@ -127,7 +127,7 @@ export async function fetchAmenInboxSince(
     try {
       const sequence = await client.search({ since });
 
-      if (!sequence.length) {
+      if (!sequence || sequence.length === 0) {
         return messages;
       }
 
