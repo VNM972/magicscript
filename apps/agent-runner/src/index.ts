@@ -84,12 +84,22 @@ async function executeAmenSend(claim: ClaimedJob): Promise<Record<string, unknow
     throw new Error('Amen email credentials are not configured');
   }
 
-  const contact = selectValidatedContact(claim);
+  const message = claim.outreachDraft;
+  const contact =
+    (message?.contact_id
+      ? claim.contacts.find(
+          (candidate) =>
+            candidate.id === message.contact_id &&
+            candidate.isValidated &&
+            !candidate.isSuppressed,
+        )
+      : undefined) ?? selectValidatedContact(claim);
+
   if (!contact) {
     throw new Error('No validated unsuppressed contact is available');
   }
 
-  const message = claim.outreachDraft;
+
   if (!message || message.status !== 'VERIFIED') {
     throw new Error('No VERIFIED outreach message is available');
   }
