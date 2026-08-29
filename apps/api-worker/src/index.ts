@@ -24,6 +24,7 @@ interface Env {
   MAGICSCRIPT_MAX_FOLLOWUPS?: string;
   MAGICSCRIPT_FOLLOWUP_1_DAYS?: string;
   MAGICSCRIPT_FOLLOWUP_2_DAYS?: string;
+  MAGICSCRIPT_JOB_LEASE_MINUTES?: string;
   MAGICSCRIPT_MIN_CONTACT_CONFIDENCE?: string;
   MAGICSCRIPT_MIN_OUTREACH_CONFIDENCE?: string;
   MAGICSCRIPT_AUTO_PROTOTYPE_SCORE?: string;
@@ -230,6 +231,115 @@ function orchestrator(env: Env, db: D1DatabaseLike): OrchestratorEngine {
     events: new D1EventStore(db),
     jobs: new D1JobQueue(db),
   });
+}
+
+async function recoverStaleJobs(
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ recovered: number; deadLettered: number }> {
+  const leaseMinutes = Math.max(
+    5,
+    Number.parseInt(env.MAGICSCRIPT_JOB_LEASE_MINUTES ?? '30', 10) || 30,
+  );
+  const cutoff = new Date(Date.now() - leaseMinutes * 60_000).toISOString();
+  const now = new Date().toISOString();
+
+  const stale = await db
+    .prepare(
+      `SELECT
+         id,
+         prospect_id,
+         kind,
+         attempts,
+         max_attempts,
+         claimed_by
+       FROM jobs
+       WHERE status = 'RUNNING'
+         AND claimed_at IS NOT NULL
+         AND claimed_at < ?
+       ORDER BY claimed_at ASC
+       LIMIT 100`,
+    )
+    .bind(cutoff)
+    .all<{
+      id: string;
+      prospect_id: string | null;
+      kind: MagicScriptJob['kind'];
+      attempts: number;
+      max_attempts: number;
+      claimed_by: string | null;
+    }>();
+
+  let recovered = 0;
+  let deadLettered = 0;
+
+  for (const job of stale.results ?? []) {
+    const exhausted = job.attempts >= job.max_attempts;
+
+    if (exhausted) {
+      await db
+        .prepare(
+          `UPDATE jobs
+           SET status = 'DEAD_LETTER',
+               last_error = ?,
+               updated_at = ?
+           WHERE id = ? AND status = 'RUNNING'`,
+        )
+        .bind(
+          `Runner lease expired after ${leaseMinutes} minutes`,
+          now,
+          job.id,
+        )
+        .run();
+
+      deadLettered += 1;
+
+      if (job.prospect_id) {
+        await createEscalation(
+          db,
+          job.prospect_id,
+          'MANUAL_REVIEW_REQUIRED',
+          `Automation job ${job.kind} exhausted its retries after a stale runner lease.`,
+        );
+      }
+    } else {
+      await db
+        .prepare(
+          `UPDATE jobs
+           SET status = 'PENDING',
+               claimed_by = NULL,
+               claimed_at = NULL,
+               run_after = ?,
+               last_error = ?,
+               updated_at = ?
+           WHERE id = ? AND status = 'RUNNING'`,
+        )
+        .bind(
+          now,
+          `Recovered after runner lease expired (${leaseMinutes} minutes)`,
+          now,
+          job.id,
+        )
+        .run();
+
+      recovered += 1;
+    }
+
+    if (job.claimed_by) {
+      await db
+        .prepare(
+          `UPDATE runners
+           SET status = 'ERROR',
+               current_job_id = NULL,
+               last_seen_at = ?
+           WHERE runner_id = ?`,
+        )
+        .bind(now, job.claimed_by)
+        .run();
+    }
+  }
+
+  return { recovered, deadLettered };
 }
 
 async function enqueueDiscoveryIfNeeded(
@@ -2480,10 +2590,11 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
   if (request.method === 'POST' && url.pathname === '/api/system/drain') {
     const db = requireDb(env);
+    const recovery = await recoverStaleJobs(env, db);
     const body = (await request.json().catch(() => ({}))) as { limit?: number };
     const followups = await scheduleDueFollowUps(env, db);
     const drained = await drainDeterministicJobs(env, db, body.limit ?? 10);
-    return json({ followups, ...drained });
+    return json({ recovery, followups, ...drained });
   }
 
   if (request.method === 'POST' && url.pathname === '/api/orchestrator/plan') {
@@ -2542,6 +2653,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
   if (request.method === 'POST' && url.pathname === '/api/runner/jobs/claim') {
     const db = requireDb(env);
+    await recoverStaleJobs(env, db);
     const queue = new D1JobQueue(db);
     const runnerId = request.headers.get('x-magicscript-runner-id')?.trim() || undefined;
     const runnerKinds: MagicScriptJob['kind'][] = [
@@ -2795,6 +2907,7 @@ export default {
 
   async scheduled(_controller: unknown, env: Env): Promise<void> {
     if (!env.DB) return;
+    await recoverStaleJobs(env, env.DB);
     await enqueueDiscoveryIfNeeded(env, env.DB);
     await scheduleDueFollowUps(env, env.DB);
     await drainDeterministicJobs(env, env.DB, 10);
