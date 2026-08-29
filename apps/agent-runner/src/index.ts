@@ -115,11 +115,14 @@ async function executeAmenSend(claim: ClaimedJob): Promise<Record<string, unknow
     subject: message.subject,
     text: message.body_text,
     inReplyTo:
-      claim.job.kind === 'SEND_FOLLOW_UP'
+      claim.job.kind === 'SEND_FOLLOW_UP' ||
+      claim.job.kind === 'SEND_DEMO_LINK'
         ? claim.threadParentMessageId ?? undefined
         : undefined,
     references:
-      claim.job.kind === 'SEND_FOLLOW_UP' && claim.threadParentMessageId
+      (claim.job.kind === 'SEND_FOLLOW_UP' ||
+        claim.job.kind === 'SEND_DEMO_LINK') &&
+      claim.threadParentMessageId
         ? [claim.threadParentMessageId]
         : undefined,
   });
@@ -255,7 +258,9 @@ async function runOne(): Promise<boolean> {
 
   try {
     const output =
-      claim.job.kind === 'SEND_EMAIL' || claim.job.kind === 'SEND_FOLLOW_UP'
+      claim.job.kind === 'SEND_EMAIL' ||
+      claim.job.kind === 'SEND_FOLLOW_UP' ||
+      claim.job.kind === 'SEND_DEMO_LINK'
         ? await executeAmenSend(claim)
         : claim.job.kind === 'BUILD_PROTOTYPE'
           ? await executePrototypeBuild(claim, executionDir)
