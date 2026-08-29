@@ -421,3 +421,60 @@ h2 {
   background: #71ffb7;
   box-shadow: 0 0 14px rgba(113, 255, 183, 0.55);
 }
+
+
+.pipelineList {
+  display: grid;
+  gap: 2px;
+}
+
+.pipelineRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pipelineRow:last-child {
+  border-bottom: 0;
+}
+
+.pipelineRow strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #eafff3;
+  font-size: 0.9rem;
+}
+
+.pipelineRow p {
+  margin: 0;
+  color: #63736b;
+  font-size: 0.72rem;
+}
+
+.pipelineMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pipelineMeta > span:first-child {
+  min-width: 34px;
+  text-align: right;
+  color: #8fffc9;
+  font-weight: 800;
+}
+
+@media (max-width: 650px) {
+  .pipelineRow {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pipelineMeta {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
