@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "magicscript-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-29",
+  "vars": {
+    "MAGICSCRIPT_AUTOPILOT_ENABLED": "false",
+    "MAGICSCRIPT_SENDING_ENABLED": "false",
+    "MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED": "false",
+    "MAGICSCRIPT_DAILY_SEND_LIMIT": "10",
+    "MAGICSCRIPT_MAX_FOLLOWUPS": "2",
+    "MAGICSCRIPT_MIN_CONTACT_CONFIDENCE": "80",
+    "MAGICSCRIPT_MIN_OUTREACH_CONFIDENCE": "85",
+    "MAGICSCRIPT_AUTO_PROTOTYPE_SCORE": "85",
+    "MAGICSCRIPT_DATABASE_PROVIDER": "d1",
+    "MAGICSCRIPT_EMAIL_PROVIDER": "disabled",
+    "MAGICSCRIPT_CONTROL_CENTER_ORIGIN": ""
+  }
+
+  // Add a D1 binding only after a development database has been created:
+  //
+  // "d1_databases": [
+  //   {
+  //     "binding": "DB",
+  //     "database_name": "magicscript-dev",
+  //     "database_id": "REPLACE_WITH_DATABASE_ID"
+  //   }
+  // ]
+}
