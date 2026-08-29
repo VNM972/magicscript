@@ -1736,13 +1736,13 @@ async function processPrototypeQaResult(
 
   const prototype = await db
     .prepare(
-      `SELECT id FROM prototypes
+      `SELECT id, runner_id FROM prototypes
        WHERE prospect_id = ?
        ORDER BY updated_at DESC
        LIMIT 1`,
     )
     .bind(job.prospectId)
-    .first<{ id: string }>();
+    .first<{ id: string; runner_id: string | null }>();
 
   if (!prototype) throw new Error('Prototype row not found for QA result');
 
@@ -1780,6 +1780,21 @@ async function processPrototypeQaResult(
       payload: { prototypeId: prototype.id },
       createdAt: now,
     });
+
+    if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+      const plan = await orchestrator(env, db).planProspect(prospect.id);
+      if (plan.queuedJobId && prototype.runner_id) {
+        await db
+          .prepare(
+            `UPDATE jobs
+             SET payload_json = json_set(payload_json, '$.requiredRunnerId', ?),
+                 updated_at = ?
+             WHERE id = ?`,
+          )
+          .bind(prototype.runner_id, new Date().toISOString(), plan.queuedJobId)
+          .run();
+      }
+    }
 
     return { prospectId: prospect.id, passed: true, escalated: false };
   }
@@ -1836,7 +1851,7 @@ async function processPrototypeQaResult(
 
   await repo.transitionProspect(
     prospect.id,
-    'PROTOTYPE_BUILDING',
+    'PROTOTYPE_REQUIRED',
     'Prototype QA failed; automatic correction cycle required',
   );
 
@@ -1854,7 +1869,18 @@ async function processPrototypeQaResult(
   });
 
   if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
-    await orchestrator(env, db).planProspect(prospect.id);
+    const plan = await orchestrator(env, db).planProspect(prospect.id);
+    if (plan.queuedJobId && prototype.runner_id) {
+      await db
+        .prepare(
+          `UPDATE jobs
+           SET payload_json = json_set(payload_json, '$.requiredRunnerId', ?),
+               updated_at = ?
+           WHERE id = ?`,
+        )
+        .bind(prototype.runner_id, new Date().toISOString(), plan.queuedJobId)
+        .run();
+    }
   }
 
   return { prospectId: prospect.id, passed: false, escalated: false };
