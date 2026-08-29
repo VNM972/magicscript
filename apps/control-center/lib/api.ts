@@ -74,6 +74,17 @@ export interface OutreachStatus {
   followupDue: number;
 }
 
+export interface PrototypeSummary {
+  id: string;
+  prospect_id: string;
+  company_name: string;
+  status: string;
+  qa_status?: string | null;
+  deployment_url?: string | null;
+  runner_id?: string | null;
+  updated_at: string;
+}
+
 export interface ControlCenterData {
   connected: boolean;
   health: ApiHealth | null;
@@ -83,6 +94,7 @@ export interface ControlCenterData {
   runners: Runner[];
   providerUsage: ProviderUsage | null;
   outreachStatus: OutreachStatus | null;
+  prototypes: PrototypeSummary[];
   error?: string;
 }
 
@@ -125,6 +137,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
         runners: [],
         providerUsage: null,
         outreachStatus: null,
+        prototypes: [],
         error: 'API connected, but D1 is not configured yet.',
       };
     }
@@ -136,6 +149,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       runnerData,
       providerUsage,
       outreachStatus,
+      prototypeData,
     ] = await Promise.all([
       getJson<Overview>('/api/overview'),
       getJson<{ escalations: Escalation[] }>('/api/escalations?limit=20'),
@@ -143,6 +157,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       getJson<{ runners: Runner[] }>('/api/runners'),
       getJson<ProviderUsage>('/api/providers/usage'),
       getJson<OutreachStatus>('/api/outreach/status'),
+      getJson<{ prototypes: PrototypeSummary[] }>('/api/prototypes'),
     ]);
 
     return {
@@ -154,6 +169,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       runners: runnerData.runners,
       providerUsage,
       outreachStatus,
+      prototypes: prototypeData.prototypes,
     };
   } catch (error) {
     return {
@@ -165,6 +181,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       runners: [],
       providerUsage: null,
       outreachStatus: null,
+      prototypes: [],
       error: error instanceof Error ? error.message : 'Unknown backend error',
     };
   }
