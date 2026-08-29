@@ -47,6 +47,16 @@ export interface Runner {
   last_seen_at: string;
 }
 
+export interface ProviderUsage {
+  period: string;
+  hunter: {
+    configured: boolean;
+    used: number;
+    budget: number;
+    remainingInternalBudget: number;
+  };
+}
+
 export interface ControlCenterData {
   connected: boolean;
   health: ApiHealth | null;
@@ -54,6 +64,7 @@ export interface ControlCenterData {
   escalations: Escalation[];
   runningJobs: Job[];
   runners: Runner[];
+  providerUsage: ProviderUsage | null;
   error?: string;
 }
 
@@ -94,15 +105,17 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
         escalations: [],
         runningJobs: [],
         runners: [],
+        providerUsage: null,
         error: 'API connected, but D1 is not configured yet.',
       };
     }
 
-    const [overview, escalationData, jobData, runnerData] = await Promise.all([
+    const [overview, escalationData, jobData, runnerData, providerUsage] = await Promise.all([
       getJson<Overview>('/api/overview'),
       getJson<{ escalations: Escalation[] }>('/api/escalations?limit=20'),
       getJson<{ jobs: Job[] }>('/api/jobs?status=RUNNING'),
       getJson<{ runners: Runner[] }>('/api/runners'),
+      getJson<ProviderUsage>('/api/providers/usage'),
     ]);
 
     return {
@@ -112,6 +125,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       escalations: escalationData.escalations,
       runningJobs: jobData.jobs,
       runners: runnerData.runners,
+      providerUsage,
     };
   } catch (error) {
     return {
@@ -121,6 +135,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       escalations: [],
       runningJobs: [],
       runners: [],
+      providerUsage: null,
       error: error instanceof Error ? error.message : 'Unknown backend error',
     };
   }
