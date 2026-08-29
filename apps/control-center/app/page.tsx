@@ -202,6 +202,40 @@ export default async function Page() {
         </article>
       </section>
 
+      <section className="panel">
+        <div className="panelTitle">
+          <div>
+            <p className="eyebrow">PIPELINE BOARD</p>
+            <h2>Prospects in motion</h2>
+          </div>
+          <span className="count">{data.prospects.length}</span>
+        </div>
+
+        <div className="pipelineList">
+          {data.prospects.length === 0 ? (
+            <div className="pipelineRow">
+              <span className="muted">No prospect data yet.</span>
+            </div>
+          ) : (
+            data.prospects.slice(0, 12).map((prospect) => (
+              <div className="pipelineRow" key={prospect.id}>
+                <div>
+                  <strong>{prospect.companyName}</strong>
+                  <p>
+                    {prospect.activity || 'Activity pending'}
+                    {prospect.location ? ` · ${prospect.location}` : ''}
+                  </p>
+                </div>
+                <div className="pipelineMeta">
+                  <span>{prospect.score ?? '—'}</span>
+                  <span className="badge waiting">{prospect.state}</span>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </section>
+
       <section className="panel liveFeed">
         <div className="panelTitle">
           <div>
