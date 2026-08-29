@@ -1,4 +1,4 @@
-const baseUrl = (process.env.MAGICSCRIPT_API_BASE_URL || 'http://127.0.0.1:8787').replace(/\\\/$/, '');
+const baseUrl = (process.env.MAGICSCRIPT_API_BASE_URL || 'http://127.0.0.1:8787').replace(/\/$/, '');
 const apiToken = process.env.MAGICSCRIPT_API_TOKEN || 'dev-api-token';
 const timeoutMs = Number.parseInt(process.env.MAGICSCRIPT_SMOKE_TIMEOUT_MS || '900000', 10);
 
