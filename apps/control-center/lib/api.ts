@@ -154,8 +154,14 @@ export interface ControlCenterData {
   error?: string;
 }
 
-const baseUrl = process.env.MAGICSCRIPT_API_BASE_URL?.replace(/\/$/, '');
-const apiToken = process.env.MAGICSCRIPT_API_TOKEN;
+const isProduction = process.env.NODE_ENV === 'production';
+const baseUrl = (
+  process.env.MAGICSCRIPT_API_BASE_URL ||
+  (isProduction ? '' : 'http://127.0.0.1:8787')
+).replace(/\/$/, '');
+const apiToken =
+  process.env.MAGICSCRIPT_API_TOKEN ||
+  (isProduction ? undefined : 'dev-api-token');
 
 async function getJson<T>(path: string): Promise<T> {
   if (!baseUrl) {
