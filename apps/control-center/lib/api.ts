@@ -5,6 +5,8 @@ export interface ApiHealth {
   autopilotEnabled: boolean;
   sendingEnabled: boolean;
   emailProvider: string;
+  testEmailMode: boolean;
+  testRecipientConfigured: boolean;
   prototypeDeployEnabled: boolean;
 }
 
@@ -98,6 +100,25 @@ export interface PrototypeSummary {
   updated_at: string;
 }
 
+export interface LiveEvent {
+  id: string;
+  prospectId?: string;
+  actor: string;
+  type: string;
+  payload: Record<string, unknown>;
+  createdAt: string;
+}
+
+export interface ProspectSummary {
+  id: string;
+  companyName: string;
+  state: string;
+  score?: number;
+  activity?: string;
+  location?: string;
+  updatedAt: string;
+}
+
 export interface ControlCenterData {
   connected: boolean;
   health: ApiHealth | null;
@@ -108,6 +129,8 @@ export interface ControlCenterData {
   providerUsage: ProviderUsage | null;
   outreachStatus: OutreachStatus | null;
   prototypes: PrototypeSummary[];
+  recentEvents: LiveEvent[];
+  prospects: ProspectSummary[];
   error?: string;
 }
 
@@ -151,6 +174,8 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
         providerUsage: null,
         outreachStatus: null,
         prototypes: [],
+        recentEvents: [],
+        prospects: [],
         error: 'API connected, but D1 is not configured yet.',
       };
     }
@@ -183,6 +208,8 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       providerUsage,
       outreachStatus,
       prototypes: prototypeData.prototypes,
+      recentEvents: eventData.events,
+      prospects: prospectData.prospects,
     };
   } catch (error) {
     return {
@@ -195,6 +222,8 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       providerUsage: null,
       outreachStatus: null,
       prototypes: [],
+      recentEvents: [],
+      prospects: [],
       error: error instanceof Error ? error.message : 'Unknown backend error',
     };
   }
