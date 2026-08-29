@@ -27,13 +27,18 @@ export interface MagicScriptJob<TPayload = Record<string, unknown>> {
   createdAt: string;
   updatedAt: string;
   lastError?: string;
+  claimedBy?: string;
+  claimedAt?: string;
 }
 
 export interface JobQueue {
   enqueue<TPayload>(
-    job: Omit<MagicScriptJob<TPayload>, 'status' | 'attempts' | 'createdAt' | 'updatedAt'>,
+    job: Omit<
+      MagicScriptJob<TPayload>,
+      'status' | 'attempts' | 'createdAt' | 'updatedAt' | 'claimedBy' | 'claimedAt'
+    >,
   ): Promise<MagicScriptJob<TPayload>>;
-  next(now?: Date): Promise<MagicScriptJob | null>;
+  next(now?: Date, claimedBy?: string): Promise<MagicScriptJob | null>;
   markSucceeded(id: string): Promise<void>;
   markFailed(id: string, error: string, retryAfter?: Date): Promise<void>;
   list(status?: JobStatus): Promise<MagicScriptJob[]>;
