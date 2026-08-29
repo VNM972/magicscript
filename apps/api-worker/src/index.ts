@@ -4,12 +4,17 @@ import {
   D1ProspectRepository,
   HunterClient,
   InseeSireneClient,
+  RechercheEntreprisesClient,
   OrchestratorEngine,
   canTransition,
   currentSirenePeriod,
   domainFromWebsite,
   getNextAction,
   isMagicScriptTargetActivity,
+  rechercheEntrepriseActivity,
+  rechercheEntrepriseLocation,
+  rechercheEntrepriseName,
+  rechercheEntrepriseSourceUrl,
   loadConfig,
   scoreProspect,
   sireneBusinessName,
@@ -516,6 +521,104 @@ async function setProviderState(
     .run();
 }
 
+async function discoverViaRechercheEntreprises(
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{
+  attempted: boolean;
+  created: string[];
+  skipped: string[];
+  scanned: number;
+  page: number;
+  totalPages: number;
+}> {
+  const batchSize =
+    Number.parseInt(env.MAGICSCRIPT_DISCOVERY_BATCH_SIZE ?? '20', 10) || 20;
+  const perPage = Math.max(1, Math.min(batchSize, 25));
+  const storedPage = Number.parseInt(
+    (await getProviderState(
+      db,
+      'recherche-entreprises',
+      'martinique-page',
+    )) ?? '1',
+    10,
+  );
+  const pageNumber =
+    Number.isFinite(storedPage) && storedPage > 0 ? storedPage : 1;
+
+  const client = new RechercheEntreprisesClient();
+  const page = await client.search({
+    departement: '972',
+    sections: ['F', 'G', 'I', 'L', 'M', 'N', 'R', 'S'],
+    page: pageNumber,
+    perPage,
+  });
+
+  const candidates: DiscoveryResult['prospects'] = [];
+
+  for (const result of page.results) {
+    if (candidates.length >= batchSize) break;
+    if (result.etat_administratif && result.etat_administratif !== 'A') continue;
+    if (
+      result.siege?.etat_administratif &&
+      result.siege.etat_administratif !== 'A'
+    ) {
+      continue;
+    }
+
+    const companyName = rechercheEntrepriseName(result);
+    if (!companyName || !result.siren) continue;
+
+    candidates.push({
+      companyName,
+      activity: rechercheEntrepriseActivity(result),
+      location: rechercheEntrepriseLocation(result),
+      sourceUrl: rechercheEntrepriseSourceUrl(result.siren),
+    });
+  }
+
+  const processed = await processDiscoveryResult(
+    { prospects: candidates },
+    env,
+    db,
+  );
+
+  const nextPage = page.page >= page.totalPages ? 1 : page.page + 1;
+  await setProviderState(
+    db,
+    'recherche-entreprises',
+    'martinique-page',
+    String(nextPage),
+  );
+
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    actor: 'system',
+    type: 'discovery.recherche_entreprises_batch',
+    payload: {
+      page: page.page,
+      nextPage,
+      totalPages: page.totalPages,
+      scanned: page.results.length,
+      candidates: candidates.length,
+      created: processed.created.length,
+      skipped: processed.skipped.length,
+      authRequired: false,
+      monetaryCost: 0,
+    },
+    createdAt: new Date().toISOString(),
+  });
+
+  return {
+    attempted: true,
+    created: processed.created,
+    skipped: processed.skipped,
+    scanned: page.results.length,
+    page: page.page,
+    totalPages: page.totalPages,
+  };
+}
+
 async function discoverViaSirene(
   env: Env,
   db: D1DatabaseLike,
@@ -616,7 +719,7 @@ async function enqueueDiscoveryIfNeeded(
   queued: boolean;
   reason?: string;
   jobId?: string;
-  provider?: 'insee-sirene' | 'kimi';
+  provider?: 'recherche-entreprises' | 'insee-sirene' | 'kimi';
   created?: number;
   scanned?: number;
 }> {
@@ -624,19 +727,42 @@ async function enqueueDiscoveryIfNeeded(
     return { queued: false, reason: 'Autopilot disabled' };
   }
 
+  // First choice: official open API, no key and no monetary API cost.
+  try {
+    const directory = await discoverViaRechercheEntreprises(env, db);
+    if (directory.created.length > 0) {
+      return {
+        queued: false,
+        provider: 'recherche-entreprises',
+        created: directory.created.length,
+        scanned: directory.scanned,
+        reason: 'Open API Recherche d’entreprises discovery completed',
+      };
+    }
+  } catch (error) {
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      actor: 'system',
+      type: 'discovery.recherche_entreprises_failed',
+      payload: {
+        message: error instanceof Error ? error.message : String(error),
+        fallback: env.INSEE_SIRENE_API_KEY?.trim() ? 'insee-sirene' : 'kimi',
+      },
+      createdAt: new Date().toISOString(),
+    });
+  }
+
+  // Optional second structured source if an INSEE key exists.
   if (env.INSEE_SIRENE_API_KEY?.trim()) {
     try {
       const sirene = await discoverViaSirene(env, db);
-      if (sirene.attempted) {
+      if (sirene.attempted && sirene.created.length > 0) {
         return {
           queued: false,
           provider: 'insee-sirene',
           created: sirene.created.length,
           scanned: sirene.scanned,
-          reason:
-            sirene.created.length > 0
-              ? 'Free INSEE Sirene discovery completed'
-              : 'INSEE Sirene page contained no new eligible prospects',
+          reason: 'Free INSEE Sirene discovery completed',
         };
       }
     } catch (error) {
@@ -668,7 +794,8 @@ async function enqueueDiscoveryIfNeeded(
   }
 
   const location = env.MAGICSCRIPT_TARGET_LOCATION?.trim() || 'Martinique';
-  const limit = Number.parseInt(env.MAGICSCRIPT_DISCOVERY_BATCH_SIZE ?? '20', 10) || 20;
+  const limit =
+    Number.parseInt(env.MAGICSCRIPT_DISCOVERY_BATCH_SIZE ?? '20', 10) || 20;
   const queue = new D1JobQueue(db);
   const job = await queue.enqueue({
     id: crypto.randomUUID(),
@@ -2754,6 +2881,13 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
     return json({
       period,
+      rechercheEntreprises: {
+        configured: true,
+        authRequired: false,
+        monetaryCost: 0,
+        documentedRateLimitPerSecond: 7,
+        purpose: 'primary_business_discovery',
+      },
       sirene: {
         configured: Boolean(env.INSEE_SIRENE_API_KEY),
         cost: 'free',

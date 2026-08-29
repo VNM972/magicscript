@@ -21,3 +21,4 @@ export * from './persistence/d1-job-queue';
 export * from './providers/hunter';
 
 export * from './providers/insee-sirene';
+export * from './providers/recherche-entreprises';

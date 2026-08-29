@@ -50,6 +50,13 @@ export interface Runner {
 
 export interface ProviderUsage {
   period: string;
+  rechercheEntreprises: {
+    configured: boolean;
+    authRequired: boolean;
+    monetaryCost: number;
+    documentedRateLimitPerSecond: number;
+    purpose: string;
+  };
   sirene: {
     configured: boolean;
     cost: string;

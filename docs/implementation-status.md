@@ -47,7 +47,7 @@ GitHub Actions now runs:
 - agent runner typecheck
 - Control Center production build
 
-A complete CI run passed after the first TypeScript regressions were corrected. New commits continue to run through the same workflow.
+Automatic CI runs are currently disabled during active development to prevent notification storms. The latest automatic run passed all 15 core tests and then failed API typecheck on two missing SIRENE helper imports. Those imports have been corrected. A post-fix full CI run has not yet been executed; the workflow remains available through manual dispatch.
 
 ### Control plane
 
@@ -98,6 +98,23 @@ Supported agent jobs:
 - RUN_PROTOTYPE_QA
 - DEPLOY_PROTOTYPE
 - SEND_EMAIL / SEND_FOLLOW_UP / SEND_DEMO_LINK through the configured transport
+
+### API Recherche d’entreprises — primary free discovery
+
+The primary structured discovery source is now the French government API Recherche d’entreprises.
+
+It is used before SIRENE and Kimi because it:
+
+- is officially published through data.gouv / Annuaire des Entreprises;
+- requires no API key or account;
+- has zero monetary API cost;
+- supports department and activity-section filters;
+- has a documented maximum of 7 requests/second per IP, while Magic Script uses only one paginated request per discovery cycle;
+- persists the next Martinique page in D1 so discovery progresses instead of repeatedly scanning page 1.
+
+Magic Script currently queries active Martinique businesses in sections F, G, I, L, M, N, R and S, then sends new candidates through the existing research/scoring funnel.
+
+If the public directory API is unavailable or yields no new prospects, Magic Script falls back to optional SIRENE and then the Kimi discovery swarm.
 
 ### INSEE SIRENE discovery
 
