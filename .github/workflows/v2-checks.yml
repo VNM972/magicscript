@@ -3,7 +3,7 @@ name: Magic Script V2 checks
 on:
   push:
     branches:
-      - ci-check
+      - free-api-ci-check
   workflow_dispatch:
 
 permissions:
