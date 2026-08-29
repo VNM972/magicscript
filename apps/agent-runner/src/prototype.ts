@@ -6,6 +6,8 @@ export interface PrototypeBuildCheck {
   passed: boolean;
   output: string;
   filesCreated: number;
+  staticOutputReady: boolean;
+  outputDir?: string;
 }
 
 async function runCommand(
@@ -96,14 +98,29 @@ export async function verifyPrototypeBuild(
       passed: false,
       output: `npm install failed\n${install.output}`.slice(-120_000),
       filesCreated: await countProjectFiles(cwd),
+      staticOutputReady: false,
     };
   }
 
   const build = await runCommand(npm, ['run', 'build'], cwd, 12 * 60_000);
+  const outputDir = join(cwd, 'out');
+
+  let staticOutputReady = false;
+  try {
+    staticOutputReady = (await stat(outputDir)).isDirectory();
+  } catch {
+    staticOutputReady = false;
+  }
+
+  const deployCheck = staticOutputReady
+    ? '\n\n--- STATIC OUTPUT ---\nout/ is ready for Cloudflare Pages.'
+    : '\n\n--- STATIC OUTPUT ---\nout/ is missing. Configure the prototype for static export.';
 
   return {
-    passed: build.code === 0,
-    output: `${install.output}\n\n--- BUILD ---\n${build.output}`.slice(-120_000),
+    passed: build.code === 0 && staticOutputReady,
+    output: `${install.output}\n\n--- BUILD ---\n${build.output}${deployCheck}`.slice(-120_000),
     filesCreated: await countProjectFiles(cwd),
+    staticOutputReady,
+    outputDir: staticOutputReady ? outputDir : undefined,
   };
 }
