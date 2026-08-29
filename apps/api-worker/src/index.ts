@@ -1001,6 +1001,51 @@ async function processClassificationResult(
   };
 }
 
+function utcDayStart(date = new Date()): string {
+  const start = new Date(date);
+  start.setUTCHours(0, 0, 0, 0);
+  return start.toISOString();
+}
+
+async function sendCapacity(
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ limit: number; sent: number; inFlight: number; available: number }> {
+  const limit = Math.max(0, configFromEnv(env).dailySendLimit);
+  const since = utcDayStart();
+
+  const sentRow = await db
+    .prepare(
+      `SELECT COUNT(*) AS count
+       FROM outreach_messages
+       WHERE status IN ('SENT', 'DRY_RUN')
+         AND sent_at >= ?`,
+    )
+    .bind(since)
+    .first<{ count: number }>();
+
+  const inFlightRow = await db
+    .prepare(
+      `SELECT COUNT(*) AS count
+       FROM jobs
+       WHERE kind IN ('SEND_EMAIL', 'SEND_FOLLOW_UP')
+         AND status = 'RUNNING'
+         AND claimed_at >= ?`,
+    )
+    .bind(since)
+    .first<{ count: number }>();
+
+  const sent = Number(sentRow?.count ?? 0);
+  const inFlight = Number(inFlightRow?.count ?? 0);
+
+  return {
+    limit,
+    sent,
+    inFlight,
+    available: Math.max(0, limit - sent - inFlight),
+  };
+}
+
 function addDays(date: Date, days: number): Date {
   return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
 }
