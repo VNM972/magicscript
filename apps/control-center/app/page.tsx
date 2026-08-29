@@ -1,37 +1,30 @@
-const stats = [
-  ['Prospects découverts', '91'],
-  ['Qualifiés', '27'],
-  ['Emails envoyés', '18'],
-  ['Réponses', '5'],
-  ['Leads positifs', '2'],
-  ['Prototypes', '1'],
-];
+import { getControlCenterData } from '../lib/api';
 
-const agents = [
-  ['Discovery Swarm', 'RUNNING'],
-  ['Research Swarm', 'RUNNING'],
-  ['Scoring Agent', 'IDLE'],
-  ['Contact Discovery', 'RUNNING'],
-  ['Outreach Agent', 'RUNNING'],
-  ['Fact Check', 'IDLE'],
-  ['Response Classifier', 'WAITING'],
-  ['Prototype QA', 'WAITING'],
-];
+export const dynamic = 'force-dynamic';
 
-const actions = [
-  {
-    company: 'Martinique Clim',
-    type: 'PRICING_REQUESTED',
-    message: 'Pouvez-vous m’indiquer vos tarifs ?',
-  },
-  {
-    company: 'ABC Bâtiment',
-    type: 'MEETING_REQUESTED',
-    message: 'Disponible mardi pour en discuter ?',
-  },
-];
+function valueOrDash(value: number | undefined): string {
+  return typeof value === 'number' ? String(value) : '—';
+}
 
-export default function Page() {
+export default async function Page() {
+  const data = await getControlCenterData();
+  const overview = data.overview;
+
+  const stats = [
+    ['Prospects découverts', valueOrDash(overview?.prospects)],
+    ['Qualifiés', valueOrDash(overview?.qualified)],
+    ['Emails envoyés', valueOrDash(overview?.emailsSent)],
+    ['Réponses', valueOrDash(overview?.replies)],
+    ['Leads positifs', valueOrDash(overview?.hotLeads)],
+    ['Prototypes', valueOrDash(overview?.prototypes)],
+  ];
+
+  const statusLabel = !data.connected
+    ? 'BACKEND OFFLINE'
+    : data.health?.autopilotEnabled
+      ? 'AUTOPILOT RUNNING'
+      : 'AUTOPILOT SAFE MODE';
+
   return (
     <main className="shell">
       <header className="topbar">
@@ -41,9 +34,18 @@ export default function Page() {
         </div>
         <div className="autopilot">
           <span className="pulse" />
-          AUTOPILOT RUNNING
+          {statusLabel}
         </div>
       </header>
+
+      {data.error ? (
+        <section className="panel" style={{ marginBottom: 12 }}>
+          <p className="eyebrow">SYSTEM STATUS</p>
+          <p className="muted" style={{ marginBottom: 0 }}>
+            {data.error}
+          </p>
+        </section>
+      ) : null}
 
       <section className="stats">
         {stats.map(([label, value]) => (
@@ -61,7 +63,11 @@ export default function Page() {
               <p className="eyebrow">SWARM</p>
               <h2>Operations map</h2>
             </div>
-            <span className="muted">Live event layer à connecter</span>
+            <span className="muted">
+              {data.connected && data.health?.databaseConfigured
+                ? 'Live backend connected'
+                : 'Waiting for backend data'}
+            </span>
           </div>
 
           <div className="swarmMap">
@@ -86,17 +92,29 @@ export default function Page() {
         <article className="panel">
           <div className="panelTitle">
             <div>
-              <p className="eyebrow">AGENTS</p>
-              <h2>Workers</h2>
+              <p className="eyebrow">WORKERS</p>
+              <h2>Active jobs</h2>
             </div>
+            <span className="count">{data.runningJobs.length}</span>
           </div>
+
           <div className="agentList">
-            {agents.map(([name, status]) => (
-              <div className="agentRow" key={name}>
-                <span>{name}</span>
-                <span className={`badge ${status.toLowerCase()}`}>{status}</span>
+            {data.runningJobs.length === 0 ? (
+              <div className="agentRow">
+                <span>Aucun job actif</span>
+                <span className="badge waiting">WAITING</span>
               </div>
-            ))}
+            ) : (
+              data.runningJobs.map((job) => (
+                <div className="agentRow" key={job.id}>
+                  <span>
+                    {job.kind}
+                    {job.prospectId ? ` · ${job.prospectId}` : ''}
+                  </span>
+                  <span className="badge running">RUNNING</span>
+                </div>
+              ))
+            )}
           </div>
         </article>
       </section>
@@ -107,18 +125,39 @@ export default function Page() {
             <p className="eyebrow">ACTION REQUIRED</p>
             <h2>Seulement quand ça mord</h2>
           </div>
-          <span className="count">{actions.length}</span>
+          <span className="count">
+            {overview ? overview.actionsRequired : data.escalations.length}
+          </span>
         </div>
 
-        <div className="actionGrid">
-          {actions.map((action) => (
-            <article className="leadCard" key={action.company}>
-              <span className="leadType">{action.type}</span>
-              <h3>{action.company}</h3>
-              <p>“{action.message}”</p>
-              <button type="button">Ouvrir le lead</button>
-            </article>
-          ))}
+        {data.escalations.length === 0 ? (
+          <p className="muted" style={{ marginBottom: 0 }}>
+            Aucune intervention humaine requise.
+          </p>
+        ) : (
+          <div className="actionGrid">
+            {data.escalations.map((action) => (
+              <article className="leadCard" key={action.id}>
+                <span className="leadType">{action.category}</span>
+                <h3>{action.prospect_id}</h3>
+                <p>{action.summary}</p>
+                <button type="button">Ouvrir le lead</button>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section className="panel" style={{ marginTop: 12 }}>
+        <div className="panelTitle" style={{ marginBottom: 0 }}>
+          <div>
+            <p className="eyebrow">SAFETY</p>
+            <h2>Outbound switches</h2>
+          </div>
+          <span className="muted">
+            Email sending: {data.health?.sendingEnabled ? 'ENABLED' : 'DISABLED'} · Prototype deploy:{' '}
+            {data.health?.prototypeDeployEnabled ? 'ENABLED' : 'DISABLED'}
+          </span>
         </div>
       </section>
     </main>
