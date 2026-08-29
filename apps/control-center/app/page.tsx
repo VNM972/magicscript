@@ -1,3 +1,4 @@
+import LiveRefresh from '../components/LiveRefresh';
 import { getControlCenterData } from '../lib/api';
 
 export const dynamic = 'force-dynamic';
@@ -57,6 +58,7 @@ export default async function Page() {
 
   return (
     <main className="shell">
+      <LiveRefresh intervalMs={5000} />
       <header className="topbar">
         <div>
           <p className="eyebrow">MAGIC SCRIPT V2</p>
