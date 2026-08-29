@@ -1101,7 +1101,15 @@ async function handle(request: Request, env: Env): Promise<Response> {
     const db = requireDb(env);
     const queue = new D1JobQueue(db);
     const runnerId = request.headers.get('x-magicscript-runner-id')?.trim() || undefined;
-    const job = await queue.next(new Date(), runnerId);
+    const runnerKinds: MagicScriptJob['kind'][] = [
+      'DISCOVER_PROSPECTS',
+      'RUN_RESEARCH_SWARM',
+      'DISCOVER_CONTACT',
+      'GENERATE_OUTREACH',
+      'FACT_CHECK_OUTREACH',
+      'CLASSIFY_REPLY',
+    ];
+    const job = await queue.next(new Date(), runnerId, runnerKinds);
 
     if (!job) {
       return new Response(null, { status: 204 });
