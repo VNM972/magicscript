@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx src/index.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "email:check": "tsx src/email/check.ts"
   },
   "devDependencies": {
     "@types/node": "^26.2.0",
