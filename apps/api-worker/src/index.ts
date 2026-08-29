@@ -118,6 +118,23 @@ interface ClassificationResult {
   doNotContact?: boolean;
 }
 
+interface PrototypeBuildResult {
+  workDir: string;
+  buildPassed: boolean;
+  agentSummary?: string;
+  buildOutput?: string;
+  filesCreated?: number;
+}
+
+interface PrototypeQaResult {
+  pass: boolean;
+  safeForOutreach: boolean;
+  blockingFindings: string[];
+  warnings?: string[];
+  recommendedFixes?: string[];
+  technicalBuildPassed?: boolean;
+}
+
 function json(data: unknown, init: ResponseInit = {}): Response {
   const headers = new Headers(init.headers);
   headers.set('content-type', 'application/json; charset=utf-8');
@@ -1584,6 +1601,248 @@ async function processExternalSendResult(
   };
 }
 
+async function processPrototypeBuildResult(
+  job: MagicScriptJob,
+  result: PrototypeBuildResult,
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ prospectId: string; prototypeId: string }> {
+  if (!job.prospectId) throw new Error('BUILD_PROTOTYPE job has no prospectId');
+  if (!result.workDir?.trim()) throw new Error('Prototype builder returned no workDir');
+  if (result.buildPassed !== true) {
+    throw new Error(
+      `Prototype build failed: ${result.buildOutput?.slice(-2000) || 'no build output'}`,
+    );
+  }
+
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(job.prospectId);
+  if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
+
+  const existing = await db
+    .prepare(
+      `SELECT id FROM prototypes
+       WHERE prospect_id = ?
+       ORDER BY updated_at DESC
+       LIMIT 1`,
+    )
+    .bind(job.prospectId)
+    .first<{ id: string }>();
+
+  const now = new Date().toISOString();
+  const prototypeId = existing?.id ?? crypto.randomUUID();
+
+  if (existing) {
+    await db
+      .prepare(
+        `UPDATE prototypes
+         SET repo_path = ?,
+             runner_id = ?,
+             status = 'BUILT',
+             build_manifest_json = ?,
+             last_error = NULL,
+             updated_at = ?
+         WHERE id = ?`,
+      )
+      .bind(
+        result.workDir,
+        job.claimedBy ?? null,
+        JSON.stringify(result),
+        now,
+        prototypeId,
+      )
+      .run();
+  } else {
+    await db
+      .prepare(
+        `INSERT INTO prototypes (
+          id, prospect_id, repo_path, runner_id, deployment_url,
+          status, qa_status, build_manifest_json, qa_findings_json,
+          last_error, created_at, updated_at
+        ) VALUES (?, ?, ?, ?, NULL, 'BUILT', NULL, ?, NULL, NULL, ?, ?)`,
+      )
+      .bind(
+        prototypeId,
+        job.prospectId,
+        result.workDir,
+        job.claimedBy ?? null,
+        JSON.stringify(result),
+        now,
+        now,
+      )
+      .run();
+  }
+
+  const current = await repo.getProspect(job.prospectId);
+  if (current?.state === 'PROTOTYPE_BUILDING') {
+    await repo.transitionProspect(
+      current.id,
+      'PROTOTYPE_QA',
+      'Prototype build completed successfully',
+    );
+  }
+
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId: job.prospectId,
+    actor: 'prototype-agent',
+    type: 'prototype.built',
+    payload: {
+      prototypeId,
+      workDir: result.workDir,
+      runnerId: job.claimedBy ?? null,
+    },
+    createdAt: now,
+  });
+
+  if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+    await orchestrator(env, db).planProspect(job.prospectId);
+  }
+
+  return { prospectId: job.prospectId, prototypeId };
+}
+
+async function processPrototypeQaResult(
+  job: MagicScriptJob,
+  result: PrototypeQaResult,
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ prospectId: string; passed: boolean; escalated: boolean }> {
+  if (!job.prospectId) throw new Error('RUN_PROTOTYPE_QA job has no prospectId');
+
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(job.prospectId);
+  if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
+  if (prospect.state !== 'PROTOTYPE_QA') {
+    throw new Error(`Cannot process prototype QA while prospect is ${prospect.state}`);
+  }
+
+  const prototype = await db
+    .prepare(
+      `SELECT id FROM prototypes
+       WHERE prospect_id = ?
+       ORDER BY updated_at DESC
+       LIMIT 1`,
+    )
+    .bind(job.prospectId)
+    .first<{ id: string }>();
+
+  if (!prototype) throw new Error('Prototype row not found for QA result');
+
+  const passed =
+    result.pass === true &&
+    result.safeForOutreach === true &&
+    result.technicalBuildPassed !== false;
+  const now = new Date().toISOString();
+
+  if (passed) {
+    await db
+      .prepare(
+        `UPDATE prototypes
+         SET status = 'READY',
+             qa_status = 'PASS',
+             qa_findings_json = ?,
+             last_error = NULL,
+             updated_at = ?
+         WHERE id = ?`,
+      )
+      .bind(JSON.stringify(result), now, prototype.id)
+      .run();
+
+    await repo.transitionProspect(
+      prospect.id,
+      'PROTOTYPE_READY',
+      'Prototype passed fact, mobile, conversion and technical QA',
+    );
+
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'qa-agent',
+      type: 'prototype.qa_passed',
+      payload: { prototypeId: prototype.id },
+      createdAt: now,
+    });
+
+    return { prospectId: prospect.id, passed: true, escalated: false };
+  }
+
+  await db
+    .prepare(
+      `UPDATE prototypes
+       SET status = 'QA_FAILED',
+           qa_status = 'FAIL',
+           qa_findings_json = ?,
+           last_error = ?,
+           updated_at = ?
+       WHERE id = ?`,
+    )
+    .bind(
+      JSON.stringify(result),
+      (result.blockingFindings ?? []).join('; ').slice(0, 4000),
+      now,
+      prototype.id,
+    )
+    .run();
+
+  const priorQaRuns = await db
+    .prepare(
+      `SELECT COUNT(*) AS count
+       FROM jobs
+       WHERE prospect_id = ?
+         AND kind = 'RUN_PROTOTYPE_QA'
+         AND status = 'SUCCEEDED'`,
+    )
+    .bind(job.prospectId)
+    .first<{ count: number }>();
+
+  if (Number(priorQaRuns?.count ?? 0) >= 2) {
+    await repo.transitionProspect(
+      prospect.id,
+      'HUMAN_ACTION_REQUIRED',
+      'Prototype failed three automatic QA cycles',
+    );
+
+    await createEscalation(
+      db,
+      prospect.id,
+      'MANUAL_REVIEW_REQUIRED',
+      `Prototype QA remains blocked after automatic retries: ${(
+        result.blockingFindings ?? []
+      )
+        .join('; ')
+        .slice(0, 1500)}`,
+    );
+
+    return { prospectId: prospect.id, passed: false, escalated: true };
+  }
+
+  await repo.transitionProspect(
+    prospect.id,
+    'PROTOTYPE_BUILDING',
+    'Prototype QA failed; automatic correction cycle required',
+  );
+
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId: prospect.id,
+    actor: 'qa-agent',
+    type: 'prototype.qa_failed',
+    payload: {
+      prototypeId: prototype.id,
+      blockingFindings: result.blockingFindings ?? [],
+      recommendedFixes: result.recommendedFixes ?? [],
+    },
+    createdAt: now,
+  });
+
+  if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+    await orchestrator(env, db).planProspect(prospect.id);
+  }
+
+  return { prospectId: prospect.id, passed: false, escalated: false };
+}
+
 async function processRunnerSuccess(
   job: MagicScriptJob,
   output: unknown,
@@ -1627,6 +1886,14 @@ async function processRunnerSuccess(
 
   if (job.kind === 'SEND_EMAIL' || job.kind === 'SEND_FOLLOW_UP') {
     return processExternalSendResult(job, output as ExternalSendResult, db);
+  }
+
+  if (job.kind === 'BUILD_PROTOTYPE') {
+    return processPrototypeBuildResult(job, output as PrototypeBuildResult, env, db);
+  }
+
+  if (job.kind === 'RUN_PROTOTYPE_QA') {
+    return processPrototypeQaResult(job, output as PrototypeQaResult, env, db);
   }
 
   return { stored: true, processed: false };
