@@ -46,6 +46,7 @@ GitHub Actions now runs:
 - API Worker typecheck
 - agent runner typecheck
 - Control Center production build
+- Worker + local D1 structured-discovery smoke
 
 Automatic CI runs are disabled on `magic-script-v2` to prevent notification storms. Validation is deliberate: the workflow runs only on the dedicated `ci-check` branch or by manual dispatch. The first controlled validation run completed successfully: core tests, API Worker typecheck, runner typecheck and Control Center production build all passed. The workflow also performs a non-blocking live preflight against the free public business API.
 

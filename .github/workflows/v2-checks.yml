@@ -32,3 +32,27 @@ jobs:
 
       - name: Typecheck, tests and Control Center build
         run: npm run check
+
+      - name: Initialize local D1
+        run: npm run d1:local:init
+
+      - name: Worker + D1 structured discovery smoke
+        run: |
+          npm run dev:api:local > /tmp/magicscript-api.log 2>&1 &
+          API_PID=$!
+          trap 'kill $API_PID 2>/dev/null || true' EXIT
+
+          for i in $(seq 1 40); do
+            if curl --silent --fail http://127.0.0.1:8787/health > /dev/null; then
+              break
+            fi
+
+            if [ "$i" -eq 40 ]; then
+              cat /tmp/magicscript-api.log
+              exit 1
+            fi
+
+            sleep 0.5
+          done
+
+          npm run smoke:worker

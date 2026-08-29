@@ -121,3 +121,22 @@ npm run check:free-api
 This performs a read-only request for active Martinique businesses.
 
 It requires no Hunter key, no INSEE key, no mailbox password and sends no email.
+
+
+## Worker + D1 CI smoke
+
+The controlled validation branch also runs the Cloudflare Worker against Wrangler local D1 without a Kimi runner.
+
+It verifies:
+
+```text
+free public directory
+→ Worker
+→ local D1
+→ prospect creation
+→ Research Swarm job queued
+```
+
+This test needs no Hunter key, no mailbox credentials and no paid API.
+
+The local Worker transport remains `dry-run`, so external email delivery is impossible during this smoke.
