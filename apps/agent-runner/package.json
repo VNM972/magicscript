@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsx src/index.ts",
     "typecheck": "tsc --noEmit",
-    "email:check": "tsx src/email/check.ts"
+    "email:check": "tsx src/email/check.ts",
+    "email:test-send": "tsx src/email/test-send.ts"
   },
   "devDependencies": {
     "@types/node": "^26.2.0",
