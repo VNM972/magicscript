@@ -50,7 +50,31 @@ export class MagicScriptApi {
   constructor(
     private readonly baseUrl: string,
     private readonly token: string,
+    private readonly runnerId: string,
   ) {}
+
+
+  async heartbeat(input: {
+    hostname: string;
+    status: 'IDLE' | 'BUSY' | 'ERROR';
+    version: string;
+    currentJobId?: string | null;
+  }): Promise<void> {
+    const response = await fetch(`${this.baseUrl}/api/runner/heartbeat`, {
+      method: 'POST',
+      headers: this.headers(),
+      body: JSON.stringify({
+        runnerId: this.runnerId,
+        ...input,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Heartbeat failed ${response.status}: ${await response.text()}`,
+      );
+    }
+  }
 
   async claim(): Promise<ClaimedJob | null> {
     const response = await fetch(`${this.baseUrl}/api/runner/jobs/claim`, {
@@ -101,6 +125,7 @@ export class MagicScriptApi {
       'content-type': 'application/json',
     });
     headers.set('authorization', `Bearer ${this.token}`);
+    headers.set('x-magicscript-runner-id', this.runnerId);
     return headers;
   }
 }
