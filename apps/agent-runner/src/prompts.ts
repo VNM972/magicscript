@@ -8,7 +8,7 @@ If a fact cannot be verified, omit it or lower confidence.
 `;
 
 export function buildPrompt(claim: ClaimedJob): string {
-  const { job, prospect, contacts, outreachDraft, researchContext } = claim;
+  const { job, prospect, contacts, outreachDraft, researchContext, latestReply } = claim;
 
   switch (job.kind) {
     case 'DISCOVER_PROSPECTS': {
@@ -205,6 +205,53 @@ Required schema:
   "approved": true,
   "confidence": 0,
   "reasons": ["string"]
+}
+
+${JSON_ONLY}
+`;
+    }
+
+    case 'CLASSIFY_REPLY': {
+      if (!prospect) throw new Error('Reply classification job missing prospect context');
+      if (!latestReply) throw new Error('Reply classification job missing reply context');
+
+      return `
+You are the Magic Script B2B Response Classifier.
+
+Prospect:
+${JSON.stringify(prospect, null, 2)}
+
+Latest reply:
+${JSON.stringify(latestReply, null, 2)}
+
+Classify the reply conservatively.
+
+Allowed classifications:
+- NO_INTEREST
+- AUTO_REPLY
+- INFORMATION_REQUEST
+- POSITIVE_INTEREST
+- PRICING_REQUESTED
+- MEETING_REQUESTED
+- CUSTOM_REQUEST
+- COMPLAINT_OR_LEGAL
+
+Rules:
+- do not treat ambiguity as positive interest;
+- a direct request to stop future contact must set doNotContact=true;
+- a polite refusal is NO_INTEREST;
+- a request to see the demo or know more is POSITIVE_INTEREST;
+- a price question is PRICING_REQUESTED;
+- a calendar/call request is MEETING_REQUESTED;
+- a substantive requested change is CUSTOM_REQUEST;
+- threats, legal objections, privacy complaints or reputational complaints are COMPLAINT_OR_LEGAL.
+
+Required schema:
+{
+  "classification": "NO_INTEREST|AUTO_REPLY|INFORMATION_REQUEST|POSITIVE_INTEREST|PRICING_REQUESTED|MEETING_REQUESTED|CUSTOM_REQUEST|COMPLAINT_OR_LEGAL",
+  "confidence": 0,
+  "summary": "short factual summary",
+  "doNotContact": false
 }
 
 ${JSON_ONLY}
