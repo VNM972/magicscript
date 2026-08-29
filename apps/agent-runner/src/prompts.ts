@@ -8,7 +8,15 @@ If a fact cannot be verified, omit it or lower confidence.
 `;
 
 export function buildPrompt(claim: ClaimedJob): string {
-  const { job, prospect, contacts, outreachDraft, researchContext, latestReply } = claim;
+  const {
+    job,
+    prospect,
+    contacts,
+    outreachDraft,
+    researchContext,
+    latestReply,
+    prototypeContext,
+  } = claim;
 
   switch (job.kind) {
     case 'DISCOVER_PROSPECTS': {
@@ -252,6 +260,129 @@ Required schema:
   "confidence": 0,
   "summary": "short factual summary",
   "doNotContact": false
+}
+
+${JSON_ONLY}
+`;
+    }
+
+    case 'BUILD_PROTOTYPE': {
+      if (!prospect) throw new Error('Prototype build job missing prospect context');
+
+      const qaFindings = prototypeContext?.qa_findings_json
+        ? (() => {
+            try {
+              return JSON.parse(prototypeContext.qa_findings_json);
+            } catch {
+              return prototypeContext.qa_findings_json;
+            }
+          })()
+        : null;
+
+      return `
+You are the Magic Script Prototype Coding Agent.
+
+You are working directly inside the prototype working directory.
+Your job is to CREATE or CORRECT the actual website files in the current directory.
+
+Prospect:
+${JSON.stringify(prospect, null, 2)}
+
+Verified research:
+${JSON.stringify(researchContext ?? null, null, 2)}
+
+Existing prototype context:
+${JSON.stringify(prototypeContext ?? null, null, 2)}
+
+Previous QA findings to correct:
+${JSON.stringify(qaFindings, null, 2)}
+
+Mandatory rules:
+- read the existing files first if the directory is not empty;
+- if this is a correction cycle, improve the existing prototype instead of rebuilding randomly;
+- use only prospect facts supported by the verified research;
+- never invent services, prices, certifications, addresses, opening hours, guarantees or customer claims;
+- every section must solve a commercial or credibility problem;
+- make the main commercial asset obvious in the hero;
+- use one clear primary CTA;
+- mobile-first, with particular attention to approximately 390px width;
+- no fake booking, payment, form submission or other connected functionality;
+- if a demonstration feature is not connected, present it clearly as a demo;
+- prefer Next.js + React + TypeScript;
+- keep dependencies minimal;
+- prioritize conversion, credibility, accessibility and performance over decorative animation;
+- create a package.json with a working build script;
+- do not touch files outside the current working directory.
+
+You may use parallel sub-agents for analysis or review, but only ONE coding agent may modify the prototype files.
+
+Before finishing, inspect your own work and fix obvious TypeScript, routing, mobile, CTA and factual issues.
+
+Final response schema:
+{
+  "summary": "short description of what was created or corrected",
+  "filesTouched": ["relative/path"],
+  "factsUsed": ["verified fact"],
+  "qaIssuesAddressed": ["issue"],
+  "readyForDeterministicBuild": true
+}
+
+The source files you create are the primary output.
+${JSON_ONLY}
+`;
+    }
+
+    case 'RUN_PROTOTYPE_QA': {
+      if (!prospect) throw new Error('Prototype QA job missing prospect context');
+      if (!prototypeContext) throw new Error('Prototype QA job missing prototype context');
+
+      return `
+You are the Magic Script Prototype QA Swarm.
+
+The prototype already exists in the CURRENT WORKING DIRECTORY.
+DO NOT modify any file.
+Inspect only.
+
+Prospect:
+${JSON.stringify(prospect, null, 2)}
+
+Verified research:
+${JSON.stringify(researchContext ?? null, null, 2)}
+
+Prototype context:
+${JSON.stringify(prototypeContext, null, 2)}
+
+Use AgentSwarm to review in parallel:
+
+1. FACT CHECKER
+Compare every concrete business claim in the prototype with the verified research.
+Any invented service, price, address, certification, opening hour, result or promise is BLOCKING.
+
+2. MOBILE / UX CHECKER
+Review the source and responsive rules with approximately 390px mobile width as the primary reference.
+Look for overflow, illegible hierarchy, unusable CTA placement and broken navigation.
+
+3. CONVERSION CHECKER
+Verify that:
+- the prospect's strongest real asset is visible;
+- the primary digital friction is actually addressed;
+- the primary CTA is clear;
+- the page is commercially coherent rather than generic filler.
+
+4. TECHNICAL CHECKER
+Inspect routes, links, forms, demo behavior, TypeScript and build configuration.
+You may run read-only checks and build commands.
+Do not edit files.
+
+Be strict. Warnings are allowed, but factual invention, broken build, misleading demo behavior, unusable mobile layout or missing core CTA are blockers.
+
+Required schema:
+{
+  "pass": true,
+  "safeForOutreach": true,
+  "blockingFindings": [],
+  "warnings": ["string"],
+  "recommendedFixes": ["string"]
 }
 
 ${JSON_ONLY}
