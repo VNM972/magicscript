@@ -1876,7 +1876,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
     const config = configFromEnv(env);
     if (config.sendingEnabled && config.emailProvider === 'amen-smtp') {
-      runnerKinds.push('SEND_EMAIL');
+      runnerKinds.push('SEND_EMAIL', 'SEND_FOLLOW_UP');
     }
     const job = await queue.next(new Date(), runnerId, runnerKinds);
 
@@ -1893,12 +1893,33 @@ async function handle(request: Request, env: Env): Promise<Response> {
       ? await db
           .prepare(
             job.kind === 'SEND_EMAIL'
-              ? "SELECT id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
-              : "SELECT id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
+              ? "SELECT id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND kind = 'INITIAL' AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
+              : job.kind === 'SEND_FOLLOW_UP'
+                ? "SELECT id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND kind = 'FOLLOW_UP' AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
+                : "SELECT id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
           )
           .bind(job.prospectId)
           .first<Record<string, unknown>>()
       : null;
+
+    const threadParentMessageId =
+      job.prospectId && job.kind === 'SEND_FOLLOW_UP'
+        ? (
+            await db
+              .prepare(
+                `SELECT provider_message_id
+                 FROM outreach_messages
+                 WHERE prospect_id = ?
+                   AND sent_at IS NOT NULL
+                   AND provider_message_id IS NOT NULL
+                   AND status IN ('SENT', 'DRY_RUN')
+                 ORDER BY sent_at DESC
+                 LIMIT 1`,
+              )
+              .bind(job.prospectId)
+              .first<{ provider_message_id: string }>()
+          )?.provider_message_id ?? null
+        : null;
 
     const researchRow = job.prospectId
       ? await db
@@ -1936,6 +1957,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
       outreachDraft,
       researchContext,
       latestReply,
+      threadParentMessageId,
     });
   }
 
