@@ -1,5 +1,5 @@
 import { mkdir } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
+import { hostname, tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
 import { MagicScriptApi } from './api';
@@ -16,6 +16,11 @@ const swarmMaxConcurrency =
 const runnerRoot = resolve(
   process.env.MAGICSCRIPT_RUNNER_WORK_DIR || join(tmpdir(), 'magicscript-runner'),
 );
+const runnerHostname = hostname();
+const runnerId =
+  process.env.MAGICSCRIPT_RUNNER_ID?.trim() ||
+  `${runnerHostname}-${process.pid}`;
+const runnerVersion = '0.2.0';
 
 if (!baseUrl) {
   throw new Error('MAGICSCRIPT_API_BASE_URL is required');
@@ -25,7 +30,24 @@ if (!runnerToken) {
   throw new Error('MAGICSCRIPT_RUNNER_TOKEN is required');
 }
 
-const api = new MagicScriptApi(baseUrl, runnerToken);
+const api = new MagicScriptApi(baseUrl, runnerToken, runnerId);
+
+async function heartbeat(
+  status: 'IDLE' | 'BUSY' | 'ERROR',
+  currentJobId?: string | null,
+): Promise<void> {
+  try {
+    await api.heartbeat({
+      hostname: runnerHostname,
+      status,
+      version: runnerVersion,
+      currentJobId: currentJobId ?? null,
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    process.stderr.write(`Heartbeat warning: ${message}\n`);
+  }
+}
 
 async function sleep(ms: number): Promise<void> {
   await new Promise((resolvePromise) => setTimeout(resolvePromise, ms));
@@ -37,6 +59,11 @@ async function runOne(): Promise<boolean> {
 
   const jobDir = join(runnerRoot, claim.job.id);
   await mkdir(jobDir, { recursive: true });
+  await heartbeat('BUSY', claim.job.id);
+
+  const heartbeatTimer = setInterval(() => {
+    void heartbeat('BUSY', claim.job.id);
+  }, 15_000);
 
   try {
     const prompt = buildPrompt(claim);
@@ -52,6 +79,9 @@ async function runOne(): Promise<boolean> {
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     await api.fail(claim.job.id, message);
+  } finally {
+    clearInterval(heartbeatTimer);
+    await heartbeat('IDLE', null);
   }
 
   return true;
@@ -60,16 +90,21 @@ async function runOne(): Promise<boolean> {
 async function main(): Promise<void> {
   await mkdir(runnerRoot, { recursive: true });
   process.stdout.write(
-    `Magic Script runner started. API=${baseUrl} workDir=${runnerRoot}\n`,
+    `Magic Script runner started. id=${runnerId} API=${baseUrl} workDir=${runnerRoot}\n`,
   );
+  await heartbeat('IDLE', null);
 
   for (;;) {
     try {
       const worked = await runOne();
-      if (!worked) await sleep(pollIntervalMs);
+      if (!worked) {
+        await heartbeat('IDLE', null);
+        await sleep(pollIntervalMs);
+      }
     } catch (error) {
       const message = error instanceof Error ? error.stack ?? error.message : String(error);
       process.stderr.write(`Runner loop error: ${message}\n`);
+      await heartbeat('ERROR', null);
       await sleep(Math.max(pollIntervalMs, 10_000));
     }
   }
