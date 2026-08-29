@@ -1213,17 +1213,23 @@ async function scheduleDueFollowUps(
   return { scheduled, skipped };
 }
 
-async function processSendEmailJob(
+async function processDryRunSendJob(
   job: MagicScriptJob,
   env: Env,
   db: D1DatabaseLike,
 ): Promise<Record<string, unknown>> {
-  if (!job.prospectId) throw new Error('SEND_EMAIL job has no prospectId');
+  if (!job.prospectId) throw new Error(`${job.kind} job has no prospectId`);
+
+  if (job.kind !== 'SEND_EMAIL' && job.kind !== 'SEND_FOLLOW_UP') {
+    throw new Error(`Unsupported dry-run send job: ${job.kind}`);
+  }
 
   const config = configFromEnv(env);
   if (!config.sendingEnabled) {
     throw new Error('Email sending is disabled');
   }
+
+  const messageKind = job.kind === 'SEND_EMAIL' ? 'INITIAL' : 'FOLLOW_UP';
 
   const message = await db
     .prepare(
@@ -1236,13 +1242,14 @@ async function processSendEmailJob(
        FROM outreach_messages om
        JOIN contacts c ON c.id = om.contact_id
        WHERE om.prospect_id = ?
+         AND om.kind = ?
          AND om.status = 'VERIFIED'
          AND c.is_validated = 1
          AND c.is_suppressed = 0
        ORDER BY om.created_at DESC
        LIMIT 1`,
     )
-    .bind(job.prospectId)
+    .bind(job.prospectId, messageKind)
     .first<{
       id: string;
       subject: string | null;
@@ -1252,7 +1259,7 @@ async function processSendEmailJob(
     }>();
 
   if (!message) {
-    throw new Error('No verified outreach message with a valid contact');
+    throw new Error(`No verified ${messageKind} message with a valid contact`);
   }
 
   const suppressed = await db
@@ -1266,7 +1273,7 @@ async function processSendEmailJob(
 
   if (config.emailProvider !== 'dry-run') {
     throw new Error(
-      `Email provider "${config.emailProvider}" is not wired yet; real sending remains blocked`,
+      `Email provider "${config.emailProvider}" is not configured for deterministic dry-run sending`,
     );
   }
 
@@ -1289,20 +1296,42 @@ async function processSendEmailJob(
   const prospect = await repo.getProspect(job.prospectId);
   if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
 
-  if (prospect.state === 'OUTREACH_VERIFIED') {
-    await repo.transitionProspect(prospect.id, 'EMAIL_SENT', 'Dry-run email accepted by safe provider');
-    await repo.transitionProspect(prospect.id, 'WAITING_REPLY', 'Dry-run email moved to waiting state');
+  if (job.kind === 'SEND_EMAIL' && prospect.state === 'OUTREACH_VERIFIED') {
+    await repo.transitionProspect(
+      prospect.id,
+      'EMAIL_SENT',
+      'Dry-run email accepted by safe provider',
+    );
+    await repo.transitionProspect(
+      prospect.id,
+      'WAITING_REPLY',
+      'Dry-run email moved to waiting state',
+    );
+  }
+
+  if (job.kind === 'SEND_FOLLOW_UP' && prospect.state === 'FOLLOW_UP_DUE') {
+    await repo.transitionProspect(
+      prospect.id,
+      'FOLLOW_UP_SENT',
+      'Dry-run follow-up accepted by safe provider',
+    );
+    await repo.transitionProspect(
+      prospect.id,
+      'WAITING_REPLY',
+      'Dry-run follow-up moved to waiting state',
+    );
   }
 
   await new D1EventStore(db).append({
     id: crypto.randomUUID(),
     prospectId: prospect.id,
     actor: 'system',
-    type: 'email.dry_run',
+    type: job.kind === 'SEND_EMAIL' ? 'email.dry_run' : 'followup.dry_run',
     payload: {
       messageId: message.id,
       providerMessageId,
       recipient: message.email,
+      kind: messageKind,
     },
     createdAt: now,
   });
@@ -1312,6 +1341,7 @@ async function processSendEmailJob(
     providerMessageId,
     recipient: message.email,
     deliveredExternally: false,
+    kind: messageKind,
   };
 }
 
