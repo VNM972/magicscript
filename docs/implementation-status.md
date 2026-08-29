@@ -150,6 +150,19 @@ The Hunter fallback:
 
 Hunter is not used for sending.
 
+### Controlled test-email sink
+
+A dedicated SMTP test-sink mode is implemented for end-to-end mailbox validation.
+
+When `MAGICSCRIPT_TEST_EMAIL_MODE=true`:
+- the runner ignores the prospect address for delivery;
+- every outbound message is routed to `MAGICSCRIPT_TEST_RECIPIENT`;
+- the original prospect address remains metadata only;
+- D1 records the send as `TEST_SENT`, not a commercial `SENT`;
+- reply correlation can still be exercised from the controlled inbox.
+
+This lets Magic Script validate the real Amen SMTP/IMAP loop without contacting prospects.
+
 ### Email transport
 
 Two paths exist:
@@ -218,6 +231,9 @@ The dashboard now reads real backend data for:
 - outreach/follow-up limits
 - prototype build / QA status
 - safety switches
+- live event stream
+- dynamic Swarm nodes driven by active jobs and prospect states
+- explicit TEST SINK / DRY RUN safety state
 
 ### Local first-run tooling
 
