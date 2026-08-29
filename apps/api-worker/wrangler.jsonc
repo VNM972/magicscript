@@ -12,6 +12,8 @@
     "MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED": "false",
     "MAGICSCRIPT_DAILY_SEND_LIMIT": "10",
     "MAGICSCRIPT_MAX_FOLLOWUPS": "2",
+    "MAGICSCRIPT_FOLLOWUP_1_DAYS": "3",
+    "MAGICSCRIPT_FOLLOWUP_2_DAYS": "5",
     "MAGICSCRIPT_MIN_CONTACT_CONFIDENCE": "80",
     "MAGICSCRIPT_MIN_OUTREACH_CONFIDENCE": "85",
     "MAGICSCRIPT_AUTO_PROTOTYPE_SCORE": "85",
@@ -24,13 +26,8 @@
     "HUNTER_MONTHLY_CREDIT_BUDGET": "40"
   }
 
-  // Secret required only for Hunter fallback:\n  //   wrangler secret put HUNTER_API_KEY\n  //\n  // Add a D1 binding only after a development database has been created:
+  // Secret required only for Hunter fallback:
+  //   wrangler secret put HUNTER_API_KEY
   //
-  // "d1_databases": [
-  //   {
-  //     "binding": "DB",
-  //     "database_name": "magicscript-dev",
-  //     "database_id": "REPLACE_WITH_DATABASE_ID"
-  //   }
-  // ]
+  // Add a D1 binding only after a development database has been created.
 }
