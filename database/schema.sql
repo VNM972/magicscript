@@ -122,6 +122,7 @@ CREATE TABLE IF NOT EXISTS replies (
   prospect_id TEXT NOT NULL,
   contact_id TEXT,
   provider_message_id TEXT,
+  from_email TEXT,
   raw_text TEXT NOT NULL,
   classification TEXT,
   confidence INTEGER,
@@ -130,6 +131,9 @@ CREATE TABLE IF NOT EXISTS replies (
   FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE,
   FOREIGN KEY (contact_id) REFERENCES contacts(id) ON DELETE SET NULL
 );
+
+CREATE INDEX IF NOT EXISTS idx_replies_provider_message
+  ON replies(provider_message_id);
 
 CREATE TABLE IF NOT EXISTS suppression_list (
   email TEXT PRIMARY KEY,
