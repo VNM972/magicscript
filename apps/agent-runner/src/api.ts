@@ -44,6 +44,12 @@ export interface ClaimedJob {
     confidence?: number;
   } | null;
   researchContext?: Record<string, unknown> | null;
+  latestReply?: {
+    id: string;
+    raw_text: string;
+    received_at: string;
+    from_email?: string;
+  } | null;
 }
 
 export class MagicScriptApi {
