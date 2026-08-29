@@ -2245,6 +2245,8 @@ async function processExternalSendResult(
       provider: result.provider,
       providerMessageId: result.providerMessageId,
       recipient: result.recipient,
+      originalRecipient: result.originalRecipient ?? null,
+      testMode: result.testMode === true,
       accepted: result.accepted ?? [],
       rejected: result.rejected ?? [],
       kind: messageKind,
