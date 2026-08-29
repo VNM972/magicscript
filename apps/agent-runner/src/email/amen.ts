@@ -17,6 +17,8 @@ export interface AmenSendInput {
   to: string;
   subject: string;
   text: string;
+  inReplyTo?: string;
+  references?: string[];
 }
 
 export interface AmenSendResult {
@@ -69,6 +71,8 @@ export async function sendAmenEmail(
     to: input.to,
     subject: input.subject,
     text: input.text,
+    inReplyTo: input.inReplyTo,
+    references: input.references,
   });
 
   transport.close();
