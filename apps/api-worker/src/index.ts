@@ -1001,6 +1001,218 @@ async function processClassificationResult(
   };
 }
 
+function addDays(date: Date, days: number): Date {
+  return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
+}
+
+function followUpBody(sequence: number): string {
+  if (sequence <= 1) {
+    return [
+      'Bonjour,',
+      '',
+      'Je me permets de revenir sur mon message précédent.',
+      'Si le sujet de votre présence digitale est d’actualité, je peux vous montrer très concrètement l’approche Magic Script.',
+      '',
+      'Si ce n’est pas pertinent pour vous, dites-le-moi simplement et je ne vous relancerai plus.',
+      '',
+      'Bien à vous,',
+      'Magic Script',
+    ].join('\n');
+  }
+
+  return [
+    'Bonjour,',
+    '',
+    'Dernier petit message de ma part concernant mon précédent email.',
+    'Si vous souhaitez voir l’idée plus concrètement, je peux vous partager une démonstration adaptée à votre activité.',
+    '',
+    'Sinon, aucun souci : je clôture ici et ne vous relancerai plus.',
+    '',
+    'Bien à vous,',
+    'Magic Script',
+  ].join('\n');
+}
+
+async function scheduleDueFollowUps(
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ scheduled: number; skipped: number }> {
+  const config = configFromEnv(env);
+
+  if (!config.autopilotEnabled || !config.sendingEnabled || config.maxFollowups <= 0) {
+    return { scheduled: 0, skipped: 0 };
+  }
+
+  const firstDelay =
+    Number.parseInt(env.MAGICSCRIPT_FOLLOWUP_1_DAYS ?? '3', 10) || 3;
+  const secondDelay =
+    Number.parseInt(env.MAGICSCRIPT_FOLLOWUP_2_DAYS ?? '5', 10) || 5;
+
+  const candidates = await db
+    .prepare(
+      `SELECT
+         p.id AS prospect_id,
+         MAX(om.sent_at) AS last_sent_at,
+         SUM(
+           CASE
+             WHEN om.kind = 'FOLLOW_UP' AND om.status IN ('SENT', 'DRY_RUN')
+             THEN 1
+             ELSE 0
+           END
+         ) AS followup_count
+       FROM prospects p
+       JOIN outreach_messages om ON om.prospect_id = p.id
+       WHERE p.state = 'WAITING_REPLY'
+         AND om.sent_at IS NOT NULL
+         AND om.status IN ('SENT', 'DRY_RUN')
+         AND NOT EXISTS (
+           SELECT 1 FROM replies r WHERE r.prospect_id = p.id
+         )
+       GROUP BY p.id`,
+    )
+    .all<{
+      prospect_id: string;
+      last_sent_at: string;
+      followup_count: number;
+    }>();
+
+  let scheduled = 0;
+  let skipped = 0;
+  const repo = new D1ProspectRepository(db);
+
+  for (const candidate of candidates.results ?? []) {
+    const followupCount = Number(candidate.followup_count ?? 0);
+    if (followupCount >= config.maxFollowups) {
+      skipped += 1;
+      continue;
+    }
+
+    const delayDays = followupCount === 0 ? firstDelay : secondDelay;
+    const dueAt = addDays(new Date(candidate.last_sent_at), delayDays);
+    if (dueAt.getTime() > Date.now()) {
+      skipped += 1;
+      continue;
+    }
+
+    const existingJob = await db
+      .prepare(
+        `SELECT id
+         FROM jobs
+         WHERE prospect_id = ?
+           AND kind = 'SEND_FOLLOW_UP'
+           AND status IN ('PENDING', 'RUNNING')
+         LIMIT 1`,
+      )
+      .bind(candidate.prospect_id)
+      .first<{ id: string }>();
+
+    if (existingJob) {
+      skipped += 1;
+      continue;
+    }
+
+    const parent = await db
+      .prepare(
+        `SELECT contact_id, subject
+         FROM outreach_messages
+         WHERE prospect_id = ?
+           AND sent_at IS NOT NULL
+           AND status IN ('SENT', 'DRY_RUN')
+         ORDER BY sent_at DESC
+         LIMIT 1`,
+      )
+      .bind(candidate.prospect_id)
+      .first<{ contact_id: string; subject: string | null }>();
+
+    if (!parent) {
+      skipped += 1;
+      continue;
+    }
+
+    const contact = await db
+      .prepare(
+        `SELECT id, email
+         FROM contacts
+         WHERE id = ?
+           AND is_validated = 1
+           AND is_suppressed = 0
+         LIMIT 1`,
+      )
+      .bind(parent.contact_id)
+      .first<{ id: string; email: string }>();
+
+    if (!contact) {
+      skipped += 1;
+      continue;
+    }
+
+    const suppressed = await db
+      .prepare(
+        'SELECT email FROM suppression_list WHERE lower(email) = lower(?) LIMIT 1',
+      )
+      .bind(contact.email)
+      .first<{ email: string }>();
+
+    if (suppressed) {
+      skipped += 1;
+      continue;
+    }
+
+    const prospect = await repo.getProspect(candidate.prospect_id);
+    if (!prospect || prospect.state !== 'WAITING_REPLY') {
+      skipped += 1;
+      continue;
+    }
+
+    const now = new Date().toISOString();
+    const sequence = followupCount + 1;
+    const subject = parent.subject?.trim() || 'Votre présence digitale';
+
+    await db
+      .prepare(
+        `INSERT INTO outreach_messages (
+          id, prospect_id, contact_id, kind, subject, body_text,
+          facts_json, source_refs_json, confidence, status,
+          provider_message_id, sent_at, created_at, updated_at
+        ) VALUES (?, ?, ?, 'FOLLOW_UP', ?, ?, '[]', '[]', 100, 'VERIFIED', NULL, NULL, ?, ?)`,
+      )
+      .bind(
+        crypto.randomUUID(),
+        prospect.id,
+        contact.id,
+        subject,
+        followUpBody(sequence),
+        now,
+        now,
+      )
+      .run();
+
+    await repo.transitionProspect(
+      prospect.id,
+      'FOLLOW_UP_DUE',
+      `Follow-up ${sequence} due after ${delayDays} day(s)`,
+    );
+
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'system',
+      type: 'followup.scheduled',
+      payload: {
+        sequence,
+        delayDays,
+        dueAt: dueAt.toISOString(),
+      },
+      createdAt: now,
+    });
+
+    await orchestrator(env, db).planProspect(prospect.id);
+    scheduled += 1;
+  }
+
+  return { scheduled, skipped };
+}
+
 async function processSendEmailJob(
   job: MagicScriptJob,
   env: Env,
