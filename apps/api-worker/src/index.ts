@@ -1947,6 +1947,8 @@ async function handle(request: Request, env: Env): Promise<Response> {
       'GENERATE_OUTREACH',
       'FACT_CHECK_OUTREACH',
       'CLASSIFY_REPLY',
+      'BUILD_PROTOTYPE',
+      'RUN_PROTOTYPE_QA',
     ];
 
     const config = configFromEnv(env);
@@ -2028,6 +2030,27 @@ async function handle(request: Request, env: Env): Promise<Response> {
           .first<Record<string, unknown>>()
       : null;
 
+    const prototypeContext = job.prospectId
+      ? await db
+          .prepare(
+            `SELECT
+               id,
+               prospect_id,
+               repo_path,
+               runner_id,
+               status,
+               qa_status,
+               build_manifest_json,
+               qa_findings_json
+             FROM prototypes
+             WHERE prospect_id = ?
+             ORDER BY updated_at DESC
+             LIMIT 1`,
+          )
+          .bind(job.prospectId)
+          .first<Record<string, unknown>>()
+      : null;
+
     return json({
       job,
       prospect,
@@ -2036,6 +2059,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
       researchContext,
       latestReply,
       threadParentMessageId,
+      prototypeContext,
     });
   }
 
