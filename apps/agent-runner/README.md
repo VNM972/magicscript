@@ -51,3 +51,35 @@ Les tâches de recherche s'exécutent dans des dossiers temporaires dédiés.
 Le runner n'a pas besoin d'écrire dans le repo Magic Script pour ces tâches.
 
 Les futurs jobs de construction de prototype auront un espace de travail et des permissions séparés.
+
+
+## Amen mailbox
+
+Magic Script V2 now has a direct Amen adapter.
+
+This avoids requiring a separate paid sending API because the existing mailbox can use authenticated SMTP for outbound mail and IMAP for replies.
+
+Default Amen endpoints:
+
+- SMTP: `smtp-fr.securemail.pro:465`
+- IMAP: `mail-fr.securemail.pro:993`
+- SSL/TLS enabled
+
+The mailbox credentials are runtime secrets only.
+
+Before any real sending, run:
+
+```bash
+npm --workspace magic-script-agent-runner run email:check
+```
+
+This checks SMTP + IMAP authentication and sends no email.
+
+Real sending still requires both:
+
+```text
+MAGICSCRIPT_SENDING_ENABLED=true
+MAGICSCRIPT_EMAIL_PROVIDER=amen-smtp
+```
+
+Those switches remain disabled by default.
