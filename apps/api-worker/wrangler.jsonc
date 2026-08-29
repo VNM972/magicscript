@@ -20,10 +20,11 @@
     "MAGICSCRIPT_EMAIL_PROVIDER": "disabled",
     "MAGICSCRIPT_CONTROL_CENTER_ORIGIN": "",
     "MAGICSCRIPT_TARGET_LOCATION": "Martinique",
-    "MAGICSCRIPT_DISCOVERY_BATCH_SIZE": "20"
+    "MAGICSCRIPT_DISCOVERY_BATCH_SIZE": "20",
+    "HUNTER_MONTHLY_CREDIT_BUDGET": "40"
   }
 
-  // Add a D1 binding only after a development database has been created:
+  // Secret required only for Hunter fallback:\n  //   wrangler secret put HUNTER_API_KEY\n  //\n  // Add a D1 binding only after a development database has been created:
   //
   // "d1_databases": [
   //   {
