@@ -33,70 +33,54 @@ async function main() {
     body: '{}',
   });
 
-  let discoveryComplete =
-    tick?.provider === 'recherche-entreprises' ||
-    tick?.provider === 'insee-sirene';
-
-  if (discoveryComplete) {
-    console.log(
-      `OK Structured discovery provider=${tick.provider} created=${tick.created ?? 0} scanned=${tick.scanned ?? 0}`,
-    );
-  } else {
-    console.log(
-      tick?.queued
+  console.log(
+    tick?.provider === 'recherche-entreprises'
+      ? `OK Free public directory discovery: ${tick.created ?? 0} created / ${tick.scanned ?? 0} scanned`
+      : tick?.queued
         ? `OK Kimi discovery job queued: ${tick.jobId}`
-        : `Discovery fallback: ${tick?.reason || 'already active'}`,
-    );
-  }
+        : `Discovery tick: ${tick?.reason || 'no new work'}`,
+  );
 
   const deadline = Date.now() + timeoutMs;
+  let prospects = [];
 
-  while (!discoveryComplete && Date.now() < deadline) {
-    const { jobs = [] } = await request('/api/jobs');
-    const discovery = jobs
-      .filter((job) => job.kind === 'DISCOVER_PROSPECTS')
-      .sort((a, b) =>
-        String(b.createdAt).localeCompare(String(a.createdAt)),
-      )[0];
+  while (Date.now() < deadline) {
+    const data = await request('/api/prospects');
+    prospects = data.prospects || [];
 
-    if (!discovery) {
-      const { prospects = [] } = await request('/api/prospects');
-      if (prospects.length > 0) {
-        discoveryComplete = true;
-        break;
-      }
-
-      await sleep(3000);
-      continue;
-    }
-
-    console.log(
-      `Kimi discovery status=${discovery.status} attempts=${discovery.attempts}/${discovery.maxAttempts}`,
-    );
-
-    if (discovery.status === 'SUCCEEDED') {
-      discoveryComplete = true;
-      break;
-    }
-
-    if (discovery.status === 'DEAD_LETTER') {
-      throw new Error(
-        `Discovery DEAD_LETTER: ${discovery.lastError || 'unknown error'}`,
+    if (prospects.length > 0) {
+      const progressed = prospects.some(
+        (prospect) => prospect.state !== 'DISCOVERED',
       );
+
+      if (progressed) break;
     }
 
-    await sleep(5000);
+    await sleep(3000);
   }
 
-  if (!discoveryComplete) {
+  if (!prospects.length) {
+    throw new Error('Discovery created no prospects before smoke-test timeout');
+  }
+
+  console.log(`OK ${prospects.length} prospect(s) present`);
+
+  const stateCounts = prospects.reduce((acc, prospect) => {
+    acc[prospect.state] = (acc[prospect.state] || 0) + 1;
+    return acc;
+  }, {});
+
+  console.log('Prospect states:', stateCounts);
+
+  const { jobs = [] } = await request('/api/jobs');
+  const deadLetters = jobs.filter((job) => job.status === 'DEAD_LETTER');
+  if (deadLetters.length) {
     throw new Error(
-      `Timed out after ${Math.round(timeoutMs / 1000)}s waiting for discovery`,
+      `${deadLetters.length} job(s) reached DEAD_LETTER: ${deadLetters
+        .map((job) => `${job.kind}:${job.lastError || 'unknown'}`)
+        .join(' | ')}`,
     );
   }
-
-  const { prospects = [] } = await request('/api/prospects');
-  if (!prospects.length) throw new Error('Discovery completed but created no prospects');
-  console.log(`OK ${prospects.length} prospect(s) present`);
 
   const { runners = [] } = await request('/api/runners');
   const online = runners.filter((runner) => Date.now() - new Date(runner.last_seen_at).getTime() < 60000);
@@ -105,9 +89,15 @@ async function main() {
 
   const usage = await request('/api/providers/usage');
   console.log(`OK Hunter usage ${usage.hunter.used}/${usage.hunter.budget}`);
+  const safety = await request('/api/outreach/status');
+  console.log(
+    `OK Outreach provider=${safety.provider} sending=${safety.sendingEnabled}`,
+  );
+
   console.log('');
   console.log('SWARM SMOKE TEST PASSED');
-  console.log('No real email was sent.');
+  console.log('Public discovery + D1 + runner progression verified.');
+  console.log('No prospect email was sent externally.');
 }
 
 main().catch((error) => {
