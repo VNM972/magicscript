@@ -17,3 +17,5 @@ export * from './persistence/d1-types';
 export * from './persistence/d1-prospect-repository';
 export * from './persistence/d1-event-store';
 export * from './persistence/d1-job-queue';
+
+export * from './providers/hunter';
