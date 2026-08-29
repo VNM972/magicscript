@@ -1860,6 +1860,183 @@ async function processPrototypeQaResult(
   return { prospectId: prospect.id, passed: false, escalated: false };
 }
 
+async function processPrototypeDeployResult(
+  job: MagicScriptJob,
+  result: PrototypeDeployResult,
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ prospectId: string; deploymentUrl: string }> {
+  if (!job.prospectId) throw new Error('DEPLOY_PROTOTYPE job has no prospectId');
+  if (result.deployed !== true || !result.deploymentUrl?.trim()) {
+    throw new Error('Prototype deploy runner did not return a deployment URL');
+  }
+
+  const deployment = new URL(result.deploymentUrl);
+  if (
+    deployment.protocol !== 'https:' ||
+    !deployment.hostname.endsWith('.pages.dev')
+  ) {
+    throw new Error('Prototype deployment URL is not an approved pages.dev URL');
+  }
+
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(job.prospectId);
+  if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
+  if (prospect.state !== 'PROTOTYPE_DEPLOYING') {
+    throw new Error(
+      `Cannot complete prototype deployment while prospect is ${prospect.state}`,
+    );
+  }
+
+  const prototype = await db
+    .prepare(
+      `SELECT id FROM prototypes
+       WHERE prospect_id = ?
+       ORDER BY updated_at DESC
+       LIMIT 1`,
+    )
+    .bind(job.prospectId)
+    .first<{ id: string }>();
+
+  if (!prototype) throw new Error('Prototype row not found for deployment');
+
+  const now = new Date().toISOString();
+  await db
+    .prepare(
+      `UPDATE prototypes
+       SET deployment_url = ?,
+           status = 'DEPLOYED',
+           updated_at = ?
+       WHERE id = ?`,
+    )
+    .bind(deployment.toString(), now, prototype.id)
+    .run();
+
+  await repo.transitionProspect(
+    prospect.id,
+    'PROTOTYPE_DEPLOYED',
+    'Cloudflare Pages preview deployed',
+  );
+
+  const reply = await db
+    .prepare(
+      `SELECT contact_id
+       FROM replies
+       WHERE prospect_id = ?
+       ORDER BY received_at DESC
+       LIMIT 1`,
+    )
+    .bind(prospect.id)
+    .first<{ contact_id: string | null }>();
+
+  const fallbackContact = await db
+    .prepare(
+      `SELECT id
+       FROM contacts
+       WHERE prospect_id = ?
+         AND is_validated = 1
+         AND is_suppressed = 0
+       ORDER BY confidence DESC
+       LIMIT 1`,
+    )
+    .bind(prospect.id)
+    .first<{ id: string }>();
+
+  const contactId = reply?.contact_id ?? fallbackContact?.id;
+  if (!contactId) {
+    await repo.transitionProspect(
+      prospect.id,
+      'HUMAN_ACTION_REQUIRED',
+      'Prototype deployed but no valid contact remains for demo reply',
+    );
+    await createEscalation(
+      db,
+      prospect.id,
+      'MANUAL_REVIEW_REQUIRED',
+      'Prototype is deployed but Magic Script could not resolve a valid recipient for the demo link.',
+    );
+    return { prospectId: prospect.id, deploymentUrl: deployment.toString() };
+  }
+
+  const original = await db
+    .prepare(
+      `SELECT subject
+       FROM outreach_messages
+       WHERE prospect_id = ?
+         AND kind = 'INITIAL'
+       ORDER BY created_at ASC
+       LIMIT 1`,
+    )
+    .bind(prospect.id)
+    .first<{ subject: string | null }>();
+
+  const subject = original?.subject?.trim()
+    ? original.subject.startsWith('Re:')
+      ? original.subject
+      : `Re: ${original.subject}`
+    : 'Votre démonstration Magic Script';
+
+  const body = [
+    'Bonjour,',
+    '',
+    'Comme convenu, voici la démonstration préparée pour votre activité :',
+    deployment.toString(),
+    '',
+    'L’objectif est de vous montrer concrètement une piste d’amélioration de votre présence digitale à partir des éléments publics que nous avons pu vérifier.',
+    '',
+    'Dites-moi simplement ce que vous en pensez.',
+    '',
+    'Bien à vous,',
+    'Magic Script',
+  ].join('\n');
+
+  await db
+    .prepare(
+      `INSERT INTO outreach_messages (
+        id, prospect_id, contact_id, kind, subject, body_text,
+        facts_json, source_refs_json, confidence, status,
+        provider_message_id, sent_at, created_at, updated_at
+      ) VALUES (?, ?, ?, 'REPLY', ?, ?, '[]', ?, 100, 'VERIFIED', NULL, NULL, ?, ?)`,
+    )
+    .bind(
+      crypto.randomUUID(),
+      prospect.id,
+      contactId,
+      subject,
+      body,
+      JSON.stringify([deployment.toString()]),
+      now,
+      now,
+    )
+    .run();
+
+  await repo.transitionProspect(
+    prospect.id,
+    'DEMO_REPLY_READY',
+    'Verified demo link reply prepared',
+  );
+
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId: prospect.id,
+    actor: 'system',
+    type: 'prototype.deployed',
+    payload: {
+      prototypeId: prototype.id,
+      deploymentUrl: deployment.toString(),
+      projectName: result.projectName,
+      branch: result.branch,
+    },
+    createdAt: now,
+  });
+
+  if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+    await orchestrator(env, db).planProspect(prospect.id);
+  }
+
+  return { prospectId: prospect.id, deploymentUrl: deployment.toString() };
+}
+
 async function processRunnerSuccess(
   job: MagicScriptJob,
   output: unknown,
@@ -1911,6 +2088,15 @@ async function processRunnerSuccess(
 
   if (job.kind === 'RUN_PROTOTYPE_QA') {
     return processPrototypeQaResult(job, output as PrototypeQaResult, env, db);
+  }
+
+  if (job.kind === 'DEPLOY_PROTOTYPE') {
+    return processPrototypeDeployResult(
+      job,
+      output as PrototypeDeployResult,
+      env,
+      db,
+    );
   }
 
   return { stored: true, processed: false };
