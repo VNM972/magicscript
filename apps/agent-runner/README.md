@@ -83,3 +83,19 @@ MAGICSCRIPT_EMAIL_PROVIDER=amen-smtp
 ```
 
 Those switches remain disabled by default.
+
+
+## Controlled SMTP test sink
+
+Before any real prospect sending, the Amen SMTP path can be tested against one controlled inbox:
+
+```text
+MAGICSCRIPT_EMAIL_PROVIDER=amen-smtp
+MAGICSCRIPT_SENDING_ENABLED=true
+MAGICSCRIPT_TEST_EMAIL_MODE=true
+MAGICSCRIPT_TEST_RECIPIENT=<controlled test inbox>
+```
+
+In this mode, the runner never delivers to the prospect address. It reroutes the message to the controlled inbox and returns the original prospect recipient only as metadata.
+
+Do not commit mailbox credentials or the controlled inbox address.
