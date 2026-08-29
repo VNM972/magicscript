@@ -82,7 +82,10 @@ export class OrchestratorEngine {
       };
     }
 
-    if (nextAction === 'SEND_EMAIL' && !this.deps.config.sendingEnabled) {
+    if (
+      (nextAction === 'SEND_EMAIL' || nextAction === 'SEND_FOLLOW_UP') &&
+      !this.deps.config.sendingEnabled
+    ) {
       await this.record('orchestrator.send_blocked', prospect.id, {
         reason: 'Sending disabled',
       });
