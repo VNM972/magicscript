@@ -50,11 +50,17 @@ export interface Runner {
 
 export interface ProviderUsage {
   period: string;
+  sirene: {
+    configured: boolean;
+    cost: string;
+    purpose: string;
+  };
   hunter: {
     configured: boolean;
     used: number;
     budget: number;
     remainingInternalBudget: number;
+    purpose?: string;
   };
 }
 
