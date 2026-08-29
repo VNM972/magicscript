@@ -1851,7 +1851,9 @@ async function handle(request: Request, env: Env): Promise<Response> {
   if (request.method === 'POST' && url.pathname === '/api/system/drain') {
     const db = requireDb(env);
     const body = (await request.json().catch(() => ({}))) as { limit?: number };
-    return json(await drainDeterministicJobs(env, db, body.limit ?? 10));
+    const followups = await scheduleDueFollowUps(env, db);
+    const drained = await drainDeterministicJobs(env, db, body.limit ?? 10);
+    return json({ followups, ...drained });
   }
 
   if (request.method === 'POST' && url.pathname === '/api/orchestrator/plan') {
@@ -2118,6 +2120,7 @@ export default {
   async scheduled(_controller: unknown, env: Env): Promise<void> {
     if (!env.DB) return;
     await enqueueDiscoveryIfNeeded(env, env.DB);
+    await scheduleDueFollowUps(env, env.DB);
     await drainDeterministicJobs(env, env.DB, 10);
   },
 };
