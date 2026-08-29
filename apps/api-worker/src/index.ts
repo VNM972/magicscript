@@ -1501,7 +1501,7 @@ async function drainDeterministicJobs(
     if (config.sendingEnabled && config.emailProvider === 'dry-run') {
       const capacity = await sendCapacity(env, db);
       if (capacity.available > 0) {
-        allowedKinds.unshift('SEND_EMAIL', 'SEND_FOLLOW_UP');
+        allowedKinds.unshift('SEND_EMAIL', 'SEND_FOLLOW_UP', 'SEND_DEMO_LINK');
       }
     }
 
@@ -1510,7 +1510,11 @@ async function drainDeterministicJobs(
 
     try {
       let output: Record<string, unknown>;
-      if (job.kind === 'SEND_EMAIL' || job.kind === 'SEND_FOLLOW_UP') {
+      if (
+        job.kind === 'SEND_EMAIL' ||
+        job.kind === 'SEND_FOLLOW_UP' ||
+        job.kind === 'SEND_DEMO_LINK'
+      ) {
         output = await processDryRunSendJob(job, env, db);
       } else {
         output = await processEscalationJob(job, db);
@@ -2162,7 +2166,11 @@ async function processRunnerSuccess(
     return processClassificationResult(job, output as ClassificationResult, env, db);
   }
 
-  if (job.kind === 'SEND_EMAIL' || job.kind === 'SEND_FOLLOW_UP') {
+  if (
+    job.kind === 'SEND_EMAIL' ||
+    job.kind === 'SEND_FOLLOW_UP' ||
+    job.kind === 'SEND_DEMO_LINK'
+  ) {
     return processExternalSendResult(job, output as ExternalSendResult, db);
   }
 
