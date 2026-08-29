@@ -2301,6 +2301,28 @@ async function handle(request: Request, env: Env): Promise<Response> {
     });
   }
 
+  if (request.method === 'GET' && url.pathname === '/api/prototypes') {
+    const result = await requireDb(env)
+      .prepare(
+        `SELECT
+           pr.id,
+           pr.prospect_id,
+           p.company_name,
+           pr.status,
+           pr.qa_status,
+           pr.deployment_url,
+           pr.runner_id,
+           pr.updated_at
+         FROM prototypes pr
+         JOIN prospects p ON p.id = pr.prospect_id
+         ORDER BY pr.updated_at DESC
+         LIMIT 50`,
+      )
+      .all<Record<string, unknown>>();
+
+    return json({ prototypes: result.results ?? [] });
+  }
+
   if (request.method === 'GET' && url.pathname === '/api/providers/usage') {
     const db = requireDb(env);
     const period = currentPeriod();
