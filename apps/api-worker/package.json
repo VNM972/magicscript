@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
+    "dev:local": "wrangler dev --config wrangler.local.jsonc --port 8787",
+    "d1:local:init": "wrangler d1 execute magicscript-dev --local --config wrangler.local.jsonc --file ../../database/schema.sql --yes",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
