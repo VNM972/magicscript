@@ -1,6 +1,7 @@
 param(
     [switch]$SkipInstall,
-    [switch]$SkipChecks
+    [switch]$SkipChecks,
+    [switch]$Full
 )
 
 $ErrorActionPreference = 'Stop'
@@ -108,6 +109,16 @@ if ($SmokeExit -ne 0) {
     Write-Host "API log: $ApiErr"
     Write-Host "Runner log: $RunnerErr"
     exit $SmokeExit
+}
+
+if ($Full) {
+    Write-Host ''
+    Write-Host 'Launching full safe funnel smoke test...'
+    npm run smoke:full
+    if ($LASTEXITCODE -ne 0) {
+        Write-Warning 'Full funnel smoke failed. The stack remains running for inspection.'
+        exit $LASTEXITCODE
+    }
 }
 
 Write-Host ''
