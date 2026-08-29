@@ -1388,7 +1388,7 @@ async function drainDeterministicJobs(
 
   const config = configFromEnv(env);
   if (config.sendingEnabled && config.emailProvider === 'dry-run') {
-    deterministicKinds.unshift('SEND_EMAIL');
+    deterministicKinds.unshift('SEND_EMAIL', 'SEND_FOLLOW_UP');
   }
 
   let processed = 0;
@@ -1400,8 +1400,8 @@ async function drainDeterministicJobs(
 
     try {
       let output: Record<string, unknown>;
-      if (job.kind === 'SEND_EMAIL') {
-        output = await processSendEmailJob(job, env, db);
+      if (job.kind === 'SEND_EMAIL' || job.kind === 'SEND_FOLLOW_UP') {
+        output = await processDryRunSendJob(job, env, db);
       } else {
         output = await processEscalationJob(job, db);
       }
