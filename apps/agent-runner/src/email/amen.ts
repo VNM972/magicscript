@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import { ImapFlow } from 'imapflow';
+import { simpleParser } from 'mailparser';
 
 export interface AmenMailConfig {
   username: string;
@@ -131,28 +132,30 @@ export async function fetchAmenInboxSince(
         envelope: true,
         source: true,
       })) {
-        const source = message.source?.toString('utf8') ?? '';
-        const headersEnd = source.indexOf('\r\n\r\n');
-        const rawHeaders = headersEnd >= 0 ? source.slice(0, headersEnd) : source;
-        const body = headersEnd >= 0 ? source.slice(headersEnd + 4) : source;
+        if (!message.source) continue;
 
-        const header = (name: string): string | undefined => {
-          const match = rawHeaders.match(
-            new RegExp(`^${name}:\\s*(.+)$`, 'im'),
-          );
-          return match?.[1]?.trim();
-        };
+        const parsed = await simpleParser(message.source);
+        const fromAddress =
+          parsed.from?.value?.[0]?.address ??
+          message.envelope?.from?.[0]?.address;
 
-        const fromAddress = message.envelope?.from?.[0]?.address;
+        const inReplyTo = Array.isArray(parsed.inReplyTo)
+          ? parsed.inReplyTo[0]
+          : parsed.inReplyTo;
 
         messages.push({
           uid: message.uid,
-          messageId: header('Message-ID'),
-          inReplyTo: header('In-Reply-To'),
-          fromEmail: fromAddress,
-          subject: message.envelope?.subject ?? undefined,
-          text: body.trim(),
-          date: message.envelope?.date?.toISOString(),
+          messageId: parsed.messageId ?? undefined,
+          inReplyTo: inReplyTo ?? undefined,
+          fromEmail: fromAddress ?? undefined,
+          subject: parsed.subject ?? message.envelope?.subject ?? undefined,
+          text:
+            parsed.text?.trim() ||
+            (typeof parsed.html === 'string' ? parsed.html : '') ||
+            '',
+          date:
+            parsed.date?.toISOString() ??
+            message.envelope?.date?.toISOString(),
         });
       }
     } finally {
