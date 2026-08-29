@@ -119,7 +119,7 @@ export class MagicScriptApi {
     rawText: string;
     receivedAt?: string;
   }): Promise<void> {
-    const response = await fetch(`${this.baseUrl}/api/email/inbound`, {
+    const response = await fetch(`${this.baseUrl}/api/runner/email/inbound`, {
       method: 'POST',
       headers: this.headers(),
       body: JSON.stringify(input),
