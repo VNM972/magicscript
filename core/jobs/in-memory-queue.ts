@@ -29,12 +29,20 @@ export class InMemoryJobQueue implements JobQueue {
   ): Promise<MagicScriptJob | null> {
     const allowed = allowedKinds ? new Set(allowedKinds) : null;
     const candidate = [...this.jobs.values()]
-      .filter(
-        (job) =>
+      .filter((job) => {
+        const requiredRunnerId =
+          job.payload && typeof job.payload === 'object'
+            ? (job.payload as Record<string, unknown>).requiredRunnerId
+            : undefined;
+
+        return (
           job.status === 'PENDING' &&
           new Date(job.runAfter) <= now &&
-          (!allowed || allowed.has(job.kind)),
-      )
+          (!allowed || allowed.has(job.kind)) &&
+          (requiredRunnerId == null ||
+            (typeof requiredRunnerId === 'string' && requiredRunnerId === claimedBy))
+        );
+      })
       .sort((a, b) => a.createdAt.localeCompare(b.createdAt))[0];
 
     if (!candidate) return null;
