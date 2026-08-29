@@ -4,6 +4,7 @@ export interface ApiHealth {
   databaseConfigured: boolean;
   autopilotEnabled: boolean;
   sendingEnabled: boolean;
+  emailProvider: string;
   prototypeDeployEnabled: boolean;
 }
 
