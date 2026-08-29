@@ -104,11 +104,22 @@ REPLY
 - open human escalations
 - outbound safety switches
 
-### Safe email test mode
+### Email transport
 
-A `dry-run` provider path exists in the deterministic worker.
+Two paths now exist:
 
-It creates a synthetic provider message id and advances the state machine without sending anything externally.
+1. `dry-run` for zero-risk end-to-end testing;
+2. `amen-smtp` for the existing Magic Script mailbox, using Amen SMTP outbound and IMAP inbound.
+
+The Amen adapter includes:
+- SMTP authentication check without sending;
+- real SMTP send implementation behind the sending safety switch;
+- IMAP polling;
+- MIME reply parsing;
+- In-Reply-To correlation;
+- forwarding replies to the response-classification pipeline.
+
+No real email is sent while the sending switch remains disabled.
 
 ## Deliberately disabled
 
@@ -127,13 +138,14 @@ It creates a synthetic provider message id and advances the state machine withou
 3. deploy development API Worker;
 4. start authenticated Kimi runner;
 5. run dry-run end-to-end smoke test;
-6. choose/configure outbound email provider;
-7. verify SPF/DKIM/DMARC;
-8. implement actual SEND_EMAIL provider;
-9. implement follow-up scheduler;
-10. implement prototype builder + QA + Cloudflare demo deployment;
-11. finalize Control Center visual polish and live swarm graph;
-12. enable autopilot only after the dry-run gates pass.
+6. configure the existing Amen mailbox runtime secrets;
+7. run SMTP/IMAP connectivity check;
+8. verify SPF/DKIM/DMARC;
+9. run a controlled Amen SMTP test only after explicit approval;
+10. implement follow-up scheduler;
+11. implement prototype builder + QA + Cloudflare demo deployment;
+12. finalize Control Center visual polish and live swarm graph;
+13. enable autopilot only after the dry-run gates pass.
 
 ## Production gate
 
