@@ -1,0 +1,74 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+
+import { loadConfig } from '../config';
+import { InMemoryEventStore } from '../events/event-store';
+import { InMemoryJobQueue } from '../jobs/in-memory-queue';
+import { OrchestratorEngine } from '../orchestrator/engine';
+import { InMemoryProspectRepository } from '../state/repository';
+
+test('autopilot queues research for a discovered prospect', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+
+  await prospects.saveProspect({
+    id: 'p1',
+    companyName: 'Prospect Test',
+    state: 'DISCOVERED',
+    createdAt: '2026-08-29T00:00:00.000Z',
+    updatedAt: '2026-08-29T00:00:00.000Z',
+  });
+
+  let id = 0;
+  const engine = new OrchestratorEngine({
+    config: loadConfig({ MAGICSCRIPT_AUTOPILOT_ENABLED: 'true' }),
+    prospects,
+    events,
+    jobs,
+    idFactory: () => `id-${++id}`,
+    now: () => new Date('2026-08-29T12:00:00.000Z'),
+  });
+
+  const plan = await engine.planProspect('p1');
+
+  assert.equal(plan.nextAction, 'RUN_RESEARCH_SWARM');
+  assert.equal(plan.humanRequired, false);
+  assert.ok(plan.queuedJobId);
+
+  const pending = await jobs.list('PENDING');
+  assert.equal(pending.length, 1);
+  assert.equal(pending[0]?.kind, 'RUN_RESEARCH_SWARM');
+});
+
+test('sending switch blocks email jobs', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+
+  await prospects.saveProspect({
+    id: 'p2',
+    companyName: 'Prospect Test 2',
+    state: 'OUTREACH_VERIFIED',
+    createdAt: '2026-08-29T00:00:00.000Z',
+    updatedAt: '2026-08-29T00:00:00.000Z',
+  });
+
+  const engine = new OrchestratorEngine({
+    config: loadConfig({
+      MAGICSCRIPT_AUTOPILOT_ENABLED: 'true',
+      MAGICSCRIPT_SENDING_ENABLED: 'false',
+    }),
+    prospects,
+    events,
+    jobs,
+    idFactory: () => 'fixed-id',
+    now: () => new Date('2026-08-29T12:00:00.000Z'),
+  });
+
+  const plan = await engine.planProspect('p2');
+
+  assert.equal(plan.nextAction, 'SEND_EMAIL');
+  assert.equal(plan.queuedJobId, undefined);
+  assert.equal(plan.reason, 'Sending disabled');
+});
