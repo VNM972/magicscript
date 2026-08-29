@@ -1380,6 +1380,24 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json({ jobs: await jobs.list(status) });
   }
 
+  if (request.method === 'GET' && url.pathname === '/api/providers/usage') {
+    const db = requireDb(env);
+    const period = currentPeriod();
+    const hunterUsed = await hunterCreditsUsed(db, period);
+    const hunterBudget =
+      Number.parseInt(env.HUNTER_MONTHLY_CREDIT_BUDGET ?? '40', 10) || 40;
+
+    return json({
+      period,
+      hunter: {
+        configured: Boolean(env.HUNTER_API_KEY),
+        used: hunterUsed,
+        budget: hunterBudget,
+        remainingInternalBudget: Math.max(0, hunterBudget - hunterUsed),
+      },
+    });
+  }
+
   if (request.method === 'GET' && url.pathname === '/api/runners') {
     const result = await requireDb(env)
       .prepare(
