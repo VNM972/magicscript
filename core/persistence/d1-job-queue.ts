@@ -11,6 +11,8 @@ interface JobRow {
   max_attempts: number;
   run_after: string;
   last_error: string | null;
+  claimed_by: string | null;
+  claimed_at: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -28,6 +30,8 @@ function fromRow(row: JobRow): MagicScriptJob {
     createdAt: row.created_at,
     updatedAt: row.updated_at,
     lastError: row.last_error ?? undefined,
+    claimedBy: row.claimed_by ?? undefined,
+    claimedAt: row.claimed_at ?? undefined,
   };
 }
 
@@ -35,7 +39,10 @@ export class D1JobQueue implements JobQueue {
   constructor(private readonly db: D1DatabaseLike) {}
 
   async enqueue<TPayload>(
-    input: Omit<MagicScriptJob<TPayload>, 'status' | 'attempts' | 'createdAt' | 'updatedAt'>,
+    input: Omit<
+      MagicScriptJob<TPayload>,
+      'status' | 'attempts' | 'createdAt' | 'updatedAt' | 'claimedBy' | 'claimedAt'
+    >,
   ): Promise<MagicScriptJob<TPayload>> {
     const now = new Date().toISOString();
     const job: MagicScriptJob<TPayload> = {
@@ -49,8 +56,9 @@ export class D1JobQueue implements JobQueue {
     await this.db.prepare(
       `INSERT INTO jobs (
         id, kind, prospect_id, payload_json, status, attempts,
-        max_attempts, run_after, last_error, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        max_attempts, run_after, last_error, claimed_by, claimed_at,
+        created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, NULL, ?, ?)`,
     ).bind(
       job.id,
       job.kind,
@@ -68,30 +76,30 @@ export class D1JobQueue implements JobQueue {
     return job;
   }
 
-  async next(now = new Date()): Promise<MagicScriptJob | null> {
+  async next(now = new Date(), claimedBy?: string): Promise<MagicScriptJob | null> {
+    const claimedAt = now.toISOString();
     const row = await this.db
       .prepare(
-        "SELECT * FROM jobs WHERE status = 'PENDING' AND run_after <= ? ORDER BY created_at ASC LIMIT 1",
+        `UPDATE jobs
+         SET status = 'RUNNING',
+             attempts = attempts + 1,
+             claimed_by = ?,
+             claimed_at = ?,
+             updated_at = ?
+         WHERE id = (
+           SELECT id
+           FROM jobs
+           WHERE status = 'PENDING' AND run_after <= ?
+           ORDER BY created_at ASC
+           LIMIT 1
+         )
+         AND status = 'PENDING'
+         RETURNING *`,
       )
-      .bind(now.toISOString())
+      .bind(claimedBy ?? null, claimedAt, claimedAt, claimedAt)
       .first<JobRow>();
 
-    if (!row) return null;
-
-    const attempts = row.attempts + 1;
-    const updatedAt = now.toISOString();
-
-    await this.db
-      .prepare("UPDATE jobs SET status = 'RUNNING', attempts = ?, updated_at = ? WHERE id = ? AND status = 'PENDING'")
-      .bind(attempts, updatedAt, row.id)
-      .run();
-
-    return fromRow({
-      ...row,
-      status: 'RUNNING',
-      attempts,
-      updated_at: updatedAt,
-    });
+    return row ? fromRow(row) : null;
   }
 
   async markSucceeded(id: string): Promise<void> {
@@ -112,14 +120,34 @@ export class D1JobQueue implements JobQueue {
     const status: JobStatus = row.attempts >= row.max_attempts ? 'DEAD_LETTER' : 'PENDING';
 
     await this.db
-      .prepare('UPDATE jobs SET status = ?, run_after = ?, last_error = ?, updated_at = ? WHERE id = ?')
-      .bind(status, retryAfter.toISOString(), error, new Date().toISOString(), id)
+      .prepare(
+        `UPDATE jobs
+         SET status = ?,
+             run_after = ?,
+             last_error = ?,
+             claimed_by = CASE WHEN ? = 'PENDING' THEN NULL ELSE claimed_by END,
+             claimed_at = CASE WHEN ? = 'PENDING' THEN NULL ELSE claimed_at END,
+             updated_at = ?
+         WHERE id = ?`,
+      )
+      .bind(
+        status,
+        retryAfter.toISOString(),
+        error,
+        status,
+        status,
+        new Date().toISOString(),
+        id,
+      )
       .run();
   }
 
   async list(status?: JobStatus): Promise<MagicScriptJob[]> {
     const result = status
-      ? await this.db.prepare('SELECT * FROM jobs WHERE status = ? ORDER BY created_at ASC').bind(status).all<JobRow>()
+      ? await this.db
+          .prepare('SELECT * FROM jobs WHERE status = ? ORDER BY created_at ASC')
+          .bind(status)
+          .all<JobRow>()
       : await this.db.prepare('SELECT * FROM jobs ORDER BY created_at ASC').all<JobRow>();
 
     return (result.results ?? []).map(fromRow);
