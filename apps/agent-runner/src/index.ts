@@ -34,6 +34,8 @@ const runnerVersion = '0.2.0';
 
 const emailProvider = process.env.MAGICSCRIPT_EMAIL_PROVIDER?.trim() || 'disabled';
 const sendingEnabled = process.env.MAGICSCRIPT_SENDING_ENABLED === 'true';
+const testEmailMode = process.env.MAGICSCRIPT_TEST_EMAIL_MODE === 'true';
+const testRecipient = process.env.MAGICSCRIPT_TEST_RECIPIENT?.trim().toLowerCase();
 const amenConfigured =
   emailProvider === 'amen-smtp' &&
   Boolean(process.env.MAGICSCRIPT_EMAIL_USERNAME?.trim()) &&
@@ -114,8 +116,16 @@ async function executeAmenSend(claim: ClaimedJob): Promise<Record<string, unknow
     throw new Error('Verified outreach message is missing subject or body');
   }
 
+  const recipient = testEmailMode ? testRecipient : contact.email;
+
+  if (testEmailMode && !recipient) {
+    throw new Error(
+      'MAGICSCRIPT_TEST_EMAIL_MODE is enabled but MAGICSCRIPT_TEST_RECIPIENT is missing',
+    );
+  }
+
   const result = await sendAmenEmail(loadAmenMailConfig(), {
-    to: contact.email,
+    to: recipient || contact.email,
     subject: message.subject,
     text: message.body_text,
     inReplyTo:
@@ -134,7 +144,9 @@ async function executeAmenSend(claim: ClaimedJob): Promise<Record<string, unknow
   return {
     provider: 'amen-smtp',
     providerMessageId: result.messageId,
-    recipient: contact.email,
+    recipient: recipient || contact.email,
+    originalRecipient: contact.email,
+    testMode: testEmailMode,
     accepted: result.accepted,
     rejected: result.rejected,
     deliveredExternally: result.accepted.length > 0,
@@ -377,7 +389,7 @@ async function main(): Promise<void> {
     `Magic Script runner started. id=${runnerId} API=${baseUrl} workDir=${runnerRoot}\n`,
   );
   process.stdout.write(
-    `Email provider=${emailProvider} sending=${sendingEnabled ? 'ENABLED' : 'DISABLED'} Amen IMAP=${amenConfigured ? 'READY' : 'NOT_CONFIGURED'}\n`,
+    `Email provider=${emailProvider} sending=${sendingEnabled ? 'ENABLED' : 'DISABLED'} Amen IMAP=${amenConfigured ? 'READY' : 'NOT_CONFIGURED'} testSink=${testEmailMode ? (testRecipient || 'MISSING_RECIPIENT') : 'OFF'}\n`,
   );
 
   await heartbeat('IDLE', null);
