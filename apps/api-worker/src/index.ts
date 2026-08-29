@@ -5,6 +5,7 @@ import {
   OrchestratorEngine,
   loadConfig,
   type D1DatabaseLike,
+  type JobStatus,
 } from '@magicscript/core';
 
 interface Env {
@@ -116,6 +117,41 @@ async function handle(request: Request, env: Env): Promise<Response> {
     const limit = Number.parseInt(url.searchParams.get('limit') ?? '100', 10);
     const events = new D1EventStore(requireDb(env));
     return json({ events: await events.listRecent(Number.isFinite(limit) ? limit : 100) });
+  }
+
+  if (request.method === 'GET' && url.pathname === '/api/jobs') {
+    const statusParam = url.searchParams.get('status');
+    const allowedStatuses = new Set<JobStatus>([
+      'PENDING',
+      'RUNNING',
+      'SUCCEEDED',
+      'FAILED',
+      'DEAD_LETTER',
+    ]);
+
+    const status =
+      statusParam && allowedStatuses.has(statusParam as JobStatus)
+        ? (statusParam as JobStatus)
+        : undefined;
+
+    const jobs = new D1JobQueue(requireDb(env));
+    return json({ jobs: await jobs.list(status) });
+  }
+
+  if (request.method === 'GET' && url.pathname === '/api/escalations') {
+    const limit = Math.max(
+      1,
+      Math.min(Number.parseInt(url.searchParams.get('limit') ?? '50', 10) || 50, 100),
+    );
+
+    const result = await requireDb(env)
+      .prepare(
+        "SELECT id, prospect_id, category, summary, status, source_event_id, created_at, resolved_at FROM human_escalations WHERE status = 'OPEN' ORDER BY created_at DESC LIMIT ?",
+      )
+      .bind(limit)
+      .all<Record<string, unknown>>();
+
+    return json({ escalations: result.results ?? [] });
   }
 
   if (request.method === 'POST' && url.pathname === '/api/orchestrator/plan') {
