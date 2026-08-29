@@ -57,6 +57,22 @@ export interface ProviderUsage {
   };
 }
 
+export interface OutreachStatus {
+  sendingEnabled: boolean;
+  provider: string;
+  daily: {
+    limit: number;
+    sent: number;
+    inFlight: number;
+    available: number;
+  };
+  maxFollowups: number;
+  followup1Days: number;
+  followup2Days: number;
+  waitingReply: number;
+  followupDue: number;
+}
+
 export interface ControlCenterData {
   connected: boolean;
   health: ApiHealth | null;
@@ -65,6 +81,7 @@ export interface ControlCenterData {
   runningJobs: Job[];
   runners: Runner[];
   providerUsage: ProviderUsage | null;
+  outreachStatus: OutreachStatus | null;
   error?: string;
 }
 
@@ -106,16 +123,25 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
         runningJobs: [],
         runners: [],
         providerUsage: null,
+        outreachStatus: null,
         error: 'API connected, but D1 is not configured yet.',
       };
     }
 
-    const [overview, escalationData, jobData, runnerData, providerUsage] = await Promise.all([
+    const [
+      overview,
+      escalationData,
+      jobData,
+      runnerData,
+      providerUsage,
+      outreachStatus,
+    ] = await Promise.all([
       getJson<Overview>('/api/overview'),
       getJson<{ escalations: Escalation[] }>('/api/escalations?limit=20'),
       getJson<{ jobs: Job[] }>('/api/jobs?status=RUNNING'),
       getJson<{ runners: Runner[] }>('/api/runners'),
       getJson<ProviderUsage>('/api/providers/usage'),
+      getJson<OutreachStatus>('/api/outreach/status'),
     ]);
 
     return {
@@ -126,6 +152,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       runningJobs: jobData.jobs,
       runners: runnerData.runners,
       providerUsage,
+      outreachStatus,
     };
   } catch (error) {
     return {
@@ -136,6 +163,7 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       runningJobs: [],
       runners: [],
       providerUsage: null,
+      outreachStatus: null,
       error: error instanceof Error ? error.message : 'Unknown backend error',
     };
   }
