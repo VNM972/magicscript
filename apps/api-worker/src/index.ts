@@ -6,6 +6,7 @@ import {
   OrchestratorEngine,
   canTransition,
   domainFromWebsite,
+  getNextAction,
   loadConfig,
   scoreProspect,
   type D1DatabaseLike,
@@ -433,6 +434,46 @@ async function recoverStaleJobs(
   }
 
   return { recovered, deadLettered };
+}
+
+async function reconcileAutopilot(
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ scanned: number; planned: number; blocked: number }> {
+  if (env.MAGICSCRIPT_AUTOPILOT_ENABLED !== 'true') {
+    return { scanned: 0, planned: 0, blocked: 0 };
+  }
+
+  const repo = new D1ProspectRepository(db);
+  const prospects = (await repo.listProspects()).slice(0, 250);
+  let planned = 0;
+  let blocked = 0;
+
+  for (const prospect of prospects) {
+    const action = getNextAction(prospect.state);
+
+    if (
+      action === 'WAIT' ||
+      action === 'STOP' ||
+      action === 'ARCHIVE' ||
+      action === 'SCHEDULE_FOLLOW_UP'
+    ) {
+      continue;
+    }
+
+    const plan = await orchestrator(env, db).planProspect(prospect.id);
+    if (plan.queuedJobId) {
+      planned += 1;
+    } else if (plan.reason) {
+      blocked += 1;
+    }
+  }
+
+  return {
+    scanned: prospects.length,
+    planned,
+    blocked,
+  };
 }
 
 async function enqueueDiscoveryIfNeeded(
@@ -2681,6 +2722,10 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json(await enqueueDiscoveryIfNeeded(env, requireDb(env)));
   }
 
+  if (request.method === 'POST' && url.pathname === '/api/autopilot/reconcile') {
+    return json(await reconcileAutopilot(env, requireDb(env)));
+  }
+
   if (request.method === 'POST' && url.pathname === '/api/system/drain') {
     const db = requireDb(env);
     const recovery = await recoverStaleJobs(env, db);
@@ -3015,6 +3060,7 @@ export default {
     if (!env.DB) return;
     await recoverStaleJobs(env, env.DB);
     await enqueueDiscoveryIfNeeded(env, env.DB);
+    await reconcileAutopilot(env, env.DB);
     await scheduleDueFollowUps(env, env.DB);
     await drainDeterministicJobs(env, env.DB, 10);
   },
