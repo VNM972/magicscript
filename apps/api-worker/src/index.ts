@@ -1504,13 +1504,33 @@ async function processClassificationResult(
     throw new Error(`Cannot classify reply while prospect is ${prospect.state}`);
   }
 
+  const testOutbound = reply.contact_id
+    ? await db
+        .prepare(
+          `SELECT id
+           FROM outreach_messages
+           WHERE prospect_id = ?
+             AND contact_id = ?
+             AND status = 'TEST_SENT'
+           ORDER BY sent_at DESC
+           LIMIT 1`,
+        )
+        .bind(prospect.id, reply.contact_id)
+        .first<{ id: string }>()
+    : null;
+
+  const isControlledTestReply = Boolean(testOutbound);
   let humanRequired = false;
 
   switch (result.classification) {
     case 'NO_INTEREST': {
       await repo.transitionProspect(prospect.id, 'NEGATIVE_REPLY', 'Reply classified as no interest');
 
-      if (result.doNotContact === true && reply.email) {
+      if (
+        result.doNotContact === true &&
+        reply.email &&
+        !isControlledTestReply
+      ) {
         await db
           .prepare(
             `INSERT INTO suppression_list (email, reason, source, created_at)
@@ -1521,11 +1541,23 @@ async function processClassificationResult(
           .run();
 
         await db
-          .prepare('UPDATE contacts SET is_suppressed = 1, updated_at = ? WHERE lower(email) = lower(?)')
+          .prepare(
+            'UPDATE contacts SET is_suppressed = 1, updated_at = ? WHERE lower(email) = lower(?)',
+          )
           .bind(new Date().toISOString(), reply.email)
           .run();
 
-        await repo.transitionProspect(prospect.id, 'DO_NOT_CONTACT', 'Recipient requested no further contact');
+        await repo.transitionProspect(
+          prospect.id,
+          'DO_NOT_CONTACT',
+          'Recipient requested no further contact',
+        );
+      } else if (result.doNotContact === true && isControlledTestReply) {
+        await repo.transitionProspect(
+          prospect.id,
+          'DO_NOT_CONTACT',
+          'Controlled test reply requested no further contact; suppression skipped',
+        );
       } else {
         await repo.transitionProspect(prospect.id, 'CLOSED_LOST', 'Prospect declined');
       }
@@ -1594,6 +1626,9 @@ async function processClassificationResult(
       summary: result.summary,
       humanRequired,
       doNotContact: result.doNotContact === true,
+      controlledTestReply: isControlledTestReply,
+      suppressionSkipped:
+        result.doNotContact === true && isControlledTestReply,
     },
     createdAt: new Date().toISOString(),
   });
