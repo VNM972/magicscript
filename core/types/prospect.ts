@@ -22,6 +22,7 @@ export type ProspectState =
   | 'BOUNCED'
   | 'DO_NOT_CONTACT'
   | 'PROTOTYPE_REQUIRED'
+  | 'PROTOTYPE_STRATEGY_GENERATED'
   | 'PROTOTYPE_BUILDING'
   | 'PROTOTYPE_QA'
   | 'PROTOTYPE_READY'
@@ -35,7 +36,10 @@ export type ProspectState =
   | 'CUSTOM_REQUEST'
   | 'HUMAN_ACTION_REQUIRED'
   | 'CLOSED_WON'
-  | 'CLOSED_LOST';
+  | 'CLOSED_LOST'
+  | 'INFORMATION_REQUEST_RECEIVED'
+  | 'INFORMATION_RESPONSE_DRAFTED'
+  | 'INFORMATION_RESPONSE_VERIFIED';
 
 export interface Prospect {
   id: string;

@@ -16,6 +16,7 @@ export function buildPrompt(claim: ClaimedJob): string {
     researchContext,
     latestReply,
     prototypeContext,
+    prototypeStrategy,
   } = claim;
 
   switch (job.kind) {
@@ -299,11 +300,15 @@ ${JSON.stringify(prototypeContext ?? null, null, 2)}
 Previous QA findings to correct:
 ${JSON.stringify(qaFindings, null, 2)}
 
+Verified prototype strategy:
+${JSON.stringify(prototypeStrategy ?? null, null, 2)}
+
 Mandatory rules:
 - read the existing files first if the directory is not empty;
 - if this is a correction cycle, improve the existing prototype instead of rebuilding randomly;
 - use only prospect facts supported by the verified research;
-- never invent services, prices, certifications, addresses, opening hours, guarantees or customer claims;
+- NEVER invent services, prices, certifications, addresses, opening hours, guarantees or customer claims;
+- NEVER present factsForbiddenOrUnverified as verified facts;
 - every section must solve a commercial or credibility problem;
 - make the main commercial asset obvious in the hero;
 - use one clear primary CTA;
@@ -316,7 +321,10 @@ Mandatory rules:
 - keep dependencies minimal;
 - prioritize conversion, credibility, accessibility and performance over decorative animation;
 - create a package.json with a working build script;
-- do not touch files outside the current working directory.
+- do not touch files outside the current working directory;
+- EXPLICITLY FOLLOW THE VERIFIED PROTOTYPE STRATEGY PROVIDED ABOVE;
+- USE ONLY factsAllowed FROM THE STRATEGY AS VERIFIED FACTS;
+- DO NOT INVENT OR PRESENT factsForbiddenOrUnVERIFIED AS FACTS;
 
 You may use parallel sub-agents for analysis or review, but only ONE coding agent may modify the prototype files.
 

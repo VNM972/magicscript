@@ -63,6 +63,7 @@ export interface ClaimedJob {
     build_manifest_json?: string | null;
     qa_findings_json?: string | null;
   } | null;
+  prototypeStrategy?: Record<string, unknown> | null;
 }
 
 export class MagicScriptApi {

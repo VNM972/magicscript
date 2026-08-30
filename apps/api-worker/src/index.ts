@@ -138,6 +138,45 @@ interface ClassificationResult {
   doNotContact?: boolean;
 }
 
+interface InformationResponseResult {
+  subject: string;
+  body: string;
+  factsUsed?: string[];
+  sourceRefs?: string[];
+  confidence: number;
+  readyToSend: boolean;
+  humanRequired: boolean;
+  blockingReasons?: string[];
+}
+
+interface InformationResponseFactCheckResult {
+  approved: boolean;
+  confidence: number;
+  reasons?: string[];
+}
+
+interface PrototypeStrategyResult {
+  objective: string;
+  targetCustomer: string;
+  primaryAsset: string;
+  primaryFriction: string;
+  valueProposition: string;
+  hero: {
+    headlineDirection: string;
+    supportingMessage: string;
+    primaryCta: string;
+  };
+  sections: string[];
+  commercialProof: string[];
+  factsAllowed: string[];
+  factsForbiddenOrUnverified: string[];
+  mobilePriorities: string[];
+  conversionStrategy: string;
+  confidence: number;
+  humanRequired?: boolean;
+  blockingReasons?: string[];
+}
+
 interface PrototypeBuildResult {
   workDir: string;
   buildPassed: boolean;
@@ -869,7 +908,7 @@ async function transitionOnClaim(
     await repo.transitionProspect(prospect.id, 'CONTACT_DISCOVERY', 'Contact job claimed');
   } else if (
     job.kind === 'BUILD_PROTOTYPE' &&
-    prospect.state === 'PROTOTYPE_REQUIRED'
+    prospect.state === 'PROTOTYPE_STRATEGY_GENERATED'
   ) {
     await repo.transitionProspect(prospect.id, 'PROTOTYPE_BUILDING', 'Prototype job claimed');
   } else if (
@@ -1459,13 +1498,61 @@ async function createEscalation(
 
   if (existing) return;
 
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(prospectId);
+
+  const lines: string[] = [];
+
+  if (prospect) {
+    if (prospect.companyName) lines.push(`Company: ${prospect.companyName}`);
+    if (prospect.activity) lines.push(`Activity: ${prospect.activity}`);
+    if (prospect.location) lines.push(`Location: ${prospect.location}`);
+    if (prospect.score !== undefined) lines.push(`Score: ${prospect.score}`);
+    if (prospect.opportunity) lines.push(`Opportunity: ${prospect.opportunity}`);
+    if (prospect.primaryAsset) lines.push(`Primary asset: ${prospect.primaryAsset}`);
+    if (prospect.primaryFriction) lines.push(`Primary friction: ${prospect.primaryFriction}`);
+    if (prospect.primaryCta) lines.push(`Primary CTA: ${prospect.primaryCta}`);
+    if (prospect.websiteUrl) lines.push(`Website: ${prospect.websiteUrl}`);
+  }
+
+  if (summary) {
+    lines.push(`Reason: ${summary}`);
+  }
+
+  let recommendedAction = 'Review escalation and take appropriate action.';
+  switch (category) {
+    case 'MANUAL_REVIEW_REQUIRED':
+      recommendedAction = 'Review the blocked outreach draft and decide whether to edit, approve, or abandon.';
+      break;
+    case 'HOT_LEAD':
+      recommendedAction = 'Engage with the prospect who requested more information.';
+      break;
+    case 'PRICING_REQUESTED':
+      recommendedAction = 'Provide pricing information to the prospect.';
+      break;
+    case 'MEETING_REQUESTED':
+      recommendedAction = 'Schedule a meeting with the prospect.';
+      break;
+    case 'CUSTOM_REQUEST':
+      recommendedAction = 'Discuss customization requirements with the prospect.';
+      break;
+    case 'LEGAL_REVIEW_REQUIRED':
+      recommendedAction = 'Review the complaint or legal issue and consult legal counsel if needed.';
+      break;
+    default:
+      recommendedAction = 'Review escalation and take appropriate action.';
+  }
+  lines.push(`Recommended action: ${recommendedAction}`);
+
+  const briefSummary = lines.join(' | ');
+
   await db
     .prepare(
       `INSERT INTO human_escalations (
         id, prospect_id, category, summary, status, source_event_id, created_at, resolved_at
       ) VALUES (?, ?, ?, ?, 'OPEN', NULL, ?, NULL)`,
     )
-    .bind(crypto.randomUUID(), prospectId, category, summary, new Date().toISOString())
+    .bind(crypto.randomUUID(), prospectId, category, briefSummary, new Date().toISOString())
     .run();
 }
 
@@ -1667,7 +1754,7 @@ async function sendCapacity(
     .prepare(
       `SELECT COUNT(*) AS count
        FROM jobs
-       WHERE kind IN ('SEND_EMAIL', 'SEND_FOLLOW_UP', 'SEND_DEMO_LINK')
+       WHERE kind IN ('SEND_EMAIL', 'SEND_FOLLOW_UP', 'SEND_DEMO_LINK', 'SEND_INFORMATION_RESPONSE')
          AND status = 'RUNNING'
          AND claimed_at >= ?`,
     )
@@ -1689,13 +1776,15 @@ function addDays(date: Date, days: number): Date {
   return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
 }
 
-function followUpBody(sequence: number): string {
+function followUpBody(sequence: number, prospect: Prospect): string {
+  const companyName = prospect.companyName ?? 'votre entreprise';
+  const primaryAsset = prospect.primaryAsset ?? 'votre activité';
   if (sequence <= 1) {
     return [
       'Bonjour,',
       '',
-      'Je me permets de revenir sur mon message précédent.',
-      'Si le sujet de votre présence digitale est d’actualité, je peux vous montrer très concrètement l’approche Magic Script.',
+      `Je me permets de revenir sur mon message précédent concernant ${companyName}.`,
+      `Si le sujet de votre présence digitale est d’actualité, je peux vous montrer très concrètement comment Magic Script pourrait mettre en valeur ${primaryAsset}.`,
       '',
       'Si ce n’est pas pertinent pour vous, dites-le-moi simplement et je ne vous relancerai plus.',
       '',
@@ -1707,8 +1796,8 @@ function followUpBody(sequence: number): string {
   return [
     'Bonjour,',
     '',
-    'Dernier petit message de ma part concernant mon précédent email.',
-    'Si vous souhaitez voir l’idée plus concrètement, je peux vous partager une démonstration adaptée à votre activité.',
+    `Dernier petit message de ma part concernant mon précédent email pour ${companyName}.`,
+    `Si vous souhaitez voir l’idée plus concrète, je peux vous partager une démonstration adaptée à ${primaryAsset}.`,
     '',
     'Sinon, aucun souci : je clôture ici et ne vous relancerai plus.',
     '',
@@ -1865,7 +1954,7 @@ async function scheduleDueFollowUps(
         prospect.id,
         contact.id,
         subject,
-        followUpBody(sequence),
+        followUpBody(sequence, prospect),
         now,
         now,
       )
@@ -1907,7 +1996,8 @@ async function processDryRunSendJob(
   if (
     job.kind !== 'SEND_EMAIL' &&
     job.kind !== 'SEND_FOLLOW_UP' &&
-    job.kind !== 'SEND_DEMO_LINK'
+    job.kind !== 'SEND_DEMO_LINK' &&
+    job.kind !== 'SEND_INFORMATION_RESPONSE'
   ) {
     throw new Error(`Unsupported dry-run send job: ${job.kind}`);
   }
@@ -2028,12 +2118,22 @@ async function processDryRunSendJob(
     );
   }
 
+  if (job.kind === 'SEND_INFORMATION_RESPONSE' && prospect.state === 'INFORMATION_RESPONSE_VERIFIED') {
+    await repo.transitionProspect(
+      prospect.id,
+      'WAITING_REPLY',
+      'Dry-run information response moved to waiting state',
+    );
+  }
+
   const eventType =
     job.kind === 'SEND_EMAIL'
       ? 'email.dry_run'
       : job.kind === 'SEND_FOLLOW_UP'
         ? 'followup.dry_run'
-        : 'demo_reply.dry_run';
+        : job.kind === 'SEND_DEMO_LINK'
+          ? 'demo_reply.dry_run'
+          : 'information_response.dry_run';
 
   await new D1EventStore(db).append({
     id: crypto.randomUUID(),
@@ -2106,7 +2206,7 @@ async function drainDeterministicJobs(
     if (config.sendingEnabled && config.emailProvider === 'dry-run') {
       const capacity = await sendCapacity(env, db);
       if (capacity.available > 0) {
-        allowedKinds.unshift('SEND_EMAIL', 'SEND_FOLLOW_UP', 'SEND_DEMO_LINK');
+        allowedKinds.unshift('SEND_EMAIL', 'SEND_FOLLOW_UP', 'SEND_DEMO_LINK', 'SEND_INFORMATION_RESPONSE');
       }
     }
 
@@ -2118,7 +2218,8 @@ async function drainDeterministicJobs(
       if (
         job.kind === 'SEND_EMAIL' ||
         job.kind === 'SEND_FOLLOW_UP' ||
-        job.kind === 'SEND_DEMO_LINK'
+        job.kind === 'SEND_DEMO_LINK' ||
+        job.kind === 'SEND_INFORMATION_RESPONSE'
       ) {
         output = await processDryRunSendJob(job, env, db);
       } else {
@@ -2162,7 +2263,8 @@ async function processExternalSendResult(
   if (
     job.kind !== 'SEND_EMAIL' &&
     job.kind !== 'SEND_FOLLOW_UP' &&
-    job.kind !== 'SEND_DEMO_LINK'
+    job.kind !== 'SEND_DEMO_LINK' &&
+    job.kind !== 'SEND_INFORMATION_RESPONSE'
   ) {
     throw new Error(`Unsupported external send job: ${job.kind}`);
   }
@@ -2180,7 +2282,7 @@ async function processExternalSendResult(
       ? 'INITIAL'
       : job.kind === 'SEND_FOLLOW_UP'
         ? 'FOLLOW_UP'
-        : 'REPLY';
+        : 'REPLY'; // covers SEND_DEMO_LINK and SEND_INFORMATION_RESPONSE
 
   const message = await db
     .prepare(
@@ -2264,12 +2366,22 @@ async function processExternalSendResult(
     );
   }
 
+  if (job.kind === 'SEND_INFORMATION_RESPONSE' && prospect.state === 'INFORMATION_RESPONSE_VERIFIED') {
+    await repo.transitionProspect(
+      prospect.id,
+      'WAITING_REPLY',
+      'Information response sent; waiting for reply',
+    );
+  }
+
   const eventType =
     job.kind === 'SEND_EMAIL'
       ? 'email.sent'
       : job.kind === 'SEND_FOLLOW_UP'
         ? 'followup.sent'
-        : 'demo_reply.sent';
+        : job.kind === 'SEND_DEMO_LINK'
+          ? 'demo_reply.sent'
+          : 'information_response.sent';
 
   await new D1EventStore(db).append({
     id: crypto.randomUUID(),
@@ -2751,6 +2863,295 @@ async function processPrototypeDeployResult(
   return { prospectId: prospect.id, deploymentUrl: deployment.toString() };
 }
 
+async function processInformationResponseGeneration(
+  job: MagicScriptJob,
+  result: InformationResponseResult,
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ prospectId: string; messageId: string }> {
+  if (!job.prospectId) throw new Error('GENERATE_INFORMATION_RESPONSE job has no prospectId');
+
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(job.prospectId);
+  if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
+
+  // Check if human review is required or not ready to send
+  if (result.humanRequired || !result.readyToSend) {
+    await repo.transitionProspect(
+      prospect.id,
+      'HUMAN_ACTION_REQUIRED',
+      'Information response requires human review',
+    );
+
+    await createEscalation(
+      db,
+      prospect.id,
+      'MANUAL_REVIEW_REQUIRED',
+      'Information response blocked: ' + (result.blockingReasons?.join('; ') || 'Missing required fields or not ready to send'),
+    );
+
+    return { prospectId: job.prospectId, messageId: '' };
+  }
+
+  // Only for automatically eligible responses, validate subject/body
+  const subject = result.subject?.trim();
+  const body = result.body?.trim();
+  if (!subject || !body) {
+    // Fail closed: escalate to human rather than throwing
+    await repo.transitionProspect(
+      prospect.id,
+      'HUMAN_ACTION_REQUIRED',
+      'Information response generation missing subject or body',
+    );
+
+    await createEscalation(
+      db,
+      prospect.id,
+      'MANUAL_REVIEW_REQUIRED',
+      'Information response generation missing subject or body',
+    );
+
+    return { prospectId: job.prospectId, messageId: '' };
+  }
+
+  const contact = await db
+    .prepare(
+      `SELECT id FROM contacts
+       WHERE prospect_id = ? AND is_validated = 1 AND is_suppressed = 0
+       ORDER BY confidence DESC LIMIT 1`,
+    )
+    .bind(job.prospectId)
+    .first<{ id: string }>();
+
+  if (!contact) {
+    throw new Error('No validated unsuppressed contact for information response');
+  }
+
+  const now = new Date().toISOString();
+  const messageId = crypto.randomUUID();
+
+  await db
+    .prepare(
+      `INSERT INTO outreach_messages (
+        id, prospect_id, contact_id, kind, subject, body_text,
+        facts_json, source_refs_json, confidence, status,
+        provider_message_id, sent_at, created_at, updated_at
+      ) VALUES (?, ?, ?, 'REPLY', ?, ?, ?, ?, ?, 'DRAFT', NULL, NULL, ?, ?)`,
+    )
+    .bind(
+      messageId,
+      prospect.id,
+      contact.id,
+      subject,
+      body,
+      JSON.stringify(result.factsUsed ?? []),
+      JSON.stringify(result.sourceRefs ?? []),
+      Math.max(0, Math.min(100, Number(result.confidence) || 0)),
+      now,
+      now,
+    )
+    .run();
+
+  await repo.transitionProspect(
+    prospect.id,
+    'INFORMATION_RESPONSE_DRAFTED',
+    'Information response draft generated',
+  );
+
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId: prospect.id,
+    actor: 'system',
+    type: 'information_response.generated',
+    payload: { messageId, readyToSend: result.readyToSend, humanRequired: result.humanRequired },
+    createdAt: now,
+  });
+
+  if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+    await orchestrator(env, db).planProspect(prospect.id);
+  }
+
+  return { prospectId: job.prospectId, messageId };
+}
+
+async function processInformationResponseFactCheck(
+  job: MagicScriptJob,
+  result: InformationResponseFactCheckResult,
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ prospectId: string; approved: boolean; escalated: boolean }> {
+  if (!job.prospectId) throw new Error('FACT_CHECK_INFORMATION_RESPONSE job has no prospectId');
+
+  const draft = await db
+    .prepare(
+      "SELECT id FROM outreach_messages WHERE prospect_id = ? AND kind = 'REPLY' AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
+    )
+    .bind(job.prospectId)
+    .first<{ id: string }>();
+
+  if (!draft) throw new Error('No information response draft found for fact-check');
+
+  const confidence = Math.max(0, Math.min(100, Number(result.confidence) || 0));
+  const minConfidence = configFromEnv(env).minOutreachConfidence;
+  const approved = result.approved === true && confidence >= minConfidence;
+
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(job.prospectId);
+  if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
+
+  if (approved) {
+    await db
+      .prepare("UPDATE outreach_messages SET status = 'VERIFIED', confidence = ?, updated_at = ? WHERE id = ?")
+      .bind(confidence, new Date().toISOString(), draft.id)
+      .run();
+
+    if (prospect.state === 'INFORMATION_RESPONSE_DRAFTED') {
+      await repo.transitionProspect(prospect.id, 'INFORMATION_RESPONSE_VERIFIED', 'Information response fact-check passed');
+    }
+
+    if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+      await orchestrator(env, db).planProspect(prospect.id);
+    }
+
+    return { prospectId: job.prospectId, approved: true, escalated: false };
+  }
+
+  await db
+    .prepare("UPDATE outreach_messages SET status = 'REJECTED', updated_at = ? WHERE id = ?")
+    .bind(new Date().toISOString(), draft.id)
+    .run();
+
+  if (prospect.state === 'INFORMATION_RESPONSE_DRAFTED') {
+    await repo.transitionProspect(
+      prospect.id,
+      'HUMAN_ACTION_REQUIRED',
+      'Information response fact-check failed',
+    );
+
+    await createEscalation(
+      db,
+      prospect.id,
+      'MANUAL_REVIEW_REQUIRED',
+      'Information response fact-check failed: ' + (result.reasons ?? []).join('; '),
+    );
+
+    return { prospectId: job.prospectId, approved: false, escalated: true };
+  }
+
+  return { prospectId: job.prospectId, approved: false, escalated: false };
+}
+
+async function processPrototypeStrategyGeneration(
+  job: MagicScriptJob,
+  result: PrototypeStrategyResult,
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ prospectId: string }> {
+  if (!job.prospectId) throw new Error('GENERATE_PROTOTYPE_STRATEGY job has no prospectId');
+
+  const repo = new D1ProspectRepository(db);
+  const prospect = await repo.getProspect(job.prospectId);
+  if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
+
+  // Require prospect.state === 'PROTOTYPE_REQUIRED'
+  if (prospect.state !== 'PROTOTYPE_REQUIRED') {
+    throw new Error(`Prospect is not in PROTOTYPE_REQUIRED state: ${prospect.state}`);
+  }
+
+  // Validate PrototypeStrategyResult structure
+  if (!result.objective || typeof result.objective !== 'string' || !result.objective.trim()) {
+    throw new Error('Prototype strategy result missing required field: objective');
+  }
+  if (!result.targetCustomer || typeof result.targetCustomer !== 'string' || !result.targetCustomer.trim()) {
+    throw new Error('Prototype strategy result missing required field: targetCustomer');
+  }
+  if (!result.primaryAsset || typeof result.primaryAsset !== 'string' || !result.primaryAsset.trim()) {
+    throw new Error('Prototype strategy result missing required field: primaryAsset');
+  }
+  if (!result.primaryFriction || typeof result.primaryFriction !== 'string' || !result.primaryFriction.trim()) {
+    throw new Error('Prototype strategy result missing required field: primaryFriction');
+  }
+  if (!result.valueProposition || typeof result.valueProposition !== 'string' || !result.valueProposition.trim()) {
+    throw new Error('Prototype strategy result missing required field: valueProposition');
+  }
+  if (!result.conversionStrategy || typeof result.conversionStrategy !== 'string' || !result.conversionStrategy.trim()) {
+    throw new Error('Prototype strategy result missing required field: conversionStrategy');
+  }
+  // Validate hero
+  if (!result.hero || typeof result.hero !== 'object' || Array.isArray(result.hero)) {
+    throw new Error('Prototype strategy result missing required hero object');
+  }
+  if (!result.hero.headlineDirection || typeof result.hero.headlineDirection !== 'string' || !result.hero.headlineDirection.trim()) {
+    throw new Error('Prototype strategy result missing required field: hero.headlineDirection');
+  }
+  if (!result.hero.supportingMessage || typeof result.hero.supportingMessage !== 'string' || !result.hero.supportingMessage.trim()) {
+    throw new Error('Prototype strategy result missing required field: hero.supportingMessage');
+  }
+  if (!result.hero.primaryCta || typeof result.hero.primaryCta !== 'string' || !result.hero.primaryCta.trim()) {
+    throw new Error('Prototype strategy result missing required field: hero.primaryCta');
+  }
+
+  // Validate arrays are actually arrays
+  const arrayFields = ['sections', 'commercialProof', 'factsAllowed', 'factsForbiddenOrUnverified', 'mobilePriorities'];
+  for (const field of arrayFields) {
+    const value = result[field as keyof PrototypeStrategyResult];
+    if (!Array.isArray(value)) {
+      throw new Error(`Prototype strategy result field ${field} must be an array`);
+    }
+  }
+
+  // Validate confidence is a number between 0 and 100
+  const confidence = Math.max(0, Math.min(100, Number(result.confidence) || 0));
+
+  const blockingReasons = result.blockingReasons ?? [];
+
+  if (result.humanRequired === true || blockingReasons.length > 0) {
+    await repo.transitionProspect(
+      prospect.id,
+      'HUMAN_ACTION_REQUIRED',
+      'Prototype strategy requires human review',
+    );
+
+    await createEscalation(
+      db,
+      prospect.id,
+      'MANUAL_REVIEW_REQUIRED',
+      'Prototype strategy blocked: ' +
+        (blockingReasons.join('; ') || 'Human review required'),
+    );
+
+    return { prospectId: job.prospectId };
+  }
+
+  // Otherwise, transition to PROTOTYPE_STRATEGY_GENERATED
+  // Note: We don't insert any new persistence row, rely on already persisted job_results.output_json
+  await repo.transitionProspect(
+    prospect.id,
+    'PROTOTYPE_STRATEGY_GENERATED',
+    'Prototype strategy generated successfully',
+  );
+
+  // Emit prototype.strategy_generated event with confidence and strategyJobId
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId: prospect.id,
+    actor: 'system',
+    type: 'prototype.strategy_generated',
+    payload: {
+      confidence,
+      strategyJobId: job.id
+    },
+    createdAt: new Date().toISOString(),
+  });
+
+  // If autopilot enabled, plan next action
+  if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+    await orchestrator(env, db).planProspect(job.prospectId);
+  }
+
+  return { prospectId: job.prospectId };
+}
+
 async function processRunnerSuccess(
   job: MagicScriptJob,
   output: unknown,
@@ -2792,10 +3193,23 @@ async function processRunnerSuccess(
     return processClassificationResult(job, output as ClassificationResult, env, db);
   }
 
+  if (job.kind === 'GENERATE_INFORMATION_RESPONSE') {
+    return processInformationResponseGeneration(job, output as InformationResponseResult, env, db);
+  }
+
+  if (job.kind === 'FACT_CHECK_INFORMATION_RESPONSE') {
+    return processInformationResponseFactCheck(job, output as InformationResponseFactCheckResult, env, db);
+  }
+
+  if (job.kind === 'GENERATE_PROTOTYPE_STRATEGY') {
+    return processPrototypeStrategyGeneration(job, output as PrototypeStrategyResult, env, db);
+  }
+
   if (
     job.kind === 'SEND_EMAIL' ||
     job.kind === 'SEND_FOLLOW_UP' ||
-    job.kind === 'SEND_DEMO_LINK'
+    job.kind === 'SEND_DEMO_LINK' ||
+    job.kind === 'SEND_INFORMATION_RESPONSE'
   ) {
     return processExternalSendResult(job, output as ExternalSendResult, db);
   }
@@ -3346,7 +3760,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
     if (config.sendingEnabled && config.emailProvider === 'amen-smtp') {
       const capacity = await sendCapacity(env, db);
       if (capacity.available > 0) {
-        runnerKinds.push('SEND_EMAIL', 'SEND_FOLLOW_UP', 'SEND_DEMO_LINK');
+        runnerKinds.push('SEND_EMAIL', 'SEND_FOLLOW_UP', 'SEND_DEMO_LINK', 'SEND_INFORMATION_RESPONSE');
       }
     }
 
@@ -3356,8 +3770,54 @@ async function handle(request: Request, env: Env): Promise<Response> {
       return new Response(null, { status: 204 });
     }
 
-    const repo = new D1ProspectRepository(db);
-    await transitionOnClaim(job, repo);
+// Declare prototypeStrategy outside the BUILD_PROTOTYPE block so it's in scope for the return statement
+let prototypeStrategy: PrototypeStrategyResult | null = null;
+
+// For BUILD_PROTOTYPE jobs, validate that we have a successful strategy before proceeding
+if (job.kind === 'BUILD_PROTOTYPE' && job.prospectId) {
+  const strategyRow = await db
+    .prepare(
+      `SELECT jr.output_json
+       FROM job_results jr
+       JOIN jobs j ON j.id = jr.job_id
+       WHERE j.prospect_id = ?
+         AND j.kind = 'GENERATE_PROTOTYPE_STRATEGY'
+         AND j.status = 'SUCCEEDED'
+       ORDER BY jr.created_at DESC
+       LIMIT 1`,
+    )
+    .bind(job.prospectId)
+    .first<{ output_json: string }>();
+
+  prototypeStrategy = null;
+  if (strategyRow?.output_json) {
+    try {
+      prototypeStrategy = JSON.parse(strategyRow.output_json) as PrototypeStrategyResult | null;
+      // Validate that we got a proper strategy object
+      if (!prototypeStrategy ||
+          typeof prototypeStrategy !== 'object' ||
+          Array.isArray(prototypeStrategy)) {
+        prototypeStrategy = null;
+      }
+    } catch (e) {
+      // If we can't parse or validate the strategy, treat as missing
+      prototypeStrategy = null;
+    }
+  }
+
+  // Fail closed: if this is a BUILD_PROTOTYPE job and we don't have a valid strategy, mark job as failed
+  if (!prototypeStrategy) {
+    await queue.markFailed(
+      job.id,
+      'BUILD_PROTOTYPE job requires a valid GENERATE_PROTOTYPE_STRATEGY result',
+      new Date(Date.now() + 60_000),
+    );
+    return json({ error: 'Missing or invalid prototype strategy' }, { status: 400 });
+  }
+}
+
+const repo = new D1ProspectRepository(db);
+await transitionOnClaim(job, repo);
 
     const prospect = job.prospectId ? await repo.getProspect(job.prospectId) : null;
     const contacts = job.prospectId ? await repo.listContacts(job.prospectId) : [];
@@ -3368,7 +3828,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
               ? "SELECT id, contact_id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND kind = 'INITIAL' AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
               : job.kind === 'SEND_FOLLOW_UP'
                 ? "SELECT id, contact_id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND kind = 'FOLLOW_UP' AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
-                : job.kind === 'SEND_DEMO_LINK'
+                : job.kind === 'SEND_DEMO_LINK' || job.kind === 'SEND_INFORMATION_RESPONSE'
                   ? "SELECT id, contact_id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND kind = 'REPLY' AND status = 'VERIFIED' ORDER BY created_at DESC LIMIT 1"
                   : "SELECT id, contact_id, subject, body_text, confidence, status FROM outreach_messages WHERE prospect_id = ? AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
           )
@@ -3468,6 +3928,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
       latestReply,
       threadParentMessageId,
       prototypeContext,
+      prototypeStrategy,
     });
   }
 

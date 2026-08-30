@@ -6,7 +6,8 @@ import { InMemoryJobQueue } from '../jobs/in-memory-queue';
 
 test('prototype QA can requeue a correction build', () => {
   assert.equal(canTransition('PROTOTYPE_QA', 'PROTOTYPE_REQUIRED'), true);
-  assert.equal(canTransition('PROTOTYPE_REQUIRED', 'PROTOTYPE_BUILDING'), true);
+  assert.equal(canTransition('PROTOTYPE_REQUIRED', 'PROTOTYPE_STRATEGY_GENERATED'), true);
+  assert.equal(canTransition('PROTOTYPE_STRATEGY_GENERATED', 'PROTOTYPE_BUILDING'), true);
 });
 
 test('prototype QA can advance to ready', () => {
