@@ -3728,7 +3728,9 @@ async function handle(request: Request, env: Env): Promise<Response> {
     const now = new Date().toISOString();
     const status = body.status?.trim() || 'IDLE';
 
-    await requireDb(env)
+    const db = requireDb(env);
+
+    await db
       .prepare(
         `INSERT INTO runners (
           runner_id, hostname, status, version, current_job_id, started_at, last_seen_at
@@ -3750,6 +3752,22 @@ async function handle(request: Request, env: Env): Promise<Response> {
         now,
       )
       .run();
+
+    // A BUSY heartbeat renews the job lease. Long-running Kimi/prototype jobs
+    // can legitimately exceed the initial lease duration, so claimed_at acts
+    // as the latest lease-renewal timestamp while the owning runner is alive.
+    if (status === 'BUSY' && body.currentJobId) {
+      await db
+        .prepare(
+          `UPDATE jobs
+           SET claimed_at = ?
+           WHERE id = ?
+             AND status = 'RUNNING'
+             AND claimed_by = ?`,
+        )
+        .bind(now, body.currentJobId, runnerId)
+        .run();
+    }
 
     return json({ ok: true, runnerId, lastSeenAt: now });
   }
