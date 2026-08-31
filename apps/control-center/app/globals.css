@@ -1377,3 +1377,45 @@ h2 {
     transform: translate3d(-1px, 1.5px, 0) scale(1);
   }
 }
+
+
+.swarm3dProspectPriority .swarm3dProspectDot {
+  fill: #9fffd0;
+  stroke: rgba(242, 255, 249, 0.95);
+  filter:
+    url(#swarm3d-glow)
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+}
+
+.swarm3dProspectPriority .swarm3dProspectGlow {
+  fill: rgba(113, 255, 183, 0.16);
+  animation: swarmProspectPulse 2.8s ease-in-out infinite;
+}
+
+.swarm3dProspectEngaged .swarm3dProspectDot {
+  fill: #d8ffec;
+  stroke: #ffffff;
+}
+
+.swarm3dProspectEngaged .swarm3dProspectGlow {
+  fill: rgba(143, 255, 201, 0.23);
+  animation: swarmProspectPulse 1.55s ease-in-out infinite;
+}
+
+.swarm3dProspectEngaged .swarm3dProspectTether {
+  stroke: rgba(143, 255, 201, 0.22);
+  stroke-width: 0.9;
+}
+
+@keyframes swarmProspectPulse {
+  0%, 100% {
+    opacity: 0.44;
+    transform: scale(0.88);
+    transform-origin: center;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.16);
+    transform-origin: center;
+  }
+}
