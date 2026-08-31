@@ -40,6 +40,7 @@ const actionToJob: Partial<Record<NextAction, JobKind>> = {
   DEPLOY_PROTOTYPE: 'DEPLOY_PROTOTYPE',
   SEND_DEMO_LINK: 'SEND_DEMO_LINK',
   ESCALATE_TO_HUMAN: 'ESCALATE_TO_HUMAN',
+  GENERATE_PROTOTYPE_STRATEGY: 'GENERATE_PROTOTYPE_STRATEGY',
 };
 
 export class OrchestratorEngine {
