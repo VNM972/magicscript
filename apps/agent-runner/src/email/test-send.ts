@@ -1,4 +1,4 @@
-import { loadAmenMailConfig } from './config';
+import { isControlledTestRecipient, loadAmenMailConfig } from './config';
 import { sendAmenEmail } from './amen';
 
 const recipient = process.env.MAGICSCRIPT_TEST_RECIPIENT?.trim().toLowerCase();
@@ -11,6 +11,10 @@ if (process.env.MAGICSCRIPT_TEST_EMAIL_MODE !== 'true') {
   throw new Error(
     'Refusing test send because MAGICSCRIPT_TEST_EMAIL_MODE is not true',
   );
+}
+
+if (!isControlledTestRecipient(recipient)) {
+  throw new Error('Refusing test send: recipient is not on the controlled allowlist');
 }
 
 const result = await sendAmenEmail(loadAmenMailConfig(), {

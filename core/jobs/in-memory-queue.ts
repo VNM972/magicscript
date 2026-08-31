@@ -76,11 +76,18 @@ export class InMemoryJobQueue implements JobQueue {
 
   async markFailed(id: string, error: string, retryAfter = new Date()): Promise<void> {
     const job = this.requireJob(id);
+    if (job.status === 'SUCCEEDED' || job.status === 'DEAD_LETTER' || job.status === 'SEND_UNKNOWN') {
+      return;
+    }
     const exhausted = job.attempts >= job.maxAttempts;
 
     this.jobs.set(id, {
       ...job,
-      status: exhausted ? 'DEAD_LETTER' : 'PENDING',
+      status: job.status === 'SENDING'
+        ? 'SEND_UNKNOWN'
+        : exhausted
+          ? 'DEAD_LETTER'
+          : 'PENDING',
       runAfter: retryAfter.toISOString(),
       updatedAt: new Date().toISOString(),
       lastError: error,

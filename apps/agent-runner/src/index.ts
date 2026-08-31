@@ -1,14 +1,16 @@
+import { realpathSync } from 'node:fs';
 import { mkdir } from 'node:fs/promises';
 import { hostname, tmpdir } from 'node:os';
 import { join, resolve, sep } from 'node:path';
 
 import { MagicScriptApi, type ClaimedJob } from './api';
-import { loadAmenMailConfig } from './email/config';
+import { isControlledTestRecipient, loadAmenMailConfig } from './email/config';
 import {
   fetchAmenInboxSince,
   sendAmenEmail,
   type AmenInboundMessage,
 } from './email/amen';
+import { sendWithPersistentReservation } from './email/send-idempotency';
 import { runKimi, parseJsonOutput } from './kimi';
 import { deployPrototypeToPages } from './deploy';
 import { buildPrompt } from './prompts';
@@ -116,6 +118,13 @@ async function executeAmenSend(claim: ClaimedJob): Promise<Record<string, unknow
     throw new Error('Verified outreach message is missing subject or body');
   }
 
+  const subject = message.subject.trim();
+  const bodyText = message.body_text.trim();
+  const messageId = message.id;
+  if (!messageId) {
+    throw new Error('Verified outreach message has no persistent id');
+  }
+
   const recipient = testEmailMode ? testRecipient : contact.email;
 
   if (testEmailMode && !recipient) {
@@ -124,21 +133,31 @@ async function executeAmenSend(claim: ClaimedJob): Promise<Record<string, unknow
     );
   }
 
-  const result = await sendAmenEmail(loadAmenMailConfig(), {
-    to: recipient || contact.email,
-    subject: message.subject,
-    text: message.body_text,
-    inReplyTo:
-      claim.job.kind === 'SEND_FOLLOW_UP' ||
-      claim.job.kind === 'SEND_DEMO_LINK'
-        ? claim.threadParentMessageId ?? undefined
-        : undefined,
-    references:
-      (claim.job.kind === 'SEND_FOLLOW_UP' ||
-        claim.job.kind === 'SEND_DEMO_LINK') &&
-      claim.threadParentMessageId
-        ? [claim.threadParentMessageId]
-        : undefined,
+  if (testEmailMode && recipient && !isControlledTestRecipient(recipient)) {
+    throw new Error('Refusing test send: recipient is not on the controlled allowlist');
+  }
+
+  const result = await sendWithPersistentReservation({
+    reservation: api,
+    jobId: claim.job.id,
+    messageId,
+    sendMail: () =>
+      sendAmenEmail(loadAmenMailConfig(), {
+        to: recipient || contact.email,
+        subject,
+        text: bodyText,
+        inReplyTo:
+          claim.job.kind === 'SEND_FOLLOW_UP' ||
+          claim.job.kind === 'SEND_DEMO_LINK'
+            ? claim.threadParentMessageId ?? undefined
+            : undefined,
+        references:
+          (claim.job.kind === 'SEND_FOLLOW_UP' ||
+            claim.job.kind === 'SEND_DEMO_LINK') &&
+          claim.threadParentMessageId
+            ? [claim.threadParentMessageId]
+            : undefined,
+      }),
   });
 
   return {
@@ -171,7 +190,19 @@ function getPrototypeWorkDir(claim: ClaimedJob): string {
 
   if (claim.prototypeContext?.repo_path) {
     const existing = resolve(claim.prototypeContext.repo_path);
-    if (existing !== root && !existing.startsWith(`${root}${sep}`)) {
+    let canonicalRoot: string;
+    let canonicalExisting: string;
+    try {
+      canonicalRoot = realpathSync.native(root);
+      canonicalExisting = realpathSync.native(existing);
+    } catch {
+      throw new Error('Prototype path escaped the configured runner root');
+    }
+
+    if (
+      canonicalExisting !== canonicalRoot &&
+      !canonicalExisting.startsWith(`${canonicalRoot}${sep}`)
+    ) {
       throw new Error('Prototype path escaped the configured runner root');
     }
     return existing;

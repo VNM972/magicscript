@@ -1,3 +1,6 @@
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
 import nodemailer from 'nodemailer';
 import { ImapFlow } from 'imapflow';
 import { simpleParser } from 'mailparser';
@@ -7,11 +10,17 @@ export interface AmenMailConfig {
   password: string;
   fromEmail: string;
   replyToEmail?: string;
+  signature?: string;
   smtpHost?: string;
   smtpPort?: number;
   imapHost?: string;
   imapPort?: number;
 }
+
+const SIGNATURE_LOGO_CID = 'magic-script-logo@magicscript.fr';
+const SIGNATURE_LOGO_PATH = fileURLToPath(
+  new URL('./assets/magic-script-logo-email.png', import.meta.url),
+);
 
 export interface AmenSendInput {
   to: string;
@@ -25,6 +34,30 @@ export interface AmenSendResult {
   messageId: string;
   accepted: string[];
   rejected: string[];
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function signatureMarkup(signature: string, includeLogo: boolean): string {
+  const lines = signature
+    .split(/\r?\n/)
+    .map((line) => escapeHtml(line))
+    .join('<br>');
+  const logo = includeLogo
+    ? `<img src="cid:${SIGNATURE_LOGO_CID}" alt="Magic Script" width="180" style="display:block;width:180px;max-width:100%;height:auto;border:0">`
+    : '';
+  const logoCell = includeLogo
+    ? `<td valign="middle" style="padding-left:16px">${logo}</td>`
+    : '';
+
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:20px"><tr><td valign="middle" style="font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#202938">${lines}</td>${logoCell}</tr></table>`;
 }
 
 export interface AmenInboundMessage {
@@ -66,12 +99,32 @@ export async function sendAmenEmail(
   input: AmenSendInput,
 ): Promise<AmenSendResult> {
   const transport = createAmenSmtpTransport(config);
+  const text = [input.text.trim(), config.signature?.trim()]
+    .filter(Boolean)
+    .join('\n\n');
+  const includeLogo = existsSync(SIGNATURE_LOGO_PATH);
+  const html = config.signature?.trim()
+    ? `${escapeHtml(input.text).replace(/\r?\n/g, '<br>')}<br><br>${signatureMarkup(config.signature.trim(), includeLogo)}`
+    : undefined;
   const info = await transport.sendMail({
     from: config.fromEmail,
     replyTo: config.replyToEmail ?? config.fromEmail,
     to: input.to,
     subject: input.subject,
-    text: input.text,
+    text,
+    ...(html ? { html } : {}),
+    ...(includeLogo
+      ? {
+          attachments: [
+            {
+              filename: 'magic-script-logo-email.png',
+              path: SIGNATURE_LOGO_PATH,
+              cid: SIGNATURE_LOGO_CID,
+              contentDisposition: 'inline',
+            },
+          ],
+        }
+      : {}),
     inReplyTo: input.inReplyTo,
     references: input.references,
   });

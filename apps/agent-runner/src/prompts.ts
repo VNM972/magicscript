@@ -69,10 +69,12 @@ Use AgentSwarm to investigate in parallel:
 3. public reputation and commercial assets;
 4. official social presence;
 5. local competitor digital standards;
-6. public professional contactability.
+6. public professional contactability;
+7. the most credible public route to reach the owner, manager or responsible business contact.
 
 Cross-check important facts across multiple sources where possible.
 The most important output is ONE credible primary digital friction, not a list of artificial weaknesses.
+For contact research, prefer a business channel over a private personal channel. Identify the owner or manager by name only when an official public source explicitly identifies that role; otherwise use the most appropriate business role or generic channel.
 
 Score every metric from 0 to 100:
 - digitalGap: how meaningful the current digital gap is;
@@ -94,6 +96,15 @@ Required schema:
   "primaryAsset": "string",
   "primaryFriction": "string",
   "primaryCta": "string",
+  "contactPlan": {
+    "recommendedChannel": "official_email|contact_form|phone|official_social_dm|professional_directory|unknown",
+    "targetRole": "owner_or_manager|direction|commercial|reception|generic_business_contact|unknown",
+    "publicContactName": "string optional",
+    "routeReason": "string",
+    "nextAction": "string",
+    "sourceRefs": ["https://source-that-supports-the-route.example"],
+    "confidence": 0
+  },
   "scoreInputs": {
     "digitalGap": 0,
     "commercialStrength": 0,
@@ -178,8 +189,18 @@ Do not insult or criticize the prospect's current site.
 Do not invent prices, clients, results, certifications or urgency.
 Do not include or promote the Magic Script public website until the runtime explicitly provides a verified live website URL.
 Do not imply that magicscript.fr is already publicly finished or commercially live.
-Use one simple CTA asking the recipient to view the demonstration and reply if they want to discuss it.
-Include a simple sentence allowing the recipient to say they do not want further messages.
+Do not append a sender signature; the email transport adds the configured signature and logo.
+
+Commercial writing rules:
+- Write 90 to 140 words before the transport signature, in 2 to 4 short paragraphs.
+- Use a subject of 4 to 8 concrete words, with no emoji, ALL CAPS, clickbait, fake RE/FWD prefixes, false urgency or spammy promises.
+- Open with one specific, verified observation tied to the prospect's business or prototype; never use generic praise, fake familiarity or a guessed pain point.
+- Connect that observation to one plausible conversion opportunity without claiming lost revenue, rankings, traffic or customer behavior that is not verified.
+- Mention the exact prototype link once and make it clear that it is a tailored demonstration.
+- Use one low-friction CTA only: ask the recipient to look at the demonstration and reply if it is worth discussing.
+- Use natural French and formal address; avoid jargon, pressure, guilt, manipulative scarcity and phrases such as "question rapide" or "je me permets".
+- Do not add extra links, attachments, calendar invitations or multiple calls to action.
+- End with one simple sentence allowing the recipient to request no further messages.
 
 Required schema:
 {
@@ -219,7 +240,8 @@ ${JSON.stringify(prototypeContext ?? null, null, 2)}
 
 Check whether every factual claim in the email is supported by the prospect data and whether the message is appropriate for a professional B2B first contact.
 For an INITIAL outreach draft, approval requires the exact verified prototype deployment_url to appear in the email.
-Reject the draft if it invents a fact, overstates a weakness, implies a relationship that does not exist, contains an unsupported promise, omits the deployed prototype link, or presents the demo as a commissioned/finished customer website.
+Reject the draft if it invents a fact, overstates a weakness, implies a relationship that does not exist, contains an unsupported promise, omits the deployed prototype link, presents the demo as a commissioned/finished customer website, uses manipulative urgency, or contains multiple CTAs or unrelated links.
+Check that the subject is concrete and non-clickbait, the opening is based on one verified observation, the message is concise, and it contains a simple way to request no further messages.
 A minor wording issue that does not create a false factual claim should be reported as a reason but should not by itself force approved=false.
 
 Required schema:

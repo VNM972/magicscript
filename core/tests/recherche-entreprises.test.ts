@@ -106,6 +106,36 @@ test('builds a no-key establishment-filtered search request', async () => {
   assert.match(capturedUserAgent, /MagicScript\/0\.2/);
 });
 
+test('binds the default fetch to the worker global', async () => {
+  const originalFetch = globalThis.fetch;
+  let receivedThis: unknown;
+
+  globalThis.fetch = function (this: typeof globalThis) {
+    receivedThis = this;
+    return Promise.resolve(
+      new Response(
+        JSON.stringify({
+          results: [],
+          total_results: 0,
+          page: 1,
+          per_page: 1,
+          total_pages: 1,
+        }),
+        { status: 200, headers: { 'content-type': 'application/json' } },
+      ),
+    );
+  } as typeof fetch;
+
+  try {
+    const client = new RechercheEntreprisesClient('https://example.test');
+    await client.search({ departement: '972', perPage: 1 });
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+
+  assert.equal(receivedThis, globalThis);
+});
+
 test('rejects a matching establishment outside Martinique', () => {
   const establishment = rechercheEntrepriseMatchingEtablissement(
     {

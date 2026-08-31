@@ -139,7 +139,15 @@ export class D1JobQueue implements JobQueue {
 
     if (!row) throw new Error(`Job not found: ${id}`);
 
-    const status: JobStatus = row.attempts >= row.max_attempts ? 'DEAD_LETTER' : 'PENDING';
+    if (row.status === 'SUCCEEDED' || row.status === 'DEAD_LETTER' || row.status === 'SEND_UNKNOWN') {
+      return;
+    }
+
+    const status: JobStatus = row.status === 'SENDING'
+      ? 'SEND_UNKNOWN'
+      : row.attempts >= row.max_attempts
+        ? 'DEAD_LETTER'
+        : 'PENDING';
 
     await this.db
       .prepare(
@@ -147,8 +155,8 @@ export class D1JobQueue implements JobQueue {
          SET status = ?,
              run_after = ?,
              last_error = ?,
-             claimed_by = CASE WHEN ? = 'PENDING' THEN NULL ELSE claimed_by END,
-             claimed_at = CASE WHEN ? = 'PENDING' THEN NULL ELSE claimed_at END,
+             claimed_by = CASE WHEN ? IN ('PENDING', 'SEND_UNKNOWN') THEN NULL ELSE claimed_by END,
+             claimed_at = CASE WHEN ? IN ('PENDING', 'SEND_UNKNOWN') THEN NULL ELSE claimed_at END,
              updated_at = ?
          WHERE id = ?`,
       )

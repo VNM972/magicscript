@@ -52,7 +52,7 @@ export class RechercheEntreprisesApiError extends Error {
 export class RechercheEntreprisesClient {
   constructor(
     private readonly baseUrl = 'https://recherche-entreprises.api.gouv.fr',
-    private readonly fetchFn: typeof fetch = fetch,
+    private readonly fetchFn: typeof fetch = globalThis.fetch.bind(globalThis),
   ) {}
 
   async search(input: {

@@ -156,7 +156,9 @@ export class OrchestratorEngine {
       (job) =>
         job.prospectId === prospect.id &&
         job.kind === kind &&
-        (job.status === 'PENDING' || job.status === 'RUNNING'),
+        (job.status === 'PENDING' ||
+          job.status === 'RUNNING' ||
+          (kind === 'ESCALATE_TO_HUMAN' && job.status === 'SUCCEEDED')),
     );
 
     if (existing) {

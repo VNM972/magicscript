@@ -1,3 +1,5 @@
+import type { SendReservationStatus } from './email/send-idempotency';
+
 export interface RunnerJob {
   id: string;
   kind: string;
@@ -123,6 +125,35 @@ export class MagicScriptApi {
     if (!response.ok) {
       throw new Error(`Success callback failed ${response.status}: ${await response.text()}`);
     }
+  }
+
+  async beginSend(jobId: string, messageId: string): Promise<SendReservationStatus> {
+    const response = await fetch(
+      `${this.baseUrl}/api/runner/jobs/${encodeURIComponent(jobId)}/send-start`,
+      {
+        method: 'POST',
+        headers: this.headers(),
+        body: JSON.stringify({ messageId }),
+      },
+    );
+
+    const body = (await response.json().catch(() => ({}))) as {
+      status?: SendReservationStatus;
+    };
+
+    if (response.status === 409 && body.status) {
+      return body.status;
+    }
+
+    if (!response.ok) {
+      throw new Error(`Send reservation failed ${response.status}`);
+    }
+
+    if (body.status !== 'STARTED') {
+      throw new Error('Send reservation returned an invalid status');
+    }
+
+    return body.status;
   }
 
   async inboundEmail(input: {

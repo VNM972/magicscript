@@ -19,7 +19,14 @@ export type JobKind =
   | 'SEND_INFORMATION_RESPONSE'
   | 'GENERATE_PROTOTYPE_STRATEGY';
 
-export type JobStatus = 'PENDING' | 'RUNNING' | 'SUCCEEDED' | 'FAILED' | 'DEAD_LETTER';
+export type JobStatus =
+  | 'PENDING'
+  | 'RUNNING'
+  | 'SENDING'
+  | 'SEND_UNKNOWN'
+  | 'SUCCEEDED'
+  | 'FAILED'
+  | 'DEAD_LETTER';
 
 export interface MagicScriptJob<TPayload = Record<string, unknown>> {
   id: string;

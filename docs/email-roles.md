@@ -14,7 +14,10 @@ Recommended V1 runtime values:
 MAGICSCRIPT_FROM_EMAIL=commercial@magicscript.fr
 MAGICSCRIPT_REPLY_TO_EMAIL=commercial@magicscript.fr
 MAGICSCRIPT_EMAIL_USERNAME=commercial@magicscript.fr
+MAGICSCRIPT_EMAIL_SIGNATURE="Stéphane MIRE\nMagic Script\ncommercial@magicscript.fr\nTél. : 06 58 69 50 73"
 ```
+
+The transport appends the configured signature in both plain-text and HTML form and embeds the Magic Script logo inline when the logo asset is available. If `MAGICSCRIPT_EMAIL_SIGNATURE` is unset, the default signature uses `MAGICSCRIPT_FROM_EMAIL`, so the same configuration works for either the commercial or contact mailbox.
 
 ### contact@magicscript.fr
 

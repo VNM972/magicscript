@@ -172,6 +172,42 @@ test('demo link sending obeys the outbound safety switch', async () => {
   assert.equal(plan.reason, 'Sending disabled');
 });
 
+test('successful human escalation is not requeued on reconcile', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+
+  await prospects.saveProspect({
+    id: 'p-human',
+    companyName: 'Human Review Prospect',
+    state: 'HUMAN_ACTION_REQUIRED',
+    createdAt: '2026-08-31T00:00:00.000Z',
+    updatedAt: '2026-08-31T00:00:00.000Z',
+  });
+
+  let id = 0;
+  const engine = new OrchestratorEngine({
+    config: loadConfig({ MAGICSCRIPT_AUTOPILOT_ENABLED: 'true' }),
+    prospects,
+    events,
+    jobs,
+    idFactory: () => `human-${++id}`,
+    now: () => new Date('2026-08-31T12:00:00.000Z'),
+  });
+
+  const firstPlan = await engine.planProspect('p-human');
+  await jobs.next(new Date('2026-08-31T12:00:00.000Z'), 'test-runner');
+  await jobs.markSucceeded(firstPlan.queuedJobId!);
+
+  const secondPlan = await engine.planProspect('p-human');
+  const allEscalations = (await jobs.list()).filter(
+    (job) => job.kind === 'ESCALATE_TO_HUMAN',
+  );
+
+  assert.equal(secondPlan.queuedJobId, firstPlan.queuedJobId);
+  assert.equal(allEscalations.length, 1);
+});
+
 
 test('prototype-required prospect queues a strategy job before build', async () => {
   const prospects = new InMemoryProspectRepository();

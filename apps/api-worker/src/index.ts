@@ -66,6 +66,27 @@ interface ResearchResult {
   primaryAsset?: string;
   primaryFriction?: string;
   primaryCta?: string;
+  contactPlan?: {
+    recommendedChannel:
+      | 'official_email'
+      | 'contact_form'
+      | 'phone'
+      | 'official_social_dm'
+      | 'professional_directory'
+      | 'unknown';
+    targetRole:
+      | 'owner_or_manager'
+      | 'direction'
+      | 'commercial'
+      | 'reception'
+      | 'generic_business_contact'
+      | 'unknown';
+    publicContactName?: string;
+    routeReason: string;
+    nextAction: string;
+    sourceRefs: string[];
+    confidence: number;
+  };
   scoreInputs: {
     digitalGap: number;
     commercialStrength: number;
@@ -122,6 +143,29 @@ interface ExternalSendResult {
   accepted?: string[];
   rejected?: string[];
   deliveredExternally: boolean;
+}
+
+const externalSendKinds: readonly MagicScriptJob['kind'][] = [
+  'SEND_EMAIL',
+  'SEND_FOLLOW_UP',
+  'SEND_DEMO_LINK',
+  'SEND_INFORMATION_RESPONSE',
+];
+
+function isExternalSendKind(kind: MagicScriptJob['kind']): boolean {
+  return externalSendKinds.includes(kind);
+}
+
+function messageKindForSendJob(kind: MagicScriptJob['kind']): 'INITIAL' | 'FOLLOW_UP' | 'REPLY' {
+  return kind === 'SEND_EMAIL' ? 'INITIAL' : kind === 'SEND_FOLLOW_UP' ? 'FOLLOW_UP' : 'REPLY';
+}
+
+function persistedSendMessageId(job: MagicScriptJob): string | undefined {
+  const messageId =
+    job.payload && typeof job.payload === 'object'
+      ? (job.payload as Record<string, unknown>).sendMessageId
+      : undefined;
+  return typeof messageId === 'string' && messageId.trim() ? messageId.trim() : undefined;
 }
 
 interface ClassificationResult {
@@ -405,7 +449,7 @@ async function recoverStaleJobs(
          max_attempts,
          claimed_by
        FROM jobs
-       WHERE status = 'RUNNING'
+       WHERE status IN ('RUNNING', 'SENDING')
          AND claimed_at IS NOT NULL
          AND claimed_at < ?
        ORDER BY claimed_at ASC
@@ -416,6 +460,7 @@ async function recoverStaleJobs(
       id: string;
       prospect_id: string | null;
       kind: MagicScriptJob['kind'];
+      status: JobStatus;
       attempts: number;
       max_attempts: number;
       claimed_by: string | null;
@@ -425,6 +470,43 @@ async function recoverStaleJobs(
   let deadLettered = 0;
 
   for (const job of stale.results ?? []) {
+    if (job.status === 'SENDING') {
+      const error = 'SMTP send attempt became uncertain after the runner lease expired';
+      await db
+        .prepare(
+          `UPDATE jobs
+           SET status = 'SEND_UNKNOWN',
+               claimed_by = NULL,
+               claimed_at = NULL,
+               last_error = ?,
+               updated_at = ?
+           WHERE id = ? AND status = 'SENDING'`,
+        )
+        .bind(error, now, job.id)
+        .run();
+
+      deadLettered += 1;
+
+      if (job.prospect_id) {
+        await handleTerminalJobFailure(job.prospect_id, job.kind, error, db);
+      }
+
+      if (job.claimed_by) {
+        await db
+          .prepare(
+            `UPDATE runners
+             SET status = 'ERROR',
+                 current_job_id = NULL,
+                 last_seen_at = ?
+             WHERE runner_id = ?`,
+          )
+          .bind(now, job.claimed_by)
+          .run();
+      }
+
+      continue;
+    }
+
     const exhausted = job.attempts >= job.max_attempts;
 
     if (exhausted) {
@@ -1807,7 +1889,7 @@ async function sendCapacity(
       `SELECT COUNT(*) AS count
        FROM jobs
        WHERE kind IN ('SEND_EMAIL', 'SEND_FOLLOW_UP', 'SEND_DEMO_LINK', 'SEND_INFORMATION_RESPONSE')
-         AND status = 'RUNNING'
+         AND status IN ('RUNNING', 'SENDING')
          AND claimed_at >= ?`,
     )
     .bind(since)
@@ -1925,7 +2007,7 @@ async function scheduleDueFollowUps(
          FROM jobs
          WHERE prospect_id = ?
            AND kind = 'SEND_FOLLOW_UP'
-           AND status IN ('PENDING', 'RUNNING')
+           AND status IN ('PENDING', 'RUNNING', 'SENDING', 'SEND_UNKNOWN')
          LIMIT 1`,
       )
       .bind(candidate.prospect_id)
@@ -2329,51 +2411,89 @@ async function processExternalSendResult(
     throw new Error('Amen SMTP runner did not report a successful external send');
   }
 
-  const messageKind =
-    job.kind === 'SEND_EMAIL'
-      ? 'INITIAL'
-      : job.kind === 'SEND_FOLLOW_UP'
-        ? 'FOLLOW_UP'
-        : 'REPLY'; // covers SEND_DEMO_LINK and SEND_INFORMATION_RESPONSE
+  const messageKind = messageKindForSendJob(job.kind);
+  const sendMessageId = persistedSendMessageId(job);
+
+  if (!sendMessageId) {
+    throw new Error('External send job has no persistent SMTP reservation');
+  }
 
   const message = await db
     .prepare(
-      `SELECT id
+      `SELECT id, status, provider_message_id
        FROM outreach_messages
-       WHERE prospect_id = ?
-         AND kind = ?
-         AND status = 'VERIFIED'
-       ORDER BY created_at DESC
+       WHERE id = ? AND prospect_id = ? AND kind = ?
        LIMIT 1`,
     )
-    .bind(job.prospectId, messageKind)
-    .first<{ id: string }>();
+    .bind(sendMessageId, job.prospectId, messageKind)
+    .first<{
+      id: string;
+      status: string;
+      provider_message_id: string | null;
+    }>();
 
   if (!message) {
-    throw new Error(`No VERIFIED ${messageKind} message found after Amen SMTP send`);
+    throw new Error(`Reserved ${messageKind} message not found after Amen SMTP send`);
+  }
+
+  const persistedStatus = result.testMode === true ? 'TEST_SENT' : 'SENT';
+  const providerMessageId = result.providerMessageId.trim();
+
+  if (message.status === 'SENT' || message.status === 'TEST_SENT') {
+    if (message.provider_message_id !== providerMessageId) {
+      throw new Error('SMTP success conflicts with the persisted provider Message-ID');
+    }
+
+    return {
+      prospectId: job.prospectId,
+      providerMessageId,
+    };
+  }
+
+  if (message.status !== 'SENDING') {
+    throw new Error(`Reserved outreach message is not sendable: ${message.status}`);
   }
 
   const now = new Date().toISOString();
 
-  const persistedStatus = result.testMode === true ? 'TEST_SENT' : 'SENT';
-
-  await db
+  const persisted = await db
     .prepare(
       `UPDATE outreach_messages
        SET status = ?,
            provider_message_id = ?,
            sent_at = ?,
            updated_at = ?
-       WHERE id = ?`,
+       WHERE id = ? AND status = 'SENDING'
+       RETURNING id`,
     )
     .bind(
       persistedStatus,
-      result.providerMessageId.trim(),
+      providerMessageId,
       now,
       now,
       message.id,
     )
-    .run();
+    .first<{ id: string }>();
+
+  if (!persisted) {
+    const current = await db
+      .prepare('SELECT status, provider_message_id FROM outreach_messages WHERE id = ? LIMIT 1')
+      .bind(message.id)
+      .first<{ status: string; provider_message_id: string | null }>();
+
+    if (
+      current &&
+      (current.status === 'SENT' || current.status === 'TEST_SENT') &&
+      current.provider_message_id === providerMessageId
+    ) {
+      return {
+        prospectId: job.prospectId,
+        providerMessageId,
+      };
+    }
+
+    throw new Error('SMTP success could not persist its reserved message state');
+  }
 
   const repo = new D1ProspectRepository(db);
   const prospect = await repo.getProspect(job.prospectId);
@@ -2442,7 +2562,7 @@ async function processExternalSendResult(
     type: eventType,
     payload: {
       provider: result.provider,
-      providerMessageId: result.providerMessageId,
+      providerMessageId,
       recipient: result.recipient,
       originalRecipient: result.originalRecipient ?? null,
       testMode: result.testMode === true,
@@ -2455,7 +2575,7 @@ async function processExternalSendResult(
 
   return {
     prospectId: prospect.id,
-    providerMessageId: result.providerMessageId,
+    providerMessageId,
   };
 }
 
@@ -4144,6 +4264,100 @@ await transitionOnClaim(job, repo);
       prototypeContext,
       prototypeStrategy,
     });
+  }
+
+  const sendStartMatch = url.pathname.match(/^\/api\/runner\/jobs\/([^/]+)\/send-start$/);
+  if (request.method === 'POST' && sendStartMatch) {
+    const jobId = decodeURIComponent(sendStartMatch[1]);
+    const body = (await request.json()) as { messageId?: string };
+    const messageId = body.messageId?.trim();
+    const db = requireDb(env);
+
+    if (!messageId) return json({ error: 'messageId is required' }, { status: 400 });
+
+    const job = await db
+      .prepare('SELECT id, kind, prospect_id, status FROM jobs WHERE id = ? LIMIT 1')
+      .bind(jobId)
+      .first<{
+        id: string;
+        kind: MagicScriptJob['kind'];
+        prospect_id: string | null;
+        status: JobStatus;
+      }>();
+
+    if (!job) return json({ error: 'Job not found' }, { status: 404 });
+    if (!isExternalSendKind(job.kind)) {
+      return json({ error: 'Job is not an external send job' }, { status: 400 });
+    }
+
+    if (job.status !== 'RUNNING') {
+      const status =
+        job.status === 'SENDING' || job.status === 'SEND_UNKNOWN' || job.status === 'SUCCEEDED'
+          ? job.status
+          : undefined;
+      return json(
+        { error: 'Job is not available for a new SMTP send', ...(status ? { status } : {}) },
+        { status: 409 },
+      );
+    }
+
+    if (!job.prospect_id) return json({ error: 'Send job has no prospectId' }, { status: 400 });
+
+    const message = await db
+      .prepare(
+        `SELECT id
+         FROM outreach_messages
+         WHERE id = ?
+           AND prospect_id = ?
+           AND kind = ?
+           AND status = 'VERIFIED'
+         LIMIT 1`,
+      )
+      .bind(messageId, job.prospect_id, messageKindForSendJob(job.kind))
+      .first<{ id: string }>();
+
+    if (!message) {
+      return json({ error: 'Message is not a VERIFIED message for this send job' }, { status: 409 });
+    }
+
+    const started = await db
+      .prepare(
+        `UPDATE jobs
+         SET status = 'SENDING',
+             payload_json = json_set(payload_json, '$.sendMessageId', ?),
+             updated_at = ?
+         WHERE id = ? AND status = 'RUNNING'
+         RETURNING id`,
+      )
+      .bind(message.id, new Date().toISOString(), job.id)
+      .first<{ id: string }>();
+
+    if (!started) {
+      return json(
+        { error: 'Job was claimed by another send attempt', status: 'SEND_UNKNOWN' },
+        { status: 409 },
+      );
+    }
+
+    const reservedMessage = await db
+      .prepare(
+        `UPDATE outreach_messages
+         SET status = 'SENDING',
+             updated_at = ?
+         WHERE id = ? AND status = 'VERIFIED'
+         RETURNING id`,
+      )
+      .bind(new Date().toISOString(), message.id)
+      .first<{ id: string }>();
+
+    if (!reservedMessage) {
+      return json(
+        { error: 'Message reservation became uncertain; SMTP send is blocked', status: 'SEND_UNKNOWN' },
+        { status: 409 },
+      );
+    }
+
+    return json({ ok: true, status: 'STARTED' });
   }
 
   const successMatch = url.pathname.match(/^\/api\/runner\/jobs\/([^/]+)\/succeed$/);
