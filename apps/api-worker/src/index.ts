@@ -1254,8 +1254,16 @@ async function processContactResult(
 
   if (best) {
     if (current.state === 'CONTACT_DISCOVERY') {
-      await repo.transitionProspect(current.id, 'CONTACT_FOUND', 'Validated professional email found');
-      await repo.transitionProspect(current.id, 'OUTREACH_READY', 'Contact passed automatic validation');
+      await repo.transitionProspect(
+        current.id,
+        'CONTACT_FOUND',
+        'Validated professional email found',
+      );
+      await repo.transitionProspect(
+        current.id,
+        'PROTOTYPE_REQUIRED',
+        'Validated contact qualifies for a pre-outreach prototype',
+      );
     }
 
     if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
@@ -1300,8 +1308,8 @@ async function processContactResult(
       );
       await repo.transitionProspect(
         job.prospectId,
-        'OUTREACH_READY',
-        'Validated fallback contact is ready for outreach',
+        'PROTOTYPE_REQUIRED',
+        'Validated fallback contact qualifies for a pre-outreach prototype',
       );
 
       if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
@@ -2750,18 +2758,7 @@ async function processPrototypeDeployResult(
     'Cloudflare Pages preview deployed',
   );
 
-  const reply = await db
-    .prepare(
-      `SELECT contact_id
-       FROM replies
-       WHERE prospect_id = ?
-       ORDER BY received_at DESC
-       LIMIT 1`,
-    )
-    .bind(prospect.id)
-    .first<{ contact_id: string | null }>();
-
-  const fallbackContact = await db
+  const contact = await db
     .prepare(
       `SELECT id
        FROM contacts
@@ -2774,25 +2771,24 @@ async function processPrototypeDeployResult(
     .bind(prospect.id)
     .first<{ id: string }>();
 
-  const contactId = reply?.contact_id ?? fallbackContact?.id;
-  if (!contactId) {
+  if (!contact) {
     await repo.transitionProspect(
       prospect.id,
       'HUMAN_ACTION_REQUIRED',
-      'Prototype deployed but no valid contact remains for demo reply',
+      'Prototype deployed but no valid contact remains',
     );
     await createEscalation(
       db,
       prospect.id,
       'MANUAL_REVIEW_REQUIRED',
-      'Prototype is deployed but Magic Script could not resolve a valid recipient for the demo link.',
+      'Prototype is deployed but Magic Script could not resolve a valid recipient.',
     );
     return { prospectId: prospect.id, deploymentUrl: deployment.toString() };
   }
 
-  const original = await db
+  const initialOutreach = await db
     .prepare(
-      `SELECT subject
+      `SELECT id, subject
        FROM outreach_messages
        WHERE prospect_id = ?
          AND kind = 'INITIAL'
@@ -2800,12 +2796,52 @@ async function processPrototypeDeployResult(
        LIMIT 1`,
     )
     .bind(prospect.id)
-    .first<{ subject: string | null }>();
+    .first<{ id: string; subject: string | null }>();
 
-  const subject = original?.subject?.trim()
-    ? original.subject.startsWith('Re:')
-      ? original.subject
-      : `Re: ${original.subject}`
+  if (!initialOutreach) {
+    await repo.transitionProspect(
+      prospect.id,
+      'OUTREACH_READY',
+      'Prototype deployed; initial outreach can now include the verified demo URL',
+    );
+
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'system',
+      type: 'prototype.deployed_for_initial_outreach',
+      payload: {
+        prototypeId: prototype.id,
+        deploymentUrl: deployment.toString(),
+        projectName: result.projectName,
+        branch: result.branch,
+      },
+      createdAt: now,
+    });
+
+    if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+      await orchestrator(env, db).planProspect(prospect.id);
+    }
+
+    return { prospectId: prospect.id, deploymentUrl: deployment.toString() };
+  }
+
+  const reply = await db
+    .prepare(
+      `SELECT contact_id
+       FROM replies
+       WHERE prospect_id = ?
+       ORDER BY received_at DESC
+       LIMIT 1`,
+    )
+    .bind(prospect.id)
+    .first<{ contact_id: string | null }>();
+
+  const replyContactId = reply?.contact_id ?? contact.id;
+  const subject = initialOutreach.subject?.trim()
+    ? initialOutreach.subject.startsWith('Re:')
+      ? initialOutreach.subject
+      : `Re: ${initialOutreach.subject}`
     : 'Votre démonstration Magic Script';
 
   const body = [
@@ -2833,7 +2869,7 @@ async function processPrototypeDeployResult(
     .bind(
       crypto.randomUUID(),
       prospect.id,
-      contactId,
+      replyContactId,
       subject,
       body,
       JSON.stringify([deployment.toString()]),
@@ -3946,6 +3982,7 @@ await transitionOnClaim(job, repo);
                runner_id,
                status,
                qa_status,
+               deployment_url,
                build_manifest_json,
                qa_findings_json
              FROM prototypes
