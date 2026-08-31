@@ -171,3 +171,37 @@ test('demo link sending obeys the outbound safety switch', async () => {
   assert.equal(plan.queuedJobId, undefined);
   assert.equal(plan.reason, 'Sending disabled');
 });
+
+
+test('prototype-required prospect queues a strategy job before build', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+
+  await prospects.saveProspect({
+    id: 'p-prototype-strategy',
+    companyName: 'Prototype Strategy Test',
+    state: 'PROTOTYPE_REQUIRED',
+    createdAt: '2026-08-31T00:00:00.000Z',
+    updatedAt: '2026-08-31T00:00:00.000Z',
+  });
+
+  let id = 0;
+  const engine = new OrchestratorEngine({
+    config: loadConfig({ MAGICSCRIPT_AUTOPILOT_ENABLED: 'true' }),
+    prospects,
+    events,
+    jobs,
+    idFactory: () => `prototype-strategy-${++id}`,
+    now: () => new Date('2026-08-31T12:00:00.000Z'),
+  });
+
+  const plan = await engine.planProspect('p-prototype-strategy');
+
+  assert.equal(plan.nextAction, 'GENERATE_PROTOTYPE_STRATEGY');
+  assert.ok(plan.queuedJobId);
+
+  const pending = await jobs.list('PENDING');
+  assert.equal(pending.length, 1);
+  assert.equal(pending[0]?.kind, 'GENERATE_PROTOTYPE_STRATEGY');
+});
