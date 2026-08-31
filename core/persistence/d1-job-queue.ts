@@ -1,3 +1,4 @@
+import { jobKindPrioritySql } from '../jobs/priority';
 import type { JobQueue, JobStatus, MagicScriptJob } from '../jobs/types';
 import type { D1DatabaseLike } from './d1-types';
 
@@ -100,7 +101,7 @@ export class D1JobQueue implements JobQueue {
         SELECT id
         FROM jobs
         WHERE status = 'PENDING' AND run_after <= ?${kindFilter}${affinityFilter}
-        ORDER BY created_at ASC
+        ORDER BY ${jobKindPrioritySql('kind')} ASC, created_at ASC
         LIMIT 1
       )
       AND status = 'PENDING'
