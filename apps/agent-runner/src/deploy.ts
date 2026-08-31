@@ -85,23 +85,31 @@ export async function deployPrototypeToPages(input: {
     throw new Error('Prototype has no static out/ directory to deploy');
   }
 
-  const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
-  const result = await run(
-    npx,
-    [
-      'wrangler',
-      'pages',
-      'deploy',
-      'out',
-      '--project-name',
-      projectName,
-      '--branch',
-      branch,
-      '--commit-message',
-      'Magic Script automated prototype',
-    ],
-    input.workDir,
-  );
+  const deployArgs = [
+    'wrangler',
+    'pages',
+    'deploy',
+    'out',
+    '--project-name',
+    projectName,
+    '--branch',
+    branch,
+    '--commit-message',
+    'Magic Script automated prototype',
+  ];
+
+  // Node 24 no longer executes Windows .cmd shims directly via spawn().
+  // Route npx.cmd through cmd.exe explicitly, without shell:true.
+  const command =
+    process.platform === 'win32'
+      ? process.env.ComSpec?.trim() || 'cmd.exe'
+      : 'npx';
+  const args =
+    process.platform === 'win32'
+      ? ['/d', '/s', '/c', 'npx.cmd', ...deployArgs]
+      : deployArgs;
+
+  const result = await run(command, args, input.workDir);
 
   if (result.code !== 0) {
     throw new Error(
