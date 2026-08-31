@@ -65,6 +65,22 @@ export async function deployPrototypeToPages(input: {
   companyName: string;
   prospectId: string;
 }): Promise<PrototypeDeployResult> {
+  const projectName =
+    process.env.MAGICSCRIPT_PAGES_PROJECT?.trim() || 'magicscript-demos';
+  const branch = slug(
+    `${input.companyName}-${input.prospectId.slice(0, 8)}`,
+  );
+
+  if (process.env.MAGICSCRIPT_PROTOTYPE_DEPLOY_MODE === 'mock') {
+    return {
+      deployed: true,
+      deploymentUrl: `https://${branch}.pages.dev/`,
+      projectName,
+      branch,
+      output: 'Local mock deployment; no Cloudflare request made.',
+    };
+  }
+
   if (!process.env.CLOUDFLARE_API_TOKEN?.trim()) {
     throw new Error('CLOUDFLARE_API_TOKEN is required for prototype deployment');
   }
@@ -73,11 +89,6 @@ export async function deployPrototypeToPages(input: {
     throw new Error('CLOUDFLARE_ACCOUNT_ID is required for prototype deployment');
   }
 
-  const projectName =
-    process.env.MAGICSCRIPT_PAGES_PROJECT?.trim() || 'magicscript-demos';
-  const branch = slug(
-    `${input.companyName}-${input.prospectId.slice(0, 8)}`,
-  );
   const outputDir = join(input.workDir, 'out');
 
   const info = await stat(outputDir).catch(() => null);
@@ -85,23 +96,30 @@ export async function deployPrototypeToPages(input: {
     throw new Error('Prototype has no static out/ directory to deploy');
   }
 
-  const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
-  const result = await run(
-    npx,
-    [
-      'wrangler',
-      'pages',
-      'deploy',
-      'out',
-      '--project-name',
-      projectName,
-      '--branch',
-      branch,
-      '--commit-message',
-      'Magic Script automated prototype',
-    ],
-    input.workDir,
-  );
+  const deployArgs = [
+    'wrangler',
+    'pages',
+    'deploy',
+    'out',
+    '--project-name',
+    projectName,
+    '--branch',
+    branch,
+    '--commit-message',
+    'Magic Script automated prototype',
+  ];
+
+  const command =
+    process.platform === 'win32'
+      ? process.env.ComSpec?.trim() || 'cmd.exe'
+      : 'npx';
+
+  const args =
+    process.platform === 'win32'
+      ? ['/d', '/s', '/c', 'npx.cmd', ...deployArgs]
+      : deployArgs;
+
+  const result = await run(command, args, input.workDir);
 
   if (result.code !== 0) {
     throw new Error(
