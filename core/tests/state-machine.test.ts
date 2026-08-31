@@ -34,3 +34,10 @@ test('routes validated cold prospects through a prototype before first outreach'
   assert.equal(canTransition('PROTOTYPE_DEPLOYED', 'OUTREACH_READY'), true);
   assert.equal(canTransition('OUTREACH_READY', 'OUTREACH_DRAFTED'), true);
 });
+
+
+test('human review can explicitly resume a prospect into the new prototype-first flow', () => {
+  assert.equal(canTransition('HUMAN_ACTION_REQUIRED', 'PROTOTYPE_REQUIRED'), true);
+  assert.equal(canTransition('HUMAN_ACTION_REQUIRED', 'OUTREACH_READY'), true);
+  assert.equal(canTransition('HUMAN_ACTION_REQUIRED', 'CONTACT_DISCOVERY'), true);
+});
