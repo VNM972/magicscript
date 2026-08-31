@@ -27,3 +27,10 @@ test('allows the prototype delivery path', () => {
   assert.equal(canTransition('DEMO_REPLY_READY', 'DEMO_REPLY_SENT'), true);
   assert.equal(canTransition('DEMO_REPLY_SENT', 'WAITING_REPLY'), true);
 });
+
+
+test('routes validated cold prospects through a prototype before first outreach', () => {
+  assert.equal(canTransition('CONTACT_FOUND', 'PROTOTYPE_REQUIRED'), true);
+  assert.equal(canTransition('PROTOTYPE_DEPLOYED', 'OUTREACH_READY'), true);
+  assert.equal(canTransition('OUTREACH_READY', 'OUTREACH_DRAFTED'), true);
+});
