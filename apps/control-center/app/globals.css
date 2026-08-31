@@ -1080,3 +1080,255 @@ h2 {
     right: 14px;
   }
 }
+
+
+.liveSwarm3dWrap {
+  position: relative;
+  height: 430px;
+  overflow: hidden;
+  border: 1px solid rgba(113, 255, 183, 0.08);
+  border-radius: 16px;
+  perspective: 1400px;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(113, 255, 183, 0.10), transparent 26%),
+    radial-gradient(circle at 18% 16%, rgba(63, 129, 255, 0.05), transparent 22%),
+    linear-gradient(180deg, rgba(8, 24, 18, 0.96), rgba(3, 10, 8, 0.99)),
+    #030b08;
+  box-shadow:
+    inset 0 0 80px rgba(0, 0, 0, 0.45),
+    inset 0 -30px 80px rgba(0, 0, 0, 0.30);
+}
+
+.liveSwarm3dWrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(113, 255, 183, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(113, 255, 183, 0.018) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.95));
+}
+
+.liveSwarm3dSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: rotateX(4.5deg) scale(1.018);
+  transform-origin: 50% 52%;
+  transform-style: preserve-3d;
+}
+
+.swarm3dDepthGrid ellipse,
+.swarm3dDepthGrid path {
+  fill: none;
+  stroke: rgba(113, 255, 183, 0.045);
+  stroke-width: 0.8;
+}
+
+.swarm3dDepthGrid {
+  opacity: 0.85;
+}
+
+.swarm3dCoreShadow,
+.swarm3dNodeShadow {
+  fill: rgba(0, 0, 0, 0.52);
+  filter: blur(2px);
+}
+
+.swarm3dCoreAura {
+  fill: rgba(113, 255, 183, 0.055);
+  filter: url(#swarm3d-soft-glow);
+  animation: swarm3dAura 2.8s ease-in-out infinite;
+}
+
+.swarm3dEdgeGlow,
+.swarm3dEdge {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.swarm3dEdgeGlow {
+  stroke: rgba(113, 255, 183, 0.055);
+  stroke-width: 5;
+  filter: url(#swarm3d-soft-glow);
+}
+
+.swarm3dEdge {
+  stroke: rgba(113, 255, 183, 0.12);
+  stroke-width: 1;
+}
+
+.swarm3dEdgeGlowActive {
+  stroke: rgba(113, 255, 183, 0.28);
+  stroke-width: 9;
+}
+
+.swarm3dEdgeActive {
+  stroke: url(#swarm3d-flow);
+  stroke-width: 2.1;
+  filter: url(#swarm3d-glow);
+}
+
+.swarm3dParticle {
+  fill: rgba(113, 255, 183, 0.32);
+  filter: url(#swarm3d-glow);
+}
+
+.swarm3dParticleActive {
+  fill: #c3ffe4;
+}
+
+.swarm3dParticleTrail {
+  fill: rgba(113, 255, 183, 0.56);
+  filter: url(#swarm3d-glow);
+}
+
+.swarm3dNode {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: swarm3dFloat 5.4s ease-in-out infinite;
+}
+
+.swarm3dNodeActive {
+  animation-duration: 2.2s;
+}
+
+.swarm3dCoreOuter {
+  fill: rgba(113, 255, 183, 0.085);
+  stroke: rgba(143, 255, 201, 0.34);
+  stroke-width: 1.1;
+  filter: url(#swarm3d-glow);
+}
+
+.swarm3dCoreSphere {
+  fill: url(#swarm3d-core);
+  stroke: rgba(233, 255, 245, 0.9);
+  stroke-width: 1.15;
+  filter: url(#swarm3d-glow);
+}
+
+.swarm3dSpecular {
+  fill: rgba(255, 255, 255, 0.88);
+  opacity: 0.88;
+  filter: url(#swarm3d-glow);
+}
+
+.swarm3dCoreOrbit,
+.swarm3dNodeOrbit {
+  fill: none;
+  stroke: rgba(143, 255, 201, 0.22);
+  stroke-width: 0.9;
+  stroke-dasharray: 4 5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: swarm3dOrbit 9s linear infinite;
+}
+
+.swarm3dNodeHalo {
+  fill: rgba(113, 255, 183, 0.035);
+  filter: url(#swarm3d-soft-glow);
+}
+
+.swarm3dNodeHaloActive {
+  fill: rgba(113, 255, 183, 0.13);
+}
+
+.swarm3dNodeSphere {
+  fill: url(#swarm3d-node);
+  stroke: rgba(143, 255, 201, 0.45);
+  stroke-width: 1;
+  filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.35));
+}
+
+.swarm3dNodeSphereActive {
+  fill: url(#swarm3d-node-active);
+  stroke: rgba(239, 255, 247, 0.95);
+  filter:
+    url(#swarm3d-glow)
+    drop-shadow(0 5px 7px rgba(0, 0, 0, 0.40));
+}
+
+.swarm3dAgentSpecular {
+  opacity: 0.64;
+}
+
+.swarm3dNodeLabel {
+  fill: #c9ded4;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: rgba(3, 11, 8, 0.82);
+  stroke-width: 2.2px;
+}
+
+.swarm3dCoreLabel {
+  fill: #f4fff9;
+  font-size: 11px;
+}
+
+.swarm3dNodeState {
+  fill: #557469;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: rgba(3, 11, 8, 0.86);
+  stroke-width: 2px;
+}
+
+.swarm3dNodeActive .swarm3dNodeState {
+  fill: #71ffb7;
+}
+
+@keyframes swarm3dFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  30% {
+    transform: translate3d(2px, -5px, 0) scale(1.012);
+  }
+  65% {
+    transform: translate3d(-2px, 3px, 0) scale(0.994);
+  }
+}
+
+@keyframes swarm3dOrbit {
+  from {
+    transform: rotate(0deg) scaleX(1);
+  }
+  to {
+    transform: rotate(360deg) scaleX(1);
+  }
+}
+
+@keyframes swarm3dAura {
+  0%, 100% {
+    opacity: 0.38;
+    transform: scale(0.92);
+    transform-origin: center;
+  }
+  50% {
+    opacity: 0.92;
+    transform: scale(1.08);
+    transform-origin: center;
+  }
+}
+
+@media (max-width: 760px) {
+  .liveSwarm3dWrap {
+    height: 500px;
+  }
+
+  .liveSwarm3dSvg {
+    transform: rotateX(3deg) scale(1.01);
+  }
+
+  .swarm3dNodeLabel {
+    font-size: 7.6px;
+  }
+}
