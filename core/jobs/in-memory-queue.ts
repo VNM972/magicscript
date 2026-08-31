@@ -1,3 +1,4 @@
+import { jobKindPriority } from './priority';
 import type { JobQueue, JobStatus, MagicScriptJob } from './types';
 
 export class InMemoryJobQueue implements JobQueue {
@@ -43,7 +44,10 @@ export class InMemoryJobQueue implements JobQueue {
             (typeof requiredRunnerId === 'string' && requiredRunnerId === claimedBy))
         );
       })
-      .sort((a, b) => a.createdAt.localeCompare(b.createdAt))[0];
+      .sort((a, b) => {
+        const priorityDelta = jobKindPriority(a.kind) - jobKindPriority(b.kind);
+        return priorityDelta || a.createdAt.localeCompare(b.createdAt);
+      })[0];
 
     if (!candidate) return null;
 
