@@ -1,8 +1,14 @@
 param(
     [switch]$SkipInstall,
     [switch]$SkipChecks,
-    [switch]$Full
+    [switch]$Full,
+    [switch]$SkipSmoke
 )
+
+if ($env:MAGICSCRIPT_LIFECYCLE_INTERNAL -ne 'true') {
+    & (Join-Path $PSScriptRoot 'magic-script.ps1') start @PSBoundParameters
+    exit $LASTEXITCODE
+}
 
 $ErrorActionPreference = 'Stop'
 
@@ -50,12 +56,13 @@ $env:MAGICSCRIPT_RUNNER_TOKEN = 'dev-runner-token'
 $env:MAGICSCRIPT_RUNNER_WORK_DIR = Join-Path $RuntimeDir 'runner'
 $env:MAGICSCRIPT_SENDING_ENABLED = 'false'
 $env:MAGICSCRIPT_EMAIL_PROVIDER = 'disabled'
-$env:MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED = 'false'
+$env:MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED = 'true'
+$env:MAGICSCRIPT_PROTOTYPE_DEPLOY_MODE = 'mock'
 
 Write-Host '[4/6] Starting local API Worker...'
 $ApiOut = Join-Path $LogsDir 'api.out.log'
 $ApiErr = Join-Path $LogsDir 'api.err.log'
-$ApiProcess = Start-Process -FilePath 'npm.cmd' -ArgumentList 'run','dev:api:local' -WorkingDirectory $RepoRoot -RedirectStandardOutput $ApiOut -RedirectStandardError $ApiErr -PassThru
+$ApiProcess = Start-Process -FilePath 'npm.cmd' -ArgumentList 'run','dev:api:local' -WorkingDirectory $RepoRoot -RedirectStandardOutput $ApiOut -RedirectStandardError $ApiErr -WindowStyle Hidden -PassThru
 
 $ApiReady = $false
 for ($i = 0; $i -lt 40; $i++) {
@@ -74,12 +81,12 @@ if (-not $ApiReady) {
 Write-Host '[5/6] Starting Kimi Swarm runner...'
 $RunnerOut = Join-Path $LogsDir 'runner.out.log'
 $RunnerErr = Join-Path $LogsDir 'runner.err.log'
-$RunnerProcess = Start-Process -FilePath 'npm.cmd' -ArgumentList 'run','dev:runner' -WorkingDirectory $RepoRoot -RedirectStandardOutput $RunnerOut -RedirectStandardError $RunnerErr -PassThru
+$RunnerProcess = Start-Process -FilePath 'npm.cmd' -ArgumentList 'run','dev:runner' -WorkingDirectory $RepoRoot -RedirectStandardOutput $RunnerOut -RedirectStandardError $RunnerErr -WindowStyle Hidden -PassThru
 
 Write-Host '[6/6] Starting Control Center...'
 $ControlOut = Join-Path $LogsDir 'control-center.out.log'
 $ControlErr = Join-Path $LogsDir 'control-center.err.log'
-$ControlProcess = Start-Process -FilePath 'npm.cmd' -ArgumentList '--workspace','magic-script-control-center','run','dev','--','-H','127.0.0.1' -WorkingDirectory $RepoRoot -RedirectStandardOutput $ControlOut -RedirectStandardError $ControlErr -PassThru
+$ControlProcess = Start-Process -FilePath 'npm.cmd' -ArgumentList '--workspace','magic-script-control-center','run','dev','--','-H','127.0.0.1' -WorkingDirectory $RepoRoot -RedirectStandardOutput $ControlOut -RedirectStandardError $ControlErr -WindowStyle Hidden -PassThru
 
 Start-Sleep -Seconds 2
 
@@ -99,6 +106,12 @@ $PidFile = Join-Path $RuntimeDir 'pids.json'
 Write-Host 'Safety: real email sending is DISABLED.'
 Write-Host "Logs: $LogsDir"
 Write-Host ''
+
+if ($SkipSmoke) {
+    Write-Host 'Smoke test skipped by explicit operator request.'
+    exit 0
+}
+
 Write-Host 'Launching first autonomous discovery smoke test...'
 
 npm run smoke:swarm

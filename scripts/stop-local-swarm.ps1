@@ -1,3 +1,8 @@
+if ($env:MAGICSCRIPT_LIFECYCLE_INTERNAL -ne 'true') {
+    & (Join-Path $PSScriptRoot 'magic-script.ps1') stop @PSBoundParameters
+    exit $LASTEXITCODE
+}
+
 $ErrorActionPreference = 'Stop'
 
 $RepoRoot = Split-Path -Parent $PSScriptRoot

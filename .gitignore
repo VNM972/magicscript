@@ -143,3 +143,6 @@ vite.config.ts.timestamp-*
 .vite/
 .wrangler/
 next-env.d.ts
+
+# Local agent permissions/configuration
+.claude/settings.local.json
