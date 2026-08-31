@@ -1,4 +1,5 @@
 import LiveRefresh from '../components/LiveRefresh';
+import LiveSwarmGraph from '../components/LiveSwarmGraph';
 import { getControlCenterData } from '../lib/api';
 
 export const dynamic = 'force-dynamic';
@@ -228,42 +229,11 @@ export default async function Page() {
           </div>
         </div>
 
-        <div className="swarmStage">
-          <div className={`swarmHubCard ${activeAgentCount > 0 ? 'swarmHubActive' : ''}`}>
-            <span className="swarmHubPulse" />
-            <div>
-              <strong>ORCHESTRATOR</strong>
-              <small>
-                {data.runningJobs.length > 0
-                  ? `${data.runningJobs.length} runtime job${data.runningJobs.length > 1 ? 's' : ''}`
-                  : 'Waiting for the next action'}
-              </small>
-            </div>
-          </div>
-
-          <div className="swarmAgentGrid">
-            {liveAgents.map((agent) => (
-              <article
-                className={`swarmAgentCard ${agent.active ? 'swarmAgentActive' : ''}`}
-                key={agent.id}
-              >
-                <div className="swarmAgentHeader">
-                  <span className={`agentSignal ${agent.active ? 'agentSignalActive' : ''}`} />
-                  <span className="swarmAgentGroup">{agent.group}</span>
-                  <span className={`badge ${agent.active ? 'running' : 'waiting'}`}>
-                    {agent.active ? 'WORKING' : 'READY'}
-                  </span>
-                </div>
-                <strong>{agent.label}</strong>
-                <p>{agent.detail}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <p className="swarmTelemetryNote">
-          Runtime telemetry only: cards light up from real Magic Script jobs refreshed every 5 seconds.
-        </p>
+        <LiveSwarmGraph
+          agents={liveAgents}
+          connected={data.connected}
+          runningJobCount={data.runningJobs.length}
+        />
       </section>
 
       <section className="grid">
