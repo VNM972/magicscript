@@ -292,7 +292,11 @@ ${JSON.stringify(prospect, null, 2)}
 Verified research:
 ${JSON.stringify(researchContext ?? null, null, 2)}
 
+Previous prototype / QA context:
+${JSON.stringify(prototypeContext ?? null, null, 2)}
+
 Design a strict commercial prototype strategy BEFORE any code is written.
+If Previous prototype / QA context contains a failed QA finding, the new strategy MUST explicitly avoid the rejected claim and MUST NOT replace it with a different unsupported metric or identifier.
 
 Rules:
 - use only verified prospect/research facts;
