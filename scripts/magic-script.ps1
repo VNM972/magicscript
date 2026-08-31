@@ -259,6 +259,14 @@ function Stop-Stack {
     foreach ($target in $targets) {
         if (-not (Stop-TrackedProcess $target.Id $target.Role)) { $remaining += $target }
     }
+    if ($remaining.Count -gt 0) {
+        Start-Sleep -Milliseconds 750
+        $retry = @()
+        foreach ($target in $remaining) {
+            if (-not (Stop-TrackedProcess $target.Id $target.Role)) { $retry += $target }
+        }
+        $remaining = $retry
+    }
     if ($remaining.Count -eq 0) {
         Remove-Item -LiteralPath $PidFile -Force -ErrorAction SilentlyContinue
         Remove-Item -LiteralPath $LockFile -Force -ErrorAction SilentlyContinue
