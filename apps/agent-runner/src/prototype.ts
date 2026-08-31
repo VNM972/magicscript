@@ -22,7 +22,9 @@ async function runCommand(
       windowsHide: true,
       env: process.env,
       stdio: ['ignore', 'pipe', 'pipe'],
-      shell: false,
+      // Node 24 on Windows can raise spawn EINVAL when invoking .cmd shims
+      // (such as npm.cmd) directly. Use the Windows command shell only there.
+      shell: process.platform === 'win32',
     });
 
     let output = '';
