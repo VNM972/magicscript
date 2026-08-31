@@ -196,6 +196,21 @@ export default function LiveSwarmGraph({
       'CLOSED_WON',
       'CLOSED_LOST',
     ].includes(prospect.state);
+    const priority = typeof prospect.score === 'number' && prospect.score >= 85;
+    const engaged = [
+      'POSITIVE_REPLY',
+      'HOT_LEAD',
+      'MEETING_REQUESTED',
+      'PRICING_REQUESTED',
+      'CUSTOM_REQUEST',
+      'PROTOTYPE_REQUIRED',
+      'PROTOTYPE_STRATEGY_GENERATED',
+      'PROTOTYPE_BUILDING',
+      'PROTOTYPE_QA',
+      'PROTOTYPE_READY',
+      'PROTOTYPE_DEPLOYING',
+      'PROTOTYPE_DEPLOYED',
+    ].includes(prospect.state);
 
     return {
       prospect,
@@ -204,8 +219,14 @@ export default function LiveSwarmGraph({
       x,
       y,
       depth,
-      radius: terminal ? 2.1 : 2.8 + ((hash >> 5) % 3) * 0.35,
+      radius: terminal
+        ? 2.4
+        : priority
+          ? 4.2 + ((hash >> 5) % 3) * 0.25
+          : 3.2 + ((hash >> 5) % 3) * 0.3,
       terminal,
+      priority,
+      engaged,
       delay: -((hash % 37) / 10),
     };
   });
@@ -344,11 +365,11 @@ export default function LiveSwarmGraph({
         <g className="swarm3dProspectLayer" aria-label="Prospect satellites">
           {prospectSatellites.map((satellite) => (
             <g
-              className={`swarm3dProspect ${satellite.terminal ? 'swarm3dProspectTerminal' : ''}`}
+              className={`swarm3dProspect ${satellite.terminal ? 'swarm3dProspectTerminal' : ''} ${satellite.priority ? 'swarm3dProspectPriority' : ''} ${satellite.engaged ? 'swarm3dProspectEngaged' : ''}`}
               key={satellite.prospect.id}
               style={{ animationDelay: `${satellite.delay}s` }}
             >
-              <title>{`${satellite.prospect.companyName} — ${satellite.prospect.state}${typeof satellite.prospect.score === 'number' ? ` — score ${satellite.prospect.score}` : ''}`}</title>
+              <title>{`${satellite.prospect.companyName} — ${satellite.prospect.state}${typeof satellite.prospect.score === 'number' ? ` — score ${satellite.prospect.score}` : ''} — handled by ${satellite.hostId}`}</title>
               <line
                 className="swarm3dProspectTether"
                 x1={satellite.host.px}
