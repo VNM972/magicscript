@@ -6,8 +6,17 @@ export interface LiveSwarmAgent {
   detail: string;
 }
 
+export interface LiveSwarmProspect {
+  id: string;
+  companyName: string;
+  state: string;
+  score?: number;
+  updatedAt: string;
+}
+
 interface LiveSwarmGraphProps {
   agents: LiveSwarmAgent[];
+  prospects: LiveSwarmProspect[];
   connected: boolean;
   runningJobCount: number;
 }
@@ -54,6 +63,58 @@ const secondaryEdges: Array<[string, string]> = [
   ['reply-classifier', 'outreach-writer'],
 ];
 
+
+const prospectStateAgent: Record<string, string> = {
+  DISCOVERED: 'discovery-scout',
+  RESEARCHING: 'research-analyst',
+  RESEARCH_COMPLETE: 'research-analyst',
+  QUALIFIED: 'contact-hunter',
+  CONTACT_DISCOVERY: 'contact-hunter',
+  CONTACT_FOUND: 'contact-hunter',
+  CONTACT_INVALID: 'contact-hunter',
+  BOUNCED: 'contact-hunter',
+  OUTREACH_READY: 'outreach-writer',
+  OUTREACH_DRAFTED: 'outreach-writer',
+  OUTREACH_VERIFIED: 'fact-checker',
+  EMAIL_SENT: 'reply-classifier',
+  WAITING_REPLY: 'reply-classifier',
+  FOLLOW_UP_DUE: 'outreach-writer',
+  FOLLOW_UP_SENT: 'reply-classifier',
+  REPLY_RECEIVED: 'reply-classifier',
+  POSITIVE_REPLY: 'reply-classifier',
+  NEGATIVE_REPLY: 'reply-classifier',
+  INFORMATION_REQUEST_RECEIVED: 'reply-classifier',
+  INFORMATION_RESPONSE_DRAFTED: 'outreach-writer',
+  INFORMATION_RESPONSE_VERIFIED: 'fact-checker',
+  PROTOTYPE_REQUIRED: 'prototype-strategist',
+  PROTOTYPE_STRATEGY_GENERATED: 'prototype-strategist',
+  PROTOTYPE_BUILDING: 'prototype-builder',
+  PROTOTYPE_QA: 'technical-checker',
+  PROTOTYPE_READY: 'prototype-builder',
+  PROTOTYPE_DEPLOYING: 'prototype-builder',
+  PROTOTYPE_DEPLOYED: 'prototype-builder',
+  DEMO_REPLY_READY: 'outreach-writer',
+  DEMO_REPLY_SENT: 'reply-classifier',
+  HOT_LEAD: 'orchestrator',
+  MEETING_REQUESTED: 'orchestrator',
+  PRICING_REQUESTED: 'orchestrator',
+  CUSTOM_REQUEST: 'orchestrator',
+  HUMAN_ACTION_REQUIRED: 'orchestrator',
+  DISQUALIFIED: 'orchestrator',
+  DO_NOT_CONTACT: 'orchestrator',
+  CLOSED_WON: 'orchestrator',
+  CLOSED_LOST: 'orchestrator',
+};
+
+function stableHash(value: string): number {
+  let hash = 2166136261;
+  for (let i = 0; i < value.length; i += 1) {
+    hash ^= value.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
 function project(position: SwarmPosition): ProjectedPosition {
   const depth = (position.z + 0.3) / 1.0;
   const scale = 0.82 + Math.max(0, Math.min(1, depth)) * 0.34;
@@ -87,6 +148,7 @@ function curvedPath(
 
 export default function LiveSwarmGraph({
   agents,
+  prospects,
   connected,
   runningJobCount,
 }: LiveSwarmGraphProps) {
@@ -108,6 +170,45 @@ export default function LiveSwarmGraph({
     id === 'orchestrator'
       ? orchestratorPosition
       : projected.get(id) ?? project({ x: 480, y: 245, z: 0 });
+
+  const visibleProspects = [...prospects]
+    .sort(
+      (a, b) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    )
+    .slice(0, 48);
+
+  const hiddenProspectCount = Math.max(0, prospects.length - visibleProspects.length);
+
+  const prospectSatellites = visibleProspects.map((prospect, index) => {
+    const hostId = prospectStateAgent[prospect.state] ?? 'orchestrator';
+    const host = point(hostId);
+    const hash = stableHash(prospect.id);
+    const ring = 24 + (hash % 4) * 9 + Math.floor(index / 16) * 3;
+    const angle = ((hash % 360) * Math.PI) / 180;
+    const depth = ((hash % 101) / 100 - 0.5) * 0.5;
+    const localScale = 0.78 + ((hash >> 8) % 23) / 100;
+    const x = host.px + Math.cos(angle) * ring * localScale;
+    const y = host.py + Math.sin(angle) * ring * 0.56;
+    const terminal = [
+      'DISQUALIFIED',
+      'DO_NOT_CONTACT',
+      'CLOSED_WON',
+      'CLOSED_LOST',
+    ].includes(prospect.state);
+
+    return {
+      prospect,
+      hostId,
+      host,
+      x,
+      y,
+      depth,
+      radius: terminal ? 2.1 : 2.8 + ((hash >> 5) % 3) * 0.35,
+      terminal,
+      delay: -((hash % 37) / 10),
+    };
+  });
 
   return (
     <div className="liveSwarm3dWrap">
@@ -240,6 +341,37 @@ export default function LiveSwarmGraph({
           })}
         </g>
 
+        <g className="swarm3dProspectLayer" aria-label="Prospect satellites">
+          {prospectSatellites.map((satellite) => (
+            <g
+              className={`swarm3dProspect ${satellite.terminal ? 'swarm3dProspectTerminal' : ''}`}
+              key={satellite.prospect.id}
+              style={{ animationDelay: `${satellite.delay}s` }}
+            >
+              <title>{`${satellite.prospect.companyName} — ${satellite.prospect.state}${typeof satellite.prospect.score === 'number' ? ` — score ${satellite.prospect.score}` : ''}`}</title>
+              <line
+                className="swarm3dProspectTether"
+                x1={satellite.host.px}
+                y1={satellite.host.py}
+                x2={satellite.x}
+                y2={satellite.y}
+              />
+              <circle
+                className="swarm3dProspectGlow"
+                cx={satellite.x}
+                cy={satellite.y}
+                r={satellite.radius * 3.2}
+              />
+              <circle
+                className="swarm3dProspectDot"
+                cx={satellite.x}
+                cy={satellite.y}
+                r={satellite.radius}
+              />
+            </g>
+          ))}
+        </g>
+
         <g
           className={`swarm3dNode swarm3dCoreNode ${orchestratorActive ? 'swarm3dNodeActive' : ''}`}
         >
@@ -367,6 +499,10 @@ export default function LiveSwarmGraph({
           WORKING
         </span>
         <span>{agents.filter((agent) => agent.active).length} AGENT(S) ACTIVE</span>
+        <span>
+          {prospects.length} PROSPECT{prospects.length > 1 ? 'S' : ''}
+          {hiddenProspectCount > 0 ? ` · +${hiddenProspectCount} CLUSTERED` : ''}
+        </span>
       </div>
     </div>
   );
