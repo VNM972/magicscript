@@ -1448,7 +1448,13 @@ async function processFactCheckResult(
     .bind(job.prospectId)
     .first<{ count: number }>();
 
-  if ((rejected?.count ?? 0) >= 2 && prospect.state === 'OUTREACH_DRAFTED') {
+  const maxAutomaticOutreachDraftAttempts = 2;
+  const rejectedCount = Number(rejected?.count ?? 0);
+
+  if (
+    rejectedCount >= maxAutomaticOutreachDraftAttempts &&
+    prospect.state === 'OUTREACH_DRAFTED'
+  ) {
     await repo.transitionProspect(
       prospect.id,
       'HUMAN_ACTION_REQUIRED',
@@ -3370,9 +3376,22 @@ async function handle(request: Request, env: Env): Promise<Response> {
       .bind(runnerCutoff)
       .first<{ runner_id: string; status: string; last_seen_at: string }>();
 
-    const deadLetter = await db
+    const unresolvedDeadLetter = await db
       .prepare(
-        "SELECT COUNT(*) AS count FROM jobs WHERE status = 'DEAD_LETTER'",
+        `SELECT COUNT(*) AS count
+         FROM jobs failed
+         WHERE failed.status = 'DEAD_LETTER'
+           AND NOT EXISTS (
+             SELECT 1
+             FROM jobs recovered
+             WHERE recovered.status = 'SUCCEEDED'
+               AND recovered.kind = failed.kind
+               AND (
+                 recovered.prospect_id = failed.prospect_id
+                 OR (recovered.prospect_id IS NULL AND failed.prospect_id IS NULL)
+               )
+               AND recovered.updated_at > failed.updated_at
+           )`,
       )
       .first<{ count: number }>();
 
@@ -3391,7 +3410,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
       runnerOnline: Boolean(runner),
       safeTransport,
       publicDiscovery: true,
-      noDeadLetters: Number(deadLetter?.count ?? 0) === 0,
+      noDeadLetters: Number(unresolvedDeadLetter?.count ?? 0) === 0,
     };
 
     return json({
