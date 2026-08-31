@@ -291,7 +291,10 @@ Rules:
 - separate verified facts from unverified/forbidden claims;
 - mobile-first around 390px;
 - do not invent prices, services, certifications, opening hours, guarantees, addresses, integrations, inventory, booking/payment capabilities or customer claims;
-- if research is too weak or contradictory, set humanRequired=true with blockingReasons.
+- missing non-essential publication details such as exact street address, opening hours, menu items, prices, testimonials, phone/email, booking, payment or integrations are NOT by themselves blockers for a prototype; put them in factsForbiddenOrUnverified and design around them without inventing anything;
+- set humanRequired=true ONLY when the verified information is so contradictory or insufficient that no honest, useful prototype can be designed at all;
+- blockingReasons must contain only true blockers that make an honest prototype impossible, not details that can simply be omitted from the demo;
+- a prototype may use a generic non-connected CTA such as "Nous contacter" or "Nous rendre visite" without claiming a working contact channel, provided it is clearly treated as a demonstration.
 
 Required schema:
 {
