@@ -3766,6 +3766,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
       'GENERATE_OUTREACH',
       'FACT_CHECK_OUTREACH',
       'CLASSIFY_REPLY',
+      'GENERATE_PROTOTYPE_STRATEGY',
       'BUILD_PROTOTYPE',
       'RUN_PROTOTYPE_QA',
     ];
