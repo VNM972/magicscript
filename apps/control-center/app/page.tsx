@@ -56,6 +56,106 @@ export default async function Page() {
       ? 'AUTOPILOT RUNNING'
       : 'AUTOPILOT SAFE MODE';
 
+  const agentDefinitions = [
+    {
+      id: 'discovery-scout',
+      label: 'DISCOVERY SCOUT',
+      group: 'PROSPECTION',
+      kinds: ['DISCOVER_PROSPECTS'],
+      idle: 'Ready to discover local businesses',
+    },
+    {
+      id: 'research-analyst',
+      label: 'RESEARCH ANALYST',
+      group: 'RESEARCH',
+      kinds: ['RUN_RESEARCH_SWARM'],
+      idle: 'Ready to verify company facts',
+    },
+    {
+      id: 'contact-hunter',
+      label: 'CONTACT HUNTER',
+      group: 'CONTACT',
+      kinds: ['DISCOVER_CONTACT'],
+      idle: 'Ready to find validated contacts',
+    },
+    {
+      id: 'outreach-writer',
+      label: 'OUTREACH WRITER',
+      group: 'COMMERCIAL',
+      kinds: ['GENERATE_OUTREACH', 'GENERATE_INFORMATION_RESPONSE'],
+      idle: 'Ready to draft grounded outreach',
+    },
+    {
+      id: 'fact-checker',
+      label: 'FACT CHECKER',
+      group: 'GUARDRAIL',
+      kinds: [
+        'FACT_CHECK_OUTREACH',
+        'FACT_CHECK_INFORMATION_RESPONSE',
+        'RUN_PROTOTYPE_QA',
+      ],
+      idle: 'Ready to challenge unsupported claims',
+    },
+    {
+      id: 'prototype-strategist',
+      label: 'PROTOTYPE STRATEGIST',
+      group: 'PROTOTYPE',
+      kinds: ['GENERATE_PROTOTYPE_STRATEGY'],
+      idle: 'Ready to translate research into strategy',
+    },
+    {
+      id: 'prototype-builder',
+      label: 'PROTOTYPE BUILDER',
+      group: 'PROTOTYPE',
+      kinds: ['BUILD_PROTOTYPE'],
+      idle: 'Ready to generate and compile the site',
+    },
+    {
+      id: 'mobile-ux',
+      label: 'MOBILE / UX',
+      group: 'QA SWARM',
+      kinds: ['RUN_PROTOTYPE_QA'],
+      idle: 'Ready for 390px mobile review',
+    },
+    {
+      id: 'conversion-checker',
+      label: 'CONVERSION',
+      group: 'QA SWARM',
+      kinds: ['RUN_PROTOTYPE_QA'],
+      idle: 'Ready to validate CTA and commercial flow',
+    },
+    {
+      id: 'technical-checker',
+      label: 'TECHNICAL QA',
+      group: 'QA SWARM',
+      kinds: ['RUN_PROTOTYPE_QA'],
+      idle: 'Ready to inspect routes, build and demo safety',
+    },
+    {
+      id: 'reply-classifier',
+      label: 'REPLY CLASSIFIER',
+      group: 'COMMERCIAL',
+      kinds: ['CLASSIFY_REPLY'],
+      idle: 'Ready to classify inbound responses',
+    },
+  ];
+
+  const liveAgents = agentDefinitions.map((definition) => {
+    const job = data.runningJobs.find((candidate) =>
+      definition.kinds.includes(candidate.kind),
+    );
+
+    return {
+      ...definition,
+      active: Boolean(job),
+      detail: job
+        ? `${job.kind}${job.prospectId ? ` · ${job.prospectId}` : ''}`
+        : definition.idle,
+    };
+  });
+
+  const activeAgentCount = liveAgents.filter((agent) => agent.active).length;
+
   return (
     <main className="shell">
       <LiveRefresh intervalMs={5000} />
@@ -108,6 +208,62 @@ export default async function Page() {
             <strong>{value}</strong>
           </article>
         ))}
+      </section>
+
+      <section className="panel liveSwarmPanel">
+        <div className="panelTitle">
+          <div>
+            <p className="eyebrow">LIVE SWARM</p>
+            <h2>Agent cockpit</h2>
+          </div>
+          <div className="swarmLiveStatus">
+            <span className={`swarmLiveDot ${activeAgentCount > 0 ? 'swarmLiveDotActive' : ''}`} />
+            <span>
+              {activeAgentCount > 0
+                ? `${activeAgentCount} AGENTS ACTIVE`
+                : data.connected
+                  ? 'SWARM READY'
+                  : 'SWARM OFFLINE'}
+            </span>
+          </div>
+        </div>
+
+        <div className="swarmStage">
+          <div className={`swarmHubCard ${activeAgentCount > 0 ? 'swarmHubActive' : ''}`}>
+            <span className="swarmHubPulse" />
+            <div>
+              <strong>ORCHESTRATOR</strong>
+              <small>
+                {data.runningJobs.length > 0
+                  ? `${data.runningJobs.length} runtime job${data.runningJobs.length > 1 ? 's' : ''}`
+                  : 'Waiting for the next action'}
+              </small>
+            </div>
+          </div>
+
+          <div className="swarmAgentGrid">
+            {liveAgents.map((agent) => (
+              <article
+                className={`swarmAgentCard ${agent.active ? 'swarmAgentActive' : ''}`}
+                key={agent.id}
+              >
+                <div className="swarmAgentHeader">
+                  <span className={`agentSignal ${agent.active ? 'agentSignalActive' : ''}`} />
+                  <span className="swarmAgentGroup">{agent.group}</span>
+                  <span className={`badge ${agent.active ? 'running' : 'waiting'}`}>
+                    {agent.active ? 'WORKING' : 'READY'}
+                  </span>
+                </div>
+                <strong>{agent.label}</strong>
+                <p>{agent.detail}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <p className="swarmTelemetryNote">
+          Runtime telemetry only: cards light up from real Magic Script jobs refreshed every 5 seconds.
+        </p>
       </section>
 
       <section className="grid">
