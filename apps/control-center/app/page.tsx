@@ -231,6 +231,7 @@ export default async function Page() {
 
         <LiveSwarmGraph
           agents={liveAgents}
+          prospects={data.prospects}
           connected={data.connected}
           runningJobCount={data.runningJobs.length}
         />
