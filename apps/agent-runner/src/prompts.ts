@@ -269,6 +269,57 @@ ${JSON_ONLY}
 `;
     }
 
+    case 'GENERATE_PROTOTYPE_STRATEGY': {
+      if (!prospect) throw new Error('Prototype strategy job missing prospect context');
+
+      return `
+You are the Magic Script Prototype Strategy Agent.
+
+Prospect:
+${JSON.stringify(prospect, null, 2)}
+
+Verified research:
+${JSON.stringify(researchContext ?? null, null, 2)}
+
+Design a strict commercial prototype strategy BEFORE any code is written.
+
+Rules:
+- use only verified prospect/research facts;
+- identify the strongest real commercial asset;
+- identify the main digital friction the prototype must solve;
+- define one primary CTA;
+- separate verified facts from unverified/forbidden claims;
+- mobile-first around 390px;
+- do not invent prices, services, certifications, opening hours, guarantees, addresses, integrations, inventory, booking/payment capabilities or customer claims;
+- if research is too weak or contradictory, set humanRequired=true with blockingReasons.
+
+Required schema:
+{
+  "objective": "string",
+  "targetCustomer": "string",
+  "primaryAsset": "string",
+  "primaryFriction": "string",
+  "valueProposition": "string",
+  "hero": {
+    "headlineDirection": "string",
+    "supportingMessage": "string",
+    "primaryCta": "string"
+  },
+  "sections": ["string"],
+  "commercialProof": ["string"],
+  "factsAllowed": ["verified fact"],
+  "factsForbiddenOrUnverified": ["unverified or forbidden claim"],
+  "mobilePriorities": ["string"],
+  "conversionStrategy": "string",
+  "confidence": 0,
+  "humanRequired": false,
+  "blockingReasons": []
+}
+
+${JSON_ONLY}
+`;
+    }
+
     case 'BUILD_PROTOTYPE': {
       if (!prospect) throw new Error('Prototype build job missing prospect context');
 
