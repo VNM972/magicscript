@@ -5,6 +5,7 @@ export * from './state/prospect-state-machine';
 export * from './state/repository';
 export * from './events/event-store';
 export * from './jobs/types';
+export * from './jobs/priority';
 export * from './jobs/in-memory-queue';
 export * from './scoring/prospect-score';
 export * from './orchestrator/next-action';
