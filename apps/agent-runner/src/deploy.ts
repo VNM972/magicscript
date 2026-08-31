@@ -109,11 +109,12 @@ export async function deployPrototypeToPages(input: {
     'Magic Script automated prototype',
   ];
 
+  // Node 24 no longer executes Windows .cmd shims directly via spawn().
+  // Route npx.cmd through cmd.exe explicitly, without shell:true.
   const command =
     process.platform === 'win32'
       ? process.env.ComSpec?.trim() || 'cmd.exe'
       : 'npx';
-
   const args =
     process.platform === 'win32'
       ? ['/d', '/s', '/c', 'npx.cmd', ...deployArgs]
