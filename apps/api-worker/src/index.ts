@@ -3556,6 +3556,106 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json({ escalations: result.results ?? [] });
   }
 
+
+  const resolveEscalationMatch = url.pathname.match(
+    /^\/api\/escalations\/([^/]+)\/resolve$/,
+  );
+  if (request.method === 'POST' && resolveEscalationMatch) {
+    const escalationId = decodeURIComponent(resolveEscalationMatch[1]);
+    const body = (await request.json()) as {
+      resumeState?:
+        | 'CONTACT_DISCOVERY'
+        | 'PROTOTYPE_REQUIRED'
+        | 'OUTREACH_READY'
+        | 'CLOSED_WON'
+        | 'CLOSED_LOST';
+      note?: string;
+    };
+
+    if (!body.resumeState) {
+      return json({ error: 'resumeState is required' }, { status: 400 });
+    }
+
+    const db = requireDb(env);
+    const escalation = await db
+      .prepare(
+        `SELECT id, prospect_id, status
+         FROM human_escalations
+         WHERE id = ?
+         LIMIT 1`,
+      )
+      .bind(escalationId)
+      .first<{ id: string; prospect_id: string; status: string }>();
+
+    if (!escalation) {
+      return json({ error: 'Escalation not found' }, { status: 404 });
+    }
+
+    if (escalation.status !== 'OPEN') {
+      return json({ error: 'Escalation is already resolved' }, { status: 409 });
+    }
+
+    const repo = new D1ProspectRepository(db);
+    const prospect = await repo.getProspect(escalation.prospect_id);
+    if (!prospect) {
+      return json({ error: 'Prospect not found' }, { status: 404 });
+    }
+
+    if (!canTransition(prospect.state, body.resumeState)) {
+      return json(
+        {
+          error: `Cannot resume prospect from ${prospect.state} to ${body.resumeState}`,
+        },
+        { status: 409 },
+      );
+    }
+
+    const now = new Date().toISOString();
+    await repo.transitionProspect(
+      prospect.id,
+      body.resumeState,
+      body.note?.trim() || `Human review resolved to ${body.resumeState}`,
+    );
+
+    await db
+      .prepare(
+        `UPDATE human_escalations
+         SET status = 'RESOLVED',
+             resolved_at = ?
+         WHERE id = ? AND status = 'OPEN'`,
+      )
+      .bind(now, escalation.id)
+      .run();
+
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'human',
+      type: 'human_review.resolved',
+      payload: {
+        escalationId: escalation.id,
+        resumeState: body.resumeState,
+        note: body.note?.trim() || null,
+      },
+      createdAt: now,
+    });
+
+    if (
+      env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true' &&
+      body.resumeState !== 'CLOSED_WON' &&
+      body.resumeState !== 'CLOSED_LOST'
+    ) {
+      await orchestrator(env, db).planProspect(prospect.id);
+    }
+
+    return json({
+      ok: true,
+      escalationId: escalation.id,
+      prospectId: prospect.id,
+      state: body.resumeState,
+    });
+  }
+
   if (
     request.method === 'POST' &&
     (url.pathname === '/api/email/inbound' ||
