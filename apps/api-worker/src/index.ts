@@ -1259,8 +1259,12 @@ async function processContactResult(
         'CONTACT_FOUND',
         'Validated professional email found',
       );
+    }
+
+    const afterContact = await repo.getProspect(job.prospectId);
+    if (afterContact?.state === 'CONTACT_FOUND') {
       await repo.transitionProspect(
-        current.id,
+        afterContact.id,
         'PROTOTYPE_REQUIRED',
         'Validated contact qualifies for a pre-outreach prototype',
       );
@@ -1352,6 +1356,28 @@ async function processOutreachResult(
   }
   if (!result.subject?.trim() || !result.body?.trim()) {
     throw new Error('Outreach draft is missing subject or body');
+  }
+
+  const deployedPrototype = await db
+    .prepare(
+      `SELECT deployment_url
+       FROM prototypes
+       WHERE prospect_id = ?
+         AND status = 'DEPLOYED'
+         AND deployment_url IS NOT NULL
+       ORDER BY updated_at DESC
+       LIMIT 1`,
+    )
+    .bind(job.prospectId)
+    .first<{ deployment_url: string }>();
+
+  if (!deployedPrototype?.deployment_url) {
+    throw new Error('Initial outreach is blocked until a prototype is deployed');
+  }
+
+  const deploymentUrl = new URL(deployedPrototype.deployment_url).toString();
+  if (!result.body.includes(deploymentUrl)) {
+    throw new Error('Outreach draft is missing the exact deployed prototype URL');
   }
 
   const contact = await db
@@ -1452,9 +1478,21 @@ async function processFactCheckResult(
 
   const rejected = await db
     .prepare(
-      "SELECT COUNT(*) AS count FROM outreach_messages WHERE prospect_id = ? AND status = 'REJECTED'",
+      `SELECT COUNT(*) AS count
+       FROM outreach_messages
+       WHERE prospect_id = ?
+         AND status = 'REJECTED'
+         AND created_at >= COALESCE(
+           (
+             SELECT MAX(updated_at)
+             FROM prototypes
+             WHERE prospect_id = ?
+               AND deployment_url IS NOT NULL
+           ),
+           '1970-01-01T00:00:00.000Z'
+         )`,
     )
-    .bind(job.prospectId)
+    .bind(job.prospectId, job.prospectId)
     .first<{ count: number }>();
 
   const rejectedCount = Number(rejected?.count ?? 0);
@@ -2792,7 +2830,8 @@ async function processPrototypeDeployResult(
        FROM outreach_messages
        WHERE prospect_id = ?
          AND kind = 'INITIAL'
-       ORDER BY created_at ASC
+         AND status IN ('SENT', 'DRY_RUN', 'TEST_SENT')
+       ORDER BY sent_at ASC, created_at ASC
        LIMIT 1`,
     )
     .bind(prospect.id)
