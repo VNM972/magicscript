@@ -165,14 +165,20 @@ ${JSON.stringify(contacts, null, 2)}
 Verified research context:
 ${JSON.stringify(researchContext ?? null, null, 2)}
 
+Verified deployed prototype context:
+${JSON.stringify(prototypeContext ?? null, null, 2)}
+
 Write a concise first-contact B2B email in French.
+This is the FIRST commercial contact: never write "comme convenu", never imply a prior exchange, meeting, request or relationship.
+The email MUST include the exact verified prototype deployment_url from the prototype context as the concrete demonstration link.
+If prototypeContext.deployment_url is absent, not HTTPS, or not on an approved Magic Script / Cloudflare demo host, return readyToSend=false and explain the blocker.
 Use one verified commercial asset and one precise digital gap.
+Present the prototype as a tailored demonstration prepared from public information, not as the prospect's finished or commissioned website.
 Do not insult or criticize the prospect's current site.
-Do not claim a prototype exists unless the prospect context explicitly says one exists.
 Do not invent prices, clients, results, certifications or urgency.
 Do not include or promote the Magic Script public website until the runtime explicitly provides a verified live website URL.
 Do not imply that magicscript.fr is already publicly finished or commercially live.
-Use one simple CTA.
+Use one simple CTA asking the recipient to view the demonstration and reply if they want to discuss it.
 Include a simple sentence allowing the recipient to say they do not want further messages.
 
 Required schema:
@@ -208,8 +214,13 @@ ${JSON.stringify(outreachDraft ?? null, null, 2)}
 Verified research context:
 ${JSON.stringify(researchContext ?? null, null, 2)}
 
+Verified deployed prototype context:
+${JSON.stringify(prototypeContext ?? null, null, 2)}
+
 Check whether every factual claim in the email is supported by the prospect data and whether the message is appropriate for a professional B2B first contact.
-Reject the draft if it invents a fact, overstates a weakness, implies a relationship that does not exist, or contains an unsupported promise.
+For an INITIAL outreach draft, approval requires the exact verified prototype deployment_url to appear in the email.
+Reject the draft if it invents a fact, overstates a weakness, implies a relationship that does not exist, contains an unsupported promise, omits the deployed prototype link, or presents the demo as a commissioned/finished customer website.
+A minor wording issue that does not create a false factual claim should be reported as a reason but should not by itself force approved=false.
 
 Required schema:
 {
