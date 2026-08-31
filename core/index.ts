@@ -9,6 +9,7 @@ export * from './jobs/in-memory-queue';
 export * from './scoring/prospect-score';
 export * from './orchestrator/next-action';
 export * from './orchestrator/escalation';
+export * from './orchestrator/outreach-policy';
 export * from './orchestrator/engine';
 export * from './providers/discovery';
 export * from './providers/contact';
