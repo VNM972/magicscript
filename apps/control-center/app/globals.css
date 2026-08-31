@@ -893,3 +893,190 @@ h2 {
     height: 520px;
   }
 }
+
+
+.liveSwarmSvgWrap {
+  position: relative;
+  height: 430px;
+  overflow: hidden;
+  border: 1px solid rgba(113, 255, 183, 0.08);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(113, 255, 183, 0.06), transparent 30%),
+    linear-gradient(rgba(113, 255, 183, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(113, 255, 183, 0.028) 1px, transparent 1px),
+    #050b09;
+  background-size: auto, 28px 28px, 28px 28px, auto;
+}
+
+.liveSwarmSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.swarmCoreHalo {
+  fill: url(#core-halo);
+  animation: swarmHalo 3s ease-in-out infinite;
+}
+
+.swarmEdge {
+  stroke: rgba(113, 255, 183, 0.14);
+  stroke-width: 1.2;
+}
+
+.swarmEdgeActive {
+  stroke: rgba(113, 255, 183, 0.55);
+  stroke-width: 2;
+  filter: url(#swarm-glow);
+}
+
+.swarmParticle {
+  fill: rgba(113, 255, 183, 0.48);
+  filter: url(#swarm-glow);
+}
+
+.swarmParticleActive {
+  fill: #9fffd0;
+}
+
+.swarmNode {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: swarmNodeFloat 4.2s ease-in-out infinite;
+}
+
+.swarmNode > circle:first-of-type {
+  fill: #203e31;
+  stroke: rgba(113, 255, 183, 0.5);
+  stroke-width: 1.3;
+}
+
+.swarmNodeRing {
+  fill: none;
+  stroke: rgba(113, 255, 183, 0.15);
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+  animation: swarmRingSpin 9s linear infinite;
+}
+
+.swarmCoreNode > circle:first-of-type {
+  fill: #71ffb7;
+  stroke: #caffdf;
+  stroke-width: 1.5;
+  filter: url(#swarm-glow);
+}
+
+.swarmNodeActive > circle:first-of-type {
+  fill: #8fffc9;
+  stroke: #dfffee;
+  filter: url(#swarm-glow);
+}
+
+.swarmNodeActive .swarmNodeRing {
+  stroke: rgba(143, 255, 201, 0.7);
+  stroke-width: 1.5;
+  animation-duration: 2.2s;
+}
+
+.swarmNodeLabel {
+  fill: #cfe9dc;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-anchor: middle;
+}
+
+.swarmCoreLabel {
+  fill: #f3fff8;
+  font-size: 11px;
+}
+
+.swarmNodeState {
+  fill: #557467;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-anchor: middle;
+}
+
+.swarmNodeActive .swarmNodeState {
+  fill: #71ffb7;
+}
+
+.liveSwarmLegend {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  color: #61776c;
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+}
+
+.liveSwarmLegend span {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.legendDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+}
+
+.legendReady {
+  background: #405b4d;
+}
+
+.legendWorking {
+  background: #71ffb7;
+  box-shadow: 0 0 10px rgba(113, 255, 183, 0.8);
+}
+
+@keyframes swarmNodeFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes swarmRingSpin {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 36;
+  }
+}
+
+@keyframes swarmHalo {
+  0%, 100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+@media (max-width: 760px) {
+  .liveSwarmSvgWrap {
+    height: 500px;
+  }
+
+  .swarmNodeLabel {
+    font-size: 8px;
+  }
+
+  .liveSwarmLegend {
+    flex-wrap: wrap;
+    right: 14px;
+  }
+}
