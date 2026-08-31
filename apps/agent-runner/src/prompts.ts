@@ -302,6 +302,8 @@ Rules:
 - separate verified facts from unverified/forbidden claims;
 - mobile-first around 390px;
 - do not invent prices, services, certifications, opening hours, guarantees, addresses, integrations, inventory, booking/payment capabilities or customer claims;
+- NEVER invent or infer social-proof metrics: review ratings, review counts, rankings, awards, popularity claims, customer counts, percentages, certificate/license numbers or similar numeric credibility signals. They are allowed only when the exact value is explicitly present in verified research;
+- if a review platform, certification or award is verified but its exact rating/count/identifier is not, mention only the verified existence and omit the number entirely;
 - missing non-essential publication details such as exact street address, opening hours, menu items, prices, testimonials, phone/email, booking, payment or integrations are NOT by themselves blockers for a prototype; put them in factsForbiddenOrUnverified and design around them without inventing anything;
 - set humanRequired=true ONLY when the verified information is so contradictory or insufficient that no honest, useful prototype can be designed at all;
 - blockingReasons must contain only true blockers that make an honest prototype impossible, not details that can simply be omitted from the demo;
@@ -373,6 +375,9 @@ Mandatory rules:
 - if this is a correction cycle, improve the existing prototype instead of rebuilding randomly;
 - use only prospect facts supported by the verified research;
 - NEVER invent services, prices, certifications, addresses, opening hours, guarantees or customer claims;
+- NEVER invent or infer review ratings, review counts, rankings, awards, popularity claims, customer counts, percentages, certificate/license numbers or any other numeric social proof;
+- numeric credibility claims may appear ONLY when the exact value is explicitly present in Verified research AND is included in factsAllowed; otherwise omit the number/card/badge entirely;
+- when correcting a QA failure, remove the unsupported claim from the actual source files; do not replace it with another unsupported metric;
 - NEVER present factsForbiddenOrUnverified as verified facts;
 - every section must solve a commercial or credibility problem;
 - make the main commercial asset obvious in the hero;
