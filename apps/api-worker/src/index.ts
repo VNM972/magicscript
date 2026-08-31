@@ -18,6 +18,7 @@ import {
   rechercheEntrepriseSourceUrl,
   loadConfig,
   scoreProspect,
+  shouldEscalateOutreachFactCheck,
   sireneBusinessName,
   sireneLocation,
   sirenePublicSourceUrl,
@@ -1448,11 +1449,10 @@ async function processFactCheckResult(
     .bind(job.prospectId)
     .first<{ count: number }>();
 
-  const maxAutomaticOutreachDraftAttempts = 2;
   const rejectedCount = Number(rejected?.count ?? 0);
 
   if (
-    rejectedCount >= maxAutomaticOutreachDraftAttempts &&
+    shouldEscalateOutreachFactCheck(rejectedCount) &&
     prospect.state === 'OUTREACH_DRAFTED'
   ) {
     await repo.transitionProspect(
