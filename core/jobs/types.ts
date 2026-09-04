@@ -55,8 +55,15 @@ export interface JobQueue {
     now?: Date,
     claimedBy?: string,
     allowedKinds?: readonly JobKind[],
+    prospectId?: string,
   ): Promise<MagicScriptJob | null>;
   markSucceeded(id: string): Promise<void>;
   markFailed(id: string, error: string, retryAfter?: Date): Promise<void>;
+  releaseClaim(
+    id: string,
+    claimedBy: string,
+    reason: string,
+    runAfter?: Date,
+  ): Promise<MagicScriptJob | null>;
   list(status?: JobStatus): Promise<MagicScriptJob[]>;
 }

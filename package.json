@@ -22,12 +22,21 @@
     "start:local:swarm": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-local-swarm.ps1",
     "stop:local:swarm": "powershell -ExecutionPolicy Bypass -File .\\scripts\\stop-local-swarm.ps1",
     "ms:start": "powershell -ExecutionPolicy Bypass -File .\\scripts\\magic-script.ps1 start",
+    "ms:ensure-synthetic": "powershell -ExecutionPolicy Bypass -File .\\scripts\\ensure-synthetic-prospect.ps1",
     "ms:stop": "powershell -ExecutionPolicy Bypass -File .\\scripts\\magic-script.ps1 stop",
     "ms:restart": "powershell -ExecutionPolicy Bypass -File .\\scripts\\magic-script.ps1 restart",
     "ms:status": "powershell -ExecutionPolicy Bypass -File .\\scripts\\magic-script.ps1 status",
     "ms:doctor": "powershell -ExecutionPolicy Bypass -File .\\scripts\\magic-script.ps1 doctor",
     "check:free-api": "node scripts/check-free-directory.mjs",
-    "smoke:full": "node scripts/smoke-full-funnel.mjs"
+    "smoke:full": "node scripts/smoke-full-funnel.mjs",
+    "bulk:snapshot-martinique": "node scripts/snapshot-bulk-martinique.mjs",
+    "audit:local-state": "node scripts/audit-local-state.mjs",
+    "ms:ensure-full-fixture": "powershell -ExecutionPolicy Bypass -File .\\scripts\\ensure-full-smoke-fixture.ps1",
+    "preview:local": "node scripts/local-preview-server.cjs --root sites/magicscript-v2/public --port 4173 --open",
+    "qa:surface": "node scripts/qa-surface.cjs",
+    "test:qa-surface": "node --test scripts/qa-surface.test.cjs",
+    "test:local-preview": "node --test scripts/local-preview-server.test.cjs",
+    "test:legal-surface": "node --test scripts/legal-surface.test.cjs"
   },
   "devDependencies": {
     "typescript": "^7.0.2"

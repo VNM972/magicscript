@@ -28,7 +28,11 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    ".next-wp055-qa/types/**/*.ts",
+    ".next-wp055-qa/dev/types/**/*.ts",
+    ".next-wp06-browser-qa/types/**/*.ts",
+    ".next-wp06-browser-qa/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

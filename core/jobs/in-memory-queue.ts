@@ -27,6 +27,7 @@ export class InMemoryJobQueue implements JobQueue {
     now = new Date(),
     claimedBy?: string,
     allowedKinds?: readonly MagicScriptJob['kind'][],
+    prospectId?: string,
   ): Promise<MagicScriptJob | null> {
     const allowed = allowedKinds ? new Set(allowedKinds) : null;
     const candidate = [...this.jobs.values()]
@@ -39,6 +40,7 @@ export class InMemoryJobQueue implements JobQueue {
         return (
           job.status === 'PENDING' &&
           new Date(job.runAfter) <= now &&
+          (!prospectId || job.prospectId === prospectId) &&
           (!allowed || allowed.has(job.kind)) &&
           (requiredRunnerId == null ||
             (typeof requiredRunnerId === 'string' && requiredRunnerId === claimedBy))
@@ -58,6 +60,7 @@ export class InMemoryJobQueue implements JobQueue {
       attempts: candidate.attempts + 1,
       claimedBy,
       claimedAt,
+      lastError: undefined,
       updatedAt: claimedAt,
     };
 
@@ -70,6 +73,8 @@ export class InMemoryJobQueue implements JobQueue {
     this.jobs.set(id, {
       ...job,
       status: 'SUCCEEDED',
+      claimedBy: undefined,
+      claimedAt: undefined,
       updatedAt: new Date().toISOString(),
     });
   }
@@ -81,17 +86,56 @@ export class InMemoryJobQueue implements JobQueue {
     }
     const exhausted = job.attempts >= job.maxAttempts;
 
+    const status: JobStatus = job.status === 'SENDING'
+      ? 'SEND_UNKNOWN'
+      : exhausted
+        ? 'DEAD_LETTER'
+        : 'PENDING';
+
     this.jobs.set(id, {
       ...job,
-      status: job.status === 'SENDING'
-        ? 'SEND_UNKNOWN'
-        : exhausted
-          ? 'DEAD_LETTER'
-          : 'PENDING',
+      status,
+      claimedBy: status === 'PENDING' || status === 'SEND_UNKNOWN' || status === 'DEAD_LETTER'
+        ? undefined
+        : job.claimedBy,
+      claimedAt: status === 'PENDING' || status === 'SEND_UNKNOWN' || status === 'DEAD_LETTER'
+        ? undefined
+        : job.claimedAt,
       runAfter: retryAfter.toISOString(),
       updatedAt: new Date().toISOString(),
       lastError: error,
     });
+  }
+
+  async releaseClaim(
+    id: string,
+    claimedBy: string,
+    reason: string,
+    runAfter = new Date(),
+  ): Promise<MagicScriptJob | null> {
+    const job = this.jobs.get(id);
+    if (
+      !job ||
+      job.claimedBy !== claimedBy ||
+      (job.status !== 'RUNNING' && job.status !== 'SENDING')
+    ) {
+      return null;
+    }
+
+    const released: MagicScriptJob = {
+      ...job,
+      status: job.status === 'SENDING' ? 'SEND_UNKNOWN' : 'PENDING',
+      attempts:
+        job.status === 'RUNNING' ? Math.max(0, job.attempts - 1) : job.attempts,
+      runAfter: runAfter.toISOString(),
+      lastError: reason,
+      claimedBy: undefined,
+      claimedAt: undefined,
+      updatedAt: new Date().toISOString(),
+    };
+
+    this.jobs.set(id, released);
+    return released;
   }
 
   async list(status?: JobStatus): Promise<MagicScriptJob[]> {

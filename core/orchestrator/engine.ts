@@ -4,6 +4,14 @@ import type { JobKind, JobQueue } from '../jobs/types';
 import type { ProspectRepository } from '../state/repository';
 import type { MagicScriptEvent } from '../types/events';
 import type { Prospect } from '../types/prospect';
+import { resolveSwarmHub } from '../hubs/registry';
+import { resolveBusinessUnitTeam } from '../hubs/team';
+import {
+  createOrchestratorJobHandoff,
+  runBuHandoffPipeline,
+  type BuHandoffPipelineResult,
+  type BuHandoffRequest,
+} from './bu-handoff-pipeline';
 import { requiresHuman } from './escalation';
 import { getNextAction, type NextAction } from './next-action';
 
@@ -12,6 +20,9 @@ export interface OrchestratorDependencies {
   prospects: ProspectRepository;
   events: EventStore;
   jobs: JobQueue;
+  prototypeCostGate?: (
+    prospectId: string,
+  ) => Promise<'FULL' | 'LIGHT' | 'NONE' | null>;
   idFactory?: () => string;
   now?: () => Date;
 }
@@ -121,6 +132,46 @@ export class OrchestratorEngine {
       };
     }
 
+    let prototypeAuthorization: 'FULL' | 'LIGHT' | undefined;
+
+    if (
+      nextAction === 'GENERATE_PROTOTYPE_STRATEGY' ||
+      nextAction === 'BUILD_PROTOTYPE'
+    ) {
+      const authorization =
+        (await this.deps.prototypeCostGate?.(prospect.id)) ?? null;
+
+      if (
+        authorization !== 'FULL' &&
+        authorization !== 'LIGHT'
+      ) {
+        const reason =
+          authorization === 'NONE'
+            ? 'Prototype Cost Gate blocked prototype work'
+            : 'Prototype Cost Gate evaluation required';
+
+        await this.record(
+          'orchestrator.prototype_cost_gate_blocked',
+          prospect.id,
+          {
+            action: nextAction,
+            authorization: authorization ?? 'MISSING',
+            reason,
+          },
+        );
+
+        return {
+          prospectId,
+          state: prospect.state,
+          nextAction,
+          humanRequired: false,
+          reason,
+        };
+      }
+
+      prototypeAuthorization = authorization;
+    }
+
     const jobKind = actionToJob[nextAction];
     if (!jobKind) {
       return {
@@ -131,7 +182,11 @@ export class OrchestratorEngine {
       };
     }
 
-    const jobId = await this.enqueueAction(prospect, nextAction);
+    const jobId = await this.enqueueAction(
+      prospect,
+      nextAction,
+      prototypeAuthorization,
+    );
 
     await this.record('orchestrator.job_queued', prospect.id, {
       action: nextAction,
@@ -148,7 +203,42 @@ export class OrchestratorEngine {
     };
   }
 
-  private async enqueueAction(prospect: Prospect, action: NextAction): Promise<string> {
+  /**
+   * Runs the control-plane BU -> master -> specialist -> verifier route.
+   * This path is deterministic and has no contact, email, D1 or deployment
+   * side effect; external work remains behind the normal job safeguards.
+   */
+  async runBuHandoff(
+    prospectId: string,
+    request: Omit<BuHandoffRequest, 'prospect'>,
+  ): Promise<BuHandoffPipelineResult> {
+    const prospect = await this.deps.prospects.getProspect(prospectId);
+    if (!prospect) throw new Error(`Prospect not found: ${prospectId}`);
+
+    const result = runBuHandoffPipeline({ ...request, prospect });
+    await this.record(
+      result.status === 'VERIFIED'
+        ? 'orchestrator.bu_handoff_verified'
+        : 'orchestrator.bu_handoff_rejected',
+      prospect.id,
+      {
+        requestId: result.requestId,
+        hubId: result.hub.id,
+        businessUnit: result.hub.businessUnit,
+        masterOfWork: result.hub.masterOfWork,
+        specialistId: result.specialist.id,
+        status: result.status,
+        handoffId: result.handoff?.id ?? null,
+      },
+    );
+    return result;
+  }
+
+  private async enqueueAction(
+    prospect: Prospect,
+    action: NextAction,
+    prototypeAuthorization?: 'FULL' | 'LIGHT',
+  ): Promise<string> {
     const kind = actionToJob[action];
     if (!kind) throw new Error(`No job mapping for action: ${action}`);
 
@@ -167,12 +257,29 @@ export class OrchestratorEngine {
 
     const now = this.now();
     const id = this.idFactory();
+    const hub = resolveSwarmHub(prospect);
+    const team = resolveBusinessUnitTeam(hub);
+    const handoff = createOrchestratorJobHandoff({
+      id,
+      action,
+      prospect,
+    });
 
     await this.deps.jobs.enqueue({
       id,
       kind,
       prospectId: prospect.id,
-      payload: { state: prospect.state },
+      payload: {
+        state: prospect.state,
+        hubId: hub.id,
+        businessUnit: team.businessUnit,
+        masterOfWork: team.masterOfWork,
+        specialistId: team.specialists[0]?.id,
+        handoff,
+        ...(prototypeAuthorization
+          ? { prototypeAuthorization }
+          : {}),
+      },
       maxAttempts: 3,
       runAfter: now.toISOString(),
     });

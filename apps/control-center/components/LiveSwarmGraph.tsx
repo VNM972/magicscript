@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+
 export interface LiveSwarmAgent {
   id: string;
   label: string;
@@ -14,9 +18,18 @@ export interface LiveSwarmProspect {
   updatedAt: string;
 }
 
+export interface LiveSwarmEvent {
+  id: string;
+  prospectId?: string;
+  actor: string;
+  type: string;
+  createdAt: string;
+}
+
 interface LiveSwarmGraphProps {
   agents: LiveSwarmAgent[];
   prospects: LiveSwarmProspect[];
+  recentEvents: LiveSwarmEvent[];
   connected: boolean;
   runningJobCount: number;
 }
@@ -99,6 +112,12 @@ const prospectStateAgent: Record<string, string> = {
   MEETING_REQUESTED: 'orchestrator',
   PRICING_REQUESTED: 'orchestrator',
   CUSTOM_REQUEST: 'orchestrator',
+  INTERESTED: 'orchestrator',
+  MEETING_BOOKED: 'orchestrator',
+  QUOTE_PENDING: 'orchestrator',
+  COMMITTED: 'orchestrator',
+  WON: 'orchestrator',
+  DORMANT: 'orchestrator',
   HUMAN_ACTION_REQUIRED: 'orchestrator',
   DISQUALIFIED: 'orchestrator',
   DO_NOT_CONTACT: 'orchestrator',
@@ -146,16 +165,52 @@ function curvedPath(
   return `M ${from.px} ${from.py} Q ${cx} ${cy} ${to.px} ${to.py}`;
 }
 
+function eventAgentId(actor: string): string {
+  const normalized = actor.toLowerCase().replaceAll('_', '-');
+  if (normalized.includes('discovery')) return 'discovery-scout';
+  if (normalized.includes('research')) return 'research-analyst';
+  if (normalized.includes('contact')) return 'contact-hunter';
+  if (normalized.includes('outreach') || normalized.includes('send')) return 'outreach-writer';
+  if (normalized.includes('reply') || normalized.includes('classif')) return 'reply-classifier';
+  if (normalized.includes('prototype') || normalized.includes('deploy')) return 'prototype-builder';
+  if (normalized.includes('qa') || normalized.includes('fact')) return 'fact-checker';
+  if (normalized.includes('mobile') || normalized.includes('ux')) return 'mobile-ux';
+  if (normalized.includes('conversion')) return 'conversion-checker';
+  if (normalized.includes('technical')) return 'technical-checker';
+  return 'orchestrator';
+}
+
+function eventAgeMs(createdAt: string, now: number): number {
+  const timestamp = new Date(createdAt).getTime();
+  return Number.isFinite(timestamp) ? Math.max(0, now - timestamp) : Number.POSITIVE_INFINITY;
+}
+
 export default function LiveSwarmGraph({
   agents,
   prospects,
+  recentEvents,
   connected,
   runningJobCount,
 }: LiveSwarmGraphProps) {
+  const [replayEnabled, setReplayEnabled] = useState(false);
   const byId = new Map(agents.map((agent) => [agent.id, agent]));
   const primaryEdges = agents.map((agent) => ['orchestrator', agent.id] as const);
   const edges = [...primaryEdges, ...secondaryEdges];
-  const orchestratorActive = runningJobCount > 0;
+  const now = Date.now();
+  const liveEvents = recentEvents
+    .filter((event) => eventAgeMs(event.createdAt, now) <= 15 * 60 * 1000)
+    .slice(0, 12);
+  const replayEvents = recentEvents
+    .filter((event) => eventAgeMs(event.createdAt, now) <= 30 * 60 * 1000)
+    .slice(0, 12);
+  const activityEvents = replayEnabled ? replayEvents : liveEvents;
+  const eventAgentIds = new Set(activityEvents.map((event) => eventAgentId(event.actor)));
+  const eventLoad = activityEvents.reduce<Record<string, number>>((counts, event) => {
+    const agentId = eventAgentId(event.actor);
+    counts[agentId] = (counts[agentId] ?? 0) + 1;
+    return counts;
+  }, {});
+  const orchestratorActive = runningJobCount > 0 || eventAgentIds.has('orchestrator');
 
   const orchestratorPosition = project({ x: 480, y: 245, z: 0.86 });
 
@@ -195,10 +250,16 @@ export default function LiveSwarmGraph({
       'DO_NOT_CONTACT',
       'CLOSED_WON',
       'CLOSED_LOST',
+      'WON',
+      'DORMANT',
     ].includes(prospect.state);
     const priority = typeof prospect.score === 'number' && prospect.score >= 85;
     const engaged = [
       'POSITIVE_REPLY',
+      'INTERESTED',
+      'MEETING_BOOKED',
+      'QUOTE_PENDING',
+      'COMMITTED',
       'HOT_LEAD',
       'MEETING_REQUESTED',
       'PRICING_REQUESTED',
@@ -231,12 +292,40 @@ export default function LiveSwarmGraph({
     };
   });
 
+  const prospectHostById = new Map(
+    prospectSatellites.map((satellite) => [satellite.prospect.id, satellite.hostId]),
+  );
+  const eventFlows = activityEvents.flatMap((event, index) => {
+    const actorId = eventAgentId(event.actor);
+    const targetId = event.prospectId
+      ? prospectHostById.get(event.prospectId) ?? 'orchestrator'
+      : 'orchestrator';
+    const sourceId = actorId === targetId ? 'orchestrator' : actorId;
+    if (sourceId !== 'orchestrator' && !byId.has(sourceId)) return [];
+    if (targetId !== 'orchestrator' && !byId.has(targetId)) return [];
+
+    const from = point(sourceId);
+    const to = point(targetId);
+    return [{
+      event,
+      from,
+      to,
+      path: curvedPath(from, to, index + 17),
+      sourceId,
+      targetId,
+      ageSeconds: Math.floor(eventAgeMs(event.createdAt, now) / 1000),
+    }];
+  });
+  const liveActivity = !replayEnabled && (runningJobCount > 0 || eventFlows.length > 0);
+
   return (
     <div className="liveSwarm3dWrap">
       <div className="liveSwarmCornerStatus">
         <span className={`swarmLiveDot ${orchestratorActive ? 'swarmLiveDotActive' : ''}`} />
         {connected
-          ? orchestratorActive
+          ? replayEnabled
+            ? 'REPLAY WINDOW'
+            : liveActivity
             ? 'LIVE TRAFFIC'
             : 'NETWORK IDLE'
           : 'OFFLINE'}
@@ -300,7 +389,7 @@ export default function LiveSwarmGraph({
           ry="13"
         />
         <circle
-          className="swarm3dCoreAura"
+          className={`swarm3dCoreAura ${orchestratorActive ? 'swarm3dCoreAuraActive' : ''}`}
           cx={orchestratorPosition.px}
           cy={orchestratorPosition.py}
           r={orchestratorActive ? 92 : 76}
@@ -337,16 +426,15 @@ export default function LiveSwarmGraph({
                   className={`swarm3dEdge ${hot ? 'swarm3dEdgeActive' : ''}`}
                   d={d}
                 />
-                <circle
-                  className={`swarm3dParticle ${hot ? 'swarm3dParticleActive' : ''}`}
-                  r={hot ? 3.2 : 1.5}
-                >
-                  <animateMotion
-                    dur={`${duration}s`}
-                    path={d}
-                    repeatCount="indefinite"
-                  />
-                </circle>
+                {hot ? (
+                  <circle className="swarm3dParticle swarm3dParticleActive" r="3.2">
+                    <animateMotion
+                      dur={`${duration}s`}
+                      path={d}
+                      repeatCount="indefinite"
+                    />
+                  </circle>
+                ) : null}
                 {hot ? (
                   <circle className="swarm3dParticleTrail" r="1.6">
                     <animateMotion
@@ -360,6 +448,24 @@ export default function LiveSwarmGraph({
               </g>
             );
           })}
+        </g>
+
+        <g className="swarm3dEventFlows" aria-label="Recent data-driven handoffs">
+          {eventFlows.map((flow, index) => (
+            <g className="swarm3dEventFlow" key={`${flow.event.id}-${flow.sourceId}-${flow.targetId}`}>
+              <path className="swarm3dEventFlowGlow" d={flow.path} />
+              <path className="swarm3dEventFlowPath" d={flow.path} />
+              <circle className="swarm3dEventParticle" r={index % 2 === 0 ? 4 : 3}>
+                <animateMotion
+                  begin={replayEnabled ? `-${Math.min(flow.ageSeconds, 8)}s` : undefined}
+                  dur={`${1.15 + (index % 3) * 0.18}s`}
+                  path={flow.path}
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <title>{`${flow.event.type} · ${flow.event.actor}${flow.event.prospectId ? ` · ${flow.event.prospectId}` : ''}`}</title>
+            </g>
+          ))}
         </g>
 
         <g className="swarm3dProspectLayer" aria-label="Prospect satellites">
@@ -447,18 +553,23 @@ export default function LiveSwarmGraph({
           }))
           .sort((a, b) => a.position.z - b.position.z)
           .map(({ agent, index, position }) => {
-            const radius = (agent.active ? 12.5 : 9.5) * position.scale;
+            const eventActive = eventAgentIds.has(agent.id);
+            const load = eventLoad[agent.id] ?? 0;
+            const radius =
+              (agent.active ? 12.5 : 9.5) * position.scale +
+              (eventActive ? 1.5 : 0) +
+              Math.min(load, 3) * 0.7;
             const shadowRx = radius * 1.2;
             const shadowRy = radius * 0.32;
 
             return (
               <g
-                className={`swarm3dNode swarm3dAgentNode ${agent.active ? 'swarm3dNodeActive' : ''}`}
+                className={`swarm3dNode swarm3dAgentNode ${agent.active || eventActive ? 'swarm3dNodeActive' : ''} ${eventActive ? 'swarm3dNodeEvent' : ''}`}
                 key={agent.id}
                 opacity={position.opacity}
                 style={{ animationDelay: `${-(index % 7) * 0.47}s` }}
               >
-                <title>{`${agent.label} — ${agent.group} — ${agent.detail}`}</title>
+                <title>{`${agent.label} — ${agent.group} — ${agent.detail}${load ? ` — ${load} recent event${load > 1 ? 's' : ''}` : ''}`}</title>
                 <ellipse
                   className="swarm3dNodeShadow"
                   cx={position.px}
@@ -503,12 +614,32 @@ export default function LiveSwarmGraph({
                   x={position.px}
                   y={position.py + radius + 32}
                 >
-                  {agent.active ? 'WORKING' : 'READY'}
+                  {agent.active ? 'WORKING' : eventActive ? `EVENT ${load}` : 'READY'}
                 </text>
               </g>
             );
           })}
       </svg>
+
+      <div className="swarmReplayBar">
+        <div>
+          <span className="swarmReplayKicker">REPLAY WINDOW</span>
+          <strong>
+            {replayEvents.length
+              ? `${replayEvents.length} événement${replayEvents.length > 1 ? 's' : ''} · 30 min`
+              : 'Aucun événement récent à rejouer'}
+          </strong>
+        </div>
+        <button
+          type="button"
+          className="swarmReplayButton"
+          disabled={!replayEvents.length}
+          onClick={() => setReplayEnabled((enabled) => !enabled)}
+          aria-pressed={replayEnabled}
+        >
+          {replayEnabled ? 'REVENIR AU LIVE' : 'REJOUER LES ÉVÉNEMENTS'}
+        </button>
+      </div>
 
       <div className="liveSwarmLegend">
         <span>
@@ -520,6 +651,7 @@ export default function LiveSwarmGraph({
           WORKING
         </span>
         <span>{agents.filter((agent) => agent.active).length} AGENT(S) ACTIVE</span>
+        <span>{eventFlows.length} LIVE EVENT{eventFlows.length === 1 ? '' : 'S'}</span>
         <span>
           {prospects.length} PROSPECT{prospects.length > 1 ? 'S' : ''}
           {hiddenProspectCount > 0 ? ` · +${hiddenProspectCount} CLUSTERED` : ''}

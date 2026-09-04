@@ -16,6 +16,12 @@ export interface Overview {
   emailsSent: number;
   replies: number;
   hotLeads: number;
+  interested: number;
+  meetingsBooked: number;
+  quotePending: number;
+  committed: number;
+  won: number;
+  dormant: number;
   prototypes: number;
   actionsRequired: number;
 }
@@ -27,6 +33,7 @@ export interface Escalation {
   summary: string;
   status: string;
   created_at: string;
+  priority?: 'URGENT' | 'HIGH' | 'NORMAL';
 }
 
 export interface Job {
@@ -95,9 +102,40 @@ export interface PrototypeSummary {
   company_name: string;
   status: string;
   qa_status?: string | null;
+  web_design_status?: string | null;
+  web_design_ready?: boolean;
   deployment_url?: string | null;
+  prototype_url?: string | null;
+  personalized_url?: string | null;
+  prototype_entry_url?: string | null;
+  sales_room_url?: string | null;
+  sales_room_slug?: string | null;
+  sales_room_status?: 'ACTIVE' | 'DISABLED';
+  sales_room_review_due?: boolean;
+  sales_room_review_due_at?: string | null;
+  sales_room_last_activity_at?: string | null;
+  sales_room_share_clicks?: number;
+  personalized_entry_enabled?: boolean;
   runner_id?: string | null;
   updated_at: string;
+}
+
+export interface SalesRoomSummary {
+  prospectId: string;
+  companyName: string;
+  slug: string;
+  status: 'ACTIVE' | 'DISABLED';
+  prototypeUrl: string | null;
+  prototypeEntryPath: string;
+  salesRoomPath: string;
+  salesRoomUrl: string | null;
+  ctaTarget: 'SALES_ROOM';
+  createdAt: string;
+  lastActivityAt: string;
+  reviewDueAt: string | null;
+  reviewDue: boolean;
+  shareClicks: number;
+  lastResolutionError: string | null;
 }
 
 export interface LiveEvent {
@@ -109,6 +147,46 @@ export interface LiveEvent {
   createdAt: string;
 }
 
+export interface ProspectEngagement {
+  score_total: number;
+  activity_score: number;
+  intent_score: number;
+  trend: 'RISING' | 'STABLE' | 'COOLING';
+  top_contributors: Array<{
+    signal: string;
+    contribution: number;
+    baseWeight: number;
+    decay: number;
+    occurredAt: string;
+    sourceType?: string;
+    sourceId?: string;
+    reason: string;
+  }>;
+  last_meaningful_event: string | null;
+  computed_at: string;
+}
+
+export interface PrototypeCostGateSummary {
+  id: string;
+  prospectId: string;
+  decision: 'GO' | 'LIGHT' | 'NO-GO';
+  authorization: 'FULL' | 'LIGHT' | 'NONE';
+  policyScore: number;
+  computeClass: 'LOW' | 'MEDIUM' | 'HIGH' | 'UNKNOWN';
+  estimatedExternalCost:
+    | {
+        kind: 'KNOWN';
+        amountEur: number | null;
+        source: string | null;
+      }
+    | {
+        kind: 'UNKNOWN';
+        reason: string | null;
+      };
+  reasonCodes: string[];
+  evaluatedAt: string;
+  reevaluateAt: string | null;
+}
 export interface ProspectSummary {
   id: string;
   companyName: string;
@@ -117,6 +195,29 @@ export interface ProspectSummary {
   activity?: string;
   location?: string;
   updatedAt: string;
+  engagement?: ProspectEngagement;
+  prototypeCostGate?: PrototypeCostGateSummary | null;
+}
+
+export interface MeetingSummary {
+  meetingId: string;
+  prospectId: string;
+  companyName: string | null;
+  salesRoomSlug: string;
+  communicationMode: 'email' | 'phone';
+  startAtUtc: string;
+  endAtUtc: string;
+  prospectTimezone: string;
+  prospectTime: string;
+  parisTime: string;
+  phone: string;
+  status: 'CONFIRMED' | 'CANCELLED' | 'RESCHEDULED';
+  confirmedAt: string;
+  cancelledAt: string | null;
+  rescheduledFromId: string | null;
+  createdAt: string;
+  updatedAt: string;
+  briefingAvailable?: boolean;
 }
 
 export interface Readiness {
@@ -148,8 +249,10 @@ export interface ControlCenterData {
   providerUsage: ProviderUsage | null;
   outreachStatus: OutreachStatus | null;
   prototypes: PrototypeSummary[];
+  salesRooms: SalesRoomSummary[];
   recentEvents: LiveEvent[];
   prospects: ProspectSummary[];
+  meetings: MeetingSummary[];
   readiness: Readiness | null;
   error?: string;
 }
@@ -200,8 +303,10 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
         providerUsage: null,
         outreachStatus: null,
         prototypes: [],
+        salesRooms: [],
         recentEvents: [],
         prospects: [],
+        meetings: [],
         readiness: null,
         error: 'API connected, but D1 is not configured yet.',
       };
@@ -215,8 +320,10 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       providerUsage,
       outreachStatus,
       prototypeData,
+      salesRoomData,
       eventData,
       prospectData,
+      meetingData,
       readiness,
     ] = await Promise.all([
       getJson<Overview>('/api/overview'),
@@ -226,8 +333,10 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       getJson<ProviderUsage>('/api/providers/usage'),
       getJson<OutreachStatus>('/api/outreach/status'),
       getJson<{ prototypes: PrototypeSummary[] }>('/api/prototypes'),
+      getJson<{ salesRooms: SalesRoomSummary[] }>('/api/sales-rooms'),
       getJson<{ events: LiveEvent[] }>('/api/events?limit=20'),
       getJson<{ prospects: ProspectSummary[] }>('/api/prospects'),
+      getJson<{ meetings: MeetingSummary[] }>('/api/meetings'),
       getJson<Readiness>('/api/readiness'),
     ]);
 
@@ -241,8 +350,10 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       providerUsage,
       outreachStatus,
       prototypes: prototypeData.prototypes,
+      salesRooms: salesRoomData.salesRooms,
       recentEvents: eventData.events,
       prospects: prospectData.prospects,
+      meetings: meetingData.meetings,
       readiness,
     };
   } catch (error) {
@@ -256,8 +367,10 @@ export async function getControlCenterData(): Promise<ControlCenterData> {
       providerUsage: null,
       outreachStatus: null,
       prototypes: [],
+      salesRooms: [],
       recentEvents: [],
       prospects: [],
+      meetings: [],
       readiness: null,
       error: error instanceof Error ? error.message : 'Unknown backend error',
     };

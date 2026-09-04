@@ -30,6 +30,10 @@ export interface ProspectStateChangedPayload {
 
 export interface HumanEscalationPayload {
   category:
+    | 'INTERESTED'
+    | 'MEETING_BOOKED'
+    | 'QUOTE_PENDING'
+    | 'COMMITTED'
     | 'HOT_LEAD'
     | 'MEETING_REQUESTED'
     | 'PRICING_REQUESTED'

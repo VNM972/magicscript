@@ -189,6 +189,229 @@ CREATE TABLE IF NOT EXISTS human_escalations (
 CREATE INDEX IF NOT EXISTS idx_escalations_status
   ON human_escalations(status, created_at DESC);
 
+CREATE TABLE IF NOT EXISTS meetings (
+  id TEXT PRIMARY KEY,
+  prospect_id TEXT NOT NULL,
+  sales_room_slug TEXT NOT NULL,
+  communication_mode TEXT NOT NULL CHECK (communication_mode IN ('email', 'phone')),
+  start_at_utc TEXT NOT NULL,
+  end_at_utc TEXT NOT NULL,
+  prospect_timezone TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  status TEXT NOT NULL CHECK (status IN ('CONFIRMED', 'CANCELLED', 'RESCHEDULED')),
+  confirmed_at TEXT NOT NULL,
+  cancelled_at TEXT,
+  rescheduled_from_id TEXT,
+  idempotency_key TEXT NOT NULL UNIQUE,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_meetings_confirmed_slot
+  ON meetings(start_at_utc)
+  WHERE status = 'CONFIRMED';
+
+CREATE INDEX IF NOT EXISTS idx_meetings_prospect_status
+  ON meetings(prospect_id, status, start_at_utc);
+
+CREATE INDEX IF NOT EXISTS idx_meetings_start_status
+  ON meetings(start_at_utc, status);
+
+CREATE TABLE IF NOT EXISTS call_copilot_sessions (
+  id TEXT PRIMARY KEY,
+  prospect_id TEXT NOT NULL,
+  meeting_id TEXT,
+  status TEXT NOT NULL CHECK (status IN ('ACTIVE', 'ENDED')),
+  snapshot_json TEXT NOT NULL,
+  engine_version TEXT NOT NULL,
+  rules_version TEXT NOT NULL,
+  prompt_version TEXT NOT NULL,
+  idempotency_key TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_call_copilot_session_idempotency
+  ON call_copilot_sessions(idempotency_key)
+  WHERE idempotency_key IS NOT NULL;
+
+CREATE INDEX IF NOT EXISTS idx_call_copilot_sessions_prospect
+  ON call_copilot_sessions(prospect_id, updated_at DESC);
+
+CREATE TABLE IF NOT EXISTS call_copilot_actions (
+  id TEXT PRIMARY KEY,
+  session_id TEXT NOT NULL,
+  action_type TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  idempotency_key TEXT,
+  created_at TEXT NOT NULL,
+  FOREIGN KEY (session_id) REFERENCES call_copilot_sessions(id) ON DELETE CASCADE
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_call_copilot_action_idempotency
+  ON call_copilot_actions(session_id, idempotency_key)
+  WHERE idempotency_key IS NOT NULL;
+
+CREATE INDEX IF NOT EXISTS idx_call_copilot_actions_session
+  ON call_copilot_actions(session_id, created_at ASC);
+
+CREATE TABLE IF NOT EXISTS quote_dossiers (
+  id TEXT PRIMARY KEY,
+  linkage_key TEXT NOT NULL UNIQUE,
+  prospect_id TEXT NOT NULL,
+  meeting_id TEXT,
+  source_copilot_session_id TEXT,
+  status TEXT NOT NULL CHECK (status IN ('DRAFT', 'HUMAN_VALIDATED')),
+  dossier_json TEXT NOT NULL,
+  human_validated_at TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  CHECK (
+    (status = 'DRAFT' AND human_validated_at IS NULL)
+    OR
+    (status = 'HUMAN_VALIDATED' AND human_validated_at IS NOT NULL)
+  ),
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE,
+  FOREIGN KEY (meeting_id) REFERENCES meetings(id) ON DELETE SET NULL,
+  FOREIGN KEY (source_copilot_session_id)
+    REFERENCES call_copilot_sessions(id) ON DELETE SET NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_quote_dossiers_prospect
+  ON quote_dossiers(prospect_id, updated_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_quote_dossiers_meeting
+  ON quote_dossiers(meeting_id, updated_at DESC);
+
+
+CREATE TABLE IF NOT EXISTS prototype_cost_gate_evaluations (
+  id TEXT PRIMARY KEY,
+  prospect_id TEXT NOT NULL,
+  decision TEXT NOT NULL CHECK (decision IN ('GO', 'LIGHT', 'NO-GO')),
+  authorization TEXT NOT NULL CHECK (authorization IN ('FULL', 'LIGHT', 'NONE')),
+  policy_score INTEGER NOT NULL CHECK (policy_score BETWEEN 0 AND 100),
+  compute_class TEXT NOT NULL CHECK (compute_class IN ('LOW', 'MEDIUM', 'HIGH', 'UNKNOWN')),
+  external_cost_kind TEXT NOT NULL CHECK (external_cost_kind IN ('KNOWN', 'UNKNOWN')),
+  external_cost_amount_eur REAL,
+  external_cost_source TEXT,
+  external_cost_reason TEXT,
+  reason_codes_json TEXT NOT NULL,
+  evaluated_at TEXT NOT NULL,
+  reevaluate_at TEXT,
+  CHECK (
+    (
+      external_cost_kind = 'KNOWN'
+      AND external_cost_amount_eur IS NOT NULL
+      AND external_cost_amount_eur >= 0
+      AND external_cost_source IS NOT NULL
+      AND external_cost_reason IS NULL
+    )
+    OR
+    (
+      external_cost_kind = 'UNKNOWN'
+      AND external_cost_amount_eur IS NULL
+      AND external_cost_source IS NULL
+      AND external_cost_reason IS NOT NULL
+    )
+  ),
+  CHECK (
+    (
+      decision = 'GO'
+      AND authorization = 'FULL'
+      AND reevaluate_at IS NULL
+    )
+    OR
+    (
+      decision = 'LIGHT'
+      AND authorization = 'LIGHT'
+      AND reevaluate_at IS NULL
+    )
+    OR
+    (
+      decision = 'NO-GO'
+      AND authorization = 'NONE'
+      AND reevaluate_at IS NOT NULL
+    )
+  ),
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_prototype_cost_gate_prospect
+  ON prototype_cost_gate_evaluations(prospect_id, evaluated_at DESC);
+
+CREATE TRIGGER IF NOT EXISTS trg_prototype_cost_gate_immutable
+BEFORE UPDATE ON prototype_cost_gate_evaluations
+BEGIN
+  SELECT RAISE(ABORT, 'prototype_cost_gate_evaluations are immutable');
+END;
+CREATE TABLE IF NOT EXISTS commercial_quotes (
+  id TEXT PRIMARY KEY,
+  prospect_id TEXT NOT NULL,
+  quote_id TEXT NOT NULL,
+  quote_number TEXT NOT NULL,
+  quote_version_hash TEXT NOT NULL,
+  canonical_json TEXT NOT NULL,
+  issue_date TEXT NOT NULL,
+  valid_until TEXT NOT NULL,
+  delivery_deadline TEXT NOT NULL,
+  cgv_reference TEXT NOT NULL,
+  subtotal_cents INTEGER NOT NULL CHECK (subtotal_cents > 0),
+  total_cents INTEGER NOT NULL CHECK (total_cents > 0),
+  currency TEXT NOT NULL CHECK (currency = 'EUR'),
+  deposit_percent INTEGER NOT NULL CHECK (deposit_percent = 50),
+  balance_percent INTEGER NOT NULL CHECK (balance_percent = 50),
+  published_at TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  UNIQUE (quote_id, quote_version_hash),
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_commercial_quotes_prospect
+  ON commercial_quotes(prospect_id, published_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_commercial_quotes_quote
+  ON commercial_quotes(quote_id, published_at DESC);
+
+CREATE TRIGGER IF NOT EXISTS trg_commercial_quotes_immutable
+BEFORE UPDATE ON commercial_quotes
+BEGIN
+  SELECT RAISE(ABORT, 'commercial_quotes are immutable');
+END;
+CREATE TABLE IF NOT EXISTS quote_acceptance_proofs (
+  id TEXT PRIMARY KEY,
+  prospect_id TEXT NOT NULL,
+  quote_id TEXT NOT NULL,
+  quote_number TEXT NOT NULL,
+  quote_version_hash TEXT NOT NULL,
+  signer_name TEXT NOT NULL,
+  signer_email TEXT NOT NULL,
+  signer_company_name TEXT NOT NULL,
+  accepted_at TEXT NOT NULL,
+  consent_given INTEGER NOT NULL CHECK (consent_given = 1),
+  consent_label TEXT NOT NULL CHECK (consent_label = 'BON_POUR_ACCORD'),
+  cgv_reference TEXT NOT NULL,
+  total_cents INTEGER NOT NULL CHECK (total_cents > 0),
+  currency TEXT NOT NULL CHECK (currency = 'EUR'),
+  source TEXT NOT NULL CHECK (source = 'SALES_ROOM'),
+  idempotency_key TEXT NOT NULL UNIQUE,
+  created_at TEXT NOT NULL,
+  UNIQUE (prospect_id, quote_id, quote_version_hash),
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_quote_acceptance_proofs_prospect
+  ON quote_acceptance_proofs(prospect_id, accepted_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_quote_acceptance_proofs_quote
+  ON quote_acceptance_proofs(quote_id, quote_version_hash);
+
+CREATE TRIGGER IF NOT EXISTS trg_quote_acceptance_proofs_immutable
+BEFORE UPDATE ON quote_acceptance_proofs
+BEGIN
+  SELECT RAISE(ABORT, 'quote_acceptance_proofs are immutable');
+END;
 
 CREATE TABLE IF NOT EXISTS provider_usage (
   provider TEXT NOT NULL,

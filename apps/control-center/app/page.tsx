@@ -1,5 +1,7 @@
 import LiveRefresh from '../components/LiveRefresh';
 import LiveSwarmGraph from '../components/LiveSwarmGraph';
+import HubControlPlane from '../components/HubControlPlane';
+import CallCopilot from '../components/CallCopilot';
 import { getControlCenterData } from '../lib/api';
 
 export const dynamic = 'force-dynamic';
@@ -20,8 +22,47 @@ function jobFamily(kind: string): string {
 }
 
 function shortEvent(type: string): string {
-  return type.replaceAll('.', ' › ').replaceAll('_', ' ').toUpperCase();
+  return type.replaceAll('.', ' ”º ').replaceAll('_', ' ').toUpperCase();
 }
+
+function engagementSignalLabel(signal: string): string {
+  const labels: Record<string, string> = {
+    PROTOTYPE_VIEWED: 'prototype vu',
+    SALES_ROOM_VIEWED: 'Sales Room vue',
+    RETURN_VISIT: 'retour récent',
+    DEMO_OPENED: 'démo ouverte',
+    SHARE_CLICKED: 'partage activé',
+    CONTACT_CLICKED: 'contact activé',
+    MESSAGE_SENT: 'message envoyé par le prospect',
+    MEETING_REQUESTED: 'échange demandé',
+    MEETING_BOOKED: 'rendez-vous confirmé',
+  };
+  return labels[signal] ?? signal;
+}
+
+function salesRoomEventLabel(type: string): string {
+  if (type === 'sales_room.message_received') return 'MESSAGE REÇU · PRIORITÉ HAUTE';
+  if (type === 'commercial.meeting_requested') return 'DEMANDE D’ÉCHANGE · PRIORITÉ HAUTE';
+  if (type === 'sales_room.share_clicked') return 'PARTAGE CLIQUÉ';
+  return 'RÉSOLUTION SALES ROOM ÉCHOUÉE';
+}
+
+function formatMeetingTime(iso: string, timeZone: string): string {
+  const date = new Date(iso);
+  if (!Number.isFinite(date.getTime())) return 'Heure indisponible';
+  return new Intl.DateTimeFormat('fr-FR', {
+    timeZone,
+    dateStyle: 'short',
+    timeStyle: 'short',
+  }).format(date);
+}
+
+type ProcessStage = {
+  label: string;
+  detail: string;
+  state: string;
+  href: string;
+};
 
 export default async function Page() {
   const data = await getControlCenterData();
@@ -36,7 +77,8 @@ export default async function Page() {
     ['Qualifiés', valueOrDash(overview?.qualified)],
     ['Emails envoyés', valueOrDash(overview?.emailsSent)],
     ['Réponses', valueOrDash(overview?.replies)],
-    ['Leads positifs', valueOrDash(overview?.hotLeads)],
+    ['Intérêts explicites', valueOrDash(overview?.interested)],
+    ['Rendez-vous réservés', valueOrDash(overview?.meetingsBooked)],
     ['Prototypes', valueOrDash(overview?.prototypes)],
   ];
 
@@ -50,6 +92,115 @@ export default async function Page() {
     },
     {},
   );
+  const countState = (state: string) => stateCounts[state] ?? 0;
+  const rankedProspects = [...data.prospects].sort(
+    (left, right) =>
+      (right.engagement?.score_total ?? 0) - (left.engagement?.score_total ?? 0),
+  );
+  const personalizedLinksReady = data.prototypes.filter(
+    (prototype) => prototype.personalized_entry_enabled,
+  ).length;
+  const demosReadyForLinks = data.prototypes.filter(
+    (prototype) => Boolean(prototype.prototype_url),
+  ).length;
+  const backendDataReady = Boolean(
+    data.connected && data.health?.databaseConfigured,
+  );
+  const webDesignReady = data.prototypes.filter(
+    (prototype) => prototype.web_design_ready,
+  ).length;
+  const qaReviewed = data.prototypes.filter(
+    (prototype) => Boolean(prototype.qa_status),
+  ).length;
+  const salesRoomAlerts = data.recentEvents.filter((event) =>
+    new Set([
+      'sales_room.resolution_failed',
+      'sales_room.message_received',
+      'commercial.meeting_requested',
+      'sales_room.share_clicked',
+    ]).has(event.type),
+  ).slice(0, 6);
+
+  const processStages: ProcessStage[] = [
+    {
+      label: 'Prospection',
+      detail: backendDataReady ? `${data.prospects.length} fiches visibles` : 'Données indisponibles',
+      state: backendDataReady ? 'ACTIF' : 'EN ATTENTE',
+      href: '#prospection',
+    },
+    {
+      label: 'Qualification',
+      detail: overview ? `${overview.qualified} qualifiés` : 'À vérifier',
+      state: overview ? 'SUIVI' : 'EN ATTENTE',
+      href: '#prospection',
+    },
+    {
+      label: 'Enrichissement',
+      detail: backendDataReady ? 'Sources et fiches' : 'Connexion requise',
+      state: backendDataReady ? 'PRÊT' : 'EN ATTENTE',
+      href: '#prospection',
+    },
+    {
+      label: 'Prototype',
+      detail: data.prototypes.length ? `${data.prototypes.length} suivis` : 'Aucun suivi',
+      state: data.prototypes.length ? 'EN COURS' : 'EN ATTENTE',
+      href: '#prototypes',
+    },
+    {
+      label: 'Web Design',
+      detail: data.prototypes.length ? `${webDesignReady}/${data.prototypes.length} validés` : 'Gate obligatoire',
+      state: data.prototypes.length ? 'GATE' : 'À PRÉVOIR',
+      href: '#prototypes',
+    },
+    {
+      label: 'QA',
+      detail: data.prototypes.length ? `${qaReviewed}/${data.prototypes.length} revus` : 'Revue à planifier',
+      state: data.prototypes.length ? 'CONTRÔLE' : 'À PRÉVOIR',
+      href: '#prototypes',
+    },
+    {
+      label: 'Intérêt explicite',
+      detail: `${countState('INTERESTED')} à traiter par Stéphane`,
+      state: countState('INTERESTED') ? 'PRIORITAIRE' : 'EN ATTENTE',
+      href: '#commercial',
+    },
+    {
+      label: 'Rendez-vous',
+      detail: `${countState('MEETING_BOOKED')} briefing(s) à préparer`,
+      state: countState('MEETING_BOOKED') ? 'PRIORITAIRE' : 'EN ATTENTE',
+      href: '#commercial',
+    },
+    {
+      label: 'Proposition',
+      detail: `${countState('QUOTE_PENDING')} devis à préparer · ${countState('COMMITTED')} engagé(s)`,
+      state: countState('QUOTE_PENDING') || countState('COMMITTED') ? 'HUMAIN' : 'À PRÉPARER',
+      href: '#commercial',
+    },
+    {
+      label: 'Draft',
+      detail: 'Brouillons uniquement',
+      state: 'SÉCURISÉ',
+      href: '#outreach',
+    },
+    {
+      label: 'Signature',
+      detail: 'Document à connecter',
+      state: 'À PRÉPARER',
+      href: '#documents',
+    },
+    {
+      label: 'Facturation',
+      detail: 'Acompte / solde',
+      state: 'À PRÉPARER',
+      href: '#documents',
+    },
+    {
+      label: 'Delivery',
+      detail: 'Après validation',
+      state: 'À PRÉPARER',
+      href: '#documents',
+    },
+  ];
 
   const statusLabel = !data.connected
     ? 'BACKEND OFFLINE'
@@ -202,6 +353,58 @@ export default async function Page() {
         </section>
       ) : null}
 
+      <section className="panel processPanel" aria-labelledby="process-title">
+        <div className="panelTitle">
+          <div>
+            <p className="eyebrow">PROCESS COMMERCIAL</p>
+            <h2 id="process-title">Du premier signal à la livraison</h2>
+          </div>
+          <span className="muted">Opérationnel · détails techniques repliables</span>
+        </div>
+        <nav className="processNav" aria-label="Étapes du processus commercial">
+          {processStages.map((stage, index) => (
+            <a className="processStep" href={stage.href} key={stage.label}>
+              <span className="processStepNumber">{String(index + 1).padStart(2, '0')}</span>
+              <strong>{stage.label}</strong>
+              <span className="processStepDetail">{stage.detail}</span>
+              <span className="processStepState">{stage.state}</span>
+            </a>
+          ))}
+        </nav>
+      </section>
+
+      <section className="panel documentPanel" id="documents" aria-labelledby="documents-title">
+        <div className="panelTitle">
+          <div>
+            <p className="eyebrow">DOCUMENTS & PREUVES</p>
+            <h2 id="documents-title">Accès depuis l’étape utile</h2>
+          </div>
+          <span className="muted">Disponible = relié · à préparer = explicite</span>
+        </div>
+        <div className="documentGrid">
+          <a className="documentCard" href="#prospection">
+            <strong>Fiches & sources prospect</strong>
+            <span>{backendDataReady ? `${data.prospects.length} fiche(s) visibles` : 'Connexion backend requise'}</span>
+            <small>Prospection · qualification · enrichissement</small>
+          </a>
+          <a className="documentCard" href="#prototypes">
+            <strong>Prototype & QA</strong>
+            <span>{data.prototypes.length ? `${demosReadyForLinks} démo(s) avec lien` : 'Aucun prototype visible'}</span>
+            <small>Web Design gate · QA · liens vérifiés</small>
+          </a>
+          <a className="documentCard documentCardWaiting" href="#commercial">
+            <strong>Devis & proposition</strong>
+            <span>À relier au module documentaire</span>
+            <small>Validation humaine avant envoi</small>
+          </a>
+          <a className="documentCard documentCardWaiting" href="#commercial">
+            <strong>Contrat · signature · facture</strong>
+            <span>À préparer dans le track automatisation</span>
+            <small>Acompte 50 % · solde avant mise en ligne</small>
+          </a>
+        </div>
+      </section>
+
       <section className="stats">
         {stats.map(([label, value]) => (
           <article className="stat" key={label}>
@@ -232,11 +435,25 @@ export default async function Page() {
         <LiveSwarmGraph
           agents={liveAgents}
           prospects={data.prospects}
+          recentEvents={data.recentEvents}
           connected={data.connected}
           runningJobCount={data.runningJobs.length}
         />
       </section>
 
+      <HubControlPlane
+        prospects={data.prospects}
+        runningJobs={data.runningJobs}
+      />
+
+      <details className="diagnosticsPanel">
+        <summary>
+          <span>
+            <span className="eyebrow">DIAGNOSTICS</span>
+            <strong>État détaillé du runtime et de la swarm</strong>
+          </span>
+          <span className="muted">Ouvrir pour inspecter</span>
+        </summary>
       <section className="grid">
         <article className="panel">
           <div className="panelTitle">
@@ -351,7 +568,7 @@ export default async function Page() {
         </article>
       </section>
 
-      <section className="panel">
+      <section className="panel" id="prospection">
         <div className="panelTitle">
           <div>
             <p className="eyebrow">PIPELINE BOARD</p>
@@ -359,6 +576,9 @@ export default async function Page() {
           </div>
           <span className="count">{data.prospects.length}</span>
         </div>
+        <p className="muted" style={{ marginTop: 0 }}>
+          Priorité analytique par engagement · les états métier restent inchangés.
+        </p>
 
         <div className="pipelineList">
           {data.prospects.length === 0 ? (
@@ -366,7 +586,7 @@ export default async function Page() {
               <span className="muted">No prospect data yet.</span>
             </div>
           ) : (
-            data.prospects.slice(0, 12).map((prospect) => (
+            rankedProspects.slice(0, 12).map((prospect) => (
               <div className="pipelineRow" key={prospect.id}>
                 <div>
                   <strong>{prospect.companyName}</strong>
@@ -376,7 +596,66 @@ export default async function Page() {
                   </p>
                 </div>
                 <div className="pipelineMeta">
-                  <span>{prospect.score ?? '—'}</span>
+                  <div className="engagementSummary">
+                    {prospect.engagement ? (
+                      <>
+                        <strong>{prospect.engagement.score_total}/100</strong>
+                        <span>
+                          Activité {prospect.engagement.activity_score} · Intention {prospect.engagement.intent_score} · {prospect.engagement.trend}
+                        </span>
+                        <small>
+                          Pourquoi : {prospect.engagement.top_contributors.slice(0, 2).map((contributor) => engagementSignalLabel(contributor.signal)).join(' · ') || 'aucun événement capturé'}
+                        </small>
+                        <small>Score dossier : {prospect.score ?? '—'}</small>
+                      </>
+                    ) : (
+                      <span className="muted">Score indisponible</span>
+                    )}
+                  </div>
+                  <div className="engagementSummary">
+                    {prospect.prototypeCostGate ? (
+                      <>
+                        <span
+                          className={`badge ${
+                            prospect.prototypeCostGate.decision === 'GO'
+                              ? 'running'
+                              : 'waiting'
+                          }`}
+                        >
+                          PROTO {prospect.prototypeCostGate.decision}
+                        </span>
+                        <details>
+                          <summary>Voir le détail du Cost Gate</summary>
+                          <small>
+                            Autorisation : {prospect.prototypeCostGate.authorization}
+                          </small>
+                          <small>
+                            Score politique : {prospect.prototypeCostGate.policyScore}/100
+                          </small>
+                          <small>
+                            Charge : {prospect.prototypeCostGate.computeClass}
+                          </small>
+                          <small>
+                            Coût externe :{' '}
+                            {prospect.prototypeCostGate.estimatedExternalCost.kind === 'KNOWN'
+                              ? `${prospect.prototypeCostGate.estimatedExternalCost.amountEur ?? 'UNKNOWN'} € · ${prospect.prototypeCostGate.estimatedExternalCost.source ?? 'source inconnue'}`
+                              : `UNKNOWN · ${prospect.prototypeCostGate.estimatedExternalCost.reason ?? 'raison non disponible'}`}
+                          </small>
+                          <small>
+                            Raisons :{' '}
+                            {prospect.prototypeCostGate.reasonCodes.join(' · ') || 'aucune'}
+                          </small>
+                          {prospect.prototypeCostGate.reevaluateAt ? (
+                            <small>
+                              Réévaluation : {prospect.prototypeCostGate.reevaluateAt.slice(0, 10)}
+                            </small>
+                          ) : null}
+                        </details>
+                      </>
+                    ) : (
+                      <span className="muted">Cost Gate non évalué</span>
+                    )}
+                  </div>
                   <span className="badge waiting">{prospect.state}</span>
                 </div>
               </div>
@@ -425,8 +704,9 @@ export default async function Page() {
           )}
         </div>
       </section>
+      </details>
 
-      <section className="panel actions">
+      <section className="panel actions" id="commercial">
         <div className="panelTitle">
           <div>
             <p className="eyebrow">ACTION REQUIRED</p>
@@ -445,7 +725,9 @@ export default async function Page() {
           <div className="actionGrid">
             {data.escalations.map((action) => (
               <article className="leadCard" key={action.id}>
-                <span className="leadType">{action.category}</span>
+                <span className="leadType">
+                  {action.priority ? `${action.priority} · ` : ''}{action.category}
+                </span>
                 <h3>{action.prospect_id}</h3>
                 <p>{action.summary}</p>
                 <button type="button">Ouvrir le lead</button>
@@ -455,7 +737,63 @@ export default async function Page() {
         )}
       </section>
 
-      <section className="panel" style={{ marginTop: 12 }}>
+      <section className="panel" id="schedule" style={{ marginTop: 12 }}>
+        <div className="panelTitle">
+          <div>
+            <p className="eyebrow">SCHEDULE · EUROPE/PARIS</p>
+            <h2>Rendez-vous confirmés</h2>
+          </div>
+          <span className="count">{data.meetings.filter((meeting) => meeting.status === 'CONFIRMED').length}</span>
+        </div>
+        <p className="muted" style={{ marginTop: 0 }}>
+          Les heures sont calculées depuis UTC et affichées dans les fuseaux IANA du prospect et de Stéphane.
+        </p>
+        <div className="agentList">
+          {data.meetings.filter((meeting) => meeting.status === 'CONFIRMED').length === 0 ? (
+            <div className="agentRow">
+              <span>Aucun rendez-vous confirmé cette semaine</span>
+              <span className="badge waiting">EMPTY</span>
+            </div>
+          ) : (
+            data.meetings
+              .filter((meeting) => meeting.status === 'CONFIRMED')
+              .map((meeting) => (
+                <div className="agentRow" key={meeting.meetingId}>
+                  <span>
+                    <strong>{meeting.companyName || meeting.prospectId}</strong>
+                    <small className="muted" style={{ display: 'block' }}>
+                      Paris : {formatMeetingTime(meeting.startAtUtc, 'Europe/Paris')} · Prospect : {formatMeetingTime(meeting.startAtUtc, meeting.prospectTimezone)} · {meeting.phone}
+                    </small>
+                  </span>
+                  <span className="badge running">
+                    {meeting.communicationMode === 'phone' ? 'TÉLÉPHONE' : 'EMAIL'} · {meeting.briefingAvailable ? 'BRIEFING PRÊT' : 'BRIEFING À VÉRIFIER'}
+                  </span>
+                </div>
+              ))
+          )}
+        </div>
+        {data.meetings.some((meeting) => meeting.status !== 'CONFIRMED') ? (
+          <p className="muted" style={{ marginBottom: 0 }}>
+            Historique : {data.meetings.filter((meeting) => meeting.status !== 'CONFIRMED').length} rendez-vous annulé(s) ou déplacé(s), conservé(s) pour traçabilité.
+          </p>
+        ) : null}
+      </section>
+
+      <CallCopilot
+        prospects={data.prospects.map((prospect) => ({
+          id: prospect.id,
+          companyName: prospect.companyName,
+          state: prospect.state,
+        }))}
+        meetings={data.meetings.map((meeting) => ({
+          meetingId: meeting.meetingId,
+          prospectId: meeting.prospectId,
+          status: meeting.status,
+          startAtUtc: meeting.startAtUtc,
+        }))}
+      />
+
+      <section className="panel" id="prototypes" style={{ marginTop: 12 }}>
         <div className="panelTitle">
           <div>
             <p className="eyebrow">PROTOTYPES</p>
@@ -495,7 +833,105 @@ export default async function Page() {
         </div>
       </section>
 
-      <section className="panel" style={{ marginTop: 12 }}>
+      <section className="panel" id="commercial-entry" style={{ marginTop: 12 }}>
+        <div className="panelTitle">
+          <div>
+            <p className="eyebrow">COMMERCIAL ENTRY</p>
+            <h2>Deux liens, état vérifiable</h2>
+          </div>
+          <span className="count">{personalizedLinksReady}</span>
+        </div>
+        <p className="muted" style={{ marginTop: 0 }}>
+          {demosReadyForLinks} démo(s) vérifiée(s) · {personalizedLinksReady} lien(s)
+          personnalisé(s) prêt(s)
+        </p>
+        <div className="agentList">
+          {data.prototypes.length === 0 ? (
+            <div className="agentRow">
+              <span>Aucun prototype à relier</span>
+              <span className="badge waiting">WAITING</span>
+            </div>
+          ) : (
+            data.prototypes.slice(0, 6).map((prototype) => {
+              const linkState = prototype.personalized_entry_enabled
+                ? 'PERSONALIZED LINK READY'
+                : prototype.prototype_url
+                  ? 'DEMO READY · PUBLIC BASE WAITING'
+                  : 'WAITING FOR VERIFIED DEMO';
+
+              return (
+                <div className="agentRow" key={'commercial-' + prototype.id}>
+                  <span>{prototype.company_name}</span>
+                  <span
+                    className={
+                      prototype.personalized_entry_enabled
+                        ? 'badge running'
+                        : 'badge waiting'
+                    }
+                  >
+                    {linkState}
+                  </span>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </section>
+
+      <section className="panel" id="sales-rooms" style={{ marginTop: 12 }}>
+        <div className="panelTitle">
+          <div>
+            <p className="eyebrow">PROSPECT SALES ROOMS</p>
+            <h2>Accès et rappels</h2>
+          </div>
+          <span className="count">{data.salesRooms.length}</span>
+        </div>
+        <p className="muted" style={{ marginTop: 0 }}>
+          Les liens suivent le parcours prototype â†’ Sales Room. Une revue ancienne reste un rappel humain, jamais une désactivation automatique.
+        </p>
+        <div className="agentList">
+          {data.salesRooms.length === 0 ? (
+            <div className="agentRow">
+              <span>Aucune Sales Room issue d’un prototype validé</span>
+              <span className="badge waiting">WAITING</span>
+            </div>
+          ) : (
+            data.salesRooms.slice(0, 12).map((room) => (
+              <div className="agentRow" key={room.prospectId}>
+                <span>
+                  {room.companyName} · /p/{room.slug}
+                  <small className="muted" style={{ display: 'block' }}>
+                    {room.shareClicks} partage(s) · activité {new Date(room.lastActivityAt).toLocaleDateString('fr-FR')}
+                  </small>
+                </span>
+                <span className={`badge ${room.status === 'ACTIVE' && !room.reviewDue ? 'running' : 'waiting'}`}>
+                  {room.status}{room.reviewDue ? ' · REVIEW DUE' : ''}
+                </span>
+              </div>
+            ))
+          )}
+        </div>
+        {salesRoomAlerts.length > 0 ? (
+          <div className="agentList" style={{ marginTop: 12 }}>
+            <p className="eyebrow">SIGNAUX SALES ROOM</p>
+            {salesRoomAlerts.map((event) => (
+              <div className="agentRow" key={event.id}>
+                <span>
+                  {typeof event.payload.slug === 'string' ? `/p/${event.payload.slug}` : 'Sales Room'}
+                  <small className="muted" style={{ display: 'block' }}>
+                    {event.createdAt}{event.prospectId ? ` · ${event.prospectId}` : ''}
+                  </small>
+                </span>
+                <span className={`badge ${event.type === 'sales_room.resolution_failed' ? 'waiting' : 'running'}`}>
+                  {salesRoomEventLabel(event.type)}
+                </span>
+              </div>
+            ))}
+          </div>
+        ) : null}
+      </section>
+
+      <section className="panel" id="outreach" style={{ marginTop: 12 }}>
         <div className="panelTitle">
           <div>
             <p className="eyebrow">OUTREACH</p>

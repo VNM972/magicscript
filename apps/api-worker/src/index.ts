@@ -1,4 +1,5 @@
-import {
+﻿import {
+
   D1EventStore,
   D1JobQueue,
   D1ProspectRepository,
@@ -16,18 +17,76 @@ import {
   rechercheEntrepriseMatchingEtablissement,
   rechercheEntrepriseName,
   rechercheEntrepriseSourceUrl,
+  resolveSwarmHub,
   loadConfig,
   scoreProspect,
+  scoreEngagementFromMagicScriptEvents,
+evaluatePrototypeCostGate,
   shouldEscalateOutreachFactCheck,
+  shouldAcceptFactCheckWithVerifiedDeploymentLink,
+  buildPersonalizedEntryLinks,
+  buildSalesRoomEventPayload,
+  buildSalesRoomSlug,
+  canPromoteWithWebDesignReview,
+  deriveSalesRoomState,
   sireneBusinessName,
   sireneLocation,
   sirenePublicSourceUrl,
+  type WebDesignReview,
+  webDesignReviewBlockReason,
+  webDesignReviewStatus,
+  buildCommercialBriefing,
+  commercialTransition,
+  planInterestFollowups,
+  stateForInboundClassification,
+  addCalendarDays,
+  buildH24ReminderPlan,
+  buildMeetingConfirmationEmail,
+  dateKeyInTimeZone,
+  DEFAULT_AVAILABILITY,
+  formatInTimeZone,
+  generateAvailability,
+  getWeekRangeUtc,
+  slotForStart,
+  assertTimeZone,
+  zonedLocalToUtc,
+  type AvailabilityConfig,
+  type CommunicationMode,
+  type MeetingConfirmationEmail,
+  type MeetingStatus,
+  type CommercialBriefing,
+  type CommercialEvent,
   type D1DatabaseLike,
   type JobStatus,
   type MagicScriptJob,
   type Prospect,
   type ProspectContact,
   type ProspectOpportunity,
+  type SalesRoomStatus,
+  type HandoffPacket,
+  validateHandoff,
+  applyCallCopilotAction,
+  buildCallCopilotSnapshot,
+  buildEndOfCallReview,
+  prospectToCallCopilotContext,
+  CALL_COPILOT_ENGINE_VERSION,
+  CALL_COPILOT_RULES_VERSION,
+  CALL_COPILOT_PROMPT_VERSION,
+  type CallCopilotAction,
+  type CallCopilotSnapshot,
+  buildQuoteDossier,
+  mergeQuoteDossier,
+  resolveQuoteDossierConflict,
+  validateQuoteDossier,
+extractCommercialScopeFromProspectTexts,
+applyCommercialScopeProfile,
+buildCanonicalQuote,
+resolvePricingPackage,
+classifyCommercialScope,
+  validateQuoteAcceptanceProof,
+  type QuoteDossierConflictField,
+  type DossierField,
+  type QuoteDossier,
 } from '@magicscript/core';
 
 interface Env {
@@ -49,8 +108,20 @@ interface Env {
   MAGICSCRIPT_TEST_EMAIL_MODE?: string;
   MAGICSCRIPT_TEST_RECIPIENT?: string;
   MAGICSCRIPT_CONTROL_CENTER_ORIGIN?: string;
+  MAGICSCRIPT_PUBLIC_BASE_URL?: string;
+  MAGICSCRIPT_SALES_ROOM_REVIEW_DAYS?: string;
+  MAGICSCRIPT_PUBLIC_SALES_ROOM_INGESTION_ENABLED?: string;
+  MAGICSCRIPT_AVAILABILITY_TIMEZONE?: string;
+  MAGICSCRIPT_AVAILABILITY_START?: string;
+  MAGICSCRIPT_AVAILABILITY_END?: string;
+  MAGICSCRIPT_AVAILABILITY_HORIZON_DAYS?: string;
+  MAGICSCRIPT_SMS_ENABLED?: string;
   MAGICSCRIPT_API_TOKEN?: string;
   MAGICSCRIPT_RUNNER_TOKEN?: string;
+  MAGICSCRIPT_QUOTE_VAT_NOTE?: string;
+  MAGICSCRIPT_QUOTE_CGV_REFERENCE?: string;
+  MAGICSCRIPT_STACK_ID?: string;
+  MAGICSCRIPT_RUNNER_PROSPECT_ID?: string;
   MAGICSCRIPT_TARGET_LOCATION?: string;
   MAGICSCRIPT_DISCOVERY_BATCH_SIZE?: string;
   HUNTER_API_KEY?: string;
@@ -66,6 +137,22 @@ interface ResearchResult {
   primaryAsset?: string;
   primaryFriction?: string;
   primaryCta?: string;
+  brandAsset?: {
+    status: 'OFFICIAL_LOGO_FOUND' | 'PUBLIC_LOGO_CANDIDATE' | 'NOT_FOUND' | 'UNKNOWN';
+    sourceUrl?: string;
+    assetUrl?: string;
+    reuseDecision:
+      | 'REUSE_IF_RIGHTS_CLEAR'
+      | 'DO_NOT_REUSE'
+      | 'CREATE_ONLY_IF_NO_USABLE_IDENTITY'
+      | 'UNKNOWN';
+    note: string;
+  };
+  sourceNavigationBlocks?: Array<{
+    label: string;
+    kind: 'navigation' | 'content_block' | 'conversion_cta';
+  }>;
+  sourceNavigationNote?: string;
   contactPlan?: {
     recommendedChannel:
       | 'official_email'
@@ -206,12 +293,28 @@ interface PrototypeStrategyResult {
   primaryAsset: string;
   primaryFriction: string;
   valueProposition: string;
+  brandAsset?: {
+    status: 'OFFICIAL_LOGO_FOUND' | 'PUBLIC_LOGO_CANDIDATE' | 'NOT_FOUND' | 'UNKNOWN';
+    sourceUrl?: string;
+    assetUrl?: string;
+    reuseDecision:
+      | 'REUSE_IF_RIGHTS_CLEAR'
+      | 'DO_NOT_REUSE'
+      | 'CREATE_ONLY_IF_NO_USABLE_IDENTITY'
+      | 'UNKNOWN';
+    note: string;
+  };
   hero: {
     headlineDirection: string;
     supportingMessage: string;
     primaryCta: string;
   };
   sections: string[];
+  sourceNavigationBlocks: Array<{
+    label: string;
+    kind: 'navigation' | 'content_block' | 'conversion_cta';
+  }>;
+  sourceNavigationNote: string;
   commercialProof: string[];
   factsAllowed: string[];
   factsForbiddenOrUnverified: string[];
@@ -245,6 +348,47 @@ interface PrototypeQaResult {
   warnings?: string[];
   recommendedFixes?: string[];
   technicalBuildPassed?: boolean;
+  webDesignReview?: WebDesignReview;
+}
+
+async function countConsecutivePrototypeQaFailures(
+  db: D1DatabaseLike,
+  prospectId: string,
+): Promise<number> {
+  const rows = await db
+    .prepare(
+      `SELECT jr.output_json
+       FROM job_results jr
+       JOIN jobs j ON j.id = jr.job_id
+       WHERE j.prospect_id = ?
+         AND j.kind = 'RUN_PROTOTYPE_QA'
+         AND j.status = 'SUCCEEDED'
+       ORDER BY j.created_at DESC
+       LIMIT 10`,
+    )
+    .bind(prospectId)
+    .all<{ output_json: string }>();
+
+  let consecutiveFailures = 0;
+  for (const row of rows.results ?? []) {
+    let previous: Partial<PrototypeQaResult>;
+    try {
+      previous = JSON.parse(row.output_json) as Partial<PrototypeQaResult>;
+    } catch {
+      break;
+    }
+
+    const failed =
+      previous.pass === false ||
+      previous.safeForOutreach === false ||
+      previous.technicalBuildPassed === false ||
+      !canPromoteWithWebDesignReview(previous);
+
+    if (!failed) break;
+    consecutiveFailures += 1;
+  }
+
+  return consecutiveFailures;
 }
 
 function json(data: unknown, init: ResponseInit = {}): Response {
@@ -254,15 +398,20 @@ function json(data: unknown, init: ResponseInit = {}): Response {
 }
 
 function corsHeaders(env: Env, request: Request): HeadersInit {
-  const configuredOrigin = env.MAGICSCRIPT_CONTROL_CENTER_ORIGIN?.trim();
+  const configuredOrigins = [
+    env.MAGICSCRIPT_CONTROL_CENTER_ORIGIN?.trim(),
+    env.MAGICSCRIPT_PUBLIC_SALES_ROOM_INGESTION_ENABLED === 'true'
+      ? env.MAGICSCRIPT_PUBLIC_BASE_URL?.trim()
+      : undefined,
+  ].filter((origin): origin is string => Boolean(origin));
   const requestOrigin = request.headers.get('origin');
 
-  if (!configuredOrigin || !requestOrigin || requestOrigin !== configuredOrigin) {
+  if (!requestOrigin || !configuredOrigins.includes(requestOrigin)) {
     return {};
   }
 
   return {
-    'access-control-allow-origin': configuredOrigin,
+    'access-control-allow-origin': requestOrigin,
     'access-control-allow-methods': 'GET,POST,OPTIONS',
     'access-control-allow-headers': 'content-type,authorization',
     'vary': 'Origin',
@@ -312,6 +461,21 @@ function requireRunnerAuth(request: Request, env: Env): Response | null {
     : json({ error: 'Unauthorized runner' }, { status: 401 });
 }
 
+function requireRunnerStack(request: Request, env: Env): Response | null {
+  const expected = env.MAGICSCRIPT_STACK_ID?.trim();
+  if (!expected) return null;
+
+  const provided = request.headers.get('x-magicscript-stack-id')?.trim();
+  return provided === expected
+    ? null
+    : json(
+        {
+          error: 'Runner request belongs to a stale or unknown stack generation',
+        },
+        { status: 409 },
+      );
+}
+
 function configFromEnv(env: Env) {
   return loadConfig({
     MAGICSCRIPT_AUTOPILOT_ENABLED: env.MAGICSCRIPT_AUTOPILOT_ENABLED,
@@ -333,6 +497,25 @@ function orchestrator(env: Env, db: D1DatabaseLike): OrchestratorEngine {
     prospects: new D1ProspectRepository(db),
     events: new D1EventStore(db),
     jobs: new D1JobQueue(db),
+    prototypeCostGate: async (prospectId) => {
+      let evaluation =
+        await getLatestPrototypeCostGate(db, prospectId);
+
+      if (!evaluation) {
+        const prospect =
+          await new D1ProspectRepository(db).getProspect(prospectId);
+
+        if (prospect?.state === 'PROTOTYPE_REQUIRED') {
+          evaluation =
+            await evaluateAndPersistPrototypeCostGate(
+              db,
+              prospect,
+            );
+        }
+      }
+
+      return evaluation?.authorization ?? null;
+    },
   });
 }
 
@@ -351,6 +534,8 @@ async function handleTerminalJobFailure(
     'DO_NOT_CONTACT',
     'CLOSED_WON',
     'CLOSED_LOST',
+    'WON',
+    'DORMANT',
   ]);
 
   if (terminalStates.has(prospect.state)) return;
@@ -428,6 +613,46 @@ async function handleTerminalJobFailure(
   });
 }
 
+async function releaseRunnerClaims(
+  db: D1DatabaseLike,
+  runnerId: string,
+  reason: string,
+): Promise<MagicScriptJob[]> {
+  const rows = await db
+    .prepare(
+      `SELECT id
+       FROM jobs
+       WHERE claimed_by = ?
+         AND status IN ('RUNNING', 'SENDING')
+       ORDER BY claimed_at ASC`,
+    )
+    .bind(runnerId)
+    .all<{ id: string }>();
+
+  const queue = new D1JobQueue(db);
+  const released: MagicScriptJob[] = [];
+
+  for (const row of rows.results ?? []) {
+    const job = await queue.releaseClaim(row.id, runnerId, reason, new Date());
+    if (!job) continue;
+
+    released.push(job);
+    if (
+      job.prospectId &&
+      (job.status === 'SEND_UNKNOWN' || job.status === 'DEAD_LETTER')
+    ) {
+      await handleTerminalJobFailure(
+        job.prospectId,
+        job.kind,
+        job.lastError ?? reason,
+        db,
+      );
+    }
+  }
+
+  return released;
+}
+
 async function recoverStaleJobs(
   env: Env,
   db: D1DatabaseLike,
@@ -445,6 +670,7 @@ async function recoverStaleJobs(
          id,
          prospect_id,
          kind,
+         status,
          attempts,
          max_attempts,
          claimed_by
@@ -514,6 +740,8 @@ async function recoverStaleJobs(
         .prepare(
           `UPDATE jobs
            SET status = 'DEAD_LETTER',
+               claimed_by = NULL,
+               claimed_at = NULL,
                last_error = ?,
                updated_at = ?
            WHERE id = ? AND status = 'RUNNING'`,
@@ -879,7 +1107,7 @@ async function enqueueDiscoveryIfNeeded(
         provider: 'recherche-entreprises',
         created: directory.created.length,
         scanned: directory.scanned,
-        reason: 'Open API Recherche d’entreprises discovery completed',
+        reason: 'Open API Recherche dÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢entreprises discovery completed',
       };
     }
   } catch (error) {
@@ -955,11 +1183,17 @@ async function overview(db: D1DatabaseLike): Promise<Record<string, number>> {
   const queries = {
     prospects: 'SELECT COUNT(*) AS count FROM prospects',
     qualified:
-      "SELECT COUNT(*) AS count FROM prospects WHERE state NOT IN ('DISCOVERED','RESEARCHING','RESEARCH_COMPLETE','DISQUALIFIED')",
+      "SELECT COUNT(*) AS count FROM prospects WHERE state NOT IN ('SAS_PENDING','DISCOVERED','RESEARCHING','RESEARCH_COMPLETE','DISQUALIFIED')",
     emailsSent: "SELECT COUNT(*) AS count FROM outreach_messages WHERE status = 'SENT'",
     replies: 'SELECT COUNT(*) AS count FROM replies',
     hotLeads:
-      "SELECT COUNT(*) AS count FROM prospects WHERE state IN ('HOT_LEAD','MEETING_REQUESTED','PRICING_REQUESTED','CUSTOM_REQUEST','HUMAN_ACTION_REQUIRED')",
+      "SELECT COUNT(*) AS count FROM prospects WHERE state IN ('INTERESTED','MEETING_BOOKED','QUOTE_PENDING','COMMITTED','HOT_LEAD','MEETING_REQUESTED','PRICING_REQUESTED','CUSTOM_REQUEST','HUMAN_ACTION_REQUIRED')",
+    interested: "SELECT COUNT(*) AS count FROM prospects WHERE state = 'INTERESTED'",
+    meetingsBooked: "SELECT COUNT(*) AS count FROM prospects WHERE state = 'MEETING_BOOKED'",
+    quotePending: "SELECT COUNT(*) AS count FROM prospects WHERE state = 'QUOTE_PENDING'",
+    committed: "SELECT COUNT(*) AS count FROM prospects WHERE state = 'COMMITTED'",
+    won: "SELECT COUNT(*) AS count FROM prospects WHERE state = 'WON'",
+    dormant: "SELECT COUNT(*) AS count FROM prospects WHERE state = 'DORMANT'",
     prototypes: 'SELECT COUNT(*) AS count FROM prototypes',
     actionsRequired: "SELECT COUNT(*) AS count FROM human_escalations WHERE status = 'OPEN'",
   };
@@ -1125,6 +1359,11 @@ async function processResearchResult(
       qualified,
       autoPrototypeEligible: scoring.autoPrototypeEligible,
       sources: result.sources ?? [],
+      brandAsset: result.brandAsset ?? {
+        status: 'UNKNOWN',
+        reuseDecision: 'CREATE_ONLY_IF_NO_USABLE_IDENTITY',
+        note: 'Aucun actif de marque structurÃƒÆ’Ã‚Â© dans cette sortie de recherche.',
+      },
     },
     createdAt: new Date().toISOString(),
   });
@@ -1134,6 +1373,41 @@ async function processResearchResult(
   }
 
   return { prospectId: job.prospectId, score: scoring.score, qualified };
+}
+
+async function processScoringResult(
+  job: MagicScriptJob,
+  output: unknown,
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ prospectId: string; score: number; qualified: boolean }> {
+  if (!output || typeof output !== 'object' || Array.isArray(output)) {
+    throw new Error('Scoring job requires a persisted research object');
+  }
+
+  const research = output as Partial<ResearchResult>;
+  const scoreInputs = research.scoreInputs;
+  const scoreKeys: Array<keyof ResearchResult['scoreInputs']> = [
+    'digitalGap',
+    'commercialStrength',
+    'contactability',
+    'localFit',
+    'prototypeLeverage',
+    'confidence',
+  ];
+
+  if (
+    !scoreInputs ||
+    scoreKeys.some(
+      (key) =>
+        typeof scoreInputs[key] !== 'number' ||
+        !Number.isFinite(scoreInputs[key]),
+    )
+  ) {
+    throw new Error('Scoring job requires complete persisted scoreInputs');
+  }
+
+  return processResearchResult(job, research as ResearchResult, env, db);
 }
 
 function currentPeriod(date = new Date()): string {
@@ -1521,16 +1795,45 @@ async function processFactCheckResult(
 
   const draft = await db
     .prepare(
-      "SELECT id FROM outreach_messages WHERE prospect_id = ? AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
+      "SELECT id, body_text FROM outreach_messages WHERE prospect_id = ? AND status = 'DRAFT' ORDER BY created_at DESC LIMIT 1",
     )
     .bind(job.prospectId)
-    .first<{ id: string }>();
+    .first<{ id: string; body_text: string }>();
 
   if (!draft) throw new Error('No outreach draft found for fact-check');
 
+  const deployedPrototype = await db
+    .prepare(
+      `SELECT deployment_url
+       FROM prototypes
+       WHERE prospect_id = ?
+         AND status = 'DEPLOYED'
+         AND deployment_url IS NOT NULL
+       ORDER BY updated_at DESC
+       LIMIT 1`,
+    )
+    .bind(job.prospectId)
+    .first<{ deployment_url: string }>();
+
+  if (!deployedPrototype?.deployment_url) {
+    throw new Error('Initial outreach fact-check requires a deployed prototype');
+  }
+
+  let deploymentUrl: string;
+  try {
+    deploymentUrl = new URL(deployedPrototype.deployment_url).toString();
+  } catch {
+    throw new Error('Stored deployed prototype URL is invalid');
+  }
+
   const confidence = Math.max(0, Math.min(100, Number(result.confidence) || 0));
   const approved =
-    result.approved === true && confidence >= configFromEnv(env).minOutreachConfidence;
+    shouldAcceptFactCheckWithVerifiedDeploymentLink(
+      result.approved === true,
+      result.reasons ?? [],
+      draft.body_text ?? '',
+      deploymentUrl,
+    ) && confidence >= configFromEnv(env).minOutreachConfidence;
 
   const repo = new D1ProspectRepository(db);
   const prospect = await repo.getProspect(job.prospectId);
@@ -1655,6 +1958,18 @@ async function createEscalation(
 
   let recommendedAction = 'Review escalation and take appropriate action.';
   switch (category) {
+    case 'INTERESTED':
+      recommendedAction = 'StÃƒÆ’Ã‚Â©phane doit examiner le message et reprendre personnellement le contact.';
+      break;
+    case 'MEETING_BOOKED':
+      recommendedAction = 'StÃƒÆ’Ã‚Â©phane doit prÃƒÆ’Ã‚Â©parer puis tenir le rendez-vous ÃƒÆ’Ã‚Â  partir du briefing.';
+      break;
+    case 'QUOTE_PENDING':
+      recommendedAction = 'PrÃƒÆ’Ã‚Â©parer ou valider humainement le devis avant tout envoi.';
+      break;
+    case 'COMMITTED':
+      recommendedAction = 'VÃƒÆ’Ã‚Â©rifier humainement la rÃƒÆ’Ã‚Â©ception de lÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢acompte avant de lancer la production.';
+      break;
     case 'MANUAL_REVIEW_REQUIRED':
       recommendedAction = 'Review the blocked outreach draft and decide whether to edit, approve, or abandon.';
       break;
@@ -1688,6 +2003,1501 @@ async function createEscalation(
     )
     .bind(crypto.randomUUID(), prospectId, category, briefSummary, new Date().toISOString())
     .run();
+}
+
+async function prepareCommercialBriefing(
+  env: Env,
+  db: D1DatabaseLike,
+  prospect: Prospect,
+  input: {
+    source: CommercialBriefing['source'];
+    contact?: string;
+    message?: string;
+    summary: string;
+    confidence?: number;
+  },
+): Promise<CommercialBriefing> {
+  const eventStore = new D1EventStore(db);
+  const events = await eventStore.listByProspect(prospect.id);
+  const prototype = await db
+    .prepare(
+      `SELECT id, status, qa_status, deployment_url
+       FROM prototypes
+       WHERE prospect_id = ?
+       ORDER BY updated_at DESC
+       LIMIT 1`,
+    )
+    .bind(prospect.id)
+    .first<{
+      id: string;
+      status: string;
+      qa_status: string | null;
+      deployment_url: string | null;
+    }>();
+
+  const prototypeLinks = buildPersonalizedEntryLinks({
+    prospectId: prospect.id,
+    companyName: prospect.companyName,
+    prototypeUrl: prototype?.deployment_url ?? null,
+    prototypeStatus: prototype?.status ?? null,
+    qaStatus: prototype?.qa_status ?? null,
+    personalizedBaseUrl: env.MAGICSCRIPT_PUBLIC_BASE_URL,
+  });
+
+  return buildCommercialBriefing({
+    source: input.source,
+    prospect,
+    contact: input.contact,
+    message: input.message,
+    summary: input.summary,
+    confidence: input.confidence,
+    prototype: prototype
+      ? {
+          id: prototype.id,
+          ...(prototypeLinks.prototypeUrl ? { url: prototypeLinks.prototypeUrl } : {}),
+        }
+      : undefined,
+    ...(prototypeLinks.personalizedUrl
+      ? { salesRoom: prototypeLinks.personalizedUrl }
+      : {}),
+    engagementHistory: events
+      .filter((event) =>
+        [
+          'email.reply_received',
+          'reply.classified',
+          'commercial.interest_detected',
+          'commercial.meeting_requested',
+          'commercial.meeting_booked',
+          'commercial.followup_draft_prepared',
+          'sales_room.message_received',
+          'sales_room.share_clicked',
+        ].includes(event.type),
+      )
+      .slice(-20)
+      .map((event) => ({ type: event.type, createdAt: event.createdAt })),
+  });
+}
+
+function commercialEscalationSummary(
+  briefing: CommercialBriefing,
+  classification?: string,
+): string {
+  return [
+    'Priority: HIGH',
+    classification ? `Intent: ${classification}` : null,
+    `Next action: StÃƒÆ’Ã‚Â©phane doit traiter le dossier humainement (${briefing.nextAction})`,
+    `Briefing: ${briefing.company} Ãƒâ€šÃ‚Â· ${briefing.summary}`,
+    briefing.message ? `Message reÃƒÆ’Ã‚Â§u: ${briefing.message.slice(0, 800)}` : null,
+    briefing.primaryGap ? `Gap principal: ${briefing.primaryGap}` : null,
+    briefing.unknowns.length ? `UNKNOWN: ${briefing.unknowns.join(', ')}` : null,
+  ]
+    .filter((item): item is string => Boolean(item))
+    .join(' | ');
+}
+
+interface SalesRoomSummary {
+  prospectId: string;
+  companyName: string;
+  slug: string;
+  status: SalesRoomStatus;
+  prototypeUrl: string | null;
+  prototypeEntryPath: string;
+  salesRoomPath: string;
+  salesRoomUrl: string | null;
+  ctaTarget: 'SALES_ROOM';
+  createdAt: string;
+  lastActivityAt: string;
+  reviewDueAt: string | null;
+  reviewDue: boolean;
+  shareClicks: number;
+  lastResolutionError: string | null;
+}
+
+function positiveIntegerOrDefault(value: string | undefined, fallback: number): number {
+  const parsed = Number.parseInt(value ?? '', 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+async function prospectCompanyNames(db: D1DatabaseLike): Promise<string[]> {
+  const result = await db
+    .prepare('SELECT company_name FROM prospects WHERE company_name IS NOT NULL')
+    .all<{ company_name: string }>();
+  return (result.results ?? []).map((row) => row.company_name).filter(Boolean);
+}
+
+async function listSalesRoomSummaries(
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<SalesRoomSummary[]> {
+  const result = await db
+    .prepare(
+      `SELECT
+         pr.id AS prototype_id,
+         pr.prospect_id,
+         pr.deployment_url,
+         pr.created_at AS prototype_created_at,
+         pr.updated_at AS prototype_updated_at,
+         p.company_name
+       FROM prototypes pr
+       JOIN prospects p ON p.id = pr.prospect_id
+       WHERE pr.status = 'DEPLOYED'
+         AND pr.qa_status = 'PASS'
+         AND pr.updated_at = (
+           SELECT MAX(newer.updated_at)
+           FROM prototypes newer
+           WHERE newer.prospect_id = pr.prospect_id
+         )
+       ORDER BY pr.updated_at DESC
+       LIMIT 100`,
+    )
+    .all<{
+      prototype_id: string;
+      prospect_id: string;
+      deployment_url: string | null;
+      prototype_created_at: string;
+      prototype_updated_at: string;
+      company_name: string;
+    }>();
+  const names = await prospectCompanyNames(db);
+  const eventStore = new D1EventStore(db);
+  const reviewDays = positiveIntegerOrDefault(
+    env.MAGICSCRIPT_SALES_ROOM_REVIEW_DAYS,
+    30,
+  );
+  const summaries: SalesRoomSummary[] = [];
+
+  for (const row of result.results ?? []) {
+    const slug = buildSalesRoomSlug(row.company_name, row.prospect_id, names);
+    const events = await eventStore.listByProspect(row.prospect_id);
+    const state = deriveSalesRoomState({
+      createdAt: row.prototype_created_at || row.prototype_updated_at,
+      events,
+      reviewAfterDays: reviewDays,
+    });
+    const links = buildPersonalizedEntryLinks({
+      prospectId: row.prospect_id,
+      companyName: row.company_name,
+      salesRoomSlug: slug,
+      salesRoomStatus: state.status,
+      prototypeUrl: row.deployment_url,
+      prototypeStatus: 'DEPLOYED',
+      qaStatus: 'PASS',
+      personalizedBaseUrl: env.MAGICSCRIPT_PUBLIC_BASE_URL,
+    });
+    summaries.push({
+      prospectId: row.prospect_id,
+      companyName: row.company_name,
+      slug,
+      status: state.status,
+      prototypeUrl: links.prototypeUrl,
+      prototypeEntryPath: `/demo/${encodeURIComponent(slug)}`,
+      salesRoomPath: `/p/${encodeURIComponent(slug)}`,
+      salesRoomUrl: links.salesRoomUrl,
+      ctaTarget: 'SALES_ROOM',
+      createdAt: state.createdAt,
+      lastActivityAt: state.lastActivityAt,
+      reviewDueAt: state.reviewDueAt,
+      reviewDue: state.reviewDue,
+      shareClicks: state.shareClicks,
+      lastResolutionError: state.lastResolutionError,
+    });
+  }
+
+  return summaries;
+}
+
+type SalesRoomRecordedEvent =
+  | 'SALES_ROOM_ACCESSED'
+  | 'SHARE_CLICKED'
+  | 'SALES_ROOM_RESOLUTION_FAILED';
+
+function salesRoomEventType(value: unknown): SalesRoomRecordedEvent | null {
+  return value === 'SALES_ROOM_ACCESSED' ||
+    value === 'SHARE_CLICKED' ||
+    value === 'SALES_ROOM_RESOLUTION_FAILED'
+    ? value
+    : null;
+}
+
+function safeSalesRoomSlug(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  const slug = value.trim().toLowerCase();
+  return /^[a-z0-9]+(?:-[a-z0-9]+){0,15}$/.test(slug) ? slug : null;
+}
+
+function publicSalesRoomIngestionGuard(request: Request, env: Env): Response | null {
+  if (env.MAGICSCRIPT_PUBLIC_SALES_ROOM_INGESTION_ENABLED !== 'true') {
+    return json(
+      { error: 'Public Sales Room ingestion is not configured' },
+      { status: 503 },
+    );
+  }
+
+  const requestOrigin = request.headers.get('origin');
+  const configuredBaseUrl = env.MAGICSCRIPT_PUBLIC_BASE_URL?.trim();
+  if (requestOrigin && configuredBaseUrl) {
+    let expectedOrigin: string;
+    try {
+      expectedOrigin = new URL(configuredBaseUrl).origin;
+    } catch {
+      return json({ error: 'Public Sales Room origin is not configured' }, { status: 503 });
+    }
+    if (requestOrigin !== expectedOrigin) {
+      return json({ error: 'Origin not allowed' }, { status: 403 });
+    }
+  }
+
+  return null;
+}
+
+function boundedString(
+  body: Record<string, unknown>,
+  field: string,
+  maxLength: number,
+  required = false,
+): string | null {
+  const value = typeof body[field] === 'string' ? body[field].trim() : '';
+  if (!value && required) throw new Error(`${field} is required`);
+  if (value.length > maxLength) throw new Error(`${field} is too long`);
+  return value || null;
+}
+
+function publicSalesRoomRequestIdempotencyKey(body: Record<string, unknown>): string {
+  const key = boundedString(body, 'idempotencyKey', 160, true);
+  if (!key || !/^[a-zA-Z0-9._:-]+$/.test(key)) {
+    throw new Error('idempotencyKey is invalid');
+  }
+  return key;
+}
+
+interface CommercialQuoteRow {
+  id: string;
+  prospect_id: string;
+  quote_id: string;
+  quote_number: string;
+  quote_version_hash: string;
+  valid_until: string;
+  cgv_reference: string;
+  total_cents: number;
+  currency: string;
+}
+
+interface QuoteAcceptanceProofRow {
+  id: string;
+  prospect_id: string;
+  quote_id: string;
+  quote_version_hash: string;
+  idempotency_key: string;
+}
+
+function canonicalQuoteLegalConfig(env: Env): {
+  vatNote: string;
+  cgvReference: string;
+} {
+  const vatNote = env.MAGICSCRIPT_QUOTE_VAT_NOTE?.trim();
+  const cgvReference = env.MAGICSCRIPT_QUOTE_CGV_REFERENCE?.trim();
+  if (!vatNote || !cgvReference) {
+    throw new Error('Canonical quote legal configuration is incomplete');
+  }
+  return { vatNote, cgvReference };
+}
+
+async function sha256Hex(value: string): Promise<string> {
+  const digest = await crypto.subtle.digest(
+    'SHA-256',
+    new TextEncoder().encode(value),
+  );
+  return Array.from(new Uint8Array(digest))
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+function addQuoteDays(date: string, days: number): string {
+  const value = new Date(`${date}T00:00:00.000Z`);
+  if (!Number.isFinite(value.getTime())) throw new Error('Invalid quote issue date');
+  value.setUTCDate(value.getUTCDate() + days);
+  return value.toISOString().slice(0, 10);
+}
+
+async function commercialQuoteByProspectAndHash(
+  db: D1DatabaseLike,
+  prospectId: string,
+  quoteVersionHash: string,
+): Promise<CommercialQuoteRow | null> {
+  return db
+    .prepare(
+      `SELECT
+         id,
+         prospect_id,
+         quote_id,
+         quote_number,
+         quote_version_hash,
+         valid_until,
+         cgv_reference,
+         total_cents,
+         currency
+       FROM commercial_quotes
+       WHERE prospect_id = ? AND quote_version_hash = ?
+       LIMIT 1`,
+    )
+    .bind(prospectId, quoteVersionHash)
+    .first<CommercialQuoteRow>();
+}
+
+async function latestCommercialQuoteForProspect(
+  db: D1DatabaseLike,
+  prospectId: string,
+): Promise<CommercialQuoteRow | null> {
+  return db
+    .prepare(
+      `SELECT
+         id,
+         prospect_id,
+         quote_id,
+         quote_number,
+         quote_version_hash,
+         valid_until,
+         cgv_reference,
+         total_cents,
+         currency
+       FROM commercial_quotes
+       WHERE prospect_id = ?
+       ORDER BY published_at DESC, created_at DESC
+       LIMIT 1`,
+    )
+    .bind(prospectId)
+    .first<CommercialQuoteRow>();
+}
+
+async function quoteAcceptanceProofByIdempotencyKey(
+  db: D1DatabaseLike,
+  idempotencyKey: string,
+): Promise<QuoteAcceptanceProofRow | null> {
+  return db
+    .prepare(
+      `SELECT id, prospect_id, quote_id, quote_version_hash, idempotency_key
+       FROM quote_acceptance_proofs
+       WHERE idempotency_key = ?
+       LIMIT 1`,
+    )
+    .bind(idempotencyKey)
+    .first<QuoteAcceptanceProofRow>();
+}
+
+function quoteIsExpired(validUntil: string, now: Date): boolean {
+  const expiry = new Date(`${validUntil}T23:59:59.999Z`);
+  return !Number.isFinite(expiry.getTime()) || expiry.getTime() < now.getTime();
+}
+
+async function acceptPublicSalesRoomQuote(
+  env: Env,
+  db: D1DatabaseLike,
+  body: Record<string, unknown>,
+): Promise<Record<string, unknown>> {
+  const context = await activeSalesRoomContext(env, db, body.slug);
+  if (!context) throw new Error('Sales Room not found');
+
+  const idempotencyKey = publicSalesRoomRequestIdempotencyKey(body);
+  const signerName = boundedString(body, 'signerName', 160, true);
+  const signerEmail = boundedString(body, 'signerEmail', 320, true);
+  const signerCompanyName = boundedString(body, 'signerCompanyName', 240, true);
+
+  if (body.consentGiven !== true) {
+    throw new Error('Bon pour accord consent is required');
+  }
+
+  const existingProof = await quoteAcceptanceProofByIdempotencyKey(db, idempotencyKey);
+  if (existingProof) {
+    if (existingProof.prospect_id !== context.prospect.id) {
+      throw new Error('idempotencyKey already belongs to another prospect');
+    }
+
+    const current = await new D1ProspectRepository(db).getProspect(context.prospect.id);
+    return {
+      ok: true,
+      duplicate: true,
+      proofReference: `quote-acceptance-proof:${existingProof.id}`,
+      prospectId: context.prospect.id,
+      state: current?.state ?? context.prospect.state,
+    };
+  }
+
+  const quote = await latestCommercialQuoteForProspect(db, context.prospect.id);
+  if (!quote) {
+    throw new Error('Commercial quote not found');
+  }
+
+  if (quote.currency !== 'EUR') {
+    throw new Error('Commercial quote currency is invalid');
+  }
+
+  if (!Number.isInteger(quote.total_cents) || quote.total_cents <= 0) {
+    throw new Error('Commercial quote amount is invalid');
+  }
+
+  const now = new Date();
+  if (quoteIsExpired(quote.valid_until, now)) {
+    throw new Error('Commercial quote has expired');
+  }
+
+  const acceptedAt = now.toISOString();
+  const proofId = crypto.randomUUID();
+
+  const proof = {
+    quoteId: quote.quote_id,
+    quoteNumber: quote.quote_number,
+    quoteVersionHash: quote.quote_version_hash,
+    signerName: signerName ?? '',
+    signerEmail: signerEmail ?? '',
+    signerCompanyName: signerCompanyName ?? '',
+    acceptedAt,
+    consentGiven: true,
+    consentLabel: 'BON_POUR_ACCORD' as const,
+    cgvReference: quote.cgv_reference,
+    totalCents: quote.total_cents,
+    currency: 'EUR' as const,
+    source: 'SALES_ROOM' as const,
+  };
+
+  const validation = validateQuoteAcceptanceProof(proof);
+  if (!validation.accepted) {
+    throw new Error(`Quote acceptance proof rejected: ${validation.reasons.join('; ')}`);
+  }
+
+  if (context.prospect.state !== 'QUOTE_PENDING') {
+    throw new Error(`Quote acceptance rejected from state ${context.prospect.state}`);
+  }
+
+  try {
+    await db
+      .prepare(
+        `INSERT INTO quote_acceptance_proofs (
+          id,
+          prospect_id,
+          quote_id,
+          quote_number,
+          quote_version_hash,
+          signer_name,
+          signer_email,
+          signer_company_name,
+          accepted_at,
+          consent_given,
+          consent_label,
+          cgv_reference,
+          total_cents,
+          currency,
+          source,
+          idempotency_key,
+          created_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 'BON_POUR_ACCORD', ?, ?, 'EUR', 'SALES_ROOM', ?, ?)`,
+      )
+      .bind(
+        proofId,
+        context.prospect.id,
+        proof.quoteId,
+        proof.quoteNumber,
+        proof.quoteVersionHash,
+        proof.signerName,
+        proof.signerEmail,
+        proof.signerCompanyName,
+        proof.acceptedAt,
+        proof.cgvReference,
+        proof.totalCents,
+        idempotencyKey,
+        acceptedAt,
+      )
+      .run();
+  } catch (error) {
+    const raced = await quoteAcceptanceProofByIdempotencyKey(db, idempotencyKey);
+    if (!raced || raced.prospect_id !== context.prospect.id) {
+      throw error;
+    }
+
+    const current = await new D1ProspectRepository(db).getProspect(context.prospect.id);
+    return {
+      ok: true,
+      duplicate: true,
+      proofReference: `quote-acceptance-proof:${raced.id}`,
+      prospectId: context.prospect.id,
+      state: current?.state ?? context.prospect.state,
+    };
+  }
+
+  const proofReference = `quote-acceptance-proof:${proofId}`;
+
+  const transition = commercialTransition(
+    context.prospect.state,
+    'QUOTE_ACCEPTED',
+    { quoteAcceptanceProofReference: proofReference },
+  );
+
+  const repo = new D1ProspectRepository(db);
+  await repo.transitionProspect(
+    context.prospect.id,
+    transition.to,
+    transition.reason,
+  );
+
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId: context.prospect.id,
+    actor: 'system',
+    type: 'commercial.quote_accepted',
+    payload: {
+      quoteId: quote.quote_id,
+      quoteNumber: quote.quote_number,
+      quoteVersionHash: quote.quote_version_hash,
+      quoteAcceptanceProofReference: proofReference,
+      idempotencyKey,
+      source: 'SALES_ROOM',
+      humanValidationRequired: false,
+    },
+    createdAt: acceptedAt,
+  });
+
+  return {
+    ok: true,
+    duplicate: false,
+    proofReference,
+    prospectId: context.prospect.id,
+    quoteId: quote.quote_id,
+    quoteVersionHash: quote.quote_version_hash,
+    state: transition.to,
+  };
+}
+async function activeSalesRoomContext(
+  env: Env,
+  db: D1DatabaseLike,
+  rawSlug: unknown,
+): Promise<{ room: SalesRoomSummary; prospect: Prospect } | null> {
+  const slug = safeSalesRoomSlug(rawSlug);
+  if (!slug) return null;
+  const room = (await listSalesRoomSummaries(env, db)).find(
+    (candidate) => candidate.slug === slug && candidate.status === 'ACTIVE',
+  );
+  if (!room) return null;
+  const prospect = await new D1ProspectRepository(db).getProspect(room.prospectId);
+  return prospect ? { room, prospect } : null;
+}
+
+async function recordPublicSalesRoomMeetingRequest(
+  env: Env,
+  db: D1DatabaseLike,
+  body: Record<string, unknown>,
+): Promise<Record<string, unknown>> {
+  const context = await activeSalesRoomContext(env, db, body.slug);
+  if (!context) throw new Error('Sales Room not found');
+  const idempotencyKey = publicSalesRoomRequestIdempotencyKey(body);
+  const duplicate = await db
+    .prepare(
+      `SELECT id, prospect_id
+       FROM events
+       WHERE type = 'commercial.meeting_requested'
+         AND json_extract(payload_json, '$.idempotencyKey') = ?
+       LIMIT 1`,
+    )
+    .bind(idempotencyKey)
+    .first<{ id: string; prospect_id: string | null }>();
+  if (duplicate) {
+    return {
+      ok: true,
+      duplicate: true,
+      eventId: duplicate.id,
+      prospectId: duplicate.prospect_id,
+      state: context.prospect.state,
+      meetingBooked: false,
+    };
+  }
+
+  const repo = new D1ProspectRepository(db);
+  if (context.prospect.state !== 'INTERESTED') {
+    if (!canTransition(context.prospect.state, 'INTERESTED')) {
+      throw new Error(`Sales Room intent rejected from state ${context.prospect.state}`);
+    }
+    await repo.transitionProspect(
+      context.prospect.id,
+      'INTERESTED',
+      'Sales Room exchange request received; human scheduling remains required',
+    );
+  }
+
+  const eventId = crypto.randomUUID();
+  await new D1EventStore(db).append({
+    id: eventId,
+    prospectId: context.prospect.id,
+    actor: 'system',
+    type: 'commercial.meeting_requested',
+    payload: {
+      ...buildSalesRoomEventPayload({ slug: context.room.slug }),
+      idempotencyKey,
+      nextOwner: 'stephane',
+      humanValidationRequired: true,
+      meetingBooked: false,
+    },
+    createdAt: new Date().toISOString(),
+  });
+  await refreshPrototypeCostGateAfterObjectiveSignal(
+    db,
+    context.prospect.id,
+    'MEETING_REQUESTED',
+  );
+
+  await createEscalation(
+    db,
+    context.prospect.id,
+    'INTERESTED',
+    `Demande dÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã‚Â©change reÃƒÆ’Ã‚Â§ue depuis la Sales Room ${context.room.slug}. StÃƒÆ’Ã‚Â©phane doit reprendre contact humainement ; aucun rendez-vous nÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢est rÃƒÆ’Ã‚Â©servÃƒÆ’Ã‚Â©.`,
+  );
+
+  return {
+    ok: true,
+    eventId,
+    prospectId: context.prospect.id,
+    state: 'INTERESTED',
+    meetingBooked: false,
+  };
+}
+
+async function recordPublicSalesRoomMessage(
+  env: Env,
+  db: D1DatabaseLike,
+  body: Record<string, unknown>,
+): Promise<Record<string, unknown>> {
+  const context = await activeSalesRoomContext(env, db, body.slug);
+  if (!context) throw new Error('Sales Room not found');
+  const idempotencyKey = publicSalesRoomRequestIdempotencyKey(body);
+  const name = boundedString(body, 'name', 160);
+  const email = boundedString(body, 'email', 254);
+  const message = boundedString(body, 'message', 4000, true);
+  if (!message) throw new Error('message is required');
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    throw new Error('email is invalid');
+  }
+  const communicationMode: CommunicationMode | undefined =
+    body.communicationMode === undefined ? undefined : body.communicationMode === 'email' ? 'email' : undefined;
+  if (body.communicationMode !== undefined && !communicationMode) {
+    throw new Error('communicationMode must be email');
+  }
+  if (communicationMode === 'email' && !email) throw new Error('email is required for email mode');
+  if (context.prospect.state !== 'INTERESTED' && !canTransition(context.prospect.state, 'INTERESTED')) {
+    throw new Error(`Sales Room message rejected from state ${context.prospect.state}`);
+  }
+
+  const duplicate = await db
+    .prepare(
+      `SELECT id, json_extract(payload_json, '$.replyId') AS reply_id
+       FROM events
+       WHERE type = 'sales_room.message_received'
+         AND json_extract(payload_json, '$.idempotencyKey') = ?
+       LIMIT 1`,
+    )
+    .bind(idempotencyKey)
+    .first<{ id: string; reply_id: string | null }>();
+  if (duplicate) {
+    return {
+      ok: true,
+      duplicate: true,
+      eventId: duplicate.id,
+      replyId: duplicate.reply_id,
+      prospectId: context.prospect.id,
+      state: context.prospect.state,
+      briefingReady: true,
+    };
+  }
+
+  const replyId = crypto.randomUUID();
+  const now = new Date().toISOString();
+  const rawText = name ? `${name}\n\n${message}` : message;
+  await db
+    .prepare(
+      `INSERT INTO replies (
+        id, prospect_id, contact_id, provider_message_id, from_email,
+        raw_text, classification, confidence, received_at, created_at
+      ) VALUES (?, ?, NULL, NULL, ?, ?, NULL, NULL, ?, ?)`,
+    )
+    .bind(replyId, context.prospect.id, email, rawText, now, now)
+    .run();
+
+  const briefing = await processExplicitInterest(
+    context.prospect,
+    'CUSTOM_REQUEST',
+    {
+      classification: 'CUSTOM_REQUEST',
+      confidence: 100,
+      summary: 'Message explicite reÃƒÆ’Ã‚Â§u depuis la Sales Room ; traitement humain requis.',
+    },
+    { id: replyId, raw_text: rawText, email },
+    env,
+    db,
+    false,
+  );
+  const eventId = crypto.randomUUID();
+  await new D1EventStore(db).append({
+    id: eventId,
+    prospectId: context.prospect.id,
+    actor: 'system',
+    type: 'sales_room.message_received',
+    payload: {
+      ...buildSalesRoomEventPayload({ slug: context.room.slug }),
+      idempotencyKey,
+      replyId,
+      hasEmail: Boolean(email),
+      messageLength: message.length,
+      nextOwner: 'stephane',
+      humanValidationRequired: true,
+      externalResponseCreated: false,
+      ...(communicationMode ? { communicationMode } : {}),
+    },
+    createdAt: now,
+  });
+  await refreshPrototypeCostGateAfterObjectiveSignal(
+    db,
+    context.prospect.id,
+    'SALES_ROOM_MESSAGE',
+    now,
+  );
+
+  if (communicationMode) {
+    await recordCommunicationMode(db, context.prospect.id, context.room.slug, communicationMode, idempotencyKey, now);
+  }
+
+  return {
+    ok: true,
+    eventId,
+    replyId,
+    prospectId: context.prospect.id,
+    state: 'INTERESTED',
+    briefingReady: Boolean(briefing),
+    externalResponseCreated: false,
+  };
+}
+
+async function recordSalesRoomEvent(
+  env: Env,
+  db: D1DatabaseLike,
+  body: Record<string, unknown>,
+): Promise<Record<string, unknown>> {
+  const type = salesRoomEventType(body.type);
+  const slug = safeSalesRoomSlug(body.slug);
+  if (!type || !slug) throw new Error('type, slug and idempotencyKey are required');
+  const idempotencyKey = publicSalesRoomRequestIdempotencyKey(body);
+
+  const duplicate = await db
+    .prepare(
+      `SELECT id, prospect_id
+       FROM events
+       WHERE type IN ('sales_room.accessed', 'sales_room.share_clicked', 'sales_room.resolution_failed')
+         AND json_extract(payload_json, '$.idempotencyKey') = ?
+       LIMIT 1`,
+    )
+    .bind(idempotencyKey)
+    .first<{ id: string; prospect_id: string | null }>();
+  if (duplicate) {
+    return { ok: true, duplicate: true, eventId: duplicate.id, prospectId: duplicate.prospect_id };
+  }
+
+  const summaries = await listSalesRoomSummaries(env, db);
+  const room = summaries.find((candidate) => candidate.slug === slug);
+  const now = new Date().toISOString();
+  const internalType =
+    type === 'SHARE_CLICKED'
+      ? 'sales_room.share_clicked'
+      : type === 'SALES_ROOM_ACCESSED'
+        ? 'sales_room.accessed'
+        : 'sales_room.resolution_failed';
+  const reason =
+    type === 'SALES_ROOM_RESOLUTION_FAILED' &&
+    typeof body.reason === 'string' &&
+    ['UNKNOWN_SLUG', 'DISABLED', 'MISSING_DATA', 'INVALID_ROUTE'].includes(body.reason)
+      ? body.reason
+      : undefined;
+  const payload = {
+    ...buildSalesRoomEventPayload({
+      slug,
+      channel: typeof body.channel === 'string' ? body.channel.slice(0, 32) : undefined,
+      sessionId: typeof body.sessionId === 'string' ? body.sessionId.slice(0, 120) : undefined,
+      reason,
+    }),
+    idempotencyKey,
+    prospectResolved: Boolean(room),
+  };
+  const eventId = crypto.randomUUID();
+  await new D1EventStore(db).append({
+    id: eventId,
+    ...(room ? { prospectId: room.prospectId } : {}),
+    actor: 'system',
+    type: internalType,
+    payload,
+    createdAt: now,
+  });
+
+  if (type === 'SALES_ROOM_RESOLUTION_FAILED' && room) {
+    await createEscalation(
+      db,
+      room.prospectId,
+      'MANUAL_REVIEW_REQUIRED',
+      `Sales Room indisponible pour ${room.companyName} (${reason ?? 'UNRESOLVED'})`,
+    );
+  }
+
+  return {
+    ok: true,
+    eventId,
+    prospectId: room?.prospectId ?? null,
+    resolved: Boolean(room),
+  };
+}
+
+type MeetingRow = {
+  id: string;
+  prospect_id: string;
+  sales_room_slug: string;
+  communication_mode: CommunicationMode;
+  start_at_utc: string;
+  end_at_utc: string;
+  prospect_timezone: string;
+  phone: string;
+  status: MeetingStatus;
+  confirmed_at: string;
+  cancelled_at: string | null;
+  rescheduled_from_id: string | null;
+  idempotency_key: string;
+  created_at: string;
+  updated_at: string;
+  company_name?: string;
+  prospect_state?: string;
+};
+
+function availabilityConfigFromEnv(env: Env): AvailabilityConfig {
+  return {
+    ...DEFAULT_AVAILABILITY,
+    timeZone: env.MAGICSCRIPT_AVAILABILITY_TIMEZONE?.trim() || DEFAULT_AVAILABILITY.timeZone,
+    startTime: env.MAGICSCRIPT_AVAILABILITY_START?.trim() || DEFAULT_AVAILABILITY.startTime,
+    endTime: env.MAGICSCRIPT_AVAILABILITY_END?.trim() || DEFAULT_AVAILABILITY.endTime,
+    horizonDays: positiveIntegerOrDefault(
+      env.MAGICSCRIPT_AVAILABILITY_HORIZON_DAYS,
+      DEFAULT_AVAILABILITY.horizonDays,
+    ),
+  };
+}
+
+function normalizedPhone(body: Record<string, unknown>): string {
+  const phone = boundedString(body, 'phone', 40, true);
+  if (!phone || !/^[0-9+().\s-]{6,40}$/.test(phone)) {
+    throw new Error('phone is invalid');
+  }
+  return phone;
+}
+
+function meetingView(row: MeetingRow): Record<string, unknown> {
+  return {
+    meetingId: row.id,
+    prospectId: row.prospect_id,
+    companyName: row.company_name ?? null,
+    salesRoomSlug: row.sales_room_slug,
+    communicationMode: row.communication_mode,
+    startAtUtc: row.start_at_utc,
+    endAtUtc: row.end_at_utc,
+    prospectTimezone: row.prospect_timezone,
+    prospectTime: formatInTimeZone(row.start_at_utc, row.prospect_timezone),
+    parisTime: formatInTimeZone(row.start_at_utc, 'Europe/Paris'),
+    phone: row.phone,
+    status: row.status,
+    confirmedAt: row.confirmed_at,
+    cancelledAt: row.cancelled_at,
+    rescheduledFromId: row.rescheduled_from_id,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+async function getMeetingByIdempotency(
+  db: D1DatabaseLike,
+  idempotencyKey: string,
+): Promise<MeetingRow | null> {
+  return db
+    .prepare('SELECT * FROM meetings WHERE idempotency_key = ? LIMIT 1')
+    .bind(idempotencyKey)
+    .first<MeetingRow>();
+}
+
+async function getMeetingById(
+  db: D1DatabaseLike,
+  meetingId: string,
+): Promise<MeetingRow | null> {
+  return db
+    .prepare(
+      `SELECT m.*, p.company_name, p.state AS prospect_state
+       FROM meetings m
+       JOIN prospects p ON p.id = m.prospect_id
+       WHERE m.id = ?
+       LIMIT 1`,
+    )
+    .bind(meetingId)
+    .first<MeetingRow>();
+}
+
+async function listMeetingsInRange(
+  db: D1DatabaseLike,
+  startAtUtc: string,
+  endAtUtc: string,
+): Promise<MeetingRow[]> {
+  const result = await db
+    .prepare(
+      `SELECT m.*, p.company_name, p.state AS prospect_state
+       FROM meetings m
+       JOIN prospects p ON p.id = m.prospect_id
+       WHERE m.start_at_utc >= ? AND m.start_at_utc < ?
+       ORDER BY m.start_at_utc ASC, m.created_at ASC`,
+    )
+    .bind(startAtUtc, endAtUtc)
+    .all<MeetingRow>();
+  return result.results ?? [];
+}
+
+async function occupiedMeetingStarts(
+  db: D1DatabaseLike,
+  startAtUtc: string,
+  endAtUtc: string,
+): Promise<string[]> {
+  const result = await db
+    .prepare(
+      `SELECT start_at_utc
+       FROM meetings
+       WHERE status = 'CONFIRMED'
+         AND start_at_utc >= ?
+         AND start_at_utc < ?`,
+    )
+    .bind(startAtUtc, endAtUtc)
+    .all<{ start_at_utc: string }>();
+  return (result.results ?? []).map((row) => row.start_at_utc);
+}
+
+async function recordCommunicationMode(
+  db: D1DatabaseLike,
+  prospectId: string,
+  slug: string,
+  mode: CommunicationMode,
+  idempotencyKey: string,
+  now: string,
+): Promise<void> {
+  const existing = await db
+    .prepare(
+      `SELECT id FROM events
+       WHERE type = 'commercial.communication_mode_selected'
+         AND json_extract(payload_json, '$.idempotencyKey') = ?
+       LIMIT 1`,
+    )
+    .bind(idempotencyKey)
+    .first<{ id: string }>();
+  if (existing) return;
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId,
+    actor: 'system',
+    type: 'commercial.communication_mode_selected',
+    payload: {
+      slug,
+      communicationMode: mode,
+      idempotencyKey,
+      nextOwner: 'stephane',
+    },
+    createdAt: now,
+  });
+}
+
+async function prepareMeetingArtifacts(
+  env: Env,
+  db: D1DatabaseLike,
+  row: MeetingRow,
+  prospect: Prospect,
+  contactName: string | undefined,
+  rescheduledFromId?: string,
+): Promise<{ briefing: CommercialBriefing; confirmationEmail: MeetingConfirmationEmail }> {
+  const current = await new D1ProspectRepository(db).getProspect(prospect.id);
+  if (!current) throw new Error('Prospect not found for meeting booking');
+  if (current.state !== 'MEETING_BOOKED') {
+    const transition = commercialTransition(current.state, 'MEETING_BOOKED');
+    await new D1ProspectRepository(db).transitionProspect(
+      current.id,
+      transition.to,
+      transition.reason,
+    );
+  }
+
+  const briefing = await prepareCommercialBriefing(env, db, current, {
+    source: 'meeting_booking',
+    contact: contactName?.trim() || row.phone,
+    summary: 'Rendez-vous tÃƒÆ’Ã‚Â©lÃƒÆ’Ã‚Â©phonique effectivement rÃƒÆ’Ã‚Â©servÃƒÆ’Ã‚Â© ; briefing commercial ÃƒÆ’Ã‚Â  traiter par StÃƒÆ’Ã‚Â©phane.',
+  });
+  const confirmationEmail = buildMeetingConfirmationEmail({
+    company: current.companyName,
+    contactName,
+    startAtUtc: row.start_at_utc,
+    endAtUtc: row.end_at_utc,
+    prospectTimeZone: row.prospect_timezone,
+    phone: row.phone,
+  });
+  const now = new Date().toISOString();
+  const eventStore = new D1EventStore(db);
+  await eventStore.append({
+    id: crypto.randomUUID(),
+    prospectId: current.id,
+    actor: 'system',
+    type: 'commercial.meeting_booked',
+    payload: {
+      meetingId: row.id,
+      salesRoomSlug: row.sales_room_slug,
+      communicationMode: row.communication_mode,
+      startAtUtc: row.start_at_utc,
+      endAtUtc: row.end_at_utc,
+      prospectTimezone: row.prospect_timezone,
+      prospectTime: formatInTimeZone(row.start_at_utc, row.prospect_timezone),
+      parisTime: formatInTimeZone(row.start_at_utc, 'Europe/Paris'),
+      phone: row.phone,
+      nextOwner: 'stephane',
+      briefing,
+      ...(rescheduledFromId ? { rescheduledFromId } : {}),
+    },
+    createdAt: now,
+  });
+  await refreshPrototypeCostGateAfterObjectiveSignal(
+    db,
+    current.id,
+    'MEETING_BOOKED',
+    now,
+  );
+
+  await eventStore.append({
+    id: crypto.randomUUID(),
+    prospectId: current.id,
+    actor: 'system',
+    type: 'meeting.confirmation_email_draft',
+    payload: {
+      meetingId: row.id,
+      status: 'DRAFT',
+      dryRun: true,
+      externalSend: false,
+      subject: confirmationEmail.subject,
+      body: confirmationEmail.body,
+    },
+    createdAt: now,
+  });
+  await createEscalation(
+    db,
+    current.id,
+    'MEETING_BOOKED',
+    `${commercialEscalationSummary(briefing)} | Martinique: ${formatInTimeZone(row.start_at_utc, row.prospect_timezone)} | Paris: ${formatInTimeZone(row.start_at_utc, 'Europe/Paris')} | TÃƒÆ’Ã‚Â©lÃƒÆ’Ã‚Â©phone: ${row.phone}`,
+  );
+  return { briefing, confirmationEmail };
+}
+
+async function bookPublicSalesRoomMeeting(
+  env: Env,
+  db: D1DatabaseLike,
+  body: Record<string, unknown>,
+): Promise<Record<string, unknown>> {
+  const context = await activeSalesRoomContext(env, db, body.slug);
+  if (!context) throw new Error('Sales Room not found');
+  const idempotencyKey = publicSalesRoomRequestIdempotencyKey(body);
+  const existing = await getMeetingByIdempotency(db, idempotencyKey);
+  if (existing) {
+    if (existing.prospect_id !== context.prospect.id) throw new Error('idempotencyKey is already used');
+    return { ok: true, duplicate: true, meeting: meetingView(existing), state: context.prospect.state };
+  }
+  if (body.communicationMode !== 'phone') throw new Error('communicationMode must be phone');
+  const prospectTimezone = typeof body.prospectTimezone === 'string' && body.prospectTimezone.trim()
+    ? body.prospectTimezone.trim()
+    : DEFAULT_AVAILABILITY.timeZone;
+  assertTimeZone(prospectTimezone);
+  const phone = normalizedPhone(body);
+  const config = availabilityConfigFromEnv(env);
+  const nowUtc = new Date().toISOString();
+  const startAtUtc = typeof body.startAtUtc === 'string' ? body.startAtUtc.trim() : '';
+  const slot = slotForStart({
+    startAtUtc,
+    nowUtc,
+    config,
+    prospectTimeZone: prospectTimezone,
+  });
+  if (!slot) throw new Error('SLOT_UNAVAILABLE');
+
+  const rescheduledFromId = typeof body.rescheduledFromMeetingId === 'string'
+    ? body.rescheduledFromMeetingId.trim()
+    : '';
+  const activeMeeting = await db
+    .prepare(
+      `SELECT * FROM meetings
+       WHERE prospect_id = ? AND status = 'CONFIRMED'
+       ORDER BY start_at_utc ASC LIMIT 1`,
+    )
+    .bind(context.prospect.id)
+    .first<MeetingRow>();
+  let previousMeeting: MeetingRow | null = null;
+  if (rescheduledFromId) {
+    previousMeeting = await getMeetingById(db, rescheduledFromId);
+    if (!previousMeeting || previousMeeting.prospect_id !== context.prospect.id || previousMeeting.status !== 'CONFIRMED') {
+      throw new Error('rescheduledFromMeetingId is not an active meeting');
+    }
+    if (activeMeeting && activeMeeting.id !== previousMeeting.id) throw new Error('ACTIVE_MEETING_EXISTS');
+  } else if (activeMeeting) {
+    throw new Error('ACTIVE_MEETING_EXISTS');
+  }
+
+  const repo = new D1ProspectRepository(db);
+  const current = await repo.getProspect(context.prospect.id);
+  if (!current) throw new Error('Prospect not found');
+  if (current.state !== 'MEETING_BOOKED' && current.state !== 'INTERESTED') {
+    if (!canTransition(current.state, 'INTERESTED')) {
+      throw new Error(`Meeting booking rejected from state ${current.state}`);
+    }
+    await repo.transitionProspect(current.id, 'INTERESTED', 'Phone communication mode selected; slot confirmation pending');
+  }
+
+  const now = new Date().toISOString();
+  const meeting: MeetingRow = {
+    id: crypto.randomUUID(),
+    prospect_id: context.prospect.id,
+    sales_room_slug: context.room.slug,
+    communication_mode: 'phone',
+    start_at_utc: slot.startAtUtc,
+    end_at_utc: slot.endAtUtc,
+    prospect_timezone: prospectTimezone,
+    phone,
+    status: 'CONFIRMED',
+    confirmed_at: now,
+    cancelled_at: null,
+    rescheduled_from_id: previousMeeting?.id ?? null,
+    idempotency_key: idempotencyKey,
+    created_at: now,
+    updated_at: now,
+    company_name: context.prospect.companyName,
+  };
+  try {
+    await db
+      .prepare(
+        `INSERT INTO meetings (
+          id, prospect_id, sales_room_slug, communication_mode,
+          start_at_utc, end_at_utc, prospect_timezone, phone, status,
+          confirmed_at, cancelled_at, rescheduled_from_id, idempotency_key,
+          created_at, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .bind(
+        meeting.id,
+        meeting.prospect_id,
+        meeting.sales_room_slug,
+        meeting.communication_mode,
+        meeting.start_at_utc,
+        meeting.end_at_utc,
+        meeting.prospect_timezone,
+        meeting.phone,
+        meeting.status,
+        meeting.confirmed_at,
+        meeting.cancelled_at,
+        meeting.rescheduled_from_id,
+        meeting.idempotency_key,
+        meeting.created_at,
+        meeting.updated_at,
+      )
+      .run();
+  } catch (error) {
+    const replay = await getMeetingByIdempotency(db, idempotencyKey);
+    if (replay && replay.prospect_id === context.prospect.id) {
+      return { ok: true, duplicate: true, meeting: meetingView(replay), state: context.prospect.state };
+    }
+    throw new Error('SLOT_UNAVAILABLE');
+  }
+
+  if (previousMeeting) {
+    await db
+      .prepare(
+        `UPDATE meetings
+         SET status = 'RESCHEDULED', cancelled_at = ?, updated_at = ?
+         WHERE id = ? AND status = 'CONFIRMED'`,
+      )
+      .bind(now, now, previousMeeting.id)
+      .run();
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId: context.prospect.id,
+      actor: 'system',
+      type: 'commercial.meeting_rescheduled',
+      payload: {
+        meetingId: meeting.id,
+        rescheduledFromId: previousMeeting.id,
+        nextOwner: 'stephane',
+      },
+      createdAt: now,
+    });
+  }
+  await recordCommunicationMode(db, context.prospect.id, context.room.slug, 'phone', idempotencyKey, now);
+  const artifacts = await prepareMeetingArtifacts(
+    env,
+    db,
+    meeting,
+    context.prospect,
+    typeof body.name === 'string' ? body.name.trim() : undefined,
+    previousMeeting?.id,
+  );
+  const saved = await getMeetingById(db, meeting.id);
+  return {
+    ok: true,
+    meeting: meetingView(saved ?? meeting),
+    state: 'MEETING_BOOKED',
+    briefing: artifacts.briefing,
+    confirmationEmail: {
+      ...artifacts.confirmationEmail,
+      dryRun: true,
+      externalSend: false,
+    },
+  };
+}
+
+async function cancelPublicSalesRoomMeeting(
+  db: D1DatabaseLike,
+  body: Record<string, unknown>,
+): Promise<Record<string, unknown>> {
+  const slug = safeSalesRoomSlug(body.slug);
+  const meetingId = boundedString(body, 'meetingId', 120, true);
+  const idempotencyKey = publicSalesRoomRequestIdempotencyKey(body);
+  if (!slug || !meetingId) throw new Error('slug and meetingId are required');
+  const duplicate = await db
+    .prepare(
+      `SELECT id FROM events
+       WHERE type = 'commercial.meeting_cancelled'
+         AND json_extract(payload_json, '$.idempotencyKey') = ?
+       LIMIT 1`,
+    )
+    .bind(idempotencyKey)
+    .first<{ id: string }>();
+  const meeting = await getMeetingById(db, meetingId);
+  if (!meeting || meeting.sales_room_slug !== slug) throw new Error('Meeting not found');
+  if (duplicate || meeting.status === 'CANCELLED' || meeting.status === 'RESCHEDULED') {
+    return { ok: true, duplicate: true, meeting: meetingView(meeting) };
+  }
+  const now = new Date().toISOString();
+  await db
+    .prepare(
+      `UPDATE meetings
+       SET status = 'CANCELLED', cancelled_at = ?, updated_at = ?
+       WHERE id = ? AND status = 'CONFIRMED'`,
+    )
+    .bind(now, now, meeting.id)
+    .run();
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId: meeting.prospect_id,
+    actor: 'system',
+    type: 'commercial.meeting_cancelled',
+    payload: {
+      meetingId: meeting.id,
+      slug,
+      idempotencyKey,
+      nextOwner: 'stephane',
+    },
+    createdAt: now,
+  });
+  const remaining = await db
+    .prepare("SELECT id FROM meetings WHERE prospect_id = ? AND status = 'CONFIRMED' LIMIT 1")
+    .bind(meeting.prospect_id)
+    .first<{ id: string }>();
+  const prospect = await new D1ProspectRepository(db).getProspect(meeting.prospect_id);
+  if (prospect?.state === 'MEETING_BOOKED' && !remaining) {
+    await new D1ProspectRepository(db).transitionProspect(
+      prospect.id,
+      'INTERESTED',
+      'Meeting cancelled; prospect remains available for human follow-up',
+    );
+  }
+  return { ok: true, meeting: meetingView((await getMeetingById(db, meeting.id)) ?? meeting), state: remaining ? 'MEETING_BOOKED' : 'INTERESTED' };
+}
+
+async function listPublicSalesRoomAvailability(
+  env: Env,
+  db: D1DatabaseLike,
+  url: URL,
+): Promise<Record<string, unknown>> {
+  const context = await activeSalesRoomContext(env, db, url.searchParams.get('slug'));
+  if (!context) throw new Error('Sales Room not found');
+  const config = availabilityConfigFromEnv(env);
+  const fromDate = url.searchParams.get('from')?.trim() || dateKeyInTimeZone(new Date(), config.timeZone);
+  const days = Math.min(31, Math.max(1, Number.parseInt(url.searchParams.get('days') ?? '', 10) || config.horizonDays));
+  const prospectTimeZone = url.searchParams.get('timeZone')?.trim() || config.timeZone;
+  assertTimeZone(prospectTimeZone);
+  const rangeStart = zonedLocalToUtc(fromDate, '00:00', config.timeZone);
+  const rangeEnd = zonedLocalToUtc(addCalendarDays(fromDate, days), '00:00', config.timeZone);
+  const occupied = await occupiedMeetingStarts(db, rangeStart, rangeEnd);
+  return {
+    ok: true,
+    slug: context.room.slug,
+    timeZone: prospectTimeZone,
+    availabilityTimeZone: config.timeZone,
+    durationMinutes: config.durationMinutes,
+    slots: generateAvailability({
+      fromDate,
+      nowUtc: new Date().toISOString(),
+      config,
+      occupiedStarts: occupied,
+      days,
+      prospectTimeZone,
+    }),
+  };
+}
+
+async function listControlCenterMeetings(
+  db: D1DatabaseLike,
+  url: URL,
+): Promise<Record<string, unknown>> {
+  const range = url.searchParams.get('from') && url.searchParams.get('to')
+    ? {
+        startAtUtc: new Date(url.searchParams.get('from') as string).toISOString(),
+        endAtUtc: new Date(url.searchParams.get('to') as string).toISOString(),
+      }
+    : getWeekRangeUtc(new Date().toISOString(), 'Europe/Paris');
+  const meetings = await listMeetingsInRange(db, range.startAtUtc, range.endAtUtc);
+  const views = await Promise.all(
+    meetings.map(async (meeting) => {
+      const briefing = await db
+        .prepare(
+          `SELECT id FROM events
+           WHERE type = 'commercial.meeting_booked'
+             AND json_extract(payload_json, '$.meetingId') = ?
+           LIMIT 1`,
+        )
+        .bind(meeting.id)
+        .first<{ id: string }>();
+      return { ...meetingView(meeting), briefingAvailable: Boolean(briefing) };
+    }),
+  );
+  return { ok: true, timeZone: 'Europe/Paris', meetings: views };
+}
+
+async function scheduleMeetingReminders(
+  db: D1DatabaseLike,
+  nowUtc = new Date().toISOString(),
+): Promise<{ prepared: number; skipped: number }> {
+  const now = new Date(nowUtc);
+  if (!Number.isFinite(now.getTime())) throw new Error('nowUtc is invalid');
+  const horizon = new Date(now.getTime() + 31 * 24 * 60 * 60 * 1000).toISOString();
+  const rows = await db
+    .prepare(
+      `SELECT m.*, p.company_name, p.state AS prospect_state
+       FROM meetings m JOIN prospects p ON p.id = m.prospect_id
+       WHERE m.status = 'CONFIRMED' AND m.communication_mode = 'phone'
+         AND m.start_at_utc >= ? AND m.start_at_utc < ?
+       ORDER BY m.start_at_utc ASC`,
+    )
+    .bind(nowUtc, horizon)
+    .all<MeetingRow>();
+  let prepared = 0;
+  let skipped = 0;
+  for (const row of rows.results ?? []) {
+    const existing = await db
+      .prepare(
+        `SELECT id FROM events
+         WHERE type = 'meeting.reminder_draft'
+           AND json_extract(payload_json, '$.meetingId') = ?
+         LIMIT 1`,
+      )
+      .bind(row.id)
+      .first<{ id: string }>();
+    const plan = buildH24ReminderPlan({
+      company: row.company_name ?? row.prospect_id,
+      startAtUtc: row.start_at_utc,
+      endAtUtc: row.end_at_utc,
+      prospectTimeZone: row.prospect_timezone,
+      communicationMode: row.communication_mode,
+      status: row.status,
+      nowUtc,
+      alreadyPrepared: Boolean(existing),
+    });
+    if (!plan) {
+      skipped += 1;
+      continue;
+    }
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId: row.prospect_id,
+      actor: 'system',
+      type: 'meeting.reminder_draft',
+      payload: {
+        meetingId: row.id,
+        dryRun: true,
+        externalSend: false,
+        ...plan,
+      },
+      createdAt: nowUtc,
+    });
+    prepared += 1;
+  }
+  return { prepared, skipped };
+}
+
+async function processExplicitInterest(
+  prospect: Prospect,
+  classification: string,
+  result: ClassificationResult,
+  reply: { id: string; raw_text: string; email: string | null },
+  env: Env,
+  db: D1DatabaseLike,
+  refreshCostGate = true,
+): Promise<CommercialBriefing> {
+  const targetState = stateForInboundClassification(classification);
+  if (!targetState) {
+    throw new Error(`Classification is not an explicit interest: ${classification}`);
+  }
+
+  const repo = new D1ProspectRepository(db);
+  if (prospect.state !== targetState) {
+    await repo.transitionProspect(
+      prospect.id,
+      targetState,
+      `Explicit inbound interest detected (${classification}); human review required`,
+    );
+  }
+
+  const briefing = await prepareCommercialBriefing(env, db, prospect, {
+    source: 'inbound_message',
+    contact: reply.email ?? undefined,
+    message: reply.raw_text,
+    summary: result.summary,
+    confidence: result.confidence,
+  });
+  const now = new Date().toISOString();
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId: prospect.id,
+    actor: 'response-agent',
+    type: 'commercial.interest_detected',
+    payload: {
+      replyId: reply.id,
+      classification,
+      priority: 'HIGH',
+      humanRequired: true,
+      autoPrototype: false,
+      nextOwner: 'stephane',
+      briefing,
+    },
+    createdAt: now,
+  });
+  if (refreshCostGate) {
+    await refreshPrototypeCostGateAfterObjectiveSignal(
+      db,
+      prospect.id,
+      'INBOUND_INTEREST',
+      now,
+    );
+  }
+
+  await createEscalation(
+    db,
+    prospect.id,
+    'INTERESTED',
+    commercialEscalationSummary(briefing, classification),
+  );
+
+  return briefing;
 }
 
 async function processClassificationResult(
@@ -1790,42 +3600,11 @@ async function processClassificationResult(
       break;
 
     case 'POSITIVE_INTEREST':
-      await repo.transitionProspect(
-        prospect.id,
-        'POSITIVE_REPLY',
-        'Positive commercial interest detected',
-      );
-      await repo.transitionProspect(
-        prospect.id,
-        'PROTOTYPE_REQUIRED',
-        'Positive interest qualifies the prospect for an automatic prototype',
-      );
-      if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
-        await orchestrator(env, db).planProspect(prospect.id);
-      }
-      break;
-
     case 'INFORMATION_REQUEST':
-      await repo.transitionProspect(prospect.id, 'HOT_LEAD', 'Prospect requested additional information');
-      await createEscalation(db, prospect.id, 'HOT_LEAD', result.summary);
-      humanRequired = true;
-      break;
-
     case 'PRICING_REQUESTED':
-      await repo.transitionProspect(prospect.id, 'PRICING_REQUESTED', 'Prospect requested pricing');
-      await createEscalation(db, prospect.id, 'PRICING_REQUESTED', result.summary);
-      humanRequired = true;
-      break;
-
     case 'MEETING_REQUESTED':
-      await repo.transitionProspect(prospect.id, 'MEETING_REQUESTED', 'Prospect requested a meeting');
-      await createEscalation(db, prospect.id, 'MEETING_REQUESTED', result.summary);
-      humanRequired = true;
-      break;
-
     case 'CUSTOM_REQUEST':
-      await repo.transitionProspect(prospect.id, 'CUSTOM_REQUEST', 'Prospect requested customization');
-      await createEscalation(db, prospect.id, 'CUSTOM_REQUEST', result.summary);
+      await processExplicitInterest(prospect, result.classification, result, reply, env, db);
       humanRequired = true;
       break;
 
@@ -1912,17 +3691,17 @@ function addDays(date: Date, days: number): Date {
 
 function followUpBody(sequence: number, prospect: Prospect): string {
   const companyName = prospect.companyName ?? 'votre entreprise';
-  const primaryAsset = prospect.primaryAsset ?? 'votre activité';
+  const primaryAsset = prospect.primaryAsset ?? 'votre activitÃƒÆ’Ã‚Â©';
   if (sequence <= 1) {
     return [
       'Bonjour,',
       '',
-      `Je me permets de revenir sur mon message précédent concernant ${companyName}.`,
-      `Si le sujet de votre présence digitale est d’actualité, je peux vous montrer très concrètement comment Magic Script pourrait mettre en valeur ${primaryAsset}.`,
+      `Je me permets de revenir sur mon message prÃƒÆ’Ã‚Â©cÃƒÆ’Ã‚Â©dent concernant ${companyName}.`,
+      `Si le sujet de votre prÃƒÆ’Ã‚Â©sence digitale est dÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢actualitÃƒÆ’Ã‚Â©, je peux vous montrer trÃƒÆ’Ã‚Â¨s concrÃƒÆ’Ã‚Â¨tement comment Magic Script pourrait mettre en valeur ${primaryAsset}.`,
       '',
-      'Si ce n’est pas pertinent pour vous, dites-le-moi simplement et je ne vous relancerai plus.',
+      'Si ce nÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢est pas pertinent pour vous, dites-le-moi simplement et je ne vous relancerai plus.',
       '',
-      'Bien à vous,',
+      'Bien ÃƒÆ’Ã‚Â  vous,',
       'Magic Script',
     ].join('\n');
   }
@@ -1930,14 +3709,557 @@ function followUpBody(sequence: number, prospect: Prospect): string {
   return [
     'Bonjour,',
     '',
-    `Dernier petit message de ma part concernant mon précédent email pour ${companyName}.`,
-    `Si vous souhaitez voir l’idée plus concrète, je peux vous partager une démonstration adaptée à ${primaryAsset}.`,
+    `Dernier petit message de ma part concernant mon prÃƒÆ’Ã‚Â©cÃƒÆ’Ã‚Â©dent email pour ${companyName}.`,
+    `Si vous souhaitez voir lÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢idÃƒÆ’Ã‚Â©e plus concrÃƒÆ’Ã‚Â¨te, je peux vous partager une dÃƒÆ’Ã‚Â©monstration adaptÃƒÆ’Ã‚Â©e ÃƒÆ’Ã‚Â  ${primaryAsset}.`,
     '',
-    'Sinon, aucun souci : je clôture ici et ne vous relancerai plus.',
+    'Sinon, aucun souci : je clÃƒÆ’Ã‚Â´ture ici et ne vous relancerai plus.',
     '',
-    'Bien à vous,',
+    'Bien ÃƒÆ’Ã‚Â  vous,',
     'Magic Script',
   ].join('\n');
+}
+
+function interestFollowUpBody(sequence: 1 | 2, prospect: Prospect): string {
+  const companyName = prospect.companyName || 'votre entreprise';
+  if (sequence === 1) {
+    return [
+      'Bonjour,',
+      '',
+      `Je reviens vers vous ÃƒÆ’Ã‚Â  la suite de votre message concernant ${companyName}.`,
+      'StÃƒÆ’Ã‚Â©phane peut reprendre directement le sujet avec vous et rÃƒÆ’Ã‚Â©pondre ÃƒÆ’Ã‚Â  vos questions.',
+      '',
+      'Si vous souhaitez poursuivre, indiquez-moi simplement le meilleur moment pour ÃƒÆ’Ã‚Â©changer.',
+      '',
+      'Bien ÃƒÆ’Ã‚Â  vous,',
+      'Magic Script',
+    ].join('\n');
+  }
+
+  return [
+    'Bonjour,',
+    '',
+    `Dernier message de ma part concernant votre demande pour ${companyName}.`,
+    'Si le projet est toujours dÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢actualitÃƒÆ’Ã‚Â©, StÃƒÆ’Ã‚Â©phane pourra vous rÃƒÆ’Ã‚Â©pondre directement.',
+    '',
+    'Sans retour de votre part, nous clÃƒÆ’Ã‚Â´turerons simplement le suivi.',
+    '',
+    'Bien ÃƒÆ’Ã‚Â  vous,',
+    'Magic Script',
+  ].join('\n');
+}
+
+async function schedulePrototypeCostGateJ30Drafts(
+  env: Env,
+  db: D1DatabaseLike,
+  nowUtc = new Date().toISOString(),
+): Promise<{
+  prepared: number;
+  reevaluated: number;
+  dormant: number;
+  skipped: number;
+}> {
+  const config = configFromEnv(env);
+
+  if (!config.autopilotEnabled) {
+    return {
+      prepared: 0,
+      reevaluated: 0,
+      dormant: 0,
+      skipped: 0,
+    };
+  }
+
+  const nowTime = new Date(nowUtc).getTime();
+
+  if (!Number.isFinite(nowTime)) {
+    throw new Error('nowUtc is invalid');
+  }
+
+  const repo = new D1ProspectRepository(db);
+  const eventStore = new D1EventStore(db);
+
+  let prepared = 0;
+  let reevaluated = 0;
+  let dormant = 0;
+  let skipped = 0;
+
+  const finalFollowupCutoff = new Date(
+    nowTime - 7 * 24 * 60 * 60 * 1000,
+  ).toISOString();
+
+  const sentFinalFollowups = await db
+    .prepare(
+      `SELECT
+         e.prospect_id,
+         json_extract(
+           e.payload_json,
+           '$.messageId'
+         ) AS message_id,
+         om.sent_at
+       FROM events e
+       JOIN outreach_messages om
+         ON om.id = json_extract(
+           e.payload_json,
+           '$.messageId'
+         )
+       WHERE e.type =
+         'prototype_cost_gate.j30_followup_draft_prepared'
+         AND e.prospect_id IS NOT NULL
+         AND om.status = 'SENT'
+         AND om.sent_at IS NOT NULL
+         AND om.sent_at <= ?
+       ORDER BY om.sent_at ASC
+       LIMIT 250`,
+    )
+    .bind(finalFollowupCutoff)
+    .all<{
+      prospect_id: string;
+      message_id: string;
+      sent_at: string;
+    }>();
+
+  for (const candidate of sentFinalFollowups.results ?? []) {
+    const prospect = await repo.getProspect(
+      candidate.prospect_id,
+    );
+
+    if (!prospect || prospect.state !== 'INTERESTED') {
+      skipped += 1;
+      continue;
+    }
+
+    const newInboundOrObjectiveSignal = await db
+      .prepare(
+        `SELECT id
+         FROM events
+         WHERE prospect_id = ?
+           AND created_at > ?
+           AND type IN (
+             'email.reply_received',
+             'commercial.interest_detected',
+             'sales_room.message_received',
+             'commercial.meeting_requested',
+             'commercial.meeting_booked'
+           )
+         LIMIT 1`,
+      )
+      .bind(
+        prospect.id,
+        candidate.sent_at,
+      )
+      .first<{ id: string }>();
+
+    if (newInboundOrObjectiveSignal) {
+      skipped += 1;
+      continue;
+    }
+
+    if (!canTransition(prospect.state, 'DORMANT')) {
+      skipped += 1;
+      continue;
+    }
+
+    await repo.transitionProspect(
+      prospect.id,
+      'DORMANT',
+      'No response 7 days after the final J+30 Cost Gate follow-up',
+    );
+
+    await eventStore.append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'system',
+      type: 'commercial.dormant',
+      payload: {
+        reason:
+          'No inbound response 7 days after final J+30 Cost Gate follow-up',
+        source: 'PROTOTYPE_COST_GATE_J30',
+        messageId: candidate.message_id,
+        historyPreserved: true,
+      },
+      createdAt: nowUtc,
+    });
+
+    dormant += 1;
+  }
+
+  const candidates = await db
+    .prepare(
+      `SELECT DISTINCT prospect_id
+       FROM prototype_cost_gate_evaluations
+       WHERE decision = 'NO-GO'
+         AND reevaluate_at IS NOT NULL
+         AND reevaluate_at <= ?
+       ORDER BY reevaluate_at ASC
+       LIMIT 250`,
+    )
+    .bind(nowUtc)
+    .all<{ prospect_id: string }>();
+
+  for (const candidate of candidates.results ?? []) {
+    const alreadyPrepared = await db
+      .prepare(
+        `SELECT id
+         FROM events
+         WHERE prospect_id = ?
+           AND type =
+             'prototype_cost_gate.j30_followup_draft_prepared'
+         LIMIT 1`,
+      )
+      .bind(candidate.prospect_id)
+      .first<{ id: string }>();
+
+    if (alreadyPrepared) {
+      skipped += 1;
+      continue;
+    }
+
+    const prospect = await repo.getProspect(
+      candidate.prospect_id,
+    );
+
+    if (!prospect || prospect.state !== 'INTERESTED') {
+      skipped += 1;
+      continue;
+    }
+
+    const latestGate =
+      await getLatestPrototypeCostGate(
+        db,
+        prospect.id,
+      );
+
+    if (
+      !latestGate ||
+      latestGate.decision !== 'NO-GO' ||
+      !latestGate.reevaluate_at ||
+      new Date(
+        latestGate.reevaluate_at,
+      ).getTime() > nowTime
+    ) {
+      skipped += 1;
+      continue;
+    }
+
+    const contact = await db
+      .prepare(
+        `SELECT id
+         FROM contacts
+         WHERE prospect_id = ?
+           AND is_validated = 1
+           AND is_suppressed = 0
+         ORDER BY
+           confidence DESC,
+           updated_at DESC
+         LIMIT 1`,
+      )
+      .bind(prospect.id)
+      .first<{ id: string }>();
+
+    if (!contact) {
+      skipped += 1;
+      continue;
+    }
+
+    const activeSendJob = await db
+      .prepare(
+        `SELECT id
+         FROM jobs
+         WHERE prospect_id = ?
+           AND kind = 'SEND_FOLLOW_UP'
+           AND status IN (
+             'PENDING',
+             'RUNNING',
+             'SENDING',
+             'SEND_UNKNOWN'
+           )
+         LIMIT 1`,
+      )
+      .bind(prospect.id)
+      .first<{ id: string }>();
+
+    if (activeSendJob) {
+      skipped += 1;
+      continue;
+    }
+
+    const reevaluation =
+      await evaluateAndPersistPrototypeCostGate(
+        db,
+        prospect,
+        nowUtc,
+      );
+
+    reevaluated += 1;
+
+    await eventStore.append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'system',
+      type: 'prototype_cost_gate.j30_reevaluated',
+      payload: {
+        previousEvaluationId: latestGate.id,
+        evaluationId: reevaluation.id,
+        decision: reevaluation.decision,
+        authorization: reevaluation.authorization,
+      },
+      createdAt: nowUtc,
+    });
+
+    if (reevaluation.decision !== 'NO-GO') {
+      skipped += 1;
+      continue;
+    }
+
+    const messageId = crypto.randomUUID();
+
+    await db
+      .prepare(
+        `INSERT INTO outreach_messages (
+          id,
+          prospect_id,
+          contact_id,
+          kind,
+          subject,
+          body_text,
+          facts_json,
+          source_refs_json,
+          confidence,
+          status,
+          provider_message_id,
+          sent_at,
+          created_at,
+          updated_at
+        ) VALUES (
+          ?,
+          ?,
+          ?,
+          'FOLLOW_UP',
+          ?,
+          ?,
+          '[]',
+          '[]',
+          100,
+          'VERIFIED',
+          NULL,
+          NULL,
+          ?,
+          ?
+        )`,
+      )
+      .bind(
+        messageId,
+        prospect.id,
+        contact.id,
+        'Dernier suivi de votre demande Magic Script',
+        interestFollowUpBody(2, prospect),
+        nowUtc,
+        nowUtc,
+      )
+      .run();
+
+    const sendJob = await new D1JobQueue(db).enqueue({
+      id: crypto.randomUUID(),
+      kind: 'SEND_FOLLOW_UP',
+      prospectId: prospect.id,
+      payload: {
+        source: 'PROTOTYPE_COST_GATE_J30',
+        messageId,
+        gateEvaluationId: reevaluation.id,
+      },
+      maxAttempts: 3,
+      runAfter: nowUtc,
+    });
+
+    await eventStore.append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'system',
+      type:
+        'prototype_cost_gate.j30_followup_draft_prepared',
+      payload: {
+        gateEvaluationId: reevaluation.id,
+        dueAt: latestGate.reevaluate_at,
+        messageId,
+        sendJobId: sendJob.id,
+        status: 'VERIFIED',
+        automaticFinalRecontact: true,
+        existingSendGuardsRequired: true,
+      },
+      createdAt: nowUtc,
+    });
+
+    prepared += 1;
+  }
+
+  return {
+    prepared,
+    reevaluated,
+    dormant,
+    skipped,
+  };
+}
+
+async function scheduleInterestFollowupDrafts(
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ prepared: number; dormant: number; skipped: number }> {
+  const config = configFromEnv(env);
+  if (!config.autopilotEnabled) {
+    return { prepared: 0, dormant: 0, skipped: 0 };
+  }
+
+  const candidates = await db
+    .prepare(
+      `SELECT id
+       FROM prospects
+       WHERE state = 'INTERESTED'
+       ORDER BY updated_at ASC
+       LIMIT 250`,
+    )
+    .all<{ id: string }>();
+  const repo = new D1ProspectRepository(db);
+  const eventStore = new D1EventStore(db);
+  let prepared = 0;
+  let dormant = 0;
+  let skipped = 0;
+
+  for (const candidate of candidates.results ?? []) {
+    const prospect = await repo.getProspect(candidate.id);
+    if (!prospect || prospect.state !== 'INTERESTED') {
+      skipped += 1;
+      continue;
+    }
+
+    const history = await eventStore.listByProspect(prospect.id);
+    const interestEvent = [...history]
+      .reverse()
+      .find((event) => event.type === 'commercial.interest_detected');
+    if (!interestEvent) {
+      skipped += 1;
+      continue;
+    }
+
+    const latestCostGate =
+      await getLatestPrototypeCostGate(
+        db,
+        prospect.id,
+      );
+
+    if (latestCostGate?.decision === 'NO-GO') {
+      skipped += 1;
+      continue;
+    }
+
+    const hasNewInbound = history.some(
+      (event) =>
+        event.type === 'email.reply_received' &&
+        new Date(event.createdAt).getTime() > new Date(interestEvent.createdAt).getTime(),
+    );
+    const preparedSequences = new Set(
+      history
+        .filter((event) => event.type === 'commercial.followup_draft_prepared')
+        .map((event) =>
+          event.payload && typeof event.payload === 'object'
+            ? Number((event.payload as Record<string, unknown>).sequence)
+            : NaN,
+        )
+        .filter((sequence): sequence is 1 | 2 => sequence === 1 || sequence === 2),
+    );
+    const actions = planInterestFollowups({
+      state: prospect.state,
+      interestAt:
+        latestCostGate &&
+        new Date(latestCostGate.evaluated_at).getTime() >
+          new Date(interestEvent.createdAt).getTime()
+          ? latestCostGate.evaluated_at
+          : interestEvent.createdAt,
+      now: new Date().toISOString(),
+      firstDraftPrepared: preparedSequences.has(1),
+      secondDraftPrepared: preparedSequences.has(2),
+      hasNewInbound,
+    });
+
+    if (actions.length === 0) {
+      skipped += 1;
+      continue;
+    }
+
+    const contact = await db
+      .prepare(
+        `SELECT contact_id
+         FROM replies
+         WHERE prospect_id = ? AND contact_id IS NOT NULL
+         ORDER BY received_at DESC
+         LIMIT 1`,
+      )
+      .bind(prospect.id)
+      .first<{ contact_id: string }>();
+
+    for (const action of actions) {
+      if (action.kind === 'PREPARE_DRAFT') {
+        if (!contact || preparedSequences.has(action.sequence)) continue;
+
+        const now = new Date().toISOString();
+        await db
+          .prepare(
+            `INSERT INTO outreach_messages (
+              id, prospect_id, contact_id, kind, subject, body_text,
+              facts_json, source_refs_json, confidence, status,
+              provider_message_id, sent_at, created_at, updated_at
+            ) VALUES (?, ?, ?, 'FOLLOW_UP', ?, ?, '[]', '[]', 100, 'DRAFT', NULL, NULL, ?, ?)`,
+          )
+          .bind(
+            crypto.randomUUID(),
+            prospect.id,
+            contact.contact_id,
+            'Suivi de votre demande Magic Script',
+            interestFollowUpBody(action.sequence, prospect),
+            now,
+            now,
+          )
+          .run();
+
+        await eventStore.append({
+          id: crypto.randomUUID(),
+          prospectId: prospect.id,
+          actor: 'system',
+          type: 'commercial.followup_draft_prepared',
+          payload: {
+            sequence: action.sequence,
+            dueAt: action.dueAt,
+            status: 'DRAFT',
+            humanValidationRequired: true,
+            externalSendAllowed: false,
+          },
+          createdAt: now,
+        });
+        preparedSequences.add(action.sequence);
+        prepared += 1;
+      }
+
+      if (action.kind === 'MARK_DORMANT') {
+        const current = await repo.getProspect(prospect.id);
+        if (current?.state === 'INTERESTED' && !hasNewInbound && canTransition(current.state, 'DORMANT')) {
+          await repo.transitionProspect(current.id, 'DORMANT', 'No response after the interest follow-up window');
+          await eventStore.append({
+            id: crypto.randomUUID(),
+            prospectId: current.id,
+            actor: 'system',
+            type: 'commercial.dormant',
+            payload: {
+              reason: 'No inbound response after J+7',
+              historyPreserved: true,
+            },
+            createdAt: new Date().toISOString(),
+          });
+          dormant += 1;
+        }
+      }
+    }
+  }
+
+  return { prepared, dormant, skipped };
 }
 
 async function scheduleDueFollowUps(
@@ -2073,7 +4395,7 @@ async function scheduleDueFollowUps(
 
     const now = new Date().toISOString();
     const sequence = followupCount + 1;
-    const subject = parent.subject?.trim() || 'Votre présence digitale';
+    const subject = parent.subject?.trim() || 'Votre prÃƒÆ’Ã‚Â©sence digitale';
 
     await db
       .prepare(
@@ -2303,15 +4625,23 @@ async function processEscalationJob(
   if (!prospect) throw new Error(`Prospect not found: ${job.prospectId}`);
 
   const category =
-    prospect.state === 'MEETING_REQUESTED'
-      ? 'MEETING_REQUESTED'
-      : prospect.state === 'PRICING_REQUESTED'
-        ? 'PRICING_REQUESTED'
-        : prospect.state === 'CUSTOM_REQUEST'
-          ? 'CUSTOM_REQUEST'
-          : prospect.state === 'HOT_LEAD'
-            ? 'HOT_LEAD'
-            : 'MANUAL_REVIEW_REQUIRED';
+    prospect.state === 'MEETING_BOOKED'
+      ? 'MEETING_BOOKED'
+      : prospect.state === 'INTERESTED'
+        ? 'INTERESTED'
+        : prospect.state === 'QUOTE_PENDING'
+          ? 'QUOTE_PENDING'
+          : prospect.state === 'COMMITTED'
+            ? 'COMMITTED'
+            : prospect.state === 'MEETING_REQUESTED'
+              ? 'MEETING_REQUESTED'
+              : prospect.state === 'PRICING_REQUESTED'
+                ? 'PRICING_REQUESTED'
+                : prospect.state === 'CUSTOM_REQUEST'
+                  ? 'CUSTOM_REQUEST'
+                  : prospect.state === 'HOT_LEAD'
+                    ? 'HOT_LEAD'
+                    : 'MANUAL_REVIEW_REQUIRED';
 
   await createEscalation(
     db,
@@ -2718,10 +5048,24 @@ async function processPrototypeQaResult(
 
   if (!prototype) throw new Error('Prototype row not found for QA result');
 
+  const webDesignReady = canPromoteWithWebDesignReview(result);
+  const gateReason = webDesignReady ? null : webDesignReviewBlockReason(result);
+  const persistedResult: PrototypeQaResult = webDesignReady
+    ? result
+    : {
+        ...result,
+        blockingFindings: [
+          ...(result.blockingFindings ?? []),
+          ...(result.blockingFindings ?? []).includes(gateReason ?? '')
+            ? []
+            : [gateReason ?? 'Web Design review did not pass'],
+        ],
+      };
   const passed =
     result.pass === true &&
     result.safeForOutreach === true &&
-    result.technicalBuildPassed !== false;
+    result.technicalBuildPassed !== false &&
+    webDesignReady;
   const now = new Date().toISOString();
 
   if (passed) {
@@ -2735,7 +5079,7 @@ async function processPrototypeQaResult(
              updated_at = ?
          WHERE id = ?`,
       )
-      .bind(JSON.stringify(result), now, prototype.id)
+      .bind(JSON.stringify(persistedResult), now, prototype.id)
       .run();
 
     await repo.transitionProspect(
@@ -2782,25 +5126,19 @@ async function processPrototypeQaResult(
        WHERE id = ?`,
     )
     .bind(
-      JSON.stringify(result),
-      (result.blockingFindings ?? []).join('; ').slice(0, 4000),
+      JSON.stringify(persistedResult),
+      (persistedResult.blockingFindings ?? []).join('; ').slice(0, 4000),
       now,
       prototype.id,
     )
     .run();
 
-  const priorQaRuns = await db
-    .prepare(
-      `SELECT COUNT(*) AS count
-       FROM jobs
-       WHERE prospect_id = ?
-         AND kind = 'RUN_PROTOTYPE_QA'
-         AND status = 'SUCCEEDED'`,
-    )
-    .bind(job.prospectId)
-    .first<{ count: number }>();
+  const priorConsecutiveQaFailures = await countConsecutivePrototypeQaFailures(
+    db,
+    job.prospectId,
+  );
 
-  if (Number(priorQaRuns?.count ?? 0) >= 2) {
+  if (priorConsecutiveQaFailures >= 2) {
     await repo.transitionProspect(
       prospect.id,
       'HUMAN_ACTION_REQUIRED',
@@ -2812,7 +5150,7 @@ async function processPrototypeQaResult(
       prospect.id,
       'MANUAL_REVIEW_REQUIRED',
       `Prototype QA remains blocked after automatic retries: ${(
-        result.blockingFindings ?? []
+        persistedResult.blockingFindings ?? []
       )
         .join('; ')
         .slice(0, 1500)}`,
@@ -2834,8 +5172,8 @@ async function processPrototypeQaResult(
     type: 'prototype.qa_failed',
     payload: {
       prototypeId: prototype.id,
-      blockingFindings: result.blockingFindings ?? [],
-      recommendedFixes: result.recommendedFixes ?? [],
+      blockingFindings: persistedResult.blockingFindings ?? [],
+      recommendedFixes: persistedResult.recommendedFixes ?? [],
     },
     createdAt: now,
   });
@@ -2888,15 +5226,23 @@ async function processPrototypeDeployResult(
 
   const prototype = await db
     .prepare(
-      `SELECT id FROM prototypes
+      `SELECT id, qa_findings_json FROM prototypes
        WHERE prospect_id = ?
        ORDER BY updated_at DESC
        LIMIT 1`,
     )
     .bind(job.prospectId)
-    .first<{ id: string }>();
+    .first<{ id: string; qa_findings_json: string | null }>();
 
   if (!prototype) throw new Error('Prototype row not found for deployment');
+
+  if (!canPromoteWithWebDesignReview(prototype.qa_findings_json)) {
+    throw new Error(
+      `Cannot deploy prototype before BU Web Design gate: ${webDesignReviewBlockReason(
+        prototype.qa_findings_json,
+      )}`,
+    );
+  }
 
   const now = new Date().toISOString();
   await db
@@ -3001,19 +5347,19 @@ async function processPrototypeDeployResult(
     ? initialOutreach.subject.startsWith('Re:')
       ? initialOutreach.subject
       : `Re: ${initialOutreach.subject}`
-    : 'Votre démonstration Magic Script';
+    : 'Votre dÃƒÆ’Ã‚Â©monstration Magic Script';
 
   const body = [
     'Bonjour,',
     '',
-    'Comme convenu, voici la démonstration préparée pour votre activité :',
+    'Comme convenu, voici la dÃƒÆ’Ã‚Â©monstration prÃƒÆ’Ã‚Â©parÃƒÆ’Ã‚Â©e pour votre activitÃƒÆ’Ã‚Â© :',
     deployment.toString(),
     '',
-    'L’objectif est de vous montrer concrètement une piste d’amélioration de votre présence digitale à partir des éléments publics que nous avons pu vérifier.',
+    'LÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢objectif est de vous montrer concrÃƒÆ’Ã‚Â¨tement une piste dÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢amÃƒÆ’Ã‚Â©lioration de votre prÃƒÆ’Ã‚Â©sence digitale ÃƒÆ’Ã‚Â  partir des ÃƒÆ’Ã‚Â©lÃƒÆ’Ã‚Â©ments publics que nous avons pu vÃƒÆ’Ã‚Â©rifier.',
     '',
     'Dites-moi simplement ce que vous en pensez.',
     '',
-    'Bien à vous,',
+    'Bien ÃƒÆ’Ã‚Â  vous,',
     'Magic Script',
   ].join('\n');
 
@@ -3293,11 +5639,40 @@ async function processPrototypeStrategyGeneration(
   }
 
   // Validate arrays are actually arrays
-  const arrayFields = ['sections', 'commercialProof', 'factsAllowed', 'factsForbiddenOrUnverified', 'mobilePriorities'];
+  const arrayFields = [
+    'sections',
+    'sourceNavigationBlocks',
+    'commercialProof',
+    'factsAllowed',
+    'factsForbiddenOrUnverified',
+    'mobilePriorities',
+  ];
   for (const field of arrayFields) {
     const value = result[field as keyof PrototypeStrategyResult];
     if (!Array.isArray(value)) {
       throw new Error(`Prototype strategy result field ${field} must be an array`);
+    }
+  }
+
+  if (
+    !result.sourceNavigationNote ||
+    typeof result.sourceNavigationNote !== 'string' ||
+    !result.sourceNavigationNote.trim()
+  ) {
+    throw new Error('Prototype strategy result missing sourceNavigationNote');
+  }
+
+  for (const [index, block] of result.sourceNavigationBlocks.entries()) {
+    if (
+      !block ||
+      typeof block !== 'object' ||
+      typeof block.label !== 'string' ||
+      !block.label.trim() ||
+      !['navigation', 'content_block', 'conversion_cta'].includes(block.kind)
+    ) {
+      throw new Error(
+        `Prototype strategy result sourceNavigationBlocks[${index}] is invalid`,
+      );
     }
   }
 
@@ -3353,12 +5728,91 @@ async function processPrototypeStrategyGeneration(
   return { prospectId: job.prospectId };
 }
 
+type VerifiedSourceNavigationBlock = {
+  label: string;
+  kind: 'navigation' | 'content_block' | 'conversion_cta';
+};
+
+function isVerifiedSourceNavigationBlock(
+  value: unknown,
+): value is VerifiedSourceNavigationBlock {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const block = value as Record<string, unknown>;
+  return (
+    typeof block.label === 'string' &&
+    Boolean(block.label.trim()) &&
+    ['navigation', 'content_block', 'conversion_cta'].includes(String(block.kind))
+  );
+}
+
+async function enforceVerifiedSourceNavigation(
+  output: unknown,
+  prospectId: string | undefined,
+  db: D1DatabaseLike,
+): Promise<unknown> {
+  if (!prospectId || !output || typeof output !== 'object' || Array.isArray(output)) {
+    return output;
+  }
+
+  const strategy = output as Record<string, unknown>;
+  const researchRow = await db
+    .prepare(
+      `SELECT jr.output_json
+       FROM job_results jr
+       JOIN jobs j ON j.id = jr.job_id
+       WHERE j.prospect_id = ? AND j.kind = 'RUN_RESEARCH_SWARM'
+       ORDER BY jr.created_at DESC
+       LIMIT 1`,
+    )
+    .bind(prospectId)
+    .first<{ output_json: string }>();
+
+  if (!researchRow) return output;
+
+  let research: Record<string, unknown>;
+  try {
+    research = JSON.parse(researchRow.output_json) as Record<string, unknown>;
+  } catch {
+    return output;
+  }
+
+  const verifiedBlocks = Array.isArray(research.sourceNavigationBlocks)
+    ? research.sourceNavigationBlocks.filter(isVerifiedSourceNavigationBlock)
+    : [];
+
+  if (verifiedBlocks.length === 0) return output;
+
+  const existingBlocks = Array.isArray(strategy.sourceNavigationBlocks)
+    ? strategy.sourceNavigationBlocks.filter(isVerifiedSourceNavigationBlock)
+    : [];
+
+  const seen = new Set(verifiedBlocks.map((block) => block.label.trim().toLocaleLowerCase()));
+  const mergedBlocks = [
+    ...verifiedBlocks,
+    ...existingBlocks.filter((block) => !seen.has(block.label.trim().toLocaleLowerCase())),
+  ];
+
+  return {
+    ...strategy,
+    sourceNavigationBlocks: mergedBlocks,
+    sourceNavigationNote:
+      typeof strategy.sourceNavigationNote === 'string' && strategy.sourceNavigationNote.trim()
+        ? strategy.sourceNavigationNote
+        : 'Les blocs de navigation vÃƒÆ’Ã‚Â©rifiÃƒÆ’Ã‚Â©s du site source sont obligatoires et repris comme structure de dÃƒÆ’Ã‚Â©monstration.',
+  };
+}
+
 async function processRunnerSuccess(
   job: MagicScriptJob,
   output: unknown,
   env: Env,
   db: D1DatabaseLike,
 ): Promise<unknown> {
+  const persistedOutput =
+    job.kind === 'GENERATE_PROTOTYPE_STRATEGY'
+      ? await enforceVerifiedSourceNavigation(output, job.prospectId, db)
+      : output;
+
   await db
     .prepare(
       `INSERT INTO job_results (job_id, output_json, created_at)
@@ -3367,7 +5821,7 @@ async function processRunnerSuccess(
          output_json = excluded.output_json,
          created_at = excluded.created_at`,
     )
-    .bind(job.id, JSON.stringify(output), new Date().toISOString())
+    .bind(job.id, JSON.stringify(persistedOutput), new Date().toISOString())
     .run();
 
   if (job.kind === 'DISCOVER_PROSPECTS') {
@@ -3376,6 +5830,10 @@ async function processRunnerSuccess(
 
   if (job.kind === 'RUN_RESEARCH_SWARM') {
     return processResearchResult(job, output as ResearchResult, env, db);
+  }
+
+  if (job.kind === 'RUN_SCORING') {
+    return processScoringResult(job, output, env, db);
   }
 
   if (job.kind === 'DISCOVER_CONTACT') {
@@ -3403,7 +5861,12 @@ async function processRunnerSuccess(
   }
 
   if (job.kind === 'GENERATE_PROTOTYPE_STRATEGY') {
-    return processPrototypeStrategyGeneration(job, output as PrototypeStrategyResult, env, db);
+    return processPrototypeStrategyGeneration(
+      job,
+      persistedOutput as PrototypeStrategyResult,
+      env,
+      db,
+    );
   }
 
   if (
@@ -3435,6 +5898,726 @@ async function processRunnerSuccess(
   return { stored: true, processed: false };
 }
 
+interface CallCopilotSessionRow {
+  id: string;
+  prospect_id: string;
+  meeting_id: string | null;
+  status: 'ACTIVE' | 'ENDED';
+  snapshot_json: string;
+  engine_version: string;
+  rules_version: string;
+  prompt_version: string;
+  idempotency_key: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+interface QuoteDossierRow {
+  id: string;
+  linkage_key: string;
+  prospect_id: string;
+  meeting_id: string | null;
+  source_copilot_session_id: string | null;
+  status: 'DRAFT' | 'HUMAN_VALIDATED';
+  dossier_json: string;
+  human_validated_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+interface QuoteDossierEditableInput {
+  commercialNeed?: string | null;
+  requestedScope?: string | null;
+  timing?: string | null;
+  decisionContext?: string | null;
+  openQuestions?: string[];
+}
+
+interface QuoteDossierConflictResolution {
+  field: QuoteDossierConflictField;
+  value: string;
+}
+
+function parseCallCopilotAction(value: unknown): CallCopilotAction {
+  if (!value || typeof value !== 'object') throw new Error('action is required');
+  const action = value as Record<string, unknown>;
+  const type = action.type;
+  const allowed = new Set([
+    'PROSPECT_RESPONSE',
+    'SELECT_PREDICTION',
+    'OPERATOR_NOTE',
+    'VALIDATE_KNOWLEDGE',
+    'REJECT_KNOWLEDGE',
+    'SET_DECISION_AUTHORITY',
+    'FEEDBACK',
+  ]);
+  if (typeof type !== 'string' || !allowed.has(type)) throw new Error('Unsupported Call Copilot action');
+  return action as unknown as CallCopilotAction;
+}
+
+function assertCallCopilotActionBounds(action: CallCopilotAction): void {
+  const value = 'text' in action ? action.text : 'value' in action ? action.value : 'key' in action ? action.key : '';
+  if (typeof value === 'string' && value.length > 8_000) throw new Error('Call Copilot input is too long');
+  if ('key' in action && typeof action.key === 'string' && action.key.length > 200) throw new Error('Call Copilot key is too long');
+  if ('value' in action && typeof action.value === 'string' && action.value.length > 8_000) throw new Error('Call Copilot value is too long');
+  if ('predictionId' in action && (typeof action.predictionId !== 'string' || !/^prediction-[1-3]$/.test(action.predictionId))) throw new Error('Invalid prediction id');
+}
+
+async function callCopilotContext(
+  env: Env,
+  db: D1DatabaseLike,
+  prospect: Prospect,
+  meetingId?: string,
+) {
+  const prototype = await db
+    .prepare(
+      `SELECT id, status, qa_status, deployment_url
+       FROM prototypes
+       WHERE prospect_id = ?
+       ORDER BY updated_at DESC
+       LIMIT 1`,
+    )
+    .bind(prospect.id)
+    .first<{ id: string; status: string; qa_status: string | null; deployment_url: string | null }>();
+  const rooms = await listSalesRoomSummaries(env, db);
+  const room = rooms.find((item) => item.prospectId === prospect.id);
+  const links = buildPersonalizedEntryLinks({
+    prospectId: prospect.id,
+    companyName: prospect.companyName,
+    salesRoomSlug: room?.slug,
+    salesRoomStatus: room?.status ?? 'ACTIVE',
+    prototypeUrl: prototype?.deployment_url ?? null,
+    prototypeStatus: prototype?.status ?? null,
+    qaStatus: prototype?.qa_status ?? null,
+    personalizedBaseUrl: env.MAGICSCRIPT_PUBLIC_BASE_URL,
+  });
+  const events = await new D1EventStore(db).listByProspect(prospect.id);
+  const engagement = scoreEngagementFromMagicScriptEvents(events, new Date().toISOString());
+  const confirmedFacts = [
+    { key: 'company_name', value: prospect.companyName },
+    prospect.activity ? { key: 'activity', value: prospect.activity } : null,
+    prospect.location ? { key: 'location', value: prospect.location } : null,
+    prospect.websiteUrl ? { key: 'website', value: prospect.websiteUrl } : null,
+  ].filter((fact): fact is { key: string; value: string } => Boolean(fact));
+  const unknowns = [
+    prospect.primaryFriction ? null : 'Friction digitale principale',
+    links.prototypeUrl ? null : 'Lien prototype',
+    links.salesRoomUrl ? null : 'Lien Sales Room',
+    'Prix',
+    'DÃƒÆ’Ã‚Â©lai',
+  ].filter((value): value is string => Boolean(value));
+  return prospectToCallCopilotContext(prospect, {
+    meetingId,
+    prototypeUrl: links.prototypeEntryUrl ?? links.prototypeUrl ?? undefined,
+    salesRoomUrl: links.salesRoomUrl ?? undefined,
+    primaryNeed: prospect.primaryFriction,
+    confirmedFacts,
+    unknowns,
+    engagementSummary: `${engagement.score_total}/100 Ãƒâ€šÃ‚Â· activitÃƒÆ’Ã‚Â© ${engagement.activity_score} Ãƒâ€šÃ‚Â· intention ${engagement.intent_score} Ãƒâ€šÃ‚Â· ${engagement.trend}`,
+    engagementHistory: engagement.top_contributors.map((item) => `${item.signal} Ãƒâ€šÃ‚Â· ${item.occurredAt}`),
+  });
+}
+
+type PrototypeCostGateRow = {
+  id: string;
+  prospect_id: string;
+  decision: 'GO' | 'LIGHT' | 'NO-GO';
+  authorization: 'FULL' | 'LIGHT' | 'NONE';
+  policy_score: number;
+  compute_class: 'LOW' | 'MEDIUM' | 'HIGH' | 'UNKNOWN';
+  external_cost_kind: 'KNOWN' | 'UNKNOWN';
+  external_cost_amount_eur: number | null;
+  external_cost_source: string | null;
+  external_cost_reason: string | null;
+  reason_codes_json: string;
+  evaluated_at: string;
+  reevaluate_at: string | null;
+};
+
+function prototypeCostGateResponse(row: PrototypeCostGateRow) {
+  return {
+    id: row.id,
+    prospectId: row.prospect_id,
+    decision: row.decision,
+    authorization: row.authorization,
+    policyScore: row.policy_score,
+    computeClass: row.compute_class,
+    estimatedExternalCost:
+      row.external_cost_kind === 'KNOWN'
+        ? {
+            kind: 'KNOWN' as const,
+            amountEur: row.external_cost_amount_eur,
+            source: row.external_cost_source,
+          }
+        : {
+            kind: 'UNKNOWN' as const,
+            reason: row.external_cost_reason,
+          },
+    reasonCodes: JSON.parse(row.reason_codes_json) as string[],
+    evaluatedAt: row.evaluated_at,
+    reevaluateAt: row.reevaluate_at,
+  };
+}
+
+async function getLatestPrototypeCostGate(
+  db: D1DatabaseLike,
+  prospectId: string,
+): Promise<PrototypeCostGateRow | null> {
+  return db
+    .prepare(
+      `SELECT *
+       FROM prototype_cost_gate_evaluations
+       WHERE prospect_id = ?
+       ORDER BY evaluated_at DESC
+       LIMIT 1`,
+    )
+    .bind(prospectId)
+    .first<PrototypeCostGateRow>();
+}
+async function derivePrototypeComputeClassFromResearch(
+  db: D1DatabaseLike,
+  prospectId: string,
+): Promise<{
+  computeClass: 'LOW' | 'MEDIUM' | 'HIGH' | 'UNKNOWN';
+  blockCount: number;
+  source: 'RESEARCH_SCOPE' | 'UNKNOWN';
+}> {
+  const row = await db
+    .prepare(
+      `SELECT jr.output_json
+       FROM job_results jr
+       JOIN jobs j ON j.id = jr.job_id
+       WHERE j.prospect_id = ?
+         AND j.kind = 'RUN_RESEARCH_SWARM'
+         AND j.status = 'SUCCEEDED'
+       ORDER BY jr.created_at DESC
+       LIMIT 1`,
+    )
+    .bind(prospectId)
+    .first<{ output_json: string }>();
+
+  if (!row?.output_json) {
+    return {
+      computeClass: 'UNKNOWN',
+      blockCount: 0,
+      source: 'UNKNOWN',
+    };
+  }
+
+  let research: Record<string, unknown>;
+
+  try {
+    research = JSON.parse(row.output_json) as Record<string, unknown>;
+  } catch {
+    return {
+      computeClass: 'UNKNOWN',
+      blockCount: 0,
+      source: 'UNKNOWN',
+    };
+  }
+
+  const verifiedBlocks = Array.isArray(research.sourceNavigationBlocks)
+    ? research.sourceNavigationBlocks.filter(
+        isVerifiedSourceNavigationBlock,
+      )
+    : [];
+
+  const blockCount = verifiedBlocks.length;
+
+  if (blockCount === 0) {
+    return {
+      computeClass: 'UNKNOWN',
+      blockCount: 0,
+      source: 'UNKNOWN',
+    };
+  }
+
+  return {
+    computeClass:
+      blockCount >= 9
+        ? 'HIGH'
+        : blockCount >= 5
+          ? 'MEDIUM'
+          : 'LOW',
+    blockCount,
+    source: 'RESEARCH_SCOPE',
+  };
+}
+
+async function evaluateAndPersistPrototypeCostGate(
+  db: D1DatabaseLike,
+  prospect: Prospect,
+  evaluatedAt = new Date().toISOString(),
+): Promise<PrototypeCostGateRow> {
+  const computeEvidence =
+    await derivePrototypeComputeClassFromResearch(
+      db,
+      prospect.id,
+    );
+
+  const computeClass = computeEvidence.computeClass;
+
+  const estimatedExternalCost = {
+    kind: 'UNKNOWN' as const,
+    reason:
+      'No internal priced external provider evidence available',
+  };
+
+  const events = await new D1EventStore(db).listByProspect(prospect.id);
+  const engagement = scoreEngagementFromMagicScriptEvents(events, evaluatedAt);
+
+  const result = evaluatePrototypeCostGate({
+    state: prospect.state,
+    opportunity: prospect.opportunity ?? null,
+    prospectScore: prospect.score ?? null,
+    websiteUrl: prospect.websiteUrl ?? null,
+    primaryFriction: prospect.primaryFriction ?? null,
+    primaryAsset: prospect.primaryAsset ?? null,
+    primaryCta: prospect.primaryCta ?? null,
+    engagement,
+    computeClass,
+    estimatedExternalCost,
+    evaluatedAt,
+  });
+
+  const reasonCodes = [
+    ...result.reasonCodes,
+    ...(computeEvidence.source === 'RESEARCH_SCOPE'
+      ? [
+          'COMPUTE_FROM_RESEARCH_SCOPE',
+          `RESEARCH_SCOPE_BLOCKS_${computeEvidence.blockCount}`,
+        ]
+      : ['COMPUTE_SCOPE_UNKNOWN']),
+  ];
+
+  const evaluationId = crypto.randomUUID();
+
+  await db
+    .prepare(
+      `INSERT INTO prototype_cost_gate_evaluations (
+        id,
+        prospect_id,
+        decision,
+        authorization,
+        policy_score,
+        compute_class,
+        external_cost_kind,
+        external_cost_amount_eur,
+        external_cost_source,
+        external_cost_reason,
+        reason_codes_json,
+        evaluated_at,
+        reevaluate_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    )
+    .bind(
+      evaluationId,
+      prospect.id,
+      result.decision,
+      result.authorization,
+      result.policyScore,
+      result.computeClass,
+      result.estimatedExternalCost.kind,
+      result.estimatedExternalCost.kind === 'KNOWN'
+        ? result.estimatedExternalCost.amountEur
+        : null,
+      result.estimatedExternalCost.kind === 'KNOWN'
+        ? result.estimatedExternalCost.source
+        : null,
+      result.estimatedExternalCost.kind === 'UNKNOWN'
+        ? result.estimatedExternalCost.reason
+        : null,
+      JSON.stringify(reasonCodes),
+      result.evaluatedAt,
+      result.reevaluateAt,
+    )
+    .run();
+
+  const persisted =
+    await getLatestPrototypeCostGate(
+      db,
+      prospect.id,
+    );
+
+  if (!persisted) {
+    throw new Error(
+      'Prototype Cost Gate evaluation could not be reloaded',
+    );
+  }
+
+  return persisted;
+}
+
+async function refreshPrototypeCostGateAfterObjectiveSignal(
+  db: D1DatabaseLike,
+  prospectId: string,
+  source: string,
+  evaluatedAt = new Date().toISOString(),
+): Promise<PrototypeCostGateRow | null> {
+  const prospect =
+    await new D1ProspectRepository(db).getProspect(prospectId);
+
+  if (
+    !prospect ||
+    (prospect.state !== 'INTERESTED' &&
+      prospect.state !== 'MEETING_BOOKED')
+  ) {
+    return null;
+  }
+
+  try {
+    const evaluation =
+      await evaluateAndPersistPrototypeCostGate(
+        db,
+        prospect,
+        evaluatedAt,
+      );
+
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId,
+      actor: 'system',
+      type: 'prototype_cost_gate.auto_evaluated',
+      payload: {
+        source,
+        evaluationId: evaluation.id,
+        decision: evaluation.decision,
+        authorization: evaluation.authorization,
+      },
+      createdAt: evaluatedAt,
+    });
+
+    return evaluation;
+  } catch (error) {
+    try {
+      await new D1EventStore(db).append({
+        id: crypto.randomUUID(),
+        prospectId,
+        actor: 'system',
+        type: 'prototype_cost_gate.evaluation_failed',
+        payload: {
+          source,
+          error:
+            error instanceof Error
+              ? error.message
+              : String(error),
+          prototypeWorkRemainsFailClosed: true,
+        },
+        createdAt: evaluatedAt,
+      });
+    } catch {
+    }
+
+    return null;
+  }
+}
+
+async function getCallCopilotSession(db: D1DatabaseLike, sessionId: string): Promise<CallCopilotSessionRow | null> {
+  return db
+    .prepare('SELECT * FROM call_copilot_sessions WHERE id = ? LIMIT 1')
+    .bind(sessionId)
+    .first<CallCopilotSessionRow>();
+}
+
+function callCopilotSnapshot(row: CallCopilotSessionRow): CallCopilotSnapshot {
+  return JSON.parse(row.snapshot_json) as CallCopilotSnapshot;
+}
+
+function quoteDossierFromRow(row: QuoteDossierRow): QuoteDossier {
+  return JSON.parse(row.dossier_json) as QuoteDossier;
+}
+
+function quoteDossierResponse(row: QuoteDossierRow): QuoteDossier {
+  const dossier = quoteDossierFromRow(row);
+  return {
+    ...dossier,
+    status: row.status,
+    humanValidatedAt: row.human_validated_at,
+  };
+}
+
+function quoteDossierLinkageKey(prospectId: string, meetingId: string | null): string {
+  return `${prospectId}:${meetingId ?? 'prospect'}`;
+}
+
+async function getQuoteDossierById(
+  db: D1DatabaseLike,
+  dossierId: string,
+): Promise<QuoteDossierRow | null> {
+  return db
+    .prepare('SELECT * FROM quote_dossiers WHERE id = ? LIMIT 1')
+    .bind(dossierId)
+    .first<QuoteDossierRow>();
+}
+
+async function getQuoteDossierByLinkage(
+  db: D1DatabaseLike,
+  linkageKey: string,
+): Promise<QuoteDossierRow | null> {
+  return db
+    .prepare('SELECT * FROM quote_dossiers WHERE linkage_key = ? LIMIT 1')
+    .bind(linkageKey)
+    .first<QuoteDossierRow>();
+}
+
+async function applySalesRoomCommercialScopeToQuoteDossier(
+  db: D1DatabaseLike,
+  prospectId: string,
+  dossier: QuoteDossier,
+  now: string,
+): Promise<QuoteDossier> {
+  const rows = await db
+    .prepare(
+      `SELECT r.raw_text
+       FROM events e
+       JOIN replies r
+         ON r.id = json_extract(e.payload_json, '$.replyId')
+       WHERE e.prospect_id = ?
+         AND e.type = 'sales_room.message_received'
+       ORDER BY r.received_at ASC, r.created_at ASC`,
+    )
+    .bind(prospectId)
+    .all<{ raw_text: string }>();
+
+  const prospectTexts = (rows.results ?? [])
+    .map((row) => row.raw_text)
+    .filter((value): value is string => typeof value === 'string' && value.trim().length > 0);
+
+  if (prospectTexts.length === 0) return dossier;
+
+  const extraction = extractCommercialScopeFromProspectTexts(prospectTexts);
+
+  return applyCommercialScopeProfile(
+    dossier,
+    extraction.profile,
+    now,
+  );
+}
+function isQuoteDossierLinkageConflict(error: unknown): boolean {
+  return (
+    error instanceof Error &&
+    /UNIQUE constraint failed:\s*quote_dossiers\.linkage_key/i.test(error.message)
+  );
+}
+
+function manualField(value: string | null): DossierField {
+  return {
+    value: value?.trim() || null,
+    evidenceStatus: 'OPERATOR_NOTE',
+    provenance: 'explicit_manual_edit',
+    sourceRef: null,
+  };
+}
+
+function applyQuoteDossierEdits(
+  current: QuoteDossier,
+  edits: QuoteDossierEditableInput,
+  now: string,
+): QuoteDossier {
+  const conflicts = [...current.conflicts];
+
+  function scalar(
+    key: 'commercialNeed' | 'requestedScope' | 'timing' | 'decisionContext',
+    value: string | null | undefined,
+  ): DossierField {
+    const existing = current[key];
+    if (value === undefined) return existing;
+    const next = manualField(value);
+    if (existing.evidenceStatus === 'CONFIRMED' && existing.value !== next.value) {
+      conflicts.push(
+        `${key}: ${existing.provenance}: ${existing.value ?? 'UNKNOWN'} / explicit_manual_edit: ${next.value ?? 'UNKNOWN'}`,
+      );
+      return { ...existing, evidenceStatus: 'CONFLICT' };
+    }
+    return next;
+  }
+
+  return {
+    ...current,
+    commercialNeed: scalar('commercialNeed', edits.commercialNeed),
+    requestedScope: scalar('requestedScope', edits.requestedScope),
+    timing: scalar('timing', edits.timing),
+    decisionContext: scalar('decisionContext', edits.decisionContext),
+    openQuestions:
+      edits.openQuestions === undefined
+        ? current.openQuestions
+        : edits.openQuestions.map((value) => value.trim()).filter(Boolean),
+    status: current.status,
+    humanValidatedAt: current.humanValidatedAt,
+    conflicts: [...new Set(conflicts.filter(Boolean))],
+    updatedAt: now,
+  };
+}
+
+async function publishCanonicalQuote(
+  env: Env,
+  db: D1DatabaseLike,
+  dossierId: string,
+): Promise<Record<string, unknown>> {
+  const row = await getQuoteDossierById(db, dossierId);
+  if (!row) throw new Error('Quote dossier not found');
+
+  const prospect = await new D1ProspectRepository(db).getProspect(row.prospect_id);
+  if (!prospect) throw new Error('Prospect not found');
+
+  const dossier = quoteDossierFromRow(row);
+  if (dossier.conflicts.length > 0) {
+    throw new Error('Quote dossier conflicts must be resolved before publication');
+  }
+  if (
+    dossier.companyIdentity.evidenceStatus === 'CONFLICT' ||
+    !dossier.companyIdentity.value?.trim() ||
+    dossier.companyIdentity.value.trim() !== prospect.companyName.trim()
+  ) {
+    throw new Error('Complete company identity is required for quote publication');
+  }
+
+  const scope = classifyCommercialScope(dossier.commercialScope);
+  if (scope.status !== 'FIXED' || !scope.packageId) {
+    throw new Error('Only fixed commercial scope can be published');
+  }
+
+  const pricing = resolvePricingPackage(scope.packageId);
+  const legal = canonicalQuoteLegalConfig(env);
+  const now = new Date().toISOString();
+  const issueDate = dossier.updatedAt.slice(0, 10);
+  const canonicalQuote = buildCanonicalQuote({
+    quoteId: `quote-${prospect.id}`,
+    quoteNumber: `MS-${prospect.id}`,
+    issueDate,
+    validUntil: addQuoteDays(issueDate, 30),
+    deliveryDeadline: addQuoteDays(issueDate, 30),
+    companyName: prospect.companyName,
+    legalName: prospect.legalName,
+    pricing,
+    legal,
+  });
+  const canonicalJson = JSON.stringify(canonicalQuote);
+  const quoteVersionHash = `sha256:${await sha256Hex(canonicalJson)}`;
+  const existing = await commercialQuoteByProspectAndHash(
+    db,
+    prospect.id,
+    quoteVersionHash,
+  );
+  if (existing) {
+    return {
+      ok: true,
+      duplicate: true,
+      prospectId: prospect.id,
+      quoteId: existing.quote_id,
+      quoteNumber: existing.quote_number,
+      quoteVersionHash: existing.quote_version_hash,
+      state: prospect.state,
+    };
+  }
+
+  let transition;
+  try {
+    transition = commercialTransition(prospect.state, 'QUOTE_DRAFTED');
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : 'Quote publication transition rejected',
+    );
+  }
+
+  const quoteRowId = `commercial-quote:${prospect.id}:${quoteVersionHash.slice(-16)}`;
+  try {
+    await db
+      .prepare(
+        `INSERT INTO commercial_quotes (
+           id,
+           prospect_id,
+           quote_id,
+           quote_number,
+           quote_version_hash,
+           canonical_json,
+           issue_date,
+           valid_until,
+           delivery_deadline,
+           cgv_reference,
+           subtotal_cents,
+           total_cents,
+           currency,
+           deposit_percent,
+           balance_percent,
+           published_at,
+           created_at
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'EUR', 50, 50, ?, ?)`,
+      )
+      .bind(
+        quoteRowId,
+        prospect.id,
+        canonicalQuote.quoteId,
+        canonicalQuote.quoteNumber,
+        quoteVersionHash,
+        canonicalJson,
+        canonicalQuote.issueDate,
+        canonicalQuote.validUntil,
+        canonicalQuote.deliveryDeadline,
+        canonicalQuote.cgvReference,
+        canonicalQuote.subtotalCents,
+        canonicalQuote.totalCents,
+        now,
+        now,
+      )
+      .run();
+  } catch (error) {
+    const raced = await commercialQuoteByProspectAndHash(
+      db,
+      prospect.id,
+      quoteVersionHash,
+    );
+    if (!raced) throw error;
+    return {
+      ok: true,
+      duplicate: true,
+      prospectId: prospect.id,
+      quoteId: raced.quote_id,
+      quoteNumber: raced.quote_number,
+      quoteVersionHash: raced.quote_version_hash,
+      state: prospect.state,
+    };
+  }
+
+  const updated = await new D1ProspectRepository(db).transitionProspect(
+    prospect.id,
+    transition.to,
+    transition.reason,
+  );
+  await new D1EventStore(db).append({
+    id: crypto.randomUUID(),
+    prospectId: prospect.id,
+    actor: 'system',
+    type: 'commercial.quote_published',
+    payload: {
+      quoteId: canonicalQuote.quoteId,
+      quoteNumber: canonicalQuote.quoteNumber,
+      quoteVersionHash,
+      totalCents: canonicalQuote.totalCents,
+      currency: 'EUR',
+      depositPercent: 50,
+      balancePercent: 50,
+      source: 'SALES_ROOM',
+      humanValidationRequired: false,
+    },
+    createdAt: now,
+  });
+
+  return {
+    ok: true,
+    duplicate: false,
+    prospectId: prospect.id,
+    quoteId: canonicalQuote.quoteId,
+    quoteNumber: canonicalQuote.quoteNumber,
+    quoteVersionHash,
+    totalCents: canonicalQuote.totalCents,
+    currency: 'EUR',
+    depositPercent: 50,
+    balancePercent: 50,
+    state: updated.state,
+  };
+}
+
 async function handle(request: Request, env: Env): Promise<Response> {
   const url = new URL(request.url);
 
@@ -3443,44 +6626,887 @@ async function handle(request: Request, env: Env): Promise<Response> {
   }
 
   if (request.method === 'GET' && url.pathname === '/health') {
+    const healthConfig = configFromEnv(env);
+    const effectiveOutboundMode =
+      !healthConfig.sendingEnabled || healthConfig.emailProvider === 'disabled'
+        ? 'disabled'
+        : healthConfig.emailProvider === 'dry-run'
+          ? 'dry-run'
+          : 'external';
+
     return json({
       ok: true,
       service: 'magicscript-api',
       databaseConfigured: Boolean(env.DB),
       apiAuthConfigured: Boolean(env.MAGICSCRIPT_API_TOKEN),
       runnerAuthConfigured: Boolean(env.MAGICSCRIPT_RUNNER_TOKEN),
+      stackId: env.MAGICSCRIPT_STACK_ID ?? null,
       autopilotEnabled: env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true',
-      sendingEnabled: env.MAGICSCRIPT_SENDING_ENABLED === 'true',
-      emailProvider: env.MAGICSCRIPT_EMAIL_PROVIDER ?? 'disabled',
+      sendingEnabled: healthConfig.sendingEnabled,
+      emailProvider: healthConfig.emailProvider,
+      effectiveOutboundMode,
       testEmailMode: env.MAGICSCRIPT_TEST_EMAIL_MODE === 'true',
       testRecipientConfigured: Boolean(env.MAGICSCRIPT_TEST_RECIPIENT?.trim()),
       prototypeDeployEnabled: env.MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED === 'true',
     });
   }
 
-  if (url.pathname.startsWith('/api/runner/')) {
+  const publicSalesRoomWrite =
+    request.method === 'POST' &&
+    (url.pathname === '/api/public/sales-room-message' ||
+      url.pathname === '/api/public/sales-room-meeting-requested' ||
+      url.pathname === '/api/public/sales-room-event' ||
+      url.pathname === '/api/public/sales-room-booking' ||
+      url.pathname === '/api/public/sales-room-meeting-cancel' ||
+      url.pathname === '/api/public/sales-room-quote-accept');
+  const publicSalesRoomRead =
+    request.method === 'GET' && url.pathname === '/api/public/sales-room-availability';
+
+  if (publicSalesRoomWrite) {
+    const blocked = publicSalesRoomIngestionGuard(request, env);
+    if (blocked) return blocked;
+  } else if (publicSalesRoomRead) {
+    // Availability is a public read; no external mutation is possible here.
+  } else if (url.pathname.startsWith('/api/runner/')) {
     const unauthorized = requireRunnerAuth(request, env);
     if (unauthorized) return unauthorized;
+    const staleStack = requireRunnerStack(request, env);
+    if (staleStack) return staleStack;
   } else if (url.pathname.startsWith('/api/')) {
     const unauthorized = requireApiAuth(request, env);
     if (unauthorized) return unauthorized;
   }
 
+  if (request.method === 'POST' && url.pathname === '/api/call-copilot') {
+    let body: Record<string, unknown>;
+    try {
+      body = (await request.json()) as Record<string, unknown>;
+    } catch {
+      return json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
+    const prospectId = typeof body.prospectId === 'string' ? body.prospectId.trim() : '';
+    const meetingId = typeof body.meetingId === 'string' ? body.meetingId.trim() : '';
+    const idempotencyKey = typeof body.idempotencyKey === 'string' ? body.idempotencyKey.trim() : '';
+    if (!prospectId) return json({ error: 'prospectId is required' }, { status: 400 });
+    if (idempotencyKey.length > 200) return json({ error: 'idempotencyKey is too long' }, { status: 400 });
+    const db = requireDb(env);
+    if (idempotencyKey) {
+      const duplicate = await db
+        .prepare('SELECT * FROM call_copilot_sessions WHERE idempotency_key = ? LIMIT 1')
+        .bind(idempotencyKey)
+        .first<CallCopilotSessionRow>();
+      if (duplicate) return json({ ok: true, duplicate: true, session: callCopilotSnapshot(duplicate), status: duplicate.status });
+    }
+    const prospect = await new D1ProspectRepository(db).getProspect(prospectId);
+    if (!prospect) return json({ error: 'Prospect not found' }, { status: 404 });
+    if (meetingId) {
+      const meeting = await getMeetingById(db, meetingId);
+      if (!meeting || meeting.prospect_id !== prospect.id || meeting.status !== 'CONFIRMED') {
+        return json({ error: 'Confirmed meeting not found for prospect' }, { status: 409 });
+      }
+    }
+    const now = new Date().toISOString();
+    const sessionId = crypto.randomUUID();
+    const snapshot = buildCallCopilotSnapshot(
+      await callCopilotContext(env, db, prospect, meetingId || undefined),
+      now,
+      sessionId,
+    );
+    await db
+      .prepare(
+        `INSERT INTO call_copilot_sessions (
+          id, prospect_id, meeting_id, status, snapshot_json,
+          engine_version, rules_version, prompt_version, idempotency_key,
+          created_at, updated_at
+        ) VALUES (?, ?, ?, 'ACTIVE', ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .bind(
+        sessionId,
+        prospect.id,
+        meetingId || null,
+        JSON.stringify(snapshot),
+        CALL_COPILOT_ENGINE_VERSION,
+        CALL_COPILOT_RULES_VERSION,
+        CALL_COPILOT_PROMPT_VERSION,
+        idempotencyKey || null,
+        now,
+        now,
+      )
+      .run();
+    return json({ ok: true, duplicate: false, session: snapshot, status: 'ACTIVE' });
+  }
+
+  const callCopilotSessionMatch = url.pathname.match(/^\/api\/call-copilot\/([^/]+)$/);
+  if (request.method === 'GET' && callCopilotSessionMatch) {
+    const row = await getCallCopilotSession(requireDb(env), decodeURIComponent(callCopilotSessionMatch[1]));
+    if (!row) return json({ error: 'Call Copilot session not found' }, { status: 404 });
+    return json({ ok: true, status: row.status, session: callCopilotSnapshot(row) });
+  }
+
+  const callCopilotActionsMatch = url.pathname.match(/^\/api\/call-copilot\/([^/]+)\/actions$/);
+  if (request.method === 'POST' && callCopilotActionsMatch) {
+    let body: Record<string, unknown>;
+    try {
+      body = (await request.json()) as Record<string, unknown>;
+    } catch {
+      return json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
+    const db = requireDb(env);
+    const sessionId = decodeURIComponent(callCopilotActionsMatch[1]);
+    const row = await getCallCopilotSession(db, sessionId);
+    if (!row) return json({ error: 'Call Copilot session not found' }, { status: 404 });
+    if (row.status !== 'ACTIVE') return json({ error: 'Call Copilot session is not active' }, { status: 409 });
+    const idempotencyKey = typeof body.idempotencyKey === 'string' ? body.idempotencyKey.trim() : '';
+    if (idempotencyKey.length > 200) return json({ error: 'idempotencyKey is too long' }, { status: 400 });
+    if (idempotencyKey) {
+      const duplicate = await db
+        .prepare('SELECT id FROM call_copilot_actions WHERE session_id = ? AND idempotency_key = ? LIMIT 1')
+        .bind(sessionId, idempotencyKey)
+        .first<{ id: string }>();
+      if (duplicate) return json({ ok: true, duplicate: true, session: callCopilotSnapshot(row) });
+    }
+    try {
+      const action = parseCallCopilotAction(body.action ?? body);
+      assertCallCopilotActionBounds(action);
+      const now = new Date().toISOString();
+      const updated = applyCallCopilotAction(callCopilotSnapshot(row), action, now);
+      await db
+        .prepare(
+          `INSERT INTO call_copilot_actions (
+             id, session_id, action_type, payload_json, idempotency_key, created_at
+           ) VALUES (?, ?, ?, ?, ?, ?)`,
+        )
+        .bind(crypto.randomUUID(), sessionId, action.type, JSON.stringify(action), idempotencyKey || null, now)
+        .run();
+      await db
+        .prepare('UPDATE call_copilot_sessions SET snapshot_json = ?, updated_at = ? WHERE id = ?')
+        .bind(JSON.stringify(updated), now, sessionId)
+        .run();
+      return json({ ok: true, duplicate: false, session: updated });
+    } catch (error) {
+      return json({ error: error instanceof Error ? error.message : 'Call Copilot action rejected' }, { status: 400 });
+    }
+  }
+
+  const callCopilotReviewMatch = url.pathname.match(/^\/api\/call-copilot\/([^/]+)\/review$/);
+  if (request.method === 'GET' && callCopilotReviewMatch) {
+    const row = await getCallCopilotSession(requireDb(env), decodeURIComponent(callCopilotReviewMatch[1]));
+    if (!row) return json({ error: 'Call Copilot session not found' }, { status: 404 });
+    return json({ ok: true, status: row.status, review: buildEndOfCallReview(callCopilotSnapshot(row)) });
+  }
+
+  if (request.method === 'POST' && url.pathname === '/api/quote-dossiers') {
+    let body: Record<string, unknown>;
+    try {
+      body = (await request.json()) as Record<string, unknown>;
+    } catch {
+      return json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
+
+    const prospectId = typeof body.prospectId === 'string' ? body.prospectId.trim() : '';
+    const requestedMeetingId = typeof body.meetingId === 'string' ? body.meetingId.trim() : '';
+    const sourceCopilotSessionId =
+      typeof body.sourceCopilotSessionId === 'string'
+        ? body.sourceCopilotSessionId.trim()
+        : '';
+    if (!prospectId) return json({ error: 'prospectId is required' }, { status: 400 });
+
+    const db = requireDb(env);
+    const prospect = await new D1ProspectRepository(db).getProspect(prospectId);
+    if (!prospect) return json({ error: 'Prospect not found' }, { status: 404 });
+
+    let effectiveMeetingId = requestedMeetingId || null;
+    let snapshot: CallCopilotSnapshot | undefined;
+    if (sourceCopilotSessionId) {
+      const session = await getCallCopilotSession(db, sourceCopilotSessionId);
+      if (!session || session.prospect_id !== prospectId) {
+        return json({ error: 'Call Copilot session not found for prospect' }, { status: 409 });
+      }
+      if (requestedMeetingId && session.meeting_id !== requestedMeetingId) {
+        return json({ error: 'Call Copilot session does not belong to meeting' }, { status: 409 });
+      }
+      if (!requestedMeetingId && session.meeting_id) effectiveMeetingId = session.meeting_id;
+      snapshot = callCopilotSnapshot(session);
+    }
+
+    if (effectiveMeetingId) {
+      const meeting = await getMeetingById(db, effectiveMeetingId);
+      if (!meeting || meeting.prospect_id !== prospectId) {
+        return json({ error: 'Meeting not found for prospect' }, { status: 409 });
+      }
+    }
+
+    const linkageKey = quoteDossierLinkageKey(prospectId, effectiveMeetingId);
+    const existing = await getQuoteDossierByLinkage(db, linkageKey);
+    if (existing?.status === 'HUMAN_VALIDATED') {
+      return json({ ok: true, duplicate: true, dossier: quoteDossierResponse(existing) });
+    }
+
+    const now = new Date().toISOString();
+    const dossier = buildQuoteDossier({
+      id: existing?.id ?? crypto.randomUUID(),
+      prospectId,
+      companyName: prospect.companyName,
+      meetingId: effectiveMeetingId,
+      sourceCopilotSessionId: sourceCopilotSessionId || snapshot?.session_id || null,
+      activity: prospect.activity,
+      primaryFriction: prospect.primaryFriction,
+      snapshot,
+      now,
+    });
+    const mergedBase = existing ? mergeQuoteDossier(quoteDossierFromRow(existing), dossier) : dossier;
+    const merged = await applySalesRoomCommercialScopeToQuoteDossier(
+      db,
+      prospectId,
+      mergedBase,
+      now,
+    );
+
+    if (existing) {
+      await db
+        .prepare(
+          `UPDATE quote_dossiers
+           SET source_copilot_session_id = ?, dossier_json = ?, updated_at = ?
+           WHERE id = ? AND status = 'DRAFT'`,
+        )
+        .bind(merged.sourceCopilotSessionId, JSON.stringify(merged), now, existing.id)
+        .run();
+      const updated = await getQuoteDossierById(db, existing.id);
+      if (!updated) return json({ error: 'Quote dossier could not be reloaded' }, { status: 500 });
+      return json({ ok: true, duplicate: true, dossier: quoteDossierResponse(updated) });
+    }
+
+    try {
+      await db
+        .prepare(
+          `INSERT INTO quote_dossiers (
+            id, linkage_key, prospect_id, meeting_id, source_copilot_session_id,
+            status, dossier_json, human_validated_at, created_at, updated_at
+          ) VALUES (?, ?, ?, ?, ?, 'DRAFT', ?, NULL, ?, ?)`,
+        )
+        .bind(
+          merged.id,
+          linkageKey,
+          prospectId,
+          effectiveMeetingId,
+          merged.sourceCopilotSessionId,
+          JSON.stringify(merged),
+          now,
+          now,
+        )
+        .run();
+    } catch (error) {
+      if (!isQuoteDossierLinkageConflict(error)) throw error;
+      const raced = await getQuoteDossierByLinkage(db, linkageKey);
+      if (!raced) throw error;
+      return json({ ok: true, duplicate: true, dossier: quoteDossierResponse(raced) });
+    }
+
+    const created = await getQuoteDossierById(db, merged.id);
+    if (!created) return json({ error: 'Quote dossier could not be reloaded' }, { status: 500 });
+    return json({ ok: true, duplicate: false, dossier: quoteDossierResponse(created) });
+  }
+
+  const quoteDossierMatch = url.pathname.match(/^\/api\/quote-dossiers\/([^/]+)$/);
+  if (request.method === 'GET' && quoteDossierMatch) {
+    const row = await getQuoteDossierById(requireDb(env), decodeURIComponent(quoteDossierMatch[1]));
+    if (!row) return json({ error: 'Quote dossier not found' }, { status: 404 });
+    return json({ ok: true, dossier: quoteDossierResponse(row) });
+  }
+
+  if (request.method === 'PATCH' && quoteDossierMatch) {
+    let body: Record<string, unknown>;
+    try {
+      body = (await request.json()) as Record<string, unknown>;
+    } catch {
+      return json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
+    const edits = body.edits;
+    if (!edits || typeof edits !== 'object' || Array.isArray(edits)) {
+      return json({ error: 'edits is required' }, { status: 400 });
+    }
+    const row = await getQuoteDossierById(requireDb(env), decodeURIComponent(quoteDossierMatch[1]));
+    if (!row) return json({ error: 'Quote dossier not found' }, { status: 404 });
+    if (row.status === 'HUMAN_VALIDATED') {
+      return json({ error: 'Human-validated dossier requires explicit re-opening' }, { status: 409 });
+    }
+    const input = edits as Record<string, unknown>;
+    const allowed = new Set(['commercialNeed', 'requestedScope', 'timing', 'decisionContext', 'openQuestions']);
+    if (Object.keys(input).some((key) => !allowed.has(key))) {
+      return json({ error: 'Unsupported dossier edit field' }, { status: 400 });
+    }
+    const scalarFields = ['commercialNeed', 'requestedScope', 'timing', 'decisionContext'] as const;
+    for (const field of scalarFields) {
+      const value = input[field];
+      if (value !== undefined && value !== null && typeof value !== 'string') {
+        return json({ error: `Invalid dossier edit value for ${field}` }, { status: 400 });
+      }
+    }
+    if (
+      input.openQuestions !== undefined &&
+      (!Array.isArray(input.openQuestions) ||
+        !input.openQuestions.every((value) => typeof value === 'string'))
+    ) {
+      return json({ error: 'Invalid dossier edit value for openQuestions' }, { status: 400 });
+    }
+    const resolution = body.resolution;
+    let parsedResolution: QuoteDossierConflictResolution | undefined;
+    if (resolution !== undefined) {
+      if (!resolution || typeof resolution !== 'object' || Array.isArray(resolution)) {
+        return json({ error: 'Invalid dossier conflict resolution' }, { status: 400 });
+      }
+      const candidate = resolution as Record<string, unknown>;
+      const fields: QuoteDossierConflictField[] = ['commercialNeed', 'requestedScope', 'timing', 'decisionContext'];
+      if (
+        typeof candidate.field !== 'string' ||
+        !fields.includes(candidate.field as QuoteDossierConflictField) ||
+        typeof candidate.value !== 'string' ||
+        !candidate.value.trim()
+      ) {
+        return json({ error: 'Invalid dossier conflict resolution' }, { status: 400 });
+      }
+      parsedResolution = { field: candidate.field as QuoteDossierConflictField, value: candidate.value };
+    }
+    const now = new Date().toISOString();
+    let updated = applyQuoteDossierEdits(
+      quoteDossierFromRow(row),
+      input as QuoteDossierEditableInput,
+      now,
+    );
+    if (parsedResolution) {
+      updated = resolveQuoteDossierConflict(updated, parsedResolution.field, parsedResolution.value, now);
+    }
+    await requireDb(env)
+      .prepare(
+        `UPDATE quote_dossiers
+         SET dossier_json = ?, updated_at = ?
+         WHERE id = ? AND status = 'DRAFT'`,
+      )
+      .bind(JSON.stringify(updated), now, row.id)
+      .run();
+    const reloaded = await getQuoteDossierById(requireDb(env), row.id);
+    if (!reloaded) return json({ error: 'Quote dossier could not be reloaded' }, { status: 500 });
+    return json({ ok: true, dossier: quoteDossierResponse(reloaded) });
+  }
+
+  const quoteDossierValidationMatch = url.pathname.match(
+    /^\/api\/quote-dossiers\/([^/]+)\/validate$/,
+  );
+  if (request.method === 'POST' && quoteDossierValidationMatch) {
+    const db = requireDb(env);
+    const dossierId = decodeURIComponent(quoteDossierValidationMatch[1]);
+    const row = await getQuoteDossierById(db, dossierId);
+    if (!row) return json({ error: 'Quote dossier not found' }, { status: 404 });
+    try {
+      const now = new Date().toISOString();
+      const validated = validateQuoteDossier(quoteDossierFromRow(row), now);
+      await db
+        .prepare(
+          `UPDATE quote_dossiers
+           SET status = 'HUMAN_VALIDATED', dossier_json = ?, human_validated_at = ?, updated_at = ?
+           WHERE id = ? AND status = 'DRAFT'`,
+        )
+        .bind(JSON.stringify(validated), now, now, dossierId)
+        .run();
+      const reloaded = await getQuoteDossierById(db, dossierId);
+      if (!reloaded) return json({ error: 'Quote dossier could not be reloaded' }, { status: 500 });
+      return json({ ok: true, dossier: quoteDossierResponse(reloaded) });
+    } catch (error) {
+      return json(
+        { error: error instanceof Error ? error.message : 'Quote dossier validation rejected' },
+        { status: 409 },
+      );
+    }
+  }
+
+  const quoteDossierPublicationMatch = url.pathname.match(
+    /^\/api\/quote-dossiers\/([^/]+)\/publish$/,
+  );
+  if (request.method === 'POST' && quoteDossierPublicationMatch) {
+    try {
+      return json(
+        await publishCanonicalQuote(
+          env,
+          requireDb(env),
+          decodeURIComponent(quoteDossierPublicationMatch[1]),
+        ),
+      );
+    } catch (error) {
+      return json(
+        {
+          error:
+            error instanceof Error
+              ? error.message
+              : 'Canonical quote publication rejected',
+        },
+        { status: 409 },
+      );
+    }
+  }
+
+  const prototypeCostGateMatch = url.pathname.match(
+    /^\/api\/prospects\/([^/]+)\/prototype-cost-gate$/,
+  );
+
+  if (request.method === 'GET' && prototypeCostGateMatch) {
+    const prospectId = decodeURIComponent(prototypeCostGateMatch[1]);
+    const db = requireDb(env);
+    const prospect = await new D1ProspectRepository(db).getProspect(prospectId);
+
+    if (!prospect) {
+      return json({ error: 'Prospect not found' }, { status: 404 });
+    }
+
+    const row = await getLatestPrototypeCostGate(db, prospectId);
+
+    return json({
+      ok: true,
+      evaluation: row ? prototypeCostGateResponse(row) : null,
+    });
+  }
+
+  const prototypeCostGateEvaluateMatch = url.pathname.match(
+    /^\/api\/prospects\/([^/]+)\/prototype-cost-gate\/evaluate$/,
+  );
+
+  if (request.method === 'POST' && prototypeCostGateEvaluateMatch) {
+    const prospectId = decodeURIComponent(prototypeCostGateEvaluateMatch[1]);
+    const db = requireDb(env);
+    const repo = new D1ProspectRepository(db);
+    const prospect = await repo.getProspect(prospectId);
+
+    if (!prospect) {
+      return json({ error: 'Prospect not found' }, { status: 404 });
+    }
+
+    if (
+      prospect.state !== 'PROTOTYPE_REQUIRED' &&
+      prospect.state !== 'INTERESTED' &&
+      prospect.state !== 'MEETING_BOOKED'
+    ) {
+      return json(
+        {
+          error:
+            'Prototype Cost Gate only evaluates PROTOTYPE_REQUIRED, INTERESTED or MEETING_BOOKED prospects',
+          state: prospect.state,
+        },
+        { status: 409 },
+      );
+    }
+
+    let body: Record<string, unknown> = {};
+    const rawBody = await request.text();
+
+    if (rawBody.trim()) {
+      try {
+        const parsed = JSON.parse(rawBody) as unknown;
+
+        if (
+          !parsed ||
+          typeof parsed !== 'object' ||
+          Array.isArray(parsed)
+        ) {
+          return json(
+            {
+              error:
+                'Prototype Cost Gate request body must be an object',
+            },
+            { status: 400 },
+          );
+        }
+
+        body = parsed as Record<string, unknown>;
+      } catch {
+        return json(
+          { error: 'Valid JSON body is required' },
+          { status: 400 },
+        );
+      }
+    }
+
+    if (Object.keys(body).length > 0) {
+      return json(
+        {
+          error:
+            'Prototype Cost Gate inputs are derived internally; request body must be empty',
+        },
+        { status: 400 },
+      );
+    }
+
+    const persisted =
+      await evaluateAndPersistPrototypeCostGate(
+        db,
+        prospect,
+      );
+
+    return json({
+      ok: true,
+      evaluation: prototypeCostGateResponse(persisted),
+    });
+  }
   if (request.method === 'GET' && url.pathname === '/api/overview') {
     return json(await overview(requireDb(env)));
   }
 
   if (request.method === 'GET' && url.pathname === '/api/prospects') {
-    const repo = new D1ProspectRepository(requireDb(env));
-    return json({ prospects: await repo.listProspects() });
+    const db = requireDb(env);
+    const repo = new D1ProspectRepository(db);
+    const prospects = await repo.listProspects();
+    const eventStore = new D1EventStore(db);
+    const computedAt = new Date().toISOString();
+    const engagementByProspect = new Map(
+      await Promise.all(
+        prospects.map(async (prospect) => [
+          prospect.id,
+          scoreEngagementFromMagicScriptEvents(
+            await eventStore.listByProspect(prospect.id),
+            computedAt,
+          ),
+        ] as const),
+      ),
+    );
+    const prototypeCostGateByProspect = new Map(
+      await Promise.all(
+        prospects.map(async (prospect) => [
+          prospect.id,
+          await getLatestPrototypeCostGate(db, prospect.id),
+        ] as const),
+      ),
+    );
+    return json({
+      prospects: prospects.map((prospect) => {
+        const hub = resolveSwarmHub(prospect);
+        return {
+          ...prospect,
+          hubId: hub.id,
+          businessUnit: hub.businessUnit,
+          masterOfWork: hub.masterOfWork,
+          engagement: engagementByProspect.get(prospect.id),
+          prototypeCostGate: (() => {
+            const gateRow = prototypeCostGateByProspect.get(prospect.id);
+            return gateRow ? prototypeCostGateResponse(gateRow) : null;
+          })(),
+        };
+      }),
+    });
+  }
+
+  if (request.method === 'GET' && url.pathname === '/api/sales-rooms') {
+    return json({ salesRooms: await listSalesRoomSummaries(env, requireDb(env)) });
+  }
+
+  if (request.method === 'GET' && url.pathname === '/api/public/sales-room-availability') {
+    try {
+      return json(await listPublicSalesRoomAvailability(env, requireDb(env), url));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Availability unavailable';
+      return json({ error: message }, { status: message === 'Sales Room not found' ? 404 : 400 });
+    }
+  }
+
+  if (request.method === 'POST' && url.pathname === '/api/sales-rooms/events') {
+    const body = (await request.json()) as Record<string, unknown>;
+    try {
+      return json(await recordSalesRoomEvent(env, requireDb(env), body));
+    } catch (error) {
+      return json(
+        { error: error instanceof Error ? error.message : 'Sales Room event rejected' },
+        { status: 400 },
+      );
+    }
+  }
+
+  if (
+    request.method === 'POST' &&
+    (url.pathname === '/api/public/sales-room-message' ||
+      url.pathname === '/api/public/sales-room-meeting-requested' ||
+      url.pathname === '/api/public/sales-room-event' ||
+      url.pathname === '/api/public/sales-room-booking' ||
+      url.pathname === '/api/public/sales-room-meeting-cancel' ||
+      url.pathname === '/api/public/sales-room-quote-accept')
+  ) {
+    let body: Record<string, unknown>;
+    try {
+      body = (await request.json()) as Record<string, unknown>;
+    } catch {
+      return json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
+
+    try {
+      const db = requireDb(env);
+      const result =
+        url.pathname === '/api/public/sales-room-message'
+          ? await recordPublicSalesRoomMessage(env, db, body)
+          : url.pathname === '/api/public/sales-room-meeting-requested'
+            ? await recordPublicSalesRoomMeetingRequest(env, db, body)
+            : url.pathname === '/api/public/sales-room-event'
+              ? await recordSalesRoomEvent(env, db, body)
+              : url.pathname === '/api/public/sales-room-booking'
+                ? await bookPublicSalesRoomMeeting(env, db, body)
+                : url.pathname === '/api/public/sales-room-meeting-cancel'
+                  ? await cancelPublicSalesRoomMeeting(db, body)
+                  : await acceptPublicSalesRoomQuote(env, db, body);
+      return json(result);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Sales Room action rejected';
+      const status = message === 'Sales Room not found' || message === 'Meeting not found'
+        ? 404
+        : ['SLOT_UNAVAILABLE', 'ACTIVE_MEETING_EXISTS', 'rescheduledFromMeetingId is not an active meeting'].includes(message)
+          ? 409
+          : 400;
+      return json({ error: message }, { status });
+    }
+  }
+
+  const salesRoomStatusMatch = url.pathname.match(
+    /^\/api\/sales-rooms\/([^/]+)\/(disable|enable)$/,
+  );
+  if (request.method === 'POST' && salesRoomStatusMatch) {
+    const slug = safeSalesRoomSlug(decodeURIComponent(salesRoomStatusMatch[1]));
+    if (!slug) return json({ error: 'Invalid Sales Room slug' }, { status: 400 });
+    const db = requireDb(env);
+    const summaries = await listSalesRoomSummaries(env, db);
+    const room = summaries.find((candidate) => candidate.slug === slug);
+    if (!room) return json({ error: 'Sales Room not found' }, { status: 404 });
+
+    const targetStatus: SalesRoomStatus =
+      salesRoomStatusMatch[2] === 'disable' ? 'DISABLED' : 'ACTIVE';
+    if (room.status === targetStatus) {
+      return json({ ok: true, duplicate: true, slug, status: targetStatus });
+    }
+
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId: room.prospectId,
+      actor: 'human',
+      type: targetStatus === 'DISABLED' ? 'sales_room.disabled' : 'sales_room.enabled',
+      payload: {
+        ...buildSalesRoomEventPayload({ slug }),
+        status: targetStatus,
+        owner: 'stephane',
+      },
+      createdAt: new Date().toISOString(),
+    });
+    return json({ ok: true, slug, status: targetStatus });
   }
 
   if (request.method === 'GET' && url.pathname.startsWith('/api/prospects/')) {
     const id = decodeURIComponent(url.pathname.slice('/api/prospects/'.length));
-    const repo = new D1ProspectRepository(requireDb(env));
+    const db = requireDb(env);
+    const repo = new D1ProspectRepository(db);
     const prospect = await repo.getProspect(id);
     if (!prospect) return json({ error: 'Prospect not found' }, { status: 404 });
-    return json({ prospect, contacts: await repo.listContacts(id) });
+    const prototype = await db
+      .prepare(
+        `SELECT id, prospect_id, repo_path, runner_id, status, qa_status,
+                deployment_url, build_manifest_json, qa_findings_json,
+                updated_at
+         FROM prototypes
+         WHERE prospect_id = ?
+         ORDER BY updated_at DESC
+         LIMIT 1`,
+      )
+      .bind(id)
+      .first<Record<string, unknown>>();
+    const salesRoom = (await listSalesRoomSummaries(env, db)).find(
+      (candidate) => candidate.prospectId === prospect.id,
+    );
+    const commercialLinks = buildPersonalizedEntryLinks({
+      prospectId: prospect.id,
+      companyName: prospect.companyName,
+      salesRoomSlug: salesRoom?.slug,
+      salesRoomStatus: salesRoom?.status ?? 'ACTIVE',
+      prototypeUrl: typeof prototype?.deployment_url === 'string' ? prototype.deployment_url : null,
+      prototypeStatus: typeof prototype?.status === 'string' ? prototype.status : null,
+      qaStatus: typeof prototype?.qa_status === 'string' ? prototype.qa_status : null,
+      personalizedBaseUrl: env.MAGICSCRIPT_PUBLIC_BASE_URL,
+    });
+
+    return json({
+      prospect,
+      contacts: await repo.listContacts(id),
+      prototype,
+      salesRoom: salesRoom ?? null,
+      commercialLinks,
+    });
+  }
+
+  if (request.method === 'GET' && url.pathname === '/api/meetings') {
+    return json(await listControlCenterMeetings(requireDb(env), url));
+  }
+
+  const meetingBookedMatch = url.pathname.match(
+    /^\/api\/prospects\/([^/]+)\/meeting-booked$/,
+  );
+  if (request.method === 'POST' && meetingBookedMatch) {
+    const prospectId = decodeURIComponent(meetingBookedMatch[1]);
+    const body = (await request.json()) as {
+      bookingId?: string;
+      scheduledAt?: string;
+      prospectTimezone?: string;
+    };
+    const bookingId = body.bookingId?.trim();
+    const scheduledAt = body.scheduledAt?.trim();
+    if (!bookingId || !scheduledAt || !Number.isFinite(new Date(scheduledAt).getTime())) {
+      return json(
+        { error: 'bookingId and a valid scheduledAt are required' },
+        { status: 400 },
+      );
+    }
+
+    const db = requireDb(env);
+    const repo = new D1ProspectRepository(db);
+    const prospect = await repo.getProspect(prospectId);
+    if (!prospect) return json({ error: 'Prospect not found' }, { status: 404 });
+
+    const eventStore = new D1EventStore(db);
+    const history = await eventStore.listByProspect(prospect.id);
+    const eventType = 'commercial.meeting_booked';
+    const duplicate = history.find(
+      (event) =>
+        event.type === eventType &&
+        event.payload &&
+        typeof event.payload === 'object' &&
+        (event.payload as Record<string, unknown>).bookingId === bookingId,
+    );
+    if (duplicate) {
+      return json({ ok: true, duplicate: true, prospectId, state: prospect.state });
+    }
+
+    let transition;
+    try {
+      transition = commercialTransition(prospect.state, 'MEETING_BOOKED');
+    } catch (error) {
+      return json(
+        { error: error instanceof Error ? error.message : 'Meeting booking rejected' },
+        { status: 409 },
+      );
+    }
+
+    await repo.transitionProspect(prospect.id, transition.to, transition.reason);
+    const briefing = await prepareCommercialBriefing(env, db, prospect, {
+      source: 'meeting_booking',
+      summary: 'Rendez-vous effectivement rÃƒÆ’Ã‚Â©servÃƒÆ’Ã‚Â© ; briefing commercial ÃƒÆ’Ã‚Â  traiter par StÃƒÆ’Ã‚Â©phane.',
+    });
+    const now = new Date().toISOString();
+    await eventStore.append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'system',
+      type: eventType,
+      payload: {
+        bookingId,
+        scheduledAt: new Date(scheduledAt).toISOString(),
+        prospectTimezone: body.prospectTimezone?.trim() || null,
+        nextOwner: 'stephane',
+        briefing,
+      },
+      createdAt: now,
+    });
+    await refreshPrototypeCostGateAfterObjectiveSignal(
+      db,
+      prospect.id,
+      'MEETING_BOOKED',
+      now,
+    );
+
+    await createEscalation(
+      db,
+      prospect.id,
+      'MEETING_BOOKED',
+      commercialEscalationSummary(briefing),
+    );
+
+    return json({
+      ok: true,
+      prospectId: prospect.id,
+      state: transition.to,
+      briefing,
+    });
+  }
+
+  const commercialEventMatch = url.pathname.match(
+    /^\/api\/prospects\/([^/]+)\/commercial-event$/,
+  );
+  if (request.method === 'POST' && commercialEventMatch) {
+    const prospectId = decodeURIComponent(commercialEventMatch[1]);
+    const body = (await request.json()) as {
+      event?: string;
+      quoteId?: string;
+      paymentConfirmationReference?: string;
+    };
+    const allowedEvents = new Set<CommercialEvent>([
+      'QUOTE_DRAFTED',
+      'QUOTE_ACCEPTED',
+      'DEPOSIT_CONFIRMED',
+      'STOP',
+    ]);
+    if (!body.event || !allowedEvents.has(body.event as CommercialEvent)) {
+      return json({ error: 'Unsupported commercial event' }, { status: 400 });
+    }
+
+    const event = body.event as CommercialEvent;
+    if (event === 'DEPOSIT_CONFIRMED' && !body.paymentConfirmationReference?.trim()) {
+      return json(
+        { error: 'paymentConfirmationReference is required for DEPOSIT_CONFIRMED' },
+        { status: 400 },
+      );
+    }
+
+    const db = requireDb(env);
+    const repo = new D1ProspectRepository(db);
+    const prospect = await repo.getProspect(prospectId);
+    if (!prospect) return json({ error: 'Prospect not found' }, { status: 404 });
+
+    const eventStore = new D1EventStore(db);
+    const eventType = `commercial.${event.toLowerCase()}`;
+    const history = await eventStore.listByProspect(prospect.id);
+    const duplicate = history.find((item) => item.type === eventType);
+    if (duplicate) {
+      return json({ ok: true, duplicate: true, prospectId, state: prospect.state });
+    }
+
+    let transition;
+    try {
+      transition = commercialTransition(prospect.state, event, {
+        paymentConfirmationReference: body.paymentConfirmationReference,
+      });
+    } catch (error) {
+      return json(
+        { error: error instanceof Error ? error.message : 'Commercial event rejected' },
+        { status: 409 },
+      );
+    }
+
+    await repo.transitionProspect(prospect.id, transition.to, transition.reason);
+    const now = new Date().toISOString();
+    await eventStore.append({
+      id: crypto.randomUUID(),
+      prospectId: prospect.id,
+      actor: 'human',
+      type: eventType,
+      payload: {
+        quoteId: body.quoteId?.trim() || null,
+        paymentConfirmationReference:
+          event === 'DEPOSIT_CONFIRMED'
+            ? body.paymentConfirmationReference?.trim()
+            : null,
+        humanValidationRequired: event !== 'DEPOSIT_CONFIRMED',
+      },
+      createdAt: now,
+    });
+
+    if (transition.to === 'QUOTE_PENDING' || transition.to === 'COMMITTED') {
+      await createEscalation(
+        db,
+        prospect.id,
+        transition.to,
+        transition.reason,
+      );
+    }
+
+    return json({ ok: true, prospectId: prospect.id, state: transition.to });
   }
 
   if (request.method === 'GET' && url.pathname === '/api/events') {
@@ -3534,7 +7560,8 @@ async function handle(request: Request, env: Env): Promise<Response> {
   }
 
   if (request.method === 'GET' && url.pathname === '/api/prototypes') {
-    const result = await requireDb(env)
+    const db = requireDb(env);
+    const result = await db
       .prepare(
         `SELECT
            pr.id,
@@ -3542,6 +7569,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
            p.company_name,
            pr.status,
            pr.qa_status,
+           pr.qa_findings_json,
            pr.deployment_url,
            pr.runner_id,
            pr.updated_at
@@ -3551,8 +7579,53 @@ async function handle(request: Request, env: Env): Promise<Response> {
          LIMIT 50`,
       )
       .all<Record<string, unknown>>();
+    const salesRooms = await listSalesRoomSummaries(env, db);
+    const salesRoomsByProspect = new Map(
+      salesRooms.map((room) => [room.prospectId, room]),
+    );
 
-    return json({ prototypes: result.results ?? [] });
+    const prototypes = (result.results ?? []).map((prototype) => {
+      const prospectId =
+        typeof prototype.prospect_id === 'string' ? prototype.prospect_id : '';
+      const companyName =
+        typeof prototype.company_name === 'string' ? prototype.company_name : '';
+      const salesRoom = salesRoomsByProspect.get(prospectId);
+      const links = buildPersonalizedEntryLinks({
+        prospectId,
+        companyName,
+        salesRoomSlug: salesRoom?.slug,
+        salesRoomStatus: salesRoom?.status ?? 'ACTIVE',
+        prototypeUrl:
+          typeof prototype.deployment_url === 'string'
+            ? prototype.deployment_url
+            : null,
+        prototypeStatus:
+          typeof prototype.status === 'string' ? prototype.status : null,
+        qaStatus:
+          typeof prototype.qa_status === 'string' ? prototype.qa_status : null,
+        personalizedBaseUrl: env.MAGICSCRIPT_PUBLIC_BASE_URL,
+      });
+
+      const { qa_findings_json: _qaFindings, ...publicPrototype } = prototype;
+      return {
+        ...publicPrototype,
+        web_design_status: webDesignReviewStatus(_qaFindings),
+        web_design_ready: canPromoteWithWebDesignReview(_qaFindings),
+        prototype_url: links.prototypeUrl,
+        personalized_url: links.personalizedUrl,
+        prototype_entry_url: links.prototypeEntryUrl,
+        sales_room_url: links.salesRoomUrl,
+        sales_room_slug: links.salesRoomSlug,
+        sales_room_status: links.salesRoomStatus,
+        sales_room_review_due: salesRoom?.reviewDue ?? false,
+        sales_room_review_due_at: salesRoom?.reviewDueAt ?? null,
+        sales_room_last_activity_at: salesRoom?.lastActivityAt ?? null,
+        sales_room_share_clicks: salesRoom?.shareClicks ?? 0,
+        personalized_entry_enabled: links.personalizedEntryEnabled,
+      };
+    });
+
+    return json({ prototypes });
   }
 
   if (request.method === 'GET' && url.pathname === '/api/readiness') {
@@ -3668,7 +7741,27 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
     const result = await requireDb(env)
       .prepare(
-        "SELECT id, prospect_id, category, summary, status, source_event_id, created_at, resolved_at FROM human_escalations WHERE status = 'OPEN' ORDER BY created_at DESC LIMIT ?",
+        `SELECT id, prospect_id, category, summary, status, source_event_id, created_at, resolved_at,
+                CASE category
+                  WHEN 'MEETING_BOOKED' THEN 'URGENT'
+                  WHEN 'INTERESTED' THEN 'HIGH'
+                  WHEN 'COMMITTED' THEN 'HIGH'
+                  WHEN 'QUOTE_PENDING' THEN 'HIGH'
+                  WHEN 'DORMANT' THEN 'NORMAL'
+                  ELSE 'NORMAL'
+                END AS priority
+         FROM human_escalations
+         WHERE status = 'OPEN'
+         ORDER BY CASE category
+                    WHEN 'MEETING_BOOKED' THEN 1
+                    WHEN 'INTERESTED' THEN 2
+                    WHEN 'COMMITTED' THEN 3
+                    WHEN 'QUOTE_PENDING' THEN 4
+                    WHEN 'DORMANT' THEN 5
+                    ELSE 10
+                  END,
+                  created_at DESC
+         LIMIT ?`,
       )
       .bind(limit)
       .all<Record<string, unknown>>();
@@ -3687,7 +7780,6 @@ async function handle(request: Request, env: Env): Promise<Response> {
         | 'CONTACT_DISCOVERY'
         | 'PROTOTYPE_REQUIRED'
         | 'OUTREACH_READY'
-        | 'CLOSED_WON'
         | 'CLOSED_LOST';
       note?: string;
     };
@@ -3762,7 +7854,6 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
     if (
       env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true' &&
-      body.resumeState !== 'CLOSED_WON' &&
       body.resumeState !== 'CLOSED_LOST'
     ) {
       await orchestrator(env, db).planProspect(prospect.id);
@@ -3850,7 +7941,9 @@ async function handle(request: Request, env: Env): Promise<Response> {
       prospect.state === 'EMAIL_SENT' ||
       prospect.state === 'WAITING_REPLY' ||
       prospect.state === 'FOLLOW_UP_DUE' ||
-      prospect.state === 'FOLLOW_UP_SENT'
+      prospect.state === 'FOLLOW_UP_SENT' ||
+      prospect.state === 'INTERESTED' ||
+      prospect.state === 'DORMANT'
     ) {
       await repo.transitionProspect(prospect.id, 'REPLY_RECEIVED', 'Inbound email reply received');
     }
@@ -3937,8 +8030,8 @@ async function handle(request: Request, env: Env): Promise<Response> {
              source = excluded.source`,
         )
         .bind(bouncedEmail, reason.slice(0, 1000), now)
-        .run();
-    }
+    .run();
+}
 
     const repo = new D1ProspectRepository(db);
     const prospect = await repo.getProspect(outbound.prospect_id);
@@ -3989,10 +8082,40 @@ async function handle(request: Request, env: Env): Promise<Response> {
   if (request.method === 'POST' && url.pathname === '/api/system/drain') {
     const db = requireDb(env);
     const recovery = await recoverStaleJobs(env, db);
-    const body = (await request.json().catch(() => ({}))) as { limit?: number };
+    const body = (await request.json().catch(() => ({}))) as {
+      limit?: number;
+      nowUtc?: string;
+    };
+    const prototypeCostGateJ30 =
+      await schedulePrototypeCostGateJ30Drafts(
+        env,
+        db,
+        body.nowUtc,
+      );
+    const interestFollowups =
+      await scheduleInterestFollowupDrafts(env, db);
     const followups = await scheduleDueFollowUps(env, db);
-    const drained = await drainDeterministicJobs(env, db, body.limit ?? 10);
-    return json({ recovery, followups, ...drained });
+    const meetingReminders =
+      await scheduleMeetingReminders(db);
+    const drained =
+      await drainDeterministicJobs(
+        env,
+        db,
+        body.limit ?? 10,
+      );
+    return json({
+      recovery,
+      prototypeCostGateJ30,
+      interestFollowups,
+      followups,
+      meetingReminders,
+      ...drained,
+    });
+  }
+
+  if (request.method === 'POST' && url.pathname === '/api/system/meeting-reminders') {
+    const body = (await request.json().catch(() => ({}))) as { nowUtc?: string };
+    return json(await scheduleMeetingReminders(requireDb(env), body.nowUtc));
   }
 
   if (request.method === 'POST' && url.pathname === '/api/orchestrator/plan') {
@@ -4022,8 +8145,23 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
     const now = new Date().toISOString();
     const status = body.status?.trim() || 'IDLE';
+    const currentJobId =
+      typeof body.currentJobId === 'string' && body.currentJobId.trim()
+        ? body.currentJobId.trim()
+        : null;
 
     const db = requireDb(env);
+
+    // A fresh IDLE heartbeat is also the recovery point after a runner
+    // process restart. Release every active claim owned by this runner, not
+    // only the job id cached in runners.current_job_id.
+    if (status === 'IDLE' && !currentJobId) {
+      await releaseRunnerClaims(
+        db,
+        runnerId,
+        'Runner became idle; previous active claim released for safe recovery',
+      );
+    }
 
     await db
       .prepare(
@@ -4042,7 +8180,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
         body.hostname ?? null,
         status,
         body.version ?? null,
-        body.currentJobId ?? null,
+        currentJobId,
         now,
         now,
       )
@@ -4065,6 +8203,34 @@ async function handle(request: Request, env: Env): Promise<Response> {
     }
 
     return json({ ok: true, runnerId, lastSeenAt: now });
+  }
+
+  if (request.method === 'POST' && url.pathname === '/api/runner/shutdown') {
+    const runnerId = request.headers.get('x-magicscript-runner-id')?.trim();
+    if (!runnerId) return json({ error: 'runnerId is required' }, { status: 400 });
+
+    const db = requireDb(env);
+    const releasedJobs = await releaseRunnerClaims(
+      db,
+      runnerId,
+      'Runner shutdown requested; job released for safe recovery',
+    );
+
+    await db
+      .prepare(
+        `UPDATE runners
+         SET status = 'ERROR', current_job_id = NULL, last_seen_at = ?
+         WHERE runner_id = ?`,
+      )
+      .bind(new Date().toISOString(), runnerId)
+      .run();
+
+    return json({
+      ok: true,
+      runnerId,
+      releasedJobId: releasedJobs[0]?.id ?? null,
+      releasedJobIds: releasedJobs.map((job) => job.id),
+    });
   }
 
   if (request.method === 'POST' && url.pathname === '/api/runner/jobs/claim') {
@@ -4097,17 +8263,100 @@ async function handle(request: Request, env: Env): Promise<Response> {
       }
     }
 
-    const job = await queue.next(new Date(), runnerId, runnerKinds);
+    const runnerProspectId = env.MAGICSCRIPT_RUNNER_PROSPECT_ID?.trim() || undefined;
+    const job = await queue.next(new Date(), runnerId, runnerKinds, runnerProspectId);
 
     if (!job) {
       return new Response(null, { status: 204 });
+    }
+
+    if (
+      job.kind === 'GENERATE_PROTOTYPE_STRATEGY' ||
+      job.kind === 'BUILD_PROTOTYPE'
+    ) {
+      let gateBlockReason: string | null = null;
+
+      if (!job.prospectId) {
+        gateBlockReason =
+          'Prototype job has no prospectId for Cost Gate verification';
+      } else {
+        const evaluation =
+          await getLatestPrototypeCostGate(db, job.prospectId);
+
+        const payloadAuthorization =
+          job.payload && typeof job.payload === 'object'
+            ? (job.payload as Record<string, unknown>)
+                .prototypeAuthorization
+            : undefined;
+
+        if (!evaluation) {
+          gateBlockReason =
+            'Prototype Cost Gate evaluation is missing';
+        } else if (evaluation.authorization === 'NONE') {
+          gateBlockReason =
+            'Prototype Cost Gate authorization is NONE';
+        } else if (
+          payloadAuthorization !== evaluation.authorization
+        ) {
+          gateBlockReason =
+            `Prototype Cost Gate authorization mismatch: persisted=${evaluation.authorization}, payload=${String(payloadAuthorization ?? 'MISSING')}`;
+        }
+      }
+
+      if (gateBlockReason) {
+        const now = new Date().toISOString();
+
+        await db
+          .prepare(
+            `UPDATE jobs
+             SET status = 'DEAD_LETTER',
+                 last_error = ?,
+                 claimed_by = NULL,
+                 claimed_at = NULL,
+                 updated_at = ?
+             WHERE id = ?
+               AND status = 'RUNNING'`,
+          )
+          .bind(
+            `Prototype Cost Gate blocked claimed job: ${gateBlockReason}`,
+            now,
+            job.id,
+          )
+          .run();
+
+        return json(
+          {
+            error: 'Prototype Cost Gate blocked claimed job',
+            reason: gateBlockReason,
+          },
+          { status: 409 },
+        );
+      }
+    }
+
+    const queuedHandoff =
+      job.payload && typeof job.payload === 'object'
+        ? (job.payload as Record<string, unknown>).handoff
+        : undefined;
+    if (queuedHandoff !== undefined) {
+      const handoffValidation = validateHandoff(queuedHandoff as Partial<HandoffPacket>);
+      if (!handoffValidation.accepted) {
+        await queue.markFailed(
+          job.id,
+          `Invalid queued handoff: ${handoffValidation.reasons.join('; ')}`,
+        );
+        return json(
+          { error: 'Invalid queued handoff', reasons: handoffValidation.reasons },
+          { status: 400 },
+        );
+      }
     }
 
 // Declare prototypeStrategy outside the BUILD_PROTOTYPE block so it's in scope for the return statement
 let prototypeStrategy: PrototypeStrategyResult | null = null;
 
 // For BUILD_PROTOTYPE jobs, validate that we have a successful strategy before proceeding
-if (job.kind === 'BUILD_PROTOTYPE' && job.prospectId) {
+if ((job.kind === 'BUILD_PROTOTYPE' || job.kind === 'RUN_PROTOTYPE_QA') && job.prospectId) {
   const strategyRow = await db
     .prepare(
       `SELECT jr.output_json
@@ -4253,6 +8502,50 @@ await transitionOnClaim(job, repo);
           .first<Record<string, unknown>>()
       : null;
 
+    let prototypeConversion: {
+      salesRoomUrl: string | null;
+      salesRoomSlug: string | null;
+      ctaTarget: 'SALES_ROOM';
+    } | null = null;
+
+    if (
+      job.prospectId &&
+      prospect &&
+      (
+        job.kind === 'BUILD_PROTOTYPE' ||
+        job.kind === 'RUN_PROTOTYPE_QA'
+      )
+    ) {
+      const existingRoom = (
+        await listSalesRoomSummaries(env, db)
+      ).find(
+        (candidate) =>
+          candidate.prospectId === prospect.id,
+      );
+
+      const conversionLinks =
+        buildPersonalizedEntryLinks({
+          prospectId: prospect.id,
+          companyName: prospect.companyName,
+          salesRoomSlug: existingRoom?.slug,
+          salesRoomStatus:
+            existingRoom?.status ?? 'ACTIVE',
+          personalizedBaseUrl:
+            env.MAGICSCRIPT_PUBLIC_BASE_URL,
+        });
+
+      prototypeConversion = {
+        salesRoomUrl:
+          conversionLinks.salesRoomStatus ===
+          'DISABLED'
+            ? null
+            : conversionLinks.salesRoomUrl,
+        salesRoomSlug:
+          conversionLinks.salesRoomSlug,
+        ctaTarget: 'SALES_ROOM',
+      };
+    }
+
     return json({
       job,
       prospect,
@@ -4262,6 +8555,7 @@ await transitionOnClaim(job, repo);
       latestReply,
       threadParentMessageId,
       prototypeContext,
+      prototypeConversion,
       prototypeStrategy,
     });
   }
@@ -4276,16 +8570,22 @@ await transitionOnClaim(job, repo);
     if (!messageId) return json({ error: 'messageId is required' }, { status: 400 });
 
     const job = await db
-      .prepare('SELECT id, kind, prospect_id, status FROM jobs WHERE id = ? LIMIT 1')
+      .prepare('SELECT id, kind, prospect_id, status, claimed_by FROM jobs WHERE id = ? LIMIT 1')
       .bind(jobId)
       .first<{
         id: string;
         kind: MagicScriptJob['kind'];
         prospect_id: string | null;
         status: JobStatus;
+        claimed_by: string | null;
       }>();
 
     if (!job) return json({ error: 'Job not found' }, { status: 404 });
+    const runnerId = request.headers.get('x-magicscript-runner-id')?.trim();
+    if (!runnerId) return json({ error: 'runnerId is required' }, { status: 400 });
+    if (job.claimed_by !== runnerId) {
+      return json({ error: 'Job is no longer owned by this runner' }, { status: 409 });
+    }
     if (!isExternalSendKind(job.kind)) {
       return json({ error: 'Job is not an external send job' }, { status: 400 });
     }
@@ -4386,6 +8686,18 @@ await transitionOnClaim(job, repo);
 
     if (!row) return json({ error: 'Job not found' }, { status: 404 });
 
+    const runnerId = request.headers.get('x-magicscript-runner-id')?.trim();
+    if (!runnerId) return json({ error: 'runnerId is required' }, { status: 400 });
+    if (
+      (row.status !== 'RUNNING' && row.status !== 'SENDING') ||
+      row.claimed_by !== runnerId
+    ) {
+      return json(
+        { error: 'Job is no longer owned by this runner', status: row.status },
+        { status: 409 },
+      );
+    }
+
     const job: MagicScriptJob = {
       id: row.id,
       kind: row.kind,
@@ -4427,6 +8739,22 @@ await transitionOnClaim(job, repo);
     const retryAfter = new Date(Date.now() + retryDelayMs);
     const db = requireDb(env);
     const queue = new D1JobQueue(db);
+    const runnerId = request.headers.get('x-magicscript-runner-id')?.trim();
+    if (!runnerId) return json({ error: 'runnerId is required' }, { status: 400 });
+    const ownedJob = await db
+      .prepare('SELECT status, claimed_by FROM jobs WHERE id = ? LIMIT 1')
+      .bind(jobId)
+      .first<{ status: JobStatus; claimed_by: string | null }>();
+    if (!ownedJob) return json({ error: 'Job not found' }, { status: 404 });
+    if (
+      (ownedJob.status !== 'RUNNING' && ownedJob.status !== 'SENDING') ||
+      ownedJob.claimed_by !== runnerId
+    ) {
+      return json(
+        { error: 'Job is no longer owned by this runner', status: ownedJob.status },
+        { status: 409 },
+      );
+    }
     await queue.markFailed(
       jobId,
       body.error ?? 'Runner reported failure',
@@ -4482,7 +8810,13 @@ export default {
     await recoverStaleJobs(env, env.DB);
     await enqueueDiscoveryIfNeeded(env, env.DB);
     await reconcileAutopilot(env, env.DB);
+    await schedulePrototypeCostGateJ30Drafts(
+      env,
+      env.DB,
+    );
+    await scheduleInterestFollowupDrafts(env, env.DB);
     await scheduleDueFollowUps(env, env.DB);
+    await scheduleMeetingReminders(env.DB);
     await drainDeterministicJobs(env, env.DB, 10);
   },
 };

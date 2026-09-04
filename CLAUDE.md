@@ -203,3 +203,56 @@ Privilégier les solutions gratuites ou quasi gratuites pendant la phase de cons
 La branche `main` reste stable.
 
 Les travaux de transformation V2 doivent être réalisés sur la branche `magic-script-v2` tant qu'une migration n'a pas été explicitement validée.
+
+## 12. MAGIC SCRIPT KP OPERATING FRAMEWORK — SOURCE DE VÉRITÉ
+
+Cette section est la policy opérationnelle permanente du repository. Le `AGENTS.md` racine est son point d'entrée pour Codex et référence ce fichier ; les instructions locales et les documents métier la complètent sans pouvoir en réduire les garde-fous. Les documents d'autonomie et de swarm sont subordonnés à cette source de vérité.
+
+### ENVIRONMENT
+
+- Le repository canonique est `D:\\MagicScript\\repository`. Préserver systématiquement les changements utilisateur existants et inspecter l'état Git avant une modification.
+- Aucun email prospect réel, aucun contact prospect automatique : le commercial reste `DRAFT / DRY-RUN / HUMAN VALIDATION`.
+- Sans autorisation explicite, ne jamais effectuer de commit, push, merge, rebase, reset destructif, suppression large, modification de `main`, déploiement de production, changement DNS/domaine, modification ou divulgation de secrets, ni consommation d'une API ou d'un provider payant.
+- Ne jamais effectuer de kill global Node ni toucher un processus inconnu. Préserver les données, artefacts, modèles, mappings et changements validés.
+
+### SPEC / VERIFIER
+
+- Interpréter chaque demande sous `ENVIRONMENT`, `SPEC` et `VERIFIER`. Une mission porte sur un objectif précis, avec scope, comportements attendus, contraintes, hors-scope et preuve observable ; déduire ces éléments si la demande est claire.
+- `PROVE THE GAP` avant toute création ou refonte : rechercher d'abord le comportement, le contrat ou l'artefact existant ; privilégier réutiliser, configurer, adapter, étendre légèrement, puis créer en dernier recours.
+- Chaque changement doit être minimal, directement relié à la SPEC et sans scope drift. Une création importante exige un manque démontré.
+- Après modification : preuve ciblée, test ciblé ou typecheck pertinent, puis vérification légère du diff. Les suites globales ne sont lancées qu'à un vrai jalon.
+
+### DEBUG POLICY
+
+Pour un problème : documenter le symptôme, limiter à 2–5 hypothèses, les classer, exécuter le test discriminant minimal, puis qualifier la cause `CONFIRMED`, `LIKELY` ou `UNKNOWN`. `LIKELY ≠ CONFIRMED`. Appliquer le patch minimal, vérifier la non-régression et ne jamais transformer une hypothèse en fait.
+
+### CREATION_GATE
+
+`CREATION_GATE = OPEN` lorsqu'un runtime nécessaire ou un mode local/mock/replay fonctionnel permet d'avancer, que les données sont persistables et qu'aucun email réel ni aucune action externe non autorisée ne peut être déclenché. Une anomalie non bloquante devient `MITIGATED / NON-BLOCKING` après timebox, puis le travail continue.
+
+### ÉTATS ET PROACTIVITÉ
+
+- Les tâches sont `READY`, `WAITING`, `BLOCKED` ou `DONE`. `WAITING ≠ STOP` : une tâche en attente ne doit pas empêcher l'exécution des autres tâches `READY` sûres.
+- `FIN DE TÂCHE ≠ FIN DE MISSION`. Après chaque tâche : enregistrer la preuve → réévaluer le backlog → sélectionner la meilleure tâche `READY` → l'exécuter automatiquement si elle est sûre, autorisée, non destructive, non payante et dans le scope.
+- Une demande de statut, d'avancement ou de reste-à-faire n'est pas une instruction d'arrêt. Répondre brièvement puis continuer sur la meilleure tâche `READY` déjà autorisée. Exception : l'utilisateur demande explicitement une réponse informative uniquement ou de ne rien faire pour l'instant.
+
+### PRIORISATION ET BUDGET GUARD
+
+Prioriser `P0` (sécurité, corruption, email réel, runaway, perte de données), puis `P1` (blocage runtime, queue, jobs, persistance, régression), `P2` (fonctionnalités produit et prototypes), `P3` (automatisation répétitive, performance utile, dette raisonnable), `P4` (polish et optimisation spéculative). Choisir la meilleure tâche `READY` au niveau le plus élevé.
+
+Le `Budget Guard` permanent optimise la valeur par coût de contexte : objectif, scope, preuve et tests doivent être explicites ; utiliser les outils locaux déterministes pour les calculs, contrôles, batches et cohérences, et réserver Codex aux décisions, patches et validations ciblées. Ne pas consommer Codex pour attendre un calcul local long, et ne pas relancer inutilement une suite globale.
+
+### LOCAL PREVIEW POLICY
+
+Toute preview locale utilise `127.0.0.1`, avec root limité, protection contre le path traversal, port libre, HTTP 200 confirmé, réutilisation sûre si pertinente et nettoyage des serveurs créés par la tâche. Ne jamais utiliser directement `file://`, tuer globalement Node ou toucher un processus inconnu.
+
+### DÉTERMINISME, DONNÉES ET ACTIONS EXTERNES
+
+- Utiliser une logique déterministe pour le routing, scoring par règles, permissions, états, retries, idempotence, validations, déduplication, lifecycle et actions externes. Une sortie LLM seule ne déclenche jamais une action externe irréversible.
+- Ne jamais inventer une information prospect. Si elle n'est pas suffisamment démontrée, `UNKNOWN` est une valeur valide ; conserver provenance, date de vérification, confiance et historique utile. Ne jamais supprimer une donnée validée pour simplifier le système.
+
+### STOP CONDITION
+
+Rendre la main uniquement si aucune tâche utile `READY` ne reste, ou si toutes les tâches restantes exigent une décision utilisateur, un secret, un coût, la production, DNS, destruction, un contact réel ou une autorisation externe, ou si une limite de temps explicite est atteinte. Sinon, exécuter la prochaine action `READY` déjà autorisée.
+
+Les restrictions exceptionnelles de quota ou de disponibilité propres à une semaine donnée ne deviennent pas permanentes ; seul le principe durable d'économie de contexte et de tests est conservé.

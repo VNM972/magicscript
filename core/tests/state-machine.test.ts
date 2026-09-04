@@ -12,6 +12,7 @@ test('allows the normal outreach path', () => {
 test('requires reply classification before a commercial outcome', () => {
   assert.equal(canTransition('WAITING_REPLY', 'REPLY_RECEIVED'), true);
   assert.equal(canTransition('WAITING_REPLY', 'PRICING_REQUESTED'), false);
+  assert.equal(canTransition('REPLY_RECEIVED', 'INTERESTED'), true);
   assert.equal(canTransition('REPLY_RECEIVED', 'PRICING_REQUESTED'), true);
 });
 
@@ -24,6 +25,7 @@ test('allows the prototype delivery path', () => {
   assert.equal(canTransition('PROTOTYPE_READY', 'PROTOTYPE_DEPLOYING'), true);
   assert.equal(canTransition('PROTOTYPE_DEPLOYING', 'PROTOTYPE_DEPLOYED'), true);
   assert.equal(canTransition('PROTOTYPE_DEPLOYED', 'DEMO_REPLY_READY'), true);
+  assert.equal(canTransition('PROTOTYPE_DEPLOYED', 'INTERESTED'), true);
   assert.equal(canTransition('DEMO_REPLY_READY', 'DEMO_REPLY_SENT'), true);
   assert.equal(canTransition('DEMO_REPLY_SENT', 'WAITING_REPLY'), true);
 });
@@ -40,4 +42,13 @@ test('human review can explicitly resume a prospect into the new prototype-first
   assert.equal(canTransition('HUMAN_ACTION_REQUIRED', 'PROTOTYPE_REQUIRED'), true);
   assert.equal(canTransition('HUMAN_ACTION_REQUIRED', 'OUTREACH_READY'), true);
   assert.equal(canTransition('HUMAN_ACTION_REQUIRED', 'CONTACT_DISCOVERY'), true);
+});
+
+test('commercial states preserve the deposit boundary', () => {
+  assert.equal(canTransition('INTERESTED', 'MEETING_BOOKED'), true);
+  assert.equal(canTransition('MEETING_BOOKED', 'QUOTE_PENDING'), true);
+  assert.equal(canTransition('QUOTE_PENDING', 'COMMITTED'), true);
+  assert.equal(canTransition('COMMITTED', 'WON'), true);
+  assert.equal(canTransition('QUOTE_PENDING', 'WON'), false);
+  assert.equal(canTransition('HUMAN_ACTION_REQUIRED', 'CLOSED_WON'), false);
 });

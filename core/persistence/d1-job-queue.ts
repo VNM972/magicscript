@@ -81,6 +81,7 @@ export class D1JobQueue implements JobQueue {
     now = new Date(),
     claimedBy?: string,
     allowedKinds?: readonly MagicScriptJob['kind'][],
+    prospectId?: string,
   ): Promise<MagicScriptJob | null> {
     const claimedAt = now.toISOString();
     const kinds = allowedKinds?.length ? [...allowedKinds] : null;
@@ -90,17 +91,19 @@ export class D1JobQueue implements JobQueue {
     const affinityFilter = claimedBy
       ? " AND (json_extract(payload_json, '$.requiredRunnerId') IS NULL OR json_extract(payload_json, '$.requiredRunnerId') = ?)"
       : " AND json_extract(payload_json, '$.requiredRunnerId') IS NULL";
+    const prospectFilter = prospectId ? ' AND prospect_id = ?' : '';
 
     const sql = `UPDATE jobs
       SET status = 'RUNNING',
           attempts = attempts + 1,
           claimed_by = ?,
           claimed_at = ?,
+          last_error = NULL,
           updated_at = ?
       WHERE id = (
         SELECT id
         FROM jobs
-        WHERE status = 'PENDING' AND run_after <= ?${kindFilter}${affinityFilter}
+        WHERE status = 'PENDING' AND run_after <= ?${kindFilter}${affinityFilter}${prospectFilter}
         ORDER BY ${jobKindPrioritySql('kind')} ASC, created_at ASC
         LIMIT 1
       )
@@ -114,6 +117,7 @@ export class D1JobQueue implements JobQueue {
       claimedAt,
       ...(kinds ?? []),
       ...(claimedBy ? [claimedBy] : []),
+      ...(prospectId ? [prospectId] : []),
     ];
 
     const row = await this.db
@@ -126,7 +130,14 @@ export class D1JobQueue implements JobQueue {
 
   async markSucceeded(id: string): Promise<void> {
     await this.db
-      .prepare("UPDATE jobs SET status = 'SUCCEEDED', updated_at = ? WHERE id = ?")
+      .prepare(
+        `UPDATE jobs
+         SET status = 'SUCCEEDED',
+             claimed_by = NULL,
+             claimed_at = NULL,
+             updated_at = ?
+         WHERE id = ?`,
+      )
       .bind(new Date().toISOString(), id)
       .run();
   }
@@ -155,8 +166,8 @@ export class D1JobQueue implements JobQueue {
          SET status = ?,
              run_after = ?,
              last_error = ?,
-             claimed_by = CASE WHEN ? IN ('PENDING', 'SEND_UNKNOWN') THEN NULL ELSE claimed_by END,
-             claimed_at = CASE WHEN ? IN ('PENDING', 'SEND_UNKNOWN') THEN NULL ELSE claimed_at END,
+             claimed_by = CASE WHEN ? IN ('PENDING', 'SEND_UNKNOWN', 'DEAD_LETTER') THEN NULL ELSE claimed_by END,
+             claimed_at = CASE WHEN ? IN ('PENDING', 'SEND_UNKNOWN', 'DEAD_LETTER') THEN NULL ELSE claimed_at END,
              updated_at = ?
          WHERE id = ?`,
       )
@@ -170,6 +181,37 @@ export class D1JobQueue implements JobQueue {
         id,
       )
       .run();
+  }
+
+  async releaseClaim(
+    id: string,
+    claimedBy: string,
+    reason: string,
+    runAfter = new Date(),
+  ): Promise<MagicScriptJob | null> {
+    const now = new Date().toISOString();
+    const row = await this.db
+      .prepare(
+        `UPDATE jobs
+         SET status = CASE WHEN status = 'SENDING' THEN 'SEND_UNKNOWN' ELSE 'PENDING' END,
+             attempts = CASE
+               WHEN status = 'RUNNING' AND attempts > 0 THEN attempts - 1
+               ELSE attempts
+             END,
+             run_after = ?,
+             last_error = ?,
+             claimed_by = NULL,
+             claimed_at = NULL,
+             updated_at = ?
+         WHERE id = ?
+           AND claimed_by = ?
+           AND status IN ('RUNNING', 'SENDING')
+         RETURNING *`,
+      )
+      .bind(runAfter.toISOString(), reason, now, id, claimedBy)
+      .first<JobRow>();
+
+    return row ? fromRow(row) : null;
   }
 
   async list(status?: JobStatus): Promise<MagicScriptJob[]> {

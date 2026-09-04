@@ -1,6 +1,7 @@
 export type ProspectOpportunity = 'A' | 'B' | 'C' | 'D';
 
 export type ProspectState =
+  | 'SAS_PENDING'
   | 'DISCOVERED'
   | 'RESEARCHING'
   | 'RESEARCH_COMPLETE'
@@ -18,6 +19,12 @@ export type ProspectState =
   | 'FOLLOW_UP_SENT'
   | 'REPLY_RECEIVED'
   | 'POSITIVE_REPLY'
+  | 'INTERESTED'
+  | 'MEETING_BOOKED'
+  | 'QUOTE_PENDING'
+  | 'COMMITTED'
+  | 'WON'
+  | 'DORMANT'
   | 'NEGATIVE_REPLY'
   | 'BOUNCED'
   | 'DO_NOT_CONTACT'
