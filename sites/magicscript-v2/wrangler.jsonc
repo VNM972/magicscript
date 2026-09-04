@@ -2,8 +2,10 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "magicscript-fr-v2-preview",
   "compatibility_date": "2026-08-31",
-  "assets": {
-    "directory": "./public",
-    "not_found_handling": "404-page"
+  "pages_build_output_dir": "./public",
+  "vars": {
+    "CONTACT_EMAIL_ENABLED": "false",
+    "CONTACT_TO": "contact@magicscript.fr",
+    "CONTACT_FROM": "commercial@magicscript.fr"
   }
 }

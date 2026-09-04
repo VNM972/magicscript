@@ -3,12 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07080d">
+  <meta name="theme-color" content="#111315">
   <meta name="color-scheme" content="dark">
   <meta name="description" content="Magic Script conçoit des prototypes web sur mesure, mobile-first et factuels pour aider les entreprises locales à visualiser une présence digitale plus forte.">
   <title>Magic Script — Prototypes web sur mesure</title>
-  <link rel="stylesheet" href="./styles.css">
-  <script src="./app.js" defer></script>
+  <link rel="icon" href="/assets/magic-script-favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/mpatrimoine-integration.css">
+  <link rel="stylesheet" href="/work-previews.css">
+  <script src="/app.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -18,8 +21,7 @@
 
   <header class="site-header" data-header>
     <a class="brand" href="#top" aria-label="Magic Script, retour en haut">
-      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span>Magic Script</span>
+      <img class="brand-logo" src="/assets/magic-script-logo.png" alt="Magic Script">
     </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
       <span class="sr-only">Ouvrir le menu</span>
@@ -29,6 +31,7 @@
       <a href="#method">Méthode</a>
       <a href="#work">Réalisations</a>
       <a href="#quality">Exigence</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
@@ -36,7 +39,7 @@
     <section id="top" class="hero section">
       <div class="hero-copy reveal">
         <p class="eyebrow"><span class="status-dot"></span> Prototypes web sur mesure</p>
-        <h1>Une première impression qui mérite mieux qu’un <span class="gradient-text">template générique.</span></h1>
+        <h1>Un prototype web sur mesure, pensé pour votre entreprise.</h1>
         <p class="hero-lead">
           Magic Script transforme un besoin concret en prototype web crédible, contextualisé et mobile-first,
           avec une règle simple&nbsp;: aucune information commerciale n’est inventée pour rendre le projet plus séduisant.
@@ -52,51 +55,80 @@
         </ul>
       </div>
 
-      <div class="hero-stage reveal" aria-hidden="true">
-        <div class="orbital orbital-one"></div>
-        <div class="orbital orbital-two"></div>
-        <div class="stage-card stage-card-main glass" data-tilt>
-          <div class="browser-bar"><span></span><span></span><span></span></div>
-          <div class="stage-kicker">MAGIC SCRIPT / V2</div>
-          <div class="stage-title">Prototype<br>commercial.</div>
-          <div class="stage-line"></div>
-          <div class="stage-grid">
-            <div><b>01</b><span>Recherche</span></div>
-            <div><b>02</b><span>Direction</span></div>
-            <div><b>03</b><span>QA</span></div>
+      <div class="hero-stage reveal">
+        <div class="stage-default" data-stage-default aria-hidden="true">
+          <div class="orbital orbital-one"></div>
+          <div class="orbital orbital-two"></div>
+            <div class="stage-card stage-card-main stage-commercial glass" data-tilt>
+            <div class="browser-bar"><span></span><span></span><span></span></div>
+            <div class="stage-kicker">MAGIC SCRIPT / V2</div>
+            <div class="stage-title">Prototype<br>commercial.</div>
+            <div class="stage-line"></div>
+            <div class="stage-grid" aria-label="Repères Insee sur les usages du web">
+              <div class="stage-stat"><b data-stat-value="69">69&nbsp;%</b><span>Entreprises avec un site</span></div>
+              <div class="stage-stat"><b data-stat-value="66">66&nbsp;%</b><span>Sites avec réservation ou commande</span></div>
+              <div class="stage-stat"><b data-stat-value="13">13&nbsp;%</b><span>Ventes réalisées via un site</span></div>
+            </div>
+            <div class="stage-business-note"><span class="stage-signal" aria-hidden="true"><i></i><i></i><i></i></span><span>Repères Insee · usages observés</span></div>
+          </div>
+          <div class="stage-chip glass chip-one">Navigation mobile</div>
+          <div class="stage-chip glass chip-two">Informations vérifiées</div>
+        </div>
+
+        <div class="stage-personalized" data-personalized-preview hidden>
+          <div class="personalized-preview-card glass">
+            <div class="browser-bar"><span></span><span></span><span></span></div>
+            <p class="preview-kicker">APERÇU PRÉPARÉ POUR <span data-preview-company></span></p>
+            <h2 data-preview-title></h2>
+            <p class="preview-description" data-preview-description></p>
+            <div class="preview-site-window" aria-hidden="true">
+              <div class="preview-site-top"><span data-preview-site-name></span><span>● ● ●</span></div>
+              <div class="preview-site-hero"><span data-preview-site-label></span><b data-preview-site-headline></b></div>
+              <div class="preview-site-blocks"><i></i><i></i><i></i></div>
+            </div>
+            <a class="button button-primary preview-cta" data-prototype-link href="https://snemm-2609319c.magicscript-demos-a185c139.pages.dev/" target="_blank" rel="noreferrer">Voir votre proposition</a>
+            <p class="preview-note">Une première lecture de votre présence digitale, préparée à partir d’informations vérifiées.</p>
           </div>
         </div>
-        <div class="stage-chip glass chip-one">390 px ready</div>
-        <div class="stage-chip glass chip-two">Facts only</div>
       </div>
     </section>
 
     <section id="method" class="section method-section">
       <div class="section-heading reveal">
         <p class="eyebrow">Méthode</p>
-        <h2>Le design vient après les faits.</h2>
-        <p>Le prototype n’est pas un décor plaqué. Il part du contexte réel de l’entreprise puis passe par des contrôles avant toute utilisation commerciale.</p>
+        <h2>Konfians sé zié.</h2>
+        <p>Un prototype donne envie de parler du projet. On le regarde, on réagit, puis on vérifie chaque fait avant d’aller plus loin.</p>
       </div>
       <div class="method-grid">
         <article class="method-card glass reveal">
           <span class="method-index">01</span>
-          <h3>Recherche & cadrage</h3>
-          <p>Activité, offre, présence digitale et informations publiques utiles sont recoupées avant d’orienter le prototype.</p>
+          <span class="method-visual method-visual-search" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3>Comprendre le vrai besoin</h3>
+          <p>Activité, offre et présence digitale sont recoupées pour partir d’un problème concret.</p>
         </article>
         <article class="method-card glass reveal">
           <span class="method-index">02</span>
-          <h3>Direction sur mesure</h3>
-          <p>Hiérarchie, tonalité, CTA, responsive et structure sont adaptés au besoin observé, sans copier un site existant.</p>
+          <span class="method-visual method-visual-direction" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3>Donner une direction claire</h3>
+          <p>Hiérarchie, ton, CTA et responsive transforment le besoin observé en parcours lisible.</p>
         </article>
         <article class="method-card glass reveal">
           <span class="method-index">03</span>
-          <h3>Prototype fonctionnel</h3>
-          <p>La proposition devient une interface navigable, pensée d’abord pour le mobile et les usages commerciaux concrets.</p>
+          <span class="method-visual method-visual-prototype" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3>Faire toucher le projet du doigt</h3>
+          <p>Une interface navigable permet de réagir au projet avant de parler de production.</p>
         </article>
         <article class="method-card glass reveal">
           <span class="method-index">04</span>
-          <h3>QA & validation</h3>
-          <p>Les affirmations non vérifiées, incohérences et points de friction sont bloqués avant toute diffusion à un prospect.</p>
+          <span class="method-visual method-visual-qa" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3>Vérifier avant de montrer</h3>
+          <p>Sources, cohérence, accessibilité et points de friction sont contrôlés avant diffusion.</p>
+        </article>
+        <article class="method-card glass reveal">
+          <span class="method-index">05</span>
+          <span class="method-visual method-visual-photo" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h3>Présenter les bons visuels</h3>
+          <p>Cadrage, lumière et netteté sont améliorés sans transformer ce que la photo montre.</p>
         </article>
       </div>
     </section>
@@ -109,23 +141,43 @@
       </div>
 
       <div class="work-grid">
-        <article class="work-card reveal" data-tilt>
+        <article class="work-card reveal" data-tilt tabindex="0" aria-label="Aperçu du prototype SUNELEK">
           <div class="work-visual visual-sunelek">
+            <div class="work-browser-head" aria-hidden="true"><span>MAGIC SCRIPT / V2</span><span class="work-browser-dots">•••</span></div>
             <span class="work-monogram">S</span>
             <span class="work-tag">Prototype de refonte</span>
+            <div class="work-preview preview-sunelek" aria-hidden="true">
+              <div class="preview-browser"><span class="preview-dots">•••</span><span>SUNELEK</span></div>
+              <div class="preview-hero">
+                <small>ÉNERGIE · CLIMATISATION</small>
+                <strong>Prototype de refonte</strong>
+              </div>
+              <div class="preview-lines"><i></i><i></i><i></i></div>
+              <div class="preview-blocks"><i></i><i></i><i></i></div>
+            </div>
           </div>
           <div class="work-body">
             <p class="work-meta">SUNELEK · Martinique</p>
             <h3>Clarifier une activité technique sans sur-promettre.</h3>
             <p>Prototype conservé dans Magic Script V2 pour une entreprise du secteur énergie et climatisation. Les certifications ou mentions non confirmées sont volontairement exclues.</p>
-            <span class="link-state">URL publique à revalider</span>
+            <span class="link-state">Site de référence à revalider</span>
           </div>
         </article>
 
-        <article class="work-card reveal" data-tilt>
+        <article class="work-card reveal" data-tilt tabindex="0" aria-label="Aperçu du prototype Tropic Gros Œuvre">
           <div class="work-visual visual-tropic">
+            <div class="work-browser-head" aria-hidden="true"><span>MAGIC SCRIPT / V2</span><span class="work-browser-dots">•••</span></div>
             <span class="work-monogram">TG</span>
             <span class="work-tag">Création</span>
+            <div class="work-preview preview-tropic" aria-hidden="true">
+              <div class="preview-browser"><span class="preview-dots">•••</span><span>TROPIC GROS ŒUVRE</span></div>
+              <div class="preview-hero">
+                <small>GROS ŒUVRE · MARTINIQUE</small>
+                <strong>Une présence digitale de terrain.</strong>
+              </div>
+              <div class="preview-lines"><i></i><i></i><i></i></div>
+              <div class="preview-blocks"><i></i><i></i><i></i></div>
+            </div>
           </div>
           <div class="work-body">
             <p class="work-meta">Tropic Gros Œuvre · Martinique</p>
@@ -135,33 +187,127 @@
           </div>
         </article>
 
-        <article class="work-card work-card-internal reveal" data-tilt>
+        <article class="work-card reveal" data-tilt tabindex="0" aria-label="Aperçu du site SAFIU Protection">
+          <div class="work-visual visual-safiu">
+            <div class="work-browser-head" aria-hidden="true"><span>MAGIC SCRIPT / V2</span><span class="work-browser-dots">•••</span></div>
+            <span class="work-monogram">S</span>
+            <span class="work-tag">Site vitrine</span>
+            <div class="work-preview preview-safiu" aria-hidden="true">
+              <div class="preview-browser"><span class="preview-dots">•••</span><span>SAFIU PROTECTION</span></div>
+              <img class="preview-photo" src="/assets/safiu/team-universal-aviation-wide.jpg" alt="">
+              <div class="preview-caption"><small>PRÉVENIR · ACCOMPAGNER · PROTÉGER</small><strong>Une présence qui reste humaine.</strong></div>
+            </div>
+          </div>
+          <div class="work-body">
+            <p class="work-meta">SAFIU Protection · Paris</p>
+            <h3>Présenter une expertise de protection avec clarté.</h3>
+            <p>Prototype vitrine construit autour de la mission, des équipes et d'une présentation plus immédiate du service.</p>
+            <span class="link-state">Aperçu intégré · lien public à revalider</span>
+          </div>
+        </article>
+
+        <article class="work-card work-card-internal reveal" data-tilt tabindex="0" aria-label="Aperçu du prototype M Patrimoine">
           <div class="work-visual visual-mpat">
+            <img class="work-visual-image" src="/assets/mpatrimoine/hero-enhanced.png" alt="Aperçu de l'immeuble M Patrimoine à Fort-de-France">
+            <div class="work-browser-head" aria-hidden="true"><span>MAGIC SCRIPT / V2</span><span class="work-browser-dots">•••</span></div>
             <span class="work-monogram">M</span>
             <span class="work-tag">Projet interne</span>
+            <div class="work-preview preview-mpat" aria-hidden="true">
+              <div class="preview-browser"><span class="preview-dots">•••</span><span>M PATRIMOINE</span></div>
+            <img class="preview-photo" src="/assets/mpatrimoine/hero-enhanced.png" alt="">
+              <div class="preview-caption"><small>PATRIMOINE IMMOBILIER PRIVÉ</small><strong>Un projet pensé dans la durée.</strong></div>
+            </div>
           </div>
           <div class="work-body">
             <p class="work-meta">M Patrimoine · Martinique</p>
             <h3>Construire une identité digitale patrimoniale sobre.</h3>
             <p>Réalisation interne autour d’une activité patrimoniale privée et d’un projet immobilier réel en développement. Ce cas n’est pas présenté comme un client externe.</p>
-            <span class="link-state">Prototype interne</span>
+            <a class="link-state" href="m-patrimoine.html">Ouvrir le prototype interne ↗</a>
           </div>
         </article>
       </div>
     </section>
 
+    <section id="commercial" class="section commercial-section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Usages commerciaux</p>
+        <h2>Un site rend la prochaine action évidente.</h2>
+        <p>Réserver, choisir, demander un devis : une vitrine utile transforme une visite en parcours lisible, sans promettre un résultat automatique.</p>
+      </div>
+      <div class="commercial-shell glass reveal">
+        <div class="commercial-grid">
+          <article class="commercial-card">
+            <span class="commercial-index">01</span>
+            <h3>Être visible</h3>
+            <p>Une adresse claire pour présenter l’activité, les horaires et les points de contact.</p>
+          </article>
+          <article class="commercial-card">
+            <span class="commercial-index">02</span>
+            <h3>Comprendre l’offre</h3>
+            <p>Une offre lisible et facile à parcourir depuis un téléphone, avant même le premier appel.</p>
+          </article>
+          <article class="commercial-card">
+            <span class="commercial-index">03</span>
+            <h3>Passer à l’action</h3>
+            <p>Un bouton adapté au métier : réservation, demande de devis, commande ou prise de rendez-vous.</p>
+          </article>
+        </div>
+        <div class="proof-strip">
+          <div class="proof-stat"><strong>69&nbsp;%</strong><span>des entreprises françaises de 10 salariés ou plus avaient un site web en 2023.</span></div>
+          <div class="proof-stat"><strong>66&nbsp;%</strong><span>des entreprises de l’hébergement-restauration ayant un site proposaient commande ou réservation en ligne en 2023.</span></div>
+          <div class="proof-stat"><strong>13&nbsp;%</strong><span>des ventes du secteur hébergement-restauration passaient par un site web en 2024, selon l’Insee.</span></div>
+        </div>
+        <p class="source-note">Ces chiffres décrivent des usages observés, pas une hausse garantie du chiffre d’affaires. Sources : <a href="https://www.insee.fr/fr/statistiques/8616835" target="_blank" rel="noreferrer">Insee, sites et réseaux sociaux des entreprises</a> et <a href="https://www.insee.fr/fr/statistiques/2015592" target="_blank" rel="noreferrer">Insee, commerce électronique 2024</a>.</p>
+      </div>
+    </section>
+
     <section id="quality" class="section quality-section">
-      <div class="quality-shell glass">
+      <div class="quality-shell quality-flashlight glass" data-flashlight>
         <div class="section-heading reveal">
           <p class="eyebrow">Exigence</p>
           <h2>La crédibilité fait partie du produit.</h2>
         </div>
         <div class="quality-grid">
-          <div class="quality-item reveal"><span>01</span><h3>390 px</h3><p>Conception et QA mobile sur une largeur de référence de 390 px.</p></div>
-          <div class="quality-item reveal"><span>02</span><h3>Accessibilité</h3><p>Navigation clavier, focus visibles, contraste et mouvement réduit pris en compte.</p></div>
-          <div class="quality-item reveal"><span>03</span><h3>Performance</h3><p>Effets visuels sobres, sans dépendance lourde ni animation gratuite.</p></div>
-          <div class="quality-item reveal"><span>04</span><h3>Factuel</h3><p>Aucun avis, résultat, certification ou métrique n’est créé pour servir la narration.</p></div>
+          <div class="quality-item reveal"><div class="quality-top"><span class="quality-index">01</span><span class="quality-visual quality-visual-mobile" aria-hidden="true"><i></i><i></i><i></i></span></div><h3>Navigation mobile</h3><p>Parcours, textes et boutons vérifiés sur téléphone.</p></div>
+          <div class="quality-item reveal"><div class="quality-top"><span class="quality-index">02</span><span class="quality-visual quality-visual-accessibility" aria-hidden="true"><i></i><i></i><i></i></span></div><h3>Accessibilité</h3><p>Clavier, focus visibles, contraste et mouvement réduit pris en compte.</p></div>
+          <div class="quality-item reveal"><div class="quality-top"><span class="quality-index">03</span><span class="quality-visual quality-visual-performance" aria-hidden="true"><i></i><i></i><i></i></span></div><h3>Performance</h3><p>Interface légère, stable et sans animation gratuite.</p></div>
+          <div class="quality-item reveal"><div class="quality-top"><span class="quality-index">04</span><span class="quality-visual quality-visual-factual" aria-hidden="true"><i></i><i></i><i></i></span></div><h3>Factuel</h3><p>Sources, preuves et limites restent visibles dans le discours commercial.</p></div>
         </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Parlons du projet</p>
+        <h2>Un premier échange pour parler clairement du projet.</h2>
+        <p>Décris simplement ton activité et ton besoin. Le formulaire transmettra ta demande à Magic Script, sans ouvrir ta messagerie personnelle.</p>
+      </div>
+      <div class="contact-shell glass reveal">
+        <form class="contact-form" data-contact-form>
+          <div class="contact-form-row">
+            <label>Nom
+              <input name="nom" type="text" required autocomplete="name" maxlength="160">
+            </label>
+            <label>Email
+              <input name="email" type="email" required autocomplete="email" maxlength="254">
+            </label>
+          </div>
+          <div class="contact-form-row">
+            <label>Activité
+              <input name="activite" type="text" required autocomplete="organization" maxlength="200">
+            </label>
+            <label>Téléphone <span class="contact-optional">facultatif</span>
+              <input name="telephone" type="tel" autocomplete="tel" maxlength="40">
+            </label>
+          </div>
+          <label>Votre besoin
+            <textarea name="message" rows="5" required maxlength="4000" placeholder="Décris brièvement le projet ou le site que tu veux faire avancer."></textarea>
+          </label>
+          <input class="contact-form-trap" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="button button-primary" type="submit">Envoyer ma demande</button>
+          <p class="contact-form-note">Les informations servent uniquement à répondre à ta demande. <a href="politique-confidentialite.html">Voir la politique de confidentialité</a>.</p>
+          <p class="contact-form-status" data-contact-status role="status" aria-live="polite" hidden></p>
+        </form>
       </div>
     </section>
 
@@ -170,14 +316,122 @@
         <p class="eyebrow">Magic Script</p>
         <h2>Un prototype doit donner envie de parler du projet, pas obliger à croire sur parole.</h2>
         <p>Chaque démonstration est préparée comme une base de discussion. Une entreprise n’est jamais présentée comme cliente sans fondement vérifiable.</p>
-        <a class="button button-primary" href="#top">Revoir la vitrine</a>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#top">Revoir la vitrine</a>
+          <a class="button button-ghost" href="#contact">Parler de votre projet</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section surface-section" data-sales-room hidden>
+      <div class="surface-shell">
+        <div class="surface-room-brand">
+          <p class="eyebrow">PROPOSITION PRÉPARÉE POUR <span data-room-company></span></p>
+          <img data-room-logo alt="" hidden>
+        </div>
+        <h1 data-room-title>Votre proposition</h1>
+        <p class="surface-lead" data-room-summary></p>
+        <div class="surface-grid surface-facts" data-room-facts hidden></div>
+        <article class="surface-card surface-prototype-card">
+          <div class="surface-prototype-preview" data-room-preview aria-hidden="true">
+            <span data-room-site-label></span>
+            <strong data-room-site-headline></strong>
+            <i></i><i></i><i></i>
+          </div>
+          <div class="surface-prototype-copy">
+            <span class="surface-card-label">Aperçu du prototype</span>
+            <h2>Voir la proposition imaginée pour votre activité</h2>
+            <p>Un aperçu visuel pour discuter concrètement des priorités, avant toute production.</p>
+            <a class="button button-primary" data-room-prototype href="#">Voir le prototype</a>
+            <p class="surface-note" data-room-prototype-status role="status" hidden></p>
+          </div>
+        </article>
+        <div class="surface-grid surface-improvements" data-room-improvements hidden></div>
+        <div class="surface-actions">
+          <button class="button button-primary" data-room-meeting type="button">Réserver un échange</button>
+          <a class="button button-ghost" data-room-message-link href="#room-message">Envoyer un message</a>
+          <button class="button button-ghost" data-share-toggle type="button" aria-expanded="false">Partager</button>
+        </div>
+        <p class="surface-note" data-meeting-status role="status" aria-live="polite" hidden></p>
+        <section class="communication-panel" data-communication-panel hidden aria-labelledby="communication-title">
+          <span class="surface-card-label">Choisissez votre façon de poursuivre</span>
+          <h2 id="communication-title">Comment préférez-vous avancer ?</h2>
+          <div class="communication-actions">
+            <button class="button button-primary" data-communication-mode="phone" type="button">Appel téléphonique</button>
+            <button class="button button-ghost" data-communication-mode="email" type="button">Continuer par email</button>
+          </div>
+        </section>
+        <section class="booking-panel" data-booking-panel hidden aria-labelledby="booking-title">
+          <span class="surface-card-label">Appel téléphonique · 30 minutes</span>
+          <h2 id="booking-title">Choisissez un créneau</h2>
+          <p class="surface-note">Les horaires sont affichés dans votre fuseau. Stéphane les voit automatiquement dans son fuseau parisien.</p>
+          <label>Nom <span class="contact-optional">facultatif</span>
+            <input data-booking-name type="text" autocomplete="name" maxlength="160">
+          </label>
+          <label>Téléphone
+            <input data-booking-phone type="tel" autocomplete="tel" required maxlength="40">
+          </label>
+          <div class="booking-slots" data-booking-slots role="list" aria-live="polite"></div>
+          <p class="surface-note" data-booking-status role="status" aria-live="polite"></p>
+          <div class="booking-manage" data-booking-manage hidden>
+            <button class="button button-ghost" data-booking-cancel type="button">Annuler le rendez-vous</button>
+            <p class="surface-note">Pour déplacer le rendez-vous, choisissez un autre créneau ci-dessus.</p>
+          </div>
+        </section>
+        <div class="share-options" data-share-options hidden>
+          <span>Partager via</span>
+          <button type="button" data-share-channel="whatsapp">WhatsApp</button>
+          <button type="button" data-share-channel="email">Email</button>
+          <button type="button" data-share-channel="system">Partage système</button>
+        </div>
+        <p class="surface-note" data-share-status>Le partage enregistre uniquement le clic et le canal choisi. Il ne permet pas de savoir si le lien a été reçu ou lu.</p>
+        <form class="surface-message-form" data-sales-room-message-form id="room-message" novalidate>
+          <div>
+            <p class="surface-card-label">Un échange vous intéresse ?</p>
+            <h2>Envoyer un message</h2>
+            <p class="surface-note">Votre message sera préparé pour Stéphane. Il n’y a aucune réponse automatique.</p>
+          </div>
+          <label>Nom <span class="contact-optional">facultatif</span>
+            <input name="name" type="text" autocomplete="name" maxlength="160">
+          </label>
+          <label>Email <span class="contact-optional">facultatif</span>
+            <input name="email" type="email" autocomplete="email" maxlength="254">
+          </label>
+          <input name="communicationMode" type="hidden" value="">
+          <label>Message
+            <textarea name="message" rows="5" required maxlength="4000"></textarea>
+          </label>
+          <button class="button button-primary" type="submit">Envoyer le message</button>
+          <p class="surface-note" data-message-status role="status" aria-live="polite" hidden></p>
+        </form>
+        <div class="surface-trust">
+          <span class="surface-card-label">À propos de Magic Script</span>
+          <p>Une proposition préparée à partir de l’activité réelle de l’entreprise, avec vérification des informations disponibles et validation humaine.</p>
+          <a href="/">Découvrir Magic Script</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section surface-section surface-unavailable" data-surface-unavailable hidden>
+      <div class="surface-shell unavailable-shell">
+        <p class="eyebrow">MAGIC SCRIPT</p>
+        <h1>Proposition indisponible</h1>
+        <p class="surface-lead">Ce lien n’est plus disponible ou ne correspond pas à une proposition active.</p>
+        <a class="button button-primary" href="/">Découvrir Magic Script</a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <span>Magic Script</span>
-    <span>magicscript.fr</span>
+    <div>
+      <span>Magic Script</span>
+      <span>magicscript.fr</span>
+    </div>
+    <nav class="footer-nav" aria-label="Informations légales">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="politique-confidentialite.html">Confidentialité</a>
+      <a href="cgv.html">CGV</a>
+    </nav>
   </footer>
 </body>
 </html>

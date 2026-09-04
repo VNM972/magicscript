@@ -1,0 +1,35 @@
+.work-card[tabindex="0"]{cursor:pointer}
+.work-visual{isolation:isolate;overflow:hidden}
+.work-browser-head{position:absolute;top:14px;left:16px;right:16px;z-index:2;display:flex;align-items:center;justify-content:space-between;color:rgba(255,255,255,.7);font-size:8px;font-weight:700;letter-spacing:.13em;line-height:1;transition:opacity .2s ease}
+.work-browser-dots{font-size:13px;letter-spacing:0;color:rgba(255,255,255,.55)}
+.work-card:hover .work-browser-head,.work-card:focus-visible .work-browser-head,.work-card:focus-within .work-browser-head{opacity:0}
+.work-preview{position:absolute;inset:16px;z-index:3;display:flex;flex-direction:column;gap:10px;padding:12px;border:1px solid rgba(255,255,255,.25);border-radius:18px;background:rgba(17,19,21,.88);box-shadow:0 18px 40px rgba(0,0,0,.28);opacity:0;transform:translateY(18px) scale(.96);transition:opacity .28s ease,transform .36s cubic-bezier(.2,.8,.2,1);pointer-events:none;overflow:hidden}
+.work-card:hover .work-preview,.work-card:focus-visible .work-preview,.work-card:focus-within .work-preview{opacity:1;transform:translateY(0) scale(1)}
+.work-card:hover .work-monogram,.work-card:focus-visible .work-monogram,.work-card:focus-within .work-monogram{opacity:0;transform:scale(.82)}
+.preview-browser{display:flex;align-items:center;gap:8px;min-height:18px;color:rgba(255,255,255,.72);font-size:9px;font-weight:700;letter-spacing:.12em;white-space:nowrap}
+.preview-dots{color:rgba(255,255,255,.5);font-size:13px;letter-spacing:0}
+.preview-hero{display:flex;flex:1;flex-direction:column;justify-content:center;gap:7px;padding:15px;border-radius:12px;background:linear-gradient(145deg,rgba(109,74,255,.9),rgba(31,41,55,.94) 74%);color:#fff;animation:preview-rise .7s .05s both}
+.preview-hero small,.preview-caption small{font-size:8px;font-weight:700;letter-spacing:.13em;line-height:1.4;opacity:.78}
+.preview-hero strong{max-width:90%;font-size:clamp(17px,2.4vw,25px);line-height:.98;letter-spacing:-.04em}
+.preview-lines{display:grid;gap:5px;padding:0 2px;animation:preview-fade .7s .16s both}
+.preview-lines i{display:block;width:100%;height:4px;border-radius:99px;background:rgba(255,255,255,.22)}
+.preview-lines i:nth-child(2){width:72%}.preview-lines i:nth-child(3){width:48%}
+.preview-blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;animation:preview-fade .7s .24s both}
+.preview-blocks i{display:block;height:38px;border-radius:9px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.12)}
+.preview-sunelek{background:rgba(23,47,53,.93)}
+.preview-sunelek .preview-hero{background:linear-gradient(145deg,#0c6d72,#283038 82%)}
+.preview-tropic{background:rgba(34,31,25,.94)}
+.preview-tropic .preview-hero{background:linear-gradient(145deg,#c96b24,#283038 82%)}
+.visual-safiu{background:radial-gradient(circle at 20% 20%,rgba(248,120,0,.44),transparent 42%),linear-gradient(145deg,#17343b,#111315 76%)}
+.preview-safiu{background:rgba(13,35,41,.94)}
+.preview-photo{display:block;width:100%;min-height:0;flex:1;object-fit:cover;border-radius:12px;filter:saturate(.82) contrast(1.04);animation:preview-photo-in .65s .04s both}
+.preview-caption{display:flex;flex-direction:column;gap:5px;padding:4px 2px 1px;color:#fff;animation:preview-fade .7s .16s both}
+.preview-caption strong{font-size:14px;line-height:1.05;letter-spacing:-.02em}
+.preview-mpat{background:rgba(35,29,24,.94)}
+.preview-mpat .preview-photo{max-height:52%;filter:saturate(.62) contrast(1.05)}
+.preview-mpat .preview-caption{color:#fff0df}
+@keyframes preview-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes preview-fade{from{opacity:0}to{opacity:1}}
+@keyframes preview-photo-in{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1)}}
+@media(max-width:700px){.work-preview{inset:10px;padding:10px}.preview-hero{padding:12px}.preview-hero strong{font-size:20px}.preview-blocks i{height:28px}.preview-caption strong{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.work-preview,.work-monogram,.work-browser-head,.preview-hero,.preview-lines,.preview-blocks,.preview-photo,.preview-caption{animation:none;transition:none}}
