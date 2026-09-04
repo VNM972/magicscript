@@ -2276,10 +2276,16 @@ interface CommercialQuoteRow {
   quote_id: string;
   quote_number: string;
   quote_version_hash: string;
+  canonical_json: string;
+  issue_date: string;
   valid_until: string;
+  delivery_deadline: string;
   cgv_reference: string;
+  subtotal_cents: number;
   total_cents: number;
   currency: string;
+  deposit_percent: number;
+  balance_percent: number;
 }
 
 interface QuoteAcceptanceProofRow {
@@ -2332,10 +2338,16 @@ async function commercialQuoteByProspectAndHash(
          quote_id,
          quote_number,
          quote_version_hash,
+         canonical_json,
+         issue_date,
          valid_until,
+         delivery_deadline,
          cgv_reference,
+         subtotal_cents,
          total_cents,
-         currency
+         currency,
+         deposit_percent,
+         balance_percent
        FROM commercial_quotes
        WHERE prospect_id = ? AND quote_version_hash = ?
        LIMIT 1`,
@@ -2356,10 +2368,16 @@ async function latestCommercialQuoteForProspect(
          quote_id,
          quote_number,
          quote_version_hash,
+         canonical_json,
+         issue_date,
          valid_until,
+         delivery_deadline,
          cgv_reference,
+         subtotal_cents,
          total_cents,
-         currency
+         currency,
+         deposit_percent,
+         balance_percent
        FROM commercial_quotes
        WHERE prospect_id = ?
        ORDER BY published_at DESC, created_at DESC
@@ -2382,6 +2400,163 @@ async function quoteAcceptanceProofByIdempotencyKey(
     )
     .bind(idempotencyKey)
     .first<QuoteAcceptanceProofRow>();
+}
+
+interface PublicQuoteAcceptanceRow {
+  id: string;
+  accepted_at: string;
+}
+
+function canonicalQuoteRecord(value: unknown, field: string): Record<string, unknown> {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    throw new Error(`Commercial quote ${field} is invalid`);
+  }
+  return value as Record<string, unknown>;
+}
+
+function canonicalQuoteText(
+  value: Record<string, unknown>,
+  field: string,
+): string {
+  const result = typeof value[field] === 'string' ? value[field].trim() : '';
+  if (!result) throw new Error(`Commercial quote ${field} is invalid`);
+  return result;
+}
+
+function canonicalQuoteInteger(
+  value: Record<string, unknown>,
+  field: string,
+): number {
+  const result = value[field];
+  if (!Number.isInteger(result)) {
+    throw new Error(`Commercial quote ${field} is invalid`);
+  }
+  return Number(result);
+}
+
+function publicCommercialQuote(row: CommercialQuoteRow): Record<string, unknown> {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(row.canonical_json);
+  } catch {
+    throw new Error('Commercial quote canonical payload is invalid');
+  }
+
+  const canonical = canonicalQuoteRecord(parsed, 'canonical payload');
+  const client = canonicalQuoteRecord(canonical.client, 'client');
+  const line = canonicalQuoteRecord(canonical.line, 'line');
+  const quoteId = canonicalQuoteText(canonical, 'quoteId');
+  const quoteNumber = canonicalQuoteText(canonical, 'quoteNumber');
+  const issueDate = canonicalQuoteText(canonical, 'issueDate');
+  const validUntil = canonicalQuoteText(canonical, 'validUntil');
+  const deliveryDeadline = canonicalQuoteText(canonical, 'deliveryDeadline');
+  const cgvReference = canonicalQuoteText(canonical, 'cgvReference');
+  const currency = canonicalQuoteText(canonical, 'currency');
+  const depositPercent = canonicalQuoteInteger(canonical, 'depositPercent');
+  const balancePercent = canonicalQuoteInteger(canonical, 'balancePercent');
+  const subtotalCents = canonicalQuoteInteger(canonical, 'subtotalCents');
+  const totalCents = canonicalQuoteInteger(canonical, 'totalCents');
+  const quantity = canonicalQuoteInteger(line, 'quantity');
+  const unitPriceCents = canonicalQuoteInteger(line, 'unitPriceCents');
+
+  if (
+    quoteId !== row.quote_id ||
+    quoteNumber !== row.quote_number ||
+    issueDate !== row.issue_date ||
+    validUntil !== row.valid_until ||
+    deliveryDeadline !== row.delivery_deadline ||
+    cgvReference !== row.cgv_reference ||
+    currency !== row.currency ||
+    depositPercent !== row.deposit_percent ||
+    balancePercent !== row.balance_percent ||
+    subtotalCents !== row.subtotal_cents ||
+    totalCents !== row.total_cents ||
+    quantity !== 1 ||
+    unitPriceCents !== row.subtotal_cents ||
+    currency !== 'EUR' ||
+    depositPercent !== 50 ||
+    balancePercent !== 50
+  ) {
+    throw new Error('Commercial quote canonical payload is inconsistent');
+  }
+
+  const legalName = typeof client.legalName === 'string' && client.legalName.trim()
+    ? client.legalName.trim()
+    : null;
+
+  return {
+    quoteId,
+    quoteNumber,
+    quoteVersionHash: row.quote_version_hash,
+    issueDate,
+    validUntil,
+    deliveryDeadline,
+    client: {
+      companyName: canonicalQuoteText(client, 'companyName'),
+      ...(legalName ? { legalName } : {}),
+    },
+    line: {
+      description: canonicalQuoteText(line, 'description'),
+      quantity,
+      unitPriceCents,
+    },
+    vatNote: canonicalQuoteText(canonical, 'vatNote'),
+    cgvReference,
+    currency: 'EUR',
+    depositPercent: 50,
+    balancePercent: 50,
+    subtotalCents,
+    totalCents,
+  };
+}
+
+async function getPublicSalesRoomQuote(
+  env: Env,
+  db: D1DatabaseLike,
+  url: URL,
+): Promise<Record<string, unknown>> {
+  const context = await activeSalesRoomContext(
+    env,
+    db,
+    url.searchParams.get('slug'),
+  );
+  if (!context) throw new Error('Sales Room not found');
+
+  const quote = await latestCommercialQuoteForProspect(db, context.prospect.id);
+  if (!quote) {
+    return {
+      ok: true,
+      prospectId: context.prospect.id,
+      state: context.prospect.state,
+      quote: null,
+      accepted: false,
+      acceptance: null,
+    };
+  }
+
+  const acceptance = await db
+    .prepare(
+      `SELECT id, accepted_at
+       FROM quote_acceptance_proofs
+       WHERE prospect_id = ? AND quote_id = ? AND quote_version_hash = ?
+       LIMIT 1`,
+    )
+    .bind(context.prospect.id, quote.quote_id, quote.quote_version_hash)
+    .first<PublicQuoteAcceptanceRow>();
+
+  return {
+    ok: true,
+    prospectId: context.prospect.id,
+    state: context.prospect.state,
+    quote: publicCommercialQuote(quote),
+    accepted: Boolean(acceptance),
+    acceptance: acceptance
+      ? {
+          proofReference: `quote-acceptance-proof:${acceptance.id}`,
+          acceptedAt: acceptance.accepted_at,
+        }
+      : null,
+  };
 }
 
 function quoteIsExpired(validUntil: string, now: Date): boolean {
@@ -6660,7 +6835,9 @@ async function handle(request: Request, env: Env): Promise<Response> {
       url.pathname === '/api/public/sales-room-meeting-cancel' ||
       url.pathname === '/api/public/sales-room-quote-accept');
   const publicSalesRoomRead =
-    request.method === 'GET' && url.pathname === '/api/public/sales-room-availability';
+    request.method === 'GET' &&
+    (url.pathname === '/api/public/sales-room-availability' ||
+      url.pathname === '/api/public/sales-room-quote');
 
   if (publicSalesRoomWrite) {
     const blocked = publicSalesRoomIngestionGuard(request, env);
@@ -7202,6 +7379,18 @@ async function handle(request: Request, env: Env): Promise<Response> {
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Availability unavailable';
       return json({ error: message }, { status: message === 'Sales Room not found' ? 404 : 400 });
+    }
+  }
+
+  if (request.method === 'GET' && url.pathname === '/api/public/sales-room-quote') {
+    try {
+      return json(await getPublicSalesRoomQuote(env, requireDb(env), url));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Commercial quote unavailable';
+      return json(
+        { error: message },
+        { status: message === 'Sales Room not found' ? 404 : 400 },
+      );
     }
   }
 

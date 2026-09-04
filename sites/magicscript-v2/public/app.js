@@ -115,6 +115,22 @@
     node.dataset.state = state;
   };
 
+  const formatEuro = (cents) => new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(Number(cents) / 100);
+
+  const formatQuoteDate = (value) => {
+    const date = new Date(`${value}T12:00:00.000Z`);
+    if (!Number.isFinite(date.getTime())) return String(value || '');
+    return new Intl.DateTimeFormat('fr-FR', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+      timeZone: 'UTC',
+    }).format(date);
+  };
+
   const postSalesRoomAction = async (path, payload) => {
     const configuredBase = typeof window.__MAGICSCRIPT_SALES_ROOM_API_BASE__ === 'string'
       ? window.__MAGICSCRIPT_SALES_ROOM_API_BASE__.replace(/\/$/, '')
@@ -288,10 +304,104 @@
     const bookingPhone = salesRoom.querySelector('[data-booking-phone]');
     const messageLink = salesRoom.querySelector('[data-room-message-link]');
     const communicationModeInput = messageForm?.querySelector('[name="communicationMode"]');
+    const quoteSection = salesRoom.querySelector('[data-room-quote]');
+    const quoteLoading = salesRoom.querySelector('[data-quote-loading]');
+    const quoteContent = salesRoom.querySelector('[data-quote-content]');
+    const quoteAcceptanceForm = salesRoom.querySelector('[data-quote-acceptance-form]');
+    const quoteAcceptanceStatus = salesRoom.querySelector('[data-quote-acceptance-status]');
+    const quoteAcceptanceSubmit = quoteAcceptanceForm?.querySelector('button[type="submit"]');
+    const quoteAcceptanceIdempotencyKey = localIdempotencyKey('quote-acceptance');
     const prospectTimezone = typeof window.__MAGICSCRIPT_PROSPECT_TIMEZONE__ === 'string'
       ? window.__MAGICSCRIPT_PROSPECT_TIMEZONE__
       : 'America/Martinique';
     let bookedMeetingId = null;
+
+    const setQuoteText = (selector, value) => {
+      const node = salesRoom.querySelector(selector);
+      if (node) node.textContent = String(value);
+    };
+
+    const showAcceptedQuote = (acceptance) => {
+      if (quoteAcceptanceForm) quoteAcceptanceForm.hidden = true;
+      const acceptedAt = acceptance?.acceptedAt
+        ? new Intl.DateTimeFormat('fr-FR', {
+            dateStyle: 'long',
+            timeStyle: 'short',
+          }).format(new Date(acceptance.acceptedAt))
+        : null;
+      setSurfaceStatus(
+        quoteAcceptanceStatus,
+        acceptedAt
+          ? `Bon pour accord enregistré le ${acceptedAt}.`
+          : 'Bon pour accord enregistré.',
+        'success',
+      );
+    };
+
+    const renderQuote = (result) => {
+      const quote = result?.quote;
+      const line = quote?.line;
+      const valid =
+        quote &&
+        quote.currency === 'EUR' &&
+        quote.depositPercent === 50 &&
+        quote.balancePercent === 50 &&
+        Number.isInteger(quote.totalCents) &&
+        quote.totalCents > 0 &&
+        line &&
+        typeof line.description === 'string' &&
+        line.description.trim();
+      if (!valid) throw new Error('sales_room_quote_invalid');
+
+      const depositCents = Math.round(quote.totalCents * quote.depositPercent / 100);
+      const balanceCents = quote.totalCents - depositCents;
+      setQuoteText('[data-quote-number]', quote.quoteNumber);
+      setQuoteText('[data-quote-description]', line.description);
+      setQuoteText('[data-quote-total]', formatEuro(quote.totalCents));
+      setQuoteText('[data-quote-deposit-percent]', `${quote.depositPercent} %`);
+      setQuoteText('[data-quote-deposit]', formatEuro(depositCents));
+      setQuoteText('[data-quote-balance-percent]', `${quote.balancePercent} %`);
+      setQuoteText('[data-quote-balance]', formatEuro(balanceCents));
+      setQuoteText('[data-quote-valid-until]', formatQuoteDate(quote.validUntil));
+      setQuoteText('[data-quote-delivery]', formatQuoteDate(quote.deliveryDeadline));
+      setQuoteText('[data-quote-vat-note]', quote.vatNote);
+      setQuoteText('[data-quote-cgv-reference]', ` · ${quote.cgvReference}`);
+
+      if (quoteSection) quoteSection.hidden = false;
+      if (quoteContent) quoteContent.hidden = false;
+      setSurfaceStatus(quoteLoading, '', '');
+
+      const signerName = quoteAcceptanceForm?.querySelector('[name="signerName"]');
+      const signerEmail = quoteAcceptanceForm?.querySelector('[name="signerEmail"]');
+      const signerCompany = quoteAcceptanceForm?.querySelector('[name="signerCompanyName"]');
+      if (signerName instanceof HTMLInputElement && currentFixture.contactName) {
+        signerName.value = currentFixture.contactName;
+      }
+      if (signerEmail instanceof HTMLInputElement && currentFixture.contactEmail) {
+        signerEmail.value = currentFixture.contactEmail;
+      }
+      if (signerCompany instanceof HTMLInputElement) {
+        signerCompany.value = quote.client?.companyName || currentFixture.company;
+      }
+
+      if (result.accepted === true) showAcceptedQuote(result.acceptance);
+    };
+
+    const loadQuote = async () => {
+      const query = new URLSearchParams({ slug: currentFixture.slug });
+      try {
+        const outcome = await getSalesRoomAction(`/api/public/sales-room-quote?${query.toString()}`);
+        if (outcome.mode === 'disabled' || !outcome.result.quote) return;
+        renderQuote(outcome.result);
+      } catch {
+        if (quoteSection) quoteSection.hidden = false;
+        setSurfaceStatus(
+          quoteLoading,
+          'Le devis validé n’est pas disponible actuellement.',
+          'error',
+        );
+      }
+    };
 
     const showMessageForm = (visible) => {
       if (messageForm) messageForm.hidden = !visible;
@@ -449,6 +559,80 @@
       }
     });
 
+    quoteAcceptanceForm?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (
+        !(event.currentTarget instanceof HTMLFormElement) ||
+        !(quoteAcceptanceSubmit instanceof HTMLButtonElement) ||
+        quoteAcceptanceSubmit.disabled
+      ) {
+        return;
+      }
+
+      const formData = new FormData(event.currentTarget);
+      const signerName = String(formData.get('signerName') || '').trim();
+      const signerEmail = String(formData.get('signerEmail') || '').trim();
+      const signerCompanyName = String(formData.get('signerCompanyName') || '').trim();
+      const consentGiven = formData.get('consentGiven') === 'on';
+
+      if (
+        !signerName ||
+        signerName.length > 160 ||
+        !signerEmail ||
+        signerEmail.length > 320 ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(signerEmail) ||
+        !signerCompanyName ||
+        signerCompanyName.length > 240 ||
+        !consentGiven
+      ) {
+        setSurfaceStatus(
+          quoteAcceptanceStatus,
+          'Complétez les trois champs et cochez le Bon pour accord.',
+          'error',
+        );
+        return;
+      }
+
+      quoteAcceptanceSubmit.disabled = true;
+      setSurfaceStatus(
+        quoteAcceptanceStatus,
+        'Enregistrement du Bon pour accord…',
+        'pending',
+      );
+
+      try {
+        const outcome = await postSalesRoomAction(
+          '/api/public/sales-room-quote-accept',
+          {
+            slug: currentFixture.slug,
+            idempotencyKey: quoteAcceptanceIdempotencyKey,
+            signerName,
+            signerEmail,
+            signerCompanyName,
+            consentGiven: true,
+          },
+        );
+        if (outcome.mode === 'disabled') {
+          setSurfaceStatus(
+            quoteAcceptanceStatus,
+            'La validation n’est pas activée sur cet aperçu. Aucun accord n’a été enregistré.',
+            'neutral',
+          );
+          return;
+        }
+        recordLocalEngagement('QUOTE_ACCEPTED', { persisted: true });
+        showAcceptedQuote({ acceptedAt: new Date().toISOString() });
+      } catch {
+        setSurfaceStatus(
+          quoteAcceptanceStatus,
+          'Le Bon pour accord n’a pas pu être enregistré. Aucun paiement n’a été déclenché.',
+          'error',
+        );
+      } finally {
+        quoteAcceptanceSubmit.disabled = false;
+      }
+    });
+
     messageForm?.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!(event.currentTarget instanceof HTMLFormElement) || !(messageSubmit instanceof HTMLButtonElement)) return;
@@ -501,6 +685,7 @@
     const messageEmail = salesRoom.querySelector('[name="email"]');
     if (messageName && currentFixture.contactName) messageName.value = currentFixture.contactName;
     if (messageEmail && currentFixture.contactEmail) messageEmail.value = currentFixture.contactEmail;
+    void loadQuote();
   };
 
   if (surfaceKind === 'PROSPECT_PROTOTYPE') {

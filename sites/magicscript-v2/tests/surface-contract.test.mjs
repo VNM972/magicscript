@@ -4,6 +4,7 @@ import test from 'node:test';
 
 const app = readFileSync(new URL('../public/app.js', import.meta.url), 'utf8');
 const index = readFileSync(new URL('../public/index.html', import.meta.url), 'utf8');
+const styles = readFileSync(new URL('../public/styles.css', import.meta.url), 'utf8');
 
 test('keeps the public brand, prototype and Sales Room surfaces distinct', () => {
   assert.match(app, /PUBLIC_BRAND_SITE/);
@@ -43,13 +44,31 @@ test('records only local engagement facts and avoids delivery or read claims', (
   assert.doesNotMatch(app, /message a été reçu|message a été lu|destinataire a lu/i);
 });
 
-test('keeps factual content bounded and never exposes price before human exchange', () => {
+test('keeps factual content bounded and exposes no hard-coded commercial price', () => {
   assert.match(app, /facts:/);
   assert.match(app, /improvements:/);
   assert.match(app, /safeItems\.length === 0/);
   assert.match(index, /aucune réponse automatique/i);
-  assert.doesNotMatch(index, /590|990|1490|prix|tarif|forfait|mensual/i);
-  assert.doesNotMatch(app, /590|990|1490|prix|tarif|forfait|mensual/i);
+  assert.doesNotMatch(index, /790|1190|1690|2290/);
+  assert.doesNotMatch(app, /790|1190|1690|2290/);
+});
+
+test('renders the server-published quote and records an explicit Bon pour accord only', () => {
+  assert.match(index, /data-room-quote/);
+  assert.match(index, /data-quote-total/);
+  assert.match(index, /data-quote-acceptance-form/);
+  assert.match(index, /name="signerName"[^>]*required/);
+  assert.match(index, /name="signerEmail"[^>]*required/);
+  assert.match(index, /name="signerCompanyName"[^>]*required/);
+  assert.match(index, /name="consentGiven"[^>]*required/);
+  assert.match(index, /Aucun paiement n’est déclenché/);
+  assert.match(app, /\/api\/public\/sales-room-quote\?/);
+  assert.match(app, /\/api\/public\/sales-room-quote-accept/);
+  assert.match(app, /outcome\.result\.quote/);
+  assert.match(app, /quoteAcceptanceIdempotencyKey/);
+  assert.match(app, /consentGiven:\s*true/);
+  assert.match(app, /Aucun paiement n’a été déclenché/);
+  assert.doesNotMatch(app, /stripe|paypal|checkout|payment_intent/i);
 });
 
 test('keeps Sales Room actions human-reviewed and mobile-safe', () => {
@@ -57,7 +76,8 @@ test('keeps Sales Room actions human-reviewed and mobile-safe', () => {
   assert.match(app, /Aucun rendez-vous n’est simulé/);
   assert.match(app, /messageSubmit\.disabled = true/);
   assert.match(index, /required maxlength="4000"/);
-  assert.match(readFileSync(new URL('../public/styles.css', import.meta.url), 'utf8'), /@media\s*\(max-width:\s*700px\)[\s\S]*surface-prototype-card/s);
+  assert.match(styles, /@media\s*\(max-width:\s*700px\)[\s\S]*surface-prototype-card/s);
+  assert.match(styles, /@media\s*\(max-width:\s*700px\)[\s\S]*surface-quote-summary/s);
   assert.match(app, /America\/Martinique/);
 });
 

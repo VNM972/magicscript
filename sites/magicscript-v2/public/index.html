@@ -347,6 +347,71 @@
           </div>
         </article>
         <div class="surface-grid surface-improvements" data-room-improvements hidden></div>
+        <section class="surface-quote" data-room-quote hidden aria-labelledby="quote-title">
+          <div class="surface-quote-heading">
+            <div>
+              <span class="surface-card-label">Devis Magic Script</span>
+              <h2 id="quote-title">Votre proposition commerciale</h2>
+            </div>
+            <strong class="surface-quote-number" data-quote-number></strong>
+          </div>
+          <p class="surface-note" data-quote-loading role="status" aria-live="polite">Chargement du devis validé…</p>
+          <div data-quote-content hidden>
+            <dl class="surface-quote-summary">
+              <div>
+                <dt>Prestation</dt>
+                <dd data-quote-description></dd>
+              </div>
+              <div>
+                <dt>Total</dt>
+                <dd data-quote-total></dd>
+              </div>
+              <div>
+                <dt>Acompte prévu</dt>
+                <dd><span data-quote-deposit-percent></span> · <span data-quote-deposit></span></dd>
+              </div>
+              <div>
+                <dt>Solde prévu</dt>
+                <dd><span data-quote-balance-percent></span> · <span data-quote-balance></span></dd>
+              </div>
+              <div>
+                <dt>Validité du devis</dt>
+                <dd data-quote-valid-until></dd>
+              </div>
+              <div>
+                <dt>Délai de livraison prévu</dt>
+                <dd data-quote-delivery></dd>
+              </div>
+            </dl>
+            <p class="surface-quote-legal" data-quote-vat-note></p>
+            <p class="surface-quote-legal">
+              <a href="/cgv.html" target="_blank" rel="noopener">Consulter les CGV</a>
+              <span data-quote-cgv-reference></span>
+            </p>
+            <form class="surface-quote-form" data-quote-acceptance-form novalidate>
+              <div>
+                <span class="surface-card-label">Bon pour accord</span>
+                <h3>Valider ce devis</h3>
+                <p class="surface-note">Cette validation enregistre votre accord sur cette version précise du devis. Aucun paiement n’est déclenché.</p>
+              </div>
+              <label>Nom du signataire
+                <input name="signerName" type="text" autocomplete="name" required maxlength="160">
+              </label>
+              <label>Email du signataire
+                <input name="signerEmail" type="email" autocomplete="email" required maxlength="320">
+              </label>
+              <label>Entreprise
+                <input name="signerCompanyName" type="text" autocomplete="organization" required maxlength="240">
+              </label>
+              <label class="surface-quote-consent">
+                <input name="consentGiven" type="checkbox" required>
+                <span>Bon pour accord. Je confirme avoir lu le devis et les CGV applicables.</span>
+              </label>
+              <button class="button button-primary" type="submit">Valider le Bon pour accord</button>
+            </form>
+            <p class="surface-note" data-quote-acceptance-status role="status" aria-live="polite" hidden></p>
+          </div>
+        </section>
         <div class="surface-actions">
           <button class="button button-primary" data-room-meeting type="button">Réserver un échange</button>
           <a class="button button-ghost" data-room-message-link href="#room-message">Envoyer un message</a>

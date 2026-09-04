@@ -702,6 +702,25 @@ test('WP-09 publishes fixed canonical quotes only with server legal configuratio
   assert.equal(published.body.depositPercent, 50);
   assert.equal(published.body.balancePercent, 50);
   assert.equal(published.body.state, 'QUOTE_PENDING');
+  const publicQuote = await responseJson(
+    await request(
+      '/api/public/sales-room-quote?slug=wp09-publish-fixture',
+      'GET',
+      undefined,
+      fixed.env,
+    ),
+  );
+  assert.equal(publicQuote.status, 200);
+  assert.equal(publicQuote.body.accepted, false);
+  assert.equal(publicQuote.body.state, 'QUOTE_PENDING');
+  assert.equal(publicQuote.body.quote.quoteNumber, 'MS-prospect-wp09-publish');
+  assert.equal(publicQuote.body.quote.line.description, 'Essentiel / Croissance');
+  assert.equal(publicQuote.body.quote.totalCents, 119000);
+  assert.equal(publicQuote.body.quote.currency, 'EUR');
+  assert.equal(publicQuote.body.quote.depositPercent, 50);
+  assert.equal(publicQuote.body.quote.balancePercent, 50);
+  assert.equal(publicQuote.body.quote.cgvReference, 'CGV-PRODUCTION-REFERENCE');
+  assert.equal('canonicalJson' in publicQuote.body.quote, false);
   const quote = fixed.db.database
     .prepare('SELECT * FROM commercial_quotes WHERE prospect_id = ?')
     .get('prospect-wp09-publish');
@@ -727,6 +746,35 @@ test('WP-09 publishes fixed canonical quotes only with server legal configuratio
       .get('prospect-wp09-publish').count,
     1,
   );
+
+  const accepted = await responseJson(
+    await request('/api/public/sales-room-quote-accept', 'POST', {
+      slug: 'wp09-publish-fixture',
+      idempotencyKey: 'wp09-publish-acceptance',
+      signerName: 'Jean Dupont',
+      signerEmail: 'jean@example.test',
+      signerCompanyName: 'WP09 Publish Fixture',
+      consentGiven: true,
+    }, fixed.env),
+  );
+  assert.equal(accepted.status, 200);
+  assert.equal(accepted.body.state, 'COMMITTED');
+
+  const acceptedPublicQuote = await responseJson(
+    await request(
+      '/api/public/sales-room-quote?slug=wp09-publish-fixture',
+      'GET',
+      undefined,
+      fixed.env,
+    ),
+  );
+  assert.equal(acceptedPublicQuote.status, 200);
+  assert.equal(acceptedPublicQuote.body.accepted, true);
+  assert.match(
+    acceptedPublicQuote.body.acceptance.proofReference,
+    /^quote-acceptance-proof:/,
+  );
+  assert.equal(acceptedPublicQuote.body.state, 'COMMITTED');
   fixed.db.close();
 
   const missingLegal = await setup(

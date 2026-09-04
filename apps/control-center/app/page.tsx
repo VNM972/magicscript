@@ -184,14 +184,14 @@ export default async function Page() {
     },
     {
       label: 'Signature',
-      detail: 'Document à connecter',
-      state: 'À PRÉPARER',
-      href: '#documents',
+      detail: 'Bon pour accord dans la Sales Room',
+      state: 'RELIÉ',
+      href: '#sales-rooms',
     },
     {
       label: 'Facturation',
-      detail: 'Acompte / solde',
-      state: 'À PRÉPARER',
+      detail: 'Paiement provider non connecté',
+      state: 'HORS MISSION',
       href: '#documents',
     },
     {
@@ -392,15 +392,15 @@ export default async function Page() {
             <span>{data.prototypes.length ? `${demosReadyForLinks} démo(s) avec lien` : 'Aucun prototype visible'}</span>
             <small>Web Design gate · QA · liens vérifiés</small>
           </a>
-          <a className="documentCard documentCardWaiting" href="#commercial">
+          <a className="documentCard" href="#sales-rooms">
             <strong>Devis & proposition</strong>
-            <span>À relier au module documentaire</span>
-            <small>Validation humaine avant envoi</small>
+            <span>Publication canonique reliée</span>
+            <small>Validation humaine avant publication</small>
           </a>
-          <a className="documentCard documentCardWaiting" href="#commercial">
-            <strong>Contrat · signature · facture</strong>
-            <span>À préparer dans le track automatisation</span>
-            <small>Acompte 50 % · solde avant mise en ligne</small>
+          <a className="documentCard" href="#sales-rooms">
+            <strong>Bon pour accord</strong>
+            <span>Acceptation et preuve reliées</span>
+            <small>Aucun paiement déclenché dans cette mission</small>
           </a>
         </div>
       </section>
