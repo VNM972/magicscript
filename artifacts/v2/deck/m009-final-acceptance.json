@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "visibleProposalIds": [
+    "proposal-m009-a",
+    "proposal-m009-b"
+  ],
+  "hiddenNonReadyIds": [
+    "proposal-m009-hidden-ingested",
+    "proposal-m009-hidden-draft"
+  ],
+  "proposalLink": {
+    "path": "/p/m009-a",
+    "status": 200
+  },
+  "engagementUi": {
+    "viewed": true,
+    "returned": true,
+    "shared": true,
+    "meetingBooked": true
+  },
+  "absence": {
+    "engagementScore": true,
+    "legacyPanels": true,
+    "sendAction": true
+  },
+  "screenshotPath": "D:\\MagicScript\\repository\\artifacts\\v2\\deck\\m009-deck-desktop.png",
+  "fixture": "deterministic-local-api",
+  "productionBuild": "PASS"
+}

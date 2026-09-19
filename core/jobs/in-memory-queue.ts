@@ -19,6 +19,8 @@ export class InMemoryJobQueue implements JobQueue {
       updatedAt: now,
     };
 
+    const existing = this.jobs.get(job.id);
+    if (existing) return existing as MagicScriptJob<TPayload>;
     this.jobs.set(job.id, job as MagicScriptJob);
     return job;
   }

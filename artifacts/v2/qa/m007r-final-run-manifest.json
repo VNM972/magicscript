@@ -1,0 +1,14 @@
+{
+  "acceptanceRunner": "scripts/m007r-final-acceptance.mts",
+  "buildId": "build-artifact-dr-m007-cafe-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+  "designArtifactId": "artifact-dr-m007-cafe-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+  "distPath": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\prospect-m007-cafe\\artifact-dr-m007-cafe-design_request_v1-design_artifact_v1-r1\\dist",
+  "browserExecutable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "preview": "scripts/local-preview-server.cjs loopback 127.0.0.1",
+  "viewports": ["1440x900", "390x844"],
+  "scenarios": ["known-good PASS", "injected mobile overflow CORRECTION_REQUIRED", "Builder correction revision 2", "corrected browser PASS", "QA/correction/build replay", "three-attempt limit"],
+  "expectedScreenshots": ["desktop.png", "mobile.png", "defect/mobile.png", "corrected/desktop.png", "corrected/mobile.png"],
+  "expectedArtifacts": ["artifacts/v2/qa/m007r-final-acceptance.json", "qa-report-good.json", "qa-report-corrected.json", "build-correction-request.json"],
+  "safety": {"loopbackOnly": true, "deployment": false, "proposal": false, "deck": false, "outreach": false, "dns": false},
+  "requiresElevatedProcessAccess": ["tsx/esbuild child process", "Chrome/CDP child process"]
+}

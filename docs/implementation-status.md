@@ -180,18 +180,18 @@ The Amen adapter includes:
 - threaded follow-ups and demo replies;
 - forwarding replies to the response-classification pipeline.
 
-### Autonomous follow-ups
+### V1 follow-up capability (QUARANTINED for V2)
 
-Implemented:
+The following backend capability remains available for compatibility and controlled dry-run testing, but is not an active V2 commercial behavior:
 
 - configurable daily send limit;
 - max follow-up count;
-- D+3 first follow-up by default;
-- D+5 second follow-up by default;
+- D+3/D+5 scheduling primitives;
 - suppression-list check before scheduling;
-- automatic stop after a reply;
-- reply threading;
+- reply threading and IMAP ingestion;
 - Control Center visibility.
+
+M001 freezes the V2 rule: follow-up drafts may be prepared, but no commercial follow-up or initial outreach is sent without explicit operator action (`operator-send` provenance).
 
 ### Prototype pipeline
 
@@ -286,3 +286,20 @@ No real prospect must receive an email until all of the following are true:
 - bounce/reply ingestion works, including hard-bounce suppression;
 - prototype QA works when a demo is generated;
 - real sending is explicitly approved.
+
+## Local delta validation — 2026-09-05
+
+Validated locally without email, deployment, DNS or remote Cloudflare access:
+
+- WP09 Sales Room legal/public checks pass after removing an inert `href="#"`; the validated URL is still injected only when a prototype is available;
+- canonical pricing remains centralized at Starter 790 EUR, Essentiel 1,190 EUR, Business 1,690 EUR, Premium from 2,290 EUR, with annual infrastructure at 199 EUR and custom scope fail-closed;
+- queued HandoffPacket data is validated before runner execution, with an invalid packet rejected and terminally dead-lettered when its retry budget is exhausted;
+- six structured WP12 Design Directions are available through a deterministic sector selector and are attached to prototype strategy/build claims as internal visual constraints, never as prospect evidence;
+- local Ollama strategy and QA calls use JSON Schema constrained outputs with temperature 0; the default local model remains `qwen2.5-coder:3b`;
+- the three public surfaces pass the existing 390 px loopback browser QA.
+
+Current limitations:
+
+- automated browser QA is not a complete WCAG audit;
+- a repository-native LocalBusiness/SEO generator is not yet present, so no duplicate SEO system was added;
+- the existing live Control Center holds the default `.next` directory; the production build was validated with an isolated temporary output directory.

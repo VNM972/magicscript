@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "proposalId": "proposal-build-artifact-dr-m008-cafe-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-PROPOSAL_V1",
+  "prospectId": "prospect-m008-cafe",
+  "buildId": "build-artifact-dr-m008-cafe-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+  "qaReportId": "qa-build-artifact-dr-m008-cafe-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+  "trackedProposalPath": "/p/0kr0hh80pppfbc",
+  "firstView": "PROPOSAL_VIEWED",
+  "returnVisit": "RETURN_VISIT",
+  "share": "SHARE_CLICKED",
+  "bookingPath": "/api/public/proposals/0kr0hh80pppfbc/booking",
+  "idempotence": {
+    "proposal": true
+  },
+  "safety": {
+    "correctBuild": true,
+    "privateDataExposed": false,
+    "salesRoomRequired": false,
+    "outreach": false,
+    "deployment": false
+  },
+  "runtime": {
+    "httpStatus": 200,
+    "htmlServed": true
+  }
+}

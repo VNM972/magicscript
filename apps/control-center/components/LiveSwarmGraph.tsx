@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 export interface LiveSwarmAgent {
   id: string;
@@ -34,48 +34,131 @@ interface LiveSwarmGraphProps {
   runningJobCount: number;
 }
 
-interface SwarmPosition {
+type RuntimeState = 'ACTIVE' | 'IDLE' | 'BLOCKED' | 'UNKNOWN';
+
+interface Point {
+  originX: number;
+  originY: number;
   x: number;
   y: number;
   z: number;
+  vx: number;
+  vy: number;
+  vz: number;
+  depth: number;
+  phase: number;
 }
 
-interface ProjectedPosition extends SwarmPosition {
-  px: number;
-  py: number;
-  scale: number;
-  opacity: number;
+interface Lobe {
+  x: number;
+  y: number;
+  rx: number;
+  ry: number;
 }
 
-const positions: Record<string, SwarmPosition> = {
-  'discovery-scout': { x: 132, y: 112, z: 0.52 },
-  'research-analyst': { x: 302, y: 70, z: 0.06 },
-  'contact-hunter': { x: 482, y: 54, z: -0.24 },
-  'outreach-writer': { x: 690, y: 91, z: 0.12 },
-  'fact-checker': { x: 850, y: 160, z: 0.48 },
-  'prototype-strategist': { x: 832, y: 332, z: 0.18 },
-  'prototype-builder': { x: 672, y: 406, z: 0.58 },
-  'mobile-ux': { x: 482, y: 438, z: -0.18 },
-  'conversion-checker': { x: 292, y: 398, z: 0.34 },
-  'technical-checker': { x: 132, y: 332, z: 0.44 },
-  'reply-classifier': { x: 82, y: 232, z: -0.08 },
+interface TerritoryLayout {
+  label: string;
+  cx: number;
+  cy: number;
+  lobes: Lobe[];
+}
+
+interface Territory {
+  id: string;
+  label: string;
+  members: LiveSwarmAgent[];
+  points: Point[];
+  edges: Array<[number, number]>;
+  prospectCount: number;
+  blockedCount: number;
+  state: RuntimeState;
+}
+
+interface SemanticPosition {
+  id: string;
+  label: string;
+  group: string;
+  x: number;
+  y: number;
+  state: RuntimeState;
+  detail: string;
+  prospectCount: number;
+}
+
+const WIDTH = 1280;
+const HEIGHT = 720;
+
+const territoryLayouts: Record<string, TerritoryLayout> = {
+  PROSPECTION: {
+    label: 'PROSPECTION', cx: 150, cy: 185,
+    lobes: [
+      { x: -46, y: -22, rx: 92, ry: 112 },
+      { x: 38, y: -48, rx: 86, ry: 70 },
+      { x: 25, y: 58, rx: 112, ry: 82 },
+      { x: -78, y: 72, rx: 58, ry: 72 },
+    ],
+  },
+  RESEARCH: {
+    label: 'RESEARCH', cx: 405, cy: 108,
+    lobes: [
+      { x: -68, y: 6, rx: 82, ry: 56 },
+      { x: 10, y: -24, rx: 102, ry: 70 },
+      { x: 84, y: 20, rx: 58, ry: 84 },
+    ],
+  },
+  CONTACT: {
+    label: 'CONTACT', cx: 245, cy: 485,
+    lobes: [
+      { x: -62, y: -50, rx: 78, ry: 84 },
+      { x: 20, y: -4, rx: 116, ry: 92 },
+      { x: -18, y: 72, rx: 86, ry: 62 },
+      { x: 84, y: 52, rx: 54, ry: 74 },
+    ],
+  },
+  ORCHESTRATION: {
+    label: 'ORCHESTRATION', cx: 565, cy: 625,
+    lobes: [
+      { x: -54, y: -6, rx: 82, ry: 54 },
+      { x: 18, y: -26, rx: 88, ry: 64 },
+      { x: 72, y: 16, rx: 62, ry: 48 },
+    ],
+  },
+  PROTOTYPE: {
+    label: 'PROTOTYPE', cx: 850, cy: 570,
+    lobes: [
+      { x: -78, y: -26, rx: 82, ry: 84 },
+      { x: 6, y: 12, rx: 118, ry: 96 },
+      { x: 92, y: -36, rx: 58, ry: 78 },
+      { x: 52, y: 70, rx: 78, ry: 52 },
+    ],
+  },
+  'QA SWARM': {
+    label: 'QA SWARM', cx: 1090, cy: 400,
+    lobes: [
+      { x: -58, y: -70, rx: 78, ry: 82 },
+      { x: 28, y: -40, rx: 92, ry: 70 },
+      { x: -16, y: 42, rx: 124, ry: 92 },
+      { x: 72, y: 72, rx: 66, ry: 76 },
+    ],
+  },
+  COMMERCIAL: {
+    label: 'COMMERCIAL', cx: 1080, cy: 126,
+    lobes: [
+      { x: -76, y: 4, rx: 72, ry: 82 },
+      { x: 0, y: -24, rx: 104, ry: 72 },
+      { x: 78, y: 24, rx: 68, ry: 94 },
+      { x: 12, y: 64, rx: 92, ry: 48 },
+    ],
+  },
+  GUARDRAIL: {
+    label: 'GUARDRAIL', cx: 770, cy: 88,
+    lobes: [
+      { x: -54, y: 6, rx: 76, ry: 52 },
+      { x: 28, y: -16, rx: 98, ry: 66 },
+      { x: 72, y: 34, rx: 54, ry: 68 },
+    ],
+  },
 };
-
-const secondaryEdges: Array<[string, string]> = [
-  ['discovery-scout', 'research-analyst'],
-  ['research-analyst', 'contact-hunter'],
-  ['contact-hunter', 'outreach-writer'],
-  ['outreach-writer', 'fact-checker'],
-  ['fact-checker', 'prototype-strategist'],
-  ['prototype-strategist', 'prototype-builder'],
-  ['prototype-builder', 'technical-checker'],
-  ['prototype-builder', 'mobile-ux'],
-  ['prototype-builder', 'conversion-checker'],
-  ['mobile-ux', 'conversion-checker'],
-  ['conversion-checker', 'technical-checker'],
-  ['reply-classifier', 'outreach-writer'],
-];
-
 
 const prospectStateAgent: Record<string, string> = {
   DISCOVERED: 'discovery-scout',
@@ -108,81 +191,98 @@ const prospectStateAgent: Record<string, string> = {
   PROTOTYPE_DEPLOYED: 'prototype-builder',
   DEMO_REPLY_READY: 'outreach-writer',
   DEMO_REPLY_SENT: 'reply-classifier',
-  HOT_LEAD: 'orchestrator',
-  MEETING_REQUESTED: 'orchestrator',
-  PRICING_REQUESTED: 'orchestrator',
-  CUSTOM_REQUEST: 'orchestrator',
-  INTERESTED: 'orchestrator',
-  MEETING_BOOKED: 'orchestrator',
-  QUOTE_PENDING: 'orchestrator',
-  COMMITTED: 'orchestrator',
-  WON: 'orchestrator',
-  DORMANT: 'orchestrator',
-  HUMAN_ACTION_REQUIRED: 'orchestrator',
-  DISQUALIFIED: 'orchestrator',
-  DO_NOT_CONTACT: 'orchestrator',
-  CLOSED_WON: 'orchestrator',
-  CLOSED_LOST: 'orchestrator',
 };
+
+const semanticHandoffs: Array<[string, string]> = [
+  ['discovery-scout', 'research-analyst'],
+  ['research-analyst', 'contact-hunter'],
+  ['contact-hunter', 'outreach-writer'],
+  ['outreach-writer', 'fact-checker'],
+  ['fact-checker', 'prototype-strategist'],
+  ['prototype-strategist', 'prototype-builder'],
+  ['prototype-builder', 'technical-checker'],
+  ['prototype-builder', 'mobile-ux'],
+  ['prototype-builder', 'conversion-checker'],
+  ['mobile-ux', 'conversion-checker'],
+  ['conversion-checker', 'technical-checker'],
+  ['reply-classifier', 'outreach-writer'],
+];
 
 function stableHash(value: string): number {
   let hash = 2166136261;
-  for (let i = 0; i < value.length; i += 1) {
-    hash ^= value.charCodeAt(i);
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
     hash = Math.imul(hash, 16777619);
   }
   return hash >>> 0;
 }
 
-function project(position: SwarmPosition): ProjectedPosition {
-  const depth = (position.z + 0.3) / 1.0;
-  const scale = 0.82 + Math.max(0, Math.min(1, depth)) * 0.34;
-  const perspectiveX = 480 + (position.x - 480) * scale;
-  const perspectiveY = 245 + (position.y - 245) * (0.86 + scale * 0.12) - position.z * 18;
-
-  return {
-    ...position,
-    px: perspectiveX,
-    py: perspectiveY,
-    scale,
-    opacity: 0.58 + Math.max(0, Math.min(1, depth)) * 0.42,
+function seededRandom(seed: number): () => number {
+  let state = seed || 1;
+  return () => {
+    state = Math.imul(state ^ (state >>> 15), 1 | state);
+    state ^= state + Math.imul(state ^ (state >>> 7), 61 | state);
+    return ((state ^ (state >>> 14)) >>> 0) / 4294967296;
   };
 }
 
-function curvedPath(
-  from: ProjectedPosition,
-  to: ProjectedPosition,
-  index: number,
-): string {
-  const mx = (from.px + to.px) / 2;
-  const my = (from.py + to.py) / 2;
-  const dx = to.px - from.px;
-  const dy = to.py - from.py;
-  const distance = Math.max(1, Math.hypot(dx, dy));
-  const bend = ((index % 5) - 2) * 6;
-  const cx = mx + (-dy / distance) * bend;
-  const cy = my + (dx / distance) * bend;
-  return `M ${from.px} ${from.py} Q ${cx} ${cy} ${to.px} ${to.py}`;
+function makeTexture(id: string, layout: TerritoryLayout, count: number) {
+  const random = seededRandom(stableHash(id));
+  const points: Point[] = [];
+
+  for (let index = 0; index < count; index += 1) {
+    const lobe = layout.lobes[Math.floor(random() * layout.lobes.length)];
+    const angle = random() * Math.PI * 2;
+    const radius = Math.pow(random(), 0.68);
+    const edgeNoise = 0.76 + random() * 0.42;
+    const x = layout.cx + lobe.x + Math.cos(angle) * lobe.rx * radius * edgeNoise;
+    const y = layout.cy + lobe.y + Math.sin(angle) * lobe.ry * radius * edgeNoise;
+    const depth = random();
+
+    points.push({
+      originX: x,
+      originY: y,
+      x,
+      y,
+      z: depth,
+      vx: 0,
+      vy: 0,
+      vz: 0,
+      depth,
+      phase: random() * Math.PI * 2,
+    });
+  }
+
+  const edges: Array<[number, number]> = [];
+  points.forEach((point, index) => {
+    if (index === 0) return;
+    const candidates = points
+      .slice(0, index)
+      .map((candidate, candidateIndex) => ({
+        candidateIndex,
+        distance: Math.hypot(point.x - candidate.x, point.y - candidate.y),
+      }))
+      .filter((candidate) => candidate.distance < 68)
+      .sort((left, right) => left.distance - right.distance)
+      .slice(0, index % 5 === 0 ? 3 : 2);
+    candidates.forEach((candidate) => edges.push([index, candidate.candidateIndex]));
+  });
+
+  return { points, edges };
 }
 
-function eventAgentId(actor: string): string {
-  const normalized = actor.toLowerCase().replaceAll('_', '-');
-  if (normalized.includes('discovery')) return 'discovery-scout';
-  if (normalized.includes('research')) return 'research-analyst';
-  if (normalized.includes('contact')) return 'contact-hunter';
-  if (normalized.includes('outreach') || normalized.includes('send')) return 'outreach-writer';
-  if (normalized.includes('reply') || normalized.includes('classif')) return 'reply-classifier';
-  if (normalized.includes('prototype') || normalized.includes('deploy')) return 'prototype-builder';
-  if (normalized.includes('qa') || normalized.includes('fact')) return 'fact-checker';
-  if (normalized.includes('mobile') || normalized.includes('ux')) return 'mobile-ux';
-  if (normalized.includes('conversion')) return 'conversion-checker';
-  if (normalized.includes('technical')) return 'technical-checker';
-  return 'orchestrator';
+function runtimeState(connected: boolean, members: LiveSwarmAgent[], blockedCount: number): RuntimeState {
+  if (!connected) return 'UNKNOWN';
+  if (members.some((member) => member.active)) return 'ACTIVE';
+  if (blockedCount > 0) return 'BLOCKED';
+  return 'IDLE';
 }
 
-function eventAgeMs(createdAt: string, now: number): number {
-  const timestamp = new Date(createdAt).getTime();
-  return Number.isFinite(timestamp) ? Math.max(0, now - timestamp) : Number.POSITIVE_INFINITY;
+function stateColor(state: RuntimeState): string {
+  if (state === 'ACTIVE') return '#9fffd0';
+  if (state === 'BLOCKED') return '#ffc66b';
+  if (state === 'UNKNOWN') return '#83938b';
+  return '#5c8b74';
 }
 
 export default function LiveSwarmGraph({
@@ -192,471 +292,570 @@ export default function LiveSwarmGraph({
   connected,
   runningJobCount,
 }: LiveSwarmGraphProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const textureCacheRef = useRef(
+    new Map<string, { points: Point[]; edges: Array<[number, number]> }>(),
+  );
+  const [selectedKey, setSelectedKey] = useState('group:ORCHESTRATION');
   const [replayEnabled, setReplayEnabled] = useState(false);
-  const byId = new Map(agents.map((agent) => [agent.id, agent]));
-  const primaryEdges = agents.map((agent) => ['orchestrator', agent.id] as const);
-  const edges = [...primaryEdges, ...secondaryEdges];
-  const now = Date.now();
-  const liveEvents = recentEvents
-    .filter((event) => eventAgeMs(event.createdAt, now) <= 15 * 60 * 1000)
-    .slice(0, 12);
-  const replayEvents = recentEvents
-    .filter((event) => eventAgeMs(event.createdAt, now) <= 30 * 60 * 1000)
-    .slice(0, 12);
-  const activityEvents = replayEnabled ? replayEvents : liveEvents;
-  const eventAgentIds = new Set(activityEvents.map((event) => eventAgentId(event.actor)));
-  const eventLoad = activityEvents.reduce<Record<string, number>>((counts, event) => {
-    const agentId = eventAgentId(event.actor);
-    counts[agentId] = (counts[agentId] ?? 0) + 1;
-    return counts;
-  }, {});
-  const orchestratorActive = runningJobCount > 0 || eventAgentIds.has('orchestrator');
 
-  const orchestratorPosition = project({ x: 480, y: 245, z: 0.86 });
+  const agentById = useMemo(() => new Map(agents.map((agent) => [agent.id, agent])), [agents]);
+  const prospectHost = (prospect: LiveSwarmProspect): string =>
+    prospectStateAgent[prospect.state] ?? 'orchestrator';
 
-  const projected = new Map<string, ProjectedPosition>(
-    agents.map((agent) => [
-      agent.id,
-      project(positions[agent.id] ?? { x: 480, y: 245, z: 0 }),
-    ]),
+  const territories = useMemo<Territory[]>(() => {
+    return Object.entries(territoryLayouts).map(([id, layout]) => {
+      const members = id === 'ORCHESTRATION' ? [] : agents.filter((agent) => agent.group === id);
+      const memberIds = new Set(members.map((member) => member.id));
+      const assignedProspects = prospects.filter((prospect) => {
+        const host = prospectStateAgent[prospect.state] ?? 'orchestrator';
+        return id === 'ORCHESTRATION' ? host === 'orchestrator' : memberIds.has(host);
+      });
+      const blockedCount = assignedProspects.filter(
+        (prospect) => prospect.state === 'HUMAN_ACTION_REQUIRED',
+      ).length;
+      const textureCount =
+        230 + members.length * 32 + Math.min(assignedProspects.length * 4, 120);
+
+      const cachedTexture = textureCacheRef.current.get(id);
+      const texture =
+        cachedTexture && cachedTexture.points.length === textureCount
+          ? cachedTexture
+          : makeTexture(id, layout, textureCount);
+
+      if (texture !== cachedTexture) {
+        textureCacheRef.current.set(id, texture);
+      }
+      const state = id === 'ORCHESTRATION'
+        ? !connected
+          ? 'UNKNOWN'
+          : runningJobCount > 0
+            ? 'ACTIVE'
+            : 'IDLE'
+        : runtimeState(connected, members, blockedCount);
+
+      return {
+        id,
+        label: layout.label,
+        members,
+        points: texture.points,
+        edges: texture.edges,
+        prospectCount: assignedProspects.length,
+        blockedCount,
+        state,
+      };
+    });
+  }, [agents, connected, prospects, runningJobCount]);
+
+  const semanticPositions = useMemo<SemanticPosition[]>(() => {
+    const positions: SemanticPosition[] = [];
+    territories.forEach((territory) => {
+      const layout = territoryLayouts[territory.id];
+      if (territory.id === 'ORCHESTRATION') {
+        positions.push({
+          id: 'orchestrator',
+          label: 'ORCHESTRATOR',
+          group: territory.id,
+          x: layout.cx,
+          y: layout.cy - 18,
+          state: territory.state,
+          detail: connected
+            ? `${runningJobCount} job${runningJobCount === 1 ? '' : 's'} actif${runningJobCount === 1 ? '' : 's'}`
+            : 'Télémétrie runtime indisponible',
+          prospectCount: territory.prospectCount,
+        });
+        return;
+      }
+
+      territory.members.forEach((member, index) => {
+        const lobe = layout.lobes[index % layout.lobes.length];
+        positions.push({
+          id: member.id,
+          label: member.label,
+          group: territory.id,
+          x: layout.cx + lobe.x * 0.68,
+          y: layout.cy + lobe.y * 0.66,
+          state: !connected ? 'UNKNOWN' : member.active ? 'ACTIVE' : 'IDLE',
+          detail: member.detail,
+          prospectCount: prospects.filter((prospect) => prospectHost(prospect) === member.id).length,
+        });
+      });
+    });
+    return positions;
+  }, [connected, prospects, runningJobCount, territories]);
+
+  const semanticById = useMemo(
+    () => new Map(semanticPositions.map((position) => [position.id, position])),
+    [semanticPositions],
+  );
+  const territoryById = useMemo(
+    () => new Map(territories.map((territory) => [territory.id, territory])),
+    [territories],
   );
 
-  const point = (id: string): ProjectedPosition =>
-    id === 'orchestrator'
-      ? orchestratorPosition
-      : projected.get(id) ?? project({ x: 480, y: 245, z: 0 });
+  const groupHandoffs = useMemo(() => {
+    const handoffs = new Set<string>();
+    semanticHandoffs.forEach(([fromId, toId]) => {
+      const from = agentById.get(fromId)?.group;
+      const to = agentById.get(toId)?.group;
+      if (from && to && from !== to) handoffs.add(`${from}|${to}`);
+    });
+    ['PROSPECTION', 'COMMERCIAL', 'PROTOTYPE'].forEach((group) =>
+      handoffs.add(`ORCHESTRATION|${group}`),
+    );
+    return [...handoffs].map((handoff) => handoff.split('|') as [string, string]);
+  }, [agentById]);
 
-  const visibleProspects = [...prospects]
-    .sort(
-      (a, b) =>
-        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
-    )
-    .slice(0, 48);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const context = canvas.getContext('2d');
+    if (!context) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let animationFrame = 0;
+    let lastFrame = 0;
 
-  const hiddenProspectCount = Math.max(0, prospects.length - visibleProspects.length);
-
-  const prospectSatellites = visibleProspects.map((prospect, index) => {
-    const hostId = prospectStateAgent[prospect.state] ?? 'orchestrator';
-    const host = point(hostId);
-    const hash = stableHash(prospect.id);
-    const ring = 24 + (hash % 4) * 9 + Math.floor(index / 16) * 3;
-    const angle = ((hash % 360) * Math.PI) / 180;
-    const depth = ((hash % 101) / 100 - 0.5) * 0.5;
-    const localScale = 0.78 + ((hash >> 8) % 23) / 100;
-    const x = host.px + Math.cos(angle) * ring * localScale;
-    const y = host.py + Math.sin(angle) * ring * 0.56;
-    const terminal = [
-      'DISQUALIFIED',
-      'DO_NOT_CONTACT',
-      'CLOSED_WON',
-      'CLOSED_LOST',
-      'WON',
-      'DORMANT',
-    ].includes(prospect.state);
-    const priority = typeof prospect.score === 'number' && prospect.score >= 85;
-    const engaged = [
-      'POSITIVE_REPLY',
-      'INTERESTED',
-      'MEETING_BOOKED',
-      'QUOTE_PENDING',
-      'COMMITTED',
-      'HOT_LEAD',
-      'MEETING_REQUESTED',
-      'PRICING_REQUESTED',
-      'CUSTOM_REQUEST',
-      'PROTOTYPE_REQUIRED',
-      'PROTOTYPE_STRATEGY_GENERATED',
-      'PROTOTYPE_BUILDING',
-      'PROTOTYPE_QA',
-      'PROTOTYPE_READY',
-      'PROTOTYPE_DEPLOYING',
-      'PROTOTYPE_DEPLOYED',
-    ].includes(prospect.state);
-
-    return {
-      prospect,
-      hostId,
-      host,
-      x,
-      y,
-      depth,
-      radius: terminal
-        ? 2.4
-        : priority
-          ? 4.2 + ((hash >> 5) % 3) * 0.25
-          : 3.2 + ((hash >> 5) % 3) * 0.3,
-      terminal,
-      priority,
-      engaged,
-      delay: -((hash % 37) / 10),
+    const resize = () => {
+      const bounds = canvas.getBoundingClientRect();
+      const ratio = Math.min(window.devicePixelRatio || 1, 1.75);
+      canvas.width = Math.max(1, Math.round(bounds.width * ratio));
+      canvas.height = Math.max(1, Math.round(bounds.height * ratio));
     };
-  });
 
-  const prospectHostById = new Map(
-    prospectSatellites.map((satellite) => [satellite.prospect.id, satellite.hostId]),
-  );
-  const eventFlows = activityEvents.flatMap((event, index) => {
-    const actorId = eventAgentId(event.actor);
-    const targetId = event.prospectId
-      ? prospectHostById.get(event.prospectId) ?? 'orchestrator'
-      : 'orchestrator';
-    const sourceId = actorId === targetId ? 'orchestrator' : actorId;
-    if (sourceId !== 'orchestrator' && !byId.has(sourceId)) return [];
-    if (targetId !== 'orchestrator' && !byId.has(targetId)) return [];
+    const draw = (timestamp: number) => {
+      animationFrame = window.requestAnimationFrame(draw);
+      if (timestamp - lastFrame < 40) return;
+      lastFrame = timestamp;
 
-    const from = point(sourceId);
-    const to = point(targetId);
-    return [{
-      event,
-      from,
-      to,
-      path: curvedPath(from, to, index + 17),
-      sourceId,
-      targetId,
-      ageSeconds: Math.floor(eventAgeMs(event.createdAt, now) / 1000),
-    }];
-  });
-  const liveActivity = !replayEnabled && (runningJobCount > 0 || eventFlows.length > 0);
+      context.setTransform(canvas.width / WIDTH, 0, 0, canvas.height / HEIGHT, 0, 0);
+      context.clearRect(0, 0, WIDTH, HEIGHT);
+      const time = reduceMotion ? 0 : timestamp * 0.00065;
+
+      groupHandoffs.forEach(([fromId, toId], handoffIndex) => {
+        const fromLayout = territoryLayouts[fromId];
+        const toLayout = territoryLayouts[toId];
+        const fromState = territoryById.get(fromId)?.state ?? 'UNKNOWN';
+        const toState = territoryById.get(toId)?.state ?? 'UNKNOWN';
+        const active = fromState === 'ACTIVE' || toState === 'ACTIVE';
+        const selected = selectedKey === `group:${fromId}` || selectedKey === `group:${toId}`;
+        const dx = toLayout.cx - fromLayout.cx;
+        const dy = toLayout.cy - fromLayout.cy;
+        const distance = Math.max(1, Math.hypot(dx, dy));
+        const normalX = -dy / distance;
+        const normalY = dx / distance;
+        const bridgeBreathing = reduceMotion
+          ? 1
+          : 0.88 + Math.sin(time * 1.15 + handoffIndex * 0.73) * 0.12;
+
+        for (let strand = -1; strand <= 1; strand += 1) {
+          const offset = strand * 3.6 + Math.sin(handoffIndex * 1.7 + strand) * 2;
+
+          const bridgeWave = reduceMotion
+            ? 0
+            : Math.sin(
+                time * 0.23
+                + handoffIndex * 0.91
+                + strand * 0.65
+              ) * 6
+              + Math.cos(
+                  time * 0.097
+                  + handoffIndex * 0.47
+                  - strand * 0.31
+                ) * 4;
+
+          const alongWave = reduceMotion
+            ? 0
+            : Math.cos(
+                time * 0.18
+                + handoffIndex * 0.57
+                + strand
+              ) * 2.2
+              + Math.sin(
+                  time * 0.073
+                  + handoffIndex * 0.29
+                  + strand * 0.43
+                ) * 1.4;
+
+          const controlX =
+            (fromLayout.cx + toLayout.cx) / 2
+            + normalX * (18 + offset * 2 + bridgeWave)
+            + (dx / distance) * alongWave;
+          const controlY =
+            (fromLayout.cy + toLayout.cy) / 2
+            + normalY * (18 + offset * 2 + bridgeWave)
+            + (dy / distance) * alongWave;
+          context.beginPath();
+          context.moveTo(fromLayout.cx + normalX * offset, fromLayout.cy + normalY * offset);
+          context.quadraticCurveTo(controlX, controlY, toLayout.cx + normalX * offset, toLayout.cy + normalY * offset);
+          context.strokeStyle = active
+            ? `rgba(132, 255, 196, ${(selected ? 0.24 : 0.14) * bridgeBreathing})`
+            : `rgba(96, 151, 122, ${(selected ? 0.17 : 0.075) * bridgeBreathing})`;
+          context.lineWidth = selected ? 1.15 : 0.62;
+          context.stroke();
+        }
+      });
+
+      territories.forEach((territory) => {
+        const isSelected = selectedKey === `group:${territory.id}`;
+        const active = territory.state === 'ACTIVE';
+        const blocked = territory.state === 'BLOCKED';
+        const territoryPhase = stableHash(territory.id) * 0.0001;
+        const layout = territoryLayouts[territory.id];
+
+        // Slow coherent territory drift using multiple unrelated periods.
+        // This avoids the previous visible synchronized reversal.
+        const territoryDriftX = reduceMotion
+          ? 0
+          : Math.sin(time * 0.21 + territoryPhase) * 5
+            + Math.cos(time * 0.083 + territoryPhase * 1.71) * 3;
+
+        const territoryDriftY = reduceMotion
+          ? 0
+          : Math.cos(time * 0.17 + territoryPhase * 1.29) * 4
+            + Math.sin(time * 0.071 + territoryPhase * 0.63) * 2.5;
+
+        const animatedPoints = territory.points.map((point) => {
+          if (!reduceMotion) {
+            const localX = point.x - layout.cx;
+            const localY = point.y - layout.cy;
+
+            // Continuous vector field. Velocity and position persist from
+            // one rendered frame to the next.
+            const flowX =
+              Math.sin(
+                point.y * 0.015
+                + point.z * 4.7
+                + time * 0.72
+                + point.phase * 0.61
+              )
+              + Math.cos(
+                point.x * 0.009
+                - time * 0.31
+                + point.phase * 1.37
+              ) * 0.7;
+
+            const flowY =
+              Math.cos(
+                point.x * 0.013
+                - point.z * 3.9
+                + time * 0.58
+                + point.phase * 0.79
+              )
+              - Math.sin(
+                point.y * 0.008
+                + time * 0.27
+                + point.phase * 1.11
+              ) * 0.65;
+
+            const flowZ =
+              Math.sin(
+                (point.x + point.y) * 0.008
+                + time * 0.49
+                + point.phase * 1.23
+              )
+              + Math.cos(
+                (point.x - point.y) * 0.006
+                - time * 0.22
+                + point.phase * 0.83
+              ) * 0.55;
+
+            // Weak spring toward the canonical texture keeps the semantic
+            // territory recognizable while still allowing visible roaming.
+            const homeX = point.originX - point.x;
+            const homeY = point.originY - point.y;
+            const homeZ = point.depth - point.z;
+
+            const roam = Math.hypot(homeX, homeY);
+            const spring =
+              0.0018 + Math.max(0, roam - 16) * 0.00018;
+
+            point.vx =
+              point.vx * 0.93
+              + flowX * 0.038
+              + homeX * spring;
+
+            point.vy =
+              point.vy * 0.93
+              + flowY * 0.038
+              + homeY * spring;
+
+            point.vz =
+              point.vz * 0.94
+              + flowZ * 0.00145
+              + homeZ * 0.008;
+
+            point.x += point.vx;
+            point.y += point.vy;
+            point.z = Math.max(
+              0,
+              Math.min(1, point.z + point.vz),
+            );
+          }
+
+          // Perspective projection of the persistent 3D point.
+          // Pinhole-style camera projection.
+          // z now changes both apparent size and projected screen position,
+          // making front/back travel perceptible instead of merely changing opacity.
+          const zWorld = (point.z - 0.5) * 140;
+          const cameraDistance = 260;
+          const perspective =
+            cameraDistance / (cameraDistance - zWorld);
+          const depthLift = (point.z - 0.5) * 34;
+
+          return {
+            x:
+              layout.cx
+              + (point.x - layout.cx) * perspective
+              + territoryDriftX * (0.7 + point.z * 0.55),
+            y:
+              layout.cy
+              + (point.y - layout.cy) * perspective
+              + territoryDriftY * (0.7 + point.z * 0.55)
+              - depthLift,
+            z: point.z,
+            perspective,
+          };
+        });
+        territory.edges.forEach(([fromIndex, toIndex], edgeIndex) => {
+          const from = territory.points[fromIndex];
+          const to = territory.points[toIndex];
+          const animatedFrom = animatedPoints[fromIndex];
+          const animatedTo = animatedPoints[toIndex];
+          const averageDepth = (animatedFrom.z + animatedTo.z) / 2;
+          const breathing = 0.86 + Math.sin(time * 1.7 + edgeIndex * 0.017) * 0.14;
+          const alpha = (0.018 + averageDepth * 0.16) * breathing * (isSelected ? 1.4 : 1);
+
+          context.beginPath();
+          context.moveTo(animatedFrom.x, animatedFrom.y);
+          context.lineTo(animatedTo.x, animatedTo.y);
+          context.strokeStyle = blocked
+            ? `rgba(231, 177, 94, ${alpha * 0.72})`
+            : `rgba(105, 224, 164, ${alpha})`;
+          context.lineWidth = 0.28 + averageDepth * 0.72;
+          context.stroke();
+        });
+
+        const pointRenderOrder = animatedPoints
+          .map((animated, index) => ({ animated, index }))
+          .sort((left, right) => left.animated.z - right.animated.z);
+
+        pointRenderOrder.forEach(({ animated, index: pointIndex }) => {
+          const point = territory.points[pointIndex];
+          const microDrift = reduceMotion
+            ? 0
+            : Math.sin(time * 1.4 + point.phase) * (0.65 + point.depth * 0.95);
+          const depthBreathing = reduceMotion
+            ? 0
+            : Math.sin(time * 1.08 + point.phase) * 0.12;
+
+          const radius = (
+            0.42
+            + animated.z * 1.35
+            + depthBreathing
+            + (pointIndex % 29 === 0 ? 0.7 : 0)
+          ) * animated.perspective;
+
+          const alpha = Math.min(
+            0.94,
+            (0.1 + animated.z * 0.78) * (isSelected ? 1.12 : 1),
+          );
+
+          context.beginPath();
+          context.arc(
+            animated.x + microDrift,
+            animated.y + microDrift * 0.42,
+            radius,
+            0,
+            Math.PI * 2,
+          );
+          context.fillStyle = blocked
+            ? `rgba(238, 186, 101, ${alpha * 0.78})`
+            : `rgba(139, 255, 198, ${alpha})`;
+          context.fill();
+        });
+
+        if (active) {
+          const layout = territoryLayouts[territory.id];
+          const pulse = 11 + (reduceMotion ? 0 : Math.sin(timestamp * 0.002) * 2);
+          context.beginPath();
+          context.arc(layout.cx, layout.cy, pulse, 0, Math.PI * 2);
+          context.strokeStyle = 'rgba(159, 255, 208, 0.4)';
+          context.lineWidth = 0.9;
+          context.stroke();
+        }
+      });
+
+      semanticHandoffs.forEach(([fromId, toId]) => {
+        const from = semanticById.get(fromId);
+        const to = semanticById.get(toId);
+        if (!from || !to || from.group !== to.group) return;
+        context.beginPath();
+        context.moveTo(from.x, from.y);
+        context.quadraticCurveTo((from.x + to.x) / 2 + 8, (from.y + to.y) / 2 - 7, to.x, to.y);
+        context.strokeStyle = 'rgba(151, 255, 207, 0.22)';
+        context.lineWidth = 0.75;
+        context.stroke();
+      });
+
+      prospects.forEach((prospect) => {
+        const host = semanticById.get(prospectHost(prospect)) ?? semanticById.get('orchestrator');
+        if (!host) return;
+        const hash = stableHash(prospect.id);
+        const angle = ((hash % 360) * Math.PI) / 180;
+        const distance = 17 + ((hash >>> 9) % 38);
+        const x = host.x + Math.cos(angle) * distance;
+        const y = host.y + Math.sin(angle) * distance * 0.72;
+        const blocked = prospect.state === 'HUMAN_ACTION_REQUIRED';
+        const priority = typeof prospect.score === 'number' && prospect.score >= 85;
+        context.beginPath();
+        context.arc(x, y, blocked ? 2.5 : priority ? 2.2 : 1.65, 0, Math.PI * 2);
+        context.fillStyle = blocked ? '#ffc66b' : priority ? '#e9fff4' : '#8ee9ba';
+        context.fill();
+      });
+
+      semanticPositions.forEach((node) => {
+        context.beginPath();
+        context.arc(node.x, node.y, node.state === 'ACTIVE' ? 4.8 : 3.4, 0, Math.PI * 2);
+        context.fillStyle = stateColor(node.state);
+        context.fill();
+        context.beginPath();
+        context.arc(node.x, node.y, node.state === 'ACTIVE' ? 9 : 6.5, 0, Math.PI * 2);
+        context.strokeStyle = `${stateColor(node.state)}66`;
+        context.lineWidth = 0.8;
+        context.stroke();
+      });
+    };
+
+    resize();
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(canvas);
+    animationFrame = window.requestAnimationFrame(draw);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.cancelAnimationFrame(animationFrame);
+    };
+  }, [groupHandoffs, prospects, selectedKey, semanticById, semanticPositions, territories, territoryById]);
+
+  const selected = useMemo(() => {
+    const [kind, id] = selectedKey.split(':');
+    if (kind === 'agent') {
+      const agent = semanticById.get(id);
+      if (!agent) return null;
+      return {
+        eyebrow: 'AGENT SÉMANTIQUE RÉEL',
+        title: agent.label,
+        state: agent.state,
+        detail: agent.detail,
+        meta: `${agent.group} · ${agent.prospectCount} prospect${agent.prospectCount === 1 ? '' : 's'} rattaché${agent.prospectCount === 1 ? '' : 's'}`,
+      };
+    }
+
+    const territory = territoryById.get(id);
+    if (!territory) return null;
+    return {
+      eyebrow: 'TERRITOIRE FONCTIONNEL',
+      title: territory.label,
+      state: territory.state,
+      detail: territory.id === 'ORCHESTRATION'
+        ? 'Coordination des handoffs et supervision des jobs existants.'
+        : `${territory.members.length} rôle${territory.members.length === 1 ? '' : 's'} réel${territory.members.length === 1 ? '' : 's'} dans ce territoire.`,
+      meta: `${territory.prospectCount} prospect${territory.prospectCount === 1 ? '' : 's'} · ${territory.blockedCount} blocage${territory.blockedCount === 1 ? '' : 's'} humain${territory.blockedCount === 1 ? '' : 's'}`,
+    };
+  }, [selectedKey, semanticById, territoryById]);
 
   return (
-    <div className="liveSwarm3dWrap">
-      <div className="liveSwarmCornerStatus">
-        <span className={`swarmLiveDot ${orchestratorActive ? 'swarmLiveDotActive' : ''}`} />
-        {connected
-          ? replayEnabled
-            ? 'REPLAY WINDOW'
-            : liveActivity
-            ? 'LIVE TRAFFIC'
-            : 'NETWORK IDLE'
-          : 'OFFLINE'}
+    <div className="livingSwarm">
+      <div className="livingSwarmField">
+        <canvas
+          ref={canvasRef}
+          className="livingSwarmCanvas"
+          role="img"
+          aria-label={`Ruche Magic Script : ${territories.length} territoires fonctionnels, ${agents.length + 1} agents sémantiques, ${prospects.length} prospects réels.`}
+        />
+
+        <div className="livingSwarmStatus" aria-live="polite">
+          <span className={`swarmLiveDot ${runningJobCount > 0 ? 'swarmLiveDotActive' : ''}`} />
+          {connected
+            ? runningJobCount > 0
+              ? `${runningJobCount} JOB${runningJobCount === 1 ? '' : 'S'} ACTIF${runningJobCount === 1 ? '' : 'S'}`
+              : 'RUNTIME CONNECTÉ · IDLE'
+            : 'RUNTIME UNKNOWN'}
+        </div>
+
+        {territories.map((territory) => {
+          const layout = territoryLayouts[territory.id];
+          return (
+            <button
+              key={territory.id}
+              type="button"
+              className={`swarmTerritoryLabel swarmTerritoryLabelHoverOnly ${selectedKey === `group:${territory.id}` ? 'swarmTerritoryLabelSelected' : ''}`}
+              style={{ left: `${(layout.cx / WIDTH) * 100}%`, top: `${(layout.cy / HEIGHT) * 100}%` }}
+              onClick={() => setSelectedKey(`group:${territory.id}`)}
+              title={`Inspecter ${territory.label}`}
+            >
+              <strong>{territory.label}</strong>
+              <span style={{ color: stateColor(territory.state) }}>{territory.state}</span>
+            </button>
+          );
+        })}
+
+        {semanticPositions.map((node) => (
+          <button
+            key={node.id}
+            type="button"
+            className={`swarmAgentHotspot ${selectedKey === `agent:${node.id}` ? 'swarmAgentHotspotSelected' : ''}`}
+            style={{ left: `${(node.x / WIDTH) * 100}%`, top: `${(node.y / HEIGHT) * 100}%` }}
+            onClick={() => setSelectedKey(`agent:${node.id}`)}
+            title={`${node.label} · ${node.state} · ${node.detail}`}
+          >
+            {node.label}
+          </button>
+        ))}
+
+        <div className="livingSwarmKey" aria-label="Légende du Living Swarm">
+          <span><i className="swarmKeySemantic" /> entité réelle</span>
+          <span><i className="swarmKeyProspect" /> prospect réel</span>
+          <span><i className="swarmKeyTexture" /> texture non sémantique</span>
+        </div>
       </div>
 
-      <svg
-        className="liveSwarm3dSvg"
-        viewBox="0 0 960 500"
-        role="img"
-        aria-label="Live Magic Script 3D swarm graph"
-        preserveAspectRatio="xMidYMid meet"
-      >
-        <defs>
-          <filter id="swarm3d-glow" x="-120%" y="-120%" width="340%" height="340%">
-            <feGaussianBlur stdDeviation="4.5" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-          <filter id="swarm3d-soft-glow" x="-120%" y="-120%" width="340%" height="340%">
-            <feGaussianBlur stdDeviation="10" />
-          </filter>
-          <radialGradient id="swarm3d-core" cx="34%" cy="28%">
-            <stop offset="0%" stopColor="#effff7" />
-            <stop offset="19%" stopColor="#b9ffe0" />
-            <stop offset="52%" stopColor="#71ffb7" />
-            <stop offset="100%" stopColor="#16885d" />
-          </radialGradient>
-          <radialGradient id="swarm3d-node" cx="32%" cy="26%">
-            <stop offset="0%" stopColor="#93d9b8" />
-            <stop offset="30%" stopColor="#39775b" />
-            <stop offset="100%" stopColor="#0c2b20" />
-          </radialGradient>
-          <radialGradient id="swarm3d-node-active" cx="30%" cy="24%">
-            <stop offset="0%" stopColor="#ffffff" />
-            <stop offset="18%" stopColor="#c9ffe8" />
-            <stop offset="54%" stopColor="#71ffb7" />
-            <stop offset="100%" stopColor="#11835a" />
-          </radialGradient>
-          <linearGradient id="swarm3d-flow" x1="0%" x2="100%">
-            <stop offset="0%" stopColor="rgba(113,255,183,0.08)" />
-            <stop offset="50%" stopColor="rgba(174,255,220,0.9)" />
-            <stop offset="100%" stopColor="rgba(113,255,183,0.08)" />
-          </linearGradient>
-        </defs>
-
-        <g className="swarm3dDepthGrid">
-          <ellipse cx="480" cy="265" rx="355" ry="116" />
-          <ellipse cx="480" cy="265" rx="270" ry="88" />
-          <ellipse cx="480" cy="265" rx="185" ry="61" />
-          <path d="M 480 34 Q 370 245 480 468" />
-          <path d="M 480 34 Q 590 245 480 468" />
-        </g>
-
-        <ellipse
-          className="swarm3dCoreShadow"
-          cx={orchestratorPosition.px}
-          cy={orchestratorPosition.py + 28}
-          rx="44"
-          ry="13"
-        />
-        <circle
-          className={`swarm3dCoreAura ${orchestratorActive ? 'swarm3dCoreAuraActive' : ''}`}
-          cx={orchestratorPosition.px}
-          cy={orchestratorPosition.py}
-          r={orchestratorActive ? 92 : 76}
-        />
-
-        <g className="swarm3dEdges">
-          {edges.map(([fromId, toId], index) => {
-            if (fromId !== 'orchestrator' && !byId.has(fromId)) return null;
-            if (!byId.has(toId)) return null;
-
-            const from = point(fromId);
-            const to = point(toId);
-            const fromActive =
-              fromId === 'orchestrator' ? orchestratorActive : Boolean(byId.get(fromId)?.active);
-            const toActive = Boolean(byId.get(toId)?.active);
-
-            const hot =
-              fromId === 'orchestrator'
-                ? toActive
-                : fromActive || toActive;
-
-            const d = curvedPath(from, to, index);
-            const duration = hot
-              ? 1.05 + (index % 4) * 0.16
-              : 4.2 + (index % 5) * 0.42;
-
-            return (
-              <g key={`${fromId}-${toId}`}>
-                <path
-                  className={`swarm3dEdgeGlow ${hot ? 'swarm3dEdgeGlowActive' : ''}`}
-                  d={d}
-                />
-                <path
-                  className={`swarm3dEdge ${hot ? 'swarm3dEdgeActive' : ''}`}
-                  d={d}
-                />
-                {hot ? (
-                  <circle className="swarm3dParticle swarm3dParticleActive" r="3.2">
-                    <animateMotion
-                      dur={`${duration}s`}
-                      path={d}
-                      repeatCount="indefinite"
-                    />
-                  </circle>
-                ) : null}
-                {hot ? (
-                  <circle className="swarm3dParticleTrail" r="1.6">
-                    <animateMotion
-                      begin="0.34s"
-                      dur={`${duration}s`}
-                      path={d}
-                      repeatCount="indefinite"
-                    />
-                  </circle>
-                ) : null}
-              </g>
-            );
-          })}
-        </g>
-
-        <g className="swarm3dEventFlows" aria-label="Recent data-driven handoffs">
-          {eventFlows.map((flow, index) => (
-            <g className="swarm3dEventFlow" key={`${flow.event.id}-${flow.sourceId}-${flow.targetId}`}>
-              <path className="swarm3dEventFlowGlow" d={flow.path} />
-              <path className="swarm3dEventFlowPath" d={flow.path} />
-              <circle className="swarm3dEventParticle" r={index % 2 === 0 ? 4 : 3}>
-                <animateMotion
-                  begin={replayEnabled ? `-${Math.min(flow.ageSeconds, 8)}s` : undefined}
-                  dur={`${1.15 + (index % 3) * 0.18}s`}
-                  path={flow.path}
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <title>{`${flow.event.type} · ${flow.event.actor}${flow.event.prospectId ? ` · ${flow.event.prospectId}` : ''}`}</title>
-            </g>
-          ))}
-        </g>
-
-        <g className="swarm3dProspectLayer" aria-label="Prospect satellites">
-          {prospectSatellites.map((satellite) => (
-            <g
-              className={`swarm3dProspect ${satellite.terminal ? 'swarm3dProspectTerminal' : ''} ${satellite.priority ? 'swarm3dProspectPriority' : ''} ${satellite.engaged ? 'swarm3dProspectEngaged' : ''}`}
-              key={satellite.prospect.id}
-              style={{ animationDelay: `${satellite.delay}s` }}
-            >
-              <title>{`${satellite.prospect.companyName} — ${satellite.prospect.state}${typeof satellite.prospect.score === 'number' ? ` — score ${satellite.prospect.score}` : ''} — handled by ${satellite.hostId}`}</title>
-              <line
-                className="swarm3dProspectTether"
-                x1={satellite.host.px}
-                y1={satellite.host.py}
-                x2={satellite.x}
-                y2={satellite.y}
-              />
-              <circle
-                className="swarm3dProspectGlow"
-                cx={satellite.x}
-                cy={satellite.y}
-                r={satellite.radius * 3.2}
-              />
-              <circle
-                className="swarm3dProspectDot"
-                cx={satellite.x}
-                cy={satellite.y}
-                r={satellite.radius}
-              />
-            </g>
-          ))}
-        </g>
-
-        <g
-          className={`swarm3dNode swarm3dCoreNode ${orchestratorActive ? 'swarm3dNodeActive' : ''}`}
-        >
-          <circle
-            className="swarm3dCoreOuter"
-            cx={orchestratorPosition.px}
-            cy={orchestratorPosition.py}
-            r="33"
-          />
-          <circle
-            className="swarm3dCoreSphere"
-            cx={orchestratorPosition.px}
-            cy={orchestratorPosition.py}
-            r="22"
-          />
-          <circle
-            className="swarm3dSpecular"
-            cx={orchestratorPosition.px - 7}
-            cy={orchestratorPosition.py - 7}
-            r="4.6"
-          />
-          <ellipse
-            className="swarm3dCoreOrbit"
-            cx={orchestratorPosition.px}
-            cy={orchestratorPosition.py}
-            rx="42"
-            ry="15"
-          />
-          <text
-            className="swarm3dNodeLabel swarm3dCoreLabel"
-            x={orchestratorPosition.px}
-            y={orchestratorPosition.py + 48}
-          >
-            ORCHESTRATOR
-          </text>
-          <text
-            className="swarm3dNodeState"
-            x={orchestratorPosition.px}
-            y={orchestratorPosition.py + 64}
-          >
-            {orchestratorActive
-              ? `${runningJobCount} JOB${runningJobCount > 1 ? 'S' : ''} ACTIVE`
-              : 'READY'}
-          </text>
-        </g>
-
-        {agents
-          .map((agent, index) => ({
-            agent,
-            index,
-            position: point(agent.id),
-          }))
-          .sort((a, b) => a.position.z - b.position.z)
-          .map(({ agent, index, position }) => {
-            const eventActive = eventAgentIds.has(agent.id);
-            const load = eventLoad[agent.id] ?? 0;
-            const radius =
-              (agent.active ? 12.5 : 9.5) * position.scale +
-              (eventActive ? 1.5 : 0) +
-              Math.min(load, 3) * 0.7;
-            const shadowRx = radius * 1.2;
-            const shadowRy = radius * 0.32;
-
-            return (
-              <g
-                className={`swarm3dNode swarm3dAgentNode ${agent.active || eventActive ? 'swarm3dNodeActive' : ''} ${eventActive ? 'swarm3dNodeEvent' : ''}`}
-                key={agent.id}
-                opacity={position.opacity}
-                style={{ animationDelay: `${-(index % 7) * 0.47}s` }}
-              >
-                <title>{`${agent.label} — ${agent.group} — ${agent.detail}${load ? ` — ${load} recent event${load > 1 ? 's' : ''}` : ''}`}</title>
-                <ellipse
-                  className="swarm3dNodeShadow"
-                  cx={position.px}
-                  cy={position.py + radius + 9}
-                  rx={shadowRx}
-                  ry={shadowRy}
-                />
-                <circle
-                  className={`swarm3dNodeHalo ${agent.active ? 'swarm3dNodeHaloActive' : ''}`}
-                  cx={position.px}
-                  cy={position.py}
-                  r={radius * (agent.active ? 2.4 : 1.9)}
-                />
-                <circle
-                  className={`swarm3dNodeSphere ${agent.active ? 'swarm3dNodeSphereActive' : ''}`}
-                  cx={position.px}
-                  cy={position.py}
-                  r={radius}
-                />
-                <circle
-                  className="swarm3dSpecular swarm3dAgentSpecular"
-                  cx={position.px - radius * 0.28}
-                  cy={position.py - radius * 0.32}
-                  r={Math.max(1.7, radius * 0.18)}
-                />
-                <ellipse
-                  className="swarm3dNodeOrbit"
-                  cx={position.px}
-                  cy={position.py}
-                  rx={radius * 1.85}
-                  ry={radius * 0.7}
-                />
-                <text
-                  className="swarm3dNodeLabel"
-                  x={position.px}
-                  y={position.py + radius + 18}
-                >
-                  {agent.label}
-                </text>
-                <text
-                  className="swarm3dNodeState"
-                  x={position.px}
-                  y={position.py + radius + 32}
-                >
-                  {agent.active ? 'WORKING' : eventActive ? `EVENT ${load}` : 'READY'}
-                </text>
-              </g>
-            );
-          })}
-      </svg>
-
-      <div className="swarmReplayBar">
+      <div className="livingSwarmInspector">
         <div>
-          <span className="swarmReplayKicker">REPLAY WINDOW</span>
-          <strong>
-            {replayEvents.length
-              ? `${replayEvents.length} événement${replayEvents.length > 1 ? 's' : ''} · 30 min`
-              : 'Aucun événement récent à rejouer'}
-          </strong>
+          <span className="eyebrow">{selected?.eyebrow ?? 'INSPECTION'}</span>
+          <strong>{selected?.title ?? 'Sélectionner un territoire'}</strong>
         </div>
+        <span className={`livingSwarmState livingSwarmState${selected?.state ?? 'UNKNOWN'}`}>
+          {selected?.state ?? 'UNKNOWN'}
+        </span>
+        <p>{selected?.detail}</p>
+        <small>{selected?.meta}</small>
+      </div>
+
+      <div className="livingSwarmFooter">
+        <span>{territories.length} TERRITOIRES · {agents.length + 1} AGENTS SÉMANTIQUES · {prospects.length} PROSPECTS</span>
+        <span>{recentEvents.length} ÉVÉNEMENT{recentEvents.length === 1 ? '' : 'S'} DISPONIBLE{recentEvents.length === 1 ? '' : 'S'}</span>
         <button
           type="button"
-          className="swarmReplayButton"
-          disabled={!replayEvents.length}
-          onClick={() => setReplayEnabled((enabled) => !enabled)}
+          disabled={!recentEvents.length}
           aria-pressed={replayEnabled}
+          onClick={() => setReplayEnabled((enabled) => !enabled)}
         >
-          {replayEnabled ? 'REVENIR AU LIVE' : 'REJOUER LES ÉVÉNEMENTS'}
+          {replayEnabled ? 'MASQUER LE REPLAY' : 'INSPECTER LA FENÊTRE REPLAY'}
         </button>
       </div>
 
-      <div className="liveSwarmLegend">
-        <span>
-          <i className="legendDot legendReady" />
-          READY
-        </span>
-        <span>
-          <i className="legendDot legendWorking" />
-          WORKING
-        </span>
-        <span>{agents.filter((agent) => agent.active).length} AGENT(S) ACTIVE</span>
-        <span>{eventFlows.length} LIVE EVENT{eventFlows.length === 1 ? '' : 'S'}</span>
-        <span>
-          {prospects.length} PROSPECT{prospects.length > 1 ? 'S' : ''}
-          {hiddenProspectCount > 0 ? ` · +${hiddenProspectCount} CLUSTERED` : ''}
-        </span>
-      </div>
+      {replayEnabled ? (
+        <div className="livingSwarmReplay" aria-label="Événements réels disponibles en replay">
+          {recentEvents.slice(0, 4).map((event) => (
+            <div key={event.id}>
+              <strong>{event.type.replaceAll('_', ' ').replaceAll('.', ' · ')}</strong>
+              <span>{event.actor}{event.prospectId ? ` · ${event.prospectId}` : ''}</span>
+              <time dateTime={event.createdAt}>{new Date(event.createdAt).toLocaleString('fr-FR')}</time>
+            </div>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -1,0 +1,122 @@
+{
+  "status": "PASS",
+  "browser": "Chrome/152.0.7977.83",
+  "build": {
+    "id": "build-artifact-dr-m007-cafe-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+    "outputPath": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\prospect-m007-cafe\\artifact-dr-m007-cafe-design_request_v1-design_artifact_v1-r1\\dist",
+    "correctedId": "build-artifact-dr-m007-cafe-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r2-builder-v1"
+  },
+  "browserProof": {
+    "previewUrls": [
+      "http://127.0.0.1:1741",
+      "http://127.0.0.1:20365",
+      "http://127.0.0.1:36888"
+    ],
+    "desktop": {
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "horizontalOverflow": 0,
+        "heroVisible": true,
+        "primaryCtaVisible": true,
+        "contentVisible": true,
+        "controlsWithinViewport": true
+      },
+      "sections": [
+        "home",
+        "hero",
+        "menu-or-offer",
+        "visit-information",
+        "location-and-contact",
+        "contact"
+      ],
+      "brokenAssets": [],
+      "internalLinkErrors": [],
+      "unresolvedMarkers": [],
+      "headings": [
+        "H1 Clarifier la valeur de Café Rivage",
+        "H2 Clarifier la valeur de Café Rivage",
+        "H2 hero",
+        "H2 menu-or-offer",
+        "H2 visit-information",
+        "H2 location-and-contact",
+        "H2 Découvrir le menu ou réserver"
+      ],
+      "consoleErrors": [],
+      "screenshotPath": "D:\\MagicScript\\repository\\artifacts\\v2\\qa\\m007r-final\\good\\desktop.png"
+    },
+    "mobile": {
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "horizontalOverflow": 0,
+        "heroVisible": true,
+        "primaryCtaVisible": true,
+        "contentVisible": true,
+        "controlsWithinViewport": true
+      },
+      "sections": [
+        "home",
+        "hero",
+        "menu-or-offer",
+        "visit-information",
+        "location-and-contact",
+        "contact"
+      ],
+      "brokenAssets": [],
+      "internalLinkErrors": [],
+      "unresolvedMarkers": [],
+      "headings": [
+        "H1 Clarifier la valeur de Café Rivage",
+        "H2 Clarifier la valeur de Café Rivage",
+        "H2 hero",
+        "H2 menu-or-offer",
+        "H2 visit-information",
+        "H2 location-and-contact",
+        "H2 Découvrir le menu ou réserver"
+      ],
+      "consoleErrors": [],
+      "screenshotPath": "D:\\MagicScript\\repository\\artifacts\\v2\\qa\\m007r-final\\good\\mobile.png"
+    }
+  },
+  "decisions": {
+    "good": "PASS",
+    "defect": "CORRECTION_REQUIRED",
+    "corrected": "PASS",
+    "limit": [
+      "CORRECTION_REQUIRED",
+      "CORRECTION_REQUIRED",
+      "VISUAL_QA_LIMIT_REACHED"
+    ]
+  },
+  "persistence": {
+    "qaReports": [
+      "qa-build-artifact-dr-m007-cafe-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+      "qa-build-artifact-dr-m007-cafe-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r2-builder-v1-r2-a1"
+    ],
+    "correctionId": "correction-qa-build-artifact-dr-m007-cafe-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+    "correctionCount": 1
+  },
+  "screenshots": {
+    "desktop": "D:\\MagicScript\\repository\\artifacts\\v2\\qa\\m007r-final\\good\\desktop.png",
+    "mobile": "D:\\MagicScript\\repository\\artifacts\\v2\\qa\\m007r-final\\good\\mobile.png",
+    "defect": "D:\\MagicScript\\repository\\artifacts\\v2\\qa\\m007r-final\\defect\\mobile.png",
+    "correctedDesktop": "D:\\MagicScript\\repository\\artifacts\\v2\\qa\\m007r-final\\corrected\\desktop.png",
+    "correctedMobile": "D:\\MagicScript\\repository\\artifacts\\v2\\qa\\m007r-final\\corrected\\mobile.png"
+  },
+  "m006Regression": {
+    "buildSucceeded": true,
+    "replayStable": true,
+    "revisions": [
+      1,
+      2
+    ]
+  },
+  "safety": {
+    "loopbackOnly": true,
+    "deployment": false,
+    "proposal": false,
+    "deck": false,
+    "outreach": false
+  }
+}

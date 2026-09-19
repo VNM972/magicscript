@@ -111,6 +111,7 @@ test('WP-01 integrates inbound interest, booking, commercial milestones and safe
 
   const env = {
     DB: db,
+    MAGICSCRIPT_STACK_ID: 'fixture-stack',
     MAGICSCRIPT_AUTOPILOT_ENABLED: 'false',
     MAGICSCRIPT_SENDING_ENABLED: 'false',
     MAGICSCRIPT_EMAIL_PROVIDER: 'disabled',
@@ -149,7 +150,7 @@ test('WP-01 integrates inbound interest, booking, commercial milestones and safe
     await worker.fetch(
       new Request('https://local.test/api/runner/jobs/classify-main/succeed', {
         method: 'POST',
-        headers: { 'content-type': 'application/json', 'x-magicscript-runner-id': 'fixture-runner' },
+        headers: { 'content-type': 'application/json', 'x-magicscript-runner-id': 'fixture-runner', 'x-magicscript-stack-id': 'fixture-stack' },
         body: JSON.stringify({
           output: {
             classification: 'POSITIVE_INTEREST',

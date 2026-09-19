@@ -28,6 +28,7 @@
     "ms:status": "powershell -ExecutionPolicy Bypass -File .\\scripts\\magic-script.ps1 status",
     "ms:doctor": "powershell -ExecutionPolicy Bypass -File .\\scripts\\magic-script.ps1 doctor",
     "check:free-api": "node scripts/check-free-directory.mjs",
+    "check:v2-boundary": "node scripts/validate-v2-boundary.mjs",
     "smoke:full": "node scripts/smoke-full-funnel.mjs",
     "bulk:snapshot-martinique": "node scripts/snapshot-bulk-martinique.mjs",
     "audit:local-state": "node scripts/audit-local-state.mjs",
@@ -36,7 +37,13 @@
     "qa:surface": "node scripts/qa-surface.cjs",
     "test:qa-surface": "node --test scripts/qa-surface.test.cjs",
     "test:local-preview": "node --test scripts/local-preview-server.test.cjs",
-    "test:legal-surface": "node --test scripts/legal-surface.test.cjs"
+    "test:legal-surface": "node --test scripts/legal-surface.test.cjs",
+    "project:status": "node scripts/run-tsx-with-preload.cjs scripts/project-control.ts status",
+    "project:validate": "node scripts/run-tsx-with-preload.cjs scripts/project-control.ts validate",
+    "project:next": "node scripts/run-tsx-with-preload.cjs scripts/project-control.ts next",
+    "project:start": "node scripts/run-tsx-with-preload.cjs scripts/project-control.ts start",
+    "project:checkpoint": "node scripts/run-tsx-with-preload.cjs scripts/project-control.ts checkpoint",
+    "project:complete": "node scripts/run-tsx-with-preload.cjs scripts/project-control.ts complete"
   },
   "devDependencies": {
     "typescript": "^7.0.2"

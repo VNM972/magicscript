@@ -1,0 +1,75 @@
+{
+  "root": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\prospect-m007-cafe\\artifact-dr-m007-cafe-design_request_v1-design_artifact_v1-r1\\dist",
+  "previewUrl": "http://127.0.0.1:1741",
+  "viewports": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "horizontalOverflow": 0,
+        "heroVisible": true,
+        "primaryCtaVisible": true,
+        "contentVisible": true,
+        "controlsWithinViewport": true
+      },
+      "sections": [
+        "home",
+        "hero",
+        "menu-or-offer",
+        "visit-information",
+        "location-and-contact",
+        "contact"
+      ],
+      "brokenAssets": [],
+      "internalLinkErrors": [],
+      "unresolvedMarkers": [],
+      "headings": [
+        "H1 Clarifier la valeur de Café Rivage",
+        "H2 Clarifier la valeur de Café Rivage",
+        "H2 hero",
+        "H2 menu-or-offer",
+        "H2 visit-information",
+        "H2 location-and-contact",
+        "H2 Découvrir le menu ou réserver"
+      ],
+      "consoleErrors": [],
+      "screenshotPath": "D:\\MagicScript\\repository\\artifacts\\v2\\qa\\m007r-final\\good\\desktop.png"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "horizontalOverflow": 0,
+        "heroVisible": true,
+        "primaryCtaVisible": true,
+        "contentVisible": true,
+        "controlsWithinViewport": true
+      },
+      "sections": [
+        "home",
+        "hero",
+        "menu-or-offer",
+        "visit-information",
+        "location-and-contact",
+        "contact"
+      ],
+      "brokenAssets": [],
+      "internalLinkErrors": [],
+      "unresolvedMarkers": [],
+      "headings": [
+        "H1 Clarifier la valeur de Café Rivage",
+        "H2 Clarifier la valeur de Café Rivage",
+        "H2 hero",
+        "H2 menu-or-offer",
+        "H2 visit-information",
+        "H2 location-and-contact",
+        "H2 Découvrir le menu ou réserver"
+      ],
+      "consoleErrors": [],
+      "screenshotPath": "D:\\MagicScript\\repository\\artifacts\\v2\\qa\\m007r-final\\good\\mobile.png"
+    }
+  ],
+  "expectedSections": [],
+  "primaryCta": "Découvrir le menu ou réserver",
+  "browser": "Chrome/152.0.7977.83"
+}

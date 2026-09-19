@@ -1,4 +1,4 @@
-﻿import {
+import {
 
   D1EventStore,
   D1JobQueue,
@@ -12,7 +12,16 @@
   domainFromWebsite,
   getNextAction,
   isMagicScriptTargetActivity,
+  applyCommercialBrandCollisions,
+  normalizeCommercialName,
+  scoreCommercialEligibility,
+  evaluateResearchEvidenceIntegrity,
+  hasSupportedResearchClaim,
+  computeEvidenceCaps,
+  calibrateScoreInputs,
   rechercheEntrepriseActivity,
+  rechercheEntrepriseCity,
+  rechercheEntrepriseLegalName,
   rechercheEntrepriseLocation,
   rechercheEntrepriseMatchingEtablissement,
   rechercheEntrepriseName,
@@ -23,10 +32,13 @@
   scoreEngagementFromMagicScriptEvents,
 evaluatePrototypeCostGate,
   shouldEscalateOutreachFactCheck,
+  isVerifiedDeploymentLinkFalseNegative,
+  meetsOutreachFactCheckConfidence,
   shouldAcceptFactCheckWithVerifiedDeploymentLink,
   buildPersonalizedEntryLinks,
   buildSalesRoomEventPayload,
   buildSalesRoomSlug,
+  deriveProspectCommercialView,
   canPromoteWithWebDesignReview,
   deriveSalesRoomState,
   sireneBusinessName,
@@ -50,6 +62,7 @@ evaluatePrototypeCostGate,
   slotForStart,
   assertTimeZone,
   zonedLocalToUtc,
+  proposalShareEvent,
   type AvailabilityConfig,
   type CommunicationMode,
   type MeetingConfirmationEmail,
@@ -61,10 +74,38 @@ evaluatePrototypeCostGate,
   type MagicScriptJob,
   type Prospect,
   type ProspectContact,
+  type Agent1CandidateBatch,
+  AGENT1_CANDIDATE_BATCH_VERSION,
+  CONTACT_OPPORTUNITY_PACK_VERSION,
+  admitContactOpportunityPack,
+  D1V2AdmissionStore,
+  D1DesignRequestStore,
+  D1DesignArtifactStore,
+  D1DesignReviewStore,
+  D1DesignCorrectionStore,
+  D1BuildArtifactStore,
+  D1VisualQaReportStore,
+  D1ProposalStore,
+  packageProposal,
+  type ProposalV1,
+  createDesignHandoff,
+  executeDesignDirector,
+  buildDeterministicReview,
+  createCorrectionRequest,
+  DESIGN_ARTIFACT_VERSION,
+  validateDesignArtifact,
+  type DesignReviewV1,
+  type DesignCorrectionRequestV1,
+  type DesignRequestV1,
+  type DesignArtifactV1,
+  validateAgent1CandidateBatch,
   type ProspectOpportunity,
+  type CommercialEligibilityResult,
+  type ResearchEvidenceClaim,
   type SalesRoomStatus,
   type HandoffPacket,
   validateHandoff,
+  selectDesignDirection,
   applyCallCopilotAction,
   buildCallCopilotSnapshot,
   buildEndOfCallReview,
@@ -80,7 +121,11 @@ evaluatePrototypeCostGate,
   validateQuoteDossier,
 extractCommercialScopeFromProspectTexts,
 applyCommercialScopeProfile,
-buildCanonicalQuote,
+  buildCanonicalQuote,
+  buildProspectContactability,
+  canonicalProspectDomain,
+  classifyDoNotProspectIdentity,
+  isPublishedVerifiedContactCandidate,
 resolvePricingPackage,
 classifyCommercialScope,
   validateQuoteAcceptanceProof,
@@ -89,9 +134,29 @@ classifyCommercialScope,
   type QuoteDossier,
 } from '@magicscript/core';
 
+function latestContactAcquisition(events: Array<{ type: string; createdAt: string; payload?: unknown }>): unknown {
+  const event = [...events].filter((item) => item.type === 'contact_acquisition.completed').sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0];
+  return event?.payload ?? null;
+}
+
+function latestContactPresence(events: Array<{ type: string; createdAt: string; payload?: unknown }>): unknown {
+  const candidates = events
+    .filter((event) => event.type === 'contact_presence.enriched' || event.type === 'research.scored')
+    .map((event) => ({ event, payload: event.payload }))
+    .filter(({ payload }) => payload && typeof payload === 'object' && !Array.isArray(payload))
+    .filter(({ event, payload }) => event.type === 'contact_presence.enriched' || 'contactPresence' in (payload as Record<string, unknown>))
+    .sort((a, b) => b.event.createdAt.localeCompare(a.event.createdAt));
+  if (candidates.length === 0) return null;
+  const payload = candidates[0].payload as Record<string, unknown>;
+  return candidates[0].event.type === 'contact_presence.enriched'
+    ? payload.contactPresence ?? payload
+    : payload.contactPresence ?? null;
+}
+
 interface Env {
   DB?: D1DatabaseLike;
   MAGICSCRIPT_AUTOPILOT_ENABLED?: string;
+  MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED?: string;
   MAGICSCRIPT_SENDING_ENABLED?: string;
   MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED?: string;
   MAGICSCRIPT_DAILY_SEND_LIMIT?: string;
@@ -105,6 +170,7 @@ interface Env {
   MAGICSCRIPT_MIN_QUALIFY_SCORE?: string;
   MAGICSCRIPT_DATABASE_PROVIDER?: string;
   MAGICSCRIPT_EMAIL_PROVIDER?: string;
+  MAGICSCRIPT_FAKE_TRANSPORT?: string;
   MAGICSCRIPT_TEST_EMAIL_MODE?: string;
   MAGICSCRIPT_TEST_RECIPIENT?: string;
   MAGICSCRIPT_CONTROL_CENTER_ORIGIN?: string;
@@ -121,6 +187,7 @@ interface Env {
   MAGICSCRIPT_QUOTE_VAT_NOTE?: string;
   MAGICSCRIPT_QUOTE_CGV_REFERENCE?: string;
   MAGICSCRIPT_STACK_ID?: string;
+  MAGICSCRIPT_AGENT1_PROVENANCE?: string;
   MAGICSCRIPT_RUNNER_PROSPECT_ID?: string;
   MAGICSCRIPT_TARGET_LOCATION?: string;
   MAGICSCRIPT_DISCOVERY_BATCH_SIZE?: string;
@@ -133,6 +200,22 @@ interface ResearchResult {
   activity?: string;
   location?: string;
   websiteUrl?: string;
+  /** Observed status of the prospect's official website.
+   *  HEALTHY — site loads normally with expected content
+   *  UNDER_CONSTRUCTION — explicit "under construction" / "coming soon" page
+   *  REBUILDING — explicit "we're rebuilding the site" / redesign notice
+   *  DEGRADED — site loads but has visible issues (broken layout, missing sections)
+   *  MAINTENANCE — maintenance notice
+   *  PARKED — generic registrar parking page (no business-specific content)
+   *  DOMAIN_FOR_SALE — domain sale/auction page
+   *  UNREACHABLE — could not connect or domain appears dead
+   *  UNKNOWN — undetermined */
+  siteStatus?: 'HEALTHY' | 'UNDER_CONSTRUCTION' | 'REBUILDING' | 'DEGRADED' | 'MAINTENANCE' | 'PARKED' | 'DOMAIN_FOR_SALE' | 'UNREACHABLE' | 'UNKNOWN';
+  phone?: string;
+  phoneSourceUrl?: string;
+  derivedPhoneEvidence?: unknown;
+  /** Deterministic runner-side contact/presence audit result. */
+  contactPresence?: unknown;
   opportunity?: ProspectOpportunity;
   primaryAsset?: string;
   primaryFriction?: string;
@@ -182,17 +265,66 @@ interface ResearchResult {
     prototypeLeverage: number;
     confidence: number;
   };
-  sources?: Array<{ url: string; note?: string }>;
+  sources?: Array<{
+    url: string;
+    note?: string;
+    supports?: ResearchEvidenceClaim[];
+  }>;
 }
 
 interface DiscoveryResult {
   prospects: Array<{
+    siren?: string;
+    siret?: string;
     companyName: string;
+    legalName?: string;
+    city?: string;
     activity?: string;
     location?: string;
     websiteUrl?: string;
     sourceUrl: string;
+    // Agent 1 context is retained as provenance for the downstream research handoff.
+    commercialSignal?: string;
+    digitalPresence?: string;
+    opportunity?: ProspectOpportunity;
+    score?: number;
+    primaryFriction?: string;
+    primaryAsset?: string;
+    primaryCta?: string;
+    prototypeRecommendation?: string;
+    agent2Type?: string;
+    evidence?: Agent1CandidateBatch['candidates'][number]['evidence'];
+    eligibility?: CommercialEligibilityResult;
   }>;
+}
+
+type DiscoveryIntakeDecisionReason =
+  | 'CREATED'
+  | 'KNOWN_PROJECT'
+  | 'INTERNAL'
+  | 'DUPLICATE_SIRET'
+  | 'DUPLICATE_SIREN'
+  | 'DUPLICATE_DOMAIN'
+  | 'DUPLICATE_FALLBACK'
+  | 'INVALID_IDENTITY'
+  | 'OUT_OF_SCOPE';
+
+interface DiscoveryIntakeDecision {
+  companyName: string;
+  siren?: string;
+  siret?: string;
+  decision: 'CREATED' | 'EXCLUDED';
+  reason: DiscoveryIntakeDecisionReason;
+  prospectId?: string;
+  existingProspectId?: string;
+  entityKey?: 'SUNELEK' | 'MAGIC_SCRIPT';
+  matchedBy?: 'SIRET' | 'SIREN' | 'DOMAIN' | 'DISPLAY_ALIAS';
+}
+
+interface ProcessedDiscoveryResult {
+  created: string[];
+  skipped: string[];
+  decisions: DiscoveryIntakeDecision[];
 }
 
 interface ContactResult {
@@ -202,6 +334,7 @@ interface ContactResult {
     sourceType: ProspectContact['sourceType'];
     confidence: number;
     verified: boolean;
+    observedExactValue?: boolean;
   }>;
 }
 
@@ -222,7 +355,7 @@ interface FactCheckResult {
 }
 
 interface ExternalSendResult {
-  provider: 'amen-smtp';
+  provider: 'amen-smtp' | 'fake';
   providerMessageId: string;
   recipient: string;
   originalRecipient?: string;
@@ -438,6 +571,30 @@ function requireDb(env: Env): D1DatabaseLike {
   return env.DB;
 }
 
+async function listSyntheticProspectIds(
+  db: D1DatabaseLike,
+): Promise<Set<string>> {
+  const result = await db
+    .prepare(
+      `SELECT prospect_id
+       FROM jobs
+       WHERE prospect_id IS NOT NULL
+         AND CASE
+           WHEN json_valid(payload_json)
+           THEN json_extract(payload_json, '$.synthetic') = 1
+           ELSE 0
+         END
+       UNION
+       SELECT prospect_id
+       FROM prototypes
+       WHERE prospect_id IS NOT NULL
+         AND lower(coalesce(runner_id, '')) = 'fixture'`,
+    )
+    .all<{ prospect_id: string }>();
+
+  return new Set((result.results ?? []).map((row) => row.prospect_id));
+}
+
 function bearer(request: Request): string | null {
   const value = request.headers.get('authorization');
   if (!value?.startsWith('Bearer ')) return null;
@@ -461,9 +618,20 @@ function requireRunnerAuth(request: Request, env: Env): Response | null {
     : json({ error: 'Unauthorized runner' }, { status: 401 });
 }
 
+function requireApiOrRunnerAuth(request: Request, env: Env): Response | null {
+  return isAuthorized(request, env.MAGICSCRIPT_API_TOKEN) || isAuthorized(request, env.MAGICSCRIPT_RUNNER_TOKEN)
+    ? null
+    : json({ error: 'Unauthorized' }, { status: 401 });
+}
+
 function requireRunnerStack(request: Request, env: Env): Response | null {
   const expected = env.MAGICSCRIPT_STACK_ID?.trim();
-  if (!expected) return null;
+  if (!expected) {
+    return json(
+      { error: 'Runner requests require a configured stack generation' },
+      { status: 503 },
+    );
+  }
 
   const provided = request.headers.get('x-magicscript-stack-id')?.trim();
   return provided === expected
@@ -479,6 +647,8 @@ function requireRunnerStack(request: Request, env: Env): Response | null {
 function configFromEnv(env: Env) {
   return loadConfig({
     MAGICSCRIPT_AUTOPILOT_ENABLED: env.MAGICSCRIPT_AUTOPILOT_ENABLED,
+    MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED:
+      env.MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED,
     MAGICSCRIPT_SENDING_ENABLED: env.MAGICSCRIPT_SENDING_ENABLED,
     MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED: env.MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED,
     MAGICSCRIPT_DAILY_SEND_LIMIT: env.MAGICSCRIPT_DAILY_SEND_LIMIT,
@@ -879,17 +1049,25 @@ async function setProviderState(
 async function discoverViaRechercheEntreprises(
   env: Env,
   db: D1DatabaseLike,
+  options: {
+    perPage?: number;
+    maxCreated?: number;
+    planAfterCreate?: boolean;
+    intakeMode?: 'AUTOPILOT' | 'SAFE_MANUAL';
+  } = {},
 ): Promise<{
   attempted: boolean;
   created: string[];
   skipped: string[];
+  decisions: DiscoveryIntakeDecision[];
   scanned: number;
+  targetActivityCandidates: number;
   page: number;
   totalPages: number;
 }> {
   const batchSize =
     Number.parseInt(env.MAGICSCRIPT_DISCOVERY_BATCH_SIZE ?? '20', 10) || 20;
-  const perPage = Math.max(1, Math.min(batchSize, 25));
+  const perPage = Math.max(1, Math.min(options.perPage ?? batchSize, 25));
   const storedPage = Number.parseInt(
     (await getProviderState(
       db,
@@ -910,29 +1088,130 @@ async function discoverViaRechercheEntreprises(
   });
 
   const candidates: DiscoveryResult['prospects'] = [];
+  const providerDecisions: DiscoveryIntakeDecision[] = [];
+  const asOfDate = new Date().toISOString().slice(0, 10);
 
   for (const result of page.results) {
-    if (candidates.length >= batchSize) break;
-    if (result.etat_administratif && result.etat_administratif !== 'A') continue;
+    if (candidates.length >= perPage) break;
+
+    const localEstablishment =
+      rechercheEntrepriseMatchingEtablissement(result, '972');
+    const providerCompanyName =
+      rechercheEntrepriseName(result, localEstablishment) ||
+      rechercheEntrepriseLegalName(result) ||
+      result.siren ||
+      'UNKNOWN';
+    const providerIdentityExclusion = classifyDoNotProspectIdentity({
+      companyName: providerCompanyName,
+      legalName: rechercheEntrepriseLegalName(result),
+      siren: result.siren,
+      siret: localEstablishment?.siret ?? result.siege?.siret,
+    });
+    if (providerIdentityExclusion) {
+      providerDecisions.push({
+        companyName: providerCompanyName,
+        siren: result.siren,
+        siret: localEstablishment?.siret ?? result.siege?.siret,
+        decision: 'EXCLUDED',
+        reason: providerIdentityExclusion.decision,
+        entityKey: providerIdentityExclusion.entityKey,
+        matchedBy: providerIdentityExclusion.matchedBy,
+      });
+      continue;
+    }
+
+    if (result.etat_administratif && result.etat_administratif !== 'A') {
+      providerDecisions.push({
+        companyName: providerCompanyName,
+        siren: result.siren,
+        siret: localEstablishment?.siret ?? result.siege?.siret,
+        decision: 'EXCLUDED',
+        reason: 'OUT_OF_SCOPE',
+      });
+      continue;
+    }
     if (
       result.siege?.etat_administratif &&
       result.siege.etat_administratif !== 'A'
     ) {
+      providerDecisions.push({
+        companyName: providerCompanyName,
+        siren: result.siren,
+        siret: localEstablishment?.siret ?? result.siege?.siret,
+        decision: 'EXCLUDED',
+        reason: 'OUT_OF_SCOPE',
+      });
       continue;
     }
 
-    const localEstablishment =
-      rechercheEntrepriseMatchingEtablissement(result, '972');
-    if (!localEstablishment) continue;
+    if (!localEstablishment) {
+      providerDecisions.push({
+        companyName: providerCompanyName,
+        siren: result.siren,
+        siret: result.siege?.siret,
+        decision: 'EXCLUDED',
+        reason: 'OUT_OF_SCOPE',
+      });
+      continue;
+    }
 
     const companyName = rechercheEntrepriseName(
       result,
       localEstablishment,
     );
-    if (!companyName || !result.siren) continue;
+    const siret = localEstablishment.siret?.trim();
+    const city = rechercheEntrepriseCity(result, localEstablishment);
+    if (!companyName || !result.siren || !siret || !city) {
+      providerDecisions.push({
+        companyName: companyName || providerCompanyName,
+        siren: result.siren,
+        siret,
+        decision: 'EXCLUDED',
+        reason: 'INVALID_IDENTITY',
+      });
+      continue;
+    }
+
+    const legalName = rechercheEntrepriseLegalName(result);
+    const sourceUrl = rechercheEntrepriseSourceUrl(
+      result,
+      localEstablishment,
+    );
+    const eligibility = scoreCommercialEligibility({
+      siren: result.siren,
+      siret,
+      companyName,
+      legalName,
+      city,
+      sourceUrl,
+      companyActivity: result.activite_principale ?? undefined,
+      localActivity: localEstablishment.activite_principale ?? undefined,
+      companyCategory: result.categorie_entreprise ?? undefined,
+      companyEmployeeBand: result.tranche_effectif_salarie ?? undefined,
+      localEmployeeBand:
+        localEstablishment.tranche_effectif_salarie ?? undefined,
+      isHeadOffice:
+        localEstablishment.est_siege === true ||
+        localEstablishment.siret === result.siege?.siret,
+      numberOpenEstablishments:
+        result.nombre_etablissements_ouverts ?? undefined,
+      legalNature: result.nature_juridique ?? undefined,
+      companyCreationDate: result.date_creation ?? undefined,
+      asOfDate,
+      publicOrParapublic: result.est_service_public === true,
+      requiresNetworkAutonomyCheck:
+        Boolean(legalName) &&
+        normalizeCommercialName(companyName) !==
+          normalizeCommercialName(legalName),
+      autonomyEvidence: 'UNVERIFIED',
+    });
 
     candidates.push({
+      siren: result.siren,
+      siret,
       companyName,
+      legalName,
+      city,
       activity: rechercheEntrepriseActivity(
         result,
         localEstablishment,
@@ -941,17 +1220,36 @@ async function discoverViaRechercheEntreprises(
         result,
         localEstablishment,
       ),
-      sourceUrl: rechercheEntrepriseSourceUrl(
-        result,
-        localEstablishment,
-      ),
+      sourceUrl,
+      eligibility,
     });
   }
 
+  const collisionSafeEligibility = new Map(
+    applyCommercialBrandCollisions(
+      candidates
+        .map((candidate) => candidate.eligibility)
+        .filter(
+          (eligibility): eligibility is CommercialEligibilityResult =>
+            Boolean(eligibility),
+        ),
+    ).map((eligibility) => [eligibility.identityKey, eligibility] as const),
+  );
+  const classifiedCandidates = candidates.map((candidate) => ({
+    ...candidate,
+    eligibility: candidate.eligibility
+      ? collisionSafeEligibility.get(candidate.eligibility.identityKey)
+      : undefined,
+  }));
+
   const processed = await processDiscoveryResult(
-    { prospects: candidates },
+    { prospects: classifiedCandidates },
     env,
     db,
+    {
+      maxCreated: options.maxCreated,
+      planAfterCreate: options.planAfterCreate,
+    },
   );
 
   const nextPage = page.page >= page.totalPages ? 1 : page.page + 1;
@@ -973,7 +1271,8 @@ async function discoverViaRechercheEntreprises(
       scanned: page.results.length,
       candidates: candidates.length,
       created: processed.created.length,
-      skipped: processed.skipped.length,
+      skipped: providerDecisions.length + processed.skipped.length,
+      intakeMode: options.intakeMode ?? 'AUTOPILOT',
       authRequired: false,
       monetaryCost: 0,
     },
@@ -983,10 +1282,151 @@ async function discoverViaRechercheEntreprises(
   return {
     attempted: true,
     created: processed.created,
-    skipped: processed.skipped,
+    skipped: [
+      ...providerDecisions.map(
+        (decision) => decision.entityKey ?? decision.companyName,
+      ),
+      ...processed.skipped,
+    ],
+    decisions: [...providerDecisions, ...processed.decisions],
     scanned: page.results.length,
+    targetActivityCandidates: candidates.length,
     page: page.page,
     totalPages: page.totalPages,
+  };
+}
+
+async function runSafeManualDiscoveryIntake(
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<Record<string, unknown>> {
+  const limits = {
+    maxNewProspects: 10,
+    maxPages: 3,
+    maxRawBusinesses: 60,
+    perPage: 20,
+  } as const;
+  const pages: Array<{
+    page: number;
+    rawScanned: number;
+    targetActivityCandidates: number;
+    created: number;
+    excluded: number;
+  }> = [];
+  const decisions: DiscoveryIntakeDecision[] = [];
+  const createdIds: string[] = [];
+  let rawScanned = 0;
+  let targetActivityCandidates = 0;
+
+  while (
+    pages.length < limits.maxPages &&
+    rawScanned < limits.maxRawBusinesses &&
+    createdIds.length < limits.maxNewProspects
+  ) {
+    const page = await discoverViaRechercheEntreprises(env, db, {
+      perPage: Math.min(limits.perPage, limits.maxRawBusinesses - rawScanned),
+      maxCreated: limits.maxNewProspects - createdIds.length,
+      planAfterCreate:
+        env.MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED === 'true',
+      intakeMode: 'SAFE_MANUAL',
+    });
+
+    pages.push({
+      page: page.page,
+      rawScanned: page.scanned,
+      targetActivityCandidates: page.targetActivityCandidates,
+      created: page.created.length,
+      excluded: page.decisions.filter(
+        (decision) => decision.decision === 'EXCLUDED',
+      ).length,
+    });
+    rawScanned += page.scanned;
+    targetActivityCandidates += page.targetActivityCandidates;
+    createdIds.push(...page.created);
+    decisions.push(...page.decisions);
+
+    if (page.scanned === 0) break;
+  }
+
+  const createdIdSet = new Set(createdIds);
+  const createdProspects = (await new D1ProspectRepository(db).listProspects())
+    .filter((prospect) => createdIdSet.has(prospect.id))
+    .map((prospect) => ({
+      id: prospect.id,
+      companyName: prospect.companyName,
+      legalName: prospect.legalName,
+      siren: prospect.siren,
+      siret: prospect.siret,
+      activity: prospect.activity,
+      location: prospect.location,
+      city: prospect.city,
+      sourceUrl: prospect.sourceUrl,
+      websiteUrl: prospect.websiteUrl,
+      commercialEligibility: prospect.commercialEligibility,
+      lifecycle: prospect.state,
+    }));
+
+  const countReason = (...reasons: DiscoveryIntakeDecisionReason[]): number =>
+    decisions.filter((decision) => reasons.includes(decision.reason)).length;
+  const knownProof = (
+    entityKey: 'SUNELEK' | 'MAGIC_SCRIPT',
+  ): Record<string, unknown> => {
+    const observed = decisions.find(
+      (decision) => decision.entityKey === entityKey,
+    );
+    const persistedAsNew = createdProspects.some(
+      (prospect) =>
+        classifyDoNotProspectIdentity(prospect)?.entityKey === entityKey,
+    );
+
+    return {
+      discoveredByProvider: Boolean(observed),
+      intakeDecision: observed?.reason ?? 'NOT_DISCOVERED',
+      matchedBy: observed?.matchedBy ?? null,
+      persistedAsNew,
+      operatorAvailable: false,
+    };
+  };
+
+  return {
+    ok: true,
+    provider: 'recherche-entreprises',
+    mode: 'SAFE_MANUAL_INTAKE',
+    limits,
+    safety: {
+      autopilotEnabled: env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true',
+      sendingEnabled: env.MAGICSCRIPT_SENDING_ENABLED === 'true',
+      prototypeDeploymentEnabled:
+        env.MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED === 'true',
+      paidApiUsed: false,
+      realContactOccurred: false,
+      remoteMutationOccurred: false,
+      fallbackProviderUsed: false,
+    },
+    funnel: {
+      pagesScanned: pages.length,
+      rawScanned,
+      targetActivityCandidates,
+      knownProjectExcluded: countReason('KNOWN_PROJECT'),
+      internalExcluded: countReason('INTERNAL'),
+      duplicatesExcluded: countReason(
+        'DUPLICATE_SIRET',
+        'DUPLICATE_SIREN',
+        'DUPLICATE_DOMAIN',
+        'DUPLICATE_FALLBACK',
+      ),
+      invalidExcluded: countReason('INVALID_IDENTITY'),
+      outOfScopeExcluded: countReason('OUT_OF_SCOPE'),
+      otherExcluded: 0,
+      newProspectsCreated: createdIds.length,
+    },
+    pages,
+    decisions,
+    createdProspects,
+    exclusionProof: {
+      sunelek: knownProof('SUNELEK'),
+      magicScript: knownProof('MAGIC_SCRIPT'),
+    },
   };
 }
 
@@ -1031,6 +1471,7 @@ async function discoverViaSirene(
   );
 
   const candidates: DiscoveryResult['prospects'] = [];
+  const asOfDate = new Date().toISOString().slice(0, 10);
 
   for (const establishment of page.establishments) {
     if (candidates.length >= batchSize) break;
@@ -1044,18 +1485,76 @@ async function discoverViaSirene(
     }
 
     const companyName = sireneBusinessName(establishment);
-    if (!companyName) continue;
+    const city =
+      establishment.adresseEtablissement?.libelleCommuneEtablissement?.trim();
+    if (!companyName || !city || !establishment.siren || !establishment.siret) {
+      continue;
+    }
+
+    const legalName =
+      establishment.uniteLegale?.denominationUniteLegale?.trim() || undefined;
+    const sourceUrl = sirenePublicSourceUrl(establishment.siret);
+    const eligibility = scoreCommercialEligibility({
+      siren: establishment.siren,
+      siret: establishment.siret,
+      companyName,
+      legalName,
+      city,
+      sourceUrl,
+      companyActivity:
+        establishment.uniteLegale?.activitePrincipaleUniteLegale ?? undefined,
+      localActivity: period.activitePrincipaleEtablissement ?? undefined,
+      companyCategory:
+        establishment.uniteLegale?.categorieEntreprise ?? undefined,
+      companyEmployeeBand:
+        establishment.uniteLegale?.trancheEffectifsUniteLegale ?? undefined,
+      isHeadOffice: establishment.etablissementSiege === true,
+      numberOpenEstablishments:
+        establishment.uniteLegale?.nombreEtablissementsOuverts ?? undefined,
+      legalNature:
+        establishment.uniteLegale?.categorieJuridiqueUniteLegale ?? undefined,
+      companyCreationDate:
+        establishment.uniteLegale?.dateCreationUniteLegale ?? undefined,
+      asOfDate,
+      requiresNetworkAutonomyCheck:
+        Boolean(legalName) &&
+        normalizeCommercialName(companyName) !==
+          normalizeCommercialName(legalName),
+      autonomyEvidence: 'UNVERIFIED',
+    });
 
     candidates.push({
+      siren: establishment.siren,
+      siret: establishment.siret,
       companyName,
+      legalName,
+      city,
       activity: period.activitePrincipaleEtablissement ?? undefined,
       location: sireneLocation(establishment),
-      sourceUrl: sirenePublicSourceUrl(establishment.siret),
+      sourceUrl,
+      eligibility,
     });
   }
 
+  const collisionSafeEligibility = new Map(
+    applyCommercialBrandCollisions(
+      candidates
+        .map((candidate) => candidate.eligibility)
+        .filter(
+          (eligibility): eligibility is CommercialEligibilityResult =>
+            Boolean(eligibility),
+        ),
+    ).map((eligibility) => [eligibility.identityKey, eligibility] as const),
+  );
+  const classifiedCandidates = candidates.map((candidate) => ({
+    ...candidate,
+    eligibility: candidate.eligibility
+      ? collisionSafeEligibility.get(candidate.eligibility.identityKey)
+      : undefined,
+  }));
+
   const processed = await processDiscoveryResult(
-    { prospects: candidates },
+    { prospects: classifiedCandidates },
     env,
     db,
   );
@@ -1240,63 +1739,436 @@ async function transitionOnClaim(
   }
 }
 
+function discoveryCandidateIdentity(
+  candidate: DiscoveryResult['prospects'][number],
+): {
+  siren?: string;
+  siret?: string;
+  city?: string;
+  sourceUrl?: string;
+} {
+  return {
+    siren:
+      candidate.siren?.trim() ||
+      candidate.eligibility?.researchIdentity.siren?.trim(),
+    siret:
+      candidate.siret?.trim() ||
+      candidate.eligibility?.researchIdentity.siret?.trim(),
+    city:
+      candidate.city?.trim() ||
+      candidate.eligibility?.researchIdentity.city?.trim(),
+    sourceUrl:
+      candidate.sourceUrl?.trim() ||
+      candidate.eligibility?.researchIdentity.sourceUrl?.trim(),
+  };
+}
+
+interface ValidDiscoveryIdentity {
+  siren: string;
+  siret: string;
+  city: string;
+  sourceUrl: string;
+}
+
+function hasValidDiscoveryIdentity(
+  identity: ReturnType<typeof discoveryCandidateIdentity>,
+): identity is ValidDiscoveryIdentity {
+  if (!/^\d{9}$/.test(identity.siren ?? '')) return false;
+  if (!/^\d{14}$/.test(identity.siret ?? '')) return false;
+  if (!identity.siret?.startsWith(identity.siren ?? '')) return false;
+  if (!identity.city) return false;
+
+  try {
+    const source = new URL(identity.sourceUrl ?? '');
+    return source.protocol === 'https:' || source.protocol === 'http:';
+  } catch {
+    return false;
+  }
+}
+
+function duplicateDiscoveryDecision(
+  candidate: DiscoveryResult['prospects'][number],
+  identity: ReturnType<typeof discoveryCandidateIdentity>,
+  existingProspects: readonly Prospect[],
+): Pick<DiscoveryIntakeDecision, 'reason' | 'existingProspectId'> | null {
+  const sameSiret = existingProspects.find(
+    (prospect) => prospect.siret && prospect.siret === identity.siret,
+  );
+  if (sameSiret) {
+    return { reason: 'DUPLICATE_SIRET', existingProspectId: sameSiret.id };
+  }
+
+  const sameSiren = existingProspects.find(
+    (prospect) => prospect.siren && prospect.siren === identity.siren,
+  );
+  if (sameSiren) {
+    return { reason: 'DUPLICATE_SIREN', existingProspectId: sameSiren.id };
+  }
+
+  const candidateDomain = canonicalProspectDomain(candidate.websiteUrl);
+  if (candidateDomain) {
+    const sameDomain = existingProspects.find(
+      (prospect) =>
+        canonicalProspectDomain(prospect.websiteUrl) === candidateDomain,
+    );
+    if (sameDomain) {
+      return { reason: 'DUPLICATE_DOMAIN', existingProspectId: sameDomain.id };
+    }
+  }
+
+  const candidateName = normalizeCommercialName(candidate.companyName);
+  const candidateLocation = normalizeCommercialName(candidate.location ?? '');
+  if (!identity.siren && !identity.siret && candidateName && candidateLocation) {
+    const sameFallback = existingProspects.find(
+      (prospect) =>
+        !prospect.siren &&
+        !prospect.siret &&
+        normalizeCommercialName(prospect.companyName) === candidateName &&
+        normalizeCommercialName(prospect.location ?? '') === candidateLocation,
+    );
+    if (sameFallback) {
+      return {
+        reason: 'DUPLICATE_FALLBACK',
+        existingProspectId: sameFallback.id,
+      };
+    }
+  }
+
+  return null;
+}
+
 async function processDiscoveryResult(
   result: DiscoveryResult,
   env: Env,
   db: D1DatabaseLike,
-): Promise<{ created: string[]; skipped: string[] }> {
+  options: {
+    maxCreated?: number;
+    planAfterCreate?: boolean;
+  } = {},
+): Promise<ProcessedDiscoveryResult> {
   const repo = new D1ProspectRepository(db);
+  const existingProspects = await repo.listProspects();
   const created: string[] = [];
   const skipped: string[] = [];
+  const decisions: DiscoveryIntakeDecision[] = [];
+  const maxCreated = Math.max(0, options.maxCreated ?? Number.POSITIVE_INFINITY);
 
   for (const candidate of result.prospects ?? []) {
-    if (!candidate.companyName?.trim() || !candidate.sourceUrl?.trim()) continue;
+    if (created.length >= maxCreated) break;
 
-    const existing = await db
-      .prepare(
-        `SELECT id FROM prospects
-         WHERE lower(company_name) = lower(?)
-           AND lower(COALESCE(location, '')) = lower(COALESCE(?, ''))
-         LIMIT 1`,
-      )
-      .bind(candidate.companyName.trim(), candidate.location ?? null)
-      .first<{ id: string }>();
-
-    if (existing) {
-      skipped.push(existing.id);
+    const companyName = candidate.companyName?.trim() || 'UNKNOWN';
+    const identity = discoveryCandidateIdentity(candidate);
+    const excludedIdentity = classifyDoNotProspectIdentity({
+      companyName,
+      legalName: candidate.legalName,
+      siren: identity.siren,
+      siret: identity.siret,
+      websiteUrl: candidate.websiteUrl,
+    });
+    if (excludedIdentity) {
+      skipped.push(excludedIdentity.entityKey);
+      decisions.push({
+        companyName,
+        siren: identity.siren,
+        siret: identity.siret,
+        decision: 'EXCLUDED',
+        reason: excludedIdentity.decision,
+        entityKey: excludedIdentity.entityKey,
+        matchedBy: excludedIdentity.matchedBy,
+      });
       continue;
+    }
+
+    if (
+      !candidate.companyName?.trim() ||
+      !candidate.sourceUrl?.trim() ||
+      !hasValidDiscoveryIdentity(identity)
+    ) {
+      skipped.push(`${identity.siren ?? 'UNKNOWN'}|${identity.siret ?? 'UNKNOWN'}`);
+      decisions.push({
+        companyName,
+        siren: identity.siren,
+        siret: identity.siret,
+        decision: 'EXCLUDED',
+        reason: 'INVALID_IDENTITY',
+      });
+      continue;
+    }
+
+    const duplicate = duplicateDiscoveryDecision(
+      candidate,
+      identity,
+      existingProspects,
+    );
+    if (duplicate) {
+      skipped.push(duplicate.existingProspectId ?? companyName);
+      decisions.push({
+        companyName,
+        siren: identity.siren,
+        siret: identity.siret,
+        decision: 'EXCLUDED',
+        ...duplicate,
+      });
+      continue;
+    }
+
+    let eligibility = candidate.eligibility;
+
+    const eligibilityIdentityMatches =
+      eligibility?.researchIdentity.siren === identity.siren &&
+      eligibility.researchIdentity.siret === identity.siret &&
+      eligibility.researchIdentity.city === identity.city &&
+      eligibility.researchIdentity.sourceUrl === identity.sourceUrl &&
+      eligibility.identityKey === `${identity.siren}|${identity.siret}`;
+    if (!eligibility || !eligibilityIdentityMatches) {
+      skipped.push(eligibility?.identityKey ?? companyName);
+      decisions.push({
+        companyName,
+        siren: identity.siren,
+        siret: identity.siret,
+        decision: 'EXCLUDED',
+        reason: 'INVALID_IDENTITY',
+      });
+      continue;
+    }
+    if (
+      eligibility.classification === 'LOW_PRIORITY' ||
+      eligibility.classification === 'REJECT'
+    ) {
+      skipped.push(eligibility.identityKey);
+      decisions.push({
+        companyName,
+        siren: identity.siren,
+        siret: identity.siret,
+        decision: 'EXCLUDED',
+        reason: 'OUT_OF_SCOPE',
+      });
+      continue;
+    }
+
+    if (!eligibility.genericBrandPlaceholder && eligibility.brandKey) {
+      const existingBrand = await db
+        .prepare(
+          `SELECT id FROM prospects
+           WHERE brand_key = ?
+           LIMIT 1`,
+        )
+        .bind(eligibility.brandKey)
+        .first<{ id: string }>();
+
+      if (existingBrand) {
+        await db
+          .prepare(
+            `UPDATE prospects
+             SET brand_collision_group = ?, updated_at = ?
+             WHERE id = ?`,
+          )
+          .bind(
+            eligibility.brandKey,
+            new Date().toISOString(),
+            existingBrand.id,
+          )
+          .run();
+        eligibility = {
+          ...eligibility,
+          brandCollisionGroup: eligibility.brandKey,
+          initialResearchRepresentative: false,
+          classification:
+            eligibility.classification === 'HIGH_PRIORITY'
+              ? 'RESEARCH'
+              : eligibility.classification,
+          constraints: [
+            ...eligibility.constraints,
+            'BRAND_COLLISION_DEFERRED',
+          ],
+        };
+      }
     }
 
     const now = new Date().toISOString();
     const prospect: Prospect = {
       id: crypto.randomUUID(),
       companyName: candidate.companyName.trim(),
-      activity: candidate.activity,
+      legalName: candidate.legalName,
+      siren: identity.siren,
+      siret: identity.siret,
+      city: identity.city,
+      sourceUrl: identity.sourceUrl,
+      activityTaxonomy: eligibility.activityTaxonomy,
+      commercialEligibility: eligibility.classification,
+      brandKey: eligibility.brandKey,
+      brandCollisionGroup: eligibility.brandCollisionGroup ?? undefined,
+      initialResearchRepresentative:
+        eligibility.initialResearchRepresentative,
+      activity: eligibility.activity ?? candidate.activity,
       location: candidate.location,
       websiteUrl: candidate.websiteUrl,
+      // Agent 1 hypotheses stay in discovery.prospect_created.agent1Context;
+      // canonical Prospect fields are populated only by accepted Research.
       state: 'DISCOVERED',
+      score: eligibility.score,
       createdAt: now,
       updatedAt: now,
     };
 
     await repo.saveProspect(prospect);
     created.push(prospect.id);
+    existingProspects.push(prospect);
+    decisions.push({
+      companyName: prospect.companyName,
+      siren: prospect.siren,
+      siret: prospect.siret,
+      decision: 'CREATED',
+      reason: 'CREATED',
+      prospectId: prospect.id,
+    });
 
     await new D1EventStore(db).append({
       id: crypto.randomUUID(),
       prospectId: prospect.id,
       actor: 'research-agent',
       type: 'discovery.prospect_created',
-      payload: { sourceUrl: candidate.sourceUrl },
+      payload: {
+        sourceUrl: candidate.sourceUrl,
+        gateVersion: eligibility.gateVersion,
+        identityKey: eligibility.identityKey,
+        researchIdentity: eligibility.researchIdentity,
+        classification: eligibility.classification,
+        score: eligibility.score,
+        agent1Context: {
+          commercialSignal: candidate.commercialSignal ?? null,
+          digitalPresence: candidate.digitalPresence ?? null,
+          opportunity: candidate.opportunity ?? null,
+          score: candidate.score ?? null,
+          primaryFriction: candidate.primaryFriction ?? null,
+          primaryAsset: candidate.primaryAsset ?? null,
+          primaryCta: candidate.primaryCta ?? null,
+          prototypeRecommendation: candidate.prototypeRecommendation ?? null,
+          agent2Type: candidate.agent2Type ?? null,
+          evidence: candidate.evidence ?? [],
+          seedStatus: 'UNVERIFIED_RESEARCH_SEED',
+          provenance: env.MAGICSCRIPT_AGENT1_PROVENANCE ?? 'agent1-canonical-v1',
+          collectedAt: now,
+        },
+        scoreBreakdown: {
+          locality: eligibility.localityScore,
+          size: eligibility.sizeScore,
+          autonomy: eligibility.autonomyScore,
+          sector: eligibility.sectorScore,
+          recency: eligibility.recencyScore,
+        },
+        sectorSource: eligibility.sectorSource,
+        activityTaxonomy: eligibility.activityTaxonomy,
+        brandCollisionGroup: eligibility.brandCollisionGroup,
+        constraints: eligibility.constraints,
+      },
       createdAt: now,
     });
 
-    if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+    if (
+      (options.planAfterCreate ?? true) &&
+      eligibility.initialResearchRepresentative &&
+      (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true' ||
+        env.MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED === 'true')
+    ) {
       await orchestrator(env, db).planProspect(prospect.id);
     }
   }
 
-  return { created, skipped };
+  return { created, skipped, decisions };
+}
+
+/**
+ * Deterministically derives evidence-integrity claims from research output
+ * facts that are source-backed or verifiable from public registries.
+ *
+ * These claims are NOT directly annotated by the research swarm. Instead they
+ * are inferred through explicit, auditable rules so that a prospect with
+ * genuine public evidence can pass the evidence-integrity gate without the
+ * research swarm needing to emit a claim for every score dimension.
+ *
+ * Each derivation rule must be:
+ * - source-backed (the fact that triggers the derivation must itself be
+ *   confirmable from an accepted source or official registry)
+ * - explicit (the rule name and condition are documented)
+ * - fail-closed (missing or ambiguous input → no derivation)
+ */
+function deriveEvidenceClaims(result: ResearchResult, prospect: Prospect): readonly ResearchEvidenceClaim[] {
+  const claims: ResearchEvidenceClaim[] = [];
+
+  // NOTE: 'phone' is deliberately NOT derived here. All phone-related fields
+  // in result (phone, phoneSourceUrl, source.url, source.note,
+  // source.supports) originate entirely from the LLM research swarm. There is
+  // no independent fetched/observed evidence that can anchor a deterministic
+  // phone derivation in the current architecture. Granting 'phone' from these
+  // model-authored fields would be circular self-attestation.
+  //
+  // See: docs/evidence-contract.md (SECURITY INVARIANT: MODEL CLAIM != SOURCE EVIDENCE)
+  //
+  // When the architecture is extended with deterministic phone extraction
+  // from independent source material (fetched page text, tel: hrefs, JSON-LD),
+  // the derivation may be added here with a clear provenance anchor.
+
+  // NOTE: contactability is deliberately NOT derived from model-authored
+  // phone/phoneSourceUrl fields. All phone-related fields in result (phone,
+  // phoneSourceUrl, source.url, source.note, source.supports) originate
+  // entirely from the LLM research swarm. Granting 'contactability' from
+  // these model-authored fields would be circular self-attestation.
+  //
+  // contactability is promoted by evaluateResearchEvidenceIntegrity() only
+  // when trustedPhone exists (independent source-backed phone evidence).
+
+  // localFit: a prospect that passed discovery eligibility (non-REJECT
+  // commercialEligibility) with a valid SIREN/SIRET, known city, and
+  // non-empty location string has confirmed local-market targeting.
+  // Discovery already verified the business is in the right geography,
+  // operates in a target ICP, and has a genuine local establishment.
+  if (prospect.siren?.trim() && prospect.siret?.trim() && prospect.city?.trim() &&
+      prospect.location?.trim() &&
+      prospect.commercialEligibility && prospect.commercialEligibility !== 'REJECT') {
+    claims.push('localFit');
+  }
+
+  // prototypeLeverage: an official website with navigation structure means
+  // the business has digital assets that a prototype can improve upon.
+  if (result.websiteUrl?.trim() && Array.isArray(result.sourceNavigationBlocks) && result.sourceNavigationBlocks.length > 0) {
+    claims.push('prototypeLeverage');
+  }
+
+  // commercialStrength: requires at least one accepted source with an
+  // explicit activity or opportunity claim (source-backed activity or
+  // opportunity evidence), an official website, and valid business
+  // registration. Mere website+activity strings are not sufficient.
+  const hasActivitySource = Array.isArray(result.sources) && result.sources.some(
+    (s) => s && typeof s === 'object' && Array.isArray((s as Record<string, unknown>).supports) &&
+    ((s as Record<string, unknown>).supports as string[]).includes('activity' as string),
+  );
+  if (
+    prospect.siret?.trim() &&
+    result.websiteUrl?.trim() &&
+    hasActivitySource
+  ) {
+    claims.push('commercialStrength');
+  }
+
+  // digitalGap: a real website with identified primary friction suggests
+  // a gap the prototype can fill. (Already emitted by the swarm as a claim
+  // but included here as a belt-and-suspenders derivation.)
+  if (result.websiteUrl?.trim() && typeof result.primaryFriction === 'string' && result.primaryFriction.trim()) {
+    claims.push('digitalGap');
+  }
+
+  // Website distress / rebuild signal: an official domain with explicit
+  // UNDER_CONSTRUCTION or REBUILDING status indicates the business knows it
+  // needs a better site — a strong digitalGap and prototypeLeverage signal.
+  // Parking / DOMAIN_FOR_SALE / UNREACHABLE are NOT given this boost.
+  const rebuildStatuses = new Set(['UNDER_CONSTRUCTION', 'REBUILDING']);
+  if (result.websiteUrl?.trim() && result.siteStatus && rebuildStatuses.has(result.siteStatus)) {
+    if (!claims.includes('digitalGap')) claims.push('digitalGap');
+    if (!claims.includes('prototypeLeverage')) claims.push('prototypeLeverage');
+  }
+
+  return claims;
 }
 
 async function processResearchResult(
@@ -1304,23 +2176,91 @@ async function processResearchResult(
   result: ResearchResult,
   env: Env,
   db: D1DatabaseLike,
-): Promise<{ prospectId: string; score: number; qualified: boolean }> {
+): Promise<{
+  prospectId: string;
+  score: number;
+  qualified: boolean;
+  evidenceIntegrity: {
+    passed: boolean;
+    reasons: string[];
+    supportedClaims: readonly ResearchEvidenceClaim[];
+  };
+}> {
   if (!job.prospectId) throw new Error('Research job has no prospectId');
 
   const repo = new D1ProspectRepository(db);
   const current = await repo.getProspect(job.prospectId);
   if (!current) throw new Error(`Prospect not found: ${job.prospectId}`);
 
-  const scoring = scoreProspect(result.scoreInputs);
+  const evidenceIntegrity = evaluateResearchEvidenceIntegrity({
+    ...result,
+    derivedClaims: deriveEvidenceClaims(result, current),
+  });
+
+  // Apply evidence-based score caps so the model cannot inflate qualification
+  // with numeric magnitudes that exceed what the underlying facts warrant.
+  const supports = (claim: ResearchEvidenceClaim): boolean =>
+    evidenceIntegrity.passed &&
+    hasSupportedResearchClaim(evidenceIntegrity, claim);
+  const calibrationInput = {
+    rawScores: evidenceIntegrity.scoreInputs,
+    supportedClaims: evidenceIntegrity.supportedClaims,
+    hasTrustedPhone: Boolean(evidenceIntegrity.trustedPhone),
+    hasTrustedWebsite: Boolean(evidenceIntegrity.trustedWebsiteUrl),
+    acceptedSourceCount: evidenceIntegrity.acceptedSources.length,
+    siteStatus: result.siteStatus,
+    hasNavigationBlocks: Array.isArray(result.sourceNavigationBlocks) && result.sourceNavigationBlocks.length > 0,
+    isEligible: Boolean(current.commercialEligibility && current.commercialEligibility !== 'REJECT'),
+    hasSupportedActivity: supports('activity'),
+  };
+
+  // Deterministic contactability rehydration:
+  // When independent trustedPhone evidence exists, the evidence-integrity gate
+  // promotes 'contactability' as a supported claim, but the raw score remains 0
+  // (trust-boundary normalization zeroes model-authored contactability).
+  // Derive a canonical contactability score from the trusted evidence itself.
+  // Model score is NEVER used; the value is fixed at the evidence cap (85).
+  const calibrationScores = { ...evidenceIntegrity.scoreInputs };
+  if (evidenceIntegrity.trustedPhone) {
+    // The cap for contactability with trustedPhone is 85 (see computeContactabilityCap).
+    // Use the cap as the canonical score — bounded, evidence-derived, no model influence.
+    calibrationScores.contactability = 85;
+  }
+
+  const calibratedScores = evidenceIntegrity.passed
+    ? calibrateScoreInputs(calibrationScores, computeEvidenceCaps(calibrationInput))
+    : { digitalGap: 0, commercialStrength: 0, contactability: 0, localFit: 0, prototypeLeverage: 0, confidence: 0 };
+  const scoring = scoreProspect(calibratedScores);
+  const phoneEvidence = evidenceIntegrity.trustedPhone;
+  const trustedBrandAsset = supports('brandAsset')
+    ? result.brandAsset
+    : undefined;
   const updated: Prospect = {
     ...current,
-    activity: result.activity ?? current.activity,
-    location: result.location ?? current.location,
-    websiteUrl: result.websiteUrl ?? current.websiteUrl,
-    opportunity: result.opportunity ?? current.opportunity,
-    primaryAsset: result.primaryAsset ?? current.primaryAsset,
-    primaryFriction: result.primaryFriction ?? current.primaryFriction,
-    primaryCta: result.primaryCta ?? current.primaryCta,
+    activity: supports('activity')
+      ? (result.activity ?? current.activity)
+      : current.activity,
+    location: supports('location')
+      ? (result.location ?? current.location)
+      : current.location,
+    // A discovery/listing URL is not an owned website. Once Research has
+    // evaluated the evidence, only an independently traceable same-origin
+    // website claim may populate the canonical field; otherwise keep it
+    // absent rather than carrying an unverified discovery URL forward.
+    websiteUrl: evidenceIntegrity.trustedWebsiteUrl,
+    phone: phoneEvidence?.phone ?? current.phone,
+    opportunity: supports('opportunity')
+      ? (result.opportunity ?? current.opportunity)
+      : current.opportunity,
+    primaryAsset: supports('primaryAsset')
+      ? (result.primaryAsset ?? current.primaryAsset)
+      : current.primaryAsset,
+    primaryFriction: supports('primaryFriction')
+      ? (result.primaryFriction ?? current.primaryFriction)
+      : current.primaryFriction,
+    primaryCta: evidenceIntegrity.passed
+      ? (result.primaryCta ?? current.primaryCta)
+      : current.primaryCta,
     score: scoring.score,
     updatedAt: new Date().toISOString(),
   };
@@ -1335,16 +2275,21 @@ async function processResearchResult(
   }
 
   const minScore = Number.parseInt(env.MAGICSCRIPT_MIN_QUALIFY_SCORE ?? '65', 10) || 65;
-  const qualified = scoring.score >= minScore;
+  const qualified = evidenceIntegrity.passed && scoring.score >= minScore;
 
   const ready = await repo.getProspect(job.prospectId);
   if (!ready) throw new Error('Prospect not found after research transition');
 
   if (ready.state === 'RESEARCH_COMPLETE') {
+    const transitionReason = qualified
+      ? 'Score above qualification threshold with accepted evidence'
+      : evidenceIntegrity.passed
+        ? 'Score below qualification threshold'
+        : 'Evidence integrity gate failed';
     await repo.transitionProspect(
       ready.id,
       qualified ? 'QUALIFIED' : 'DISQUALIFIED',
-      qualified ? 'Score above qualification threshold' : 'Score below qualification threshold',
+      transitionReason,
     );
   }
 
@@ -1358,8 +2303,18 @@ async function processResearchResult(
       band: scoring.band,
       qualified,
       autoPrototypeEligible: scoring.autoPrototypeEligible,
-      sources: result.sources ?? [],
-      brandAsset: result.brandAsset ?? {
+      sources: evidenceIntegrity.acceptedSources,
+      evidenceIntegrity: {
+        passed: evidenceIntegrity.passed,
+        reasons: evidenceIntegrity.reasons,
+        rejectedSourceCount: evidenceIntegrity.rejectedSourceCount,
+        supportedClaims: evidenceIntegrity.supportedClaims,
+      },
+      phoneEvidence: phoneEvidence
+        ? { ...phoneEvidence }
+        : null,
+      contactPresence: result.contactPresence ?? null,
+      brandAsset: trustedBrandAsset ?? {
         status: 'UNKNOWN',
         reuseDecision: 'CREATE_ONLY_IF_NO_USABLE_IDENTITY',
         note: 'Aucun actif de marque structurÃƒÆ’Ã‚Â© dans cette sortie de recherche.',
@@ -1368,11 +2323,24 @@ async function processResearchResult(
     createdAt: new Date().toISOString(),
   });
 
-  if (qualified && env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+  if (
+    qualified &&
+    (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true' ||
+      env.MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED === 'true')
+  ) {
     await orchestrator(env, db).planProspect(job.prospectId);
   }
 
-  return { prospectId: job.prospectId, score: scoring.score, qualified };
+  return {
+    prospectId: job.prospectId,
+    score: scoring.score,
+    qualified,
+    evidenceIntegrity: {
+      passed: evidenceIntegrity.passed,
+      reasons: [...evidenceIntegrity.reasons],
+      supportedClaims: evidenceIntegrity.supportedClaims,
+    },
+  };
 }
 
 async function processScoringResult(
@@ -1470,9 +2438,10 @@ async function tryHunterContactFallback(
   }
 
   const domain = domainFromWebsite(prospect.websiteUrl);
-  const lookup = domain
-    ? { domain }
-    : { company: prospect.companyName };
+  if (!prospect.siren || !prospect.siret || !domain) {
+    return null;
+  }
+  const lookup = { domain };
 
   const hunter = new HunterClient(apiKey);
 
@@ -1588,7 +2557,14 @@ async function processContactResult(
       sourceUrl: candidate.sourceUrl,
       sourceType: candidate.sourceType ?? 'other_public_source',
       confidence,
-      isValidated: candidate.verified === true && confidence >= minConfidence && !suppressed,
+      isValidated: isPublishedVerifiedContactCandidate({
+        sourceUrl: candidate.sourceUrl,
+        confidence,
+        verified: candidate.verified === true,
+        observedExactValue: candidate.observedExactValue === true,
+        suppressed: Boolean(suppressed),
+        minConfidence,
+      }),
       isSuppressed: Boolean(suppressed),
       createdAt: now,
       updatedAt: now,
@@ -1691,7 +2667,10 @@ async function processContactResult(
     return { prospectId: job.prospectId, validContact: false, retrying: false };
   }
 
-  if (env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true') {
+  if (
+    env.MAGICSCRIPT_AUTOPILOT_ENABLED === 'true' ||
+    env.MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED === 'true'
+  ) {
     await orchestrator(env, db).planProspect(job.prospectId);
   }
 
@@ -1827,13 +2806,24 @@ async function processFactCheckResult(
   }
 
   const confidence = Math.max(0, Math.min(100, Number(result.confidence) || 0));
+  const repairedMissingLinkFalseNegative = isVerifiedDeploymentLinkFalseNegative(
+    result.approved === true,
+    result.reasons ?? [],
+    draft.body_text ?? '',
+    deploymentUrl,
+  );
   const approved =
     shouldAcceptFactCheckWithVerifiedDeploymentLink(
       result.approved === true,
       result.reasons ?? [],
       draft.body_text ?? '',
       deploymentUrl,
-    ) && confidence >= configFromEnv(env).minOutreachConfidence;
+    ) &&
+    meetsOutreachFactCheckConfidence(
+      confidence,
+      configFromEnv(env).minOutreachConfidence,
+      repairedMissingLinkFalseNegative,
+    );
 
   const repo = new D1ProspectRepository(db);
   const prospect = await repo.getProspect(job.prospectId);
@@ -2260,6 +3250,106 @@ function boundedString(
   if (!value && required) throw new Error(`${field} is required`);
   if (value.length > maxLength) throw new Error(`${field} is too long`);
   return value || null;
+}
+
+interface ProposalDeckItemV1 {
+  prospectId: string;
+  businessName: string;
+  location: string | null;
+  vertical: string | null;
+  opportunity: string | null;
+  friction: string | null;
+  contactability: {
+    label: 'Email' | 'Mobile' | 'Email + Mobile' | 'None';
+    email: string | null;
+    mobile: string | null;
+  };
+  proposal: {
+    id: string;
+    entryPath: string;
+    readyAt: string;
+  };
+  engagement: {
+    viewed: boolean;
+    returned: boolean;
+    shared: boolean;
+    meetingBooked: boolean;
+    meetingAt: string | null;
+  };
+}
+
+function eventPayloadRecord(payload: unknown): Record<string, unknown> {
+  return payload && typeof payload === 'object' ? payload as Record<string, unknown> : {};
+}
+
+async function listProposalDeck(db: D1DatabaseLike): Promise<{ items: ProposalDeckItemV1[] }> {
+  const proposalRows = await db.prepare(`
+    SELECT proposal_json
+    FROM v2_proposals
+    WHERE status = 'PROPOSAL_READY'
+    ORDER BY created_at DESC
+  `).all<{ proposal_json: string }>();
+  const repo = new D1ProspectRepository(db);
+  const eventStore = new D1EventStore(db);
+  const items: ProposalDeckItemV1[] = [];
+
+  for (const row of proposalRows.results ?? []) {
+    const proposal = JSON.parse(row.proposal_json) as ProposalV1;
+    if (proposal.status !== 'PROPOSAL_READY') continue;
+    const prospect = await repo.getProspect(proposal.prospectId);
+    if (!prospect) continue;
+    const contacts = await repo.listContacts(prospect.id);
+    const events = await eventStore.listByProspect(prospect.id);
+    const usableEmails = contacts.filter((contact) => contact.isValidated && !contact.isSuppressed && contact.email.trim());
+    const mobile = prospect.phone?.trim() || null;
+    const email = usableEmails[0]?.email.trim() || null;
+    const hasViewed = events.some((event) => event.type === 'PROPOSAL_VIEWED' && event.payload && eventPayloadRecord(event.payload).proposalId === proposal.id);
+    const hasReturned = events.some((event) => event.type === 'RETURN_VISIT' && event.payload && eventPayloadRecord(event.payload).proposalId === proposal.id);
+    const hasShared = events.some((event) => event.type === 'SHARE_CLICKED' && event.payload && eventPayloadRecord(event.payload).proposalId === proposal.id);
+    const meeting = events
+      .filter((event) => event.type === 'commercial.meeting_booked')
+      .sort((left, right) => right.createdAt.localeCompare(left.createdAt))[0];
+    const meetingPayload = meeting ? eventPayloadRecord(meeting.payload) : {};
+    const meetingAt = typeof meetingPayload.scheduledAt === 'string' ? meetingPayload.scheduledAt : null;
+    items.push({
+      prospectId: prospect.id,
+      businessName: prospect.companyName,
+      location: prospect.city ?? prospect.location ?? null,
+      vertical: prospect.activity ?? null,
+      opportunity: prospect.primaryAsset ?? prospect.opportunity ?? null,
+      friction: prospect.primaryFriction ?? null,
+      contactability: {
+        label: email && mobile ? 'Email + Mobile' : email ? 'Email' : mobile ? 'Mobile' : 'None',
+        email,
+        mobile,
+      },
+      proposal: { id: proposal.id, entryPath: proposal.entryPath, readyAt: proposal.createdAt },
+      engagement: {
+        viewed: hasViewed,
+        returned: hasReturned,
+        shared: hasShared,
+        meetingBooked: Boolean(meeting),
+        meetingAt,
+      },
+    });
+  }
+  return { items };
+}
+
+async function proposalByToken(db: D1DatabaseLike, token: string): Promise<ProposalV1 | null> {
+  const row = await db.prepare('SELECT proposal_json FROM v2_proposals WHERE token = ? AND status = \'PROPOSAL_READY\' LIMIT 1').bind(token).first<{ proposal_json: string }>();
+  return row ? JSON.parse(row.proposal_json) as ProposalV1 : null;
+}
+
+async function recordProposalEvent(db: D1DatabaseLike, proposal: ProposalV1, type: 'PROPOSAL_VIEWED' | 'RETURN_VISIT' | 'SHARE_CLICKED', body: Record<string, unknown>): Promise<Record<string, unknown>> {
+  const sessionId = typeof body.sessionId === 'string' ? body.sessionId.trim().slice(0, 120) : '';
+  const idempotencyKey = typeof body.idempotencyKey === 'string' ? body.idempotencyKey.trim().slice(0, 160) : '';
+  if (!sessionId && !idempotencyKey) throw new Error('sessionId or idempotencyKey is required');
+  const duplicate = idempotencyKey ? await db.prepare('SELECT id FROM events WHERE type = ? AND json_extract(payload_json, \'$.idempotencyKey\') = ? LIMIT 1').bind(type, idempotencyKey).first<{ id: string }>() : null;
+  if (duplicate) return { ok: true, duplicate: true, eventId: duplicate.id, proposalId: proposal.id };
+  const eventId = crypto.randomUUID();
+  await new D1EventStore(db).append({ id: eventId, prospectId: proposal.prospectId, actor: 'system', type, payload: { proposalId: proposal.id, token: proposal.token, ...(sessionId ? { sessionId } : {}), ...(idempotencyKey ? { idempotencyKey } : {}) }, createdAt: new Date().toISOString() });
+  return { ok: true, duplicate: false, eventId, proposalId: proposal.id, event: type };
 }
 
 function publicSalesRoomRequestIdempotencyKey(body: Record<string, unknown>): string {
@@ -4442,6 +5532,16 @@ async function scheduleDueFollowUps(
   return { scheduled, skipped };
 }
 
+function fakeProviderMessageId(messageId: string): string { return `fake-${messageId}`; }
+
+function hasExplicitOperatorSendProvenance(job: MagicScriptJob): boolean {
+  return Boolean(
+    job.payload &&
+      typeof job.payload === 'object' &&
+      (job.payload as Record<string, unknown>).provenance === 'operator-send',
+  );
+}
+
 async function processDryRunSendJob(
   job: MagicScriptJob,
   env: Env,
@@ -4461,6 +5561,9 @@ async function processDryRunSendJob(
   const config = configFromEnv(env);
   if (!config.sendingEnabled) {
     throw new Error('Email sending is disabled');
+  }
+  if (!hasExplicitOperatorSendProvenance(job)) {
+    throw new Error('Commercial sending requires explicit operator action');
   }
 
   const messageKind =
@@ -4734,11 +5837,14 @@ async function processExternalSendResult(
   }
 
   if (
-    result.provider !== 'amen-smtp' ||
+    !['amen-smtp', 'fake'].includes(result.provider) ||
     !result.providerMessageId?.trim() ||
-    result.deliveredExternally !== true
+    (result.provider === 'amen-smtp' ? result.deliveredExternally !== true : result.testMode !== true)
   ) {
     throw new Error('Amen SMTP runner did not report a successful external send');
+  }
+  if (!hasExplicitOperatorSendProvenance(job)) {
+    throw new Error('Commercial sending requires explicit operator action');
   }
 
   const messageKind = messageKindForSendJob(job.kind);
@@ -4835,6 +5941,16 @@ async function processExternalSendResult(
       'EMAIL_SENT',
       'Amen SMTP accepted the outbound email',
     );
+    const payload = job.payload && typeof job.payload === 'object' ? job.payload as Record<string, unknown> : {};
+    const reservationId = typeof payload.v2ReservationId === 'string' ? payload.v2ReservationId : null;
+    if (reservationId) {
+      await db.prepare("UPDATE v2_outreach_send_reservations SET status = 'SENT', provider_message_id = ?, updated_at = ? WHERE id = ? AND status = 'RESERVED'").bind(providerMessageId, now, reservationId).run();
+      const draftId = typeof payload.v2DraftId === 'string' ? payload.v2DraftId : null;
+      const revision = typeof payload.draftRevision === 'number' ? payload.draftRevision : null;
+      const fingerprint = typeof payload.fingerprint === 'string' ? payload.fingerprint : null;
+      if (draftId && revision !== null && fingerprint) await db.prepare("INSERT OR IGNORE INTO v2_contacted (prospect_id, proposal_id, channel, contacted_at, draft_id, revision, fingerprint, message_id, operator_id) SELECT ?, proposal_id, 'EMAIL', ?, ?, ?, ?, ?, 'human' FROM v2_outreach_drafts WHERE id = ?").bind(job.prospectId, now, draftId, revision, fingerprint, providerMessageId, draftId).run();
+      await new D1EventStore(db).append({ id: crypto.randomUUID(), prospectId: job.prospectId, actor: 'human', type: 'OUTREACH_SENT', payload: { proposalId: payload.proposalId ?? null, prospectId: job.prospectId, draftId, revision, fingerprint, channel: 'EMAIL', operator: 'human', result: 'SUCCESS', providerMessageId }, createdAt: now });
+    }
     await repo.transitionProspect(
       prospect.id,
       'WAITING_REPLY',
@@ -5226,15 +6342,35 @@ async function processPrototypeDeployResult(
 
   const prototype = await db
     .prepare(
-      `SELECT id, qa_findings_json FROM prototypes
+      `SELECT id, status, qa_status, human_review_status, deployment_url, qa_findings_json
+       FROM prototypes
        WHERE prospect_id = ?
        ORDER BY updated_at DESC
        LIMIT 1`,
     )
     .bind(job.prospectId)
-    .first<{ id: string; qa_findings_json: string | null }>();
+    .first<{
+      id: string;
+      status: string;
+      qa_status: string | null;
+      human_review_status: 'VALIDATED' | 'REJECTED' | null;
+      deployment_url: string | null;
+      qa_findings_json: string | null;
+    }>();
 
   if (!prototype) throw new Error('Prototype row not found for deployment');
+  if (prototype.status === 'DEPLOYED') {
+    return { prospectId: prospect.id, deploymentUrl: prototype.deployment_url ?? deployment.toString() };
+  }
+  if (prototype.status !== 'READY' || prototype.qa_status !== 'PASS') {
+    throw new Error('Prototype deployment requires READY status and QA PASS');
+  }
+  if (prototype.human_review_status === 'REJECTED') {
+    throw new Error('Prototype deployment vetoed by HVAL REJECTED');
+  }
+  if (!job.payload || (job.payload as Record<string, unknown>).prototypeId !== prototype.id) {
+    throw new Error('Deployment job does not target the latest prototype');
+  }
 
   if (!canPromoteWithWebDesignReview(prototype.qa_findings_json)) {
     throw new Error(
@@ -5274,6 +6410,22 @@ async function processPrototypeDeployResult(
     )
     .bind(prospect.id)
     .first<{ id: string }>();
+
+  const salesRooms = await listSalesRoomSummaries(env, db);
+  const salesRoom = salesRooms.find((room) => room.prospectId === prospect.id);
+  const links = buildPersonalizedEntryLinks({
+    prospectId: prospect.id,
+    companyName: prospect.companyName,
+    salesRoomSlug: salesRoom?.slug,
+    salesRoomStatus: salesRoom?.status,
+    prototypeUrl: deployment.toString(),
+    prototypeStatus: 'DEPLOYED',
+    qaStatus: 'PASS',
+    personalizedBaseUrl: env.MAGICSCRIPT_PUBLIC_BASE_URL,
+  });
+  if (!salesRoom || !links.salesRoomUrl || !links.prototypeEntryUrl) {
+    throw new Error('Sales Room projection or personalized prototype entry link is unavailable');
+  }
 
   if (!contact) {
     await repo.transitionProspect(
@@ -5813,6 +6965,55 @@ async function processRunnerSuccess(
       ? await enforceVerifiedSourceNavigation(output, job.prospectId, db)
       : output;
 
+  if (job.kind === 'V2_DESIGN_REQUEST' || job.kind === 'V2_DESIGN_REVISION') {
+    const payload = job.payload as Record<string, unknown>;
+    const requestRow = await db.prepare('SELECT request_json FROM v2_design_requests WHERE id = ? LIMIT 1').bind(payload.designRequestId).first<{ request_json: string }>();
+    if (!requestRow) throw new Error('Design request not found');
+    const request = JSON.parse(requestRow.request_json) as DesignRequestV1;
+    const artifact = validateDesignArtifact(output, request);
+    const store = new D1DesignArtifactStore(db);
+    const existing = await store.get(request.id, DESIGN_ARTIFACT_VERSION, artifact.revision);
+    if (!existing) await store.save(artifact);
+    const canonical = existing ?? artifact;
+    await db.prepare('INSERT INTO job_results (job_id, output_json, created_at) VALUES (?, ?, ?) ON CONFLICT(job_id) DO UPDATE SET output_json = excluded.output_json, created_at = excluded.created_at').bind(job.id, JSON.stringify(canonical), new Date().toISOString()).run();
+    await db.prepare("INSERT OR IGNORE INTO jobs (id, kind, prospect_id, payload_json, status, attempts, max_attempts, run_after, created_at, updated_at) VALUES (?, 'V2_DESIGN_REVIEW', ?, ?, 'PENDING', 0, 3, ?, ?, ?)").bind(`job-${request.prospectId}-design-review-r${canonical.revision}`, request.prospectId, JSON.stringify({ designRequestId: request.id, artifactId: canonical.id, artifactRevision: canonical.revision }), new Date().toISOString(), new Date().toISOString(), new Date().toISOString()).run();
+    return canonical;
+  }
+  if (job.kind === 'V2_BUILD_SITE') {
+    const payload = job.payload as Record<string, unknown>;
+    const requestRow = await db.prepare('SELECT request_json FROM v2_design_requests WHERE id = ? LIMIT 1').bind(payload.designRequestId).first<{ request_json: string }>();
+    const artifactRow = await db.prepare('SELECT artifact_json FROM v2_design_artifacts WHERE id = ? LIMIT 1').bind(payload.approvedDesignArtifactId).first<{ artifact_json: string }>();
+    if (!requestRow || !artifactRow) throw new Error('Builder context missing');
+    const result = output as { id?: string; version?: string; approvedDesignArtifactId?: string; status?: string };
+    if (result.version !== 'BUILD_ARTIFACT_V1' || result.status !== 'SUCCEEDED' || result.approvedDesignArtifactId !== JSON.parse(artifactRow.artifact_json).id) throw new Error('Invalid Builder V1 result');
+    await new D1BuildArtifactStore(db).save(output as any);
+    await db.prepare('INSERT INTO job_results (job_id, output_json, created_at) VALUES (?, ?, ?) ON CONFLICT(job_id) DO UPDATE SET output_json = excluded.output_json, created_at = excluded.created_at').bind(job.id, JSON.stringify(output), new Date().toISOString()).run();
+    return output;
+  }
+  if (job.kind === 'V2_DESIGN_REVIEW') {
+    const payload = job.payload as Record<string, unknown>;
+    const requestRow = await db.prepare('SELECT request_json FROM v2_design_requests WHERE id = ? LIMIT 1').bind(payload.designRequestId).first<{ request_json: string }>();
+    const artifactRow = await db.prepare('SELECT artifact_json FROM v2_design_artifacts WHERE id = ? LIMIT 1').bind(payload.artifactId).first<{ artifact_json: string }>();
+    if (!requestRow || !artifactRow) throw new Error('Review context missing');
+    const request = JSON.parse(requestRow.request_json) as DesignRequestV1;
+    const artifact = JSON.parse(artifactRow.artifact_json) as DesignArtifactV1;
+    const result = buildDeterministicReview(request, artifact, new Date().toISOString());
+    const reviews = new D1DesignReviewStore(db);
+    const existing = await reviews.get(request.id, artifact.revision);
+    const review = existing ?? result;
+    if (!existing) await reviews.save(review);
+    await db.prepare('UPDATE v2_design_artifacts SET status = ? WHERE id = ? AND revision = ?').bind(review.decision === 'APPROVE' ? 'APPROVED' : artifact.revision >= 3 ? 'REVIEW_LIMIT_REACHED' : 'CORRECTION_REQUIRED', artifact.id, artifact.revision).run();
+    if (review.decision === 'APPROVE') {
+      const now = new Date().toISOString();
+      await db.prepare("INSERT OR IGNORE INTO jobs (id, kind, prospect_id, payload_json, status, attempts, max_attempts, run_after, created_at, updated_at) VALUES (?, 'V2_BUILD_SITE', ?, ?, 'PENDING', 0, 2, ?, ?, ?)").bind(`job-${request.prospectId}-build-${artifact.id}`, request.prospectId, JSON.stringify({ approvedDesignArtifactId: artifact.id, designRequestId: request.id, approvedRevision: artifact.revision, builderVersion: 'builder-v1' }), now, now, now).run();
+    }
+    if (review.decision === 'CORRECT' && artifact.revision < 3) {
+      const corrections = new D1DesignCorrectionStore(db); const correction = createCorrectionRequest(review, artifact.revision); if (!(await corrections.get(correction.id))) await corrections.save(correction);
+      await db.prepare("INSERT OR IGNORE INTO jobs (id, kind, prospect_id, payload_json, status, attempts, max_attempts, run_after, created_at, updated_at) VALUES (?, 'V2_DESIGN_REVISION', ?, ?, 'PENDING', 0, 3, ?, ?, ?)").bind(`job-${request.prospectId}-design-revision-r${artifact.revision + 1}`, request.prospectId, JSON.stringify({ designRequestId: request.id, correctionRequestId: correction.id, previousArtifactId: artifact.id, revision: artifact.revision + 1 }), new Date().toISOString(), new Date().toISOString(), new Date().toISOString()).run();
+    }
+    await db.prepare('INSERT INTO job_results (job_id, output_json, created_at) VALUES (?, ?, ?) ON CONFLICT(job_id) DO UPDATE SET output_json = excluded.output_json, created_at = excluded.created_at').bind(job.id, JSON.stringify(review), new Date().toISOString()).run(); return review;
+  }
+
   await db
     .prepare(
       `INSERT INTO job_results (job_id, output_json, created_at)
@@ -5884,6 +7085,9 @@ async function processRunnerSuccess(
 
   if (job.kind === 'RUN_PROTOTYPE_QA') {
     return processPrototypeQaResult(job, output as PrototypeQaResult, env, db);
+  }
+  if (job.kind === 'RUN_SYNTHETIC_PROTOTYPE_QA') {
+    return { synthetic: true, processed: false, qaStatus: (output as Record<string, unknown>).qaStatus ?? 'UNKNOWN' };
   }
 
   if (job.kind === 'DEPLOY_PROTOTYPE') {
@@ -6004,7 +7208,7 @@ async function callCopilotContext(
     links.prototypeUrl ? null : 'Lien prototype',
     links.salesRoomUrl ? null : 'Lien Sales Room',
     'Prix',
-    'DÃƒÆ’Ã‚Â©lai',
+    'Délai',
   ].filter((value): value is string => Boolean(value));
   return prospectToCallCopilotContext(prospect, {
     meetingId,
@@ -6013,8 +7217,8 @@ async function callCopilotContext(
     primaryNeed: prospect.primaryFriction,
     confirmedFacts,
     unknowns,
-    engagementSummary: `${engagement.score_total}/100 Ãƒâ€šÃ‚Â· activitÃƒÆ’Ã‚Â© ${engagement.activity_score} Ãƒâ€šÃ‚Â· intention ${engagement.intent_score} Ãƒâ€šÃ‚Â· ${engagement.trend}`,
-    engagementHistory: engagement.top_contributors.map((item) => `${item.signal} Ãƒâ€šÃ‚Â· ${item.occurredAt}`),
+    engagementSummary: `${engagement.score_total}/100 · activité ${engagement.activity_score} · intention ${engagement.intent_score} · ${engagement.trend}`,
+    engagementHistory: engagement.top_contributors.map((item) => `${item.signal} · ${item.occurredAt}`),
   });
 }
 
@@ -6080,7 +7284,7 @@ async function derivePrototypeComputeClassFromResearch(
 ): Promise<{
   computeClass: 'LOW' | 'MEDIUM' | 'HIGH' | 'UNKNOWN';
   blockCount: number;
-  source: 'RESEARCH_SCOPE' | 'UNKNOWN';
+  source: 'BOUNDED_LIGHT_CONTRACT' | 'RESEARCH_EVIDENCE' | 'UNKNOWN';
 }> {
   const row = await db
     .prepare(
@@ -6098,7 +7302,7 @@ async function derivePrototypeComputeClassFromResearch(
 
   if (!row?.output_json) {
     return {
-      computeClass: 'UNKNOWN',
+      computeClass: 'LOW',
       blockCount: 0,
       source: 'UNKNOWN',
     };
@@ -6110,7 +7314,7 @@ async function derivePrototypeComputeClassFromResearch(
     research = JSON.parse(row.output_json) as Record<string, unknown>;
   } catch {
     return {
-      computeClass: 'UNKNOWN',
+      computeClass: 'LOW',
       blockCount: 0,
       source: 'UNKNOWN',
     };
@@ -6124,23 +7328,13 @@ async function derivePrototypeComputeClassFromResearch(
 
   const blockCount = verifiedBlocks.length;
 
-  if (blockCount === 0) {
-    return {
-      computeClass: 'UNKNOWN',
-      blockCount: 0,
-      source: 'UNKNOWN',
-    };
-  }
-
+  // Navigation richness remains auditable research evidence, but is not a
+  // workload measurement. Until strategy generation produces real build
+  // workload evidence, authorize only the bounded local LIGHT contract.
   return {
-    computeClass:
-      blockCount >= 9
-        ? 'HIGH'
-        : blockCount >= 5
-          ? 'MEDIUM'
-          : 'LOW',
+    computeClass: 'LOW',
     blockCount,
-    source: 'RESEARCH_SCOPE',
+    source: 'RESEARCH_EVIDENCE',
   };
 }
 
@@ -6160,7 +7354,7 @@ async function evaluateAndPersistPrototypeCostGate(
   const estimatedExternalCost = {
     kind: 'UNKNOWN' as const,
     reason:
-      'No internal priced external provider evidence available',
+      'No paid external provider is required for the bounded local prototype',
   };
 
   const events = await new D1EventStore(db).listByProspect(prospect.id);
@@ -6176,18 +7370,24 @@ async function evaluateAndPersistPrototypeCostGate(
     primaryCta: prospect.primaryCta ?? null,
     engagement,
     computeClass,
+    prototypeWorkload: {
+      computeClass: 'LOW',
+      scope: 'BOUNDED_LIGHT',
+      requiresPaidExternalProvider: false,
+    },
     estimatedExternalCost,
     evaluatedAt,
   });
 
   const reasonCodes = [
     ...result.reasonCodes,
-    ...(computeEvidence.source === 'RESEARCH_SCOPE'
+    ...(computeEvidence.source === 'RESEARCH_EVIDENCE'
       ? [
-          'COMPUTE_FROM_RESEARCH_SCOPE',
+          'COMPUTE_BOUNDED_LIGHT_CONTRACT',
+          'NAVIGATION_BLOCKS_INFORMATIONAL_ONLY',
           `RESEARCH_SCOPE_BLOCKS_${computeEvidence.blockCount}`,
         ]
-      : ['COMPUTE_SCOPE_UNKNOWN']),
+      : ['COMPUTE_BOUNDED_LIGHT_CONTRACT']),
   ];
 
   const evaluationId = crypto.randomUUID();
@@ -6618,6 +7818,39 @@ async function publishCanonicalQuote(
   };
 }
 
+async function ingestAgent1Batch(batch: Agent1CandidateBatch, env: Env, db: D1DatabaseLike): Promise<Record<string, unknown>> {
+  const now = new Date().toISOString();
+  const discovery: DiscoveryResult = { prospects: batch.candidates.map((candidate) => ({
+    companyName: candidate.companyName,
+    legalName: candidate.legalName,
+    siren: candidate.siren,
+    siret: candidate.siret,
+    city: candidate.city,
+    activity: candidate.activity,
+    location: candidate.location,
+    websiteUrl: candidate.websiteUrl,
+    sourceUrl: candidate.sourceUrl,
+    commercialSignal: candidate.commercialSignal,
+    digitalPresence: candidate.digitalPresence,
+    opportunity: candidate.opportunity,
+    score: candidate.score,
+    primaryFriction: candidate.primaryFriction,
+    primaryAsset: candidate.primaryAsset,
+    primaryCta: candidate.primaryCta,
+    prototypeRecommendation: candidate.prototypeRecommendation,
+    agent2Type: candidate.agent2Type,
+    evidence: candidate.evidence,
+  })) };
+  const processed = await processDiscoveryResult(discovery, env, db, { planAfterCreate: false });
+  const jobId = crypto.randomUUID();
+  await db.prepare(`INSERT INTO jobs (id, kind, prospect_id, payload_json, status, attempts, max_attempts, run_after, created_at, updated_at) VALUES (?, 'DISCOVER_PROSPECTS', NULL, ?, 'SUCCEEDED', 1, 1, ?, ?, ?)`)
+    .bind(jobId, JSON.stringify({ source: 'agent1-canonical-v1', batchId: batch.batchId, schemaVersion: batch.schemaVersion }), now, now, now).run();
+  await db.prepare(`INSERT INTO job_results (job_id, output_json, created_at) VALUES (?, ?, ?)`)
+    .bind(jobId, JSON.stringify({ ...batch, result: processed }), now).run();
+  await new D1EventStore(db).append({ id: crypto.randomUUID(), actor: 'research-agent', type: 'agent1.batch_received', payload: { batchId: batch.batchId, schemaVersion: batch.schemaVersion, origin: batch.origin, created: processed.created.length, skipped: processed.skipped.length }, createdAt: now });
+  return { ok: true, batchId: batch.batchId, schemaVersion: batch.schemaVersion, jobId, ...processed };
+}
+
 async function handle(request: Request, env: Env): Promise<Response> {
   const url = new URL(request.url);
 
@@ -6672,9 +7905,211 @@ async function handle(request: Request, env: Env): Promise<Response> {
     if (unauthorized) return unauthorized;
     const staleStack = requireRunnerStack(request, env);
     if (staleStack) return staleStack;
+  } else if (request.method === 'POST' && url.pathname === '/api/agent1/batches') {
+    const unauthorized = requireApiOrRunnerAuth(request, env);
+    if (unauthorized) return unauthorized;
   } else if (url.pathname.startsWith('/api/')) {
     const unauthorized = requireApiAuth(request, env);
     if (unauthorized) return unauthorized;
+  }
+
+  const v2OutreachDraftMatch = url.pathname.match(/^\/api\/v2\/outreach\/drafts\/([^/]+)$/);
+  const v2OutreachDraftActionMatch = url.pathname.match(/^\/api\/v2\/outreach\/drafts\/([^/]+)\/(edit|approve|send-email|confirm-manual-mobile)$/);
+  const v2OutreachDraftByProposalMatch = url.pathname.match(/^\/api\/v2\/outreach\/drafts\/by-proposal\/([^/]+)$/);
+  const v2OutreachDraftCollection = request.method === 'POST' && url.pathname === '/api/v2/outreach/drafts';
+  if (v2OutreachDraftCollection || v2OutreachDraftMatch || v2OutreachDraftActionMatch || v2OutreachDraftByProposalMatch) {
+    const db = requireDb(env);
+    const actor: 'human' = 'human';
+    const parseBody = async (): Promise<Record<string, unknown> | null> => {
+      try {
+        const value = await request.json();
+        return value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : null;
+      } catch { return null; }
+    };
+    if (v2OutreachDraftByProposalMatch && request.method === 'GET') {
+      const proposalId = decodeURIComponent(v2OutreachDraftByProposalMatch[1]);
+      const channel = url.searchParams.get('channel') === 'MOBILE' ? 'MOBILE' : 'EMAIL';
+      const draft = await db.prepare('SELECT * FROM v2_outreach_drafts WHERE proposal_id = ? AND channel = ? ORDER BY revision DESC LIMIT 1').bind(proposalId, channel).first<Record<string, unknown>>();
+      if (!draft) return json(null);
+      const contacted = await db.prepare('SELECT * FROM v2_contacted WHERE proposal_id = ? AND channel = ? LIMIT 1').bind(proposalId, channel).first<Record<string, unknown>>();
+      return json({ draft, contacted: contacted ?? null });
+    }
+    if (v2OutreachDraftCollection) {
+      const body = await parseBody();
+      const proposalId = typeof body?.proposalId === 'string' ? body.proposalId.trim() : '';
+      const channel = body?.channel === 'MOBILE' ? 'MOBILE' : body?.channel === 'EMAIL' ? 'EMAIL' : '';
+      const recipientRef = typeof body?.recipientRef === 'string' ? body.recipientRef.trim() : '';
+      const bodyText = typeof body?.body === 'string' ? body.body.trim() : '';
+      const proposalLink = typeof body?.proposalLink === 'string' ? body.proposalLink.trim() : '';
+      if (!proposalId || !channel || !recipientRef || !bodyText || !proposalLink) return json({ error: 'proposalId, channel, recipientRef, body, and proposalLink are required' }, { status: 400 });
+      const proposal = await db.prepare('SELECT id, prospect_id FROM v2_proposals WHERE id = ? AND status = \'PROPOSAL_READY\' LIMIT 1').bind(proposalId).first<{ id: string; prospect_id: string }>();
+      if (!proposal) return json({ error: 'Proposal not found or not ready' }, { status: 404 });
+      const prior = await db.prepare('SELECT revision FROM v2_outreach_drafts WHERE proposal_id = ? AND prospect_id = ? AND channel = ? ORDER BY revision DESC LIMIT 1').bind(proposalId, proposal.prospect_id, channel).first<{ revision: number }>();
+       const revision = (prior?.revision ?? 0) + 1;
+      const now = new Date().toISOString();
+      const id = `${proposalId}:${proposal.prospect_id}:${channel}:r${revision}`;
+      const contentHash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`${channel}:${recipientRef}:${bodyText}:${proposalLink}`)).then((value) => Array.from(new Uint8Array(value)).map((part) => part.toString(16).padStart(2, '0')).join(''));
+      await db.prepare(`INSERT INTO v2_outreach_drafts (id, proposal_id, prospect_id, channel, recipient_ref, subject, body, proposal_link, booking_link, grounding_json, revision, content_hash, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'DRAFT', ?)`).bind(id, proposalId, proposal.prospect_id, channel, recipientRef, typeof body?.subject === 'string' ? body.subject.trim() : null, bodyText, proposalLink, typeof body?.bookingLink === 'string' ? body.bookingLink.trim() || null : null, JSON.stringify(body?.grounding ?? []), revision, contentHash, now).run();
+      await new D1EventStore(db).append({ id: crypto.randomUUID(), prospectId: proposal.prospect_id, actor, type: 'outreach.v2_draft_created', payload: { draftId: id, proposalId, channel, revision }, createdAt: now });
+      return json({ ok: true, draftId: id, status: 'DRAFT', revision });
+    }
+    const draftId = decodeURIComponent((v2OutreachDraftActionMatch ?? v2OutreachDraftMatch)![1]);
+    const draft = await db.prepare('SELECT * FROM v2_outreach_drafts WHERE id = ? LIMIT 1').bind(draftId).first<Record<string, unknown>>();
+    if (!draft) return json({ error: 'Draft not found' }, { status: 404 });
+    if (request.method === 'GET' && v2OutreachDraftMatch) {
+      const contacted = await db.prepare('SELECT * FROM v2_contacted WHERE proposal_id = ? AND channel = ? LIMIT 1').bind(draft.proposal_id, draft.channel).first<Record<string, unknown>>();
+      return json({ draft, contacted: contacted ?? null });
+    }
+    if (!v2OutreachDraftActionMatch || request.method !== 'POST') return json({ error: 'Method not allowed' }, { status: 405 });
+    const action = v2OutreachDraftActionMatch[2];
+    const now = new Date().toISOString();
+    if (action === 'edit') {
+      if (!['DRAFT', 'READY_FOR_OPERATOR'].includes(String(draft.status))) return json({ error: 'Only editable drafts can be edited' }, { status: 409 });
+      const body = await parseBody();
+      const subject = typeof body?.subject === 'string' ? body.subject.trim() : String(draft.subject ?? '');
+      const bodyText = typeof body?.body === 'string' ? body.body.trim() : String(draft.body ?? '');
+      if (!bodyText) return json({ error: 'body is required' }, { status: 400 });
+      const nextRevision = Number(draft.revision) + 1;
+      const nextId = `${String(draft.proposal_id)}:${String(draft.prospect_id)}:${String(draft.channel)}:r${nextRevision}`;
+      const nextHash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`${String(draft.channel)}:${String(draft.recipient_ref)}:${bodyText}:${String(draft.proposal_link)}:${subject || ''}`)).then((value) => Array.from(new Uint8Array(value)).map((part) => part.toString(16).padStart(2, '0')).join(''));
+      await db.prepare(`INSERT INTO v2_outreach_drafts (id, proposal_id, prospect_id, channel, recipient_ref, subject, body, proposal_link, booking_link, grounding_json, revision, content_hash, status, created_at, approved_revision, approved_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'READY_FOR_OPERATOR', ?, NULL, NULL)`).bind(nextId, draft.proposal_id, draft.prospect_id, draft.channel, draft.recipient_ref, subject || null, bodyText, draft.proposal_link, draft.booking_link ?? null, draft.grounding_json ?? '[]', nextRevision, nextHash, now).run();
+      await db.prepare('UPDATE v2_outreach_drafts SET status = \'SUPERSEDED\' WHERE id = ?').bind(draftId).run();
+      await new D1EventStore(db).append({ id: crypto.randomUUID(), prospectId: String(draft.prospect_id), actor, type: 'OUTREACH_DRAFT_EDITED', payload: { draftId: nextId, previousDraftId: draftId, proposalId: draft.proposal_id, prospectId: draft.prospect_id, channel: draft.channel, revision: nextRevision, fingerprint: nextHash }, createdAt: now });
+      return json({ ok: true, draftId: nextId, status: 'READY_FOR_OPERATOR', revision: nextRevision, fingerprint: nextHash });
+    }
+    if (action === 'approve') {
+      if (!['DRAFT', 'READY_FOR_OPERATOR'].includes(String(draft.status))) return json({ error: 'Draft is not approvable' }, { status: 409 });
+      const approvalBody = await parseBody();
+       const approvalRevision = Number(approvalBody?.revision);
+       const approvalFingerprint = typeof approvalBody?.fingerprint === 'string' ? approvalBody.fingerprint.trim() : '';
+       if (approvalRevision !== Number(draft.revision) || approvalFingerprint !== String(draft.content_hash)) return json({ error: 'Exact revision and fingerprint are required' }, { status: 409 });
+       await db.prepare('UPDATE v2_outreach_drafts SET status = \'APPROVED\', approved_at = ?, approved_by = ?, approved_revision = ?, approved_hash = ?, action_at = ?, action_by = ? WHERE id = ? AND revision = ? AND content_hash = ?').bind(now, actor, approvalRevision, approvalFingerprint, now, actor, draftId, approvalRevision, approvalFingerprint).run();
+      await new D1EventStore(db).append({ id: crypto.randomUUID(), prospectId: String(draft.prospect_id), actor, type: 'OUTREACH_OPERATOR_APPROVED', payload: { draftId, proposalId: draft.proposal_id, prospectId: draft.prospect_id, channel: draft.channel, revision: approvalRevision, fingerprint: approvalFingerprint, operator: actor }, createdAt: now });
+      return json({ ok: true, draftId, status: 'APPROVED', revision: approvalRevision, fingerprint: approvalFingerprint });
+    }
+    if (action === 'confirm-manual-mobile') {
+      if (draft.status === 'MOBILE_CONFIRMED') return json({ ok: true, draftId, status: 'MOBILE_CONFIRMED', idempotent: true });
+       const mobileBody = await parseBody();
+       const mobileRevision = Number(mobileBody?.revision);
+       const mobileFingerprint = typeof mobileBody?.fingerprint === 'string' ? mobileBody.fingerprint.trim() : '';
+       if (mobileRevision !== Number(draft.revision) || mobileFingerprint !== String(draft.content_hash)) return json({ error: 'Exact revision and fingerprint are required' }, { status: 409 });
+       if (draft.channel !== 'MOBILE' || !['APPROVED', 'MOBILE_CONFIRMED'].includes(String(draft.status))) return json({ error: 'Only an approved mobile draft can be confirmed' }, { status: 409 });
+      await db.prepare('UPDATE v2_outreach_drafts SET status = \'MOBILE_CONFIRMED\', action_at = ?, action_by = ? WHERE id = ? AND revision = ? AND content_hash = ?').bind(now, actor, draftId, mobileRevision, mobileFingerprint).run();
+      await db.prepare('INSERT OR IGNORE INTO v2_contacted (prospect_id, proposal_id, channel, contacted_at, draft_id, revision, fingerprint, message_id, operator_id) VALUES (?, ?, \'MOBILE\', ?, ?, ?, ?, NULL, ?)').bind(draft.prospect_id, draft.proposal_id, now, draftId, mobileRevision, mobileFingerprint, actor).run();
+       await new D1EventStore(db).append({ id: crypto.randomUUID(), prospectId: String(draft.prospect_id), actor, type: 'OUTREACH_MANUAL_CONFIRMED', payload: { draftId, proposalId: draft.proposal_id, prospectId: draft.prospect_id, channel: 'MOBILE', revision: draft.revision, fingerprint: draft.content_hash, operator: actor }, createdAt: now });
+      return json({ ok: true, draftId, status: 'MOBILE_CONFIRMED' });
+    }
+    if (draft.channel !== 'EMAIL' || draft.status !== 'APPROVED' || Number(draft.approved_revision) !== Number(draft.revision) || String(draft.approved_hash) !== String(draft.content_hash)) return json({ error: 'Only an exactly approved email draft can be sent' }, { status: 409 });
+    const contact = await db.prepare('SELECT id FROM contacts WHERE id = ? AND prospect_id = ? AND is_validated = 1 AND is_suppressed = 0 LIMIT 1').bind(String(draft.recipient_ref), String(draft.prospect_id)).first<{ id: string }>();
+    if (!contact) return json({ error: 'Recipient is not a validated unsuppressed contact' }, { status: 409 });
+     const reservationId = `v2-reservation-${String(draft.proposal_id)}-${Number(draft.revision)}`;
+     await db.prepare(`INSERT OR IGNORE INTO v2_outreach_send_reservations (id, proposal_id, prospect_id, channel, draft_id, revision, fingerprint, kind, status, message_id, provider_message_id, created_at, updated_at) VALUES (?, ?, ?, 'EMAIL', ?, ?, ?, 'INITIAL', 'RESERVED', NULL, NULL, ?, ?)`).bind(reservationId, draft.proposal_id, draft.prospect_id, draftId, Number(draft.revision), String(draft.content_hash), now, now).run();
+     const reservation = await db.prepare('SELECT id, status, message_id, provider_message_id FROM v2_outreach_send_reservations WHERE id = ? LIMIT 1').bind(reservationId).first<{ id: string; status: string; message_id: string | null; provider_message_id: string | null }>();
+     if (reservation?.status === 'SENT') return json({ ok: true, draftId, status: 'SENT', reservationId: reservation.id, messageId: reservation.message_id, providerMessageId: reservation.provider_message_id, idempotent: true });
+     if (reservation?.message_id) return json({ ok: true, draftId, status: 'SEND_QUEUED', reservationId: reservation.id, messageId: reservation.message_id, idempotent: true }, { status: 202 });
+    const messageId = crypto.randomUUID();
+    await db.prepare(`INSERT INTO outreach_messages (id, prospect_id, contact_id, kind, subject, body_text, facts_json, source_refs_json, confidence, status, provider_message_id, sent_at, created_at, updated_at) VALUES (?, ?, ?, 'INITIAL', ?, ?, ?, ?, 100, 'VERIFIED', NULL, NULL, ?, ?)`).bind(messageId, String(draft.prospect_id), contact.id, draft.subject ?? null, String(draft.body), draft.grounding_json ?? '[]', '[]', now, now).run();
+    await db.prepare('UPDATE v2_outreach_send_reservations SET message_id = ?, updated_at = ? WHERE id = ? AND message_id IS NULL').bind(messageId, now, reservationId).run();
+     const job = await new D1JobQueue(db).enqueue({ id: crypto.randomUUID(), kind: 'SEND_EMAIL', prospectId: String(draft.prospect_id), payload: { messageId, provenance: 'operator-send', v2DraftId: draftId, v2ReservationId: reservationId, draftRevision: Number(draft.revision), fingerprint: String(draft.content_hash) }, maxAttempts: 3, runAfter: now });
+    await db.prepare('UPDATE v2_outreach_drafts SET action_at = ?, action_by = ? WHERE id = ?').bind(now, actor, draftId).run();
+    await new D1EventStore(db).append({ id: crypto.randomUUID(), prospectId: String(draft.prospect_id), actor, type: 'outreach.v2_email_send_requested', payload: { draftId, messageId, jobId: job.id, status: 'QUEUED_NOT_SENT' }, createdAt: now });
+    return json({ ok: true, draftId, messageId, jobId: job.id, status: 'SEND_QUEUED', note: 'Queued for existing send safeguards; delivery is not confirmed by this route.' }, { status: 202 });
+  }
+
+  if (request.method === 'POST' && url.pathname === '/api/agent1/batches') {
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
+    const validation = validateAgent1CandidateBatch(body);
+    if (!validation.accepted) {
+      return json({ error: 'Agent 1 batch rejected', reasons: validation.reasons }, { status: 400 });
+    }
+    const batch = body as Agent1CandidateBatch;
+    const db = requireDb(env);
+    const prior = await db.prepare(
+      `SELECT id, payload_json FROM jobs
+       WHERE kind = 'DISCOVER_PROSPECTS'
+         AND json_extract(payload_json, '$.source') = 'agent1-canonical-v1'
+         AND json_extract(payload_json, '$.batchId') = ?
+       ORDER BY created_at DESC LIMIT 1`,
+    ).bind(batch.batchId).first<{ id: string; payload_json: string }>();
+    if (prior) {
+      const priorResult = await db.prepare(
+        'SELECT output_json FROM job_results WHERE job_id = ? LIMIT 1',
+      ).bind(prior.id).first<{ output_json: string }>();
+      return json({ ok: true, duplicate: true, batchId: batch.batchId, contractVersion: batch.schemaVersion, jobId: prior.id, ...(priorResult ? JSON.parse(priorResult.output_json) : {}) });
+    }
+    const jobId = crypto.randomUUID();
+    const now = new Date().toISOString();
+
+    // Preserve the complete, versioned manual result for audit. Candidate
+    // scores/opportunities are intentionally not copied into the canonical
+    // discovery result; eligibility is recomputed by the existing intake path.
+    await db.prepare(`INSERT INTO jobs (
+      id, kind, prospect_id, payload_json, status, attempts, max_attempts,
+      run_after, last_error, claimed_by, claimed_at, created_at, updated_at
+    ) VALUES (?, 'DISCOVER_PROSPECTS', NULL, ?, 'SUCCEEDED', 1, 1, ?, NULL, NULL, NULL, ?, ?)`)
+      .bind(jobId, JSON.stringify({ source: 'agent1-canonical-v1', batchId: batch.batchId, contractVersion: batch.schemaVersion }), now, now, now)
+      .run();
+    await db.prepare(`INSERT INTO job_results (job_id, output_json, created_at) VALUES (?, ?, ?)`)
+      .bind(jobId, JSON.stringify({ contractVersion: AGENT1_CANDIDATE_BATCH_VERSION, provenance: batch.provenance, batchId: batch.batchId, candidates: batch.candidates }), now)
+      .run();
+
+    const discovery = {
+      prospects: batch.candidates.map((candidate) => ({
+        companyName: candidate.companyName,
+        legalName: candidate.legalName,
+        siren: candidate.siren,
+        siret: candidate.siret,
+        city: candidate.city,
+        activity: candidate.activity,
+        location: candidate.location,
+        websiteUrl: candidate.websiteUrl,
+        sourceUrl: candidate.evidence[0].url,
+        commercialSignal: candidate.commercialSignal,
+        digitalPresence: candidate.digitalPresence,
+        opportunity: candidate.opportunity,
+        score: candidate.score,
+        primaryFriction: candidate.primaryFriction,
+        primaryAsset: candidate.primaryAsset,
+        primaryCta: candidate.primaryCta,
+        prototypeRecommendation: candidate.prototypeRecommendation,
+        agent2Type: candidate.agent2Type,
+        evidence: candidate.evidence,
+        // Deliberately recomputed from registry identity/activity. Manual score
+        // and opportunity fields are audit data only and cannot bypass gates.
+        eligibility: scoreCommercialEligibility({
+          siren: candidate.siren ?? '',
+          siret: candidate.siret ?? '',
+          companyName: candidate.companyName,
+          legalName: candidate.legalName,
+          city: candidate.city ?? '',
+          sourceUrl: candidate.sourceUrl,
+          companyActivity: candidate.activity,
+          localActivity: candidate.activity,
+          companyCategory: 'PME',
+          companyEmployeeBand: '01',
+          isHeadOffice: true,
+          numberOpenEstablishments: 1,
+          legalNature: '5710',
+          companyCreationDate: now.slice(0, 10),
+          asOfDate: now.slice(0, 10),
+          autonomyEvidence: 'UNVERIFIED',
+        }),
+      })),
+    } as DiscoveryResult;
+    const processed = await processDiscoveryResult(discovery, env, db, { planAfterCreate: false });
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      actor: 'research-agent',
+      type: 'discovery.agent1_batch_ingested',
+      payload: { batchId: batch.batchId, contractVersion: batch.schemaVersion, jobId, created: processed.created.length, skipped: processed.skipped.length },
+      createdAt: now,
+    });
+    return json({ ok: true, batchId: batch.batchId, contractVersion: batch.schemaVersion, jobId, ...processed });
   }
 
   if (request.method === 'POST' && url.pathname === '/api/call-copilot') {
@@ -7149,22 +8584,32 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json(await overview(requireDb(env)));
   }
 
+  if (request.method === 'GET' && url.pathname === '/api/v2/deck') {
+    return json(await listProposalDeck(requireDb(env)));
+  }
+
   if (request.method === 'GET' && url.pathname === '/api/prospects') {
     const db = requireDb(env);
     const repo = new D1ProspectRepository(db);
     const prospects = await repo.listProspects();
     const eventStore = new D1EventStore(db);
     const computedAt = new Date().toISOString();
-    const engagementByProspect = new Map(
+    const eventsByProspect = new Map(
       await Promise.all(
         prospects.map(async (prospect) => [
           prospect.id,
-          scoreEngagementFromMagicScriptEvents(
-            await eventStore.listByProspect(prospect.id),
-            computedAt,
-          ),
+          await eventStore.listByProspect(prospect.id),
         ] as const),
       ),
+    );
+    const engagementByProspect = new Map(
+      prospects.map((prospect) => [
+        prospect.id,
+        scoreEngagementFromMagicScriptEvents(
+          eventsByProspect.get(prospect.id) ?? [],
+          computedAt,
+        ),
+      ] as const),
     );
     const prototypeCostGateByProspect = new Map(
       await Promise.all(
@@ -7174,22 +8619,99 @@ async function handle(request: Request, env: Env): Promise<Response> {
         ] as const),
       ),
     );
-    return json({
-      prospects: prospects.map((prospect) => {
-        const hub = resolveSwarmHub(prospect);
-        return {
-          ...prospect,
-          hubId: hub.id,
-          businessUnit: hub.businessUnit,
-          masterOfWork: hub.masterOfWork,
-          engagement: engagementByProspect.get(prospect.id),
-          prototypeCostGate: (() => {
-            const gateRow = prototypeCostGateByProspect.get(prospect.id);
-            return gateRow ? prototypeCostGateResponse(gateRow) : null;
-          })(),
-        };
-      }),
+    const contactsByProspect = new Map(
+      await Promise.all(
+        prospects.map(async (prospect) => [
+          prospect.id,
+          await repo.listContacts(prospect.id),
+        ] as const),
+      ),
+    );
+    const syntheticProspectIds = await listSyntheticProspectIds(db);
+    const enrichedProspects = prospects.map((prospect) => {
+      const hub = resolveSwarmHub(prospect);
+      const contactability = buildProspectContactability(
+        prospect,
+        contactsByProspect.get(prospect.id) ?? [],
+        eventsByProspect.get(prospect.id) ?? [],
+      );
+      return {
+        ...prospect,
+        scoreType: (() => {
+          const events = eventsByProspect.get(prospect.id) ?? [];
+          if (events.some((event) => event.type === 'research.scored')) return 'CALIBRATED_RESEARCH' as const;
+          if (events.some((event) => event.type === 'discovery.prospect_created')) return 'INTAKE_COMMERCIAL_ELIGIBILITY' as const;
+          return prospect.score === undefined ? 'UNKNOWN' as const : 'LEGACY_SCALAR' as const;
+        })(),
+        scoreSource: (() => {
+          const events = eventsByProspect.get(prospect.id) ?? [];
+          if (events.some((event) => event.type === 'research.scored')) return 'research.scored';
+          if (events.some((event) => event.type === 'discovery.prospect_created')) return 'discovery.prospect_created';
+          return 'prospects.score';
+        })(),
+        scoreUpdatedAt: prospect.updatedAt,
+        hubId: hub.id,
+        businessUnit: hub.businessUnit,
+        masterOfWork: hub.masterOfWork,
+        engagement: engagementByProspect.get(prospect.id),
+        contactability,
+        contactAcquisition: latestContactAcquisition(eventsByProspect.get(prospect.id) ?? []),
+        contactPresence: latestContactPresence(eventsByProspect.get(prospect.id) ?? []),
+        commercialView: deriveProspectCommercialView(
+          prospect,
+          eventsByProspect.get(prospect.id) ?? [],
+          {
+            syntheticMetadata: syntheticProspectIds.has(prospect.id),
+            contactabilityOpposed: contactability.status === 'OPPOSED',
+          },
+        ),
+        prototypeCostGate: (() => {
+          const gateRow = prototypeCostGateByProspect.get(prospect.id);
+          return gateRow ? prototypeCostGateResponse(gateRow) : null;
+        })(),
+      };
     });
+    return json({
+      prospects: enrichedProspects,
+      prospectViewCounts: enrichedProspects.reduce(
+        (counts, prospect) => {
+          counts[prospect.commercialView.category] += 1;
+          return counts;
+        },
+        { CURRENT: 0, LEGACY: 0, INTERNAL: 0, REJECTED: 0 },
+      ),
+    });
+  }
+
+  const proposalPackageMatch = url.pathname.match(/^\/api\/proposals\/package$/);
+  if (request.method === 'POST' && proposalPackageMatch) {
+    let body: Record<string, unknown>;
+    try { body = (await request.json()) as Record<string, unknown>; } catch { return json({ error: 'Invalid JSON body' }, { status: 400 }); }
+    const buildId = typeof body.buildArtifactId === 'string' ? body.buildArtifactId.trim() : '';
+    if (!buildId) return json({ error: 'buildArtifactId is required' }, { status: 400 });
+    const db = requireDb(env);
+    const build = await new D1BuildArtifactStore(db).get(buildId);
+    if (!build) return json({ error: 'Build artifact not found' }, { status: 404 });
+    const designRow = await db.prepare('SELECT artifact_json FROM v2_design_artifacts WHERE id = ? LIMIT 1').bind(build.approvedDesignArtifactId).first<{ artifact_json: string }>();
+    const qaRow = await db.prepare('SELECT report_json FROM v2_visual_qa_reports WHERE build_artifact_id = ? AND decision = \'PASS\' ORDER BY attempt DESC LIMIT 1').bind(build.id).first<{ report_json: string }>();
+    if (!designRow || !qaRow) return json({ error: 'Build has no proven Visual QA PASS' }, { status: 409 });
+    const result = await packageProposal({ build, design: JSON.parse(designRow.artifact_json), qa: JSON.parse(qaRow.report_json), store: new D1ProposalStore(db) });
+    return json({ ok: true, duplicate: result.duplicate, proposal: result.proposal });
+  }
+
+  const proposalTokenMatch = url.pathname.match(/^\/api\/proposals\/([^/]+)$/);
+  if (request.method === 'GET' && proposalTokenMatch) {
+    const proposal = await proposalByToken(requireDb(env), decodeURIComponent(proposalTokenMatch[1]));
+    if (!proposal) return json({ error: 'Proposal not found' }, { status: 404 });
+    return json({ ok: true, proposal: { id: proposal.id, version: proposal.version, status: proposal.status, entryPath: proposal.entryPath, booking: proposal.booking, buildArtifactId: proposal.buildArtifactId } });
+  }
+
+  const proposalEventMatch = url.pathname.match(/^\/api\/public\/proposals\/([^/]+)\/(view|return|share)$/);
+  if (request.method === 'POST' && proposalEventMatch) {
+    const proposal = await proposalByToken(requireDb(env), decodeURIComponent(proposalEventMatch[1]));
+    if (!proposal) return json({ error: 'Proposal not found' }, { status: 404 });
+    const type = proposalEventMatch[2] === 'share' ? 'SHARE_CLICKED' : proposalEventMatch[2] === 'return' ? 'RETURN_VISIT' : 'PROPOSAL_VIEWED';
+    try { return json(await recordProposalEvent(requireDb(env), proposal, type, (await request.json()) as Record<string, unknown>)); } catch (error) { return json({ error: error instanceof Error ? error.message : 'Proposal event rejected' }, { status: 400 }); }
   }
 
   if (request.method === 'GET' && url.pathname === '/api/sales-rooms') {
@@ -7291,6 +8813,64 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json({ ok: true, slug, status: targetStatus });
   }
 
+  const prototypeReviewMatch = url.pathname.match(/^\/api\/prospects\/([^/]+)\/prototype-review$/);
+  if (request.method === 'POST' && prototypeReviewMatch) {
+    const prospectId = decodeURIComponent(prototypeReviewMatch[1]);
+    const body = (await request.json().catch(() => ({}))) as { decision?: string; note?: string };
+    const decision = body.decision;
+    if (decision !== 'START_STRATEGY' && decision !== 'DEFER' && decision !== 'RESUME_STRATEGY') {
+      return json({ error: 'decision must be START_STRATEGY, RESUME_STRATEGY or DEFER' }, { status: 400 });
+    }
+    const db = requireDb(env);
+    const repo = new D1ProspectRepository(db);
+    const prospect = await repo.getProspect(prospectId);
+    if (!prospect) return json({ error: 'Prospect not found' }, { status: 404 });
+    const eventStore = new D1EventStore(db);
+    const now = new Date().toISOString();
+    if (decision === 'RESUME_STRATEGY') {
+      if (prospect.state !== 'HUMAN_ACTION_REQUIRED') {
+        return json({ error: `Prototype resume is only available from HUMAN_ACTION_REQUIRED, got ${prospect.state}` }, { status: 409 });
+      }
+      const priorEvents = await eventStore.listByProspect(prospect.id);
+      if (!priorEvents.some((event) => event.type === 'prototype.review_deferred')) {
+        return json({ error: 'This human action is not a deferred prototype review' }, { status: 409 });
+      }
+      const updated = await repo.transitionProspect(prospect.id, 'PROTOTYPE_REQUIRED', body.note?.trim() || 'Prototype preparation resumed by operator');
+      await eventStore.append({ id: crypto.randomUUID(), prospectId: prospect.id, actor: 'human', type: 'prototype.review_resumed', payload: { from: prospect.state, to: updated.state, note: body.note?.trim() || null }, createdAt: now });
+      const plan = await orchestrator(env, db).planProspect(prospect.id, 'control-center-prototype-resume');
+      return json({ ok: true, decision, state: updated.state, nextAction: plan.nextAction, queuedJobId: plan.queuedJobId });
+    }
+    if (prospect.state !== 'PROTOTYPE_REQUIRED') {
+      return json({ error: `Prototype review is only available from PROTOTYPE_REQUIRED, got ${prospect.state}` }, { status: 409 });
+    }
+    if (decision === 'DEFER') {
+      const updated = await repo.transitionProspect(prospect.id, 'HUMAN_ACTION_REQUIRED', body.note?.trim() || 'Prototype review deferred by operator');
+      await eventStore.append({ id: crypto.randomUUID(), prospectId: prospect.id, actor: 'human', type: 'prototype.review_deferred', payload: { from: prospect.state, to: updated.state, note: body.note?.trim() || null }, createdAt: now });
+      await createEscalation(db, prospect.id, 'MANUAL_REVIEW_REQUIRED', `Prototype preparation deferred: ${body.note?.trim() || 'operator decision required to resume'}`);
+      return json({ ok: true, decision, state: updated.state, queuedJobId: null });
+    }
+    const plan = await orchestrator(env, db).planProspect(prospect.id, 'control-center-prototype-review');
+    if (
+      plan.nextAction !== 'GENERATE_PROTOTYPE_STRATEGY' ||
+      !plan.queuedJobId
+    ) {
+      return json(
+        {
+          ok: false,
+          decision,
+          state: prospect.state,
+          nextAction: plan.nextAction,
+          reason: plan.reason ?? 'La stratégie prototype n’a pas été mise en file.',
+          safeNextAction: 'Évaluer le Cost Gate ou corriger le prérequis manquant',
+          queuedJobId: null,
+        },
+        { status: 409 },
+      );
+    }
+    await eventStore.append({ id: crypto.randomUUID(), prospectId: prospect.id, actor: 'human', type: 'prototype.review_started', payload: { state: prospect.state, nextAction: plan.nextAction, queuedJobId: plan.queuedJobId }, createdAt: now });
+    return json({ ok: true, decision, state: prospect.state, nextAction: plan.nextAction, queuedJobId: plan.queuedJobId });
+  }
+
   if (request.method === 'GET' && url.pathname.startsWith('/api/prospects/')) {
     const id = decodeURIComponent(url.pathname.slice('/api/prospects/'.length));
     const db = requireDb(env);
@@ -7322,10 +8902,15 @@ async function handle(request: Request, env: Env): Promise<Response> {
       qaStatus: typeof prototype?.qa_status === 'string' ? prototype.qa_status : null,
       personalizedBaseUrl: env.MAGICSCRIPT_PUBLIC_BASE_URL,
     });
+    const contacts = await repo.listContacts(id);
+    const events = await new D1EventStore(db).listByProspect(id);
 
     return json({
       prospect,
-      contacts: await repo.listContacts(id),
+      contacts,
+      contactability: buildProspectContactability(prospect, contacts, events),
+      contactAcquisition: latestContactAcquisition(events),
+      contactPresence: latestContactPresence(events),
       prototype,
       salesRoom: salesRoom ?? null,
       commercialLinks,
@@ -7515,6 +9100,33 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json({ events: await events.listRecent(Number.isFinite(limit) ? limit : 100) });
   }
 
+  if (request.method === 'POST' && url.pathname === '/api/synthetic-creative/jobs') {
+    let body: Record<string, unknown>;
+    try { body = (await request.json()) as Record<string, unknown>; } catch { return json({ error: 'Invalid JSON body' }, { status: 400 }); }
+    const payload = body.payload && typeof body.payload === 'object' && !Array.isArray(body.payload) ? body.payload as Record<string, unknown> : body;
+    const idempotencyKey = typeof body.idempotencyKey === 'string' ? body.idempotencyKey.trim() : '';
+    if (!idempotencyKey || idempotencyKey.length > 200) return json({ error: 'idempotencyKey is required' }, { status: 400 });
+    if (payload.synthetic !== true || typeof payload.fixtureId !== 'string' || typeof payload.fixtureRoot !== 'string' || typeof payload.approvedLocalFixtureRoot !== 'string' || payload.internalProvenance === undefined || body.prospectId !== undefined) return json({ error: 'Synthetic creative admission failed' }, { status: 400 });
+    const db = requireDb(env); const prior = await db.prepare("SELECT id FROM jobs WHERE kind = 'CREATIVE_WEB_DESIGN_SYNTHETIC' AND json_extract(payload_json, '$.idempotencyKey') = ? LIMIT 1").bind(idempotencyKey).first<{ id: string }>();
+    if (prior) return json({ ok: true, duplicate: true, jobId: prior.id });
+    const now = new Date().toISOString(); const jobId = crypto.randomUUID();
+    await db.prepare(`INSERT INTO jobs (id, kind, prospect_id, payload_json, status, attempts, max_attempts, run_after, created_at, updated_at) VALUES (?, 'CREATIVE_WEB_DESIGN_SYNTHETIC', NULL, ?, 'PENDING', 0, 3, ?, ?, ?)`).bind(jobId, JSON.stringify({ ...payload, idempotencyKey }), now, now, now).run();
+    return json({ ok: true, duplicate: false, jobId, kind: 'CREATIVE_WEB_DESIGN_SYNTHETIC', status: 'PENDING' }, { status: 201 });
+  }
+
+  if (request.method === 'POST' && url.pathname === '/api/synthetic-prototype-qa/jobs') {
+    let body: Record<string, unknown>;
+    try { body = (await request.json()) as Record<string, unknown>; } catch { return json({ error: 'Invalid JSON body' }, { status: 400 }); }
+    const artifactRoot = typeof body.artifactRoot === 'string' ? body.artifactRoot.trim() : '';
+    const artifactEntry = typeof body.artifactEntry === 'string' ? body.artifactEntry.trim() : '';
+    if (!artifactRoot || !artifactEntry || !artifactEntry.startsWith(`${artifactRoot}/`) && !artifactEntry.startsWith(`${artifactRoot}\\`)) return json({ error: 'artifactRoot and artifactEntry are required' }, { status: 400 });
+    const db = requireDb(env);
+    const now = new Date().toISOString();
+    const jobId = crypto.randomUUID();
+    await db.prepare(`INSERT INTO jobs (id, kind, prospect_id, payload_json, status, attempts, max_attempts, run_after, created_at, updated_at) VALUES (?, 'RUN_SYNTHETIC_PROTOTYPE_QA', NULL, ?, 'PENDING', 0, 3, ?, ?, ?)`).bind(jobId, JSON.stringify({ artifactRoot, artifactEntry, artifactFingerprint: body.artifactFingerprint ?? 'synthetic-artifact' }), now, now, now).run();
+    return json({ ok: true, jobId, kind: 'RUN_SYNTHETIC_PROTOTYPE_QA', status: 'PENDING' }, { status: 201 });
+  }
+
   if (request.method === 'GET' && url.pathname === '/api/jobs') {
     const statusParam = url.searchParams.get('status');
     const allowedStatuses = new Set<JobStatus>([
@@ -7530,8 +9142,24 @@ async function handle(request: Request, env: Env): Promise<Response> {
         ? (statusParam as JobStatus)
         : undefined;
 
-    const jobs = new D1JobQueue(requireDb(env));
-    return json({ jobs: await jobs.list(status) });
+    const db = requireDb(env);
+    const jobs = new D1JobQueue(db);
+    const listed = await jobs.list(status);
+    const results = await db
+      .prepare('SELECT job_id, output_json FROM job_results')
+      .all<{ job_id: string; output_json: string }>();
+    const resultByJob = new Map(
+      (results.results ?? []).map((row) => {
+        try {
+          return [row.job_id, JSON.parse(row.output_json) as unknown] as const;
+        } catch {
+          return [row.job_id, null] as const;
+        }
+      }),
+    );
+    return json({
+      jobs: listed.map((job) => ({ ...job, result: resultByJob.get(job.id) ?? null })),
+    });
   }
 
   if (request.method === 'GET' && url.pathname === '/api/outreach/status') {
@@ -7556,6 +9184,130 @@ async function handle(request: Request, env: Env): Promise<Response> {
         Number.parseInt(env.MAGICSCRIPT_FOLLOWUP_2_DAYS ?? '5', 10) || 5,
       waitingReply: Number(waiting?.count ?? 0),
       followupDue: Number(followupDue?.count ?? 0),
+    });
+  }
+
+  const humanReviewMatch = url.pathname.match(/^\/api\/prototypes\/([^/]+)\/human-review$/);
+  if (request.method === 'POST' && humanReviewMatch) {
+    let body: Record<string, unknown>;
+    try {
+      const parsed = await request.json();
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+        return json({ error: 'Request body must be an object' }, { status: 400 });
+      }
+      body = parsed as Record<string, unknown>;
+    } catch {
+      return json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
+
+    const action = body.action;
+    if (
+      Object.keys(body).some((key) => key !== 'action') ||
+      action !== 'VALIDATE' && action !== 'REJECT'
+    ) {
+      return json({ error: 'body must contain only action VALIDATE or REJECT' }, { status: 400 });
+    }
+
+    const db = requireDb(env);
+    const prototypeId = decodeURIComponent(humanReviewMatch[1]);
+    const prototype = await db
+      .prepare(
+        `SELECT id, prospect_id, status, qa_status,
+                human_review_status, human_reviewed_at, human_reviewed_by
+         FROM prototypes
+         WHERE id = ?
+         LIMIT 1`,
+      )
+      .bind(prototypeId)
+      .first<{
+        id: string;
+        prospect_id: string;
+        status: string;
+        qa_status: string | null;
+        human_review_status: 'VALIDATED' | 'REJECTED' | null;
+        human_reviewed_at: string | null;
+        human_reviewed_by: string | null;
+      }>();
+
+    if (!prototype) return json({ error: 'Prototype not found' }, { status: 404 });
+
+    const requestedStatus = action === 'VALIDATE' ? 'VALIDATED' : 'REJECTED';
+    if (prototype.human_review_status === requestedStatus) {
+      return json({
+        ok: true,
+        duplicate: true,
+        prototype: {
+          id: prototype.id,
+          human_review_status: prototype.human_review_status,
+          human_reviewed_at: prototype.human_reviewed_at,
+          human_reviewed_by: prototype.human_reviewed_by,
+        },
+        audit: { persisted: false, event_type: 'prototype.human_reviewed' },
+        next_stage_eligible:
+          prototype.status === 'READY' &&
+          prototype.qa_status === 'PASS' &&
+          prototype.human_review_status === 'VALIDATED',
+      });
+    }
+
+    if (prototype.human_review_status !== null) {
+      return json({ error: 'Prototype human review decision cannot be reversed' }, { status: 409 });
+    }
+
+    if (prototype.status !== 'READY' || prototype.qa_status !== 'PASS') {
+      return json({ error: 'Prototype must be READY with QA PASS before human review' }, { status: 409 });
+    }
+
+    const reviewedAt = new Date().toISOString();
+    await db
+      .prepare(
+        `UPDATE prototypes
+         SET human_review_status = ?, human_reviewed_at = ?, human_reviewed_by = ?, updated_at = ?
+         WHERE id = ? AND human_review_status IS NULL`,
+      )
+      .bind(requestedStatus, reviewedAt, 'human', reviewedAt, prototype.id)
+      .run();
+
+    const nextStageEligible =
+      prototype.status === 'READY' &&
+      prototype.qa_status === 'PASS' &&
+      requestedStatus === 'VALIDATED';
+    try {
+      await new D1EventStore(db).append({
+        id: crypto.randomUUID(),
+        prospectId: prototype.prospect_id,
+        actor: 'human',
+        type: 'prototype.human_reviewed',
+        payload: {
+          prototypeId: prototype.id,
+          prospectId: prototype.prospect_id,
+          prototypeStatus: prototype.status,
+          qaStatus: prototype.qa_status,
+          humanReviewStatus: requestedStatus,
+          nextStageEligible,
+          actor: 'human',
+          reviewedAt,
+        },
+        createdAt: reviewedAt,
+      });
+    } catch (error) {
+      return json(
+        { error: error instanceof Error ? error.message : 'Human review audit could not be persisted' },
+        { status: 500 },
+      );
+    }
+
+    return json({
+      ok: true,
+      duplicate: false,
+      prototype: {
+        id: prototype.id,
+        human_review_status: requestedStatus,
+        human_reviewed_at: reviewedAt,
+        human_reviewed_by: 'human',
+      },
+      audit: { persisted: true, event_type: 'prototype.human_reviewed' },
+      next_stage_eligible: nextStageEligible,
     });
   }
 
@@ -8071,6 +9823,33 @@ async function handle(request: Request, env: Env): Promise<Response> {
     });
   }
 
+  if (
+    request.method === 'POST' &&
+    url.pathname === '/api/v2/admission'
+  ) {
+    const input = await request.json().catch(() => null);
+    const db = requireDb(env);
+    const admissionStore = new D1V2AdmissionStore(db);
+    const admission = await admitContactOpportunityPack(input, admissionStore);
+    if (admission.admitted && admission.canonicalProspectId && admission.normalizedPack) {
+      await createDesignHandoff(admission.canonicalProspectId, admission.normalizedPack, {
+        prospects: new D1ProspectRepository(db),
+        requests: new D1DesignRequestStore(db),
+        jobs: new D1JobQueue(db),
+      });
+    }
+    return json(admission, { status: admission.admitted ? 201 : 422 });
+  }
+
+  if (
+    request.method === 'POST' &&
+    url.pathname === '/api/discovery/manual-intake'
+  ) {
+    return json(
+      await runSafeManualDiscoveryIntake(env, requireDb(env)),
+    );
+  }
+
   if (request.method === 'POST' && url.pathname === '/api/autopilot/tick') {
     return json(await enqueueDiscoveryIfNeeded(env, requireDb(env)));
   }
@@ -8119,12 +9898,16 @@ async function handle(request: Request, env: Env): Promise<Response> {
   }
 
   if (request.method === 'POST' && url.pathname === '/api/orchestrator/plan') {
-    const body = (await request.json()) as { prospectId?: string };
-    if (!body.prospectId) {
+    const body = (await request.json()) as { prospectId?: string; provenance?: string };
+    if (!body.prospectId || typeof body.prospectId !== 'string' || !body.prospectId.trim()) {
       return json({ error: 'prospectId is required' }, { status: 400 });
     }
+    const provenance =
+      typeof body.provenance === 'string' && body.provenance.trim() && body.provenance.trim().length <= 64
+        ? body.provenance.trim()
+        : undefined;
 
-    return json(await orchestrator(env, requireDb(env)).planProspect(body.prospectId));
+    return json(await orchestrator(env, requireDb(env)).planProspect(body.prospectId.trim(), provenance));
   }
 
   if (request.method === 'POST' && url.pathname === '/api/runner/heartbeat') {
@@ -8248,6 +10031,14 @@ async function handle(request: Request, env: Env): Promise<Response> {
       'GENERATE_PROTOTYPE_STRATEGY',
       'BUILD_PROTOTYPE',
       'RUN_PROTOTYPE_QA',
+      'RUN_SYNTHETIC_PROTOTYPE_QA',
+      'CREATIVE_WEB_DESIGN_SYNTHETIC',
+      'V2_DESIGN_REQUEST',
+      'V2_DESIGN_REVIEW',
+      'V2_DESIGN_REVISION',
+      'V2_BUILD_SITE',
+      'V2_VISUAL_QA',
+      'V2_BUILD_CORRECTION',
     ];
 
     const config = configFromEnv(env);
@@ -8256,7 +10047,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
       runnerKinds.push('DEPLOY_PROTOTYPE');
     }
 
-    if (config.sendingEnabled && config.emailProvider === 'amen-smtp') {
+    if (config.sendingEnabled && (config.emailProvider === 'amen-smtp' || (config.emailProvider === 'fake' && env.MAGICSCRIPT_FAKE_TRANSPORT === 'true'))) {
       const capacity = await sendCapacity(env, db);
       if (capacity.available > 0) {
         runnerKinds.push('SEND_EMAIL', 'SEND_FOLLOW_UP', 'SEND_DEMO_LINK', 'SEND_INFORMATION_RESPONSE');
@@ -8265,6 +10056,10 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
     const runnerProspectId = env.MAGICSCRIPT_RUNNER_PROSPECT_ID?.trim() || undefined;
     const job = await queue.next(new Date(), runnerId, runnerKinds, runnerProspectId);
+    if (job?.kind === 'CREATIVE_WEB_DESIGN_SYNTHETIC' && (job.prospectId || (job.payload as Record<string, unknown>)?.synthetic !== true)) {
+      await queue.markFailed(job.id, 'Synthetic creative admission failed: prospect context or synthetic marker present');
+      return json({ error: 'Synthetic creative admission failed' }, { status: 400 });
+    }
 
     if (!job) {
       return new Response(null, { status: 204 });
@@ -8451,6 +10246,16 @@ await transitionOnClaim(job, repo);
             )?.provider_message_id ?? null
           : null;
 
+    const designRequest = ['V2_DESIGN_REQUEST', 'V2_DESIGN_REVIEW', 'V2_DESIGN_REVISION', 'V2_BUILD_SITE', 'V2_VISUAL_QA', 'V2_BUILD_CORRECTION'].includes(job.kind) && job.payload && typeof job.payload === 'object'
+      ? await db.prepare('SELECT request_json FROM v2_design_requests WHERE id = ? LIMIT 1').bind((job.payload as Record<string, unknown>).designRequestId).first<{ request_json: string }>()
+      : null;
+    const designArtifact = ['V2_DESIGN_REVIEW', 'V2_DESIGN_REVISION', 'V2_BUILD_SITE', 'V2_VISUAL_QA', 'V2_BUILD_CORRECTION'].includes(job.kind) && job.payload && typeof job.payload === 'object'
+      ? await db.prepare('SELECT artifact_json FROM v2_design_artifacts WHERE id = ? LIMIT 1').bind((job.payload as Record<string, unknown>).artifactId ?? (job.payload as Record<string, unknown>).previousArtifactId ?? (job.payload as Record<string, unknown>).approvedDesignArtifactId).first<{ artifact_json: string }>()
+      : null;
+    const designCorrection = job.kind === 'V2_DESIGN_REVISION' && job.payload && typeof job.payload === 'object'
+      ? await db.prepare('SELECT correction_json FROM v2_design_corrections WHERE id = ? LIMIT 1').bind((job.payload as Record<string, unknown>).correctionRequestId).first<{ correction_json: string }>()
+      : null;
+
     const researchRow = job.prospectId
       ? await db
           .prepare(
@@ -8466,6 +10271,86 @@ await transitionOnClaim(job, repo);
 
     const researchContext = researchRow
       ? (JSON.parse(researchRow.output_json) as Record<string, unknown>)
+      : null;
+
+    // Keep Agent 1's rich observations available to Research and later agents;
+    // the canonical Prospect remains intentionally small for deterministic gates.
+    const agent1Row = job.prospectId
+      ? await db
+          .prepare(
+            `SELECT payload_json
+             FROM events
+             WHERE prospect_id = ? AND type = 'discovery.prospect_created'
+             ORDER BY created_at DESC LIMIT 1`,
+          )
+          .bind(job.prospectId)
+          .first<{ payload_json: string }>()
+      : null;
+    let agent1Context: Record<string, unknown> | null = null;
+    if (agent1Row) {
+      try {
+        const payload = JSON.parse(agent1Row.payload_json) as Record<string, unknown>;
+        agent1Context = (payload.agent1Context as Record<string, unknown> | null) ?? null;
+      } catch {
+        agent1Context = null;
+      }
+    }
+
+    // Backfill pre-handoff prospects from the immutable Agent 1 batch result.
+    // This keeps historical candidates replayable without treating the seed as
+    // validated facts or rewriting the canonical Prospect.
+    if (!agent1Context && prospect?.siret) {
+      const batchRows = await db
+        .prepare(
+          `SELECT jr.output_json
+           FROM job_results jr
+           JOIN jobs j ON j.id = jr.job_id
+           WHERE j.kind = 'DISCOVER_PROSPECTS'
+             AND json_extract(j.payload_json, '$.source') = 'agent1-canonical-v1'
+           ORDER BY jr.created_at DESC`,
+        )
+        .all<{ output_json: string }>();
+      for (const row of batchRows.results ?? []) {
+        try {
+          const output = JSON.parse(row.output_json) as Record<string, unknown>;
+          const candidates = Array.isArray(output.candidates) ? output.candidates : [];
+          const match = candidates.find(
+            (candidate) => candidate && typeof candidate === 'object' &&
+              (candidate as Record<string, unknown>).siret === prospect.siret,
+          ) as Record<string, unknown> | undefined;
+          if (match) {
+            agent1Context = {
+              commercialSignal: match.commercialSignal ?? null,
+              digitalPresence: match.digitalPresence ?? null,
+              opportunity: match.opportunity ?? null,
+              score: match.score ?? null,
+              primaryFriction: match.primaryFriction ?? null,
+              primaryAsset: match.primaryAsset ?? null,
+              primaryCta: match.primaryCta ?? null,
+              prototypeRecommendation: match.prototypeRecommendation ?? null,
+              agent2Type: match.agent2Type ?? null,
+              evidence: match.evidence ?? [],
+              seedStatus: 'UNVERIFIED_RESEARCH_SEED',
+              provenance: output.provenance ?? 'agent1-canonical-v1',
+              collectedAt: output.collectedAt ?? null,
+            };
+            break;
+          }
+        } catch {
+          // Ignore malformed historical results and continue searching safely.
+        }
+      }
+    }
+
+    const designDirection = prospect
+      ? selectDesignDirection({
+          sector: prospect.activity,
+          positioning: prospect.opportunity,
+          availableAssets: prospect.primaryAsset ? [prospect.primaryAsset] : [],
+          contentDensity: researchContext ? 'MEDIUM' : 'LOW',
+          conversionObjective: prospect.primaryCta,
+          proofQuality: researchContext ? 'MIXED' : 'LIMITED',
+        })
       : null;
 
     const latestReply = job.prospectId
@@ -8547,16 +10432,25 @@ await transitionOnClaim(job, repo);
     }
 
     return json({
-      job,
+      job: designDirection
+        ? {
+            ...job,
+            payload: { ...job.payload, designDirection },
+          }
+        : job,
       prospect,
       contacts,
       outreachDraft,
       researchContext,
+      agent1Context,
       latestReply,
       threadParentMessageId,
       prototypeContext,
       prototypeConversion,
       prototypeStrategy,
+      designRequest: designRequest ? JSON.parse(designRequest.request_json) as DesignRequestV1 : null,
+      designArtifact: designArtifact ? JSON.parse(designArtifact.artifact_json) as DesignArtifactV1 : null,
+      designCorrection: designCorrection ? JSON.parse(designCorrection.correction_json) as DesignCorrectionRequestV1 : null,
     });
   }
 

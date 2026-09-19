@@ -4,6 +4,8 @@ Cette couche gère le démarchage automatisé.
 
 ## Pipeline
 
+Les modèles de travail sont centralisés dans [`outreach/templates.md`](./templates.md). Ils restent en brouillon tant que le fact-check, les garde-fous de contact et la validation humaine ne sont pas passés.
+
 ```text
 prospect qualifié
   ↓

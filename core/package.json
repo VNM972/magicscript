@@ -12,5 +12,8 @@
     "@types/node": "^26.2.0",
     "tsx": "^4.20.6",
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "libphonenumber-js": "^1.13.13"
   }
 }

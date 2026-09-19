@@ -7,9 +7,20 @@ interface ProspectRow {
   id: string;
   company_name: string;
   legal_name: string | null;
+  siren: string | null;
+  siret: string | null;
+  city: string | null;
+  source_url: string | null;
+  activity_taxonomy: 'NAF_2008' | null;
+  commercial_eligibility: Prospect['commercialEligibility'] | null;
+  brand_key: string | null;
+  brand_collision_group: string | null;
+  initial_research_representative: number | null;
   activity: string | null;
   location: string | null;
   website_url: string | null;
+  phone: string | null;
+  v2_domain: string | null;
   opportunity: ProspectOpportunity | null;
   state: ProspectState;
   score: number | null;
@@ -38,9 +49,23 @@ function prospectFromRow(row: ProspectRow): Prospect {
     id: row.id,
     companyName: row.company_name,
     legalName: row.legal_name ?? undefined,
+    siren: row.siren ?? undefined,
+    siret: row.siret ?? undefined,
+    city: row.city ?? undefined,
+    sourceUrl: row.source_url ?? undefined,
+    activityTaxonomy: row.activity_taxonomy ?? undefined,
+    commercialEligibility: row.commercial_eligibility ?? undefined,
+    brandKey: row.brand_key ?? undefined,
+    brandCollisionGroup: row.brand_collision_group ?? undefined,
+    initialResearchRepresentative:
+      row.initial_research_representative === null
+        ? undefined
+        : row.initial_research_representative === 1,
     activity: row.activity ?? undefined,
     location: row.location ?? undefined,
     websiteUrl: row.website_url ?? undefined,
+    v2Domain: row.v2_domain ?? undefined,
+    phone: row.phone ?? undefined,
     opportunity: row.opportunity ?? undefined,
     state: row.state,
     score: row.score ?? undefined,
@@ -90,16 +115,29 @@ export class D1ProspectRepository implements ProspectRepository {
   async saveProspect(prospect: Prospect): Promise<void> {
     await this.db.prepare(
       `INSERT INTO prospects (
-        id, company_name, legal_name, activity, location, website_url,
-        opportunity, state, score, primary_friction, primary_asset,
-        primary_cta, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        id, company_name, legal_name, siren, siret, city, source_url,
+        activity_taxonomy, commercial_eligibility, brand_key,
+        brand_collision_group, initial_research_representative, activity,
+        location, website_url, v2_domain, phone, opportunity, state, score,
+        primary_friction, primary_asset, primary_cta, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       ON CONFLICT(id) DO UPDATE SET
         company_name = excluded.company_name,
         legal_name = excluded.legal_name,
+        siren = excluded.siren,
+        siret = excluded.siret,
+        city = excluded.city,
+        source_url = excluded.source_url,
+        activity_taxonomy = excluded.activity_taxonomy,
+        commercial_eligibility = excluded.commercial_eligibility,
+        brand_key = excluded.brand_key,
+        brand_collision_group = excluded.brand_collision_group,
+        initial_research_representative = excluded.initial_research_representative,
         activity = excluded.activity,
         location = excluded.location,
         website_url = excluded.website_url,
+        v2_domain = excluded.v2_domain,
+        phone = excluded.phone,
         opportunity = excluded.opportunity,
         state = excluded.state,
         score = excluded.score,
@@ -111,9 +149,24 @@ export class D1ProspectRepository implements ProspectRepository {
       prospect.id,
       prospect.companyName,
       prospect.legalName ?? null,
+      prospect.siren ?? null,
+      prospect.siret ?? null,
+      prospect.city ?? null,
+      prospect.sourceUrl ?? null,
+      prospect.activityTaxonomy ?? null,
+      prospect.commercialEligibility ?? null,
+      prospect.brandKey ?? null,
+      prospect.brandCollisionGroup ?? null,
+      prospect.initialResearchRepresentative === undefined
+        ? null
+        : prospect.initialResearchRepresentative
+          ? 1
+          : 0,
       prospect.activity ?? null,
       prospect.location ?? null,
       prospect.websiteUrl ?? null,
+      prospect.v2Domain ?? null,
+      prospect.phone ?? null,
       prospect.opportunity ?? null,
       prospect.state,
       prospect.score ?? null,

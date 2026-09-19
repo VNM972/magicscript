@@ -13,9 +13,12 @@ export interface RunnerJob {
 export interface RunnerProspect {
   id: string;
   companyName: string;
+  siren?: string;
+  siret?: string;
   activity?: string;
   location?: string;
   websiteUrl?: string;
+  phone?: string;
   opportunity?: string;
   score?: number;
   primaryFriction?: string;
@@ -48,6 +51,8 @@ export interface ClaimedJob {
     status?: string;
   } | null;
   researchContext?: Record<string, unknown> | null;
+  /** Rich Agent 1 intake context; kept separate from the canonical Prospect fields. */
+  agent1Context?: Record<string, unknown> | null;
   latestReply?: {
     id: string;
     raw_text: string;
@@ -65,7 +70,15 @@ export interface ClaimedJob {
     build_manifest_json?: string | null;
     qa_findings_json?: string | null;
   } | null;
+  prototypeConversion?: {
+    salesRoomUrl: string | null;
+    salesRoomSlug: string | null;
+    ctaTarget: 'SALES_ROOM';
+  } | null;
   prototypeStrategy?: Record<string, unknown> | null;
+  designRequest?: Record<string, unknown> | null;
+  designArtifact?: Record<string, unknown> | null;
+  designCorrection?: Record<string, unknown> | null;
 }
 
 export class MagicScriptApi {
@@ -73,6 +86,7 @@ export class MagicScriptApi {
     private readonly baseUrl: string,
     private readonly token: string,
     private readonly runnerId: string,
+    private readonly stackId?: string,
   ) {}
 
 
@@ -125,6 +139,19 @@ export class MagicScriptApi {
     if (!response.ok) {
       throw new Error(`Success callback failed ${response.status}: ${await response.text()}`);
     }
+  }
+
+  async ingestAgent1Batch(batch: unknown): Promise<unknown> {
+    const response = await fetch(`${this.baseUrl}/api/agent1/batches`, {
+      method: 'POST',
+      headers: this.headers(),
+      body: JSON.stringify(batch),
+    });
+    const body = await response.json().catch(() => null);
+    if (!response.ok) {
+      throw new Error(`Agent 1 canonical ingestion failed ${response.status}: ${JSON.stringify(body)}`);
+    }
+    return body;
   }
 
   async beginSend(jobId: string, messageId: string): Promise<SendReservationStatus> {
@@ -224,6 +251,9 @@ export class MagicScriptApi {
     });
     headers.set('authorization', `Bearer ${this.token}`);
     headers.set('x-magicscript-runner-id', this.runnerId);
+    if (this.stackId) {
+      headers.set('x-magicscript-stack-id', this.stackId);
+    }
     return headers;
   }
 }

@@ -47,6 +47,7 @@ function request(path, method, body, env, token = 'wp07-api-token') {
       headers: {
         'content-type': 'application/json',
         authorization: `Bearer ${token}`,
+        'x-magicscript-stack-id': 'fixture-stack',
       },
       body: body === undefined ? undefined : JSON.stringify(body),
     }),
@@ -64,6 +65,7 @@ async function json(response) {
 function createEnv(db) {
   return {
     DB: db,
+    MAGICSCRIPT_STACK_ID: 'fixture-stack',
     MAGICSCRIPT_API_TOKEN: 'wp07-api-token',
     MAGICSCRIPT_PUBLIC_BASE_URL: 'https://magicscript.fr',
     MAGICSCRIPT_SENDING_ENABLED: 'false',
@@ -204,12 +206,12 @@ test('WP-07 evaluates and persists GO without starting prototype work', async ()
   assert.equal(evaluated.body.evaluation.prospectId, 'p-wp07-go');
   assert.equal(evaluated.body.evaluation.decision, 'GO');
   assert.equal(evaluated.body.evaluation.authorization, 'FULL');
-  assert.equal(evaluated.body.evaluation.computeClass, 'MEDIUM');
+  assert.equal(evaluated.body.evaluation.computeClass, 'LOW');
   assert.equal(evaluated.body.evaluation.estimatedExternalCost.kind, 'UNKNOWN');
-  assert.equal(evaluated.body.evaluation.computeClass, 'MEDIUM');
+  assert.equal(evaluated.body.evaluation.computeClass, 'LOW');
   assert.ok(
     evaluated.body.evaluation.reasonCodes.includes(
-      'COMPUTE_FROM_RESEARCH_SCOPE',
+      'COMPUTE_BOUNDED_LIGHT_CONTRACT',
     ),
   );
   assert.ok(
@@ -408,24 +410,9 @@ test('WP-07 uses UNKNOWN compute when verified research scope is unavailable and
   );
 
   assert.equal(response.status, 200);
-  assert.equal(
-    response.body.evaluation.computeClass,
-    'UNKNOWN',
-  );
-  assert.notEqual(
-    response.body.evaluation.authorization,
-    'FULL',
-  );
-  assert.ok(
-    response.body.evaluation.reasonCodes.includes(
-      'COMPUTE_SCOPE_UNKNOWN',
-    ),
-  );
-  assert.ok(
-    response.body.evaluation.reasonCodes.includes(
-      'COMPUTE_UNKNOWN',
-    ),
-  );
+  assert.equal(response.body.evaluation.computeClass, 'LOW');
+  assert.notEqual(response.body.evaluation.authorization, 'NONE');
+  assert.ok(response.body.evaluation.reasonCodes.includes('COMPUTE_BOUNDED_LIGHT_CONTRACT'));
 
   db.close();
 });
@@ -510,7 +497,7 @@ test('WP-07 persists NO-GO with an exact 30-day reevaluation and no prototype jo
   assert.equal(response.status, 200);
   assert.equal(response.body.evaluation.decision, 'NO-GO');
   assert.equal(response.body.evaluation.authorization, 'NONE');
-  assert.equal(response.body.evaluation.computeClass, 'HIGH');
+  assert.equal(response.body.evaluation.computeClass, 'LOW');
 
   const evaluatedAt = new Date(response.body.evaluation.evaluatedAt).getTime();
   const reevaluateAt = new Date(response.body.evaluation.reevaluateAt).getTime();
@@ -689,6 +676,69 @@ function insertPendingPrototypeClaimJob(
     '2026-09-04T09:00:00.000Z',
   );
 }
+
+test('runner claim rejects an invalid queued handoff before execution', async () => {
+  const db = new SqliteD1();
+  const env = createEnv(db);
+
+  insertPrototypeClaimProspect(
+    db,
+    'p-invalid-handoff',
+    'DISCOVERED',
+  );
+
+  insertPendingPrototypeClaimJob(
+    db,
+    'job-invalid-handoff',
+    'p-invalid-handoff',
+    'RUN_RESEARCH_SWARM',
+    undefined,
+  );
+
+  db.exec(
+    `UPDATE jobs
+     SET payload_json = ?,
+         max_attempts = 1
+     WHERE id = ?`,
+    JSON.stringify({
+      hubId: 'BTP',
+      businessUnit: 'BU BTP',
+      masterOfWork: 'MO BTP',
+      specialistId: 'specialist-btp-research',
+      handoff: {
+        id: 'job-invalid-handoff:handoff',
+        sourceAgent: 'orchestrator',
+        nextOwner: '',
+      },
+    }),
+    'job-invalid-handoff',
+  );
+
+  const response = await json(
+    await request(
+      '/api/runner/jobs/claim',
+      'POST',
+      undefined,
+      env,
+    ),
+  );
+
+  assert.equal(response.status, 400);
+  assert.equal(response.body.error, 'Invalid queued handoff');
+  assert.ok(response.body.reasons.includes('next owner is required'));
+
+  const job = db.database
+    .prepare(
+      'SELECT status, attempts, last_error FROM jobs WHERE id = ?',
+    )
+    .get('job-invalid-handoff');
+
+  assert.equal(job.status, 'DEAD_LETTER');
+  assert.equal(job.attempts, 1);
+  assert.match(job.last_error, /Invalid queued handoff/);
+
+  db.close();
+});
 
 test('WP-07 claim guard dead-letters prototype work when Cost Gate evaluation is missing', async () => {
   const db = new SqliteD1();
@@ -952,6 +1002,12 @@ test('WP-07 claim guard allows matching FULL prototype strategy work', async () 
   );
 
   assert.equal(response.status, 200);
+
+  const claimed = await response.json();
+  assert.equal(
+    claimed.job.payload.designDirection.id,
+    'corporate-premium',
+  );
 
   const job = db.database
     .prepare(
@@ -1554,10 +1610,7 @@ test('WP-07 evaluates a cold PROTOTYPE_REQUIRED prospect without inventing comme
     response.body.evaluation.prospectId,
     'p-wp07-cold-gate',
   );
-  assert.notEqual(
-    response.body.evaluation.authorization,
-    'NONE',
-  );
+  assert.equal(response.body.evaluation.authorization, 'NONE');
 
   const persisted = db.database
     .prepare(`
@@ -1573,7 +1626,7 @@ test('WP-07 evaluates a cold PROTOTYPE_REQUIRED prospect without inventing comme
     .get('p-wp07-cold-gate');
 
   assert.ok(persisted);
-  assert.notEqual(persisted.authorization, 'NONE');
+  assert.equal(persisted.authorization, 'NONE');
 
   const reasons = JSON.parse(persisted.reason_codes_json);
   assert.ok(

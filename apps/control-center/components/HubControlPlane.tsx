@@ -1,9 +1,9 @@
+import { DESIGN_SYSTEM_HUB } from '@magicscript/core';
 import {
-  DESIGN_SYSTEM_HUB,
-  SWARM_HUBS,
-  resolveSwarmHub,
-} from '@magicscript/core';
-import type { Job, ProspectSummary } from '../lib/api';
+  projectBusinessUnitVisibility,
+  type Job,
+  type ProspectSummary,
+} from '../lib/api';
 
 interface HubControlPlaneProps {
   prospects: ProspectSummary[];
@@ -14,16 +14,7 @@ export default function HubControlPlane({
   prospects,
   runningJobs,
 }: HubControlPlaneProps) {
-  const rows = SWARM_HUBS.map((hub) => {
-    const members = prospects.filter(
-      (prospect) => resolveSwarmHub(prospect).id === hub.id,
-    );
-    const activeJobs = runningJobs.filter(
-      (job) => job.prospectId && members.some((prospect) => prospect.id === job.prospectId),
-    );
-
-    return { hub, members, activeJobs };
-  });
+  const visibility = projectBusinessUnitVisibility(prospects, runningJobs);
 
   return (
     <section className="hubPlane" aria-labelledby="hub-plane-title">
@@ -44,19 +35,19 @@ export default function HubControlPlane({
       </div>
 
       <div className="hubGrid">
-        {rows.map(({ hub, members, activeJobs }) => (
-          <article className="hubCard" key={hub.id}>
+        {[...visibility.rows, visibility.unknown].map((row) => (
+          <article className={`hubCard${row.known ? '' : ' hubCardUnknown'}`} key={row.key}>
             <div className="hubCardTopline">
               <span className="hubCardSignal" />
-              <span className="hubCardKicker">MO HUB</span>
-              <span className="hubCardCapacity">MAX {hub.concurrencyCap}</span>
+              <span className="hubCardKicker">{row.known ? 'MO HUB' : 'VISIBILITÉ'}</span>
+              <span className="hubCardCapacity">{row.known ? 'MAX 1' : 'NON CONFIRMÉ'}</span>
             </div>
-            <strong>{hub.label}</strong>
-            <span className="hubCardBusinessUnit">{hub.businessUnit}</span>
-            <span className="hubCardMaster">{hub.masterOfWork}</span>
+            <strong>{row.label}</strong>
+            <span className="hubCardBusinessUnit">{row.businessUnit}</span>
+            <span className="hubCardMaster">{row.masterOfWork}</span>
             <div className="hubCardStats">
-              <span>{members.length} prospect{members.length > 1 ? 's' : ''}</span>
-              <span>{activeJobs.length} actif{activeJobs.length > 1 ? 's' : ''}</span>
+              <span>{row.prospectCount} prospect{row.prospectCount > 1 ? 's' : ''}</span>
+              <span>{row.activeJobCount} actif{row.activeJobCount > 1 ? 's' : ''}</span>
             </div>
           </article>
         ))}

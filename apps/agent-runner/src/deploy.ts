@@ -1,6 +1,7 @@
 import { spawn } from 'node:child_process';
-import { stat } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 import { join } from 'node:path';
+import { stopProcessTree } from './process';
 
 export interface PrototypeDeployResult {
   deployed: boolean;
@@ -25,11 +26,12 @@ async function run(
   args: string[],
   cwd: string,
   timeoutMs = 10 * 60_000,
+  environment: NodeJS.ProcessEnv = process.env,
 ): Promise<{ code: number; output: string }> {
   return new Promise((resolvePromise, reject) => {
     const child = spawn(command, args, {
       cwd,
-      env: process.env,
+      env: environment,
       windowsHide: true,
       stdio: ['ignore', 'pipe', 'pipe'],
     });
@@ -44,7 +46,7 @@ async function run(
     child.stderr.on('data', append);
 
     const timer = setTimeout(() => {
-      child.kill();
+      stopProcessTree(child.pid ?? 0);
       reject(new Error('Cloudflare Pages deployment timed out'));
     }, timeoutMs);
 
@@ -60,18 +62,89 @@ async function run(
   });
 }
 
+export type PrototypeDeployMode = 'mock' | 'cloudflare';
+
+export const APPROVED_MAGIC_SCRIPT_PAGES_PROJECT = 'magicscript-demos';
+
+export function resolvePrototypeDeployMode(
+  value = process.env.MAGICSCRIPT_PROTOTYPE_DEPLOY_MODE,
+): PrototypeDeployMode {
+  const mode = value?.trim().toLowerCase() || 'mock';
+  if (mode !== 'mock' && mode !== 'cloudflare') {
+    throw new Error(
+      'MAGICSCRIPT_PROTOTYPE_DEPLOY_MODE must be mock or cloudflare',
+    );
+  }
+  return mode;
+}
+
+async function readLocalCloudflareConfig(workDir: string): Promise<{
+  accountId?: string;
+  pagesProject?: string;
+}> {
+  const configPath = join(workDir, '.magicscript', 'cloudflare.local.json');
+  try {
+    const parsed = JSON.parse(await readFile(configPath, 'utf8')) as {
+      accountId?: unknown;
+      pagesProject?: unknown;
+    };
+    return {
+      accountId:
+        typeof parsed.accountId === 'string' ? parsed.accountId.trim() : undefined,
+      pagesProject:
+        typeof parsed.pagesProject === 'string'
+          ? parsed.pagesProject.trim()
+          : undefined,
+    };
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return {};
+    throw new Error(
+      `Invalid local Cloudflare configuration: ${configPath}`,
+    );
+  }
+}
+
+async function resolveWranglerEnvironment(
+  baseEnvironment: NodeJS.ProcessEnv = process.env,
+): Promise<NodeJS.ProcessEnv> {
+  const environment = { ...baseEnvironment };
+  if (environment.CLOUDFLARE_API_TOKEN?.trim()) return environment;
+
+  // The local lifecycle keeps logs and runtime state on D:. Wrangler's
+  // existing OAuth profile may still live in the user's Windows profile on
+  // C:, so use that profile only for the Cloudflare CLI subprocess. Do not
+  // copy, print, or persist the credential.
+  const profileRoot = environment.USERPROFILE?.trim();
+  const authConfigHome = environment.MAGICSCRIPT_WRANGLER_AUTH_CONFIG_HOME?.trim()
+    || (profileRoot ? join(profileRoot, 'AppData', 'Roaming', 'xdg.config') : '');
+  const authConfig = authConfigHome
+    ? join(authConfigHome, '.wrangler', 'config', 'default.toml')
+    : '';
+
+  if (authConfig && (await stat(authConfig).catch(() => null))) {
+    environment.XDG_CONFIG_HOME = authConfigHome;
+  }
+
+  return environment;
+}
+
 export async function deployPrototypeToPages(input: {
   workDir: string;
   companyName: string;
   prospectId: string;
 }): Promise<PrototypeDeployResult> {
-  const projectName =
-    process.env.MAGICSCRIPT_PAGES_PROJECT?.trim() || 'magicscript-demos';
+  const deployMode = resolvePrototypeDeployMode();
+  const projectName = APPROVED_MAGIC_SCRIPT_PAGES_PROJECT;
   const branch = slug(
     `${input.companyName}-${input.prospectId.slice(0, 8)}`,
   );
 
-  if (process.env.MAGICSCRIPT_PROTOTYPE_DEPLOY_MODE === 'mock') {
+  if (deployMode === 'mock') {
+    if (process.env.MAGICSCRIPT_PAGES_PROJECT?.trim() && process.env.MAGICSCRIPT_PAGES_PROJECT.trim() !== APPROVED_MAGIC_SCRIPT_PAGES_PROJECT) {
+      throw new Error(
+        `Prototype deployment target is not approved: ${process.env.MAGICSCRIPT_PAGES_PROJECT.trim()}`,
+      );
+    }
     return {
       deployed: true,
       deploymentUrl: `https://${branch}.pages.dev/`,
@@ -81,12 +154,48 @@ export async function deployPrototypeToPages(input: {
     };
   }
 
-  if (!process.env.CLOUDFLARE_API_TOKEN?.trim()) {
-    throw new Error('CLOUDFLARE_API_TOKEN is required for prototype deployment');
+  const localCloudflareConfig = await readLocalCloudflareConfig(input.workDir);
+  const configuredProject =
+    process.env.MAGICSCRIPT_PAGES_PROJECT?.trim() || localCloudflareConfig.pagesProject;
+  if (configuredProject && configuredProject !== APPROVED_MAGIC_SCRIPT_PAGES_PROJECT) {
+    throw new Error(
+      `Prototype deployment target is not approved: ${configuredProject}`,
+    );
   }
 
-  if (!process.env.CLOUDFLARE_ACCOUNT_ID?.trim()) {
-    throw new Error('CLOUDFLARE_ACCOUNT_ID is required for prototype deployment');
+  const apiTokenConfigured = Boolean(process.env.CLOUDFLARE_API_TOKEN?.trim());
+  const accountId =
+    process.env.CLOUDFLARE_ACCOUNT_ID?.trim() || localCloudflareConfig.accountId;
+  const accountIdConfigured = Boolean(accountId);
+  const deploymentEnvironment = accountId
+    ? { ...process.env, CLOUDFLARE_ACCOUNT_ID: accountId }
+    : { ...process.env };
+
+  if (!apiTokenConfigured) {
+    const wranglerEnvironment = await resolveWranglerEnvironment(
+      deploymentEnvironment,
+    );
+    const auth = await run(
+      process.platform === 'win32' ? process.env.ComSpec?.trim() || 'cmd.exe' : 'npx',
+      process.platform === 'win32'
+        ? ['/d', '/s', '/c', 'npx.cmd', 'wrangler', 'whoami']
+        : ['wrangler', 'whoami'],
+      input.workDir,
+      60_000,
+      wranglerEnvironment,
+    );
+
+    if (auth.code !== 0) {
+      throw new Error(
+        `Cloudflare API token is missing and Wrangler OAuth is unavailable: ${auth.output.slice(-3000)}`,
+      );
+    }
+  }
+
+  if (!accountIdConfigured) {
+    throw new Error(
+      'CLOUDFLARE_ACCOUNT_ID is required for prototype deployment. Configure it once with scripts/configure-cloudflare-local.ps1; the local file stores no API token.',
+    );
   }
 
   const outputDir = join(input.workDir, 'out');
@@ -120,7 +229,13 @@ export async function deployPrototypeToPages(input: {
       ? ['/d', '/s', '/c', 'npx.cmd', ...deployArgs]
       : deployArgs;
 
-  const result = await run(command, args, input.workDir);
+  const result = await run(
+    command,
+    args,
+    input.workDir,
+    10 * 60_000,
+    await resolveWranglerEnvironment(deploymentEnvironment),
+  );
 
   if (result.code !== 0) {
     throw new Error(

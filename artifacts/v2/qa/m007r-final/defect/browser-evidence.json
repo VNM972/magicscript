@@ -1,0 +1,42 @@
+{
+  "root": "D:\\MagicScript\\repository\\artifacts\\v2\\qa\\m007r-final\\defect-dist",
+  "previewUrl": "http://127.0.0.1:20365",
+  "viewports": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "horizontalOverflow": 110,
+        "heroVisible": true,
+        "primaryCtaVisible": true,
+        "contentVisible": true,
+        "controlsWithinViewport": true
+      },
+      "sections": [
+        "home",
+        "hero",
+        "menu-or-offer",
+        "visit-information",
+        "location-and-contact",
+        "contact"
+      ],
+      "brokenAssets": [],
+      "internalLinkErrors": [],
+      "unresolvedMarkers": [],
+      "headings": [
+        "H1 Clarifier la valeur de Café Rivage",
+        "H2 Clarifier la valeur de Café Rivage",
+        "H2 hero",
+        "H2 menu-or-offer",
+        "H2 visit-information",
+        "H2 location-and-contact",
+        "H2 Découvrir le menu ou réserver"
+      ],
+      "consoleErrors": [],
+      "screenshotPath": "D:\\MagicScript\\repository\\artifacts\\v2\\qa\\m007r-final\\defect\\mobile.png"
+    }
+  ],
+  "expectedSections": [],
+  "primaryCta": "Découvrir le menu ou réserver",
+  "browser": "Chrome/152.0.7977.83"
+}

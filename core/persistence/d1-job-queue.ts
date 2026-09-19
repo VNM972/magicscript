@@ -1,4 +1,5 @@
 import { jobKindPrioritySql } from '../jobs/priority';
+import { canPromoteWithWebDesignReview } from '../prototypes/web-design-review';
 import type { JobQueue, JobStatus, MagicScriptJob } from '../jobs/types';
 import type { D1DatabaseLike } from './d1-types';
 
@@ -46,8 +47,38 @@ export class D1JobQueue implements JobQueue {
     >,
   ): Promise<MagicScriptJob<TPayload>> {
     const now = new Date().toISOString();
+    let payload = input.payload;
+    if (input.kind === 'DEPLOY_PROTOTYPE' && input.prospectId) {
+      const prototype = await this.db
+        .prepare(
+          `SELECT id, status FROM prototypes
+           WHERE prospect_id = ?
+           ORDER BY updated_at DESC LIMIT 1`,
+        )
+        .bind(input.prospectId)
+        .first<{ id: string; status: string }>();
+      if (prototype) {
+        payload = { ...(input.payload as Record<string, unknown>), prototypeId: prototype.id } as TPayload;
+        if (prototype.status === 'DEPLOYED') {
+          const completed = await this.db.prepare(
+            `SELECT * FROM jobs WHERE kind = 'DEPLOY_PROTOTYPE' AND prospect_id = ?
+             AND status = 'SUCCEEDED' ORDER BY updated_at DESC LIMIT 1`,
+          ).bind(input.prospectId).first<JobRow>();
+          if (completed) return fromRow(completed) as MagicScriptJob<TPayload>;
+        }
+        const existing = await this.db.prepare(
+          `SELECT * FROM jobs WHERE kind = 'DEPLOY_PROTOTYPE' AND prospect_id = ?
+           AND status IN ('PENDING', 'RUNNING', 'SENDING')
+           AND (json_extract(payload_json, '$.prototypeId') = ?
+                OR json_extract(payload_json, '$.prototypeId') IS NULL)
+           ORDER BY created_at ASC LIMIT 1`,
+        ).bind(input.prospectId, prototype.id).first<JobRow>();
+        if (existing) return fromRow(existing) as MagicScriptJob<TPayload>;
+      }
+    }
     const job: MagicScriptJob<TPayload> = {
       ...input,
+      payload,
       status: 'PENDING',
       attempts: 0,
       createdAt: now,
@@ -93,6 +124,35 @@ export class D1JobQueue implements JobQueue {
       : " AND json_extract(payload_json, '$.requiredRunnerId') IS NULL";
     const prospectFilter = prospectId ? ' AND prospect_id = ?' : '';
 
+    // Reuse the canonical review predicate, then fence the atomic claim against
+    // the exact persisted snapshot. A changed/latest replacement review cannot
+    // consume an attempt or reach the runner using an earlier approval.
+    const mayDeploy = !kinds || kinds.includes('DEPLOY_PROTOTYPE');
+    const snapshots = mayDeploy
+      ? await this.db.prepare(
+          `SELECT p.id, p.qa_findings_json
+           FROM prototypes p JOIN prospects prospect ON prospect.id = p.prospect_id
+           WHERE p.status = 'READY' AND p.qa_status = 'PASS' AND prospect.state = 'PROTOTYPE_READY' AND COALESCE(p.human_review_status, '') <> 'REJECTED'
+             AND p.id = (SELECT latest.id FROM prototypes latest
+                         WHERE latest.prospect_id = p.prospect_id
+                         ORDER BY latest.updated_at DESC LIMIT 1)`,
+        ).all<{ id: string; qa_findings_json: string | null }>()
+      : { results: [] };
+    const approved = (snapshots.results ?? []).filter((row) =>
+      canPromoteWithWebDesignReview(row.qa_findings_json),
+    );
+    const deployFilter = mayDeploy ? ` AND (kind <> 'DEPLOY_PROTOTYPE' OR EXISTS (
+      SELECT 1 FROM prototypes p
+      JOIN prospects prospect ON prospect.id = p.prospect_id
+      JOIN json_each(?) approval ON json_extract(approval.value, '$.id') = p.id
+      WHERE p.prospect_id = jobs.prospect_id
+        AND p.status = 'READY' AND prospect.state = 'PROTOTYPE_READY'
+        AND p.qa_findings_json = json_extract(approval.value, '$.qa_findings_json')
+        AND p.id = (SELECT latest.id FROM prototypes latest
+                    WHERE latest.prospect_id = jobs.prospect_id
+                    ORDER BY latest.updated_at DESC LIMIT 1)
+    ))` : '';
+
     const sql = `UPDATE jobs
       SET status = 'RUNNING',
           attempts = attempts + 1,
@@ -103,7 +163,7 @@ export class D1JobQueue implements JobQueue {
       WHERE id = (
         SELECT id
         FROM jobs
-        WHERE status = 'PENDING' AND run_after <= ?${kindFilter}${affinityFilter}${prospectFilter}
+        WHERE status = 'PENDING' AND run_after <= ?${kindFilter}${affinityFilter}${prospectFilter}${deployFilter}
         ORDER BY ${jobKindPrioritySql('kind')} ASC, created_at ASC
         LIMIT 1
       )
@@ -118,6 +178,7 @@ export class D1JobQueue implements JobQueue {
       ...(kinds ?? []),
       ...(claimedBy ? [claimedBy] : []),
       ...(prospectId ? [prospectId] : []),
+      ...(mayDeploy ? [JSON.stringify(approved)] : []),
     ];
 
     const row = await this.db

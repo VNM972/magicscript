@@ -4,11 +4,11 @@
   "version": "0.2.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx src/index.ts",
+    "dev": "node ../../scripts/run-tsx-with-preload.cjs src/index.ts",
     "typecheck": "tsc --noEmit",
-    "email:check": "tsx src/email/check.ts",
-    "email:test-send": "tsx src/email/test-send.ts",
-    "test": "node --import tsx --test src/email/send-idempotency.test.ts"
+    "email:check": "node ../../scripts/run-tsx-with-preload.cjs src/email/check.ts",
+    "email:test-send": "node ../../scripts/run-tsx-with-preload.cjs src/email/test-send.ts",
+    "test": "node ../../scripts/run-tsx-with-preload.cjs --test src/email/send-idempotency.test.ts src/parse-json.test.ts src/research-output.test.ts src/prototype-scaffold.test.ts src/prototype-creative-review-loop.test.ts src/synthetic-creative-job.test.ts src/synthetic-creative-matrix.test.ts src/synthetic-creative-persistence.test.ts src/synthetic-creative-idempotency.test.ts src/synthetic-render-evidence.test.ts src/ollama.test.ts src/ollama-schema.test.ts src/prompts.test.ts src/agent1-canonical.test.ts"
   },
   "devDependencies": {
     "@types/node": "^26.2.0",

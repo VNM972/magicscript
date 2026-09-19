@@ -1,5 +1,6 @@
 export interface MagicScriptConfig {
   autopilotEnabled: boolean;
+  internalProcessingEnabled: boolean;
   sendingEnabled: boolean;
   prototypeDeployEnabled: boolean;
   dailySendLimit: number;
@@ -8,7 +9,9 @@ export interface MagicScriptConfig {
   minOutreachConfidence: number;
   autoPrototypeScore: number;
   databaseProvider: 'memory' | 'sqlite' | 'd1';
-  emailProvider: 'disabled' | 'dry-run' | 'amen-smtp' | 'smtp' | 'resend' | 'other';
+  emailProvider: 'disabled' | 'dry-run' | 'fake' | 'amen-smtp' | 'smtp' | 'resend' | 'other';
+  /** Google Places Structured Discovery — disabled by default. */
+  googlePlacesEnabled: boolean;
 }
 
 function bool(value: string | undefined, fallback = false): boolean {
@@ -31,12 +34,15 @@ export function loadConfig(
     throw new Error(`Unsupported database provider: ${databaseProvider}`);
   }
 
-  if (!['disabled', 'dry-run', 'amen-smtp', 'smtp', 'resend', 'other'].includes(emailProvider)) {
+  if (!['disabled', 'dry-run', 'fake', 'amen-smtp', 'smtp', 'resend', 'other'].includes(emailProvider)) {
     throw new Error(`Unsupported email provider: ${emailProvider}`);
   }
 
   return {
     autopilotEnabled: bool(env.MAGICSCRIPT_AUTOPILOT_ENABLED),
+    internalProcessingEnabled: bool(
+      env.MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED,
+    ),
     sendingEnabled: bool(env.MAGICSCRIPT_SENDING_ENABLED),
     prototypeDeployEnabled: bool(env.MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED),
     dailySendLimit: int(env.MAGICSCRIPT_DAILY_SEND_LIMIT, 10),
@@ -46,5 +52,9 @@ export function loadConfig(
     autoPrototypeScore: int(env.MAGICSCRIPT_AUTO_PROTOTYPE_SCORE, 85),
     databaseProvider: databaseProvider as MagicScriptConfig['databaseProvider'],
     emailProvider: emailProvider as MagicScriptConfig['emailProvider'],
+    // Google Places Structured Discovery is DISABLED BY DEFAULT. It must be
+    // explicitly enabled by the operator (MAGICSCRIPT_GOOGLE_PLACES_ENABLED=true)
+    // before any Google discovery request can be executed. No automatic enablement.
+    googlePlacesEnabled: bool(env.MAGICSCRIPT_GOOGLE_PLACES_ENABLED),
   };
 }

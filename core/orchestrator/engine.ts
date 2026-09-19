@@ -63,7 +63,7 @@ export class OrchestratorEngine {
     this.now = deps.now ?? (() => new Date());
   }
 
-  async planProspect(prospectId: string): Promise<OrchestratorPlan> {
+  async planProspect(prospectId: string, provenance?: string): Promise<OrchestratorPlan> {
     const prospect = await this.deps.prospects.getProspect(prospectId);
     if (!prospect) throw new Error(`Prospect not found: ${prospectId}`);
 
@@ -71,7 +71,7 @@ export class OrchestratorEngine {
     const humanRequired = requiresHuman(prospect.state);
 
     if (humanRequired) {
-      const jobId = await this.enqueueAction(prospect, 'ESCALATE_TO_HUMAN');
+      const jobId = await this.enqueueAction(prospect, 'ESCALATE_TO_HUMAN', undefined, provenance);
       await this.record('orchestrator.human_escalation_planned', prospect.id, {
         state: prospect.state,
         jobId,
@@ -86,7 +86,22 @@ export class OrchestratorEngine {
       };
     }
 
-    if (!this.deps.config.autopilotEnabled) {
+    const internalProcessingAllowed =
+      this.deps.config.internalProcessingEnabled &&
+      (nextAction === 'RUN_RESEARCH_SWARM' ||
+        nextAction === 'RUN_SCORING' ||
+        nextAction === 'DISCOVER_CONTACT' ||
+        nextAction === 'VALIDATE_CONTACT');
+
+    const explicitPrototypeRequest =
+      provenance === 'control-center-prototype-review' ||
+      provenance === 'control-center-prototype-resume';
+
+    if (
+      !this.deps.config.autopilotEnabled &&
+      !internalProcessingAllowed &&
+      !(explicitPrototypeRequest && nextAction === 'GENERATE_PROTOTYPE_STRATEGY')
+    ) {
       return {
         prospectId,
         state: prospect.state,
@@ -97,22 +112,31 @@ export class OrchestratorEngine {
     }
 
     if (
-      (nextAction === 'SEND_EMAIL' ||
-        nextAction === 'SEND_FOLLOW_UP' ||
-        nextAction === 'SEND_DEMO_LINK') &&
-      !this.deps.config.sendingEnabled
+      nextAction === 'SEND_EMAIL' ||
+      nextAction === 'SEND_FOLLOW_UP' ||
+      nextAction === 'SEND_DEMO_LINK'
     ) {
-      await this.record('orchestrator.send_blocked', prospect.id, {
-        reason: 'Sending disabled',
-      });
+      const operatorSend = provenance === 'operator-send';
+      const reason = !this.deps.config.sendingEnabled
+        ? 'Sending disabled'
+        : !operatorSend
+          ? 'Commercial sending requires explicit operator action'
+          : null;
 
-      return {
-        prospectId,
-        state: prospect.state,
-        nextAction,
-        humanRequired: false,
-        reason: 'Sending disabled',
-      };
+      if (reason) {
+        await this.record('orchestrator.send_blocked', prospect.id, {
+          reason,
+          provenance: provenance ?? null,
+        });
+
+        return {
+          prospectId,
+          state: prospect.state,
+          nextAction,
+          humanRequired: true,
+          reason,
+        };
+      }
     }
 
     if (
@@ -186,6 +210,7 @@ export class OrchestratorEngine {
       prospect,
       nextAction,
       prototypeAuthorization,
+      provenance,
     );
 
     await this.record('orchestrator.job_queued', prospect.id, {
@@ -238,6 +263,7 @@ export class OrchestratorEngine {
     prospect: Prospect,
     action: NextAction,
     prototypeAuthorization?: 'FULL' | 'LIGHT',
+    provenance?: string,
   ): Promise<string> {
     const kind = actionToJob[action];
     if (!kind) throw new Error(`No job mapping for action: ${action}`);
@@ -278,6 +304,9 @@ export class OrchestratorEngine {
         handoff,
         ...(prototypeAuthorization
           ? { prototypeAuthorization }
+          : {}),
+        ...(provenance?.trim()
+          ? { provenance: provenance.trim() }
           : {}),
       },
       maxAttempts: 3,

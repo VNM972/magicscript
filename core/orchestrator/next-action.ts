@@ -25,6 +25,7 @@ export type NextAction =
   | 'GENERATE_PROTOTYPE_STRATEGY';
 
 const stateToAction: Record<ProspectState, NextAction> = {
+  INGESTED: 'STOP',
   SAS_PENDING: 'STOP',
   DISCOVERED: 'RUN_RESEARCH_SWARM',
   RESEARCHING: 'WAIT',
@@ -38,6 +39,7 @@ const stateToAction: Record<ProspectState, NextAction> = {
   OUTREACH_DRAFTED: 'FACT_CHECK_OUTREACH',
   OUTREACH_VERIFIED: 'SEND_EMAIL',
   EMAIL_SENT: 'WAIT',
+  CONTACTED: 'WAIT',
   WAITING_REPLY: 'WAIT',
   FOLLOW_UP_DUE: 'SEND_FOLLOW_UP',
   FOLLOW_UP_SENT: 'WAIT',

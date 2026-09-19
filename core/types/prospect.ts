@@ -1,6 +1,7 @@
 export type ProspectOpportunity = 'A' | 'B' | 'C' | 'D';
 
 export type ProspectState =
+  | 'INGESTED'
   | 'SAS_PENDING'
   | 'DISCOVERED'
   | 'RESEARCHING'
@@ -14,6 +15,7 @@ export type ProspectState =
   | 'OUTREACH_DRAFTED'
   | 'OUTREACH_VERIFIED'
   | 'EMAIL_SENT'
+  | 'CONTACTED'
   | 'WAITING_REPLY'
   | 'FOLLOW_UP_DUE'
   | 'FOLLOW_UP_SENT'
@@ -52,9 +54,24 @@ export interface Prospect {
   id: string;
   companyName: string;
   legalName?: string;
+  siren?: string;
+  siret?: string;
+  city?: string;
+  sourceUrl?: string;
+  activityTaxonomy?: 'NAF_2008';
+  commercialEligibility?:
+    | 'HIGH_PRIORITY'
+    | 'RESEARCH'
+    | 'LOW_PRIORITY'
+    | 'REJECT';
+  brandKey?: string;
+  brandCollisionGroup?: string;
+  initialResearchRepresentative?: boolean;
   activity?: string;
   location?: string;
   websiteUrl?: string;
+  v2Domain?: string;
+  phone?: string;
   opportunity?: ProspectOpportunity;
   state: ProspectState;
   score?: number;

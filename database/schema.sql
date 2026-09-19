@@ -4,9 +4,20 @@ CREATE TABLE IF NOT EXISTS prospects (
   id TEXT PRIMARY KEY,
   company_name TEXT NOT NULL,
   legal_name TEXT,
+  siren TEXT,
+  siret TEXT,
+  city TEXT,
+  source_url TEXT,
+  activity_taxonomy TEXT CHECK (activity_taxonomy IS NULL OR activity_taxonomy = 'NAF_2008'),
+  commercial_eligibility TEXT CHECK (commercial_eligibility IS NULL OR commercial_eligibility IN ('HIGH_PRIORITY', 'RESEARCH', 'LOW_PRIORITY', 'REJECT')),
+  brand_key TEXT,
+  brand_collision_group TEXT,
+  initial_research_representative INTEGER CHECK (initial_research_representative IS NULL OR initial_research_representative IN (0, 1)),
   activity TEXT,
   location TEXT,
   website_url TEXT,
+  phone TEXT,
+  v2_domain TEXT,
   opportunity TEXT CHECK (opportunity IN ('A', 'B', 'C', 'D')),
   state TEXT NOT NULL,
   score INTEGER CHECK (score BETWEEN 0 AND 100),
@@ -19,6 +30,32 @@ CREATE TABLE IF NOT EXISTS prospects (
 
 CREATE INDEX IF NOT EXISTS idx_prospects_state ON prospects(state);
 CREATE INDEX IF NOT EXISTS idx_prospects_score ON prospects(score);
+
+-- Append-only current phone trust projection. Historical phone/evidence events remain in events.
+CREATE TABLE IF NOT EXISTS phone_trust_states (
+  prospect_id TEXT PRIMARY KEY,
+  phone TEXT NOT NULL,
+  normalized_phone TEXT NOT NULL,
+  trust_status TEXT NOT NULL CHECK (trust_status IN ('TRUSTED', 'REVOKED', 'AMBIGUOUS', 'UNTRUSTED')),
+  trust_reason TEXT NOT NULL,
+  source_ownership TEXT NOT NULL,
+  entity_bound INTEGER NOT NULL CHECK (entity_bound IN (0, 1)),
+  identity_status TEXT NOT NULL,
+  evidence_event_id TEXT,
+  source_url TEXT,
+  source_type TEXT,
+  canonicalization_event_id TEXT,
+  effective_at TEXT NOT NULL,
+  revoked_at TEXT,
+  schema_version TEXT NOT NULL,
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_phone_trust_status ON phone_trust_states(trust_status);
+CREATE INDEX IF NOT EXISTS idx_phone_trust_normalized ON phone_trust_states(normalized_phone);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_prospects_legal_identity
+  ON prospects(siren, siret)
+  WHERE siren IS NOT NULL AND siret IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_prospects_brand_key ON prospects(brand_key);
 
 CREATE TABLE IF NOT EXISTS contacts (
   id TEXT PRIMARY KEY,
@@ -37,6 +74,33 @@ CREATE TABLE IF NOT EXISTS contacts (
 
 CREATE INDEX IF NOT EXISTS idx_contacts_email ON contacts(email);
 CREATE INDEX IF NOT EXISTS idx_contacts_prospect ON contacts(prospect_id);
+
+-- V2 admission projection. These tables are append/insert-only for explicit packs;
+-- no historical V1 prospect is backfilled into INGESTED.
+CREATE TABLE IF NOT EXISTS v2_admission_contacts (
+  id TEXT PRIMARY KEY,
+  prospect_id TEXT NOT NULL,
+  channel TEXT NOT NULL CHECK (channel IN ('EMAIL', 'MOBILE', 'LANDLINE', 'WHATSAPP', 'INSTAGRAM', 'FACEBOOK', 'CONTACT_FORM')),
+  raw_value TEXT NOT NULL,
+  normalized_value TEXT NOT NULL,
+  validation_status TEXT NOT NULL CHECK (validation_status IN ('DERIVED_VALID', 'INVALID')),
+  source_url TEXT,
+  source_type TEXT,
+  created_at TEXT NOT NULL,
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE,
+  UNIQUE(prospect_id, channel, normalized_value)
+);
+CREATE INDEX IF NOT EXISTS idx_v2_admission_contacts_normalized ON v2_admission_contacts(channel, normalized_value);
+
+CREATE TABLE IF NOT EXISTS v2_admissions (
+  prospect_id TEXT PRIMARY KEY,
+  pack_id TEXT NOT NULL UNIQUE,
+  schema_version TEXT NOT NULL,
+  result TEXT NOT NULL CHECK (result IN ('ADMITTED', 'REJECTED')),
+  reason_code TEXT NOT NULL,
+  received_at TEXT NOT NULL,
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE
+);
 
 CREATE TABLE IF NOT EXISTS events (
   id TEXT PRIMARY KEY,
@@ -73,6 +137,84 @@ CREATE INDEX IF NOT EXISTS idx_jobs_status_run_after
 
 CREATE INDEX IF NOT EXISTS idx_jobs_claimed_by
   ON jobs(claimed_by, status);
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_v2_design_request_active
+  ON jobs(kind, prospect_id, json_extract(payload_json, '$.designRequestId'))
+  WHERE kind = 'V2_DESIGN_REQUEST' AND status IN ('PENDING', 'RUNNING');
+
+CREATE TABLE IF NOT EXISTS v2_design_requests (
+  id TEXT PRIMARY KEY,
+  prospect_id TEXT NOT NULL,
+  version TEXT NOT NULL,
+  pack_id TEXT NOT NULL,
+  request_json TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE,
+  UNIQUE(prospect_id, version)
+);
+
+CREATE TABLE IF NOT EXISTS v2_design_artifacts (
+  id TEXT PRIMARY KEY,
+  design_request_id TEXT NOT NULL,
+  prospect_id TEXT NOT NULL,
+  version TEXT NOT NULL,
+  revision INTEGER NOT NULL DEFAULT 1,
+  vertical TEXT NOT NULL,
+  artifact_json TEXT NOT NULL,
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  FOREIGN KEY (design_request_id) REFERENCES v2_design_requests(id) ON DELETE CASCADE,
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE,
+  UNIQUE(design_request_id, version, revision)
+);
+CREATE INDEX IF NOT EXISTS idx_v2_design_artifacts_prospect ON v2_design_artifacts(prospect_id, created_at);
+
+CREATE TABLE IF NOT EXISTS v2_build_artifacts (
+  id TEXT PRIMARY KEY, build_version TEXT NOT NULL, design_artifact_id TEXT NOT NULL, design_request_id TEXT NOT NULL,
+  prospect_id TEXT NOT NULL, approved_revision INTEGER NOT NULL, builder_version TEXT NOT NULL, source_path TEXT NOT NULL,
+  output_path TEXT NOT NULL, status TEXT NOT NULL, source_hash TEXT, artifact_json TEXT NOT NULL,
+  created_at TEXT NOT NULL, completed_at TEXT NOT NULL, updated_at TEXT NOT NULL,
+  FOREIGN KEY (design_artifact_id) REFERENCES v2_design_artifacts(id) ON DELETE CASCADE,
+  FOREIGN KEY (design_request_id) REFERENCES v2_design_requests(id) ON DELETE CASCADE,
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE,
+  UNIQUE(design_artifact_id, builder_version)
+);
+CREATE INDEX IF NOT EXISTS idx_v2_build_artifacts_prospect ON v2_build_artifacts(prospect_id, created_at);
+CREATE TABLE IF NOT EXISTS v2_visual_qa_reports (
+  id TEXT PRIMARY KEY, qa_version TEXT NOT NULL, build_artifact_id TEXT NOT NULL, design_artifact_id TEXT NOT NULL,
+  design_request_id TEXT NOT NULL, prospect_id TEXT NOT NULL, attempt INTEGER NOT NULL, decision TEXT NOT NULL,
+  report_json TEXT NOT NULL, created_at TEXT NOT NULL,
+  FOREIGN KEY (build_artifact_id) REFERENCES v2_build_artifacts(id) ON DELETE CASCADE,
+  FOREIGN KEY (design_artifact_id) REFERENCES v2_design_artifacts(id) ON DELETE CASCADE,
+  FOREIGN KEY (design_request_id) REFERENCES v2_design_requests(id) ON DELETE CASCADE,
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE,
+  UNIQUE(build_artifact_id, attempt)
+);
+CREATE TABLE IF NOT EXISTS v2_build_corrections (
+  id TEXT PRIMARY KEY, correction_version TEXT NOT NULL, build_artifact_id TEXT NOT NULL, design_artifact_id TEXT NOT NULL,
+  prospect_id TEXT NOT NULL, qa_report_id TEXT NOT NULL, target_build_revision INTEGER NOT NULL, next_build_revision INTEGER NOT NULL,
+  correction_json TEXT NOT NULL, created_at TEXT NOT NULL,
+  FOREIGN KEY (build_artifact_id) REFERENCES v2_build_artifacts(id) ON DELETE CASCADE,
+  FOREIGN KEY (design_artifact_id) REFERENCES v2_design_artifacts(id) ON DELETE CASCADE,
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE,
+  FOREIGN KEY (qa_report_id) REFERENCES v2_visual_qa_reports(id) ON DELETE CASCADE,
+  UNIQUE(build_artifact_id, target_build_revision)
+);
+CREATE TABLE IF NOT EXISTS v2_design_reviews (
+  id TEXT PRIMARY KEY, design_request_id TEXT NOT NULL, artifact_id TEXT NOT NULL, artifact_revision INTEGER NOT NULL,
+  prospect_id TEXT NOT NULL, review_json TEXT NOT NULL, decision TEXT NOT NULL, reviewed_at TEXT NOT NULL,
+  FOREIGN KEY (design_request_id) REFERENCES v2_design_requests(id) ON DELETE CASCADE,
+  FOREIGN KEY (artifact_id) REFERENCES v2_design_artifacts(id) ON DELETE CASCADE,
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE,
+  UNIQUE(design_request_id, artifact_revision)
+);
+CREATE TABLE IF NOT EXISTS v2_design_corrections (
+  id TEXT PRIMARY KEY, design_request_id TEXT NOT NULL, target_artifact_revision INTEGER NOT NULL,
+  correction_json TEXT NOT NULL, created_at TEXT NOT NULL,
+  FOREIGN KEY (design_request_id) REFERENCES v2_design_requests(id) ON DELETE CASCADE,
+  UNIQUE(design_request_id, target_artifact_revision)
+);
 
 CREATE TABLE IF NOT EXISTS runners (
   runner_id TEXT PRIMARY KEY,
@@ -166,6 +308,9 @@ CREATE TABLE IF NOT EXISTS prototypes (
   deployment_url TEXT,
   status TEXT NOT NULL,
   qa_status TEXT,
+  human_review_status TEXT CHECK (human_review_status IS NULL OR human_review_status IN ('VALIDATED', 'REJECTED')),
+  human_reviewed_at TEXT,
+  human_reviewed_by TEXT,
   build_manifest_json TEXT,
   qa_findings_json TEXT,
   last_error TEXT,

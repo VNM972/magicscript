@@ -352,7 +352,8 @@ async function evaluate(cdp, sessionId, expression) {
     userGesture: false,
   }, sessionId);
   if (result.exceptionDetails) {
-    throw new Error(result.exceptionDetails.text || 'Runtime evaluation failed');
+    const detail = result.exceptionDetails.exception?.description || result.exceptionDetails.text || 'Runtime evaluation failed';
+    throw new Error(detail);
   }
   return result.result?.value;
 }

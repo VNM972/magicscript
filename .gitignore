@@ -146,3 +146,10 @@ next-env.d.ts
 
 # Local agent permissions/configuration
 .claude/settings.local.json
+.aider*
+
+# Acceptance/build/runtime scratch (generated, never canonical source)
+.next-wp*-qa/
+.m010-final-d1/
+.m010-final-seed.sql
+.m010-final-query.sql

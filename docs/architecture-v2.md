@@ -10,38 +10,19 @@ Principe central :
 
 L'intervention humaine n'est requise qu'en cas de signal commercial qualifié ou d'action engageante.
 
-## Funnel autonome
+## V1 boundary / future V2 funnel
 
-```text
-DISCOVERY
-  ↓
-RESEARCH
-  ↓
-SCORING
-  ↓
-CONTACT DISCOVERY
-  ↓
-CONTACT VALIDATION
-  ↓
-OUTREACH GENERATION
-  ↓
-FACT CHECK / QA
-  ↓
-SEND
-  ↓
-WAITING_REPLY
-  ↓
-FOLLOW_UPS
-  ↓
-RESPONSE CLASSIFICATION
-  ↓
-┌──────────────┬──────────────┬─────────────────┐
-│ NOT INTEREST │ NO RESPONSE  │ POSITIVE SIGNAL │
-│ archive      │ retry policy │ prototype/lead  │
-└──────────────┴──────────────┴─────────────────┘
-                                  ↓
-                           HUMAN ESCALATION
-```
+The former discovery → research → scoring → contact → automatic send sequence is a
+**V1 compatibility flow**, not the canonical V2 product funnel. It is documented in
+`docs/magicscript-v2-boundary.md` and classified by `config/magicscript-v2-boundary.json`.
+
+Future V2 starts after Agent 1 and requires a valid email or mobile, then proceeds through
+INGESTED, Vertical Designer, Design Director review, Proposal Ready, Outreach Ready,
+Visible on Deck, **operator send**, Contacted, proposal engagement, Meeting Booked,
+Call Copilot and Quote Ready. Future V2 components are not implemented in M001.
+
+No commercial outreach is automatically sent. Draft generation and backend email/IMAP
+capabilities may remain available, but sending requires explicit operator action.
 
 ## Human escalation
 

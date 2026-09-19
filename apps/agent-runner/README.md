@@ -2,7 +2,7 @@
 
 Le runner est le plan d'exécution local de Magic Script V2.
 
-Le contrôle reste sur Cloudflare (API + D1), tandis que les tâches agentiques lourdes sont exécutées par Kimi Code sur une machine disposant du CLI Kimi et de sa configuration d'authentification.
+Le contrôle reste sur Cloudflare (API + D1), tandis que les tâches agentiques lourdes sont exécutées localement avec Ollama, et Aider est utilisé pour les modifications de prototypes.
 
 ## Pourquoi
 
@@ -12,8 +12,8 @@ Le runner :
 
 1. réclame un job au backend ;
 2. crée un dossier de travail isolé ;
-3. lance Kimi Code en mode non interactif ;
-4. demande explicitement l'utilisation d'AgentSwarm pour les tâches parallélisables ;
+3. lance le fournisseur d'agent configuré en mode non interactif ;
+4. utilise des sous-agents lorsque le fournisseur le permet ;
 5. parse la sortie JSON ;
 6. renvoie le résultat au backend ;
 7. laisse le backend décider de la prochaine étape.
@@ -22,6 +22,7 @@ Le runner :
 
 - DISCOVER_PROSPECTS
 - RUN_RESEARCH_SWARM
+- RUN_SCORING (déterministe à partir de la recherche persistée)
 - DISCOVER_CONTACT
 - GENERATE_OUTREACH
 - FACT_CHECK_OUTREACH
@@ -31,7 +32,7 @@ Aucun job SEND_EMAIL n'est exécuté ici pour le moment.
 ## Pré-requis
 
 - Node.js
-- Kimi Code CLI installé et authentifié
+- soit Ollama avec un modèle local installé, soit Kimi Code CLI authentifié
 - accès au backend Magic Script
 - MAGICSCRIPT_RUNNER_TOKEN
 
@@ -40,6 +41,16 @@ Aucun job SEND_EMAIL n'est exécuté ici pour le moment.
 - MAGICSCRIPT_API_BASE_URL
 - MAGICSCRIPT_RUNNER_TOKEN
 - KIMI_EXECUTABLE
+- MAGICSCRIPT_AGENT_PROVIDER (`ollama-aider` par défaut en local, `ollama` ou `kimi`)
+- OLLAMA_API_BASE
+- OLLAMA_MODEL
+- AIDER_EXECUTABLE
+- MAGICSCRIPT_AGENT_TIMEOUT_MS (10 minutes par défaut, plafonné à 30 minutes)
+- MAGICSCRIPT_LOCAL_FALLBACK (true par défaut : Kimi/OpenRouter échoué => Ollama/Aider local)
+
+Les commandes agentiques sont limitées en contexte local (8 192 tokens et repo-map
+de 1 024 tokens par défaut). En cas d’arrêt, le processus Windows est terminé avec
+ses descendants afin d’éviter un runner Python orphelin.
 - MAGICSCRIPT_RUNNER_WORK_DIR
 - MAGICSCRIPT_POLL_INTERVAL_MS
 - MAGICSCRIPT_SWARM_MAX_CONCURRENCY

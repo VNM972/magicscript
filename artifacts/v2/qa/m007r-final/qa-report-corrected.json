@@ -1,0 +1,59 @@
+{
+  "id": "qa-build-artifact-dr-m007-cafe-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r2-builder-v1-r2-a1",
+  "version": "VISUAL_QA_REPORT_V1",
+  "buildArtifactId": "build-artifact-dr-m007-cafe-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r2-builder-v1",
+  "designArtifactId": "artifact-dr-m007-cafe-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r2",
+  "designArtifactRevision": 2,
+  "designRequestId": "dr-m007-cafe-DESIGN_REQUEST_V1",
+  "prospectId": "prospect-m007-cafe",
+  "buildVersion": "BUILD_ARTIFACT_V1",
+  "buildRevision": 2,
+  "attempt": 1,
+  "decision": "PASS",
+  "issues": [],
+  "inspection": {
+    "viewports": [
+      {
+        "name": "DESKTOP",
+        "width": 1440,
+        "height": 900,
+        "horizontalOverflow": 0,
+        "heroVisible": true,
+        "primaryCtaVisible": true,
+        "contentVisible": true,
+        "controlsWithinViewport": true
+      },
+      {
+        "name": "MOBILE",
+        "width": 390,
+        "height": 844,
+        "horizontalOverflow": 0,
+        "heroVisible": true,
+        "primaryCtaVisible": true,
+        "contentVisible": true,
+        "controlsWithinViewport": true
+      }
+    ],
+    "expectedSections": [
+      "hero",
+      "menu-or-offer",
+      "visit-information",
+      "location-and-contact"
+    ],
+    "observedSections": [
+      "hero",
+      "menu-or-offer",
+      "visit-information",
+      "location-and-contact"
+    ],
+    "primaryCta": "Découvrir le menu ou réserver",
+    "brokenAssets": [],
+    "internalLinkErrors": [],
+    "consoleErrors": [],
+    "unresolvedMarkers": [],
+    "headings": [
+      "h1 Café Rivage"
+    ]
+  },
+  "createdAt": "2026-09-19T11:07:55.634Z"
+}

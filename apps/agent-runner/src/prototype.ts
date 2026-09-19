@@ -1,6 +1,8 @@
 import { spawn } from 'node:child_process';
-import { readdir, stat } from 'node:fs/promises';
-import { join } from 'node:path';
+import { mkdir, readdir, stat } from 'node:fs/promises';
+import { delimiter, join, resolve } from 'node:path';
+import { stopProcessTree } from './process';
+import { ensurePrototypeScaffold } from './prototype-scaffold';
 
 export interface PrototypeBuildCheck {
   passed: boolean;
@@ -15,12 +17,22 @@ async function runCommand(
   args: string[],
   cwd: string,
   timeoutMs = 10 * 60_000,
+  environmentOverrides: NodeJS.ProcessEnv = {},
 ): Promise<{ code: number; output: string }> {
+  const environment = { ...process.env, ...environmentOverrides };
+  if (command === 'npm' || command === 'npm.cmd') {
+    const cacheDir = environment.NPM_CONFIG_CACHE?.trim() ||
+      resolve(cwd, '..', '..', 'npm-cache');
+    await mkdir(cacheDir, { recursive: true });
+    environment.NPM_CONFIG_CACHE = cacheDir;
+    environment.npm_config_cache = cacheDir;
+  }
+
   return new Promise((resolvePromise, reject) => {
     const child = spawn(command, args, {
       cwd,
       windowsHide: true,
-      env: process.env,
+      env: environment,
       stdio: ['ignore', 'pipe', 'pipe'],
       // Node 24 on Windows can raise spawn EINVAL when invoking .cmd shims
       // (such as npm.cmd) directly. Use the Windows command shell only there.
@@ -39,7 +51,7 @@ async function runCommand(
     child.stderr.on('data', append);
 
     const timer = setTimeout(() => {
-      child.kill();
+      stopProcessTree(child.pid ?? 0);
       reject(new Error(`Command timed out: ${command} ${args.join(' ')}`));
     }, timeoutMs);
 
@@ -85,26 +97,66 @@ async function countProjectFiles(root: string): Promise<number> {
 
 export async function verifyPrototypeBuild(
   cwd: string,
+  companyName?: string,
 ): Promise<PrototypeBuildCheck> {
   const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+  const scaffold = await ensurePrototypeScaffold(cwd, companyName);
 
-  const install = await runCommand(
-    npm,
-    ['install', '--no-audit', '--no-fund'],
-    cwd,
-    12 * 60_000,
-  );
+  const repositoryNodeModules = resolve(cwd, '..', '..', '..', '..', 'node_modules');
+  const sharedNextBin = join(repositoryNodeModules, '.bin');
+  const sharedNext = join(repositoryNodeModules, 'next');
+  const localNodeModules = join(cwd, 'node_modules');
+  let sharedDependenciesAvailable = false;
+  let localDependenciesAvailable = false;
+  try {
+    sharedDependenciesAvailable = (await stat(sharedNext)).isDirectory();
+  } catch {
+    sharedDependenciesAvailable = false;
+  }
+  try {
+    localDependenciesAvailable = (await stat(join(localNodeModules, 'next'))).isDirectory();
+  } catch {
+    localDependenciesAvailable = false;
+  }
+
+  const buildEnvironment = sharedDependenciesAvailable
+    ? {
+        NODE_PATH: repositoryNodeModules,
+        PATH: `${sharedNextBin}${delimiter}${process.env.PATH ?? ''}`,
+      }
+    : {};
+
+  let install = { code: 0, output: '' };
+  if (localDependenciesAvailable) {
+    install.output = 'Prototype-local node_modules already available; npm install skipped.';
+  } else if (sharedDependenciesAvailable) {
+    install.output =
+      'Reusing repository node_modules from D: for the deterministic prototype build; npm install skipped.';
+  } else {
+    install = await runCommand(
+      npm,
+      ['install', '--no-audit', '--no-fund', '--prefer-offline'],
+      cwd,
+      3 * 60_000,
+    );
+  }
 
   if (install.code !== 0) {
     return {
       passed: false,
-      output: `npm install failed\n${install.output}`.slice(-120_000),
+      output: `${scaffold.repaired ? `Scaffold repaired: ${scaffold.files.join(', ')}\n` : ''}npm install failed\n${install.output}`.slice(-120_000),
       filesCreated: await countProjectFiles(cwd),
       staticOutputReady: false,
     };
   }
 
-  const build = await runCommand(npm, ['run', 'build'], cwd, 12 * 60_000);
+  const build = await runCommand(
+    npm,
+    ['run', 'build'],
+    cwd,
+    12 * 60_000,
+    buildEnvironment,
+  );
   const outputDir = join(cwd, 'out');
 
   let staticOutputReady = false;
@@ -120,7 +172,7 @@ export async function verifyPrototypeBuild(
 
   return {
     passed: build.code === 0 && staticOutputReady,
-    output: `${install.output}\n\n--- BUILD ---\n${build.output}${deployCheck}`.slice(-120_000),
+    output: `${scaffold.repaired ? `Scaffold repaired: ${scaffold.files.join(', ')}\n\n` : ''}${install.output}\n\n--- BUILD ---\n${build.output}${deployCheck}`.slice(-120_000),
     filesCreated: await countProjectFiles(cwd),
     staticOutputReady,
     outputDir: staticOutputReady ? outputDir : undefined,

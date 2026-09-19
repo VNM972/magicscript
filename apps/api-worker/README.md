@@ -34,3 +34,10 @@ Aucune activation ne doit être faite sans vérification de la base, des garde-f
 5. tester les lectures avant d'activer l'autopilot.
 
 Ne jamais utiliser directement une base de production pour les premiers tests.
+
+`database/schema.sql` est la source de vérité d'initialisation ; le dépôt ne
+dispose pas d'un framework de migrations versionnées. Une base déjà créée doit
+donc recevoir, dans un rollout séparé, revu et explicitement autorisé, les
+colonnes d'identité et d'éligibilité commerciale ainsi que l'index unique
+`SIREN + SIRET` décrits dans ce schéma avant d'activer la découverte V2.5.1.
+Cette mise à niveau n'est jamais exécutée automatiquement au démarrage.

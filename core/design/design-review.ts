@@ -1,0 +1,40 @@
+import type { DesignArtifactV1 } from './design-artifact';
+import type { DesignRequestV1, DesignVertical } from './design-request';
+
+export const DESIGN_REVIEW_VERSION = 'DESIGN_REVIEW_V1' as const;
+export const DESIGN_DIRECTOR_JOB_KIND = 'V2_DESIGN_REVIEW' as const;
+export const V2_DESIGN_REVISION_JOB_KIND = 'V2_DESIGN_REVISION' as const;
+export const MAX_DESIGN_REVISIONS = 3;
+export type ReviewDecision = 'APPROVE' | 'CORRECT';
+export type FindingStatus = 'PASS' | 'ISSUE' | 'CRITICAL';
+export type ReviewDimension = 'factualGrounding' | 'siteObjectiveClarity' | 'informationHierarchy' | 'ctaCoherence' | 'mobileUsability' | 'accessibility' | 'visualCoherence' | 'verticalFit' | 'buildability';
+export interface QualityFinding { status: FindingStatus; finding: string; evidenceIds?: string[] }
+export type QualityAssessment = Record<ReviewDimension, QualityFinding>;
+export interface DesignCorrection { targetArea: string; problem: string; requiredChange: string; severity: 'MAJOR' | 'MINOR'; rationale: string }
+export interface DesignReviewV1 { id: string; version: typeof DESIGN_REVIEW_VERSION; artifactId: string; artifactRevision: number; designRequestId: string; prospectId: string; vertical: DesignVertical; reviewedAt: string; decision: ReviewDecision; assessment: QualityAssessment; corrections: DesignCorrection[]; provenance: { executionMode: 'MODEL' | 'DETERMINISTIC_FALLBACK'; model?: { provider: string; model: string } } }
+export interface DesignCorrectionRequestV1 { id: string; version: 'DESIGN_CORRECTION_REQUEST_V1'; targetArtifactId: string; targetArtifactRevision: number; designRequestId: string; prospectId: string; vertical: DesignVertical; corrections: DesignCorrection[]; immutableFactualConstraints: string[]; attempt: number; provenance: { reviewId: string; noResearch: true } }
+
+export function directorPrompt(request: DesignRequestV1, artifact: DesignArtifactV1): string { return `SENIOR DESIGN DIRECTOR CONSTITUTION: independently review only the supplied request, artifact, and evidence. Do not research, score, contact, reject the prospect, or generate a replacement. Check grounding, hierarchy, CTA, mobile, accessibility, coherence, vertical fit and buildability. Return strict JSON DESIGN_REVIEW_V1 with APPROVE or CORRECT only.\nREQUEST: ${JSON.stringify(request)}\nARTIFACT: ${JSON.stringify(artifact)}`; }
+
+function assessment(request: DesignRequestV1, artifact: DesignArtifactV1): QualityAssessment {
+  const hasCta = Boolean(artifact.strategy.primaryCta?.trim()) && artifact.pages.every((p) => Boolean(p.ctaIntent?.trim()));
+  const hierarchy = artifact.strategy.informationHierarchy.length >= 3 && artifact.buildGuidance.sectionOrder.length > 0;
+  const serialized = JSON.stringify(artifact).toLowerCase();
+  const forbidden = /lorem ipsum|fake testimonial|award-winning|since 19\d\d|invented (price|hours|award|certification)/.test(serialized);
+  const pass = (finding: string): QualityFinding => ({ status: 'PASS', finding });
+  const issue = (finding: string): QualityFinding => ({ status: 'ISSUE', finding });
+  return { factualGrounding: forbidden ? { status: 'CRITICAL', finding: 'Unsupported or prohibited factual placeholder detected.' } : pass('Content blocks and evidence semantics are grounded.'), siteObjectiveClarity: artifact.strategy.siteObjective ? pass('Objective is explicit.') : issue('Site objective is missing.'), informationHierarchy: hierarchy ? pass('Hierarchy and section order are explicit.') : issue('Hierarchy is incomplete.'), ctaCoherence: hasCta ? pass('Primary CTA is present across the flow.') : issue('CTA intent is missing or incoherent.'), mobileUsability: artifact.visualDirection.responsivePriorities.some((x) => /mobile|touch|390/i.test(x)) ? pass('Mobile priorities are explicit.') : issue('Mobile intent is not explicit.'), accessibility: /keyboard|contrast|readable/i.test(JSON.stringify(artifact.visualDirection)) ? pass('Accessibility considerations are named.') : issue('Accessibility considerations are insufficient.'), visualCoherence: artifact.visualDirection.mood && artifact.visualDirection.layout ? pass('Visual direction is coherent.') : issue('Visual direction is incomplete.'), verticalFit: artifact.verticalProfile === request.designInput.businessVertical ? pass('Vertical profile matches the request.') : { status: 'CRITICAL', finding: 'Vertical profile contradicts request.' }, buildability: artifact.buildGuidance.componentHierarchy.length > 0 ? pass('Component hierarchy is buildable.') : issue('Build guidance is incomplete.') };
+}
+
+export function buildDeterministicReview(request: DesignRequestV1, artifact: DesignArtifactV1, now: string, model?: { provider: string; model: string }): DesignReviewV1 {
+  const a = assessment(request, artifact); const corrections = (Object.entries(a) as [ReviewDimension, QualityFinding][]).filter(([, f]) => f.status !== 'PASS').map(([targetArea, f]) => ({ targetArea, problem: f.finding, requiredChange: `Resolve ${targetArea} while preserving verified facts and the design request.`, severity: f.status === 'CRITICAL' ? 'MAJOR' as const : 'MINOR' as const, rationale: 'Required for the common production-design baseline.' }));
+  return { id: `review-${artifact.designRequestId}-r${artifact.revision}`, version: DESIGN_REVIEW_VERSION, artifactId: artifact.id, artifactRevision: artifact.revision, designRequestId: artifact.designRequestId, prospectId: artifact.prospectId, vertical: artifact.verticalProfile, reviewedAt: now, decision: corrections.length ? 'CORRECT' : 'APPROVE', assessment: a, corrections, provenance: { executionMode: model ? 'MODEL' : 'DETERMINISTIC_FALLBACK', ...(model ? { model } : {}) } };
+}
+
+export function validateDesignReview(value: unknown, request: DesignRequestV1, artifact: DesignArtifactV1): DesignReviewV1 { const review = value as DesignReviewV1; if (!review || review.version !== DESIGN_REVIEW_VERSION || review.artifactId !== artifact.id || review.artifactRevision !== artifact.revision || review.designRequestId !== request.id || review.prospectId !== request.prospectId || !['APPROVE', 'CORRECT'].includes(review.decision)) throw new Error('Invalid Design Review V1'); if (review.decision === 'APPROVE' && review.corrections.length) throw new Error('Approved review cannot contain corrections'); if (review.decision === 'CORRECT' && review.corrections.length < 1) throw new Error('Correction review requires corrections'); return review; }
+
+export interface DesignReviewStore { get(designRequestId: string, revision: number): Promise<DesignReviewV1 | null>; save(review: DesignReviewV1): Promise<void>; list?(designRequestId?: string): Promise<DesignReviewV1[]> }
+export class InMemoryDesignReviewStore implements DesignReviewStore { private values = new Map<string, DesignReviewV1>(); async get(id: string, revision: number) { return this.values.get(`${id}:r${revision}`) ?? null; } async save(review: DesignReviewV1) { this.values.set(`${review.designRequestId}:r${review.artifactRevision}`, review); } async list(id?: string) { return [...this.values.values()].filter((r) => !id || r.designRequestId === id); } }
+export class InMemoryCorrectionStore { private values = new Map<string, DesignCorrectionRequestV1>(); async get(id: string) { return this.values.get(id) ?? null; } async save(value: DesignCorrectionRequestV1) { this.values.set(value.id, value); } async list() { return [...this.values.values()]; } }
+
+export function createCorrectionRequest(review: DesignReviewV1, attempt: number): DesignCorrectionRequestV1 { return { id: `correction-${review.designRequestId}-r${review.artifactRevision}`, version: 'DESIGN_CORRECTION_REQUEST_V1', targetArtifactId: review.artifactId, targetArtifactRevision: review.artifactRevision, designRequestId: review.designRequestId, prospectId: review.prospectId, vertical: review.vertical, corrections: review.corrections, immutableFactualConstraints: ['Use only Design Request evidence.', 'Do not research, score, contact, deploy, or invent facts.'], attempt, provenance: { reviewId: review.id, noResearch: true } }; }

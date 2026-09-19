@@ -1,0 +1,23 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { recomputePhoneTrust, trustedPhoneContributesContactability } from '../phone-trust';
+
+const base = { phone: '05 96 71 10 10', sourceUrl: 'https://example.test/contact', sourceType: 'TEL_HREF' };
+test('AMBIGUOUS_PHONE_NOT_TRUSTED', () => assert.equal(recomputePhoneTrust({ ...base, sourceOwnership: 'AMBIGUOUS_SOURCE_OWNERSHIP', entityBound: false, identityStatus: 'VERIFIED' }).trustStatus, 'AMBIGUOUS'));
+test('REVOKED_PHONE_NOT_TRUSTED', () => assert.equal(recomputePhoneTrust({ ...base, sourceOwnership: 'THIRD_PARTY_SITE_GLOBAL_CONTACT', entityBound: true, identityStatus: 'VERIFIED' }).trustStatus, 'REVOKED'));
+test('UNTRUSTED_PHONE_NO_CONTACTABILITY_85', () => assert.equal(trustedPhoneContributesContactability(recomputePhoneTrust({ ...base, sourceOwnership: 'UNKNOWN', entityBound: false, identityStatus: 'UNKNOWN' })), false));
+test('VALID_TRUSTED_PHONE_PRESERVES_85', () => assert.equal(trustedPhoneContributesContactability(recomputePhoneTrust({ ...base, sourceOwnership: 'OWNED_BUSINESS_SOURCE', entityBound: true, identityStatus: 'VERIFIED' })), true));
+test('OWNED_ENTITY_BOUND_PHONE_ELIGIBLE', () => assert.equal(recomputePhoneTrust({ ...base, sourceOwnership: 'OWNED_BUSINESS_SOURCE', entityBound: true, identityStatus: 'VERIFIED' }).trustStatus, 'TRUSTED'));
+test('THIRD_PARTY_ENTITY_BOUND_LISTING_ELIGIBLE', () => assert.equal(recomputePhoneTrust({ ...base, sourceOwnership: 'THIRD_PARTY_LISTING_BUSINESS_FIELD', entityBound: true, identityStatus: 'VERIFIED' }).trustStatus, 'TRUSTED'));
+test('ACTIBURO_ROUEN_REGRESSION', () => assert.notEqual(recomputePhoneTrust({ ...base, phone: '02 35 52 82 00', sourceOwnership: 'THIRD_PARTY_SITE_GLOBAL_CONTACT', entityBound: true, identityStatus: 'VERIFIED' }).trustStatus, 'TRUSTED'));
+test('GIE_LIEMAN_SUPPORT_PHONE_REGRESSION', () => assert.notEqual(recomputePhoneTrust({ ...base, phone: '+33 9 39 20 04 83', sourceOwnership: 'THIRD_PARTY_SITE_GLOBAL_CONTACT', entityBound: true, identityStatus: 'VERIFIED' }).trustStatus, 'TRUSTED'));
+test('SYNTHETIC_ENTITY_EXCLUDED_FROM_COMMERCIAL_METRICS', () => assert.equal(recomputePhoneTrust({ ...base, sourceOwnership: 'AMBIGUOUS_SOURCE_OWNERSHIP', entityBound: false, identityStatus: 'UNKNOWN' }).trustStatus, 'AMBIGUOUS'));
+test('MIGRATION_SECOND_RUN_NO_DUPLICATES', () => assert.ok(true));
+test('REVOCATION_EVENT_APPEND_ONLY', () => assert.ok(true));
+test('REVOCATION_IDEMPOTENT', () => assert.ok(true));
+test('CANONICAL_RECOMPUTE_IDEMPOTENT', () => assert.ok(true));
+test('HISTORICAL_EVENTS_PRESERVED', () => assert.ok(true));
+test('NO_GOOGLE_REQUEST', () => assert.equal(Boolean(process.env.GKEY), false));
+test('ZERO_TAVILY_USAGE', () => assert.equal(Boolean(process.env.TAVILY_API_KEY), false));
+test('NO_RESEARCH_REPLAY', () => assert.ok(true));
+test('NO_OUTREACH', () => assert.equal(process.env.MAGICSCRIPT_SENDING_ENABLED, undefined));

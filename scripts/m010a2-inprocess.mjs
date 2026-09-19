@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import { createOutreachDraft, editOutreachDraft, approveOutreachDraft, InMemoryOutreachDraftStore } from '../core/outreach/engine.ts';
+import { confirmManualMobileContacted, DeterministicFakeEmailTransport, InMemoryContactedProjectionStore, InMemoryInitialSendReservationStore, sendApprovedInitialEmail } from '../core/outreach/send.ts';
+
+const input = { proposalId: 'm010a2-proposal', prospectId: 'm010a2-prospect', businessName: 'Café Test', channel: 'EMAIL', recipient: 'owner@example.test', observation: 'verified observation', proposalLink: 'https://proposal.test/m010a2', sourceRefs: ['fixture:source'] };
+const store = new InMemoryOutreachDraftStore();
+const r1 = await createOutreachDraft(input, store);
+const r2 = await editOutreachDraft(store, r1.id, { subject: r1.subject, body: `${r1.body}\nrevision two` });
+const r3 = await editOutreachDraft(store, r2.id, { subject: r2.subject, body: `${r2.body}\nrevision three` });
+assert.equal(r1.revision, 1); assert.equal(r2.revision, 2); assert.equal(r3.revision, 3);
+assert.equal((await store.get(r1.id))?.body, r1.body); assert.equal((await store.get(r2.id))?.body, r2.body);
+await assert.rejects(() => approveOutreachDraft(store, r2.id, 1, r2.contentHash, 'operator'), /stale/);
+const approved = await approveOutreachDraft(store, r3.id, r3.revision, r3.contentHash, 'operator');
+const reservations = new InMemoryInitialSendReservationStore(); const contacted = new InMemoryContactedProjectionStore(); const transport = new DeterministicFakeEmailTransport();
+const sendInput = { draft: approved, approvedRevision: approved.revision, approvedFingerprint: approved.contentHash, proposalReady: true, operatorId: 'operator', now: new Date().toISOString(), reservations, transport, contacted };
+await assert.rejects(() => sendApprovedInitialEmail({ ...sendInput, suppressed: true, reservations: new InMemoryInitialSendReservationStore(), transport: new DeterministicFakeEmailTransport(), contacted: new InMemoryContactedProjectionStore() }), /suppressed/);
+await assert.rejects(() => sendApprovedInitialEmail({ ...sendInput, draft: { ...approved, status: 'READY_FOR_OPERATOR' }, reservations: new InMemoryInitialSendReservationStore(), transport: new DeterministicFakeEmailTransport(), contacted: new InMemoryContactedProjectionStore() }), /approved/);
+const [a, b] = await Promise.all([sendApprovedInitialEmail(sendInput), sendApprovedInitialEmail(sendInput)]);
+assert.equal(a.providerMessageId, b.providerMessageId); assert.equal(transport.list().length, 1); assert.ok(contacted.get(input.proposalId, 'EMAIL'));
+const failureContacted = new InMemoryContactedProjectionStore(); const failed = await sendApprovedInitialEmail({ ...sendInput, draft: { ...approved, proposalId: 'failure-proposal' }, reservations: new InMemoryInitialSendReservationStore(), transport: new DeterministicFakeEmailTransport(false), contacted: failureContacted });
+assert.equal(failed.success, false); assert.equal(failureContacted.get('failure-proposal', 'EMAIL'), null);
+const mobileStore = new InMemoryOutreachDraftStore(); const mobile = await createOutreachDraft({ ...input, proposalId: 'mobile-proposal', channel: 'MOBILE', recipient: '+596696000001' }, mobileStore); const mobileApproved = await approveOutreachDraft(mobileStore, mobile.id, mobile.revision, mobile.contentHash, 'operator'); const mobileContacted = new InMemoryContactedProjectionStore(); await confirmManualMobileContacted({ draft: mobileApproved, approvedRevision: mobileApproved.revision, approvedFingerprint: mobileApproved.contentHash, proposalReady: true, operatorId: 'operator', now: new Date().toISOString(), contacted: mobileContacted }); await confirmManualMobileContacted({ draft: mobileApproved, approvedRevision: mobileApproved.revision, approvedFingerprint: mobileApproved.contentHash, proposalReady: true, operatorId: 'operator', now: new Date().toISOString(), contacted: mobileContacted }); assert.ok(mobileContacted.get('mobile-proposal', 'MOBILE'));
+console.log('M010-A2 in-process assertions: PASS');

@@ -25,6 +25,15 @@ async function callApi(path: string, init: RequestInit): Promise<unknown> {
   return payload;
 }
 
+export async function reviewPrototype(prospectId: string, decision: 'START_STRATEGY' | 'DEFER' | 'RESUME_STRATEGY', note?: string): Promise<unknown> {
+  if (!prospectId || prospectId.length > 200) throw new Error('Prospect invalide');
+  return callApi(`/api/prospects/${encodeURIComponent(prospectId)}/prototype-review`, {
+    method: 'POST',
+    headers: serverHeaders(true),
+    body: JSON.stringify({ decision, note }),
+  });
+}
+
 export async function startCallCopilot(prospectId: string, meetingId?: string): Promise<unknown> {
   if (!prospectId || prospectId.length > 200) throw new Error('Prospect invalide');
   if (meetingId && meetingId.length > 200) throw new Error('Rendez-vous invalide');

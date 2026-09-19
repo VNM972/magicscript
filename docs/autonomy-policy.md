@@ -1,5 +1,7 @@
 # Magic Script V2 — Autonomy Policy
 
+Ce document détaille la source de vérité définie dans `CLAUDE.md`. Il ne peut pas autoriser une action interdite par cette policy.
+
 ## Règle générale
 
 Le système doit minimiser les interruptions humaines.
@@ -35,23 +37,25 @@ Exemples :
 - générer un prototype standard ;
 - lancer les QA automatiques.
 
-### AUTO_WITH_GUARDRAILS
+### AUTO_WITH_GUARDRAILS — préparation locale uniquement
 
-Exécution automatique si les garde-fous sont satisfaits.
+Exécution automatique uniquement pour une action locale, réversible, traçable et sans contact externe.
 
 Exemples :
-- envoyer un email ;
-- déployer une démo ;
-- lancer un prototype automatique pour un prospect à fort score.
+- préparer un brouillon et ses preuves pour validation humaine ;
+- lancer une preview locale/mock/replay ;
+- lancer un prototype local pour un prospect suffisamment documenté.
 
 Garde-fous minimum :
 - données prospect suffisamment vérifiées ;
-- email professionnel valide ;
-- absence dans la suppression list ;
-- absence de contact récent incompatible avec la relance ;
 - contenu sans affirmation non sourcée ;
-- fréquence d'envoi dans les limites configurées ;
-- domaine d'envoi correctement authentifié.
+- aucune transmission externe ;
+- aucun email réel ;
+- aucun déploiement production, changement DNS/domaine, secret ou API payante.
+
+L'envoi d'un email, tout contact prospect automatique et tout déploiement externe nécessitent une action explicite de l'opérateur et une validation humaine distincte ; ils ne sont jamais déclenchés par l'autopilot, un job de réconciliation ou un LLM seul. La provenance `operator-send` est la seule provenance autorisée pour une mise en file d'envoi commercial.
+
+Dans V2-M001, l'autopilot peut préparer et conserver un brouillon, mais il ne peut pas transformer automatiquement `OUTREACH_VERIFIED`, `FOLLOW_UP_DUE` ou `DEMO_REPLY_READY` en envoi commercial actif. Le transport SMTP et la réception IMAP restent conservés côté backend.
 
 ### HUMAN_REQUIRED
 

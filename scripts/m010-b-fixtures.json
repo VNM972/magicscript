@@ -1,0 +1,20 @@
+{
+  "selectors": {
+    "root": "[data-outreach-status]",
+    "revision": "[data-draft-revision]",
+    "edit": "[data-outreach-action=edit]",
+    "approve": "[data-outreach-action=approve]",
+    "sendEmail": "[data-outreach-action=send-email]",
+    "confirmMobile": "[data-outreach-action=confirm-mobile]",
+    "contacted": "[data-outreach-status=CONTACTED]"
+  },
+  "states": {
+    "emailReadyDraft": { "channel": "EMAIL", "status": "READY_FOR_OPERATOR", "revision": 1 },
+    "emailEditedRevision": { "channel": "EMAIL", "status": "READY_FOR_OPERATOR", "revision": 2 },
+    "emailApprovedRevision": { "channel": "EMAIL", "status": "APPROVED", "revision": 2 },
+    "emailContacted": { "channel": "EMAIL", "contacted": true },
+    "mobileDraft": { "channel": "MOBILE", "status": "APPROVED" },
+    "mobileContacted": { "channel": "MOBILE", "contacted": true },
+    "suppressedSendError": { "status": 409, "transportCalls": 0, "contacted": false }
+  }
+}
