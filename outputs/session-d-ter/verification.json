@@ -1,0 +1,133 @@
+{
+  "prospect": {
+    "id": "26ea281c-6930-42d6-81da-553769dfd522",
+    "company_name": "Ananke Tattoo",
+    "siret": "44971406200097",
+    "phone": "+596696227605",
+    "state": "WAITING_REPLY",
+    "entry_source": "MANUAL",
+    "demo_url": "https://ananke-demo.netlify.app",
+    "demo_ready": 1
+  },
+  "contact": {
+    "id": "ananke-manual-email-20261005",
+    "email": "c.r.sorel@gmail.com",
+    "source_type": "OPERATOR_MANUAL",
+    "is_validated": 1
+  },
+  "message": {
+    "id": "ananke-initial-mail-20261005",
+    "contact_id": "ananke-manual-email-20261005",
+    "kind": "INITIAL",
+    "status": "SENT",
+    "sent_at": "2026-10-05T13:45:00Z",
+    "body_text": "[Mail initial envoyé manuellement depuis commercial@magicscript.fr le 05/10/2026 à 15h45 Paris — contenu non archivé dans Magic Script]",
+    "provider_message_id": null,
+    "source_refs_json": "[{\"source\":\"OPERATOR_MANUAL\",\"channel\":\"EMAIL\",\"client\":\"commercial@magicscript.fr\"}]"
+  },
+  "event": {
+    "actor": "OPERATOR",
+    "type": "outreach.sent_manual",
+    "payload_json": "{\"source\":\"manual_email\",\"client\":\"commercial@magicscript.fr\"}",
+    "created_at": "2026-10-05T13:45:00Z"
+  },
+  "otherProspectsAndRelatedRowsUnchanged": true,
+  "discoveryEventUnchanged": true,
+  "jobsUnchanged": true,
+  "productionSlotsUnchanged": true,
+  "repliesUnchanged": true,
+  "deckItem": {
+    "prospectId": "26ea281c-6930-42d6-81da-553769dfd522",
+    "entry_source": "MANUAL",
+    "demo_url": "https://ananke-demo.netlify.app",
+    "demo_ready": true,
+    "businessName": "Ananke Tattoo",
+    "location": "Fort-de-France",
+    "vertical": "90.03B",
+    "opportunity": null,
+    "friction": null,
+    "contactability": {
+      "label": "Email + Mobile",
+      "email": "c.r.sorel@gmail.com",
+      "mobile": "+596696227605"
+    },
+    "commercialStage": "RELANCES",
+    "currentMeaningfulState": "WAITING_REPLY",
+    "instagram": "https://www.instagram.com/ananke_tattoo/",
+    "nextFollowUpDueAt": "2026-10-08T13:45:00.000Z",
+    "outreach": {
+      "status": "CONTACTED",
+      "channel": "EMAIL",
+      "contactedAt": "2026-10-05T13:45:00Z"
+    },
+    "activeSlot": false,
+    "productionEligible": false,
+    "engagement": {
+      "viewed": false,
+      "returned": false,
+      "shared": false,
+      "meetingBooked": false,
+      "meetingAt": null
+    }
+  },
+  "inventoryCount": 86,
+  "browser": {
+    "browser": "Chrome/154.0.8037.93",
+    "url": "http://localhost:3000/prospects/26ea281c-6930-42d6-81da-553769dfd522",
+    "title": "Ananke Tattoo MANUAL",
+    "fields": {
+      "Identifiant": "26ea281c-6930-42d6-81da-553769dfd522",
+      "Nom": "Ananke Tattoo",
+      "Activité": "90.03B",
+      "Ville": "Fort-de-France",
+      "Source": "MANUAL",
+      "Statut commercial": "Relances",
+      "Code du statut": "RELANCES",
+      "État actuel": "WAITING_REPLY",
+      "Opportunité": "Non disponible",
+      "Friction": "Non disponible",
+      "Dernière action": "Non disponible",
+      "Prochaine action opérateur": "Non disponible",
+      "Place de production active": "Non",
+      "Éligible à la production": "Non",
+      "Canaux": "Email + Mobile",
+      "Email": "c.r.sorel@gmail.com",
+      "Mobile": "+596696227605",
+      "Instagram": "https://www.instagram.com/ananke_tattoo/",
+      "Prochaine relance": "08/10/2026 15:45",
+      "Identifiant de la Proposal": "Non disponible",
+      "Chemin de la Proposal": "Non disponible",
+      "URL de la démo": "https://ananke-demo.netlify.app",
+      "Proposal prête le": "Non disponible",
+      "Proposal consultée": "Non",
+      "Retour sur la Proposal": "Non",
+      "Partage": "Non",
+      "Rendez-vous réservé": "Non",
+      "Date du rendez-vous": "Non disponible",
+      "Statut du contact commercial": "CONTACTED",
+      "Canal du contact commercial": "EMAIL",
+      "Contacté le": "05/10/2026 15:45"
+    },
+    "links": [
+      {
+        "text": "Ouvrir la démo",
+        "href": "https://ananke-demo.netlify.app/"
+      },
+      {
+        "text": "Envoyer email",
+        "href": "mailto:c.r.sorel%40gmail.com"
+      },
+      {
+        "text": "Envoyer WhatsApp",
+        "href": "https://wa.me/596696227605"
+      },
+      {
+        "text": "https://www.instagram.com/ananke_tattoo/",
+        "href": "https://www.instagram.com/ananke_tattoo/"
+      }
+    ],
+    "missing": "Rapport Codex : données manquantes\n\nNon disponibles dans cet item :\n\nHistorique chronologique des événements\nDate du dernier événement commercial\nURL de réservation Cal.com\nDernière action commerciale\nProchaine action opérateur",
+    "runtimeErrors": [],
+    "screenshot": "outputs/session-d-ter/fiche-ananke.png"
+  }
+}

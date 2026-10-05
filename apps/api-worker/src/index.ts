@@ -3663,6 +3663,8 @@ interface ProposalDeckItemV1 {
   currentMeaningfulState: ProspectState | null;
   latestMeaningfulAction?: string;
   nextMeaningfulOperatorAction?: string;
+  instagram?: string | null;
+  nextFollowUpDueAt?: string | null;
   activeSlot: boolean;
   productionEligible: boolean;
   contactability: {
@@ -3742,6 +3744,18 @@ async function listProspectEntries(db: D1DatabaseLike) {
   return new Map((entryRows.results ?? []).map((row) => [row.id, row]));
 }
 
+function instagramProfileUrl(value: unknown): string | null {
+  if (typeof value !== 'string' || !value.trim()) return null;
+  const raw = value.trim();
+  if (/^@?[a-zA-Z0-9._]{1,30}$/.test(raw)) return `https://www.instagram.com/${raw.replace(/^@/, '')}/`;
+  try {
+    const url = new URL(raw);
+    if (!['http:', 'https:'].includes(url.protocol) || !['instagram.com', 'www.instagram.com'].includes(url.hostname)) return null;
+    const profile = url.pathname.match(/^\/([a-zA-Z0-9._]{1,30})\/?$/);
+    return profile ? `https://www.instagram.com/${profile[1]}/` : null;
+  } catch { return null; }
+}
+
 async function listProposalDeck(db: D1DatabaseLike): Promise<{ items: ProposalDeckItemV1[]; activeSlotCount: number; capacity: 20 }> {
   const entries = await listProspectEntries(db);
   const proposalRows = await db.prepare(`
@@ -3785,6 +3799,31 @@ async function listProposalDeck(db: D1DatabaseLike): Promise<{ items: ProposalDe
     const usableEmails = contacts.filter((contact) => contact.isValidated && !contact.isSuppressed && contact.email.trim());
     const mobile = prospect.phone?.trim() || null;
     const email = usableEmails[0]?.email.trim() || null;
+    let manualDetails: Pick<ProposalDeckItemV1, 'instagram' | 'nextFollowUpDueAt' | 'outreach'> = {};
+    if (manual) {
+      const instagramContact = await db.prepare(`SELECT raw_value, normalized_value FROM v2_admission_contacts
+        WHERE prospect_id = ? AND channel = 'INSTAGRAM' AND validation_status = 'DERIVED_VALID'
+        ORDER BY created_at DESC LIMIT 1`).bind(prospect.id).first<{ raw_value: string; normalized_value: string }>();
+      const evidenceUrls = events.flatMap((event) => {
+        if (event.type !== 'discovery.prospect_created') return [];
+        const context = eventPayloadRecord(eventPayloadRecord(event.payload).agent1Context);
+        return Array.isArray(context.evidence) ? context.evidence.map((evidence) => eventPayloadRecord(evidence).url) : [];
+      });
+      const instagram = instagramProfileUrl(instagramContact?.normalized_value) ?? instagramProfileUrl(instagramContact?.raw_value)
+        ?? evidenceUrls.map(instagramProfileUrl).find((url) => url !== null) ?? null;
+      const sent = await db.prepare(`SELECT sent_at,
+        NOT EXISTS (SELECT 1 FROM replies WHERE prospect_id = ?) AS no_reply
+        FROM outreach_messages WHERE prospect_id = ? AND kind = 'INITIAL' AND status = 'SENT' AND sent_at IS NOT NULL
+        ORDER BY julianday(sent_at) DESC LIMIT 1`).bind(prospect.id, prospect.id).first<{ sent_at: string; no_reply: number }>();
+      const sentDate = sent ? new Date(sent.sent_at) : null;
+      const validSent = sentDate !== null && Number.isFinite(sentDate.getTime());
+      manualDetails = {
+        instagram,
+        nextFollowUpDueAt: validSent && prospect.state === 'WAITING_REPLY' && sent?.no_reply === 1
+          ? addDays(sentDate, 3).toISOString() : null,
+        ...(validSent && sent ? { outreach: { status: 'CONTACTED', channel: 'EMAIL', contactedAt: sent.sent_at } as const } : {}),
+      };
+    }
     const activeSlot = !manual && visibleActiveSlotIds.has(prospect.id);
     const commercialPipeline = projectDeckCommercialPipeline({
       prospect,
@@ -3823,6 +3862,7 @@ async function listProposalDeck(db: D1DatabaseLike): Promise<{ items: ProposalDe
       },
       commercialStage: manual || activeSlot ? commercialPipeline.commercialStage : commercialPipeline.commercialStage === 'A_CONTACTER' ? null : commercialPipeline.commercialStage,
       currentMeaningfulState: commercialPipeline.currentMeaningfulState,
+      ...manualDetails,
       ...(commercialPipeline.latestMeaningfulAction ? { latestMeaningfulAction: commercialPipeline.latestMeaningfulAction } : {}),
       ...(commercialPipeline.nextMeaningfulOperatorAction ? { nextMeaningfulOperatorAction: commercialPipeline.nextMeaningfulOperatorAction } : {}),
       activeSlot: commercialPipeline.activeSlot,

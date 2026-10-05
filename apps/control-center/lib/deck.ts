@@ -15,6 +15,8 @@ export interface ProposalDeckItemV1 {
   currentMeaningfulState: string | null;
   latestMeaningfulAction?: string;
   nextMeaningfulOperatorAction?: string;
+  instagram?: string | null;
+  nextFollowUpDueAt?: string | null;
   activeSlot: boolean;
   productionEligible: boolean;
   contactability: { label: 'Email' | 'Mobile' | 'Email + Mobile' | 'None'; email: string | null; mobile: string | null };

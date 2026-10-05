@@ -183,6 +183,48 @@ test('manual ready demo is visible without V2 evidence and without consuming pro
   } finally { db.close(); }
 });
 
+test('manual historical email trace completes the sheet without jobs or changes to V2', async () => {
+  const db = new FixtureD1(); try {
+    const fixture = await seed(db);
+    const id = '26ea281c-6930-42d6-81da-553769dfd522';
+    db.database.prepare(`INSERT INTO prospects (id,company_name,siret,state,entry_source,demo_url,demo_ready,created_at,updated_at)
+      VALUES (?, 'Ananke Tattoo', '44971406200097', 'DISCOVERED', 'MANUAL', 'https://ananke-demo.netlify.app', 1, ?, ?)`).run(id, now, now);
+    db.database.prepare('INSERT INTO events (id,prospect_id,actor,type,payload_json,created_at) VALUES (?, ?, ?, ?, ?, ?)')
+      .run('ananke-discovery', id, 'research-agent', 'discovery.prospect_created',
+        JSON.stringify({ agent1Context: { evidence: [{ url: 'https://www.instagram.com/ananke_tattoo/' }] } }), now);
+    const otherBefore = db.database.prepare('SELECT * FROM prospects WHERE id=?').get(fixture.id);
+    const jobsBefore = db.database.prepare('SELECT * FROM jobs').all();
+    db.database.exec(readFileSync(new URL('../../../database/data-ananke-manual-outreach-20261005.sql', import.meta.url), 'utf8'));
+    const deck = await get(db);
+    assert.deepEqual(deck.items.find(item => item.prospectId === fixture.id), expectedItem(fixture, 'GENERAL_LOCAL_BUSINESS'));
+    const item = deck.items.find(item => item.prospectId === id);
+    assert.deepEqual(item.contactability, { label: 'Email + Mobile', email: 'c.r.sorel@gmail.com', mobile: '+596696227605' });
+    assert.equal(item.instagram, 'https://www.instagram.com/ananke_tattoo/');
+    assert.equal(item.nextFollowUpDueAt, '2026-10-08T13:45:00.000Z');
+    assert.deepEqual(item.outreach, { status: 'CONTACTED', channel: 'EMAIL', contactedAt: '2026-10-05T13:45:00Z' });
+    assert.equal(item.commercialStage, 'RELANCES'); assert.equal(item.currentMeaningfulState, 'WAITING_REPLY');
+    assert.equal(item.demo_url, 'https://ananke-demo.netlify.app'); assert.equal(item.demo_ready, true);
+    assert.equal(item.activeSlot, false); assert.equal(item.proposal, undefined);
+    const message = db.database.prepare('SELECT * FROM outreach_messages WHERE prospect_id=?').get(id);
+    assert.equal(message.provider_message_id, null); assert.match(message.body_text, /contenu non archivé dans Magic Script/);
+    assert.equal(db.database.prepare("SELECT actor FROM events WHERE prospect_id=? AND type='outreach.sent_manual'").get(id).actor, 'OPERATOR');
+    assert.deepEqual(db.database.prepare('SELECT * FROM prospects WHERE id=?').get(fixture.id), otherBefore);
+    assert.deepEqual(db.database.prepare('SELECT * FROM jobs').all(), jobsBefore);
+    db.database.prepare(`INSERT INTO v2_admission_contacts (id,prospect_id,channel,raw_value,normalized_value,validation_status,created_at)
+      VALUES ('ig', ?, 'INSTAGRAM', '@canonical_manual', 'https://instagram.com/canonical_manual/', 'DERIVED_VALID', ?)`).run(id, now);
+    assert.equal((await get(db)).items.find(item => item.prospectId === id).instagram, 'https://www.instagram.com/canonical_manual/');
+    db.database.exec("UPDATE v2_admission_contacts SET raw_value='javascript:alert(1)', normalized_value='javascript:alert(1)' WHERE id='ig'");
+    assert.equal((await get(db)).items.find(item => item.prospectId === id).instagram, 'https://www.instagram.com/ananke_tattoo/');
+    db.database.prepare('INSERT INTO replies (id,prospect_id,raw_text,received_at,created_at) VALUES (?, ?, ?, ?, ?)')
+      .run('manual-reply', id, 'Replied', now, now);
+    assert.equal((await get(db)).items.find(item => item.prospectId === id).nextFollowUpDueAt, null);
+    db.database.exec('DELETE FROM replies');
+    db.database.exec("UPDATE outreach_messages SET sent_at='invalid-date'");
+    const invalid = (await get(db)).items.find(item => item.prospectId === id);
+    assert.equal(invalid.nextFollowUpDueAt, null); assert.equal(invalid.outreach, undefined);
+  } finally { db.close(); }
+});
+
 test('generic Deck validates factual operator, pain, contact, design and Proposal context without inventing family', async () => {
   const db = new FixtureD1(); try {
     const fixture = await seed(db);
