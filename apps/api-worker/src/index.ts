@@ -307,6 +307,9 @@ interface DiscoveryResult {
     siret?: string;
     companyName: string;
     legalName?: string;
+    displayName?: string;
+    alias?: string;
+    aliases?: readonly string[];
     city?: string;
     activity?: string;
     location?: string;
@@ -337,7 +340,8 @@ type DiscoveryIntakeDecisionReason =
   | 'DUPLICATE_DOMAIN'
   | 'DUPLICATE_FALLBACK'
   | 'INVALID_IDENTITY'
-  | 'OUT_OF_SCOPE';
+  | 'OUT_OF_SCOPE'
+  | 'POSSIBLE_NATIONAL_CHAIN';
 
 interface DiscoveryIntakeDecision {
   companyName: string;
@@ -355,9 +359,28 @@ interface ProcessedDiscoveryResult {
   created: string[];
   skipped: string[];
   decisions: DiscoveryIntakeDecision[];
+  nationalChainExcludedCount?: number;
 }
 
 type DiscoveryCandidate = DiscoveryResult['prospects'][number];
+
+export const NATIONAL_CHAIN_KEYWORDS = ['FRANCHISE', 'FRANCHISEE', 'RESEAU', 'NATIONAL'] as const;
+export const NATIONAL_CHAIN_GROUP_BRANDS = ['ATLANTIC'] as const;
+
+export function findNationalChainKeyword(candidate: Pick<DiscoveryCandidate, 'companyName' | 'legalName' | 'displayName' | 'alias' | 'aliases'>): string | undefined {
+  const names = [candidate.companyName, candidate.legalName, candidate.displayName, candidate.alias, ...(Array.isArray(candidate.aliases) ? candidate.aliases : [])]
+    .filter((name): name is string => typeof name === 'string');
+  for (const name of names) {
+    const words = normalizeCommercialName(name).split(' ');
+    const keyword = NATIONAL_CHAIN_KEYWORDS.find((value) => words.includes(value));
+    if (keyword) return keyword;
+    if (words.includes('GROUPE')) {
+      const brand = NATIONAL_CHAIN_GROUP_BRANDS.find((value) => words.includes(value));
+      if (brand) return `GROUPE ${brand}`;
+    }
+  }
+  return undefined;
+}
 type CandidateDiagnosticOutcome = 'CREATED' | 'REJECTED' | 'DEDUPED' | 'SKIPPED';
 interface CandidateDiagnosticDecision {
   occurrence: number;
@@ -1414,6 +1437,10 @@ async function discoverViaRechercheEntreprises(
       siret,
       companyName,
       legalName,
+      ...(options.intakeMode !== 'SAFE_MANUAL' ? {
+        aliases: [localEstablishment.nom_commercial, ...(localEstablishment.liste_enseignes ?? [])]
+          .filter((name): name is string => typeof name === 'string'),
+      } : {}),
       city,
       activity: rechercheEntrepriseActivity(
         result,
@@ -1463,7 +1490,7 @@ async function discoverViaRechercheEntreprises(
     .filter((candidate) => firstWaveDiscoveryTier(candidate.eligibility) === 1);
   const firstProcessed = await processDiscoveryResult(
     { prospects: firstWave }, env, db,
-    { maxCreated, planAfterCreate: options.planAfterCreate, onDecision: observeDecision },
+    { maxCreated, planAfterCreate: options.planAfterCreate, onDecision: observeDecision, filterNationalChains: options.intakeMode !== 'SAFE_MANUAL' },
   );
   for (const [index, query] of FIRST_WAVE_PRIORITY_QUERIES.entries()) {
     await setProviderState(db, 'recherche-entreprises', query.key, String(priorityPages[index].nextPage));
@@ -1487,6 +1514,7 @@ async function discoverViaRechercheEntreprises(
         maxCreated: maxCreated - firstProcessed.created.length,
         planAfterCreate: options.planAfterCreate,
         onDecision: observeDecision,
+        filterNationalChains: options.intakeMode !== 'SAFE_MANUAL',
       },
     );
     await setProviderState(db, 'recherche-entreprises', 'martinique-page', String(fallback.nextPage));
@@ -1495,6 +1523,9 @@ async function discoverViaRechercheEntreprises(
     created: [...firstProcessed.created, ...remainder.created],
     skipped: [...firstProcessed.skipped, ...remainder.skipped],
     decisions: [...firstProcessed.decisions, ...remainder.decisions],
+    ...(options.intakeMode !== 'SAFE_MANUAL' ? {
+      nationalChainExcludedCount: (firstProcessed.nationalChainExcludedCount ?? 0) + (remainder.nationalChainExcludedCount ?? 0),
+    } : {}),
   };
   const priority = priorityPages[0];
   const lastPriority = priorityPages[priorityPages.length - 1];
@@ -1516,6 +1547,7 @@ async function discoverViaRechercheEntreprises(
       candidates,
       created: processed.created.length,
       skipped: providerDecisions.length + processed.skipped.length,
+      ...(processed.nationalChainExcludedCount !== undefined ? { nationalChainExcludedCount: processed.nationalChainExcludedCount } : {}),
       intakeMode: options.intakeMode ?? 'AUTOPILOT',
       authRequired: false,
       monetaryCost: 0,
@@ -1773,6 +1805,8 @@ async function discoverViaSirene(
       siret: establishment.siret,
       companyName,
       legalName,
+      aliases: [period.enseigne1Etablissement, period.denominationUsuelleEtablissement]
+        .filter((name): name is string => typeof name === 'string'),
       city,
       activity: period.activitePrincipaleEtablissement ?? undefined,
       location: sireneLocation(establishment),
@@ -1802,6 +1836,7 @@ async function discoverViaSirene(
     { prospects: classifiedCandidates },
     env,
     db,
+    { filterNationalChains: true },
   );
 
   await new D1EventStore(db).append({
@@ -1813,6 +1848,7 @@ async function discoverViaSirene(
       eligible: candidates.length,
       created: processed.created.length,
       skipped: processed.skipped.length,
+      nationalChainExcludedCount: processed.nationalChainExcludedCount,
       totalAvailable: page.total,
       cursorAdvanced: nextCursor !== '*',
     },
@@ -2123,13 +2159,15 @@ function duplicateDiscoveryDecision(
   return null;
 }
 
-async function processDiscoveryResult(
+export async function processDiscoveryResult(
   result: DiscoveryResult,
   env: Env,
   db: D1DatabaseLike,
   options: {
     maxCreated?: number;
     planAfterCreate?: boolean;
+    /** Automatic callers opt in; manual intake retains its own policy. */
+    filterNationalChains?: boolean;
     onDecision?: (
       candidate: DiscoveryCandidate,
       decision: DiscoveryIntakeDecision,
@@ -2144,6 +2182,7 @@ async function processDiscoveryResult(
   const created: string[] = [];
   const skipped: string[] = [];
   const decisions: DiscoveryIntakeDecision[] = [];
+  let nationalChainExcludedCount = 0;
   const maxCreated = Math.max(0, options.maxCreated ?? Number.POSITIVE_INFINITY);
 
   for (const candidate of result.prospects ?? []) {
@@ -2245,6 +2284,27 @@ async function processDiscoveryResult(
         reason: 'OUT_OF_SCOPE',
       });
       options.onDecision?.(candidate, decisions[decisions.length - 1], eligibility, false);
+      continue;
+    }
+
+    const nationalChainKeyword = options.filterNationalChains ? findNationalChainKeyword(candidate) : undefined;
+    if (nationalChainKeyword) {
+      nationalChainExcludedCount += 1;
+      skipped.push(eligibility.identityKey);
+      decisions.push({ companyName, siren: identity.siren, siret: identity.siret, decision: 'EXCLUDED', reason: 'POSSIBLE_NATIONAL_CHAIN' });
+      await new D1EventStore(db).append({
+        id: crypto.randomUUID(),
+        actor: 'research-agent',
+        type: 'discovery.prospect_excluded',
+        payload: {
+          companyName, siren: identity.siren, siret: identity.siret,
+          sourceUrl: identity.sourceUrl, decision: 'EXCLUDED',
+          reason: 'POSSIBLE_NATIONAL_CHAIN', matchedKeyword: nationalChainKeyword,
+          nationalChainExcludedCount,
+        },
+        createdAt: new Date().toISOString(),
+      });
+      options.onDecision?.(candidate, decisions[decisions.length - 1], eligibility, false, nationalChainKeyword);
       continue;
     }
 
@@ -2378,7 +2438,7 @@ async function processDiscoveryResult(
     }
   }
 
-  return { created, skipped, decisions };
+  return { created, skipped, decisions, ...(options.filterNationalChains ? { nationalChainExcludedCount } : {}) };
 }
 
 /**
@@ -7878,7 +7938,7 @@ async function processRunnerSuccess(
     .run();
 
   if (job.kind === 'DISCOVER_PROSPECTS') {
-    return processDiscoveryResult(output as DiscoveryResult, env, db);
+    return processDiscoveryResult(output as DiscoveryResult, env, db, { filterNationalChains: true });
   }
 
   if (job.kind === 'RUN_RESEARCH_SWARM') {
