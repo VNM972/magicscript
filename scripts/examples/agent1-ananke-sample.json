@@ -1,0 +1,33 @@
+{
+  "batchId": "chatgpt-recap-2026-09-28-ananke-identity-confirmed",
+  "provenance": "chatgpt-weekly-mission",
+  "candidates": [
+    {
+      "companyName": "Ananke Tattoo",
+      "siren": "449714062",
+      "siret": "44971406200097",
+      "activity": "90.03B",
+      "city": "Fort-de-France",
+      "location": "Rue de la Dorsale, 97200 Fort-de-France",
+      "websiteUrl": null,
+      "instagram": "ananke_tattoo",
+      "phone": "+596 696 22 76 05",
+      "reviewCount": 191,
+      "reviewScore": 5.0,
+      "sourceUrl": "https://www.pagesjaunes.fr/pros/57305482",
+      "evidence": [
+        {
+          "url": "https://www.pagesjaunes.fr/pros/57305482",
+          "note": "Ananke Tattoo, rue Dorsale à Fort-de-France : SIREN 449714062, SIRET 44971406200097 et NAF 9003B publiés dans les informations juridiques de PagesJaunes, consultées le 2026-10-05.",
+          "supports": ["companyName", "siren", "siret", "city", "location", "activity"],
+          "observedAt": "2026-10-05"
+        },
+        {
+          "url": "https://www.instagram.com/ananke_tattoo/",
+          "note": "Compte Instagram officiel identifié publiquement, activité tatouage sur rendez-vous",
+          "supports": ["companyName", "activity"]
+        }
+      ]
+    }
+  ]
+}
