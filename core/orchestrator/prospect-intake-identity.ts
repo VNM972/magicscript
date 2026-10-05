@@ -1,6 +1,14 @@
 import { normalizeCommercialName } from '../scoring/commercial-eligibility';
 
-export type DoNotProspectDecision = 'KNOWN_PROJECT' | 'INTERNAL';
+export type DoNotProspectDecision = 'KNOWN_PROJECT' | 'INTERNAL' | 'OPERATOR_EXCLUDED';
+
+export type DoNotProspectEntityKey =
+  | 'SUNELEK' | 'MAGIC_SCRIPT' | 'SNEMM' | 'NORD_PNEU_CARAIBES'
+  | 'MENHIR_IMMOBILIER' | 'LA_BALADE_DU_SOLEIL' | 'SOMARLOC'
+  | 'YOUYOU_MARKET' | 'APAVE' | 'GROUPE_FONTAINE' | 'FIDUCIAL_SOFIRAL'
+  | 'STATION_VITO' | 'ENVIE_D_AILLEURS' | 'JEAN_PIERRE_EUVRARD'
+  | 'RODOLPHO_ALEXANDER' | 'LADYBUG' | 'KAY_JUJU'
+  | 'AUX_DEUX_GOUTTES_D_EAU' | 'BEAUTY_FIXTURE';
 
 export interface ProspectIdentityCandidate {
   companyName?: string;
@@ -11,7 +19,7 @@ export interface ProspectIdentityCandidate {
 }
 
 export interface DoNotProspectMatch {
-  entityKey: 'SUNELEK' | 'MAGIC_SCRIPT';
+  entityKey: DoNotProspectEntityKey;
   decision: DoNotProspectDecision;
   matchedBy: 'SIRET' | 'SIREN' | 'DOMAIN' | 'DISPLAY_ALIAS';
 }
@@ -45,6 +53,93 @@ const DO_NOT_PROSPECT_IDENTITIES: readonly DoNotProspectIdentity[] = [
     sirens: ['504451477'],
     domains: ['magicscript.fr'],
     displayAliases: ['MAGIC SCRIPT'],
+  },
+  {
+    entityKey: 'SNEMM', decision: 'OPERATOR_EXCLUDED',
+    sirets: [], sirens: [], domains: ['snemm.fr'],
+    displayAliases: [
+      'SNEMM',
+      "SOCIETE NATIONALE D'ENTRAIDE DE LA MEDAILLE MILITAIRE",
+      "SOCIETE NATIONALE D'ENTRAIDE DE LA MEDAILLE MILITAIRE (SNEMM)",
+    ],
+  },
+  {
+    entityKey: 'NORD_PNEU_CARAIBES', decision: 'OPERATOR_EXCLUDED',
+    sirets: ['52192424100016'], sirens: ['521924241'], domains: [],
+    displayAliases: ["L'UNIVERS DU PNEU", 'NORD PNEU CARAIBES'],
+  },
+  {
+    entityKey: 'MENHIR_IMMOBILIER', decision: 'OPERATOR_EXCLUDED',
+    sirets: ['51870544700010'], sirens: ['518705447'], domains: [],
+    displayAliases: ["GUY HOQUET L'IMMOBILIER", 'MENHIR IMMOBILIER FRANCHISE'],
+  },
+  {
+    entityKey: 'LA_BALADE_DU_SOLEIL', decision: 'OPERATOR_EXCLUDED',
+    sirets: [], sirens: [], domains: ['labaladedusoleil.com'],
+    displayAliases: ['La Balade du Soleil'],
+  },
+  {
+    entityKey: 'SOMARLOC', decision: 'OPERATOR_EXCLUDED',
+    sirets: ['44471474500015'], sirens: ['444714745'], domains: [],
+    displayAliases: ['SOMARLOC', 'SOCIETE MARTINIQUAISE DE LOCATION', 'SOCIETE MARTINIQUAISE DE LOCATION (SOMARLOC)'],
+  },
+  {
+    entityKey: 'YOUYOU_MARKET', decision: 'OPERATOR_EXCLUDED',
+    sirets: ['84274162100010'], sirens: ['842741621'], domains: [],
+    displayAliases: ['YOUYOU MARKET', 'SASU-YOUYOU-MARKET'],
+  },
+  {
+    entityKey: 'APAVE', decision: 'OPERATOR_EXCLUDED',
+    sirets: [], sirens: [], domains: ['find-us.apave.com'],
+    displayAliases: ['APAVE', 'APAVE EXPLOITATION FRANCE', 'APAVE INFRASTRUCTURES ET CONSTRUCTION FRANCE'],
+  },
+  {
+    entityKey: 'GROUPE_FONTAINE', decision: 'OPERATOR_EXCLUDED',
+    sirets: ['75355242100012'], sirens: ['753552421'], domains: [],
+    displayAliases: ['GROUPE FONTAINE COMPTABILITE ET ADMINISTRATION'],
+  },
+  {
+    entityKey: 'FIDUCIAL_SOFIRAL', decision: 'OPERATOR_EXCLUDED',
+    sirets: [], sirens: [], domains: [],
+    displayAliases: ['SOC FIDUCIAIRE NAT JURIDIQUE FISCALE', 'FIDUCIAL SOFIRAL AVOCATS', 'SOC FIDUCIAIRE NAT JURIDIQUE FISCALE (FIDUCIAL SOFIRAL AVOCATS)'],
+  },
+  {
+    entityKey: 'STATION_VITO', decision: 'OPERATOR_EXCLUDED',
+    sirets: [], sirens: [], domains: [], displayAliases: ['STATION VITO'],
+  },
+  {
+    entityKey: 'ENVIE_D_AILLEURS', decision: 'OPERATOR_EXCLUDED',
+    sirets: ['51391970400017'], sirens: ['513919704'], domains: [],
+    displayAliases: ['ENVIE D AILLEURS', 'E D A FEELING'],
+  },
+  {
+    entityKey: 'JEAN_PIERRE_EUVRARD', decision: 'OPERATOR_EXCLUDED',
+    sirets: ['41113428100012'], sirens: ['411134281'], domains: [],
+    displayAliases: ['JEAN-PIERRE EUVRARD'],
+  },
+  {
+    entityKey: 'RODOLPHO_ALEXANDER', decision: 'OPERATOR_EXCLUDED',
+    sirets: ['83030240200011'], sirens: ['830302402'], domains: [],
+    displayAliases: ['RODOLPHO ALEXANDER'],
+  },
+  {
+    entityKey: 'LADYBUG', decision: 'OPERATOR_EXCLUDED',
+    sirets: ['82113215600018'], sirens: ['821132156'], domains: [],
+    displayAliases: ['LADYBUG'],
+  },
+  {
+    entityKey: 'KAY_JUJU', decision: 'OPERATOR_EXCLUDED',
+    sirets: ['92024781400014'], sirens: ['920247814'], domains: [],
+    displayAliases: ['KAY JUJU'],
+  },
+  {
+    entityKey: 'AUX_DEUX_GOUTTES_D_EAU', decision: 'OPERATOR_EXCLUDED',
+    sirets: [], sirens: [], domains: [], displayAliases: ["Aux Deux Gouttes d'Eau"],
+  },
+  {
+    entityKey: 'BEAUTY_FIXTURE', decision: 'INTERNAL',
+    sirets: ['62345678900003'], sirens: ['623456789'], domains: [],
+    displayAliases: ['BEAUTY_FIXTURE'],
   },
 ];
 

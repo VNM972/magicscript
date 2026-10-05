@@ -180,3 +180,26 @@ test('previous eligibility policy events remain legacy until rescored', () => {
     'LEGACY',
   );
 });
+
+test('operator exclusions reject both historical and current-gate businesses', () => {
+  for (const events of [[], [gateEvent]]) {
+    assert.deepEqual(
+      deriveProspectCommercialView(prospect({ companyName: 'SNEMM', state: 'WAITING_REPLY' }), events),
+      { category: 'REJECTED', gateVersion: null, reason: 'OPERATOR_EXCLUDED_IDENTITY' },
+    );
+  }
+  const rows = ['legacy-a', 'legacy-b'].map((id) => {
+    const row = prospect({ id, companyName: 'SNEMM', state: 'DO_NOT_CONTACT' });
+    return { ...row, commercialView: deriveProspectCommercialView(row, []) };
+  });
+  const partition = partitionProspectsByCommercialView(rows);
+  assert.deepEqual(partition.current, []);
+  assert.deepEqual(partition.rejected.map((row) => row.id), ['legacy-a', 'legacy-b']);
+});
+
+test('blacklisted BEAUTY_FIXTURE remains INTERNAL rather than an operator exclusion', () => {
+  assert.deepEqual(
+    deriveProspectCommercialView(prospect({ companyName: 'BEAUTY_FIXTURE', state: 'DO_NOT_CONTACT' }), []),
+    { category: 'INTERNAL', gateVersion: null, reason: 'INTERNAL_BUSINESS_IDENTITY' },
+  );
+});

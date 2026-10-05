@@ -20,6 +20,7 @@ export interface ProspectCommercialView {
     | 'EXPLICIT_FIXTURE_ACTIVITY'
     | 'KNOWN_PROJECT_IDENTITY'
     | 'INTERNAL_BUSINESS_IDENTITY'
+    | 'OPERATOR_EXCLUDED_IDENTITY'
     | 'CURRENT_GATE_REJECTED'
     | 'CURRENT_GATE_INVALID_IDENTITY'
     | 'CURRENT_GATE_OPPOSED'
@@ -85,6 +86,9 @@ export function deriveProspectCommercialView(
 
   const excludedIdentity = classifyDoNotProspectIdentity(prospect);
   if (excludedIdentity) {
+    if (excludedIdentity.decision === 'OPERATOR_EXCLUDED') {
+      return { category: 'REJECTED', gateVersion: null, reason: 'OPERATOR_EXCLUDED_IDENTITY' };
+    }
     return {
       category: 'INTERNAL',
       gateVersion: null,

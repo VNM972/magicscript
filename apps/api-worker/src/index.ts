@@ -331,6 +331,7 @@ type DiscoveryIntakeDecisionReason =
   | 'CREATED'
   | 'KNOWN_PROJECT'
   | 'INTERNAL'
+  | 'OPERATOR_EXCLUDED'
   | 'DUPLICATE_SIRET'
   | 'DUPLICATE_SIREN'
   | 'DUPLICATE_DOMAIN'
@@ -346,7 +347,7 @@ interface DiscoveryIntakeDecision {
   reason: DiscoveryIntakeDecisionReason;
   prospectId?: string;
   existingProspectId?: string;
-  entityKey?: 'SUNELEK' | 'MAGIC_SCRIPT';
+  entityKey?: NonNullable<ReturnType<typeof classifyDoNotProspectIdentity>>['entityKey'];
   matchedBy?: 'SIRET' | 'SIREN' | 'DOMAIN' | 'DISPLAY_ALIAS';
 }
 
@@ -9526,7 +9527,10 @@ async function handle(request: Request, env: Env): Promise<Response> {
   if (request.method === 'GET' && url.pathname === '/api/prospects') {
     const db = requireDb(env);
     const repo = new D1ProspectRepository(db);
-    const prospects = await repo.listProspects();
+    const includeAll = url.searchParams.get('include') === 'all';
+    const prospects = (await repo.listProspects()).filter(
+      (prospect) => includeAll || prospect.state !== 'DO_NOT_CONTACT',
+    );
     const eventStore = new D1EventStore(db);
     const computedAt = new Date().toISOString();
     const eventsByProspect = new Map(
