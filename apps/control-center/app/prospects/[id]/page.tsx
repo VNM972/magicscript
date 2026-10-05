@@ -59,6 +59,7 @@ export default async function ProspectPage({ params }: { params: Promise<{ id: s
           <p className="overline">Fiche prospect · Lecture seule</p><h1>{displayValue(item.businessName)} {item.entry_source === 'MANUAL' && <span className="source-badge">MANUAL</span>}</h1>
           <p className="identity">{displayStage(item.commercialStage)} · {displayValue(item.location)}</p>
           <div className="prospect-actions">
+            <a className="open-action" href={`/copilot/${encodeURIComponent(id)}`}>Préparer l’appel</a>
             {(demoUrl || item.proposal) && <a className="open-action" href={demoUrl || item.proposal?.entryPath} target="_blank" rel="noopener noreferrer">Ouvrir la démo</a>}
             {email && <a className="open-action" href={`mailto:${encodeURIComponent(email)}`}>Envoyer email</a>}
             {whatsapp && <a className="open-action" href={whatsapp} target="_blank" rel="noopener noreferrer">Envoyer WhatsApp</a>}
