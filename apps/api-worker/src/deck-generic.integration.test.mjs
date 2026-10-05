@@ -114,6 +114,7 @@ async function seed(db, input = pack(), { proposal = true, booked = false } = {}
 
 function expectedItem(fixture, vertical, booked = false) {
   return {
+    entry_source: 'V2_PIPELINE', demo_url: null, demo_ready: false,
     prospectId: fixture.id, businessName: fixture.input.identity.businessName, location: 'Fort-de-France', vertical,
     opportunity: fixture.input.opportunity.businessContext, friction: fixture.input.opportunity.digitalFriction,
     contactability: { label: 'Email + Mobile', email: 'owner@deck-fixture.example', mobile: '+596696123456' },
@@ -123,6 +124,64 @@ function expectedItem(fixture, vertical, booked = false) {
     engagement: { viewed: false, returned: false, shared: false, meetingBooked: booked, meetingAt: booked ? meetingAt : null },
   };
 }
+
+test('entry source migration preserves existing rows and constrains manual readiness', () => {
+  const db = new DatabaseSync(':memory:');
+  try {
+    db.exec("CREATE TABLE prospects (id TEXT PRIMARY KEY, state TEXT); INSERT INTO prospects VALUES ('kept', 'DO_NOT_CONTACT')");
+    const original = db.prepare('SELECT id, state FROM prospects').all();
+    db.exec(readFileSync(new URL('../../../database/migration-v2-entry-source-demo-ready-v1.sql', import.meta.url), 'utf8'));
+    assert.deepEqual(db.prepare('SELECT id, state FROM prospects').all(), original);
+    assert.deepEqual({ ...db.prepare('SELECT entry_source, demo_url, demo_ready FROM prospects').get() },
+      { entry_source: 'V2_PIPELINE', demo_url: null, demo_ready: 0 });
+    assert.throws(() => db.exec("UPDATE prospects SET entry_source = 'OTHER'"), /CHECK constraint/);
+    assert.throws(() => db.exec('UPDATE prospects SET demo_ready = 2'), /CHECK constraint/);
+    assert.throws(() => db.exec('UPDATE prospects SET demo_ready = 1'), /CHECK constraint/);
+    for (const url of ['/relative', 'javascript:alert(1)', 'https://', 'https://bad host/']) {
+      assert.throws(() => db.prepare('UPDATE prospects SET demo_url = ?, demo_ready = 1').run(url), /CHECK constraint/);
+    }
+    db.exec("UPDATE prospects SET entry_source = 'MANUAL', demo_url = 'https://demo.example/', demo_ready = 1");
+    assert.deepEqual(db.prepare('SELECT id, state FROM prospects').all(), original);
+  } finally { db.close(); }
+});
+
+test('V2 without a ready proposal retains its existing admission path', async () => {
+  const db = new FixtureD1(); try {
+    const fixture = await seed(db, pack(), { proposal: false });
+    const expected = expectedItem(fixture, 'GENERAL_LOCAL_BUSINESS');
+    delete expected.proposal;
+    assert.deepEqual((await get(db)).items, [expected]);
+  } finally { db.close(); }
+});
+
+test('manual ready demo is visible without V2 evidence and without consuming production capacity', async () => {
+  const db = new FixtureD1(); try {
+    const fixture = await seed(db);
+    db.database.prepare(`INSERT INTO prospects (id, company_name, state, created_at, updated_at, entry_source, demo_url, demo_ready)
+      VALUES ('manual', 'Manual Fixture', 'DISCOVERED', ?, ?, 'MANUAL', 'https://demo.example/', 1)`).run(now, now);
+    const deck = await get(db);
+    assert.deepEqual(deck.items.find(item => item.prospectId === fixture.id), expectedItem(fixture, 'GENERAL_LOCAL_BUSINESS'));
+    const manual = deck.items.find(item => item.prospectId === 'manual');
+    assert.equal(manual.entry_source, 'MANUAL'); assert.equal(manual.demo_ready, true);
+    assert.equal(manual.demo_url, 'https://demo.example/'); assert.equal(manual.commercialStage, 'A_CONTACTER');
+    assert.equal(manual.activeSlot, false); assert.equal(manual.productionEligible, false);
+    assert.equal(manual.proposal, undefined); assert.equal(manual.vertical, null);
+    assert.equal(deck.activeSlotCount, 1);
+    const inventory = await get(db, '/api/prospects');
+    assert.equal(inventory.prospects.length, 2);
+    assert.equal(inventory.prospects.find(item => item.id === 'manual').entry_source, 'MANUAL');
+    assert.equal(inventory.prospects.find(item => item.id === 'manual').demo_ready, true);
+    for (const update of ["demo_ready = 0", "demo_ready = 1, state = 'DO_NOT_CONTACT'", "state = 'DISCOVERED', entry_source = 'V2_PIPELINE'"]) {
+      db.database.exec(`UPDATE prospects SET ${update} WHERE id = 'manual'`);
+      assert.deepEqual((await get(db)).items, [expectedItem(fixture, 'GENERAL_LOCAL_BUSINESS')]);
+      const listed = (await get(db, '/api/prospects')).prospects;
+      assert.equal(listed.some(item => item.id === 'manual'), !update.includes('DO_NOT_CONTACT'));
+    }
+    // A URL that passes SQLite's prefix check still must parse at the API boundary.
+    db.database.exec("UPDATE prospects SET entry_source = 'MANUAL', demo_url = 'https://bad:port/' WHERE id = 'manual'");
+    assert.deepEqual((await get(db)).items, [expectedItem(fixture, 'GENERAL_LOCAL_BUSINESS')]);
+  } finally { db.close(); }
+});
 
 test('generic Deck validates factual operator, pain, contact, design and Proposal context without inventing family', async () => {
   const db = new FixtureD1(); try {

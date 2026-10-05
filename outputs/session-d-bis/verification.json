@@ -1,0 +1,85 @@
+{
+  "sqlProof": {
+    "id": "26ea281c-6930-42d6-81da-553769dfd522",
+    "company_name": "Ananke Tattoo",
+    "entry_source": "MANUAL",
+    "demo_url": "https://ananke-demo.netlify.app",
+    "demo_ready": 1
+  },
+  "originalProspectFieldsUnchanged": true,
+  "excludedRowsUnchanged": true,
+  "productionSlotsUnchanged": true,
+  "nonExcludedApiCount": 86,
+  "includeAllApiCount": 108,
+  "inventoryAnanke": {
+    "id": "26ea281c-6930-42d6-81da-553769dfd522",
+    "entry_source": "MANUAL",
+    "demo_url": "https://ananke-demo.netlify.app",
+    "demo_ready": true
+  },
+  "inventoryStageCounts": {
+    "A_CONTACTER": 24,
+    "PERDUS": 53,
+    "RELANCES": 9
+  },
+  "deck": {
+    "items": [
+      {
+        "prospectId": "26ea281c-6930-42d6-81da-553769dfd522",
+        "entry_source": "MANUAL",
+        "demo_url": "https://ananke-demo.netlify.app",
+        "demo_ready": true,
+        "businessName": "Ananke Tattoo",
+        "location": "Fort-de-France",
+        "vertical": "90.03B",
+        "opportunity": null,
+        "friction": null,
+        "contactability": {
+          "label": "None",
+          "email": null,
+          "mobile": null
+        },
+        "commercialStage": "A_CONTACTER",
+        "currentMeaningfulState": "DISCOVERED",
+        "activeSlot": false,
+        "productionEligible": false,
+        "engagement": {
+          "viewed": false,
+          "returned": false,
+          "shared": false,
+          "meetingBooked": false,
+          "meetingAt": null
+        }
+      }
+    ],
+    "activeSlotCount": 2,
+    "capacity": 20
+  },
+  "browser": {
+    "origin": "http://127.0.0.1:3000",
+    "chrome": "Chrome/154.0.8037.93",
+    "inventoryRows": 86,
+    "commercialFiltersVerified": [
+      "A_CONTACTER",
+      "ENVOYES",
+      "EN_ATTENTE",
+      "RDV",
+      "DEVIS",
+      "RELANCES",
+      "GAGNES",
+      "PERDUS",
+      "ARCHIVES"
+    ],
+    "centralDeckRows": 1,
+    "manualBadge": true,
+    "demoLink": "https://ananke-demo.netlify.app/",
+    "clickedProspectSheet": true,
+    "nonDeckProspectSheet": true,
+    "runtimeErrors": [],
+    "screenshots": [
+      "prospects-ananke.png",
+      "deck-ananke.png",
+      "prospect-ananke.png"
+    ]
+  }
+}

@@ -3651,6 +3651,9 @@ function boundedString(
 
 interface ProposalDeckItemV1 {
   prospectId: string;
+  entry_source: 'V2_PIPELINE' | 'MANUAL';
+  demo_url: string | null;
+  demo_ready: boolean;
   businessName: string;
   location: string | null;
   vertical: string | null;
@@ -3733,7 +3736,14 @@ async function nativeV2DeckEvidence(
   }
 }
 
+async function listProspectEntries(db: D1DatabaseLike) {
+  const entryRows = await db.prepare('SELECT id, entry_source, demo_url, demo_ready FROM prospects')
+    .all<{ id: string; entry_source: 'V2_PIPELINE' | 'MANUAL'; demo_url: string | null; demo_ready: number }>();
+  return new Map((entryRows.results ?? []).map((row) => [row.id, row]));
+}
+
 async function listProposalDeck(db: D1DatabaseLike): Promise<{ items: ProposalDeckItemV1[]; activeSlotCount: number; capacity: 20 }> {
+  const entries = await listProspectEntries(db);
   const proposalRows = await db.prepare(`
     SELECT proposal_json
     FROM v2_proposals
@@ -3754,16 +3764,28 @@ async function listProposalDeck(db: D1DatabaseLike): Promise<{ items: ProposalDe
   const items: ProposalDeckItemV1[] = [];
 
   for (const prospect of prospects) {
-    if (heldProductionProspectIds.has(prospect.id) && !isActiveProductionState(prospect.state)) continue;
+    const entry = entries.get(prospect.id);
+    if (!entry) continue;
+    const manual = entry.entry_source === 'MANUAL';
+    if (manual) {
+      if (entry.demo_ready !== 1 || prospect.state === 'DO_NOT_CONTACT' || !entry.demo_url) continue;
+      try {
+        const demo = new URL(entry.demo_url);
+        if (!/^https?:\/\//i.test(entry.demo_url) || !['http:', 'https:'].includes(demo.protocol) || !demo.hostname) continue;
+      } catch { continue; }
+    } else {
+      if (entry.entry_source !== 'V2_PIPELINE') continue;
+      if (heldProductionProspectIds.has(prospect.id) && !isActiveProductionState(prospect.state)) continue;
+    }
     const proposal = proposalsByProspect.get(prospect.id);
     const contacts = await repo.listContacts(prospect.id);
     const events = await eventStore.listByProspect(prospect.id);
-    const nativeV2 = await nativeV2DeckEvidence(db, prospect.id);
-    if (!nativeV2) continue;
+    const nativeV2 = manual ? null : await nativeV2DeckEvidence(db, prospect.id);
+    if (!manual && !nativeV2) continue;
     const usableEmails = contacts.filter((contact) => contact.isValidated && !contact.isSuppressed && contact.email.trim());
     const mobile = prospect.phone?.trim() || null;
     const email = usableEmails[0]?.email.trim() || null;
-    const activeSlot = visibleActiveSlotIds.has(prospect.id);
+    const activeSlot = !manual && visibleActiveSlotIds.has(prospect.id);
     const commercialPipeline = projectDeckCommercialPipeline({
       prospect,
       activeSlot,
@@ -3780,9 +3802,12 @@ async function listProposalDeck(db: D1DatabaseLike): Promise<{ items: ProposalDe
     const meetingAt = typeof meetingPayload.scheduledAt === 'string' ? meetingPayload.scheduledAt : null;
     items.push({
       prospectId: prospect.id,
+      entry_source: entry.entry_source,
+      demo_url: entry.demo_url,
+      demo_ready: entry.demo_ready === 1,
       businessName: prospect.companyName,
       location: prospect.city ?? prospect.location ?? null,
-      vertical: nativeV2.designRequest.designInput.businessVertical === 'RESTAURANT'
+      vertical: !nativeV2 ? prospect.activity ?? null : nativeV2.designRequest.designInput.businessVertical === 'RESTAURANT'
         ? 'RESTAURANTS_BARS_CAFES'
         : nativeV2.designRequest.designInput.businessVertical === 'BEAUTY'
           ? 'BEAUTY_HAIR_BARBER'
@@ -3796,7 +3821,7 @@ async function listProposalDeck(db: D1DatabaseLike): Promise<{ items: ProposalDe
         email,
         mobile,
       },
-      commercialStage: activeSlot ? commercialPipeline.commercialStage : commercialPipeline.commercialStage === 'A_CONTACTER' ? null : commercialPipeline.commercialStage,
+      commercialStage: manual || activeSlot ? commercialPipeline.commercialStage : commercialPipeline.commercialStage === 'A_CONTACTER' ? null : commercialPipeline.commercialStage,
       currentMeaningfulState: commercialPipeline.currentMeaningfulState,
       ...(commercialPipeline.latestMeaningfulAction ? { latestMeaningfulAction: commercialPipeline.latestMeaningfulAction } : {}),
       ...(commercialPipeline.nextMeaningfulOperatorAction ? { nextMeaningfulOperatorAction: commercialPipeline.nextMeaningfulOperatorAction } : {}),
@@ -9587,6 +9612,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
   if (request.method === 'GET' && url.pathname === '/api/prospects') {
     const db = requireDb(env);
     const repo = new D1ProspectRepository(db);
+    const entries = await listProspectEntries(db);
     const includeAll = url.searchParams.get('include') === 'all';
     const prospects = (await repo.listProspects()).filter(
       (prospect) => includeAll || prospect.state !== 'DO_NOT_CONTACT',
@@ -9644,6 +9670,9 @@ async function handle(request: Request, env: Env): Promise<Response> {
       });
       return {
         ...prospect,
+        entry_source: entries.get(prospect.id)?.entry_source,
+        demo_url: entries.get(prospect.id)?.demo_url ?? null,
+        demo_ready: entries.get(prospect.id)?.demo_ready === 1,
         scoreType: (() => {
           const events = eventsByProspect.get(prospect.id) ?? [];
           if (events.some((event) => event.type === 'research.scored')) return 'CALIBRATED_RESEARCH' as const;
