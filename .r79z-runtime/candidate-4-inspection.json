@@ -1,0 +1,13 @@
+{
+  "pageState": "FETCH_FAILED",
+  "observation": {
+    "schemaVersion": 1,
+    "requestedUrl": "https://www.davidguitton.com/",
+    "inspectedAt": "2026-10-04T16:21:55.985Z",
+    "httpResultClass": "UNSUPPORTED"
+  },
+  "staging": {
+    "state": "FETCH_FAILED",
+    "authority": "NON_AUTHORITATIVE"
+  }
+}

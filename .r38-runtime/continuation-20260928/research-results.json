@@ -1,0 +1,234 @@
+[
+  {
+    "prospectId": "d136a9dd-d0ca-426b-9b0c-d2ce4cbfda1a",
+    "name": "CATLEIA",
+    "siren": "349915009",
+    "siret": "34991500900014",
+    "activity": "47.72A",
+    "state": "DISQUALIFIED",
+    "jobId": "df7a2a30-616a-46bc-b3b4-c00cd7e680be",
+    "jobStatus": "SUCCEEDED",
+    "attempts": 1,
+    "scoredEventId": "9ec78888-c734-48ce-99df-e5413f792b6e",
+    "scoredPresent": true,
+    "evidenceIntegrity": {
+      "passed": true,
+      "reasons": [],
+      "rejectedSourceCount": 0,
+      "supportedClaims": [
+        "digitalGap",
+        "commercialStrength",
+        "localFit",
+        "prototypeLeverage",
+        "activity",
+        "website"
+      ]
+    },
+    "acceptedSources": [
+      {
+        "url": "https://www.catleia.com/",
+        "note": "Official website of CATLEIA",
+        "supports": [
+          "digitalGap",
+          "activity",
+          "website"
+        ]
+      },
+      {
+        "url": "https://www.catleia.com/contact",
+        "note": "Official contact page of CATLEIA",
+        "supports": [
+          "digitalGap",
+          "activity",
+          "website",
+          "phone"
+        ]
+      }
+    ],
+    "websiteAuthority": {
+      "url": "https://www.catleia.com/",
+      "conflict": false
+    },
+    "typedPainPersisted": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "canonicalDigitalPain": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "operatingEvidence": {
+      "status": "UNKNOWN",
+      "facts": []
+    },
+    "researchScoredAuthorityPass": true,
+    "shadow": {
+      "shadow": true,
+      "status": "INSUFFICIENT_EVIDENCE",
+      "reasons": [
+        {
+          "code": "DIGITAL_PAIN_UNPROVEN",
+          "detail": "Digital pain must be grounded in an accepted persisted claim."
+        }
+      ]
+    }
+  },
+  {
+    "prospectId": "1a608e32-1703-44a2-b81f-42d10d80c61f",
+    "name": "KREOL POKE",
+    "siren": "949940084",
+    "siret": "94994008400013",
+    "activity": "70.10Z",
+    "state": "DISQUALIFIED",
+    "jobId": "4cd30580-5978-4c27-8bfa-c1a900ff2799",
+    "jobStatus": "SUCCEEDED",
+    "attempts": 1,
+    "scoredEventId": "6275479f-f2cf-4fdf-9ccd-cb05135b88dc",
+    "scoredPresent": true,
+    "evidenceIntegrity": {
+      "passed": true,
+      "reasons": [],
+      "rejectedSourceCount": 0,
+      "supportedClaims": [
+        "digitalGap",
+        "commercialStrength",
+        "localFit",
+        "prototypeLeverage",
+        "activity",
+        "website"
+      ]
+    },
+    "acceptedSources": [
+      {
+        "url": "https://www.kreolpoke.com/",
+        "note": "Official website of KREOL POKE",
+        "supports": [
+          "digitalGap",
+          "activity",
+          "website"
+        ]
+      },
+      {
+        "url": "https://www.kreolpoke.com/contact",
+        "note": "Official contact page of KREOL POKE",
+        "supports": [
+          "digitalGap",
+          "activity",
+          "website",
+          "phone"
+        ]
+      }
+    ],
+    "websiteAuthority": {
+      "url": "https://www.kreolpoke.com/",
+      "conflict": false
+    },
+    "typedPainPersisted": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "canonicalDigitalPain": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "operatingEvidence": {
+      "status": "UNKNOWN",
+      "facts": []
+    },
+    "researchScoredAuthorityPass": true,
+    "shadow": {
+      "shadow": true,
+      "status": "INSUFFICIENT_EVIDENCE",
+      "reasons": [
+        {
+          "code": "DIGITAL_PAIN_UNPROVEN",
+          "detail": "Digital pain must be grounded in an accepted persisted claim."
+        },
+        {
+          "code": "COMMERCIAL_FAMILY_UNRESOLVED",
+          "detail": "No canonical family is established by existing authority."
+        }
+      ]
+    }
+  },
+  {
+    "prospectId": "58264bc4-f64f-4245-920f-e448601dea89",
+    "name": "JEAN-PIERRE LEMOINE-BUSSEROLLES",
+    "siren": "313279739",
+    "siret": "31327973900079",
+    "activity": "70.10Z",
+    "state": "DISQUALIFIED",
+    "jobId": "d86bad90-53fe-4924-9533-fb113ea13c83",
+    "jobStatus": "SUCCEEDED",
+    "attempts": 1,
+    "scoredEventId": "e8531b8c-6184-4449-bdc7-dc132a0c69fe",
+    "scoredPresent": true,
+    "evidenceIntegrity": {
+      "passed": true,
+      "reasons": [],
+      "rejectedSourceCount": 0,
+      "supportedClaims": [
+        "digitalGap",
+        "commercialStrength",
+        "localFit",
+        "prototypeLeverage",
+        "activity",
+        "website"
+      ]
+    },
+    "acceptedSources": [
+      {
+        "url": "https://www.jeanpierrelemoinebusserolles.com/",
+        "note": "official website",
+        "supports": [
+          "digitalGap",
+          "activity",
+          "website"
+        ]
+      },
+      {
+        "url": "https://www.facebook.com/jeanpierrelemoinebusserolles",
+        "note": "official Facebook page",
+        "supports": [
+          "digitalGap",
+          "activity",
+          "website"
+        ]
+      }
+    ],
+    "websiteAuthority": {
+      "conflict": false
+    },
+    "typedPainPersisted": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "canonicalDigitalPain": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "operatingEvidence": {
+      "status": "UNKNOWN",
+      "facts": []
+    },
+    "researchScoredAuthorityPass": true,
+    "shadow": {
+      "shadow": true,
+      "status": "INSUFFICIENT_EVIDENCE",
+      "reasons": [
+        {
+          "code": "WEBSITE_STATUS_UNVERIFIED",
+          "detail": "Website presence or bounded absence is not proven by accepted evidence."
+        },
+        {
+          "code": "DIGITAL_PAIN_UNPROVEN",
+          "detail": "Digital pain must be grounded in an accepted persisted claim."
+        },
+        {
+          "code": "COMMERCIAL_FAMILY_UNRESOLVED",
+          "detail": "No canonical family is established by existing authority."
+        }
+      ]
+    }
+  }
+]

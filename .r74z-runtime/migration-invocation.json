@@ -1,0 +1,6 @@
+{
+  "startedAt": "2026-10-03T07:04:59.429Z",
+  "method": "native D1.batch, one atomic batch",
+  "statementCount": 14,
+  "realInvocations": 1
+}

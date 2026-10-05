@@ -1,0 +1,19 @@
+[
+  {
+    "results": [
+      {
+        "prospects": 0,
+        "jobs": 0,
+        "job_results": 0,
+        "events": 0,
+        "admissions": 0,
+        "outreach": 0,
+        "occupied_slots": 0
+      }
+    ],
+    "success": true,
+    "meta": {
+      "duration": 2
+    }
+  }
+]

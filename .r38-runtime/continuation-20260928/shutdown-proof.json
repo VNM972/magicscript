@@ -1,0 +1,20 @@
+{
+  "remainingPids": [
+    null
+  ],
+  "remainingPorts": [
+    null
+  ],
+  "unrelatedProcessesTouched": false,
+  "stopped": true,
+  "ownedPids": [
+    25000,
+    25508,
+    7308,
+    6268,
+    2940,
+    10252,
+    22612,
+    18440
+  ]
+}

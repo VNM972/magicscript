@@ -1,0 +1,18 @@
+[
+  {
+    "name": "qwen3:8b",
+    "size": 5225388164
+  },
+  {
+    "name": "gemma3:4b",
+    "size": 3338801804
+  },
+  {
+    "name": "qwen2.5-coder:3b",
+    "size": 1929912626
+  },
+  {
+    "name": "qwen2.5-coder:7b-instruct",
+    "size": 4683087561
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "index": 3,
+  "name": "Auberge de l’Est à l’Ouest",
+  "url": "https://delestalouest.bzh/",
+  "pageState": "PAGE_OBSERVED",
+  "httpResultClass": "SUCCESS",
+  "title": "Auberge de l'Est à l'Ouest",
+  "h1": [
+    "Auberge de l'Est à l'Ouest"
+  ],
+  "qualification": "NO_PAIN_SIGNAL",
+  "identity": null,
+  "enrichment": null,
+  "admission": "NOT_PERFORMED",
+  "reason": "NO_PAIN_SIGNAL"
+}

@@ -1,0 +1,20 @@
+{
+  "index": 2,
+  "name": "Mary and the Wax",
+  "url": "https://maryandthewax.com/",
+  "candidate": {
+    "schemaVersion": 1,
+    "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+    "conditionClass": "SITE_UNDER_CONSTRUCTION",
+    "providerClass": "USER_CURATED_SHORTLIST",
+    "providerRunId": "R79Z-CONTINUATION-candidate-2",
+    "resultUrl": "https://maryandthewax.com/",
+    "resultTitle": "Mary and the Wax",
+    "resultPosition": 2,
+    "acquiredAt": "2026-10-04T16:38:02.838Z",
+    "authority": "NONE"
+  },
+  "at": "2026-10-04T16:38:23.855Z",
+  "homepageInspections": 1,
+  "retries": 0
+}

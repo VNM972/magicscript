@@ -1,0 +1,202 @@
+{
+  "prospects": [
+    {
+      "id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "companyName": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+      "legalName": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+      "siren": "189729015",
+      "siret": "18972901500017",
+      "city": "FORT-DE-FRANCE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+      "initialResearchRepresentative": true,
+      "activity": "56.29B",
+      "location": "LD MORNE DESAIX 97200 FORT-DE-FRANCE",
+      "state": "DISCOVERED",
+      "score": 70,
+      "createdAt": "2026-09-28T16:06:36.81Z",
+      "updatedAt": "2026-09-28T16:06:36.81Z",
+      "scoreType": "INTAKE_COMMERCIAL_ELIGIBILITY",
+      "scoreSource": "discovery.prospect_created",
+      "scoreUpdatedAt": "2026-09-28T16:06:36.81Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-28T16:06:36.882Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+          "siren": "189729015",
+          "siret": "18972901500017"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialPipeline": {
+        "prospectId": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+        "commercialStage": "A_CONTACTER",
+        "currentMeaningfulState": "DISCOVERED",
+        "activeSlot": false,
+        "productionEligible": false,
+        "productionEligibilityReason": "NOT_PRODUCTION_STATE",
+        "contactability": {
+          "available": false,
+          "channels": []
+        }
+      },
+      "contactAcquisition": null,
+      "contactPresence": null,
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_PRE_ACTIVE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "companyName": "DATEX ANTILLES-GUYANE",
+      "legalName": "DATEX ANTILLES-GUYANE",
+      "siren": "420481202",
+      "siret": "42048120200067",
+      "city": "FORT DE FRANCE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/42048120200067",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "HIGH_PRIORITY",
+      "brandKey": "DATEX ANTILLES GUYANE",
+      "initialResearchRepresentative": true,
+      "activity": "56.29A",
+      "location": "CTRE AFF DILL VALMENIERE  EURYDICE D RTE DE LA POINTE DES SABLES 97200 FORT DE FRANCE",
+      "state": "DISCOVERED",
+      "score": 78,
+      "createdAt": "2026-09-28T16:06:36.792Z",
+      "updatedAt": "2026-09-28T16:06:36.792Z",
+      "scoreType": "INTAKE_COMMERCIAL_ELIGIBILITY",
+      "scoreSource": "discovery.prospect_created",
+      "scoreUpdatedAt": "2026-09-28T16:06:36.792Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-28T16:06:36.882Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+          "siren": "420481202",
+          "siret": "42048120200067"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialPipeline": {
+        "prospectId": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+        "commercialStage": "A_CONTACTER",
+        "currentMeaningfulState": "DISCOVERED",
+        "activeSlot": false,
+        "productionEligible": false,
+        "productionEligibilityReason": "NOT_PRODUCTION_STATE",
+        "contactability": {
+          "available": false,
+          "channels": []
+        }
+      },
+      "contactAcquisition": null,
+      "contactPresence": null,
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_PRE_ACTIVE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "companyName": "BODY ILES",
+      "legalName": "BODY ILES",
+      "siren": "443976352",
+      "siret": "44397635200015",
+      "city": "FORT-DE-FRANCE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/44397635200015",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "HIGH_PRIORITY",
+      "brandKey": "BODY ILES",
+      "initialResearchRepresentative": true,
+      "activity": "96.02B",
+      "location": "64 RUE VICTOR HUGO 97200 FORT-DE-FRANCE",
+      "state": "DISCOVERED",
+      "score": 79,
+      "createdAt": "2026-09-28T16:06:36.768Z",
+      "updatedAt": "2026-09-28T16:06:36.768Z",
+      "scoreType": "INTAKE_COMMERCIAL_ELIGIBILITY",
+      "scoreSource": "discovery.prospect_created",
+      "scoreUpdatedAt": "2026-09-28T16:06:36.768Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-28T16:06:36.882Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+          "siren": "443976352",
+          "siret": "44397635200015"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialPipeline": {
+        "prospectId": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+        "commercialStage": "A_CONTACTER",
+        "currentMeaningfulState": "DISCOVERED",
+        "activeSlot": false,
+        "productionEligible": false,
+        "productionEligibilityReason": "NOT_PRODUCTION_STATE",
+        "contactability": {
+          "available": false,
+          "channels": []
+        }
+      },
+      "contactAcquisition": null,
+      "contactPresence": null,
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_PRE_ACTIVE"
+      },
+      "prototypeCostGate": null
+    }
+  ],
+  "prospectViewCounts": {
+    "CURRENT": 0,
+    "LEGACY": 3,
+    "INTERNAL": 0,
+    "REJECTED": 0
+  }
+}

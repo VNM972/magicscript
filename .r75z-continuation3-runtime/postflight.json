@@ -1,0 +1,134 @@
+{
+  "verifiedAt": "2026-10-04T10:13:00.268Z",
+  "status": "BLOCKED_NO_REAL_PROSPECT",
+  "candidatesInspected": 5,
+  "liveSearchQueries": 3,
+  "environmentRetries": 0,
+  "candidateResults": [
+    {
+      "index": 1,
+      "name": "Medi Conciergerie",
+      "url": "https://medi-conciergerie.com/",
+      "discovery": "https://medi-conciergerie.com/accueil-en-construction/",
+      "pageState": "PAGE_OBSERVED",
+      "httpResultClass": "SUCCESS",
+      "title": "Accueil - Medi Conciergerie",
+      "h1": [
+        "Kontan wè zot (Bienvenue)"
+      ],
+      "qualification": "NO_PAIN_SIGNAL",
+      "identity": null,
+      "enrichment": null,
+      "registryRequest": null,
+      "admission": "NOT_PERFORMED",
+      "reason": "NO_PAIN_SIGNAL"
+    },
+    {
+      "index": 2,
+      "name": "LM Charpente",
+      "url": "https://lmcharpente.com/",
+      "discovery": "https://lmcharpente.com/lm-charpente-en-construction/",
+      "pageState": "PAGE_OBSERVED",
+      "httpResultClass": "SUCCESS",
+      "title": "Accueil - LM Charpente",
+      "h1": [],
+      "qualification": "NO_PAIN_SIGNAL",
+      "identity": null,
+      "enrichment": null,
+      "registryRequest": null,
+      "admission": "NOT_PERFORMED",
+      "reason": "NO_PAIN_SIGNAL"
+    },
+    {
+      "index": 3,
+      "name": "Accent Immo",
+      "url": "https://accentimmo.fr/",
+      "discovery": "https://accentimmo.fr/",
+      "pageState": "PAGE_OBSERVED",
+      "httpResultClass": "SUCCESS",
+      "title": "Accent Immo – L'immobilier tout simplement !",
+      "h1": [
+        "Site en construction"
+      ],
+      "qualification": "PAIN_SIGNAL_CONFIRMED",
+      "identity": "IDENTITY_ABSENT",
+      "enrichment": "NO_ELIGIBLE_LINK",
+      "registryRequest": null,
+      "admission": "NOT_PERFORMED",
+      "reason": "IDENTITY_ABSENT"
+    },
+    {
+      "index": 4,
+      "name": "RB Agency",
+      "url": "https://rb-agency.fr/",
+      "discovery": "https://rb-agency.fr/fr/",
+      "pageState": "FETCH_FAILED",
+      "httpResultClass": "REDIRECT",
+      "qualification": "FETCH_FAILED",
+      "identity": null,
+      "enrichment": null,
+      "registryRequest": null,
+      "admission": "NOT_PERFORMED",
+      "reason": "REDIRECT"
+    },
+    {
+      "index": 5,
+      "name": "Chateau de Toulondit",
+      "url": "https://www.toulondit.fr/",
+      "discovery": "Previously discovered public restaurant result in R75Z continuation 2; not previously canonically inspected; outside Martinique, eligibility remains canonical",
+      "pageState": "PAGE_OBSERVED",
+      "httpResultClass": "SUCCESS",
+      "title": "Accueil - Chateau de Toulondit",
+      "h1": [
+        "Château de Toulondit"
+      ],
+      "qualification": "NO_PAIN_SIGNAL",
+      "identity": null,
+      "enrichment": null,
+      "registryRequest": null,
+      "admission": "NOT_PERFORMED",
+      "reason": "NO_PAIN_SIGNAL"
+    }
+  ],
+  "selectedProspect": null,
+  "prospectId": null,
+  "admission": "NOT_PERFORMED",
+  "productionSlot": "NONE",
+  "designJob": "NONE",
+  "designArtifact": "NONE",
+  "designReview": "NONE",
+  "buildJob": "NONE",
+  "buildArtifact": "NONE",
+  "initialVisualQa": "NONE",
+  "correctionCycleUsed": false,
+  "correctedBuild": "NONE",
+  "finalVisualQa": "NONE",
+  "productSourceFilesModified": [],
+  "newProductDefect": "NONE",
+  "reproducibilityResult": "NOT_PROVEN",
+  "canonicalD1RowsUnchanged": true,
+  "trackedDiffUnchanged": true,
+  "villaUnchanged": true,
+  "noOutreach": true,
+  "noPaidProvider": true,
+  "checks": {
+    "budgetAssertions": "PASS",
+    "persistedResults": "PASS",
+    "d1AndDiffHashes": "PASS",
+    "gitDiffCheck": "PASS"
+  },
+  "sourceSelectionLimitations": "Bounded stored-candidate/artifact checks, not an exhaustive audit. Fifth candidate is a real restaurant previously discovered in continuation 2 outside Martinique; no eligibility inferred, canonical NO_PAIN_SIGNAL ended it.",
+  "nextAllowedAction": "Improve prospect sourcing strategy as one bounded program-level task.",
+  "usage": {
+    "credits": "USAGE_NOT_EXPOSED",
+    "modelReasoning": "USAGE_NOT_EXPOSED",
+    "codebaseMemoryTools": [
+      "list_projects",
+      "search_graph",
+      "search_code",
+      "check_index_coverage"
+    ],
+    "shellFallback": "Bounded direct reads for changed coverage metadata and runtime evidence",
+    "subagents": 0
+  }
+}

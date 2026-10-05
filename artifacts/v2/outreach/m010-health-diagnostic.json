@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "startedAt": "2026-09-19T13:37:14.119Z",
+  "healthHttpStatus": 200,
+  "healthBody": "{\n  \"ok\": true,\n  \"service\": \"magicscript-api\",\n  \"databaseConfigured\": true,\n  \"apiAuthConfigured\": true,\n  \"runnerAuthConfigured\": true,\n  \"stackId\": null,\n  \"autopilotEnabled\": false,\n  \"sendingEnabled\": true,\n  \"emailProvider\": \"fake\",\n  \"effectiveOutboundMode\": \"external\",\n  \"testEmailMode\": false,\n  \"testRecipientConfigured\": false,\n  \"prototypeDeployEnabled\": false\n}",
+  "stdout": "",
+  "stderr": "",
+  "processExitCode": null,
+  "processSignal": "SIGTERM",
+  "startup": {
+    "command": "npx.cmd",
+    "args": [
+      "wrangler",
+      "dev",
+      "--config",
+      "D:\\MagicScript\\repository\\apps\\api-worker\\wrangler.local.jsonc",
+      "--persist-to",
+      "D:\\MagicScript\\repository\\.m010-health-d1",
+      "--port",
+      "8787",
+      "--ip",
+      "127.0.0.1",
+      "--var",
+      "MAGICSCRIPT_EMAIL_PROVIDER:fake"
+    ],
+    "cwd": "D:\\MagicScript\\repository\\apps\\api-worker",
+    "config": "D:\\MagicScript\\repository\\apps\\api-worker\\wrangler.local.jsonc",
+    "persistDir": "D:\\MagicScript\\repository\\.m010-health-d1",
+    "apiUrl": "http://127.0.0.1:8787/health",
+    "modeEnv": {
+      "MAGICSCRIPT_DATABASE_PROVIDER": "d1",
+      "MAGICSCRIPT_EMAIL_PROVIDER": "fake",
+      "MAGICSCRIPT_SENDING_ENABLED": "true",
+      "MAGICSCRIPT_FAKE_TRANSPORT": "true",
+      "MAGICSCRIPT_TEST_EMAIL_MODE": "true",
+      "MAGICSCRIPT_TEST_RECIPIENT_CONFIGURED": true,
+      "MAGICSCRIPT_API_TOKEN_CONFIGURED": true,
+      "MAGICSCRIPT_RUNNER_TOKEN_CONFIGURED": true,
+      "NEXT_PUBLIC_MAGICSCRIPT_API_BASE_URL": "http://127.0.0.1:8787"
+    }
+  },
+  "cleanup": {
+    "attempted": true,
+    "persistenceRemoved": true
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "entrypoint": "core/visual-qa/engine.ts::executeVisualQa",
+  "realInvocations": 1,
+  "attempt": 2,
+  "reportId": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2-r2-a2",
+  "buildArtifactId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2",
+  "store": "D1VisualQaReportStore / native magicscript-local binding",
+  "startedAt": "2026-10-03T07:21:12.936Z",
+  "evidencePath": "D:\\MagicScript\\repository\\.r74z-continuation-runtime\\browser-evidence.json"
+}

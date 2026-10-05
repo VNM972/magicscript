@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS v2_outreach_drafts (
   grounding_json TEXT NOT NULL,
   revision INTEGER NOT NULL,
   content_hash TEXT NOT NULL,
+  quality_gate_json TEXT,
   status TEXT NOT NULL CHECK (status IN ('DRAFT', 'READY_FOR_OPERATOR', 'APPROVED', 'SENT', 'MOBILE_CONFIRMED', 'SUPERSEDED')),
   created_at TEXT NOT NULL,
   approved_at TEXT,

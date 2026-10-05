@@ -151,5 +151,6 @@ next-env.d.ts
 # Acceptance/build/runtime scratch (generated, never canonical source)
 .next-wp*-qa/
 .m010-final-d1/
+.m010-final-runtime/
 .m010-final-seed.sql
 .m010-final-query.sql

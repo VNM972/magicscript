@@ -33,7 +33,7 @@ Action :
 Question simple pouvant être répondue avec des faits validés.
 
 Action :
-- répondre automatiquement uniquement si la réponse est certaine et non engageante ;
+- préparer un brouillon de réponse uniquement si la réponse est certaine et non engageante ;
 - sinon MANUAL_REVIEW_REQUIRED.
 
 ### POSITIVE_INTEREST
@@ -42,7 +42,7 @@ Le prospect veut voir la démo ou en savoir plus.
 
 Action :
 - lancer / finaliser prototype si nécessaire ;
-- poursuivre automatiquement si aucun prix ou rendez-vous n'est demandé.
+- préparer la suite pour validation humaine si un contact externe est nécessaire.
 
 ### PRICING_REQUESTED
 

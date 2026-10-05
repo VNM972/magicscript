@@ -1,0 +1,28 @@
+{
+  "job": {
+    "id": "job-v2-51972816600033-design-review-r1",
+    "kind": "V2_DESIGN_REVIEW",
+    "prospect_id": "v2-51972816600033",
+    "payload_json": "{\"designRequestId\":\"dr-v2-51972816600033-DESIGN_REQUEST_V1\",\"artifactId\":\"artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"artifactRevision\":1}",
+    "status": "SUCCEEDED",
+    "attempts": 1,
+    "max_attempts": 3,
+    "run_after": "2026-10-04T10:57:23.797Z",
+    "last_error": null,
+    "claimed_by": null,
+    "claimed_at": null,
+    "created_at": "2026-10-04T10:57:23.797Z",
+    "updated_at": "2026-10-04T10:57:32.829Z"
+  },
+  "counts": {
+    "claims": 1,
+    "success": 1,
+    "fail": 0
+  },
+  "slot": {
+    "slot_id": 2,
+    "prospect_id": "v2-51972816600033",
+    "acquired_at": "2026-10-04T10:57:08.518Z",
+    "release_reason": null
+  }
+}

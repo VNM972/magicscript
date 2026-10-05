@@ -1,0 +1,4 @@
+{
+  "realInvocations": 1,
+  "error": "Error: ENOENT: no such file or directory, open 'D:\\MagicScript\\repository\\.r74z-continuation-runtime\\api-cleanup.json'\n    at Object.readFileSync (node:fs:484:20)\n    at read (D:\\MagicScript\\repository\\.r74z-continuation-runtime\\qa.mts:14:38)\n    at <anonymous> (D:\\MagicScript\\repository\\.r74z-continuation-runtime\\qa.mts:37:485)"
+}

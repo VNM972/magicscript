@@ -1,0 +1,12 @@
+{
+  "index": 2,
+  "name": "Mary and the Wax",
+  "url": "https://maryandthewax.com/",
+  "pageState": "FETCH_FAILED",
+  "httpResultClass": "UNSUPPORTED",
+  "qualification": "FETCH_FAILED",
+  "identity": null,
+  "enrichment": null,
+  "admission": "NOT_PERFORMED",
+  "reason": "UNSUPPORTED"
+}

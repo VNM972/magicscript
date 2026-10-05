@@ -1,0 +1,20 @@
+{
+  "stopped": true,
+  "ownedPids": [
+    2040,
+    25432,
+    6680,
+    25428,
+    412,
+    8392,
+    26912,
+    23756
+  ],
+  "unrelatedProcessesTouched": false,
+  "remainingR36Ports": [
+    null
+  ],
+  "remainingOwnedPids": [
+    null
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "LM Charpente",
+  "url": "https://lmcharpente.com/",
+  "discovery": "https://lmcharpente.com/lm-charpente-en-construction/",
+  "candidate": {
+    "schemaVersion": 1,
+    "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+    "conditionClass": "SITE_UNDER_CONSTRUCTION",
+    "providerClass": "MANUAL_OPERATOR",
+    "providerRunId": "manual-operator:2026-10-04T10:11:15.274Z",
+    "resultUrl": "https://lmcharpente.com/",
+    "resultPosition": 1,
+    "acquiredAt": "2026-10-04T10:11:15.274Z",
+    "authority": "NONE"
+  },
+  "startedAt": "2026-10-04T10:11:15.276Z",
+  "homepageInspections": 1,
+  "environmentRetries": 0,
+  "environment": "Known unrestricted native HTTPS execution"
+}

@@ -2,6 +2,12 @@ import { jobKindPrioritySql } from '../jobs/priority';
 import { canPromoteWithWebDesignReview } from '../prototypes/web-design-review';
 import type { JobQueue, JobStatus, MagicScriptJob } from '../jobs/types';
 import type { D1DatabaseLike } from './d1-types';
+import { D1ProductionSlotStore } from './d1-production-slot-store';
+import { D1BuildArtifactStore } from './d1-build-artifact-store';
+import { D1BuildCorrectionStore, D1VisualQaReportStore } from './d1-visual-qa-store';
+import { D1DesignRequestStore } from './d1-design-request-store';
+import { validateBuildCorrectionContext } from '../builder/contracts';
+import type { DesignArtifactV1 } from '../design/design-artifact';
 
 interface JobRow {
   id: string;
@@ -47,6 +53,47 @@ export class D1JobQueue implements JobQueue {
     >,
   ): Promise<MagicScriptJob<TPayload>> {
     const now = new Date().toISOString();
+    const productionKinds: readonly MagicScriptJob['kind'][] = [
+      'GENERATE_PROTOTYPE_STRATEGY', 'BUILD_PROTOTYPE', 'RUN_PROTOTYPE_QA',
+      'DEPLOY_PROTOTYPE', 'SEND_DEMO_LINK', 'V2_DESIGN_REQUEST', 'V2_DESIGN_REVIEW',
+      'V2_DESIGN_REVISION', 'V2_BUILD_SITE', 'V2_VISUAL_QA', 'V2_BUILD_CORRECTION',
+    ];
+    if (input.kind === 'V2_BUILD_CORRECTION') {
+      const slot = input.prospectId ? await new D1ProductionSlotStore(this.db).getActiveProductionSlot(input.prospectId) : null;
+      if (!slot?.acquiredAt || slot.prospectId !== input.prospectId) throw new Error('ACTIVE_PRODUCTION_SLOT_INELIGIBLE');
+      const values = input.payload as Record<string, unknown>;
+      if (!values || typeof values.correctionRequestId !== 'string') throw new Error('INVALID_CORRECTION_REQUEST');
+      const request = await new D1BuildCorrectionStore(this.db).get(values.correctionRequestId);
+      if (!request || request.prospectId !== input.prospectId) throw new Error('INVALID_CORRECTION_REQUEST');
+      const targetBuild = await new D1BuildArtifactStore(this.db).get(request.buildArtifactId);
+      const qaReport = await new D1VisualQaReportStore(this.db).get(request.qaReportId);
+      const designRequest = await new D1DesignRequestStore(this.db).get(request.prospectId, 'DESIGN_REQUEST_V1');
+      const designRow = await this.db.prepare('SELECT artifact_json, status FROM v2_design_artifacts WHERE id = ? LIMIT 1')
+        .bind(request.designArtifactId).first<{ artifact_json: string; status: DesignArtifactV1['status'] }>();
+      if (!targetBuild || !qaReport || !designRequest || !designRow) throw new Error('INVALID_CORRECTION_REQUEST');
+      const approvedDesignArtifact = { ...JSON.parse(designRow.artifact_json) as DesignArtifactV1, status: designRow.status };
+      const revision = validateBuildCorrectionContext({ request, targetBuild, qaReport, designRequest, approvedDesignArtifact });
+      const expected = { correctionRequestId: request.id, buildArtifactId: targetBuild.id,
+        targetBuildRevision: revision.targetBuildRevision, nextBuildRevision: revision.nextBuildRevision,
+        qaReportId: qaReport.id, designRequestId: designRequest.id, approvedDesignArtifactId: approvedDesignArtifact.id };
+      if (input.id !== `job-${request.prospectId}-build-correction-${targetBuild.id}-r${revision.nextBuildRevision}`
+        || Object.entries(expected).some(([key, value]) => values[key] !== value)) throw new Error('INVALID_CORRECTION_REQUEST');
+      const existingRow = await this.db.prepare('SELECT * FROM jobs WHERE id = ? LIMIT 1').bind(input.id).first<JobRow>();
+      const existing = existingRow ? fromRow(existingRow) : null;
+      if (existing) {
+        if (existing.kind !== input.kind || existing.prospectId !== input.prospectId
+          || Object.entries(expected).some(([key, value]) => (existing.payload as Record<string, unknown>)[key] !== value)) {
+          throw new Error('INVALID_CORRECTION_REQUEST');
+        }
+        return existing as MagicScriptJob<TPayload>;
+      }
+    } else if (input.prospectId && productionKinds.includes(input.kind)) {
+      const admission = await new D1ProductionSlotStore(this.db)
+        .acquireActiveProductionSlot(input.prospectId, input.kind);
+      if (admission.outcome === 'CAPACITY_FULL' || admission.outcome === 'INELIGIBLE' || admission.outcome === 'INVALID') {
+        throw new Error(`ACTIVE_PRODUCTION_SLOT_${admission.outcome}`);
+      }
+    }
     let payload = input.payload;
     if (input.kind === 'DEPLOY_PROTOTYPE' && input.prospectId) {
       const prototype = await this.db

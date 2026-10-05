@@ -1,0 +1,13 @@
+{
+  "pageState": "FETCH_FAILED",
+  "observation": {
+    "schemaVersion": 1,
+    "requestedUrl": "https://amelmartin.com/",
+    "inspectedAt": "2026-10-04T10:20:36.921Z",
+    "httpResultClass": "REDIRECT"
+  },
+  "staging": {
+    "state": "FETCH_FAILED",
+    "authority": "NON_AUTHORITATIVE"
+  }
+}

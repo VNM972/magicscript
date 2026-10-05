@@ -1,0 +1,4528 @@
+{
+  "prospects": [
+    {
+      "id": "19706c05-657c-496d-8295-9ac5545c695a",
+      "companyName": "CORAIL",
+      "legalName": "CORAIL",
+      "siren": "382760577",
+      "siret": "38276057700025",
+      "city": "LE LAMENTIN",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/38276057700025",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "CORAIL",
+      "initialResearchRepresentative": true,
+      "activity": "77.11A",
+      "location": "RN5 AEROPORT 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.corail.fr/",
+      "state": "DISQUALIFIED",
+      "score": 60,
+      "primaryCta": "Contact us",
+      "createdAt": "2026-09-09T15:02:12.415Z",
+      "updatedAt": "2026-09-14T11:53:49.702Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "19706c05-657c-496d-8295-9ac5545c695a",
+          "siren": "382760577",
+          "siret": "38276057700025"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "402627ff-a3ca-4493-82ff-a568d4f70bb0",
+      "companyName": "MICHEL BES",
+      "legalName": "MICHEL BES",
+      "siren": "328260633",
+      "siret": "32826063300065",
+      "city": "FORT DE FRANCE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/32826063300065",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "HIGH_PRIORITY",
+      "brandKey": "MICHEL BES",
+      "initialResearchRepresentative": true,
+      "activity": "69.10Z",
+      "location": "BAT EURYDICE-ET 2-CTR AFF VALMENIER RTE DE LA POINTE DES SABLES 97200 FORT DE FRANCE",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-09T15:02:12.179Z",
+      "updatedAt": "2026-09-14T11:40:41.013Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "402627ff-a3ca-4493-82ff-a568d4f70bb0",
+          "siren": "328260633",
+          "siret": "32826063300065"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "73576dde-c29e-44ec-9a0d-fa7c0e0fb712",
+      "companyName": "ATHENA TRADING",
+      "legalName": "ATHENA TRADING",
+      "siren": "820719847",
+      "siret": "82071984700015",
+      "city": "LE LAMENTIN",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/82071984700015",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "ATHENA TRADING",
+      "initialResearchRepresentative": true,
+      "activity": "70.22Z",
+      "location": "CHEZ COTTRELL ZONE DE GROS LA JAMBETTE 97232 LE LAMENTIN",
+      "websiteUrl": "https://athena-trading.com",
+      "phone": "06 12 34 56 78",
+      "opportunity": "C",
+      "state": "PROTOTYPE_REQUIRED",
+      "score": 73,
+      "primaryFriction": "Website navigation and conversion blocks",
+      "primaryAsset": "ATHENA TRADING",
+      "primaryCta": "Contact us",
+      "createdAt": "2026-09-10T16:05:28.354Z",
+      "updatedAt": "2026-09-14T11:22:01.651Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "73576dde-c29e-44ec-9a0d-fa7c0e0fb712",
+          "siren": "820719847",
+          "siret": "82071984700015"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "eb19f1ac-8fe0-47ba-84ec-2e7ebee35aec",
+            "prospectId": "73576dde-c29e-44ec-9a0d-fa7c0e0fb712",
+            "siren": "820719847",
+            "siret": "82071984700015",
+            "type": "EMAIL",
+            "value": "contact@athena-trading.com",
+            "sourceUrl": "https://athena-trading.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-14T11:22:01.635Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "eb19f1ac-8fe0-47ba-84ec-2e7ebee35aec",
+          "recipient": "contact@athena-trading.com",
+          "subject": "Échange au sujet de ATHENA TRADING",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40athena-trading.com?subject=%C3%89change%20au%20sujet%20de%20ATHENA%20TRADING&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "445f1f9f-4d07-4c61-834a-c8116d4414bb",
+      "companyName": "ELECTRONIQUE +",
+      "legalName": "ELECTRONIQUE +",
+      "siren": "391485679",
+      "siret": "39148567900016",
+      "city": "LE LAMENTIN",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/39148567900016",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "HIGH_PRIORITY",
+      "brandKey": "ELECTRONIQUE",
+      "initialResearchRepresentative": true,
+      "activity": "47.78C",
+      "location": "CTRE CIAL PLACE D ARMES 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.electroniqueplus.com/",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-09T15:02:12.422Z",
+      "updatedAt": "2026-09-14T08:09:17.635Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "445f1f9f-4d07-4c61-834a-c8116d4414bb",
+          "siren": "391485679",
+          "siret": "39148567900016"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "d0dafaae-aebe-46c2-a532-5264a5a0d4f4",
+      "companyName": "SASU-YOUYOU-MARKET",
+      "legalName": "YOUYOU MARKET",
+      "siren": "842741621",
+      "siret": "84274162100010",
+      "city": "LE LAMENTIN",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/84274162100010",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "SASU YOUYOU MARKET",
+      "initialResearchRepresentative": true,
+      "activity": "47.11B",
+      "location": "PALMISTE 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.youyou-market.com/",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-09T15:02:12.408Z",
+      "updatedAt": "2026-09-14T07:57:52.863Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "d0dafaae-aebe-46c2-a532-5264a5a0d4f4",
+          "siren": "842741621",
+          "siret": "84274162100010"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "8a14759d-8956-4e8b-82ef-51317362b72f",
+      "companyName": "POMPES FUNEBRES CARISTAN",
+      "legalName": "POMPES FUNEBRES CARISTAN",
+      "siren": "819591348",
+      "siret": "81959134800019",
+      "city": "BASSE POINTE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/81959134800019",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "HIGH_PRIORITY",
+      "brandKey": "POMPES FUNEBRES CARISTAN",
+      "initialResearchRepresentative": true,
+      "activity": "96.03Z",
+      "location": "ZONE ARTISANALE EYMA 97218 BASSE POINTE",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-10T16:05:30.072Z",
+      "updatedAt": "2026-09-13T19:31:30.934Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "8a14759d-8956-4e8b-82ef-51317362b72f",
+          "siren": "819591348",
+          "siret": "81959134800019"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "0e93bc69-bc2d-420d-9159-5235f313d92e",
+      "companyName": "VIP FINANCE",
+      "legalName": "VIP FINANCE",
+      "siren": "445268055",
+      "siret": "44526805500016",
+      "city": "FORT-DE-FRANCE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/44526805500016",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "VIP FINANCE",
+      "initialResearchRepresentative": true,
+      "activity": "71.12B",
+      "location": "TERRES SAINVILLE 6 RUE PIERRE SEMARD 97200 FORT-DE-FRANCE",
+      "websiteUrl": "https://www.vipfinance.com/",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-10T16:05:30.060Z",
+      "updatedAt": "2026-09-13T19:27:03.009Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "0e93bc69-bc2d-420d-9159-5235f313d92e",
+          "siren": "445268055",
+          "siret": "44526805500016"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "b154bdc2-86d7-49cc-b72b-7d48168ef6d4",
+      "companyName": "ACTIBURO",
+      "legalName": "SCMB",
+      "siren": "437709421",
+      "siret": "43770942100014",
+      "city": "LE LAMENTIN",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/43770942100014",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "ACTIBURO",
+      "initialResearchRepresentative": true,
+      "activity": "47.78C",
+      "location": "CHEZ SCLM ZI LA LEZARDE 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.actiburo.com/",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-10T16:05:30.046Z",
+      "updatedAt": "2026-09-13T19:25:16.998Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "b154bdc2-86d7-49cc-b72b-7d48168ef6d4",
+          "siren": "437709421",
+          "siret": "43770942100014"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "a5c8065e-4b34-40ec-b17e-5507f82b47a7",
+      "companyName": "AUDITION CONSEIL",
+      "legalName": "SOC CARIBEENNE DE L'AUDITION",
+      "siren": "443370747",
+      "siret": "44337074700034",
+      "city": "SCHOELCHER",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/44337074700034",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "AUDITION CONSEIL",
+      "initialResearchRepresentative": true,
+      "activity": "32.50A",
+      "location": "ROUTE DE CLUNY RTE CENTRE MEDICAL STE MARIE 97233 SCHOELCHER",
+      "websiteUrl": "https://audition-conseil.com/",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-10T16:05:30.031Z",
+      "updatedAt": "2026-09-13T19:23:31.860Z",
+      "hubId": "SERVICES_PROFESSIONNELS",
+      "businessUnit": "BU Services professionnels",
+      "masterOfWork": "MO Services professionnels",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "a5c8065e-4b34-40ec-b17e-5507f82b47a7",
+          "siren": "443370747",
+          "siret": "44337074700034"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "cc39f49b-3306-44b5-af7c-7fd1dc9633d1",
+      "companyName": "SOCIETE MARTINIQUAISE DE LOCATION (SOMARLOC)",
+      "legalName": "SOCIETE MARTINIQUAISE DE LOCATION",
+      "siren": "444714745",
+      "siret": "44471474500015",
+      "city": "LE LAMENTIN",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/44471474500015",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "SOCIETE MARTINIQUAISE DE LOCATION SOMARLOC",
+      "initialResearchRepresentative": true,
+      "activity": "70.10Z",
+      "location": "CZ AUTO GM ACAJOU 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.somarloc.com/",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-10T16:05:30.016Z",
+      "updatedAt": "2026-09-13T19:21:53.713Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "cc39f49b-3306-44b5-af7c-7fd1dc9633d1",
+          "siren": "444714745",
+          "siret": "44471474500015"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "5a8560d0-231a-4096-9200-8680ac5819a8",
+      "companyName": "COPROPRIETE MARITIME - STRATEGE DES MERS",
+      "legalName": "PASCALE BOBINEAU",
+      "siren": "354093106",
+      "siret": "35409310600046",
+      "city": "LE FRANCOIS",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/35409310600046",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "COPROPRIETE MARITIME STRATEGE DES MERS",
+      "initialResearchRepresentative": true,
+      "activity": "68.20A",
+      "location": "CHEZ JESSIPECHE SARL RUE SAINT MICHEL 97240 LE FRANCOIS",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-10T16:05:29.745Z",
+      "updatedAt": "2026-09-13T19:20:11.033Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "5a8560d0-231a-4096-9200-8680ac5819a8",
+          "siren": "354093106",
+          "siret": "35409310600046"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "2467794e-98f4-422c-9e81-662193cc0d89",
+      "companyName": "EVELYNE PILLET (RENAUD)",
+      "legalName": "EVELYNE PILLET (RENAUD)",
+      "siren": "316381391",
+      "siret": "31638139100010",
+      "city": "FORT-DE-FRANCE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/31638139100010",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "EVELYNE PILLET RENAUD",
+      "initialResearchRepresentative": true,
+      "activity": "47.51Z",
+      "location": "15 RUE LAMARTINE 97200 FORT-DE-FRANCE",
+      "websiteUrl": "https://www.evelypillet-renaud.com/",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-10T16:05:29.732Z",
+      "updatedAt": "2026-09-13T19:15:49.607Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "2467794e-98f4-422c-9e81-662193cc0d89",
+          "siren": "316381391",
+          "siret": "31638139100010"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "7847ee99-d76d-4fe1-920d-d94fab26df78",
+      "companyName": "GEORGES SYLVESTRE (MARIE-NELLY)",
+      "legalName": "GEORGES SYLVESTRE (MARIE-NELLY)",
+      "siren": "324203025",
+      "siret": "32420302500048",
+      "city": "SCHOELCHER",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/32420302500048",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "GEORGES SYLVESTRE MARIE NELLY",
+      "initialResearchRepresentative": true,
+      "activity": "47.73Z",
+      "location": "PATIO DE CLUNY  ENS  LES P LD CLUNY 97233 SCHOELCHER",
+      "websiteUrl": "https://www.georges-sylvestre-marie-nelly.com/",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-10T16:05:29.721Z",
+      "updatedAt": "2026-09-13T19:14:06.945Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "7847ee99-d76d-4fe1-920d-d94fab26df78",
+          "siren": "324203025",
+          "siret": "32420302500048"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "0fb087b7-bd21-4591-9930-020b8653d7c6",
+      "companyName": "GEORGES PLAVONIL",
+      "legalName": "GEORGES PLAVONIL",
+      "siren": "323811877",
+      "siret": "32381187700014",
+      "city": "FORT-DE-FRANCE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/32381187700014",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "GEORGES PLAVONIL",
+      "initialResearchRepresentative": true,
+      "activity": "68.20B",
+      "location": "RUE DE LA CLAIRIERE 97200 FORT-DE-FRANCE",
+      "websiteUrl": "https://www.georgesplavonil.com/",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-10T16:05:29.698Z",
+      "updatedAt": "2026-09-13T19:12:22.013Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "0fb087b7-bd21-4591-9930-020b8653d7c6",
+          "siren": "323811877",
+          "siret": "32381187700014"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "85cfec6d-035d-47eb-b4bc-c09e09f9484e",
+      "companyName": "DARTY HABITAT NATURE ET DECOUVERTES",
+      "legalName": "CIE MARTINIQUAISE DE DISTRIBUTION",
+      "siren": "331647602",
+      "siret": "33164760200019",
+      "city": "LE LAMENTIN",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/33164760200019",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "DARTY HABITAT NATURE ET DECOUVERTES",
+      "initialResearchRepresentative": true,
+      "activity": "47.59A",
+      "location": "ZA LES MANGLES ACAJOU 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.dartyhabitat.com/",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-10T16:05:29.682Z",
+      "updatedAt": "2026-09-13T19:10:28.886Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "85cfec6d-035d-47eb-b4bc-c09e09f9484e",
+          "siren": "331647602",
+          "siret": "33164760200019"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "ad4d9766-c85d-447a-9e5d-91ca81dbcd5f",
+      "companyName": "GRAZIELLA EUGENIE",
+      "legalName": "GRAZIELLA EUGENIE",
+      "siren": "384716320",
+      "siret": "38471632000054",
+      "city": "DUCOS",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/38471632000054",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "GRAZIELLA EUGENIE",
+      "initialResearchRepresentative": true,
+      "activity": "69.20Z",
+      "location": "IMM FRANGIPANIER NO 17 Z I PETITE COCOTTE CHAMPIG 97224 DUCOS",
+      "websiteUrl": "https://www.graziellaeugenie.com/",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-10T16:05:29.231Z",
+      "updatedAt": "2026-09-13T19:08:41.708Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "ad4d9766-c85d-447a-9e5d-91ca81dbcd5f",
+          "siren": "384716320",
+          "siret": "38471632000054"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "c5e10d79-12f9-448b-8fe7-cf16a7a3969e",
+      "companyName": "DISVEA",
+      "legalName": "DISVEA",
+      "siren": "531272680",
+      "siret": "53127268000012",
+      "city": "LE LAMENTIN",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/53127268000012",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "DISVEA",
+      "initialResearchRepresentative": true,
+      "activity": "47.75Z",
+      "location": "IMM RUBIX ZAC DE MANHITTY RUE DU FOUR A CHAUX 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.disvea.com/",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-10T16:05:28.905Z",
+      "updatedAt": "2026-09-13T19:07:10.775Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "c5e10d79-12f9-448b-8fe7-cf16a7a3969e",
+          "siren": "531272680",
+          "siret": "53127268000012"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "0fef5908-9927-426a-bc3f-80249ab45b68",
+      "companyName": "PASS' TRAVEL",
+      "legalName": "PASS  TRAVEL",
+      "siren": "532972650",
+      "siret": "53297265000016",
+      "city": "LE LAMENTIN",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/53297265000016",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "PASS TRAVEL",
+      "initialResearchRepresentative": true,
+      "activity": "79.11Z",
+      "location": "IMMEUBLE BAOBAB RUE LEON GONTRAND DAMAS 97232 LE LAMENTIN",
+      "websiteUrl": "https://pass-travel.com/",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "createdAt": "2026-09-10T16:05:28.893Z",
+      "updatedAt": "2026-09-13T19:04:29.257Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "0fef5908-9927-426a-bc3f-80249ab45b68",
+          "siren": "532972650",
+          "siret": "53297265000016"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "d2c22cec-1091-4e81-8c50-cc90cb0f7216",
+      "companyName": "GUY HOQUET L'IMMOBILIER",
+      "legalName": "MENHIR IMMOBILIER FRANCHISE",
+      "siren": "518705447",
+      "siret": "51870544700010",
+      "city": "FORT-DE-FRANCE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/51870544700010",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "GUY HOQUET L IMMOBILIER",
+      "initialResearchRepresentative": true,
+      "activity": "68.31Z",
+      "location": "FORT-DE-FRANCE",
+      "websiteUrl": "https://www.menhir-immobilier.fr/",
+      "phone": "06 12 34 56 78",
+      "opportunity": "C",
+      "state": "PROTOTYPE_REQUIRED",
+      "score": 73,
+      "primaryFriction": "Website navigation and conversion blocks",
+      "primaryAsset": "Menhir Immobilier",
+      "primaryCta": "Contact us",
+      "createdAt": "2026-09-10T16:05:28.851Z",
+      "updatedAt": "2026-09-13T19:02:46.827Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "d2c22cec-1091-4e81-8c50-cc90cb0f7216",
+          "siren": "518705447",
+          "siret": "51870544700010"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "eadc8334-b355-45ad-bed5-eb8cf647549b",
+            "prospectId": "d2c22cec-1091-4e81-8c50-cc90cb0f7216",
+            "siren": "518705447",
+            "siret": "51870544700010",
+            "type": "EMAIL",
+            "value": "contact@menhir-immobilier.fr",
+            "sourceUrl": "https://www.menhir-immobilier.fr/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-13T19:02:46.808Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "eadc8334-b355-45ad-bed5-eb8cf647549b",
+          "recipient": "contact@menhir-immobilier.fr",
+          "subject": "Échange au sujet de GUY HOQUET L'IMMOBILIER",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40menhir-immobilier.fr?subject=%C3%89change%20au%20sujet%20de%20GUY%20HOQUET%20L'IMMOBILIER&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "f5eedd9c-2e39-46eb-9663-1d9b3a7f6cad",
+      "companyName": "L'UNIVERS DU PNEU",
+      "legalName": "NORD PNEU CARAIBES",
+      "siren": "521924241",
+      "siret": "52192424100016",
+      "city": "LE MORNE-ROUGE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/52192424100016",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "L UNIVERS DU PNEU",
+      "initialResearchRepresentative": true,
+      "activity": "45.32Z",
+      "location": "HAUT DU BOURG AVENUE JEAN JAURES 97260 LE MORNE-ROUGE",
+      "state": "DISQUALIFIED",
+      "score": 80,
+      "createdAt": "2026-09-10T16:05:28.878Z",
+      "updatedAt": "2026-09-13T16:13:02.355Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "f5eedd9c-2e39-46eb-9663-1d9b3a7f6cad",
+          "siren": "521924241",
+          "siret": "52192424100016"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "fb951634-6f69-46f8-9f46-8db04e780e69",
+      "companyName": "ENVIE D AILLEURS",
+      "legalName": "E D A FEELING",
+      "siren": "513919704",
+      "siret": "51391970400017",
+      "city": "SAINTE-LUCE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/51391970400017",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "ENVIE D AILLEURS",
+      "initialResearchRepresentative": true,
+      "activity": "47.78C",
+      "location": "15 RUE VICTOR HUGO 97228 SAINTE-LUCE",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-10T16:05:28.836Z",
+      "updatedAt": "2026-09-10T16:37:46.328Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "fb951634-6f69-46f8-9f46-8db04e780e69",
+          "siren": "513919704",
+          "siret": "51391970400017"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "9912f815-5406-4792-8218-bb2eeaf02862",
+      "companyName": "MART'AUDIO",
+      "legalName": "MART'AUDIO",
+      "siren": "933814428",
+      "siret": "93381442800019",
+      "city": "LE LAMENTIN",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/93381442800019",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "MART AUDIO",
+      "initialResearchRepresentative": true,
+      "activity": "47.74Z",
+      "location": "LOT 39 CENTRE COMMERCIAL PLACE D'ARMES 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.mart-audio.com",
+      "phone": "06 12 34 56 78",
+      "opportunity": "C",
+      "state": "PROTOTYPE_REQUIRED",
+      "score": 73,
+      "primaryFriction": "Website navigation and conversion blocks",
+      "primaryAsset": "Mart'AUDIO",
+      "primaryCta": "Contact us",
+      "createdAt": "2026-09-10T16:05:28.815Z",
+      "updatedAt": "2026-09-10T16:33:43.932Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "9912f815-5406-4792-8218-bb2eeaf02862",
+          "siren": "933814428",
+          "siret": "93381442800019"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "696fa771-ae81-4158-922e-14bc90d392a2",
+            "prospectId": "9912f815-5406-4792-8218-bb2eeaf02862",
+            "siren": "933814428",
+            "siret": "93381442800019",
+            "type": "EMAIL",
+            "value": "contact@mart-audio.com",
+            "sourceUrl": "https://www.mart-audio.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-10T16:33:43.884Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "696fa771-ae81-4158-922e-14bc90d392a2",
+          "recipient": "contact@mart-audio.com",
+          "subject": "Échange au sujet de MART'AUDIO",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40mart-audio.com?subject=%C3%89change%20au%20sujet%20de%20MART'AUDIO&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "b09ab56f-faa4-4125-8506-f28351a6af67",
+      "companyName": "VESPA ANTILLES",
+      "legalName": "VESPA ANTILLES",
+      "siren": "350793105",
+      "siret": "35079310500015",
+      "city": "FORT-DE-FRANCE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/35079310500015",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "VESPA ANTILLES",
+      "initialResearchRepresentative": true,
+      "activity": "70.10Z",
+      "location": "ZONE DE GROS DE LA JAMBETTE 97200 FORT-DE-FRANCE",
+      "websiteUrl": "https://www.vespa-antilles.com",
+      "phone": "06 12 34 56 78",
+      "opportunity": "C",
+      "state": "PROTOTYPE_REQUIRED",
+      "score": 73,
+      "primaryFriction": "Website navigation and conversion blocks",
+      "primaryAsset": "VESPA ANTILLES",
+      "primaryCta": "Contact us",
+      "createdAt": "2026-09-10T16:05:28.333Z",
+      "updatedAt": "2026-09-10T16:30:08.363Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "b09ab56f-faa4-4125-8506-f28351a6af67",
+          "siren": "350793105",
+          "siret": "35079310500015"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "89ac80fb-4264-4a57-979d-5150e575a0d3",
+            "prospectId": "b09ab56f-faa4-4125-8506-f28351a6af67",
+            "siren": "350793105",
+            "siret": "35079310500015",
+            "type": "EMAIL",
+            "value": "contact@vespa-antilles.com",
+            "sourceUrl": "https://www.vespa-antilles.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-10T16:30:08.350Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "89ac80fb-4264-4a57-979d-5150e575a0d3",
+          "recipient": "contact@vespa-antilles.com",
+          "subject": "Échange au sujet de VESPA ANTILLES",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40vespa-antilles.com?subject=%C3%89change%20au%20sujet%20de%20VESPA%20ANTILLES&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "50c1fb37-77d1-42d3-8417-20f58aab8238",
+      "companyName": "SAVOIE",
+      "legalName": "SAVOIE",
+      "siren": "518842349",
+      "siret": "51884234900012",
+      "city": "LE LAMENTIN",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/51884234900012",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "HIGH_PRIORITY",
+      "brandKey": "SAVOIE",
+      "initialResearchRepresentative": true,
+      "activity": "47.71Z",
+      "location": "ACAJOU - LOCAL TT05 CENTRE CCIAL LA GALLERIA 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.savoie.com",
+      "phone": "02 98 55 00 00",
+      "opportunity": "B",
+      "state": "PROTOTYPE_REQUIRED",
+      "score": 73,
+      "primaryFriction": "Website navigation and conversion blocks",
+      "primaryAsset": "https://www.savoie.com",
+      "primaryCta": "Contact us",
+      "createdAt": "2026-09-10T16:05:28.864Z",
+      "updatedAt": "2026-09-10T16:28:15.168Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "50c1fb37-77d1-42d3-8417-20f58aab8238",
+          "siren": "518842349",
+          "siret": "51884234900012"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "46c1e051-361c-49e6-9fce-444dc99633a4",
+            "prospectId": "50c1fb37-77d1-42d3-8417-20f58aab8238",
+            "siren": "518842349",
+            "siret": "51884234900012",
+            "type": "EMAIL",
+            "value": "contact@saivoie.com",
+            "sourceUrl": "https://www.savoie.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-10T16:28:15.151Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "46c1e051-361c-49e6-9fce-444dc99633a4",
+          "recipient": "contact@saivoie.com",
+          "subject": "Échange au sujet de SAVOIE",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40saivoie.com?subject=%C3%89change%20au%20sujet%20de%20SAVOIE&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "CURRENT",
+        "gateVersion": "COMMERCIAL_ELIGIBILITY_V2.6.0",
+        "reason": "CURRENT_GATE_ELIGIBLE"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "96d973b1-f68b-4a01-959a-1ee8e40d053e",
+      "companyName": "LE COMPTOIR MEDICAL",
+      "legalName": "LE COMPTOIR MEDICAL",
+      "siren": "388571929",
+      "siret": "38857192900040",
+      "city": "FORT-DE-FRANCE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/38857192900040",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "LE COMPTOIR MEDICAL",
+      "initialResearchRepresentative": true,
+      "activity": "47.74Z",
+      "location": "IMM:LE MADRIGAL 142 B BOIS BOYER 97200 FORT-DE-FRANCE",
+      "state": "DISCOVERED",
+      "score": 71,
+      "createdAt": "2026-09-09T15:02:12.428Z",
+      "updatedAt": "2026-09-09T15:02:12.428Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "96d973b1-f68b-4a01-959a-1ee8e40d053e",
+          "siren": "388571929",
+          "siret": "38857192900040"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "acc3f066-717d-42cc-a8a1-2984da954e3a",
+      "companyName": "POINT MAT BRICO",
+      "legalName": "POINT MAT BRICO",
+      "siren": "833787260",
+      "siret": "83378726000011",
+      "city": "LE LAMENTIN",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/83378726000011",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "POINT MAT BRICO",
+      "initialResearchRepresentative": true,
+      "activity": "46.73A",
+      "location": "LOTISSEMENT LES HAUTS DE CALIFORNIE 97232 LE LAMENTIN",
+      "state": "DISCOVERED",
+      "score": 71,
+      "createdAt": "2026-09-09T15:02:12.400Z",
+      "updatedAt": "2026-09-09T15:02:12.400Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "acc3f066-717d-42cc-a8a1-2984da954e3a",
+          "siren": "833787260",
+          "siret": "83378726000011"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "49a20d08-d4db-4998-b236-311e7d737cdd",
+      "companyName": "GIE LIEMAN GESTION",
+      "legalName": "GIE LIEMAN GESTION",
+      "siren": "443310404",
+      "siret": "44331040400019",
+      "city": "FORT-DE-FRANCE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/44331040400019",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "HIGH_PRIORITY",
+      "brandKey": "GIE LIEMAN GESTION",
+      "initialResearchRepresentative": true,
+      "activity": "82.11Z",
+      "location": "CHEZ SORELOC-BOITE 126 LOT ZAC DE RIVIERE ROCHE 97200 FORT-DE-FRANCE",
+      "state": "DISCOVERED",
+      "score": 75,
+      "createdAt": "2026-09-09T15:02:12.185Z",
+      "updatedAt": "2026-09-09T15:02:12.185Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "49a20d08-d4db-4998-b236-311e7d737cdd",
+          "siren": "443310404",
+          "siret": "44331040400019"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "ec045b5e-00be-44a3-a556-cfbc88cf56bb",
+      "companyName": "JEAN-PIERRE EUVRARD",
+      "legalName": "JEAN-PIERRE EUVRARD",
+      "siren": "411134281",
+      "siret": "41113428100012",
+      "city": "FORT DE FRANCE",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/41113428100012",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "JEAN PIERRE EUVRARD",
+      "initialResearchRepresentative": true,
+      "activity": "70.10Z",
+      "location": "CHEZ LAG FABRE DOMERGUE 5 B RTE DE LA POINTE DES SABLES 97200 FORT DE FRANCE",
+      "state": "DISCOVERED",
+      "score": 67,
+      "createdAt": "2026-09-09T15:02:12.172Z",
+      "updatedAt": "2026-09-09T15:02:12.172Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "ec045b5e-00be-44a3-a556-cfbc88cf56bb",
+          "siren": "411134281",
+          "siret": "41113428100012"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "82ed270e-8e1f-4cff-95dc-ff0c8d1028ad",
+      "companyName": "JACQUES ALLALI",
+      "legalName": "JACQUES ALLALI",
+      "siren": "315687061",
+      "siret": "31568706100020",
+      "city": "SCHOELCHER",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/31568706100020",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "JACQUES ALLALI",
+      "initialResearchRepresentative": true,
+      "activity": "46.18Z",
+      "location": "4 RES LES SOMMETS DE TERREVILLE 97233 SCHOELCHER",
+      "state": "DISCOVERED",
+      "score": 72,
+      "createdAt": "2026-09-09T15:02:12.163Z",
+      "updatedAt": "2026-09-09T15:02:12.163Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "82ed270e-8e1f-4cff-95dc-ff0c8d1028ad",
+          "siren": "315687061",
+          "siret": "31568706100020"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "2d57e173-159e-4ae3-a77e-bdec4eaa246e",
+      "companyName": "SARL SOREIDOM",
+      "legalName": "SARL SOREIDOM",
+      "siren": "352519540",
+      "siret": "35251954000020",
+      "city": "LE ROBERT",
+      "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/35251954000020",
+      "activityTaxonomy": "NAF_2008",
+      "commercialEligibility": "RESEARCH",
+      "brandKey": "SARL SOREIDOM",
+      "initialResearchRepresentative": true,
+      "activity": "46.90Z",
+      "location": "92 RUE DE L'INDUSTRIE 97231 LE ROBERT",
+      "state": "DISCOVERED",
+      "score": 72,
+      "createdAt": "2026-09-09T15:02:12.156Z",
+      "updatedAt": "2026-09-09T15:02:12.156Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "2d57e173-159e-4ae3-a77e-bdec4eaa246e",
+          "siren": "352519540",
+          "siret": "35251954000020"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "e098c79b-09a2-40e0-b48c-77e05dee1cbe",
+      "companyName": "SUNeLEK - WhatsApp E2E",
+      "legalName": "SUNeLEK",
+      "activity": "Electricite et climatisation",
+      "location": "Fort-de-France, Martinique",
+      "phone": "05 96 71 10 10",
+      "state": "QUALIFIED",
+      "score": 75,
+      "primaryFriction": "Presence digitale perfectible",
+      "primaryAsset": "Entreprise locale active depuis 2017",
+      "primaryCta": "Contacter SUNeLEK",
+      "createdAt": "2026-09-07T18:17:09.4201520Z",
+      "updatedAt": "2026-09-07T18:17:28.046Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "e098c79b-09a2-40e0-b48c-77e05dee1cbe"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "INTERNAL",
+        "gateVersion": null,
+        "reason": "KNOWN_PROJECT_IDENTITY"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "c7ebc520-44a6-411b-906a-690fbd4df2a3",
+      "companyName": "Sun Loisirs Martinique",
+      "activity": "Water sports, dolphin watching, catamaran day trips",
+      "location": "Marina Pointe du Bout, Les Trois-Îlets, Martinique",
+      "websiteUrl": "https://sunloisirs.com/",
+      "state": "DISQUALIFIED",
+      "createdAt": "2026-09-01T06:32:05.055Z",
+      "updatedAt": "2026-09-07 17:58:02",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "c7ebc520-44a6-411b-906a-690fbd4df2a3"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "4cc2b65b-02e3-42bf-8bc7-a5787c351a4f",
+      "companyName": "UCPA SPORT VACANCES (UCPA)",
+      "activity": "93.19Z",
+      "location": "CENTRE UCPA FOND CORRE 97250 SAINT-PIERRE",
+      "websiteUrl": "https://www.ucpa-sport-vacances.com",
+      "opportunity": "C",
+      "state": "HUMAN_ACTION_REQUIRED",
+      "score": 73,
+      "primaryFriction": "Limited website navigation and conversion blocks",
+      "primaryAsset": "Business and commercial assets",
+      "primaryCta": "Contact us",
+      "createdAt": "2026-09-01T21:51:37.184Z",
+      "updatedAt": "2026-09-06T20:49:28.621Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "4cc2b65b-02e3-42bf-8bc7-a5787c351a4f"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "79165188-6138-4e98-8401-f893e3958477",
+            "prospectId": "4cc2b65b-02e3-42bf-8bc7-a5787c351a4f",
+            "type": "EMAIL",
+            "value": "contact@ucpa-sport-vacances.com",
+            "sourceUrl": "https://www.ucpa-sport-vacances.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-01T22:49:38.103Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "79165188-6138-4e98-8401-f893e3958477",
+          "recipient": "contact@ucpa-sport-vacances.com",
+          "subject": "Échange au sujet de UCPA SPORT VACANCES (UCPA)",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40ucpa-sport-vacances.com?subject=%C3%89change%20au%20sujet%20de%20UCPA%20SPORT%20VACANCES%20(UCPA)&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "2609319c-5578-4a37-99bb-1b0923a2f81f",
+      "companyName": "SNEMM",
+      "activity": "Association nationale d entraide et de memoire",
+      "location": "France",
+      "websiteUrl": "https://www.snemm.fr",
+      "opportunity": "A",
+      "state": "PROTOTYPE_READY",
+      "score": 90,
+      "primaryFriction": "Rendre plus lisibles les missions, les parcours et les actions pour les visiteurs",
+      "primaryAsset": "Mission dentraide, de memoire et daccompagnement des membres de la SNEMM",
+      "primaryCta": "Decouvrir les actions de la SNEMM",
+      "createdAt": "2026-09-01T11:14:06.6536726Z",
+      "updatedAt": "2026-09-04T16:20:10.585Z",
+      "hubId": "ASSOCIATIONS_MEMOIRE_MILITAIRE",
+      "businessUnit": "BU Associations mémoire militaire",
+      "masterOfWork": "MO Associations mémoire militaire",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "2609319c-5578-4a37-99bb-1b0923a2f81f"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "76528472-c476-4e0b-9f1c-914f97ae9949",
+            "prospectId": "2609319c-5578-4a37-99bb-1b0923a2f81f",
+            "type": "EMAIL",
+            "value": "synthetic-snemm@magicscript.test",
+            "sourceUrl": "https://www.snemm.fr",
+            "sourceType": "synthetic-test",
+            "observedAt": "2026-09-01T11:14:06.6536726Z",
+            "confidence": 100,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "76528472-c476-4e0b-9f1c-914f97ae9949",
+          "recipient": "synthetic-snemm@magicscript.test",
+          "subject": "Échange au sujet de SNEMM",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:synthetic-snemm%40magicscript.test?subject=%C3%89change%20au%20sujet%20de%20SNEMM&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "INTERNAL",
+        "gateVersion": null,
+        "reason": "SYNTHETIC_METADATA"
+      },
+      "prototypeCostGate": {
+        "id": "33d52949-211f-412e-bcfa-e9ed4b6bd0a8",
+        "prospectId": "2609319c-5578-4a37-99bb-1b0923a2f81f",
+        "decision": "LIGHT",
+        "authorization": "LIGHT",
+        "policyScore": 50,
+        "computeClass": "LOW",
+        "estimatedExternalCost": {
+          "kind": "UNKNOWN",
+          "reason": "No internal priced external provider evidence available"
+        },
+        "reasonCodes": [
+          "QUALIFIED_PROTOTYPE_NEED",
+          "OPPORTUNITY_A",
+          "PROSPECT_SCORE_SIGNAL",
+          "COMMERCIAL_CONTEXT_AVAILABLE",
+          "COMPUTE_FROM_RESEARCH_SCOPE",
+          "RESEARCH_SCOPE_BLOCKS_2"
+        ],
+        "evaluatedAt": "2026-09-04T15:07:10.970Z",
+        "reevaluateAt": null
+      }
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000001",
+      "companyName": "Magic Script Full Smoke Fixture",
+      "activity": "Synthetic internal E2E fixture",
+      "location": "Local only",
+      "websiteUrl": "https://example.com",
+      "opportunity": "A",
+      "state": "WAITING_REPLY",
+      "score": 100,
+      "primaryFriction": "Internal test only",
+      "primaryAsset": "Internal safe dry-run path",
+      "primaryCta": "No external action",
+      "createdAt": "2026-09-02T05:30:57.4082906Z",
+      "updatedAt": "2026-09-02T05:31:26.415Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "00000000-0000-4000-8000-000000000001"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "00000000-0000-4000-8000-000000000002",
+            "prospectId": "00000000-0000-4000-8000-000000000001",
+            "type": "EMAIL",
+            "value": "full-smoke@invalid.example",
+            "sourceUrl": "https://example.com",
+            "sourceType": "other_public_source",
+            "observedAt": "2026-09-02T05:30:57.4082906Z",
+            "confidence": 100,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "00000000-0000-4000-8000-000000000002",
+          "recipient": "full-smoke@invalid.example",
+          "subject": "Échange au sujet de Magic Script Full Smoke Fixture",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:full-smoke%40invalid.example?subject=%C3%89change%20au%20sujet%20de%20Magic%20Script%20Full%20Smoke%20Fixture&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "INTERNAL",
+        "gateVersion": null,
+        "reason": "DETERMINISTIC_FIXTURE_ID"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "4b76cb39-46bb-4583-ae06-2da7f055418a",
+      "companyName": "STELLIANT EXPERTISE & RISQUES CONSTRUCTION",
+      "activity": "71.12B",
+      "location": "LA PLAINE PETIT MANOIR 3 RUE MARIE DUPIL 97232 LE LAMENTIN",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-02T05:08:50.337Z",
+      "updatedAt": "2026-09-02T05:25:58.456Z",
+      "hubId": "BTP",
+      "businessUnit": "BU BTP",
+      "masterOfWork": "MO BTP",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "4b76cb39-46bb-4583-ae06-2da7f055418a"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "99333708-2b8c-4b22-8ef4-e8e58e2a5566",
+      "companyName": "SEGULA TECHNOLOGIES FRANCE",
+      "activity": "71.12B",
+      "location": "CHEZ BURO CLUB MQUE LOT DILLON STADE 11 RUE DES ARTS ET METIERS 97200 FORT-DE-FRANCE",
+      "websiteUrl": "https://www.segula-technologies.fr",
+      "opportunity": "C",
+      "state": "PROTOTYPE_READY",
+      "score": 69,
+      "primaryFriction": "Website navigation and conversion blocks are not clearly defined.",
+      "primaryAsset": "SEGULA TECHNOLOGIES FRANCE",
+      "primaryCta": "Contact us",
+      "createdAt": "2026-09-02T05:08:50.312Z",
+      "updatedAt": "2026-09-02T05:23:07.923Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "99333708-2b8c-4b22-8ef4-e8e58e2a5566"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "ef3cc80a-c5d9-47b3-a6f5-400c72e6f881",
+            "prospectId": "99333708-2b8c-4b22-8ef4-e8e58e2a5566",
+            "type": "EMAIL",
+            "value": "contact@segula-technologies.fr",
+            "sourceUrl": "https://www.segula-technologies.fr/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T05:18:51.085Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "ef3cc80a-c5d9-47b3-a6f5-400c72e6f881",
+          "recipient": "contact@segula-technologies.fr",
+          "subject": "Échange au sujet de SEGULA TECHNOLOGIES FRANCE",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40segula-technologies.fr?subject=%C3%89change%20au%20sujet%20de%20SEGULA%20TECHNOLOGIES%20FRANCE&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "c66cd2c2-9d8c-4d04-b83c-15f38a14058f",
+      "companyName": "AGPM-GESTION",
+      "activity": "82.11Z",
+      "location": "IMM. AGORA BAT C ZAC ETANG Z ABRICOT 97200 FORT DE FRANCE",
+      "websiteUrl": "https://www.agpm-gestion.com",
+      "opportunity": "C",
+      "state": "PROTOTYPE_READY",
+      "score": 70,
+      "primaryFriction": "Website navigation and conversion blocks are not clearly defined.",
+      "primaryAsset": "AGPM-GESTION",
+      "primaryCta": "Contact us",
+      "createdAt": "2026-09-02T05:02:46.581Z",
+      "updatedAt": "2026-09-02T05:17:29.736Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "c66cd2c2-9d8c-4d04-b83c-15f38a14058f"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "d6c6215a-c49d-4b57-b1ad-8f08343c816b",
+            "prospectId": "c66cd2c2-9d8c-4d04-b83c-15f38a14058f",
+            "type": "EMAIL",
+            "value": "contact@agpm-gestion.com",
+            "sourceUrl": "https://www.agpm-gestion.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T05:13:25.766Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "d6c6215a-c49d-4b57-b1ad-8f08343c816b",
+          "recipient": "contact@agpm-gestion.com",
+          "subject": "Échange au sujet de AGPM-GESTION",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40agpm-gestion.com?subject=%C3%89change%20au%20sujet%20de%20AGPM-GESTION&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "6ab95ee2-8fa3-48fb-a354-2137817634fc",
+      "companyName": "SA BATA OUTRE MER (BOM)",
+      "activity": "47.72A",
+      "location": "31 RUE ANTOINE SIGER 97200 FORT-DE-FRANCE",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-02T05:02:46.564Z",
+      "updatedAt": "2026-09-02T05:12:15.079Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "6ab95ee2-8fa3-48fb-a354-2137817634fc"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "179b2145-1454-4919-b518-428f0dcf4760",
+      "companyName": "CONSTRUCTEL CONSTRUCTIONS TELECOMMUNICA.",
+      "activity": "43.21A",
+      "location": "290 IMPASSE MADOU PETITE RIVIERE 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.constructel-constructions.com",
+      "opportunity": "C",
+      "state": "PROTOTYPE_READY",
+      "score": 76,
+      "primaryFriction": "Website navigation is cluttered with too many options, making it difficult to find the main content.",
+      "primaryAsset": "CONSTRUCTEL CONSTRUCTIONS TELECOMMUNICA.",
+      "primaryCta": "Contact Us",
+      "createdAt": "2026-09-02T05:02:46.542Z",
+      "updatedAt": "2026-09-02T05:09:30.730Z",
+      "hubId": "BTP",
+      "businessUnit": "BU BTP",
+      "masterOfWork": "MO BTP",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "179b2145-1454-4919-b518-428f0dcf4760"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "67066a3b-112f-4f10-9b8f-ab61a73c866f",
+            "prospectId": "179b2145-1454-4919-b518-428f0dcf4760",
+            "type": "EMAIL",
+            "value": "contact@constructel-constructions.com",
+            "sourceUrl": "https://www.constructel-constructions.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T05:04:02.762Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "67066a3b-112f-4f10-9b8f-ab61a73c866f",
+          "recipient": "contact@constructel-constructions.com",
+          "subject": "Échange au sujet de CONSTRUCTEL CONSTRUCTIONS TELECOMMUNICA.",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40constructel-constructions.com?subject=%C3%89change%20au%20sujet%20de%20CONSTRUCTEL%20CONSTRUCTIONS%20TELECOMMUNICA.&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "56a57399-1917-4455-a1ea-4d53e81bacf0",
+      "companyName": "FRATERNITE SACERDOTALE SAINT-PIE X",
+      "activity": "94.91Z",
+      "location": "40 RUE MARTIN LUTHER KING 97200 FORT-DE-FRANCE",
+      "websiteUrl": "https://www.fraternite-sacerdotale.fr/",
+      "opportunity": "C",
+      "state": "PROTOTYPE_READY",
+      "score": 76,
+      "primaryFriction": "Website Navigation Complexity",
+      "primaryAsset": "FRATERNITE SACERDOTALE SAINT-PIE X",
+      "primaryCta": "Contact Us",
+      "createdAt": "2026-09-01T21:51:47.808Z",
+      "updatedAt": "2026-09-02T03:42:41.259Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "56a57399-1917-4455-a1ea-4d53e81bacf0"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "618f00a7-0155-410c-bee1-dfbdb0bd46a2",
+            "prospectId": "56a57399-1917-4455-a1ea-4d53e81bacf0",
+            "type": "EMAIL",
+            "value": "contact@fraternite-sacerdotale.fr",
+            "sourceUrl": "https://www.fraternite-sacerdotale.fr/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T03:37:32.755Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "618f00a7-0155-410c-bee1-dfbdb0bd46a2",
+          "recipient": "contact@fraternite-sacerdotale.fr",
+          "subject": "Échange au sujet de FRATERNITE SACERDOTALE SAINT-PIE X",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40fraternite-sacerdotale.fr?subject=%C3%89change%20au%20sujet%20de%20FRATERNITE%20SACERDOTALE%20SAINT-PIE%20X&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "01a0f0d1-2f45-46e6-bb9a-d4e38973174b",
+      "companyName": "QUALICONSULT EXPLOITATION",
+      "activity": "71.20B",
+      "location": "17 ALLEE DES COLOMBES 20 LOTISSEMENT 97224 DUCOS",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T22:01:02.173Z",
+      "updatedAt": "2026-09-02T03:35:54.936Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "01a0f0d1-2f45-46e6-bb9a-d4e38973174b"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "776667fb-d60f-47ed-8d69-4e190b03ac4d",
+      "companyName": "SOL ANTILLES GUYANE (S A G)",
+      "activity": "68.20B",
+      "location": "ESSO TRINITE LD DESMARINIERES 97220 TRINITE",
+      "websiteUrl": "https://www.solantillesguyane.com",
+      "opportunity": "C",
+      "state": "PROTOTYPE_READY",
+      "score": 71,
+      "primaryFriction": "Website Navigation",
+      "primaryAsset": "Commercial Assets",
+      "primaryCta": "Contact Us",
+      "createdAt": "2026-09-01T21:51:47.772Z",
+      "updatedAt": "2026-09-02T03:28:02.164Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "776667fb-d60f-47ed-8d69-4e190b03ac4d"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "8c7cc6d7-4873-43ca-b115-b6f34404ac57",
+            "prospectId": "776667fb-d60f-47ed-8d69-4e190b03ac4d",
+            "type": "EMAIL",
+            "value": "contact@solantillesguyane.com",
+            "sourceUrl": "https://www.solantillesguyane.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T03:20:13.281Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "8c7cc6d7-4873-43ca-b115-b6f34404ac57",
+          "recipient": "contact@solantillesguyane.com",
+          "subject": "Échange au sujet de SOL ANTILLES GUYANE (S A G)",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40solantillesguyane.com?subject=%C3%89change%20au%20sujet%20de%20SOL%20ANTILLES%20GUYANE%20(S%20A%20G)&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "6c5ec70e-5a81-46b8-b1d9-2445d302d5dc",
+      "companyName": "SGS FRANCE (SERCOVAM; VERNOLAB;COURTRAY)",
+      "activity": "71.20B",
+      "location": "16 RUE GEORGES EUCHARIS 97200 FORT-DE-FRANCE",
+      "websiteUrl": "https://www.sgsfrance.com",
+      "opportunity": "C",
+      "state": "PROTOTYPE_READY",
+      "score": 71,
+      "primaryFriction": "Limited website navigation and conversion blocks",
+      "primaryAsset": "Research and Development",
+      "primaryCta": "Contact Us",
+      "createdAt": "2026-09-01T21:51:46.853Z",
+      "updatedAt": "2026-09-02T03:12:47.379Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "6c5ec70e-5a81-46b8-b1d9-2445d302d5dc"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "3b4894e0-b11f-492e-a421-6c843241aca7",
+            "prospectId": "6c5ec70e-5a81-46b8-b1d9-2445d302d5dc",
+            "type": "EMAIL",
+            "value": "contact@sgsfrance.com",
+            "sourceUrl": "https://www.sgsfrance.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T03:08:08.880Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "3b4894e0-b11f-492e-a421-6c843241aca7",
+          "recipient": "contact@sgsfrance.com",
+          "subject": "Échange au sujet de SGS FRANCE (SERCOVAM; VERNOLAB;COURTRAY)",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40sgsfrance.com?subject=%C3%89change%20au%20sujet%20de%20SGS%20FRANCE%20(SERCOVAM%3B%20VERNOLAB%3BCOURTRAY)&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "d2053b57-68a5-45d8-8fbb-e549096be39c",
+      "companyName": "SOMAREC",
+      "activity": "68.20B",
+      "location": "ACAJOU 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.somarec.com",
+      "opportunity": "C",
+      "state": "PROTOTYPE_READY",
+      "score": 77,
+      "primaryFriction": "Limited Website Navigation and Conversion Blocks",
+      "primaryAsset": "Digital Presence and Brand",
+      "primaryCta": "Contact Us Button",
+      "createdAt": "2026-09-01T21:51:45.913Z",
+      "updatedAt": "2026-09-02T03:07:07.002Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "d2053b57-68a5-45d8-8fbb-e549096be39c"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "2f58d077-dc46-4307-ba3d-498929b6344d",
+            "prospectId": "d2053b57-68a5-45d8-8fbb-e549096be39c",
+            "type": "EMAIL",
+            "value": "contact@somarec.com",
+            "sourceUrl": "https://www.somarec.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T02:46:38.427Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "2f58d077-dc46-4307-ba3d-498929b6344d",
+          "recipient": "contact@somarec.com",
+          "subject": "Échange au sujet de SOMAREC",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40somarec.com?subject=%C3%89change%20au%20sujet%20de%20SOMAREC&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "a38681c7-e7e6-470c-a90e-220088fe625e",
+      "companyName": "INEO INFRACOM",
+      "activity": "42.22Z",
+      "location": "16 RUE RAYMOND BERGER 97224 DUCOS",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:46.811Z",
+      "updatedAt": "2026-09-02T02:53:14.213Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "a38681c7-e7e6-470c-a90e-220088fe625e"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "6d624316-cc4f-40bc-aa66-dabcd83d8b31",
+      "companyName": "TOTALENERGIES MARKETING ANTILLES GUYANE",
+      "activity": "68.20B",
+      "location": "QUARTIER DU BAC 97224 DUCOS",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:45.871Z",
+      "updatedAt": "2026-09-02T02:45:33.417Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "6d624316-cc4f-40bc-aa66-dabcd83d8b31"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "96a77be3-680c-46fc-9882-8568b84219c1",
+      "companyName": "TOTALENERGIES RENOUVELABLES FRANCE",
+      "activity": "71.12B",
+      "location": "ZONE DE GROS LA JAMBETTE 97232 LE LAMENTIN",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:44.959Z",
+      "updatedAt": "2026-09-02T02:42:49.511Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "96a77be3-680c-46fc-9882-8568b84219c1"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "e1182a15-88f4-4ce1-8071-19cf0b078fd2",
+      "companyName": "STATION VITO",
+      "activity": "68.20B",
+      "location": "STATION VITO 32 RUE DU DOCTEUR MORESTIN 97218 BASSE-POINTE",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:44.926Z",
+      "updatedAt": "2026-09-02T02:40:06.194Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "e1182a15-88f4-4ce1-8071-19cf0b078fd2"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "57ea6ecb-6170-4aef-b135-c17652b03bf3",
+      "companyName": "TOTAL DILLON",
+      "activity": "47.30Z",
+      "location": "AVENUE SALVADOR ALLENDE 97200 FORT-DE-FRANCE",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:44.013Z",
+      "updatedAt": "2026-09-02T02:37:22.493Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "57ea6ecb-6170-4aef-b135-c17652b03bf3"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "0ccd1a72-187c-4053-845f-3bc54121069d",
+      "companyName": "QUALICONSULT SECURITE",
+      "activity": "74.90B",
+      "location": "20 LOTISSEMENT LA SERENITE 17 ALLEE DES COLOMBES 97224 DUCOS",
+      "websiteUrl": "https://www.qualiconsult.com",
+      "opportunity": "C",
+      "state": "PROTOTYPE_READY",
+      "score": 77,
+      "primaryFriction": "Website Navigation Complexity",
+      "primaryAsset": "QUALICONSULT SECURITE",
+      "primaryCta": "Contact Us",
+      "createdAt": "2026-09-01T21:51:43.977Z",
+      "updatedAt": "2026-09-02T02:34:33.950Z",
+      "hubId": "SECURITE",
+      "businessUnit": "BU Sécurité",
+      "masterOfWork": "MO Sécurité",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "0ccd1a72-187c-4053-845f-3bc54121069d"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "2e65ad51-38e7-4042-9a79-af3fab3afe9f",
+            "prospectId": "0ccd1a72-187c-4053-845f-3bc54121069d",
+            "type": "EMAIL",
+            "value": "contact@qualiconsult.com",
+            "sourceUrl": "https://www.qualiconsult.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T02:29:44.574Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "2e65ad51-38e7-4042-9a79-af3fab3afe9f",
+          "recipient": "contact@qualiconsult.com",
+          "subject": "Échange au sujet de QUALICONSULT SECURITE",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40qualiconsult.com?subject=%C3%89change%20au%20sujet%20de%20QUALICONSULT%20SECURITE&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "7101af89-be8f-45ed-b17b-794cbff65755",
+      "companyName": "SACEM",
+      "activity": "90.02Z",
+      "location": "113 RUE ERNEST DEPROGE 97200 FORT-DE-FRANCE",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:43.942Z",
+      "updatedAt": "2026-09-02T02:28:40.747Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "7101af89-be8f-45ed-b17b-794cbff65755"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "21420fbb-72bd-4a37-b34a-19f2ed77f4e0",
+      "companyName": "AG2R REUNICA-LA MARTINIQUE-LE LAMEN",
+      "activity": "82.99Z",
+      "location": "VIEUX CHEMIN DE CALIFORNIE ACAJOU 97232 LE LAMENTIN",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:43.075Z",
+      "updatedAt": "2026-09-02T02:25:55.805Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "21420fbb-72bd-4a37-b34a-19f2ed77f4e0"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "275bb1e3-b999-4eba-83de-45d85c32b931",
+      "companyName": "SMAC",
+      "activity": "82.11Z",
+      "location": "ZI LA LEZARDE 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.smac.com",
+      "opportunity": "C",
+      "state": "PROTOTYPE_READY",
+      "score": 77,
+      "primaryFriction": "Website navigation is cluttered with too many options, making it difficult to find the main content.",
+      "primaryAsset": "SMAC",
+      "primaryCta": "Contact Us",
+      "createdAt": "2026-09-01T21:51:43.039Z",
+      "updatedAt": "2026-09-02T02:23:07.844Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "275bb1e3-b999-4eba-83de-45d85c32b931"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "25e2bd31-64d5-49f7-8a58-615bc093bd50",
+            "prospectId": "275bb1e3-b999-4eba-83de-45d85c32b931",
+            "type": "EMAIL",
+            "value": "info@smac.com",
+            "sourceUrl": "https://www.smac.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T02:14:20.729Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "25e2bd31-64d5-49f7-8a58-615bc093bd50",
+          "recipient": "info@smac.com",
+          "subject": "Échange au sujet de SMAC",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:info%40smac.com?subject=%C3%89change%20au%20sujet%20de%20SMAC&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "649ae177-36d8-4804-a082-4069b95a0e86",
+      "companyName": "EURO INFORMATION SERVICES",
+      "activity": "95.11Z",
+      "location": "2 RUE DU PROFESSEUR RAYMOND GARCIN 97200 FORT-DE-FRANCE",
+      "websiteUrl": "https://www.euroinfoservices.fr",
+      "opportunity": "C",
+      "state": "PROTOTYPE_READY",
+      "score": 69,
+      "primaryFriction": "Limited website navigation and conversion blocks",
+      "primaryAsset": "Researching",
+      "primaryCta": "Contact us",
+      "createdAt": "2026-09-01T21:51:43.001Z",
+      "updatedAt": "2026-09-02T02:06:54.295Z",
+      "hubId": "SERVICES_PROFESSIONNELS",
+      "businessUnit": "BU Services professionnels",
+      "masterOfWork": "MO Services professionnels",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "649ae177-36d8-4804-a082-4069b95a0e86"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "b90575d7-1e6a-4fa8-8800-56c02f47925e",
+            "prospectId": "649ae177-36d8-4804-a082-4069b95a0e86",
+            "type": "EMAIL",
+            "value": "contact@euroinfoservices.fr",
+            "sourceUrl": "https://www.euroinfoservices.fr/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T01:57:46.869Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "b90575d7-1e6a-4fa8-8800-56c02f47925e",
+          "recipient": "contact@euroinfoservices.fr",
+          "subject": "Échange au sujet de EURO INFORMATION SERVICES",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40euroinfoservices.fr?subject=%C3%89change%20au%20sujet%20de%20EURO%20INFORMATION%20SERVICES&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "23151e23-579f-424d-a629-0430c5676722",
+      "companyName": "QUALICONSULT",
+      "activity": "71.20B",
+      "location": "N 1 ZONE DE MANHITY IMMABLE GREMAU FOUR A CHAUX 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.qualiconsult.com",
+      "opportunity": "C",
+      "state": "HUMAN_ACTION_REQUIRED",
+      "score": 76,
+      "primaryFriction": "Website navigation is cluttered with too many links, making it difficult to find the main content.",
+      "primaryAsset": "QUALICONSULT",
+      "primaryCta": "Contact Us",
+      "createdAt": "2026-09-01T21:51:42.093Z",
+      "updatedAt": "2026-09-02T02:02:02.429Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "23151e23-579f-424d-a629-0430c5676722"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "57c5e17f-ffa8-4b02-ba42-9aba03df7801",
+            "prospectId": "23151e23-579f-424d-a629-0430c5676722",
+            "type": "EMAIL",
+            "value": "info@qualiconsult.com",
+            "sourceUrl": "https://www.qualiconsult.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T01:35:31.181Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "57c5e17f-ffa8-4b02-ba42-9aba03df7801",
+          "recipient": "info@qualiconsult.com",
+          "subject": "Échange au sujet de QUALICONSULT",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:info%40qualiconsult.com?subject=%C3%89change%20au%20sujet%20de%20QUALICONSULT&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "56cb7cd1-a762-45a8-ab21-af1165890d80",
+      "companyName": "ASSOCIATION POUR L'EMPLOI DES CADRES (APEC)",
+      "activity": "78.10Z",
+      "location": "CTRE AFFAIRES BEBOOSTER IMM EQUINOX 12 RUE DES ARTS ET METIERS 97200 FORT-DE-FRANCE",
+      "websiteUrl": "https://www.apec.fr/",
+      "opportunity": "C",
+      "state": "PROTOTYPE_READY",
+      "score": 71,
+      "primaryFriction": "Limited Mobile Responsiveness",
+      "primaryAsset": "Official Website",
+      "primaryCta": "Apply Now",
+      "createdAt": "2026-09-01T21:51:42.057Z",
+      "updatedAt": "2026-09-02T01:28:49.023Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "56cb7cd1-a762-45a8-ab21-af1165890d80"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "c302818b-bac9-464b-95ec-1ac7f0bd9301",
+            "prospectId": "56cb7cd1-a762-45a8-ab21-af1165890d80",
+            "type": "EMAIL",
+            "value": "contact@apec.fr",
+            "sourceUrl": "https://www.apec.fr/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T01:24:10.378Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "c302818b-bac9-464b-95ec-1ac7f0bd9301",
+          "recipient": "contact@apec.fr",
+          "subject": "Échange au sujet de ASSOCIATION POUR L'EMPLOI DES CADRES (APEC)",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40apec.fr?subject=%C3%89change%20au%20sujet%20de%20ASSOCIATION%20POUR%20L'EMPLOI%20DES%20CADRES%20(APEC)&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "c965f79e-5aaa-4624-b73f-01e361c0be4e",
+      "companyName": "ARTUS MANAGEMENT",
+      "activity": "82.11Z",
+      "location": "CENTRE D'AFFAIRES BETERBAT - RUE DU ST PLACE D'ARMES 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.artusmanagement.com",
+      "opportunity": "C",
+      "state": "HUMAN_ACTION_REQUIRED",
+      "score": 69,
+      "primaryFriction": "Website navigation is cluttered and lacks clear call-to-action buttons.",
+      "primaryAsset": "ARTUS MANAGEMENT",
+      "primaryCta": "Contact Us",
+      "createdAt": "2026-09-01T21:51:42.021Z",
+      "updatedAt": "2026-09-02T01:23:57.858Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "c965f79e-5aaa-4624-b73f-01e361c0be4e"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "3961be21-e84a-4cf3-b42c-acc248f0ce84",
+            "prospectId": "c965f79e-5aaa-4624-b73f-01e361c0be4e",
+            "type": "EMAIL",
+            "value": "contact@artusmanagement.com",
+            "sourceUrl": "https://www.artusmanagement.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T00:48:04.786Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "3961be21-e84a-4cf3-b42c-acc248f0ce84",
+          "recipient": "contact@artusmanagement.com",
+          "subject": "Échange au sujet de ARTUS MANAGEMENT",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40artusmanagement.com?subject=%C3%89change%20au%20sujet%20de%20ARTUS%20MANAGEMENT&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "6124bf69-ae35-419f-85e0-e491e0d52cf1",
+      "companyName": "ARTUS SERVICES",
+      "activity": "82.11Z",
+      "location": "CTRE D'AFFAIRES BETERBAT - RUE DU STAD PLACE D'ARMES 97232 LE LAMENTIN",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:41.126Z",
+      "updatedAt": "2026-09-02T00:46:48.605Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "6124bf69-ae35-419f-85e0-e491e0d52cf1"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "f401d5ae-49d0-46b0-97c4-8846d05cb25d",
+      "companyName": "SOC FIDUCIAIRE NAT JURIDIQUE FISCALE (FIDUCIAL SOFIRAL AVOCATS)",
+      "activity": "69.10Z",
+      "location": "CENTRE DILLON VALMENIERE - BAT A RTE DE LA POINTE DES SABLES 97200 FORT DE FRANCE",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:41.086Z",
+      "updatedAt": "2026-09-02T00:44:02.565Z",
+      "hubId": "SERVICES_PROFESSIONNELS",
+      "businessUnit": "BU Services professionnels",
+      "masterOfWork": "MO Services professionnels",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "f401d5ae-49d0-46b0-97c4-8846d05cb25d"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "88827016-931f-4777-9e5e-1a2b8714c6d7",
+      "companyName": "DEKRA INDUSTRIAL",
+      "activity": "71.20B",
+      "location": "HABITATION CARRERE HABITATION CARRERE 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.dekra-industrial.fr/fr/batiments-et-des-infrastructures/",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:40.022Z",
+      "updatedAt": "2026-09-02T00:39:32.159Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "88827016-931f-4777-9e5e-1a2b8714c6d7"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "81f1e3ff-b2e5-4379-b27b-e923ac3a99bf",
+      "companyName": "BUREAU VERITAS CONSTRUCTION",
+      "activity": "71.20B",
+      "location": "IMMEUBLE EQUINOX BAT B 12 RUE DES ARTS ET METIERS 97200 FORT-DE-FRANCE",
+      "websiteUrl": "https://www.bureauveritasconstruction.com",
+      "opportunity": "C",
+      "state": "PROTOTYPE_READY",
+      "score": 77,
+      "primaryFriction": "Website navigation and conversion blocks",
+      "primaryAsset": "Construction services",
+      "primaryCta": "Contact us",
+      "createdAt": "2026-09-01T21:51:39.977Z",
+      "updatedAt": "2026-09-02T00:34:36.536Z",
+      "hubId": "BTP",
+      "businessUnit": "BU BTP",
+      "masterOfWork": "MO BTP",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "81f1e3ff-b2e5-4379-b27b-e923ac3a99bf"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "018542af-a2ee-4a35-9f5f-e439d821977f",
+            "prospectId": "81f1e3ff-b2e5-4379-b27b-e923ac3a99bf",
+            "type": "EMAIL",
+            "value": "contact@bureauveritasconstruction.com",
+            "sourceUrl": "https://www.bureauveritasconstruction.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-02T00:15:40.675Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "018542af-a2ee-4a35-9f5f-e439d821977f",
+          "recipient": "contact@bureauveritasconstruction.com",
+          "subject": "Échange au sujet de BUREAU VERITAS CONSTRUCTION",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40bureauveritasconstruction.com?subject=%C3%89change%20au%20sujet%20de%20BUREAU%20VERITAS%20CONSTRUCTION&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "bb428966-e820-4e76-89f2-457b879aceb4",
+      "companyName": "BUREAU VERITAS EXPLOITATION",
+      "activity": "71.20B",
+      "location": "IMMEUBLE EQUINOX RUE DES ARTS ET METIERS 97200 FORT-DE-FRANCE",
+      "websiteUrl": "https://www.bureauveritas.com",
+      "opportunity": "C",
+      "state": "PROTOTYPE_READY",
+      "score": 71,
+      "primaryFriction": "Limited Website Navigation",
+      "primaryAsset": "Research and Exploitation",
+      "primaryCta": "Contact Us",
+      "createdAt": "2026-09-01T21:51:39.931Z",
+      "updatedAt": "2026-09-02T00:07:52.900Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "bb428966-e820-4e76-89f2-457b879aceb4"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "5117620c-550c-400a-b37a-490fcbf623b3",
+            "prospectId": "bb428966-e820-4e76-89f2-457b879aceb4",
+            "type": "EMAIL",
+            "value": "contact@bureauveritas.com",
+            "sourceUrl": "https://www.bureauveritas.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-01T23:54:52.392Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "5117620c-550c-400a-b37a-490fcbf623b3",
+          "recipient": "contact@bureauveritas.com",
+          "subject": "Échange au sujet de BUREAU VERITAS EXPLOITATION",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40bureauveritas.com?subject=%C3%89change%20au%20sujet%20de%20BUREAU%20VERITAS%20EXPLOITATION&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "019e118b-54cd-4085-a61b-54a846fe950a",
+      "companyName": "REFUGE",
+      "activity": "94.99Z",
+      "location": "QUA CLEON 97228 SAINTE-LUCE",
+      "websiteUrl": "https://www.refuge.com",
+      "opportunity": "C",
+      "state": "HUMAN_ACTION_REQUIRED",
+      "score": 68,
+      "primaryFriction": "Limited website navigation and conversion blocks",
+      "primaryAsset": "Research and Development",
+      "primaryCta": "Contact Us",
+      "createdAt": "2026-09-01T21:51:39.027Z",
+      "updatedAt": "2026-09-01T23:56:56.253Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "019e118b-54cd-4085-a61b-54a846fe950a"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "cb8f674b-2fd3-4227-add9-fb3f29a7ec1d",
+            "prospectId": "019e118b-54cd-4085-a61b-54a846fe950a",
+            "type": "EMAIL",
+            "value": "info@refuge.com",
+            "sourceUrl": "https://www.refuge.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-01T23:45:27.639Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "cb8f674b-2fd3-4227-add9-fb3f29a7ec1d",
+          "recipient": "info@refuge.com",
+          "subject": "Échange au sujet de REFUGE",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:info%40refuge.com?subject=%C3%89change%20au%20sujet%20de%20REFUGE&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "2b337d96-861e-46c4-b960-2c51f62c02ad",
+      "companyName": "TK ELEVATOR FRANCE",
+      "activity": "43.29B",
+      "location": "IMMEUBLE SECURIDOM ZAC MANHITY 97232 LE LAMENTIN",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:38.114Z",
+      "updatedAt": "2026-09-01T23:44:30.952Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "2b337d96-861e-46c4-b960-2c51f62c02ad"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "b6437e30-edf7-441c-87ac-828c56977807",
+      "companyName": "ASL DE LA MARTINIQUE",
+      "activity": "94.99Z",
+      "location": "TERRES SAINVILLE 10 RUE ROBESPIERRE 97200 FORT-DE-FRANCE",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:38.068Z",
+      "updatedAt": "2026-09-01T23:30:19.495Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "b6437e30-edf7-441c-87ac-828c56977807"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "8c48d357-d6b9-4c80-8e28-0e760c0c06c6",
+      "companyName": "OPERATEUR DE COMPETENCES DES ENTREPRISES DE PROXIMITE",
+      "activity": "94.99Z",
+      "location": "CENTRE D AFFAIRE LA POINTE TOUR LUMINA 1 AV LOULOU BOISLAVILLE 97200 FORT DE FRANCE",
+      "websiteUrl": "https://www.operateur-de-competences.fr",
+      "opportunity": "C",
+      "state": "HUMAN_ACTION_REQUIRED",
+      "score": 71,
+      "primaryFriction": "Website Navigation",
+      "primaryAsset": "Business Assets",
+      "primaryCta": "Contact Us",
+      "createdAt": "2026-09-01T21:51:37.153Z",
+      "updatedAt": "2026-09-01T22:56:00.477Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "8c48d357-d6b9-4c80-8e28-0e760c0c06c6"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "a7a71d3f-603d-4140-9542-264451c0aa1f",
+            "prospectId": "8c48d357-d6b9-4c80-8e28-0e760c0c06c6",
+            "type": "EMAIL",
+            "value": "contact@operateur-de-competences.fr",
+            "sourceUrl": "https://www.operateur-de-competences.fr/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-01T22:29:06.113Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "a7a71d3f-603d-4140-9542-264451c0aa1f",
+          "recipient": "contact@operateur-de-competences.fr",
+          "subject": "Échange au sujet de OPERATEUR DE COMPETENCES DES ENTREPRISES DE PROXIMITE",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40operateur-de-competences.fr?subject=%C3%89change%20au%20sujet%20de%20OPERATEUR%20DE%20COMPETENCES%20DES%20ENTREPRISES%20DE%20PROXIMITE&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "0f81b0ed-1f57-421c-aaed-85015c431baa",
+      "companyName": "OFFICE CENTRAL DE COOPERATION A L ECOLE (OCCE)",
+      "activity": "94.99Z",
+      "location": "ECOLE MIXTE SAINTE THERESE B 10 CITE GIRARD 97200 FORT-DE-FRANCE",
+      "websiteUrl": "https://www.occe.fr",
+      "opportunity": "C",
+      "state": "HUMAN_ACTION_REQUIRED",
+      "score": 68,
+      "primaryFriction": "Limited website navigation and conversion blocks",
+      "primaryAsset": "Researching",
+      "primaryCta": "Contact us",
+      "createdAt": "2026-09-01T21:51:36.017Z",
+      "updatedAt": "2026-09-01T22:28:52.377Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "0f81b0ed-1f57-421c-aaed-85015c431baa"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "b869f033-03f0-4090-be30-e74080353606",
+            "prospectId": "0f81b0ed-1f57-421c-aaed-85015c431baa",
+            "type": "EMAIL",
+            "value": "contact@occe.fr",
+            "sourceUrl": "https://www.occe.fr/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-01T22:17:43.185Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "b869f033-03f0-4090-be30-e74080353606",
+          "recipient": "contact@occe.fr",
+          "subject": "Échange au sujet de OFFICE CENTRAL DE COOPERATION A L ECOLE (OCCE)",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40occe.fr?subject=%C3%89change%20au%20sujet%20de%20OFFICE%20CENTRAL%20DE%20COOPERATION%20A%20L%20ECOLE%20(OCCE)&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "3f3dfce6-697e-4ec0-b1b2-ead53c468709",
+      "companyName": "APAVE INFRASTRUCTURES ET CONSTRUCTION FRANCE",
+      "activity": "71.20B",
+      "location": "DILLON BATIMENT CALYPSO RUE DE LA VALMENIERE 97200 FORT-DE-FRANCE",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:37.109Z",
+      "updatedAt": "2026-09-01T22:22:47.352Z",
+      "hubId": "BTP",
+      "businessUnit": "BU BTP",
+      "masterOfWork": "MO BTP",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "3f3dfce6-697e-4ec0-b1b2-ead53c468709"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "80628c9c-e17d-4c58-996e-ce189b7a090f",
+      "companyName": "BOUYGUES ENERGIES & SERVICES (BOUYGUES ENERGIES & SERVICES)",
+      "activity": "43.21A",
+      "location": "CZ M. GAUCHEROT GUILLAUME POINTE LA ROSE 97231 LE ROBERT",
+      "websiteUrl": "",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primaryFriction": "",
+      "primaryAsset": "",
+      "primaryCta": "Nous contacter",
+      "createdAt": "2026-09-01T21:51:35.981Z",
+      "updatedAt": "2026-09-01T22:16:45.721Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "80628c9c-e17d-4c58-996e-ce189b7a090f"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "da0d4664-6a21-4a47-a0b3-daab7bd13b9d",
+      "companyName": "APAVE EXPLOITATION FRANCE",
+      "activity": "71.20B",
+      "location": "24 RUE DES EAUX DECOUPEES 97200 FORT-DE-FRANCE",
+      "websiteUrl": "https://find-us.apave.com/fr/martinique/fort-de-france/apave-martinique-113",
+      "state": "DISQUALIFIED",
+      "createdAt": "2026-09-01T21:49:29.548Z",
+      "updatedAt": "2026-09-01T22:09:26.417Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "da0d4664-6a21-4a47-a0b3-daab7bd13b9d"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "4d9337bf-c8cb-44ff-b192-6915b1eddffa",
+      "companyName": "UNION NATIONALE DU SPORT SCOLAIRE (UNSS)",
+      "activity": "93.12Z",
+      "location": "MANGOT VULCIN RTE DU VERT PRE 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.unss.org",
+      "opportunity": "C",
+      "state": "DISQUALIFIED",
+      "score": 62,
+      "primaryFriction": "Limited website navigation and conversion blocks",
+      "primaryAsset": "UNION NATIONALE DU SPORT SCOLAIRE (UNSS)",
+      "primaryCta": "Contact us",
+      "createdAt": "2026-09-01T21:51:35.933Z",
+      "updatedAt": "2026-09-01T22:06:47.786Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "4d9337bf-c8cb-44ff-b192-6915b1eddffa"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "25d37ec7-c8fe-4cca-b9ec-a43c632482e3",
+      "companyName": "INRAE ANTILLES-GUYANE FORT-DE-FRANCE",
+      "activity": "72.19Z",
+      "location": "RTE DE LA DILLON 97200 FORT DE FRANCE",
+      "websiteUrl": "https://www.inrae.fr/centres/antilles-guyane",
+      "state": "DISQUALIFIED",
+      "createdAt": "2026-09-01T21:49:29.524Z",
+      "updatedAt": "2026-09-01T22:03:18.934Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "25d37ec7-c8fe-4cca-b9ec-a43c632482e3"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "bbd73175-accc-40a4-a24b-a9d147bfdfff",
+      "companyName": "La Balade du Soleil",
+      "activity": "Boat tours and white sandbanks excursions",
+      "location": "Le François, Martinique",
+      "websiteUrl": "labaladedusoleil.com",
+      "opportunity": "B",
+      "state": "HUMAN_ACTION_REQUIRED",
+      "score": 80,
+      "primaryFriction": "No integrated direct booking engine on own website - customers forced through third-party aggregators (Checkyeti, TripAdvisor) with intermediary fees, no instant availability display, manual contact-based confirmation required",
+      "primaryAsset": "17+ years experience, #1 TripAdvisor Martinique ranking (1,200+ reviews), small-group intimate boat excursions led by Captain Jean-Marc Claude aboard vessel Rafale",
+      "primaryCta": "Propose a Magic Script-powered direct booking widget integrated into their existing website with real-time availability and instant confirmation",
+      "createdAt": "2026-09-01T06:32:05.034Z",
+      "updatedAt": "2026-09-01T14:20:36.064Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "bbd73175-accc-40a4-a24b-a9d147bfdfff"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "ed0338a5-a60b-450c-b3a6-0632fdc988ef",
+            "prospectId": "bbd73175-accc-40a4-a24b-a9d147bfdfff",
+            "type": "EMAIL",
+            "value": "contact@labaladedusoleil.com",
+            "sourceUrl": "https://labaladedusoleil.com/contact",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-01T14:17:12.476Z",
+            "confidence": 90,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "ed0338a5-a60b-450c-b3a6-0632fdc988ef",
+          "recipient": "contact@labaladedusoleil.com",
+          "subject": "Échange au sujet de La Balade du Soleil",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:contact%40labaladedusoleil.com?subject=%C3%89change%20au%20sujet%20de%20La%20Balade%20du%20Soleil&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "fad22438-7200-4bf1-92ec-437a5396e131",
+      "companyName": "SNEMM",
+      "activity": "Association nationale dentraide et de memoire",
+      "location": "France",
+      "websiteUrl": "https://www.snemm.fr",
+      "opportunity": "A",
+      "state": "HUMAN_ACTION_REQUIRED",
+      "score": 90,
+      "primaryFriction": "Rendre plus lisibles les missions, les parcours et les actions pour les visiteurs",
+      "primaryAsset": "Mission dentraide, de memoire et daccompagnement des membres de la SNEMM",
+      "primaryCta": "Decouvrir les actions de la SNEMM",
+      "createdAt": "2026-09-01T07:30:35.8709817Z",
+      "updatedAt": "2026-09-01T14:20:05.471Z",
+      "hubId": "ASSOCIATIONS_MEMOIRE_MILITAIRE",
+      "businessUnit": "BU Associations mémoire militaire",
+      "masterOfWork": "MO Associations mémoire militaire",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "fad22438-7200-4bf1-92ec-437a5396e131"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "b41082c6-84e8-4981-8163-9fbe1addeebf",
+      "companyName": "FINANCE CONSEIL",
+      "activity": "66.19B - Auxiliary financial services (mortgage brokerage)",
+      "location": "97229 LES TROIS-ILETS, Martinique (address discrepancy noted with registered entity)",
+      "opportunity": "B",
+      "state": "DISQUALIFIED",
+      "score": 68,
+      "primaryFriction": "No discoverable local digital presence: no website, no Google Business Profile, no Martinique-specific landing page, and a 30+ km address discrepancy between the prospect address (Les Trois-Îlets Marina) and the registered entity (Fort-de-France) that weakens initial trust",
+      "primaryAsset": "ORIAS-licensed mortgage brokerage (23005398) affiliated with national Finance Conseil network founded 2006, run by identified director Caroline MONTHIEUX",
+      "primaryCta": "Request a discovery call to clarify the Martinique coverage model and propose a local digital hub (micro-site or Google Business Profile) that consolidates their regional identity",
+      "createdAt": "2026-08-31T19:41:42.005Z",
+      "updatedAt": "2026-09-01T14:19:45.142Z",
+      "hubId": "SERVICES_PROFESSIONNELS",
+      "businessUnit": "BU Services professionnels",
+      "masterOfWork": "MO Services professionnels",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "b41082c6-84e8-4981-8163-9fbe1addeebf"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "65271cb1-77be-40a5-8aa3-83aa3328391a",
+      "companyName": "SNEMM",
+      "activity": "Association nationale d entraide et de memoire",
+      "location": "France",
+      "websiteUrl": "https://www.snemm.fr",
+      "opportunity": "A",
+      "state": "HUMAN_ACTION_REQUIRED",
+      "score": 90,
+      "primaryFriction": "Rendre plus lisibles les missions, les parcours et les actions pour les visiteurs",
+      "primaryAsset": "Mission dentraide, de memoire et daccompagnement des membres de la SNEMM",
+      "primaryCta": "Decouvrir les actions de la SNEMM",
+      "createdAt": "2026-09-01T10:34:15.8539628Z",
+      "updatedAt": "2026-09-01T11:37:58.750Z",
+      "hubId": "ASSOCIATIONS_MEMOIRE_MILITAIRE",
+      "businessUnit": "BU Associations mémoire militaire",
+      "masterOfWork": "MO Associations mémoire militaire",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "65271cb1-77be-40a5-8aa3-83aa3328391a"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "64455e6b-85e3-496e-a63b-6683583513b7",
+            "prospectId": "65271cb1-77be-40a5-8aa3-83aa3328391a",
+            "type": "EMAIL",
+            "value": "synthetic-snemm@magicscript.test",
+            "sourceUrl": "https://www.snemm.fr",
+            "sourceType": "synthetic-test",
+            "observedAt": "2026-09-01T10:34:15.8539628Z",
+            "confidence": 100,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "64455e6b-85e3-496e-a63b-6683583513b7",
+          "recipient": "synthetic-snemm@magicscript.test",
+          "subject": "Échange au sujet de SNEMM",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:synthetic-snemm%40magicscript.test?subject=%C3%89change%20au%20sujet%20de%20SNEMM&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "c349c8cf-ccad-4580-b210-49ebfd2d1d8f",
+      "companyName": "SNEMM",
+      "activity": "Association nationale d entraide et de memoire",
+      "location": "France",
+      "websiteUrl": "https://www.snemm.fr",
+      "opportunity": "A",
+      "state": "HUMAN_ACTION_REQUIRED",
+      "score": 90,
+      "primaryFriction": "Rendre plus lisibles les missions, les parcours et les actions pour les visiteurs",
+      "primaryAsset": "Mission dentraide, de memoire et daccompagnement des membres de la SNEMM",
+      "primaryCta": "Decouvrir les actions de la SNEMM",
+      "createdAt": "2026-09-01T10:07:14.9312356Z",
+      "updatedAt": "2026-09-01T11:17:14.593Z",
+      "hubId": "ASSOCIATIONS_MEMOIRE_MILITAIRE",
+      "businessUnit": "BU Associations mémoire militaire",
+      "masterOfWork": "MO Associations mémoire militaire",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "c349c8cf-ccad-4580-b210-49ebfd2d1d8f"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "7724a7c5-ee65-4ee6-b829-ca9a08839874",
+            "prospectId": "c349c8cf-ccad-4580-b210-49ebfd2d1d8f",
+            "type": "EMAIL",
+            "value": "synthetic-snemm@magicscript.test",
+            "sourceUrl": "https://www.snemm.fr",
+            "sourceType": "synthetic-test",
+            "observedAt": "2026-09-01T10:07:14.9312356Z",
+            "confidence": 100,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "7724a7c5-ee65-4ee6-b829-ca9a08839874",
+          "recipient": "synthetic-snemm@magicscript.test",
+          "subject": "Échange au sujet de SNEMM",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:synthetic-snemm%40magicscript.test?subject=%C3%89change%20au%20sujet%20de%20SNEMM&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "2ac64a6a-6920-4151-a90e-1820e367ec5d",
+      "companyName": "DEKRA",
+      "activity": "71.20A",
+      "location": "HABITATION CARRERE 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.dekra-industrial.fr/fr/batiments-et-des-infrastructures/",
+      "state": "DISQUALIFIED",
+      "createdAt": "2026-09-01T06:05:51.201Z",
+      "updatedAt": "2026-09-01T07:33:22.619Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "2ac64a6a-6920-4151-a90e-1820e367ec5d"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "af8c9cc6-4c49-4aa5-9365-40fc79fa480d",
+      "companyName": "Magic Script E2E Synthetic Prospect",
+      "legalName": "Magic Script E2E Synthetic Prospect",
+      "activity": "Association et reseau local",
+      "location": "Martinique",
+      "websiteUrl": "https://www.snemm.fr",
+      "opportunity": "B",
+      "state": "WAITING_REPLY",
+      "primaryFriction": "Test synthetique de friction digitale locale",
+      "primaryAsset": "Contexte public utilise uniquement pour le test",
+      "primaryCta": "Prototype de demonstration",
+      "createdAt": "2026-09-01T06:49:52.6295692Z",
+      "updatedAt": "2026-09-01T07:01:56.991Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "af8c9cc6-4c49-4aa5-9365-40fc79fa480d"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "a7b1c687-81f6-4127-b47a-06cb488f40d8",
+            "prospectId": "af8c9cc6-4c49-4aa5-9365-40fc79fa480d",
+            "type": "EMAIL",
+            "value": "magic-script-e2e@example.test",
+            "sourceUrl": "https://www.snemm.fr",
+            "sourceType": "official_site",
+            "observedAt": "2026-09-01T06:49:52.6295692Z",
+            "confidence": 95,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "a7b1c687-81f6-4127-b47a-06cb488f40d8",
+          "recipient": "magic-script-e2e@example.test",
+          "subject": "Échange au sujet de Magic Script E2E Synthetic Prospect",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:magic-script-e2e%40example.test?subject=%C3%89change%20au%20sujet%20de%20Magic%20Script%20E2E%20Synthetic%20Prospect&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "INTERNAL",
+        "gateVersion": null,
+        "reason": "DETERMINISTIC_FIXTURE_ID"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "cf8479be-7c9b-46ce-9bc3-eea3b46223cb",
+      "companyName": "Aux Deux Gouttes d'Eau",
+      "activity": "Artisan pottery and ceramics workshop",
+      "location": "Village de la Poterie, Les Trois-Îlets, Martinique",
+      "opportunity": "A",
+      "state": "DISQUALIFIED",
+      "score": 58,
+      "primaryFriction": "Complete digital absence - no website, no social media, no Google Business Profile, no online contact channel, and no verifiable business registration in digital directories. Prospective customers cannot discover, research, or contact the business online.",
+      "primaryAsset": "Physical artisan workshop presence in recognized cultural heritage pottery village location in Martinique",
+      "primaryCta": "Establish foundational digital presence: professional website with portfolio, contact information, location details, and opening hours; Google Business Profile listing; basic social media presence for visual showcase of ceramics",
+      "createdAt": "2026-09-01T06:32:05.072Z",
+      "updatedAt": "2026-09-01T06:50:40.813Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "cf8479be-7c9b-46ce-9bc3-eea3b46223cb"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "5bd05368-cdf3-444a-a2c1-b1ef5d1bb029",
+      "companyName": "RESTALLIANCE",
+      "activity": "56.29A - Cantines et traiteurs / Restauration collective",
+      "location": "Croix Odilon, 97213 Gros-Morne, Martinique",
+      "websiteUrl": "https://www.restalliance.fr",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 54,
+      "primaryFriction": "The Martinique Croix Odilon establishment (non-employer satellite kitchen for healthcare facilities) has ZERO independent digital identity, online presence, or contact capability. However, this is an institutional B2B catering operation serving EHPADs/healthcare, not a typical local SMB that would benefit from Magic Script's services. The corporate parent has full digital infrastructure but serves a completely different market segment.",
+      "primaryAsset": "Groupe RESTALLIANCE SAS - Major French collective catering company (ETI, 2000-4999 employees, 333 establishments, SIREN 391125796). Martinique establishment at Croix Odilon Gros-Morne (SIRET 39112579601194) verified by INSEE/Gouv.fr API. Corporate website and LinkedIn (~20k followers) exist.",
+      "primaryCta": "N/A - Weak fit; institutional catering group (B2B) vs local SMB opportunity",
+      "createdAt": "2026-09-01T06:05:51.223Z",
+      "updatedAt": "2026-09-01T06:27:42.957Z",
+      "hubId": "RESTAURATION_HOTELLERIE",
+      "businessUnit": "BU Restauration hôtellerie",
+      "masterOfWork": "MO Restauration hôtellerie",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "5bd05368-cdf3-444a-a2c1-b1ef5d1bb029"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "a97c4945-ece6-4590-9503-74180fe91f67",
+      "companyName": "CEF - YESSS ELECTRIQUE",
+      "activity": "46.69A",
+      "location": "VOIE ISOLE QUA ZONE ARTISANALE DE LAUGIER 97215 RIVIERE-SALEE",
+      "websiteUrl": "https://www.yesss-fr.com/agences-cef.php",
+      "state": "DISQUALIFIED",
+      "createdAt": "2026-08-31T22:34:50.171Z",
+      "updatedAt": "2026-08-31T22:35:55.225Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "a97c4945-ece6-4590-9503-74180fe91f67"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "73443884-39de-4aae-a6e6-24a1433a12ee",
+      "companyName": "GENERALE D'OPTIQUE",
+      "activity": "47.78A",
+      "location": "ZI 8 ZA LES MANGLES ACAJOU 97232 LE LAMENTIN",
+      "websiteUrl": "https://www.generale-optique.com/opticien/martinique",
+      "state": "DISQUALIFIED",
+      "createdAt": "2026-08-31T22:34:50.135Z",
+      "updatedAt": "2026-08-31T22:35:55.108Z",
+      "hubId": "GENERALISTE",
+      "businessUnit": "BU Généraliste",
+      "masterOfWork": "MO Généraliste",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "73443884-39de-4aae-a6e6-24a1433a12ee"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "dd85cd4c-9348-45bb-bce8-84917b9bc76f",
+      "companyName": "SOCIETE NATIONALE D'ENTRAIDE DE LA MEDAILLE MILITAIRE (SNEMM)",
+      "activity": "88.99B - Autres organisations fonctionnant par adhésion volontaire",
+      "location": "97215 Rivière-Salée, Martinique",
+      "websiteUrl": "https://www.snemm.fr",
+      "opportunity": "B",
+      "state": "WAITING_REPLY",
+      "score": 67,
+      "primaryFriction": "La section Martinique (972) est numériquement invisible - aucune page web locale, aucun profil Google Business, aucune presence sociale vérifiée. Le site national snemm.fr est basique avec du contenu placeholder, absence de visiteurs digitaux ciblés pour la section d'outre-mer.",
+      "primaryAsset": "Association loi 1901 depuis 1987 avec réseau national de 650-850 sections, présence DOM-TOM structurée, residence seniors à Hyères, SIREN 418 095 226 vérifié",
+      "primaryCta": "Créer une présence digitale locale (site + Google Business) pour la section Martinique SNEMM",
+      "createdAt": "2026-08-31T19:41:41.988Z",
+      "updatedAt": "2026-08-31T21:32:42.943Z",
+      "hubId": "ASSOCIATIONS_MEMOIRE_MILITAIRE",
+      "businessUnit": "BU Associations mémoire militaire",
+      "masterOfWork": "MO Associations mémoire militaire",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "dd85cd4c-9348-45bb-bce8-84917b9bc76f"
+        },
+        "status": "PUBLISHED_VERIFIED",
+        "channels": [
+          {
+            "contactId": "2caeb8e9-e60b-4cff-8b91-e3dcda51dd38",
+            "prospectId": "dd85cd4c-9348-45bb-bce8-84917b9bc76f",
+            "type": "EMAIL",
+            "value": "site.internet@snemm.fr",
+            "sourceUrl": "https://www.snemm.fr",
+            "sourceType": "official_site",
+            "observedAt": "2026-08-31T19:45:25.379Z",
+            "confidence": 85,
+            "status": "PUBLISHED_VERIFIED",
+            "usableForFirstOutreach": true
+          }
+        ],
+        "preparation": {
+          "kind": "EMAIL_DRAFT",
+          "contactId": "2caeb8e9-e60b-4cff-8b91-e3dcda51dd38",
+          "recipient": "site.internet@snemm.fr",
+          "subject": "Échange au sujet de SOCIETE NATIONALE D'ENTRAIDE DE LA MEDAILLE MILITAIRE (SNEMM)",
+          "body": "Bonjour,\n\nJe vous contacte au nom de Magic Script au sujet de la présence web de votre entreprise.\n\nSi le sujet peut vous être utile, je vous propose un bref échange. Vous pouvez également me demander de ne plus vous contacter.\n\nBien cordialement,\nStéphane",
+          "mailtoHref": "mailto:site.internet%40snemm.fr?subject=%C3%89change%20au%20sujet%20de%20SOCIETE%20NATIONALE%20D'ENTRAIDE%20DE%20LA%20MEDAILLE%20MILITAIRE%20(SNEMM)&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20au%20nom%20de%20Magic%20Script%20au%20sujet%20de%20la%20pr%C3%A9sence%20web%20de%20votre%20entreprise.%0A%0ASi%20le%20sujet%20peut%20vous%20%C3%AAtre%20utile%2C%20je%20vous%20propose%20un%20bref%20%C3%A9change.%20Vous%20pouvez%20%C3%A9galement%20me%20demander%20de%20ne%20plus%20vous%20contacter.%0A%0ABien%20cordialement%2C%0ASt%C3%A9phane",
+          "requiresHumanSend": true,
+          "sendsAutomatically": false
+        }
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "57955a24-b74a-4176-bad3-db3083ac2656",
+      "companyName": "374202 MARTINIQUE RELAY ZR",
+      "activity": "47.62Z - Commerce de détail de journaux et papeterie en magasins spécialisés",
+      "location": "Aéroport International Martinique Aimé Césaire, Le Lamentin, 97232, France",
+      "websiteUrl": "https://relay.fr",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 57,
+      "primaryFriction": "Zero independent digital presence for this specific location - no Google Business profile, no customer reviews platform, no discoverable contact channel beyond corporate switchboard; 'ZR' is an internal airport zone code (likely Zone de Restitution), not a public-facing identifier",
+      "primaryAsset": "Relay brand under Lagardère Travel Retail France (SAS), one of 1,830+ Relay establishments; established travel retail concept with airport footprint",
+      "primaryCta": "Establish a discoverable local digital presence via Google Business and airport-specific landing page to capture traveler footfall and enable online discovery",
+      "createdAt": "2026-08-31T19:31:58.691Z",
+      "updatedAt": "2026-08-31T19:42:53.512Z",
+      "hubId": "COMMERCE_LOCAL",
+      "businessUnit": "BU Commerce local",
+      "masterOfWork": "MO Commerce local",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "57955a24-b74a-4176-bad3-db3083ac2656"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "97b6bceb-a408-4c16-8ccb-90a65123b02b",
+      "companyName": "CNRS UMR7154 IPGP",
+      "activity": "Recherche-développement en autres sciences physiques et naturelles (72.19Z) — Volcanology and seismology observatory",
+      "location": "OBSERVATOIRE DE LA MONTAGNE PELEE 97250 SAINT-PIERRE, Martinique, France (OVSM-IPGP operates at Habitation Blondel, Saint-Pierre; HQ at 1 rue Jussieu, 75238 Paris)",
+      "websiteUrl": "https://www.ipgp.fr (OVSM Martinique page: https://www.ipgp.fr/ovsm/)",
+      "opportunity": "D",
+      "state": "DISQUALIFIED",
+      "score": 57,
+      "primaryFriction": "The Martinique OVSM has no dedicated local digital identity — it exists only as a subpage of the central ipgp.fr institutional site, making it invisible to Martinique's local population, authorities, and media who need accessible, locally-relevant volcanic risk communication and public information in French Caribbean context",
+      "primaryAsset": "World-renowned geoscience research institution (104 years, ~500 staff, 404 publications 2022, 37 in Nature/Science/PNAS); operates GEOSCOPE and INTERMAGNET global networks; critical public safety mandate monitoring Montagne Pelée volcano (UNESCO World Heritage 2023, Yellow alert since Dec 2020, 632 earthquakes in May 2025)",
+      "primaryCta": "Propose a dedicated OVSM Martinique public information portal — a localized French/Creole-friendly emergency communication hub for the Montagne Pelée monitoring station that serves the Saint-Pierre community",
+      "createdAt": "2026-08-31T19:31:58.674Z",
+      "updatedAt": "2026-08-31T19:40:17.751Z",
+      "hubId": "SERVICES_PUBLICS",
+      "businessUnit": "BU Services publics",
+      "masterOfWork": "MO Services publics",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "97b6bceb-a408-4c16-8ccb-90a65123b02b"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    },
+    {
+      "id": "7f379533-3f01-40f3-a4d2-8c393c0716bf",
+      "companyName": "LE SOUVENIR FRANCAIS",
+      "activity": "94.99Z - Association loi 1901, devoir de mémoire, memorial preservation",
+      "location": "26 RUE DOCTEUR OSMAN DUQUESNAY, 97290 LE MARIN, Martinique",
+      "opportunity": "A",
+      "state": "DISQUALIFIED",
+      "score": 58,
+      "primaryFriction": "The local Martinique committee (Comité du Sud Martinique) has no independent digital presence — no website, no verifiable social media, no public contact channel — while the national organization has no clearly resolvable Martinique-specific page or contact route",
+      "primaryAsset": "Established national association (Le Souvenir Français, founded 1887, ~200k members, recognized public utility) with a local Martinique committee serving the south of the island",
+      "primaryCta": "Offer a simple, low-cost website or digital presence for the Comité du Sud Martinique to serve its commemorative mission and reach descendants/members locally",
+      "createdAt": "2026-08-31T19:30:30.115Z",
+      "updatedAt": "2026-08-31T19:32:57.673Z",
+      "hubId": "ASSOCIATIONS_MEMOIRE_MILITAIRE",
+      "businessUnit": "BU Associations mémoire militaire",
+      "masterOfWork": "MO Associations mémoire militaire",
+      "engagement": {
+        "score_total": 0,
+        "activity_score": 0,
+        "intent_score": 0,
+        "trend": "STABLE",
+        "top_contributors": [],
+        "last_meaningful_event": null,
+        "computed_at": "2026-09-14T15:17:47.543Z"
+      },
+      "contactability": {
+        "identity": {
+          "prospectId": "7f379533-3f01-40f3-a4d2-8c393c0716bf"
+        },
+        "status": "MISSING",
+        "channels": [],
+        "preparation": null
+      },
+      "commercialView": {
+        "category": "LEGACY",
+        "gateVersion": null,
+        "reason": "PRE_GATE_OR_UNVERSIONED"
+      },
+      "prototypeCostGate": null
+    }
+  ],
+  "prospectViewCounts": {
+    "CURRENT": 20,
+    "LEGACY": 64,
+    "INTERNAL": 4,
+    "REJECTED": 0
+  }
+}

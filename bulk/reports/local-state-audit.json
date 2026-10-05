@@ -1,0 +1,816 @@
+{
+  "generatedAt": "2026-09-26T08:56:37.537Z",
+  "scope": {
+    "database": "magicscript-dev",
+    "localOnly": true,
+    "mutatingOperations": false,
+    "requeuePerformed": false,
+    "externalDeployment": false,
+    "emailSending": false
+  },
+  "warnings": [],
+  "queue": {
+    "statusCounts": {
+      "DEAD_LETTER": 26,
+      "PENDING": 1,
+      "SUCCEEDED": 298
+    },
+    "pendingClassification": [
+      {
+        "id": "cf7d0122-2676-4e6c-a292-8d9de41127fb",
+        "kind": "ESCALATE_TO_HUMAN",
+        "prospect_id": "8c48d357-d6b9-4c80-8e28-0e760c0c06c6",
+        "status": "PENDING",
+        "attempts": 0,
+        "max_attempts": 3,
+        "run_after": "2026-09-02T00:10:01.461Z",
+        "last_error": null,
+        "claimed_by": null,
+        "claimed_at": null,
+        "created_at": "2026-09-02T00:10:01.461Z",
+        "updated_at": "2026-09-02T00:10:01.471Z",
+        "classification": "VALID_PENDING",
+        "reason": "attente volontaire d’une action humaine",
+        "ageHours": 584.8
+      }
+    ],
+    "activeJobs": [],
+    "deadLetterCount": 26,
+    "deadLetterCauseGroups": [
+      {
+        "cause": "fournisseur Kimi / crédit ou limite",
+        "count": 9,
+        "stillObservedInNonTerminalJobs": false,
+        "representativeErrors": [
+          "Local smoke reset: previous Kimi discovery claim neutralized",
+          "Kimi exited with code 1\nkimi version 0.39.1\nerror: failed to run prompt: provider.rate_limit: 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day\nSee log: C:/Users/svmir/.kimi-code/logs/kimi-code.log"
+        ]
+      },
+      {
+        "cause": "fixture synthétique / escalade de test",
+        "count": 5,
+        "stillObservedInNonTerminalJobs": false,
+        "representativeErrors": [
+          "Synthetic E2E false escalation suppressed after historical QA threshold fix",
+          "EMFILE: too many open files, open 'D:\\MagicScript\\repository\\artifacts\\synthetic-creative\\runtime-fixture\\node_modules\\typescript\\lib\\lib.es2024.arraybuffer.d.ts'"
+        ]
+      },
+      {
+        "cause": "arrêt contrôlé ou smoke reset",
+        "count": 2,
+        "stillObservedInNonTerminalJobs": false,
+        "representativeErrors": [
+          "Runner shutdown requested; job released for safe recovery",
+          "Runner shutdown requested; job released for safe recovery"
+        ]
+      },
+      {
+        "cause": "ENAMETOOLONG / longueur de commande",
+        "count": 1,
+        "stillObservedInNonTerminalJobs": false,
+        "representativeErrors": [
+          "spawn ENAMETOOLONG"
+        ]
+      },
+      {
+        "cause": "environnement Python / Aider historique",
+        "count": 2,
+        "stillObservedInNonTerminalJobs": false,
+        "representativeErrors": [
+          "Aider exited with code 101\nUnable to create process using '\"C:\\Users\\svmir\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\" \"D:\\AiderBin\\aider.exe\" --model ollama_chat/qwen2.5-coder:3b --message \"\r\nYou are the Magic Script Prototype Coding Agent.\r\n\r\nYou are working directly inside the prototype working directory.\r\nYour job is to CREATE or CORRECT the actual website files in the current directory.\r\n\r\nProspect:\r\n{\r\n  \\\"id\\\": \\\"fad22438-7200-4bf1-92ec-437a5396e131\\\",\r\n  \\\"companyName\\\": \\\"SNEMM\\\",\r\n  \\\"activity\\\": \\\"Association nationale dentraide et de memoire\\\",\r\n  \\\"location\\\": \\\"France\\\",\r\n  \\\"websiteUrl\\\": \\\"https://www.snemm.fr\\\",\r\n  \\\"opportunity\\\": \\\"A\\\",\r\n  \\\"state\\\": \\\"PROTOTYPE_BUILDING\\\",\r\n  \\\"score\\\": 90,\r\n  \\\"primaryFriction\\\": \\\"Rendre plus lisibles les missions, les parcours et les actions pour les visiteurs\\\",\r\n  \\\"primaryAsset\\\": \\\"Mission dentraide, de memoire et daccompagnement des membres de la SNEMM\\\",\r\n  \\\"primaryCta\\\": \\\"Decouvrir les actions de la SNEMM\\\",\r\n  \\\"createdAt\\\": \\\"2026-09-01T07:30:35.8709817Z\\\",\r\n  \\\"updatedAt\\\": \\\"20\r\n",
+          "Aider exited with code 101\nUnable to create process using '\"C:\\Users\\svmir\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\" \"D:\\AiderBin\\aider.exe\" --model ollama_chat/qwen2.5-coder:3b --message \"\r\nYou are the Magic Script Prototype Coding Agent.\r\n\r\nYou are working directly inside the prototype working directory.\r\nYour job is to CREATE or CORRECT the actual website files in the current directory.\r\n\r\nProspect:\r\n{\r\n  \\\"id\\\": \\\"bbd73175-accc-40a4-a24b-a9d147bfdfff\\\",\r\n  \\\"companyName\\\": \\\"La Balade du Soleil\\\",\r\n  \\\"activity\\\": \\\"Boat tours and white sandbanks excursions\\\",\r\n  \\\"location\\\": \\\"Le Fran�ois, Martinique\\\",\r\n  \\\"websiteUrl\\\": \\\"labaladedusoleil.com\\\",\r\n  \\\"opportunity\\\": \\\"B\\\",\r\n  \\\"state\\\": \\\"PROTOTYPE_BUILDING\\\",\r\n  \\\"score\\\": 80,\r\n  \\\"primaryFriction\\\": \\\"No integrated direct booking engine on own website - customers forced through third-party aggregators (Checkyeti, TripAdvisor) with intermediary fees, no instant availability display, manual contact-based confirmation required\\\",\r\n  \\\"primaryAsset\\\": \\\"17+ years experience, #1 TripAdvi\r\n"
+        ]
+      },
+      {
+        "cause": "configuration Cloudflare",
+        "count": 2,
+        "stillObservedInNonTerminalJobs": false,
+        "representativeErrors": [
+          "CLOUDFLARE_ACCOUNT_ID is required for prototype deployment",
+          "Success callback failed 500: {\n  \"error\": \"Prototype build failed: Reusing repository node_modules from D: for the deterministic prototype build; npm install skipped.\\n\\n--- BUILD ---\\n\\n> qualiconsult-prototype@0.1.0 build\\n> next build\\n\\n▲ Next.js 16.3.3 (Turbopack)\\n✓ Running next.config.js took 38ms\\n\\n  Creating an optimized production build ...\\n✓ Compiled successfully in 505ms\\n  Running TypeScript ...\\napp/layout.tsx(8,5): error TS2322: Type '{ rel: string; href: string; }' is not assignable to type 'Icon'.\\n  Type '{ rel: string; href: string; }' is missing the following properties from type 'URL': hash, host, hostname, origin, and 8 more.\\nFailed to type check.\\n\\n\\n\\n--- STATIC OUTPUT ---\\nout/ is ready for Cloudflare Pages.\"\n}"
+        ]
+      },
+      {
+        "cause": "contrat de callback / réponse inattendue",
+        "count": 5,
+        "stillObservedInNonTerminalJobs": false,
+        "representativeErrors": [
+          "Success callback failed 500: {\n  \"error\": \"Cannot read properties of undefined (reading 'digitalGap')\"\n}",
+          "Success callback failed 500: {\n  \"error\": \"Cannot read properties of undefined (reading 'digitalGap')\"\n}"
+        ]
+      }
+    ],
+    "terminalSuccessCount": 298
+  },
+  "data": {
+    "prospectCount": 105,
+    "martiniqueCount": 99,
+    "martiniqueStateCounts": {
+      "DISCOVERED": 5,
+      "DISQUALIFIED": 67,
+      "HUMAN_ACTION_REQUIRED": 11,
+      "OUTREACH_VERIFIED": 1,
+      "PROTOTYPE_READY": 13,
+      "PROTOTYPE_REQUIRED": 4,
+      "QUALIFIED": 1,
+      "WAITING_REPLY": 3
+    },
+    "martiniqueMissing": {
+      "activity": 0,
+      "location": 0,
+      "score": 7
+    },
+    "martiniqueDuplicateCompanyNames": 0,
+    "bulkSnapshot": {
+      "path": "bulk/martinique/index.md",
+      "present": true,
+      "rows": [
+        {
+          "id": "4b76cb39-46bb-4583-ae06-2da7f055418a",
+          "companyName": "STELLIANT EXPERTISE & RISQUES CONSTRUCTION",
+          "activity": "71.12B",
+          "location": "LA PLAINE PETIT MANOIR 3 RUE MARIE DUPIL 97232 LE LAMENTIN",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "BTP",
+          "businessUnit": "BU BTP",
+          "masterOfWork": "MO BTP",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "99333708-2b8c-4b22-8ef4-e8e58e2a5566",
+          "companyName": "SEGULA TECHNOLOGIES FRANCE",
+          "activity": "71.12B",
+          "location": "CHEZ BURO CLUB MQUE LOT DILLON STADE 11 RUE DES ARTS ET METIERS 97200 FORT-DE-FRANCE",
+          "state": "PROTOTYPE_READY",
+          "score": "69",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.segula-technologies.fr"
+        },
+        {
+          "id": "c66cd2c2-9d8c-4d04-b83c-15f38a14058f",
+          "companyName": "AGPM-GESTION",
+          "activity": "82.11Z",
+          "location": "IMM. AGORA BAT C ZAC ETANG Z ABRICOT 97200 FORT DE FRANCE",
+          "state": "PROTOTYPE_READY",
+          "score": "70",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.agpm-gestion.com"
+        },
+        {
+          "id": "6ab95ee2-8fa3-48fb-a354-2137817634fc",
+          "companyName": "SA BATA OUTRE MER (BOM)",
+          "activity": "47.72A",
+          "location": "31 RUE ANTOINE SIGER 97200 FORT-DE-FRANCE",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "179b2145-1454-4919-b518-428f0dcf4760",
+          "companyName": "CONSTRUCTEL CONSTRUCTIONS TELECOMMUNICA.",
+          "activity": "43.21A",
+          "location": "290 IMPASSE MADOU PETITE RIVIERE 97232 LE LAMENTIN",
+          "state": "PROTOTYPE_READY",
+          "score": "76",
+          "hubId": "BTP",
+          "businessUnit": "BU BTP",
+          "masterOfWork": "MO BTP",
+          "websiteUrl": "https://www.constructel-constructions.com"
+        },
+        {
+          "id": "56a57399-1917-4455-a1ea-4d53e81bacf0",
+          "companyName": "FRATERNITE SACERDOTALE SAINT-PIE X",
+          "activity": "94.91Z",
+          "location": "40 RUE MARTIN LUTHER KING 97200 FORT-DE-FRANCE",
+          "state": "PROTOTYPE_READY",
+          "score": "76",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.fraternite-sacerdotale.fr/"
+        },
+        {
+          "id": "01a0f0d1-2f45-46e6-bb9a-d4e38973174b",
+          "companyName": "QUALICONSULT EXPLOITATION",
+          "activity": "71.20B",
+          "location": "17 ALLEE DES COLOMBES 20 LOTISSEMENT 97224 DUCOS",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "776667fb-d60f-47ed-8d69-4e190b03ac4d",
+          "companyName": "SOL ANTILLES GUYANE (S A G)",
+          "activity": "68.20B",
+          "location": "ESSO TRINITE LD DESMARINIERES 97220 TRINITE",
+          "state": "PROTOTYPE_READY",
+          "score": "71",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.solantillesguyane.com"
+        },
+        {
+          "id": "6c5ec70e-5a81-46b8-b1d9-2445d302d5dc",
+          "companyName": "SGS FRANCE (SERCOVAM; VERNOLAB;COURTRAY)",
+          "activity": "71.20B",
+          "location": "16 RUE GEORGES EUCHARIS 97200 FORT-DE-FRANCE",
+          "state": "PROTOTYPE_READY",
+          "score": "71",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.sgsfrance.com"
+        },
+        {
+          "id": "d2053b57-68a5-45d8-8fbb-e549096be39c",
+          "companyName": "SOMAREC",
+          "activity": "68.20B",
+          "location": "ACAJOU 97232 LE LAMENTIN",
+          "state": "PROTOTYPE_READY",
+          "score": "77",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.somarec.com"
+        },
+        {
+          "id": "a38681c7-e7e6-470c-a90e-220088fe625e",
+          "companyName": "INEO INFRACOM",
+          "activity": "42.22Z",
+          "location": "16 RUE RAYMOND BERGER 97224 DUCOS",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "6d624316-cc4f-40bc-aa66-dabcd83d8b31",
+          "companyName": "TOTALENERGIES MARKETING ANTILLES GUYANE",
+          "activity": "68.20B",
+          "location": "QUARTIER DU BAC 97224 DUCOS",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "96a77be3-680c-46fc-9882-8568b84219c1",
+          "companyName": "TOTALENERGIES RENOUVELABLES FRANCE",
+          "activity": "71.12B",
+          "location": "ZONE DE GROS LA JAMBETTE 97232 LE LAMENTIN",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "e1182a15-88f4-4ce1-8071-19cf0b078fd2",
+          "companyName": "STATION VITO",
+          "activity": "68.20B",
+          "location": "STATION VITO 32 RUE DU DOCTEUR MORESTIN 97218 BASSE-POINTE",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "57ea6ecb-6170-4aef-b135-c17652b03bf3",
+          "companyName": "TOTAL DILLON",
+          "activity": "47.30Z",
+          "location": "AVENUE SALVADOR ALLENDE 97200 FORT-DE-FRANCE",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "0ccd1a72-187c-4053-845f-3bc54121069d",
+          "companyName": "QUALICONSULT SECURITE",
+          "activity": "74.90B",
+          "location": "20 LOTISSEMENT LA SERENITE 17 ALLEE DES COLOMBES 97224 DUCOS",
+          "state": "PROTOTYPE_READY",
+          "score": "77",
+          "hubId": "SECURITE",
+          "businessUnit": "BU Sécurité",
+          "masterOfWork": "MO Sécurité",
+          "websiteUrl": "https://www.qualiconsult.com"
+        },
+        {
+          "id": "7101af89-be8f-45ed-b17b-794cbff65755",
+          "companyName": "SACEM",
+          "activity": "90.02Z",
+          "location": "113 RUE ERNEST DEPROGE 97200 FORT-DE-FRANCE",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "21420fbb-72bd-4a37-b34a-19f2ed77f4e0",
+          "companyName": "AG2R REUNICA-LA MARTINIQUE-LE LAMEN",
+          "activity": "82.99Z",
+          "location": "VIEUX CHEMIN DE CALIFORNIE ACAJOU 97232 LE LAMENTIN",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "275bb1e3-b999-4eba-83de-45d85c32b931",
+          "companyName": "SMAC",
+          "activity": "82.11Z",
+          "location": "ZI LA LEZARDE 97232 LE LAMENTIN",
+          "state": "PROTOTYPE_READY",
+          "score": "77",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.smac.com"
+        },
+        {
+          "id": "649ae177-36d8-4804-a082-4069b95a0e86",
+          "companyName": "EURO INFORMATION SERVICES",
+          "activity": "95.11Z",
+          "location": "2 RUE DU PROFESSEUR RAYMOND GARCIN 97200 FORT-DE-FRANCE",
+          "state": "PROTOTYPE_READY",
+          "score": "69",
+          "hubId": "SERVICES_PROFESSIONNELS",
+          "businessUnit": "BU Services professionnels",
+          "masterOfWork": "MO Services professionnels",
+          "websiteUrl": "https://www.euroinfoservices.fr"
+        },
+        {
+          "id": "23151e23-579f-424d-a629-0430c5676722",
+          "companyName": "QUALICONSULT",
+          "activity": "71.20B",
+          "location": "N 1 ZONE DE MANHITY IMMABLE GREMAU FOUR A CHAUX 97232 LE LAMENTIN",
+          "state": "HUMAN_ACTION_REQUIRED",
+          "score": "76",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.qualiconsult.com"
+        },
+        {
+          "id": "56cb7cd1-a762-45a8-ab21-af1165890d80",
+          "companyName": "ASSOCIATION POUR L'EMPLOI DES CADRES (APEC)",
+          "activity": "78.10Z",
+          "location": "CTRE AFFAIRES BEBOOSTER IMM EQUINOX 12 RUE DES ARTS ET METIERS 97200 FORT-DE-FRANCE",
+          "state": "PROTOTYPE_READY",
+          "score": "71",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.apec.fr/"
+        },
+        {
+          "id": "c965f79e-5aaa-4624-b73f-01e361c0be4e",
+          "companyName": "ARTUS MANAGEMENT",
+          "activity": "82.11Z",
+          "location": "CENTRE D'AFFAIRES BETERBAT - RUE DU ST PLACE D'ARMES 97232 LE LAMENTIN",
+          "state": "HUMAN_ACTION_REQUIRED",
+          "score": "69",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.artusmanagement.com"
+        },
+        {
+          "id": "6124bf69-ae35-419f-85e0-e491e0d52cf1",
+          "companyName": "ARTUS SERVICES",
+          "activity": "82.11Z",
+          "location": "CTRE D'AFFAIRES BETERBAT - RUE DU STAD PLACE D'ARMES 97232 LE LAMENTIN",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "f401d5ae-49d0-46b0-97c4-8846d05cb25d",
+          "companyName": "SOC FIDUCIAIRE NAT JURIDIQUE FISCALE (FIDUCIAL SOFIRAL AVOCATS)",
+          "activity": "69.10Z",
+          "location": "CENTRE DILLON VALMENIERE - BAT A RTE DE LA POINTE DES SABLES 97200 FORT DE FRANCE",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "SERVICES_PROFESSIONNELS",
+          "businessUnit": "BU Services professionnels",
+          "masterOfWork": "MO Services professionnels",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "88827016-931f-4777-9e5e-1a2b8714c6d7",
+          "companyName": "DEKRA INDUSTRIAL",
+          "activity": "71.20B",
+          "location": "HABITATION CARRERE HABITATION CARRERE 97232 LE LAMENTIN",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "81f1e3ff-b2e5-4379-b27b-e923ac3a99bf",
+          "companyName": "BUREAU VERITAS CONSTRUCTION",
+          "activity": "71.20B",
+          "location": "IMMEUBLE EQUINOX BAT B 12 RUE DES ARTS ET METIERS 97200 FORT-DE-FRANCE",
+          "state": "PROTOTYPE_READY",
+          "score": "77",
+          "hubId": "BTP",
+          "businessUnit": "BU BTP",
+          "masterOfWork": "MO BTP",
+          "websiteUrl": "https://www.bureauveritasconstruction.com"
+        },
+        {
+          "id": "bb428966-e820-4e76-89f2-457b879aceb4",
+          "companyName": "BUREAU VERITAS EXPLOITATION",
+          "activity": "71.20B",
+          "location": "IMMEUBLE EQUINOX RUE DES ARTS ET METIERS 97200 FORT-DE-FRANCE",
+          "state": "PROTOTYPE_READY",
+          "score": "71",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.bureauveritas.com"
+        },
+        {
+          "id": "019e118b-54cd-4085-a61b-54a846fe950a",
+          "companyName": "REFUGE",
+          "activity": "94.99Z",
+          "location": "QUA CLEON 97228 SAINTE-LUCE",
+          "state": "HUMAN_ACTION_REQUIRED",
+          "score": "68",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.refuge.com"
+        },
+        {
+          "id": "2b337d96-861e-46c4-b960-2c51f62c02ad",
+          "companyName": "TK ELEVATOR FRANCE",
+          "activity": "43.29B",
+          "location": "IMMEUBLE SECURIDOM ZAC MANHITY 97232 LE LAMENTIN",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "4cc2b65b-02e3-42bf-8bc7-a5787c351a4f",
+          "companyName": "UCPA SPORT VACANCES (UCPA)",
+          "activity": "93.19Z",
+          "location": "CENTRE UCPA FOND CORRE 97250 SAINT-PIERRE",
+          "state": "PROTOTYPE_DEPLOYING",
+          "score": "73",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.ucpa-sport-vacances.com"
+        },
+        {
+          "id": "b6437e30-edf7-441c-87ac-828c56977807",
+          "companyName": "ASL DE LA MARTINIQUE",
+          "activity": "94.99Z",
+          "location": "TERRES SAINVILLE 10 RUE ROBESPIERRE 97200 FORT-DE-FRANCE",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "8c48d357-d6b9-4c80-8e28-0e760c0c06c6",
+          "companyName": "OPERATEUR DE COMPETENCES DES ENTREPRISES DE PROXIMITE",
+          "activity": "94.99Z",
+          "location": "CENTRE D AFFAIRE LA POINTE TOUR LUMINA 1 AV LOULOU BOISLAVILLE 97200 FORT DE FRANCE",
+          "state": "HUMAN_ACTION_REQUIRED",
+          "score": "71",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.operateur-de-competences.fr"
+        },
+        {
+          "id": "0f81b0ed-1f57-421c-aaed-85015c431baa",
+          "companyName": "OFFICE CENTRAL DE COOPERATION A L ECOLE (OCCE)",
+          "activity": "94.99Z",
+          "location": "ECOLE MIXTE SAINTE THERESE B 10 CITE GIRARD 97200 FORT-DE-FRANCE",
+          "state": "HUMAN_ACTION_REQUIRED",
+          "score": "68",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.occe.fr"
+        },
+        {
+          "id": "3f3dfce6-697e-4ec0-b1b2-ead53c468709",
+          "companyName": "APAVE INFRASTRUCTURES ET CONSTRUCTION FRANCE",
+          "activity": "71.20B",
+          "location": "DILLON BATIMENT CALYPSO RUE DE LA VALMENIERE 97200 FORT-DE-FRANCE",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "BTP",
+          "businessUnit": "BU BTP",
+          "masterOfWork": "MO BTP",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "80628c9c-e17d-4c58-996e-ce189b7a090f",
+          "companyName": "BOUYGUES ENERGIES & SERVICES (BOUYGUES ENERGIES & SERVICES)",
+          "activity": "43.21A",
+          "location": "CZ M. GAUCHEROT GUILLAUME POINTE LA ROSE 97231 LE ROBERT",
+          "state": "DISQUALIFIED",
+          "score": "0",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "da0d4664-6a21-4a47-a0b3-daab7bd13b9d",
+          "companyName": "APAVE EXPLOITATION FRANCE",
+          "activity": "71.20B",
+          "location": "24 RUE DES EAUX DECOUPEES 97200 FORT-DE-FRANCE",
+          "state": "DISQUALIFIED",
+          "score": "UNKNOWN",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "4d9337bf-c8cb-44ff-b192-6915b1eddffa",
+          "companyName": "UNION NATIONALE DU SPORT SCOLAIRE (UNSS)",
+          "activity": "93.12Z",
+          "location": "MANGOT VULCIN RTE DU VERT PRE 97232 LE LAMENTIN",
+          "state": "DISQUALIFIED",
+          "score": "62",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.unss.org"
+        },
+        {
+          "id": "25d37ec7-c8fe-4cca-b9ec-a43c632482e3",
+          "companyName": "INRAE ANTILLES-GUYANE FORT-DE-FRANCE",
+          "activity": "72.19Z",
+          "location": "RTE DE LA DILLON 97200 FORT DE FRANCE",
+          "state": "DISQUALIFIED",
+          "score": "UNKNOWN",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "bbd73175-accc-40a4-a24b-a9d147bfdfff",
+          "companyName": "La Balade du Soleil",
+          "activity": "Boat tours and white sandbanks excursions",
+          "location": "Le François, Martinique",
+          "state": "HUMAN_ACTION_REQUIRED",
+          "score": "80",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "labaladedusoleil.com"
+        },
+        {
+          "id": "b41082c6-84e8-4981-8163-9fbe1addeebf",
+          "companyName": "FINANCE CONSEIL",
+          "activity": "66.19B - Auxiliary financial services (mortgage brokerage)",
+          "location": "97229 LES TROIS-ILETS, Martinique (address discrepancy noted with registered entity)",
+          "state": "DISQUALIFIED",
+          "score": "68",
+          "hubId": "SERVICES_PROFESSIONNELS",
+          "businessUnit": "BU Services professionnels",
+          "masterOfWork": "MO Services professionnels",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "c7ebc520-44a6-411b-906a-690fbd4df2a3",
+          "companyName": "Sun Loisirs Martinique",
+          "activity": "Water sports, dolphin watching, catamaran day trips",
+          "location": "Marina Pointe du Bout, Les Trois-Îlets, Martinique",
+          "state": "DISQUALIFIED",
+          "score": "UNKNOWN",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "2ac64a6a-6920-4151-a90e-1820e367ec5d",
+          "companyName": "DEKRA",
+          "activity": "71.20A",
+          "location": "HABITATION CARRERE 97232 LE LAMENTIN",
+          "state": "DISQUALIFIED",
+          "score": "UNKNOWN",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "af8c9cc6-4c49-4aa5-9365-40fc79fa480d",
+          "companyName": "Magic Script E2E Synthetic Prospect",
+          "activity": "Association et reseau local",
+          "location": "Martinique",
+          "state": "WAITING_REPLY",
+          "score": "UNKNOWN",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "https://www.snemm.fr"
+        },
+        {
+          "id": "cf8479be-7c9b-46ce-9bc3-eea3b46223cb",
+          "companyName": "Aux Deux Gouttes d'Eau",
+          "activity": "Artisan pottery and ceramics workshop",
+          "location": "Village de la Poterie, Les Trois-Îlets, Martinique",
+          "state": "DISQUALIFIED",
+          "score": "58",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "5bd05368-cdf3-444a-a2c1-b1ef5d1bb029",
+          "companyName": "RESTALLIANCE",
+          "activity": "56.29A - Cantines et traiteurs / Restauration collective",
+          "location": "Croix Odilon, 97213 Gros-Morne, Martinique",
+          "state": "DISQUALIFIED",
+          "score": "54",
+          "hubId": "RESTAURATION_HOTELLERIE",
+          "businessUnit": "BU Restauration hôtellerie",
+          "masterOfWork": "MO Restauration hôtellerie",
+          "websiteUrl": "https://www.restalliance.fr"
+        },
+        {
+          "id": "a97c4945-ece6-4590-9503-74180fe91f67",
+          "companyName": "CEF - YESSS ELECTRIQUE",
+          "activity": "46.69A",
+          "location": "VOIE ISOLE QUA ZONE ARTISANALE DE LAUGIER 97215 RIVIERE-SALEE",
+          "state": "DISQUALIFIED",
+          "score": "UNKNOWN",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "73443884-39de-4aae-a6e6-24a1433a12ee",
+          "companyName": "GENERALE D'OPTIQUE",
+          "activity": "47.78A",
+          "location": "ZI 8 ZA LES MANGLES ACAJOU 97232 LE LAMENTIN",
+          "state": "DISQUALIFIED",
+          "score": "UNKNOWN",
+          "hubId": "GENERALISTE",
+          "businessUnit": "BU Généraliste",
+          "masterOfWork": "MO Généraliste",
+          "websiteUrl": "UNKNOWN"
+        },
+        {
+          "id": "dd85cd4c-9348-45bb-bce8-84917b9bc76f",
+          "companyName": "SOCIETE NATIONALE D'ENTRAIDE DE LA MEDAILLE MILITAIRE (SNEMM)",
+          "activity": "88.99B - Autres organisations fonctionnant par adhésion volontaire",
+          "location": "97215 Rivière-Salée, Martinique",
+          "state": "WAITING_REPLY",
+          "score": "67",
+          "hubId": "ASSOCIATIONS_MEMOIRE_MILITAIRE",
+          "businessUnit": "BU Associations mémoire militaire",
+          "masterOfWork": "MO Associations mémoire militaire",
+          "websiteUrl": "https://www.snemm.fr"
+        },
+        {
+          "id": "57955a24-b74a-4176-bad3-db3083ac2656",
+          "companyName": "374202 MARTINIQUE RELAY ZR",
+          "activity": "47.62Z - Commerce de détail de journaux et papeterie en magasins spécialisés",
+          "location": "Aéroport International Martinique Aimé Césaire, Le Lamentin, 97232, France",
+          "state": "DISQUALIFIED",
+          "score": "57",
+          "hubId": "COMMERCE_LOCAL",
+          "businessUnit": "BU Commerce local",
+          "masterOfWork": "MO Commerce local",
+          "websiteUrl": "https://relay.fr"
+        }
+      ],
+      "count": 50,
+      "missing": {
+        "activity": 0,
+        "location": 0,
+        "score": 7,
+        "hubId": 0,
+        "businessUnit": 0,
+        "masterOfWork": 0
+      },
+      "duplicateCompanyNames": 0
+    },
+    "outreachStatusCounts": {
+      "DRY_RUN": 3,
+      "REJECTED": 9,
+      "VERIFIED": 1
+    },
+    "prototypeStatusCounts": [
+      {
+        "status": "BUILT",
+        "qa_status": null,
+        "count": 1
+      },
+      {
+        "status": "DEPLOYED",
+        "qa_status": "PASS",
+        "count": 3
+      },
+      {
+        "status": "QA_FAILED",
+        "qa_status": "FAIL",
+        "count": 2
+      },
+      {
+        "status": "READY",
+        "qa_status": "PASS",
+        "count": 14
+      }
+    ]
+  },
+  "runners": [
+    {
+      "runner_id": "codex-authorized-one-shot",
+      "status": "ERROR",
+      "current_job_id": null,
+      "last_seen_at": "2026-09-13T16:13:02.373Z"
+    },
+    {
+      "runner_id": "diagnostic-runner",
+      "status": "IDLE",
+      "current_job_id": null,
+      "last_seen_at": "2026-09-01T06:22:05.795Z"
+    },
+    {
+      "runner_id": "golden-proof-runner-20260917",
+      "status": "IDLE",
+      "current_job_id": null,
+      "last_seen_at": "2026-09-17T13:59:16.725Z"
+    },
+    {
+      "runner_id": "magicscript-LAPTOP-BDP53BBS",
+      "status": "IDLE",
+      "current_job_id": null,
+      "last_seen_at": "2026-09-26T08:56:42.823Z"
+    },
+    {
+      "runner_id": "runtime-proof-runner-20260918",
+      "status": "IDLE",
+      "current_job_id": null,
+      "last_seen_at": "2026-09-18T16:57:37.115Z"
+    }
+  ],
+  "runtime": {
+    "apiHealth": {
+      "available": true,
+      "status": 200
+    },
+    "ports": [
+      {
+        "port": 8787,
+        "state": "LISTENING"
+      },
+      {
+        "port": 3000,
+        "state": "LISTENING"
+      }
+    ]
+  }
+}

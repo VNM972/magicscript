@@ -1,3 +1,29 @@
+import { validateProviderDomain } from '../research/website-seed';
+import type { ProviderWebsiteSeedResult } from '../research/website-seed';
+
+export type HunterDomainFinderResult = ProviderWebsiteSeedResult;
+
+/** Only data[].domain is considered; provider identity fields have no authority. */
+export function normalizeHunterDomainFinderResponse(body: unknown, requestCount: 0 | 1 = 0): HunterDomainFinderResult {
+  const base = { provider: 'HUNTER_DOMAIN_FINDER' as const, authority: 'NON_AUTHORITATIVE' as const, requestCount };
+  const failure = (): HunterDomainFinderResult => ({ ...base, state: 'PROVIDER_FAILURE' });
+  if (!body || typeof body !== 'object' || Array.isArray(body)) return failure();
+  const envelope = body as { data?: unknown; errors?: unknown };
+  if (envelope.errors !== undefined && (!Array.isArray(envelope.errors) || envelope.errors.length)) return failure();
+  if (!Array.isArray(envelope.data)) return failure();
+  if (!envelope.data.length) return { ...base, state: 'PROVIDER_NO_RESULT' };
+  const domains: string[] = [];
+  for (const item of envelope.data) {
+    if (!item || typeof item !== 'object' || Array.isArray(item) || typeof item.domain !== 'string') return failure();
+    const domain = validateProviderDomain(item.domain);
+    if (!domain) return { ...base, state: 'INVALID_PROVIDER_DOMAIN' };
+    domains.push(domain);
+  }
+  if (new Set(domains).size !== 1) return { ...base, state: 'AMBIGUOUS_PROVIDER_RESULT' };
+  const domain = domains[0];
+  return { ...base, state: 'CANDIDATE_DOMAIN', domain, candidateUrl: `https://${domain}/` };
+}
+
 export interface HunterDomainSearchSource {
   uri?: string;
   domain?: string;
@@ -44,7 +70,32 @@ export class HunterClient {
   constructor(
     private readonly apiKey: string,
     private readonly baseUrl = 'https://api.hunter.io/v2',
+    private readonly domainFinderTransport: typeof fetch = (...args) => fetch(...args),
   ) {}
+
+  /** R48: one isolated request, no retries, variants, pagination or email endpoints. */
+  async domainFinder(input: { company: string }): Promise<HunterDomainFinderResult> {
+    const failure = (requestCount: 0 | 1): HunterDomainFinderResult => ({
+      provider: 'HUNTER_DOMAIN_FINDER', authority: 'NON_AUTHORITATIVE', state: 'PROVIDER_FAILURE', requestCount,
+    });
+    if (typeof input?.company !== 'string' || !input.company.trim()) return failure(0);
+    let requestCount: 0 | 1 = 0;
+    try {
+      const url = new URL(`${this.baseUrl}/domain-finder`);
+      url.searchParams.set('api_key', this.apiKey);
+      url.searchParams.set('company', input.company);
+      url.searchParams.set('limit', '1');
+      requestCount = 1;
+      const response = await this.domainFinderTransport(url, {
+        method: 'GET', headers: { accept: 'application/json' }, redirect: 'error',
+      });
+      if (!response.ok) return failure(requestCount);
+      return normalizeHunterDomainFinderResponse(await response.json(), requestCount);
+    } catch {
+      // Never return transport errors: they can contain the authentication URL.
+      return failure(requestCount);
+    }
+  }
 
   async emailCount(input: {
     domain?: string;

@@ -1,0 +1,30 @@
+[
+  {
+    "results": [
+      {
+        "prospects": 0,
+        "jobs": 0,
+        "job_results": 0,
+        "events": 0,
+        "admissions": 0,
+        "outreach": 0
+      }
+    ],
+    "success": true,
+    "meta": {
+      "duration": 1
+    }
+  },
+  {
+    "results": [
+      {
+        "runner_id": "r31-host-20260928-2ce003f6",
+        "status": "IDLE"
+      }
+    ],
+    "success": true,
+    "meta": {
+      "duration": 0
+    }
+  }
+]

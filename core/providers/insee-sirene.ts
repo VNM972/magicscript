@@ -18,6 +18,11 @@ export interface SirenePeriod {
 export interface SireneLegalUnit {
   denominationUniteLegale?: string | null;
   categorieJuridiqueUniteLegale?: string | null;
+  categorieEntreprise?: string | null;
+  trancheEffectifsUniteLegale?: string | null;
+  dateCreationUniteLegale?: string | null;
+  activitePrincipaleUniteLegale?: string | null;
+  nombreEtablissementsOuverts?: number | null;
 }
 
 export interface SireneEstablishment {

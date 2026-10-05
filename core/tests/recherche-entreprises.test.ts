@@ -103,6 +103,8 @@ test('builds a no-key establishment-filtered search request', async () => {
   assert.equal(url.searchParams.get('minimal'), 'true');
   assert.equal(url.searchParams.get('include'), 'matching_etablissements');
   assert.equal(url.searchParams.get('limite_matching_etablissements'), '10');
+  assert.equal(url.searchParams.has('categorie_entreprise'), false);
+  assert.equal(url.searchParams.has('activite_principale'), false);
   assert.match(capturedUserAgent, /MagicScript\/0\.2/);
 });
 
@@ -153,4 +155,49 @@ test('rejects a matching establishment outside Martinique', () => {
   );
 
   assert.equal(establishment, undefined);
+});
+
+async function capturedSearch(input: Parameters<RechercheEntreprisesClient['search']>[0]) {
+  let capturedUrl = '';
+  const client = new RechercheEntreprisesClient('https://example.test', async (url) => {
+    capturedUrl = String(url);
+    return Response.json({ results: [], total_results: 0, page: 1, total_pages: 1 });
+  });
+  await client.search(input);
+  return new URL(capturedUrl).searchParams;
+}
+
+test('serializes the optional PME category without adding an activity restriction', async () => {
+  const params = await capturedSearch({ departement: '972', companyCategory: 'PME' });
+  assert.equal(params.get('categorie_entreprise'), 'PME');
+  assert.equal(params.has('activite_principale'), false);
+});
+
+test('serializes every exact activity code as a comma-separated list', async () => {
+  const codes = ['56.10A', '56.10B', '56.10C', '56.21Z', '56.29A', '56.29B', '56.30Z'];
+  const params = await capturedSearch({ departement: '972', activityCodes: codes });
+  assert.equal(params.get('activite_principale'), codes.join(','));
+  assert.deepEqual(params.get('activite_principale')?.split(','), codes);
+  assert.equal(params.has('categorie_entreprise'), false);
+});
+
+test('exact retail codes stay exact with PME and emit no division wildcard', async () => {
+  const codes = ['47.11A', '47.78C', '47.99B'] as const;
+  const params = await capturedSearch({ departement: '972', companyCategory: 'PME', activityCodes: codes });
+  assert.equal(params.get('categorie_entreprise'), 'PME');
+  assert.equal(params.get('activite_principale'), '47.11A,47.78C,47.99B');
+  assert.doesNotMatch(params.toString(), /\*|%2A/i);
+  assert.equal(params.has('section_activite_principale'), false);
+});
+
+test('omitted and empty new options preserve the original provider query', async () => {
+  const input = { departement: '972', sections: ['F', 'G', 'I'], page: 2, perPage: 7 };
+  const original = await capturedSearch(input);
+  const empty = await capturedSearch({ ...input, companyCategory: '', activityCodes: [] });
+  assert.deepEqual([...empty], [...original]);
+  assert.deepEqual([...original], [
+    ['departement', '972'], ['etat_administratif', 'A'], ['page', '2'], ['per_page', '7'],
+    ['minimal', 'true'], ['include', 'matching_etablissements'], ['limite_matching_etablissements', '10'],
+    ['section_activite_principale', 'F,G,I'],
+  ]);
 });

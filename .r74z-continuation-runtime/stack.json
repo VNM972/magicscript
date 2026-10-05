@@ -1,0 +1,7 @@
+﻿{
+    "mechanism":  "scripts/magic-script.ps1::Acquire-Lock GUID generation; scripts/start-local-swarm.ps1 shared MAGICSCRIPT_STACK_ID; scripts/run-local-api-with-restart.cjs Wrangler --var; bounded runOne",
+    "stackId":  "906ad630-d16d-46f3-94f1-7c8e5489e098",
+    "apiUrl":  "http://127.0.0.1:8787",
+    "apiPid":  5284,
+    "apiStartedAt":  "2026-10-03T07:17:36.4569494Z"
+}

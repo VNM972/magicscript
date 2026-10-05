@@ -1,0 +1,18 @@
+{
+  "reviewedAt": "2026-10-04T11:02:10.828Z",
+  "buildArtifactId": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+  "screenshots": [
+    "D:\\MagicScript\\repository\\.r77z-runtime\\qa-a1\\desktop.png",
+    "D:\\MagicScript\\repository\\.r77z-runtime\\qa-a1\\mobile.png"
+  ],
+  "findings": [
+    {
+      "category": "PLACEHOLDER",
+      "observedText": "GENERAL_LOCAL_BUSINESS",
+      "location": "Visible hero kicker on desktop and mobile",
+      "basis": "Internal canonical vertical identifier exposed as public-facing copy",
+      "supportedCorrectionOperation": null
+    }
+  ],
+  "additionalObservation": "First mobile screen shows generic strategy wording rather than a concrete photography/video offer or Reims context. Not treated as source evidence or repaired."
+}

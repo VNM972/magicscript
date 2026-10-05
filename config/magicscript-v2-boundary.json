@@ -1,6 +1,35 @@
 {
   "schemaVersion": 1,
   "mission": "V2-M010",
+  "milestoneClosure": {
+    "status": "PASS / CLOSED",
+    "classification": "M010_CAN_CLOSE_NOW",
+    "productBlockers": 0,
+    "unprovenMandatoryRequirements": 0,
+    "monolithicAcceptanceRequired": false,
+    "realExternalEmailSentDuringAcceptance": false,
+    "backendSmsSend": false,
+    "backendWhatsappSend": false,
+    "requirements": {
+      "M010-R01": "PROVEN",
+      "M010-R02": "PROVEN",
+      "M010-R03": "PROVEN",
+      "M010-R04": "PROVEN",
+      "M010-R05": "PROVEN",
+      "M010-R06": "PROVEN",
+      "M010-R07": "PROVEN",
+      "M010-R08": "PROVEN",
+      "M010-R09": "PROVEN",
+      "M010-R10": "PROVEN",
+      "M010-R11": "PROVEN"
+    },
+    "nonBlockingHardening": [
+      "Explicit duplicate-success callback invocation in the monolithic runner",
+      "Explicit duplicate-failure callback invocation in the monolithic runner",
+      "Explicit second MOBILE confirmation invocation in the monolithic runner",
+      "Further cleanup/refinement of the monolithic M010 acceptance harness"
+    ]
+  },
   "classifications": ["KEEP", "ADAPT", "QUARANTINE", "REMOVE", "NEW_V2"],
   "components": [
     {"id":"event-store","classification":"KEEP","paths":["core/events","database/schema.sql"],"rationale":"Event history is reusable infrastructure.","activeRuntimeAllowed":true},

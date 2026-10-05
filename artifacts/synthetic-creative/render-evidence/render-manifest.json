@@ -1,0 +1,40 @@
+{
+  "fixtureId": "synthetic-ugly",
+  "artifactFingerprint": "0341d647eaee6854b5a0c7475cac6f6917f74318c1b9f1141dbb4550a04a005e",
+  "evidence": {
+    "desktop": {
+      "viewport": "1440x900",
+      "checked": true,
+      "artifactPath": "D:\\MagicScript\\repository\\artifacts\\synthetic-creative\\render-evidence\\desktop-033f8f6cb2458bcb.png"
+    },
+    "mobile": {
+      "viewport": "390x844",
+      "checked": true,
+      "artifactPath": "D:\\MagicScript\\repository\\artifacts\\synthetic-creative\\render-evidence\\mobile-ad92cc2b8886801e.png"
+    },
+    "method": "LOCAL_STATIC_RENDER_METADATA",
+    "capturedAt": "2026-09-15T15:36:05.884Z",
+    "desktopEvidence": {
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 900,
+      "artifactFingerprint": "0341d647eaee6854b5a0c7475cac6f6917f74318c1b9f1141dbb4550a04a005e",
+      "evidencePath": "D:\\MagicScript\\repository\\artifacts\\synthetic-creative\\render-evidence\\desktop-033f8f6cb2458bcb.png",
+      "evidenceId": "033f8f6cb2458bcb",
+      "rendererMethod": "LOCAL_CHROME_HEADLESS",
+      "timestamp": "2026-09-15T15:36:03.649Z",
+      "success": true
+    },
+    "mobileEvidence": {
+      "viewport": "mobile",
+      "width": 390,
+      "height": 844,
+      "artifactFingerprint": "0341d647eaee6854b5a0c7475cac6f6917f74318c1b9f1141dbb4550a04a005e",
+      "evidencePath": "D:\\MagicScript\\repository\\artifacts\\synthetic-creative\\render-evidence\\mobile-ad92cc2b8886801e.png",
+      "evidenceId": "ad92cc2b8886801e",
+      "rendererMethod": "LOCAL_CHROME_HEADLESS",
+      "timestamp": "2026-09-15T15:36:04.825Z",
+      "success": true
+    }
+  }
+}

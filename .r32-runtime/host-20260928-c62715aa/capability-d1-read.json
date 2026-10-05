@@ -1,0 +1,28 @@
+[
+  {
+    "results": [
+      {
+        "prospects": 0,
+        "jobs": 0,
+        "job_results": 0,
+        "events": 0
+      }
+    ],
+    "success": true,
+    "meta": {
+      "duration": 1
+    }
+  },
+  {
+    "results": [
+      {
+        "runner_id": "r32-host-20260928-c62715aa",
+        "status": "IDLE"
+      }
+    ],
+    "success": true,
+    "meta": {
+      "duration": 1
+    }
+  }
+]

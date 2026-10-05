@@ -1,0 +1,46 @@
+{
+  "verifiedAt": "2026-10-03T08:20:30.996Z",
+  "status": "BLOCKED_ENVIRONMENT",
+  "selectedProspect": "Zakari",
+  "prospectId": null,
+  "sourceUrl": "https://www.zakari.fr/site-en-construction",
+  "canonicalHomepage": "https://www.zakari.fr/",
+  "previousTransportCause": "LIKELY restricted execution sandbox; native connect EACCES reproduced on same DNS-selected IPv4/443. Original invocation did not retain native error.",
+  "transportFix": "Execute one corrected canonical native inspection outside restricted sandbox; no configuration or product-source change.",
+  "remainingBlocker": "FETCH_FAILED / UNSUPPORTED after verified TLSv1.3 and HTTP 200 text/html; exact rejecting validation criterion UNKNOWN because canonical inspector collapses multiple validation failures.",
+  "canonicalFetchRetryCount": 1,
+  "canonicalFetchFinalResult": "FAIL",
+  "additionalRetries": 0,
+  "lastProvenStage": "DNS, authorized TLS and HTTP 200 from canonical native HTTPS request",
+  "firstBrokenStage": "Canonical homepage observation/content acceptance before qualification or admission",
+  "counts": {
+    "admissions": 0,
+    "slotAcquisitions": 0,
+    "designJobs": 0,
+    "designReviews": 0,
+    "buildJobs": 0,
+    "visualQaInvocations": 0,
+    "correctionCycles": 0
+  },
+  "canonicalD1RowsUnchanged": true,
+  "trackedDiffUnchanged": true,
+  "villaHistoryUnchanged": true,
+  "prospectState": "NOT_ADMITTED",
+  "jobState": "NONE",
+  "attemptCount": 0,
+  "slotState": "No Zakari slot; all slot rows unchanged",
+  "newProductDefect": "NONE established",
+  "productSourceFilesModified": [],
+  "reproducibilityResult": "NOT_PROVEN",
+  "nextAllowedAction": "Separately authorize a bounded diagnosis of Zakari canonical UNSUPPORTED content acceptance.",
+  "usage": {
+    "credits": "USAGE_NOT_EXPOSED",
+    "modelReasoning": "USAGE_NOT_EXPOSED",
+    "codebaseMemoryTools": [
+      "list_projects",
+      "search_graph (Transport closed)"
+    ],
+    "shellFallback": true,
+    "subagents": 0
+  }
+}

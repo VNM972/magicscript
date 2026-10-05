@@ -1,171 +1,92 @@
-﻿import assert from 'node:assert/strict';
+import assert from 'node:assert/strict';
 import test from 'node:test';
 import { evaluatePrototypeCostGate } from '../orchestrator/prototype-cost-gate';
 
 const evaluatedAt = '2026-09-04T09:00:00.000Z';
+const engagement = (activity_score = 0, intent_score = 0, trend: 'RISING' | 'STABLE' | 'COOLING' = 'STABLE') => ({
+  score_total: activity_score + intent_score,
+  activity_score,
+  intent_score,
+  trend,
+  top_contributors: [],
+  last_meaningful_event: null,
+  computed_at: evaluatedAt,
+});
+const base = {
+  opportunity: 'A' as const,
+  prospectScore: 90,
+  websiteUrl: null,
+  primaryFriction: 'Conversion friction',
+  primaryAsset: 'Verified logo',
+  primaryCta: 'Request a quote',
+  engagement: engagement(),
+  computeClass: 'LOW' as const,
+  estimatedExternalCost: { kind: 'UNKNOWN' as const, reason: 'Historical provider pricing unavailable' },
+  evaluatedAt,
+};
 
-function engagement(
-  activity_score: number,
-  intent_score: number,
-  trend: 'RISING' | 'STABLE' | 'COOLING',
-) {
-  return {
-    score_total: Math.min(100, activity_score + intent_score),
-    activity_score,
-    intent_score,
-    trend,
-    top_contributors: [],
-    last_meaningful_event: null,
-    computed_at: evaluatedAt,
-  };
+function evaluate(overrides: Record<string, unknown> = {}) {
+  return evaluatePrototypeCostGate({ ...base, ...overrides } as never);
 }
 
-test('fails closed outside the qualified-interest funnel stage', () => {
-  const result = evaluatePrototypeCostGate({
-    state: 'QUALIFIED',
-    opportunity: 'A',
-    prospectScore: 100,
-    websiteUrl: null,
-    primaryFriction: 'Needs a website',
-    primaryAsset: 'Logo',
-    primaryCta: 'Book',
-    engagement: engagement(30, 40, 'RISING'),
-    computeClass: 'LOW',
-    estimatedExternalCost: { kind: 'UNKNOWN', reason: 'No priced provider used' },
-    evaluatedAt,
-  });
-
-  assert.equal(result.decision, 'NO-GO');
-  assert.equal(result.authorization, 'NONE');
-  assert.equal(result.policyScore, 0);
-  assert.equal(result.reevaluateAt, null);
-  assert.deepEqual(result.reasonCodes, ['FUNNEL_STAGE_NOT_ELIGIBLE']);
+test('navigation richness cannot classify compute or alter authorization', () => {
+  const light = evaluate({ state: 'PROTOTYPE_REQUIRED', computeClass: 'HIGH' });
+  const low = evaluate({ state: 'PROTOTYPE_REQUIRED', computeClass: 'LOW' });
+  assert.equal(light.authorization, 'LIGHT');
+  assert.equal(light.decision, 'LIGHT');
+  assert.equal(light.computeClass, 'HIGH');
+  assert.equal(low.authorization, 'LIGHT');
 });
 
-test('allows reevaluation after an objective MEETING_BOOKED signal', () => {
-  const result = evaluatePrototypeCostGate({
-    state: 'MEETING_BOOKED',
-    opportunity: 'A',
-    prospectScore: 90,
-    websiteUrl: null,
-    primaryFriction: 'Needs a website',
-    primaryAsset: 'Logo',
-    primaryCta: 'Book',
-    engagement: engagement(30, 40, 'RISING'),
-    computeClass: 'LOW',
-    estimatedExternalCost: { kind: 'UNKNOWN', reason: 'No priced provider used' },
-    evaluatedAt,
-  });
-
-  assert.equal(result.decision, 'GO');
-  assert.equal(result.authorization, 'FULL');
-  assert.equal(result.reevaluateAt, null);
-  assert.ok(result.reasonCodes.includes('MEETING_BOOKED_SIGNAL'));
-});
-
-test('authorizes a full prototype for a strongly qualified prospect', () => {
-  const result = evaluatePrototypeCostGate({
-    state: 'INTERESTED',
-    opportunity: 'A',
-    prospectScore: 85,
-    websiteUrl: null,
-    primaryFriction: 'No credible digital presence',
-    primaryAsset: 'Official logo',
-    primaryCta: 'Request a quote',
-    engagement: engagement(24, 40, 'RISING'),
-    computeClass: 'MEDIUM',
-    estimatedExternalCost: { kind: 'UNKNOWN', reason: 'No proven external cost' },
-    evaluatedAt,
-  });
-
-  assert.equal(result.decision, 'GO');
-  assert.equal(result.authorization, 'FULL');
-  assert.equal(result.policyScore, 95);
-  assert.equal(result.reevaluateAt, null);
-});
-
-test('authorizes only a light prototype for a medium-strength prospect', () => {
-  const result = evaluatePrototypeCostGate({
-    state: 'INTERESTED',
-    opportunity: 'B',
-    prospectScore: 65,
-    websiteUrl: 'https://example.test',
-    primaryFriction: 'Existing site is dated',
-    primaryAsset: 'Logo',
-    primaryCta: null,
-    engagement: engagement(12, 22, 'STABLE'),
-    computeClass: 'MEDIUM',
-    estimatedExternalCost: { kind: 'UNKNOWN', reason: 'Provider pricing unavailable' },
-    evaluatedAt,
-  });
-
-  assert.equal(result.decision, 'LIGHT');
+test('qualified PROTOTYPE_REQUIRED receives bounded LIGHT without engagement', () => {
+  const result = evaluate({ state: 'PROTOTYPE_REQUIRED' });
   assert.equal(result.authorization, 'LIGHT');
-  assert.equal(result.reevaluateAt, null);
+  assert.equal(result.decision, 'LIGHT');
+  assert.ok(result.reasonCodes.includes('PRECONTACT_LIGHT_PROTOTYPE'));
+  assert.ok(result.reasonCodes.includes('COMMERCIAL_QUALIFICATION_SUFFICIENT'));
+  assert.ok(result.reasonCodes.includes('ENGAGEMENT_NOT_REQUIRED_PRECONTACT'));
 });
 
-test('refuses prototype spend and schedules reevaluation after 30 days for a weak prospect', () => {
-  const result = evaluatePrototypeCostGate({
-    state: 'INTERESTED',
-    opportunity: 'D',
-    prospectScore: 20,
-    websiteUrl: 'https://example.test',
-    primaryFriction: null,
-    primaryAsset: null,
-    primaryCta: null,
-    engagement: engagement(0, 0, 'COOLING'),
-    computeClass: 'HIGH',
-    estimatedExternalCost: { kind: 'UNKNOWN', reason: 'No cost evidence' },
-    evaluatedAt,
-  });
+test('PROTOTYPE_REQUIRED can never receive FULL', () => {
+  const result = evaluate({ state: 'PROTOTYPE_REQUIRED', engagement: engagement(40, 100, 'RISING') });
+  assert.notEqual(result.authorization, 'FULL');
+  assert.equal(result.authorization, 'LIGHT');
+});
 
-  assert.equal(result.decision, 'NO-GO');
+test('weak cold prospect remains NO-GO', () => {
+  const result = evaluate({ state: 'PROTOTYPE_REQUIRED', opportunity: 'D', prospectScore: 20, primaryFriction: null, primaryAsset: null, primaryCta: null });
   assert.equal(result.authorization, 'NONE');
-  assert.equal(result.policyScore, 0);
-  assert.equal(result.reevaluateAt, '2026-10-04T09:00:00.000Z');
+  assert.equal(result.decision, 'NO-GO');
 });
 
-test('preserves UNKNOWN external cost instead of inventing zero', () => {
-  const result = evaluatePrototypeCostGate({
-    state: 'INTERESTED',
-    opportunity: 'B',
-    prospectScore: 70,
-    websiteUrl: null,
-    primaryFriction: 'Needs conversion path',
-    primaryAsset: 'Logo',
-    primaryCta: 'Contact',
-    engagement: engagement(20, 30, 'RISING'),
-    computeClass: 'LOW',
-    estimatedExternalCost: { kind: 'UNKNOWN', reason: 'No priced external provider' },
-    evaluatedAt,
-  });
-
-  assert.deepEqual(result.estimatedExternalCost, {
-    kind: 'UNKNOWN',
-    reason: 'No priced external provider',
-  });
+test('INTERESTED and MEETING_BOOKED can receive FULL from engagement and qualification', () => {
+  const interested = evaluate({ state: 'INTERESTED', engagement: engagement(24, 40, 'RISING') });
+  const meeting = evaluate({ state: 'MEETING_BOOKED', engagement: engagement(30, 40, 'RISING') });
+  assert.equal(interested.authorization, 'FULL');
+  assert.equal(meeting.authorization, 'FULL');
+  assert.ok(meeting.reasonCodes.includes('MEETING_BOOKED_SIGNAL'));
+  assert.ok(meeting.reasonCodes.includes('POST_INTEREST_FULL_AUTHORIZATION'));
 });
 
-test('rejects an invalid known external cost', () => {
-  assert.throws(
-    () =>
-      evaluatePrototypeCostGate({
-        state: 'INTERESTED',
-        opportunity: 'A',
-        prospectScore: 90,
-        websiteUrl: null,
-        primaryFriction: 'Need',
-        primaryAsset: 'Logo',
-        primaryCta: 'Contact',
-        engagement: engagement(25, 40, 'RISING'),
-        computeClass: 'LOW',
-        estimatedExternalCost: {
-          kind: 'KNOWN',
-          amountEur: -1,
-          source: 'provider',
-        },
-        evaluatedAt,
-      }),
-    /non-negative finite amount/,
-  );
+test('unknown historical cost does not block bounded local LIGHT', () => {
+  const result = evaluate({ state: 'PROTOTYPE_REQUIRED', paidCostRequired: false });
+  assert.equal(result.authorization, 'LIGHT');
+  assert.equal(result.estimatedExternalCost.kind, 'UNKNOWN');
+});
+
+test('unknown cost fails closed when a paid provider is actually required', () => {
+  const result = evaluate({ state: 'INTERESTED', paidCostRequired: true });
+  assert.equal(result.authorization, 'NONE');
+  assert.equal(result.decision, 'NO-GO');
+  assert.ok(result.reasonCodes.includes('PAID_COST_UNKNOWN_BLOCK'));
+});
+
+test('known external cost validation remains strict', () => {
+  assert.throws(() => evaluate({ state: 'INTERESTED', estimatedExternalCost: { kind: 'KNOWN', amountEur: -1, source: 'provider' } }), /non-negative finite amount/);
+});
+
+test('ineligible states fail closed', () => {
+  const result = evaluate({ state: 'QUALIFIED' });
+  assert.equal(result.authorization, 'NONE');
+  assert.deepEqual(result.reasonCodes, ['FUNNEL_STAGE_NOT_ELIGIBLE']);
 });

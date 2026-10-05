@@ -1,6 +1,7 @@
 export type OutreachChannel = 'EMAIL' | 'MOBILE';
 export type OutreachDraftStatus = 'DRAFT' | 'READY_FOR_OPERATOR' | 'APPROVED' | 'SENT' | 'MOBILE_CONFIRMED' | 'SUPERSEDED';
-export interface OutreachDraft { id: string; proposal_id: string; prospect_id: string; channel: OutreachChannel; recipient_ref: string; subject: string | null; body: string; proposal_link: string; revision: number; content_hash: string; status: OutreachDraftStatus; approved_revision?: number | null; approved_hash?: string | null; }
+export interface OutreachQualityBinding { gateVersion: string; status: 'READY' | 'NEEDS_CORRECTION' | 'BLOCKED' | 'ABSTAIN'; decision: 'READY_FOR_OPERATOR' | 'REGENERATE' | 'BLOCKED' | 'ABSTAIN'; score: number | null; blockers: string[]; warnings: string[]; attempt: number; revision: number; fingerprint: string; }
+export interface OutreachDraft { id: string; proposal_id: string; prospect_id: string; channel: OutreachChannel; recipient_ref: string; subject: string | null; body: string; proposal_link: string; revision: number; content_hash: string; quality?: OutreachQualityBinding | null; status: OutreachDraftStatus; approved_revision?: number | null; approved_hash?: string | null; }
 export interface OutreachContacted { proposal_id: string; prospect_id: string; channel: OutreachChannel; contacted_at: string; draft_id: string; revision: number; fingerprint: string; message_id?: string | null; operator_id: string; }
 export interface OutreachState { draft: OutreachDraft; contacted: OutreachContacted | null; }
 export interface OutreachAction { ok: boolean; draftId: string; status?: string; revision?: number; fingerprint?: string; }

@@ -29,6 +29,8 @@ Il décide quel agent exécuter, dans quel ordre, avec quels garde-fous et quell
 8. Ne notifier l'humain que selon docs/autonomy-policy.md.
 9. Ne jamais consommer une API payante sans autorisation explicite.
 10. Journaliser chaque décision importante.
+11. `OUTREACH_READY` désigne un brouillon prêt pour validation humaine ; l'orchestrateur ne peut jamais déclencher d'envoi ou de contact externe.
+12. `EMAIL_SENT` et `FOLLOW_UP_SENT` ne peuvent refléter qu'un événement externe explicitement autorisé et vérifié ; aucune transition ne peut être produite par une sortie LLM seule.
 
 ## Ordre standard
 
@@ -40,10 +42,10 @@ DISCOVERED
 → CONTACT_DISCOVERY
 → CONTACT_FOUND
 → OUTREACH_READY
-→ EMAIL_SENT
+→ EMAIL_SENT (événement externe autorisé et vérifié)
 → WAITING_REPLY
 → FOLLOW_UP_DUE
-→ FOLLOW_UP_SENT
+→ FOLLOW_UP_SENT (événement externe autorisé et vérifié)
 → response classification
 → prototype / archive / human escalation
 ```

@@ -1,5 +1,594 @@
 {
   "status": "FAIL",
-  "error": "Readiness failed for http://127.0.0.1:8787/health: HTTP 500",
-  "privilegeRequestsUsed": 1
+  "runId": "2026-09-21T21-07-03-469Z-c9e428e1",
+  "database": {
+    "path": "D:\\MagicScript\\repository\\.m010-final-runtime\\2026-09-21T21-07-03-469Z-c9e428e1",
+    "setupResult": "PASS",
+    "seedExecutionCount": 1,
+    "freshness": "PASS",
+    "fixtureIds": {
+      "prospects": [
+        "prospect-email",
+        "prospect-edit",
+        "prospect-mobile",
+        "prospect-suppressed",
+        "prospect-fake-failure"
+      ],
+      "contacts": [
+        "contact-email",
+        "contact-edit",
+        "contact-suppressed",
+        "contact-fake-failure"
+      ],
+      "proposals": [
+        "proposal-email",
+        "proposal-edit",
+        "proposal-mobile",
+        "proposal-suppressed",
+        "proposal-fake-failure"
+      ]
+    },
+    "preSeedChecks": {
+      "output": "[\n  {\n    \"results\": [\n      {\n        \"prospects\": 0,\n        \"proposals\": 0,\n        \"drafts\": 0\n      }\n    ],\n    \"success\": true,\n    \"meta\": {\n      \"duration\": 0\n    }\n  }\n]\n",
+      "seedOutput": "\n ⛅️ wrangler 4.127.1\n────────────────────\nResource location: local \n\nUse --remote if you want to access the remote instance.\n\n🌀 Executing on local database DB (magicscript-local) from .m010-final-runtime\\2026-09-21T21-07-03-469Z-c9e428e1\\v3\\d1:\n🌀 To execute on your remote database, add a --remote flag to your wrangler command.\n🚣 9 commands executed successfully.\n[\n  {\n    \"results\": [],\n    \"success\": true,\n    \"meta\": {\n      \"duration\": 1\n    }\n  },\n  {\n    \"results\": [],\n    \"success\": true,\n    \"meta\": {\n      \"duration\": 1\n    }\n  },\n  {\n    \"results\": [],\n    \"success\": true,\n    \"meta\": {\n      \"duration\": 0\n    }\n  },\n  {\n    \"results\": [],\n    \"success\": true,\n    \"meta\": {\n      \"duration\": 0\n    }\n  },\n  {\n    \"results\": [],\n    \"success\": true,\n    \"meta\": {\n      \"duration\": 1\n    }\n  },\n  {\n    \"results\": [],\n    \"success\": true,\n    \"meta\": {\n      \"duration\": 0\n    }\n  },\n  {\n    \"results\": [],\n    \"success\": true,\n    \"meta\": {\n      \"duration\": 0\n    }\n  },\n  {\n    \"results\": [],\n    \"success\": true,\n    \"meta\": {\n      \"duration\": 1\n    }\n  },\n  {\n    \"results\": [],\n    \"success\": true,\n    \"meta\": {\n      \"duration\": 0\n    }\n  }\n]\n"
+    }
+  },
+  "scenarios": {
+    "emailHappyPath": {
+      "status": "PASS",
+      "evidence": {
+        "draft": {
+          "id": "proposal-email:prospect-email:EMAIL:r2",
+          "proposal_id": "proposal-email",
+          "prospect_id": "prospect-email",
+          "channel": "EMAIL",
+          "recipient_ref": "contact-email",
+          "subject": "Proposition Café Rivage révisée",
+          "body": "Version révisée — /p/email",
+          "proposal_link": "/p/email",
+          "booking_link": null,
+          "grounding_json": "[]",
+          "revision": 2,
+          "content_hash": "e66b730fff63c70088d8910676b0f73d46e12c5ca241cf67e19a3465751cc5f6",
+          "status": "READY_FOR_OPERATOR",
+          "created_at": "2026-09-21T21:07:46.464Z",
+          "approved_at": null,
+          "approved_by": null,
+          "action_at": null,
+          "action_by": null,
+          "approved_revision": null,
+          "approved_hash": null
+        },
+        "queued": {
+          "ok": true,
+          "draftId": "proposal-email:prospect-email:EMAIL:r2",
+          "messageId": "11933979-8dd6-4fb9-b1ca-76696385137d",
+          "jobId": "b7028156-173c-4603-84d5-b4077cfc4e07",
+          "status": "SEND_QUEUED",
+          "note": "Queued for existing send safeguards; delivery is not confirmed by this route."
+        },
+        "delivery": {
+          "id": "fake-delivery-v2-reservation-proposal-email-2",
+          "reservation_id": "v2-reservation-proposal-email-2",
+          "recipient": "bonjour@cafe-rivage.test",
+          "subject": "Proposition Café Rivage révisée",
+          "body": "Version révisée — /p/email",
+          "proposal_link": "/p/email",
+          "draft_id": "proposal-email:prospect-email:EMAIL:r2",
+          "revision": 2,
+          "fingerprint": "e66b730fff63c70088d8910676b0f73d46e12c5ca241cf67e19a3465751cc5f6",
+          "idempotency_key": "prospect-email:EMAIL:2:INITIAL",
+          "send_count": 1,
+          "outcome": "SUCCESS",
+          "created_at": "2026-09-21T21:07:59.749Z"
+        },
+        "contacted": {
+          "draft": {
+            "id": "proposal-email:prospect-email:EMAIL:r2",
+            "proposal_id": "proposal-email",
+            "prospect_id": "prospect-email",
+            "channel": "EMAIL",
+            "recipient_ref": "contact-email",
+            "subject": "Proposition Café Rivage révisée",
+            "body": "Version révisée — /p/email",
+            "proposal_link": "/p/email",
+            "booking_link": null,
+            "grounding_json": "[]",
+            "revision": 2,
+            "content_hash": "e66b730fff63c70088d8910676b0f73d46e12c5ca241cf67e19a3465751cc5f6",
+            "status": "APPROVED",
+            "created_at": "2026-09-21T21:07:46.464Z",
+            "approved_at": "2026-09-21T21:07:54.296Z",
+            "approved_by": "human",
+            "action_at": "2026-09-21T21:07:56.174Z",
+            "action_by": "human",
+            "approved_revision": 2,
+            "approved_hash": "e66b730fff63c70088d8910676b0f73d46e12c5ca241cf67e19a3465751cc5f6"
+          },
+          "contacted": {
+            "prospect_id": "prospect-email",
+            "proposal_id": "proposal-email",
+            "channel": "EMAIL",
+            "contacted_at": "2026-09-21T21:07:59.772Z",
+            "draft_id": "proposal-email:prospect-email:EMAIL:r2",
+            "revision": 2,
+            "fingerprint": "e66b730fff63c70088d8910676b0f73d46e12c5ca241cf67e19a3465751cc5f6",
+            "message_id": "fake-prospect-email:EMAIL:2:INITIAL",
+            "operator_id": "human"
+          }
+        }
+      }
+    },
+    "immutableEdit": {
+      "status": "PASS",
+      "evidence": {
+        "r1": {
+          "id": "proposal-email:prospect-email:EMAIL:r1",
+          "proposal_id": "proposal-email",
+          "prospect_id": "prospect-email",
+          "channel": "EMAIL",
+          "recipient_ref": "contact-email",
+          "subject": "Proposition Café Rivage",
+          "body": "Bonjour — proposition /p/email",
+          "proposal_link": "/p/email",
+          "booking_link": null,
+          "grounding_json": "[]",
+          "revision": 1,
+          "content_hash": "17c93358b0840530d30ca25fba73bad33f897146ff5641281abb24840b053c50",
+          "status": "DRAFT",
+          "created_at": "2026-09-21T21:07:40.667Z",
+          "approved_at": null,
+          "approved_by": null,
+          "action_at": null,
+          "action_by": null,
+          "approved_revision": null,
+          "approved_hash": null
+        },
+        "r2": {
+          "id": "proposal-email:prospect-email:EMAIL:r2",
+          "proposal_id": "proposal-email",
+          "prospect_id": "prospect-email",
+          "channel": "EMAIL",
+          "recipient_ref": "contact-email",
+          "subject": "Proposition Café Rivage révisée",
+          "body": "Version révisée — /p/email",
+          "proposal_link": "/p/email",
+          "booking_link": null,
+          "grounding_json": "[]",
+          "revision": 2,
+          "content_hash": "e66b730fff63c70088d8910676b0f73d46e12c5ca241cf67e19a3465751cc5f6",
+          "status": "READY_FOR_OPERATOR",
+          "created_at": "2026-09-21T21:07:46.464Z",
+          "approved_at": null,
+          "approved_by": null,
+          "action_at": null,
+          "action_by": null,
+          "approved_revision": null,
+          "approved_hash": null
+        }
+      }
+    },
+    "staleApproval": {
+      "status": "PASS",
+      "evidence": {
+        "rejected": true,
+        "responseStatus": 409,
+        "responseBody": {
+          "error": "Only an exactly approved email draft can be sent"
+        },
+        "approvedR1": {
+          "id": "proposal-email:prospect-email:EMAIL:r1",
+          "proposal_id": "proposal-email",
+          "prospect_id": "prospect-email",
+          "channel": "EMAIL",
+          "recipient_ref": "contact-email",
+          "subject": "Proposition Café Rivage",
+          "body": "Bonjour — proposition /p/email",
+          "proposal_link": "/p/email",
+          "booking_link": null,
+          "grounding_json": "[]",
+          "revision": 1,
+          "content_hash": "17c93358b0840530d30ca25fba73bad33f897146ff5641281abb24840b053c50",
+          "status": "APPROVED",
+          "created_at": "2026-09-21T21:07:40.667Z",
+          "approved_at": "2026-09-21T21:07:44.646Z",
+          "approved_by": "human",
+          "action_at": "2026-09-21T21:07:44.646Z",
+          "action_by": "human",
+          "approved_revision": 1,
+          "approved_hash": "17c93358b0840530d30ca25fba73bad33f897146ff5641281abb24840b053c50"
+        },
+        "r2": {
+          "id": "proposal-email:prospect-email:EMAIL:r2",
+          "proposal_id": "proposal-email",
+          "prospect_id": "prospect-email",
+          "channel": "EMAIL",
+          "recipient_ref": "contact-email",
+          "subject": "Proposition Café Rivage révisée",
+          "body": "Version révisée — /p/email",
+          "proposal_link": "/p/email",
+          "booking_link": null,
+          "grounding_json": "[]",
+          "revision": 2,
+          "content_hash": "e66b730fff63c70088d8910676b0f73d46e12c5ca241cf67e19a3465751cc5f6",
+          "status": "READY_FOR_OPERATOR",
+          "created_at": "2026-09-21T21:07:46.464Z",
+          "approved_at": null,
+          "approved_by": null,
+          "action_at": null,
+          "action_by": null,
+          "approved_revision": null,
+          "approved_hash": null
+        },
+        "deliveryRows": [],
+        "stage": {
+          "label": "staleApproval",
+          "successfulDeliveries": 0,
+          "contacted": 0,
+          "outreachSent": 0
+        }
+      }
+    },
+    "contentIntegrity": {
+      "status": "PASS",
+      "evidence": {
+        "approved": {
+          "id": "proposal-email:prospect-email:EMAIL:r2",
+          "proposal_id": "proposal-email",
+          "prospect_id": "prospect-email",
+          "channel": "EMAIL",
+          "recipient_ref": "contact-email",
+          "subject": "Proposition Café Rivage révisée",
+          "body": "Version révisée — /p/email",
+          "proposal_link": "/p/email",
+          "booking_link": null,
+          "grounding_json": "[]",
+          "revision": 2,
+          "content_hash": "e66b730fff63c70088d8910676b0f73d46e12c5ca241cf67e19a3465751cc5f6",
+          "status": "READY_FOR_OPERATOR",
+          "created_at": "2026-09-21T21:07:46.464Z",
+          "approved_at": null,
+          "approved_by": null,
+          "action_at": null,
+          "action_by": null,
+          "approved_revision": null,
+          "approved_hash": null
+        },
+        "persistedDraft": {
+          "id": "proposal-email:prospect-email:EMAIL:r2",
+          "proposal_id": "proposal-email",
+          "prospect_id": "prospect-email",
+          "channel": "EMAIL",
+          "recipient_ref": "contact-email",
+          "subject": "Proposition Café Rivage révisée",
+          "body": "Version révisée — /p/email",
+          "proposal_link": "/p/email",
+          "booking_link": null,
+          "grounding_json": "[]",
+          "revision": 2,
+          "content_hash": "e66b730fff63c70088d8910676b0f73d46e12c5ca241cf67e19a3465751cc5f6",
+          "status": "READY_FOR_OPERATOR",
+          "created_at": "2026-09-21T21:07:46.464Z",
+          "approved_at": null,
+          "approved_by": null,
+          "action_at": null,
+          "action_by": null,
+          "approved_revision": null,
+          "approved_hash": null
+        },
+        "delivery": {
+          "id": "fake-delivery-v2-reservation-proposal-email-2",
+          "reservation_id": "v2-reservation-proposal-email-2",
+          "recipient": "bonjour@cafe-rivage.test",
+          "subject": "Proposition Café Rivage révisée",
+          "body": "Version révisée — /p/email",
+          "proposal_link": "/p/email",
+          "draft_id": "proposal-email:prospect-email:EMAIL:r2",
+          "revision": 2,
+          "fingerprint": "e66b730fff63c70088d8910676b0f73d46e12c5ca241cf67e19a3465751cc5f6",
+          "idempotency_key": "prospect-email:EMAIL:2:INITIAL",
+          "send_count": 1,
+          "outcome": "SUCCESS",
+          "created_at": "2026-09-21T21:07:59.749Z"
+        }
+      }
+    },
+    "duplicateSend": {
+      "status": "NOT_RUN",
+      "evidence": {}
+    },
+    "noApproval": {
+      "status": "NOT_RUN",
+      "evidence": {}
+    },
+    "suppression": {
+      "status": "NOT_RUN",
+      "evidence": {}
+    },
+    "fakeFailure": {
+      "status": "NOT_RUN",
+      "evidence": {}
+    },
+    "mobile": {
+      "status": "NOT_RUN",
+      "evidence": {}
+    },
+    "mobileConfirmation": {
+      "status": "NOT_RUN",
+      "evidence": {}
+    },
+    "emailReload": {
+      "status": "NOT_RUN",
+      "evidence": {}
+    },
+    "mobileReload": {
+      "status": "NOT_RUN",
+      "evidence": {}
+    },
+    "contactedReload": {
+      "status": "NOT_RUN",
+      "evidence": {}
+    },
+    "auditEvents": {
+      "status": "NOT_RUN",
+      "evidence": {}
+    },
+    "noAutomation": {
+      "status": "PASS",
+      "evidence": {
+        "emailStages": [
+          {
+            "label": "T0",
+            "successfulDeliveries": 0,
+            "contacted": 0,
+            "outreachSent": 0
+          },
+          {
+            "label": "T1",
+            "successfulDeliveries": 0,
+            "contacted": 0,
+            "outreachSent": 0
+          },
+          {
+            "label": "T2",
+            "successfulDeliveries": 0,
+            "contacted": 0,
+            "outreachSent": 0
+          },
+          {
+            "label": "T3",
+            "successfulDeliveries": 0,
+            "contacted": 0,
+            "outreachSent": 0
+          },
+          {
+            "label": "T4",
+            "successfulDeliveries": 0,
+            "contacted": 0,
+            "outreachSent": 0
+          },
+          {
+            "label": "T5",
+            "successfulDeliveries": 0,
+            "contacted": 0,
+            "outreachSent": 0
+          },
+          {
+            "label": "T6",
+            "successfulDeliveries": 1,
+            "contacted": 1,
+            "outreachSent": 1
+          }
+        ],
+        "boundary": {
+          "proposalReady": {
+            "label": "T0",
+            "successfulDeliveries": 0,
+            "contacted": 0,
+            "outreachSent": 0
+          },
+          "deckLoad": {
+            "label": "T1",
+            "successfulDeliveries": 0,
+            "contacted": 0,
+            "outreachSent": 0
+          },
+          "draftCreation": {
+            "label": "T2",
+            "successfulDeliveries": 0,
+            "contacted": 0,
+            "outreachSent": 0
+          },
+          "draftRead": {
+            "label": "T3",
+            "successfulDeliveries": 0,
+            "contacted": 0,
+            "outreachSent": 0
+          },
+          "engagementRead": {
+            "label": "T4",
+            "successfulDeliveries": 0,
+            "contacted": 0,
+            "outreachSent": 0
+          },
+          "approvalBeforeSend": {
+            "label": "T5",
+            "successfulDeliveries": 0,
+            "contacted": 0,
+            "outreachSent": 0
+          },
+          "explicitSend": {
+            "label": "T6",
+            "successfulDeliveries": 1,
+            "contacted": 1,
+            "outreachSent": 1
+          }
+        }
+      }
+    },
+    "uiRegression": {
+      "status": "NOT_RUN",
+      "evidence": {}
+    }
+  },
+  "sqlUniqueness": {
+    "status": "PASS",
+    "evidence": {
+      "rows": [],
+      "schemaConstraint": "UNIQUE(proposal_id,channel,revision,kind)"
+    }
+  },
+  "api": {
+    "status": "PASS",
+    "healthStatus": 200,
+    "healthBody": "{\n  \"ok\": true,\n  \"service\": \"magicscript-api\",\n  \"databaseConfigured\": true,\n  \"apiAuthConfigured\": true,\n  \"runnerAuthConfigured\": true,\n  \"stackId\": \"e23d9da3-27fc-4f71-a656-cdc6444dba84\",\n  \"autopilotEnabled\": false,\n  \"sendingEnabled\": true,\n  \"emailProvider\": \"fake\",\n  \"fakeTransportEnabled\": true,\n  \"effectiveOutboundMode\": \"fake\",\n  \"testEmailMode\": true,\n  \"testRecipientConfigured\": true,\n  \"prototypeDeployEnabled\": false\n}",
+    "output": "\n ⛅️ wrangler 4.127.1\n────────────────────\nYour Worker has access to the following bindings:\nBinding                                                                           Resource                  Mode\nenv.DB (magicscript-local)                                                        D1 Database               local\nenv.MAGICSCRIPT_AUTOPILOT_ENABLED (\"false\")                                       Environment Variable      local\nenv.MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED (\"true\")                              Environment Variable      local\nenv.MAGICSCRIPT_SENDING_ENABLED (\"(hidden)\")                                      Environment Variable      local\nenv.MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED (\"false\")                                Environment Variable      local\nenv.MAGICSCRIPT_DAILY_SEND_LIMIT (\"10\")                                           Environment Variable      local\nenv.MAGICSCRIPT_MAX_FOLLOWUPS (\"2\")                                               Environment Variable      local\nenv.MAGICSCRIPT_FOLLOWUP_1_DAYS (\"3\")                                             Environment Variable      local\nenv.MAGICSCRIPT_FOLLOWUP_2_DAYS (\"5\")                                             Environment Variable      local\nenv.MAGICSCRIPT_JOB_LEASE_MINUTES (\"30\")                                          Environment Variable      local\nenv.MAGICSCRIPT_MIN_CONTACT_CONFIDENCE (\"80\")                                     Environment Variable      local\nenv.MAGICSCRIPT_MIN_OUTREACH_CONFIDENCE (\"85\")                                    Environment Variable      local\nenv.MAGICSCRIPT_AUTO_PROTOTYPE_SCORE (\"85\")                                       Environment Variable      local\nenv.MAGICSCRIPT_MIN_QUALIFY_SCORE (\"65\")                                          Environment Variable      local\nenv.MAGICSCRIPT_DATABASE_PROVIDER (\"(hidden)\")                                    Environment Variable      local\nenv.MAGICSCRIPT_EMAIL_PROVIDER (\"(hidden)\")                                       Environment Variable      local\nenv.MAGICSCRIPT_TEST_EMAIL_MODE (\"(hidden)\")                                      Environment Variable      local\nenv.MAGICSCRIPT_TEST_RECIPIENT (\"(hidden)\")                                       Environment Variable      local\nenv.MAGICSCRIPT_CONTROL_CENTER_ORIGIN (\"http://127.0.0.1:3000\")                   Environment Variable      local\nenv.MAGICSCRIPT_API_TOKEN (\"(hidden)\")                                            Environment Variable      local\nenv.MAGICSCRIPT_RUNNER_TOKEN (\"(hidden)\")                                         Environment Variable      local\nenv.MAGICSCRIPT_TARGET_LOCATION (\"Martinique\")                                    Environment Variable      local\nenv.MAGICSCRIPT_DISCOVERY_BATCH_SIZE (\"3\")                                        Environment Variable      local\nenv.HUNTER_MONTHLY_CREDIT_BUDGET (\"40\")                                           Environment Variable      local\nenv.MAGICSCRIPT_STACK_ID (\"(hidden)\")                                             Environment Variable      local\nenv.MAGICSCRIPT_FAKE_TRANSPORT (\"(hidden)\")                                       Environment Variable      local\nenv.MAGICSCRIPT_FAKE_TRANSPORT_FAILURE_PROSPECT_ID (\"(hidden)\")                   Environment Variable      local\n\n⎔ Starting local server...\n[wrangler:info] Ready on http://127.0.0.1:17133\n[wrangler:info] GET /health 200 OK (11404ms)\n"
+  },
+  "build": "NOT_RUN",
+  "browser": "NOT_RUN",
+  "screenshots": [],
+  "cleanup": {
+    "attempted": true,
+    "success": true,
+    "cdpClosed": true,
+    "browsersClosed": true,
+    "childrenTerminationRequested": true,
+    "childrenExited": true,
+    "d1OwningProcessesExited": true,
+    "sqlScratchRemoved": true,
+    "persistDeleteAttempts": 2,
+    "persistDeleteTransientErrors": 1,
+    "persistPathRemoved": true
+  },
+  "safety": {
+    "realSmtp": false,
+    "sms": false,
+    "whatsapp": false
+  },
+  "coverageMatrix": {
+    "status": "PASS",
+    "rows": [
+      {
+        "scenario": "DB freshness",
+        "status": "PASS",
+        "evidenceField": "database"
+      },
+      {
+        "scenario": "seed once",
+        "status": "PASS",
+        "evidenceField": "database"
+      },
+      {
+        "scenario": "SQL uniqueness",
+        "status": "PASS",
+        "evidenceField": "sqlUniqueness"
+      },
+      {
+        "scenario": "API health",
+        "status": "PASS",
+        "evidenceField": "api"
+      },
+      {
+        "scenario": "EMAIL happy path",
+        "status": "NOT_RUN",
+        "evidenceField": "emailHappyPath"
+      },
+      {
+        "scenario": "immutable edit",
+        "status": "NOT_RUN",
+        "evidenceField": "immutableEdit"
+      },
+      {
+        "scenario": "stale approval",
+        "status": "NOT_RUN",
+        "evidenceField": "staleApproval"
+      },
+      {
+        "scenario": "content integrity",
+        "status": "NOT_RUN",
+        "evidenceField": "contentIntegrity"
+      },
+      {
+        "scenario": "duplicate send",
+        "status": "NOT_RUN",
+        "evidenceField": "duplicateSend"
+      },
+      {
+        "scenario": "no approval",
+        "status": "NOT_RUN",
+        "evidenceField": "noApproval"
+      },
+      {
+        "scenario": "suppression",
+        "status": "NOT_RUN",
+        "evidenceField": "suppression"
+      },
+      {
+        "scenario": "fake failure",
+        "status": "NOT_RUN",
+        "evidenceField": "fakeFailure"
+      },
+      {
+        "scenario": "MOBILE copy",
+        "status": "NOT_RUN",
+        "evidenceField": "mobile"
+      },
+      {
+        "scenario": "MOBILE confirmation",
+        "status": "NOT_RUN",
+        "evidenceField": "mobileConfirmation"
+      },
+      {
+        "scenario": "EMAIL CONTACTED reload",
+        "status": "NOT_RUN",
+        "evidenceField": "emailReload"
+      },
+      {
+        "scenario": "MOBILE CONTACTED reload",
+        "status": "NOT_RUN",
+        "evidenceField": "mobileReload"
+      },
+      {
+        "scenario": "audit events",
+        "status": "NOT_RUN",
+        "evidenceField": "auditEvents"
+      },
+      {
+        "scenario": "no automation",
+        "status": "NOT_RUN",
+        "evidenceField": "noAutomation"
+      },
+      {
+        "scenario": "UI regression",
+        "status": "NOT_RUN",
+        "evidenceField": "uiRegression"
+      },
+      {
+        "scenario": "screenshots",
+        "status": "NOT_RUN",
+        "evidenceField": "screenshots"
+      },
+      {
+        "scenario": "cleanup",
+        "status": "PASS",
+        "evidenceField": "cleanup"
+      }
+    ]
+  },
+  "privilegeRequestsUsed": 0,
+  "migration": {
+    "applied": true,
+    "files": [
+      "database/schema.sql",
+      "database/migration-v2-proposal-v1.sql",
+      "database/migration-v2-outreach-draft-v1.sql"
+    ]
+  },
+  "runtime": {
+    "apiTracked": true,
+    "runnerTracked": true,
+    "failureProspectId": "prospect-fake-failure",
+    "runnerReadiness": "PASS"
+  },
+  "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'PENDING'\n- 'RUNNING'\n"
 }

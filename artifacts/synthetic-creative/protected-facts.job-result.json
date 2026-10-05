@@ -1,0 +1,139 @@
+{
+  "kind": "CREATIVE_WEB_DESIGN_SYNTHETIC",
+  "synthetic": true,
+  "fixtureId": "synthetic-protected-facts",
+  "technicalJobStatus": "BLOCKED",
+  "creativeVerdict": "BLOCKED",
+  "before": {
+    "artifactFingerprint": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb",
+    "protectedFactsFingerprint": "1e73bf819b0cbcf274b924a73fcd405bc7ba16dbc3436d907ccb059c1aa854b5",
+    "protectedContractFingerprint": "1b8090533a9670458c020ab227b3009d35a51ce2411621de6d462a4a52ad40f2",
+    "fileInventory": [
+      "app/globals.css",
+      "app/page.tsx"
+    ],
+    "creativeReview": {
+      "status": "REWORK",
+      "findings": [
+        {
+          "code": "FLAT_COMPOSITION",
+          "category": "antiSlop",
+          "severity": "BLOCKING",
+          "message": "Repeated card/grid/panel composition."
+        },
+        {
+          "code": "HIERARCHY",
+          "category": "hierarchy",
+          "severity": "BLOCKING",
+          "message": "Insufficient heading hierarchy."
+        },
+        {
+          "code": "MOBILE_COMPOSITION",
+          "category": "mobile",
+          "severity": "WARNING",
+          "message": "No bounded mobile composition rule."
+        }
+      ],
+      "checkedAt": "2026-09-15T15:34:03.424Z",
+      "owner": "WEB_DESIGN"
+    },
+    "timestamp": "2026-09-15T15:34:03.422Z"
+  },
+  "qaPreflight": {
+    "phase": "QA_PREFLIGHT",
+    "passed": true,
+    "blockers": [],
+    "checkedAt": "2026-09-15T15:34:03.425Z"
+  },
+  "iterations": [
+    {
+      "index": 1,
+      "findingsBefore": [
+        {
+          "code": "FLAT_COMPOSITION",
+          "category": "antiSlop",
+          "severity": "BLOCKING",
+          "message": "Repeated card/grid/panel composition."
+        },
+        {
+          "code": "HIERARCHY",
+          "category": "hierarchy",
+          "severity": "BLOCKING",
+          "message": "Insufficient heading hierarchy."
+        },
+        {
+          "code": "MOBILE_COMPOSITION",
+          "category": "mobile",
+          "severity": "WARNING",
+          "message": "No bounded mobile composition rule."
+        }
+      ],
+      "plannedChanges": [
+        "bounded presentation-only rework"
+      ],
+      "filesChanged": [
+        "app/globals.css"
+      ],
+      "diffMetadata": {
+        "beforeBytes": 64,
+        "afterBytes": 64,
+        "changed": false
+      },
+      "buildResult": {
+        "command": "synthetic-local-build",
+        "exitCode": 0,
+        "status": "PASSED",
+        "outputPath": "out",
+        "timestamp": "2026-09-15T15:34:03.434Z"
+      },
+      "creativeReviewAfter": {
+        "status": "REWORK",
+        "findings": [
+          {
+            "code": "FLAT_COMPOSITION",
+            "category": "antiSlop",
+            "severity": "BLOCKING",
+            "message": "Repeated card/grid/panel composition."
+          },
+          {
+            "code": "HIERARCHY",
+            "category": "hierarchy",
+            "severity": "BLOCKING",
+            "message": "Insufficient heading hierarchy."
+          },
+          {
+            "code": "MOBILE_COMPOSITION",
+            "category": "mobile",
+            "severity": "WARNING",
+            "message": "No bounded mobile composition rule."
+          }
+        ],
+        "checkedAt": "2026-09-15T15:34:03.436Z",
+        "owner": "WEB_DESIGN"
+      },
+      "fingerprints": {
+        "before": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb",
+        "after": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb"
+      },
+      "protectedFactsPreserved": false,
+      "protectedContractPreserved": true,
+      "timestamp": "2026-09-15T15:34:03.436Z"
+    }
+  ],
+  "qaFinal": {
+    "phase": "QA_FINAL",
+    "passed": true,
+    "blockers": [],
+    "checkedAt": "2026-09-15T15:34:03.440Z"
+  },
+  "after": {
+    "artifactFingerprint": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb",
+    "creativeVerdict": "BLOCKED",
+    "renderEvidence": null,
+    "timestamp": "2026-09-15T15:34:03.440Z"
+  },
+  "externalActions": [],
+  "startedAt": "2026-09-15T15:34:03.422Z",
+  "completedAt": "2026-09-15T15:34:03.440Z",
+  "blockers": []
+}

@@ -1,0 +1,102 @@
+{
+  "id": "artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+  "version": "DESIGN_ARTIFACT_V1",
+  "revision": 1,
+  "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+  "prospectId": "v2-51972816600033",
+  "verticalProfile": "GENERAL_LOCAL_BUSINESS",
+  "createdAt": "2026-10-04T10:57:23.761Z",
+  "provenance": {
+    "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+    "evidenceIds": [
+      "evidence-1"
+    ],
+    "executionMode": "MODEL",
+    "model": {
+      "provider": "ollama-aider",
+      "model": "qwen2.5-coder:3b"
+    }
+  },
+  "strategy": {
+    "siteObjective": "Present a credible local business offer with a simple next step.",
+    "primaryUserIntent": "Understand the offer and take the next practical action.",
+    "primaryCta": "Contacter l’entreprise",
+    "informationHierarchy": [
+      "identity",
+      "offer clarity",
+      "reassurance",
+      "contact action"
+    ],
+    "siteStructure": "SINGLE_PAGE"
+  },
+  "pages": [
+    {
+      "id": "home",
+      "purpose": "Present a credible local business offer with a simple next step.",
+      "headingIntent": "Clarifier la valeur de Androcam Productions",
+      "content": [
+        {
+          "kind": "VERIFIED_FACT",
+          "text": "Androcam Productions",
+          "evidenceIds": []
+        },
+        {
+          "kind": "GENERIC_FRAMING",
+          "text": "Un accompagnement simple et clair pour passer à l’action."
+        }
+      ],
+      "ctaIntent": "Contacter l’entreprise",
+      "visualMediaIntent": "Use only supplied or later-approved business imagery; no invented media claims.",
+      "evidenceIds": [
+        "evidence-1"
+      ]
+    }
+  ],
+  "visualDirection": {
+    "mood": "balanced, approachable, credible",
+    "typography": "Readable, high-contrast sans-serif with optional expressive display accent.",
+    "layout": "Single-column mobile-first flow with clear section boundaries.",
+    "spacing": "Generous touch-friendly spacing.",
+    "imageTreatment": "Authentic business imagery only when supplied or approved.",
+    "interaction": "Calm, obvious, keyboard-accessible interactions.",
+    "responsivePriorities": [
+      "390px mobile conversion path",
+      "touch targets",
+      "readable type",
+      "desktop widening without reordering CTA"
+    ]
+  },
+  "buildGuidance": {
+    "componentHierarchy": [
+      "SiteShell",
+      "Header",
+      "Hero",
+      "ContentSections",
+      "PrimaryCta",
+      "Footer"
+    ],
+    "sectionOrder": [
+      "hero",
+      "offer",
+      "reassurance",
+      "contact"
+    ],
+    "contentPriority": [
+      "identity",
+      "offer",
+      "primary action",
+      "practical details"
+    ],
+    "ctaPlacement": [
+      "hero",
+      "after core offer",
+      "footer"
+    ],
+    "assetRequirements": [
+      "logo if supplied",
+      "approved business imagery if supplied",
+      "no fabricated testimonials or pricing"
+    ]
+  },
+  "status": "DRAFT"
+}

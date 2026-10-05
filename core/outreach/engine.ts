@@ -78,7 +78,7 @@ export async function createOutreachDraft(input: OutreachDraftInputV1, store: Ou
   if (same) return same;
   const revision = (prior.at(-1)?.revision ?? 0) + 1;
   const now = input.now ?? new Date().toISOString();
-  const draft: OutreachDraftV1 = { id: `${key}:r${revision}`, version: OUTREACH_DRAFT_VERSION, ...canonical, revision, contentHash: hash, status: 'READY_FOR_OPERATOR', createdAt: now, approvedAt: null, approvedBy: null, actionAt: null, actionBy: null };
+  const draft: OutreachDraftV1 = { id: `${key}:r${revision}`, version: OUTREACH_DRAFT_VERSION, ...canonical, revision, contentHash: hash, quality: input.quality ? { ...input.quality, revision, fingerprint: hash } : null, status: 'READY_FOR_OPERATOR', createdAt: now, approvedAt: null, approvedBy: null, actionAt: null, actionBy: null };
   await store.save(draft);
   return draft;
 }
@@ -86,11 +86,13 @@ export async function createOutreachDraft(input: OutreachDraftInputV1, store: Ou
 export async function editOutreachDraft(store: OutreachDraftStore, draftId: string, changes: Pick<OutreachDraftV1, 'subject' | 'body'>, now = new Date().toISOString(), audit?: OutreachAuditSink, actor = 'human'): Promise<OutreachDraftV1> {
   const draft = await store.get(draftId);
   if (!draft) throw new Error('unknown outreach draft');
-  if (!['DRAFT', 'READY_FOR_OPERATOR'].includes(draft.status)) throw new Error('outreach draft is not editable');
+  if (!['DRAFT', 'READY_FOR_OPERATOR', 'APPROVED'].includes(draft.status)) throw new Error('outreach draft is not editable');
   const body = clean(changes.body, 'body');
   const canonical = { proposalId: draft.proposalId, prospectId: draft.prospectId, channel: draft.channel, recipientRef: draft.recipientRef, subject: changes.subject?.trim() || null, body, proposalLink: draft.proposalLink, bookingLink: draft.bookingLink, grounding: draft.grounding };
   const nextRevision = draft.revision + 1;
-  const next: OutreachDraftV1 = { ...draft, ...canonical, id: `${draft.proposalId}:${draft.prospectId}:${draft.channel}:r${nextRevision}`, revision: nextRevision, contentHash: contentHash(canonical), status: 'READY_FOR_OPERATOR', createdAt: now, approvedAt: null, approvedBy: null, actionAt: null, actionBy: null };
+  const next: OutreachDraftV1 = { ...draft, ...canonical, id: `${draft.proposalId}:${draft.prospectId}:${draft.channel}:r${nextRevision}`, revision: nextRevision, contentHash: contentHash(canonical), quality: null, status: 'DRAFT', createdAt: now, approvedAt: null, approvedBy: null, actionAt: null, actionBy: null };
+  if (draft.status === 'APPROVED' && next.contentHash === draft.contentHash) throw new Error('approved successor requires changed content');
+  if (await store.get(next.id)) throw new Error('successor revision already exists');
   await store.save(next);
   await audit?.append({ id: crypto.randomUUID(), prospectId: draft.prospectId, actor: actor as 'human', type: 'OUTREACH_DRAFT_EDITED', payload: { proposalId: draft.proposalId, prospectId: draft.prospectId, channel: draft.channel, draftId: next.id, previousDraftId: draft.id, revision: next.revision, fingerprint: next.contentHash }, createdAt: now });
   return next;
@@ -106,6 +108,7 @@ export async function approveOutreachDraft(store: OutreachDraftStore, draftId: s
   const eventSink = typeof nowOrAudit === 'string' ? audit : nowOrAudit;
   if (!draft || draft.revision !== expectedRevision || draft.contentHash !== expectedHash) throw new Error('stale or unknown outreach draft');
   if (draft.status !== 'READY_FOR_OPERATOR') throw new Error('outreach draft is not awaiting approval');
+  if (draft.quality && (draft.quality.status !== 'READY' || draft.quality.revision !== draft.revision || draft.quality.fingerprint !== draft.contentHash)) throw new Error('outreach draft is not quality-gated for this exact revision');
   const approved = { ...draft, status: 'APPROVED' as const, approvedAt: now, approvedBy: clean(approvedBy, 'approvedBy') };
   if (store.saveIfCurrent && !(await store.saveIfCurrent(approved, expectedHash))) throw new Error('stale or unknown outreach draft');
   if (!store.saveIfCurrent) await store.save(approved);

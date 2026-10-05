@@ -1,0 +1,14 @@
+{
+  "stage": "NATIVE_D1_PREFLIGHT",
+  "at": "2026-10-03T07:03:47.202Z",
+  "counts": {
+    "runnerInvocations": 0,
+    "claims": 0,
+    "executorRuns": 0,
+    "successCallbacks": 0,
+    "qaInvocations": 0
+  },
+  "correctionRequestId": null,
+  "jobId": null,
+  "error": "Error: D1_ERROR: no such table: v2_build_artifacts: SQLITE_ERROR\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async all (D:\\MagicScript\\repository\\.r74z-runtime\\acceptance.mts:27:50)\n    at async main (D:\\MagicScript\\repository\\.r74z-runtime\\acceptance.mts:28:193)\n    at async <anonymous> (D:\\MagicScript\\repository\\.r74z-runtime\\acceptance.mts:103:5)"
+}

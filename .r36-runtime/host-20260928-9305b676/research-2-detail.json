@@ -1,0 +1,122 @@
+{
+  "prospect": {
+    "id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+    "companyName": "DATEX ANTILLES-GUYANE",
+    "legalName": "DATEX ANTILLES-GUYANE",
+    "siren": "420481202",
+    "siret": "42048120200067",
+    "city": "FORT DE FRANCE",
+    "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/42048120200067",
+    "activityTaxonomy": "NAF_2008",
+    "commercialEligibility": "HIGH_PRIORITY",
+    "brandKey": "DATEX ANTILLES GUYANE",
+    "initialResearchRepresentative": true,
+    "activity": "56.29A",
+    "location": "CTRE AFF DILL VALMENIERE  EURYDICE D RTE DE LA POINTE DES SABLES 97200 FORT DE FRANCE",
+    "websiteUrl": "https://www.datexantillesguyane.com/",
+    "state": "DISQUALIFIED",
+    "score": 48,
+    "primaryCta": "contact form",
+    "createdAt": "2026-09-28T16:06:36.792Z",
+    "updatedAt": "2026-09-28T16:12:20.388Z"
+  },
+  "contacts": [],
+  "contactability": {
+    "identity": {
+      "prospectId": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "siren": "420481202",
+      "siret": "42048120200067"
+    },
+    "status": "MISSING",
+    "channels": [],
+    "preparation": null
+  },
+  "contactAcquisition": null,
+  "contactPresence": {
+    "status": "UNKNOWN",
+    "identity": {
+      "status": "VERIFIED",
+      "matched": true,
+      "reason": "identity bound",
+      "observations": [
+        {
+          "domain": "datexantillesguyane.com"
+        }
+      ]
+    },
+    "phone": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "email": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "website": {
+      "status": "VERIFIED",
+      "values": [
+        "www.datexantillesguyane.com"
+      ],
+      "evidence": [
+        {
+          "value": "www.datexantillesguyane.com",
+          "sourceUrl": "www.datexantillesguyane.com",
+          "kind": "social",
+          "evidenceType": "OWNED_WEBSITE"
+        }
+      ]
+    },
+    "social": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "instagram": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "facebook": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "tiktok": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "whatsapp": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "contactForm": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "sourcesProcessed": 0,
+    "sourcesChecked": [],
+    "reasons": [
+      "identity bound",
+      "bounded sources checked: 0"
+    ],
+    "enrichedAt": "2026-09-28T16:12:20.316Z",
+    "truncated": false
+  },
+  "prototype": null,
+  "salesRoom": null,
+  "commercialLinks": {
+    "prototypeUrl": null,
+    "prototypeEntryUrl": null,
+    "salesRoomUrl": null,
+    "salesRoomSlug": "datex-antilles-guyane",
+    "salesRoomStatus": "ACTIVE",
+    "personalizedUrl": null,
+    "personalizedEntryEnabled": false,
+    "links": []
+  }
+}

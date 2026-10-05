@@ -1,0 +1,101 @@
+{
+  "canonicalCondition": {
+    "status": "VERIFIED",
+    "observations": [
+      {
+        "type": "REBUILDING",
+        "observation": "Site en cours de refonte",
+        "sourceUrl": "https://villa-ancinel.com/",
+        "sourceType": "OWNED_WEBSITE",
+        "evidenceType": "VISIBLE_SITE_NOTICE",
+        "integrityStatus": "ACCEPTED",
+        "inspectionMethod": "FETCHED_TITLE_H1",
+        "observedAt": "2026-09-28T08:46:05.833Z",
+        "snapshotDigest": "sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01",
+        "finalUrl": "https://villa-ancinel.com/",
+        "supportingText": "Site en cours de refonte",
+        "locator": "h1"
+      }
+    ]
+  },
+  "integrity": {
+    "passed": false,
+    "reasons": [
+      "UNSUPPORTED_SCORE:localFit"
+    ],
+    "rejectedSourceCount": 0,
+    "supportedClaims": [
+      "digitalGap",
+      "commercialStrength",
+      "contactability",
+      "prototypeLeverage",
+      "activity",
+      "website",
+      "phone"
+    ]
+  },
+  "localFit": 80,
+  "sources": [
+    {
+      "url": "https://villa-ancinel.com/",
+      "supports": [
+        "digitalGap",
+        "activity",
+        "website"
+      ]
+    },
+    {
+      "url": "https://villa-ancinel.com/mentions-legales/",
+      "supports": [
+        "activity",
+        "website"
+      ]
+    },
+    {
+      "url": "https://villa-ancinel.com/",
+      "supports": [
+        "phone",
+        "digitalGap"
+      ]
+    }
+  ],
+  "firstFailedGate": "UNSUPPORTED_SCORE:localFit",
+  "sourceSpecificConditionValid": true,
+  "apiPersistedTypedPain": {
+    "status": "UNKNOWN",
+    "observations": []
+  },
+  "authorityTypedPain": {
+    "status": "UNKNOWN",
+    "observations": []
+  },
+  "adapter": {
+    "status": "INSUFFICIENT_EVIDENCE",
+    "reasons": [
+      {
+        "code": "DIGITAL_PAIN_UNPROVEN",
+        "detail": "Digital pain must be grounded in an accepted persisted claim."
+      },
+      {
+        "code": "COMMERCIAL_FAMILY_UNRESOLVED",
+        "detail": "No canonical family is established by existing authority."
+      }
+    ]
+  },
+  "publicHttpFetches": 11,
+  "offlineIntegrityWithoutApiDerivedClaims": {
+    "passed": false,
+    "reasons": [
+      "UNSUPPORTED_SCORE:commercialStrength",
+      "UNSUPPORTED_SCORE:localFit",
+      "UNSUPPORTED_SCORE:prototypeLeverage"
+    ],
+    "supportedClaims": [
+      "digitalGap",
+      "contactability",
+      "activity",
+      "website",
+      "phone"
+    ]
+  }
+}

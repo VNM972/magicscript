@@ -1,0 +1,122 @@
+{
+  "prospect": {
+    "id": "1a608e32-1703-44a2-b81f-42d10d80c61f",
+    "companyName": "KREOL POKE",
+    "legalName": "KREOL POKE",
+    "siren": "949940084",
+    "siret": "94994008400013",
+    "city": "LA TRINITE",
+    "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/94994008400013",
+    "activityTaxonomy": "NAF_2008",
+    "commercialEligibility": "RESEARCH",
+    "brandKey": "KREOL POKE",
+    "initialResearchRepresentative": true,
+    "activity": "70.10Z",
+    "location": "HABITATION SAINT JOSEPH 125 LOTISSEMENT LES QUATRE VENTS 97220 LA TRINITE",
+    "websiteUrl": "https://www.kreolpoke.com/",
+    "state": "DISQUALIFIED",
+    "score": 48,
+    "primaryCta": "Contact us",
+    "createdAt": "2026-09-28T16:29:57.362Z",
+    "updatedAt": "2026-09-28T16:34:46.104Z"
+  },
+  "contacts": [],
+  "contactability": {
+    "identity": {
+      "prospectId": "1a608e32-1703-44a2-b81f-42d10d80c61f",
+      "siren": "949940084",
+      "siret": "94994008400013"
+    },
+    "status": "MISSING",
+    "channels": [],
+    "preparation": null
+  },
+  "contactAcquisition": null,
+  "contactPresence": {
+    "status": "UNKNOWN",
+    "identity": {
+      "status": "VERIFIED",
+      "matched": true,
+      "reason": "identity bound",
+      "observations": [
+        {
+          "domain": "kreolpoke.com"
+        }
+      ]
+    },
+    "phone": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "email": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "website": {
+      "status": "VERIFIED",
+      "values": [
+        "www.kreolpoke.com"
+      ],
+      "evidence": [
+        {
+          "value": "www.kreolpoke.com",
+          "sourceUrl": "www.kreolpoke.com",
+          "kind": "social",
+          "evidenceType": "OWNED_WEBSITE"
+        }
+      ]
+    },
+    "social": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "instagram": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "facebook": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "tiktok": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "whatsapp": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "contactForm": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "sourcesProcessed": 0,
+    "sourcesChecked": [],
+    "reasons": [
+      "identity bound",
+      "bounded sources checked: 0"
+    ],
+    "enrichedAt": "2026-09-28T16:34:46.038Z",
+    "truncated": false
+  },
+  "prototype": null,
+  "salesRoom": null,
+  "commercialLinks": {
+    "prototypeUrl": null,
+    "prototypeEntryUrl": null,
+    "salesRoomUrl": null,
+    "salesRoomSlug": "kreol-poke",
+    "salesRoomStatus": "ACTIVE",
+    "personalizedUrl": null,
+    "personalizedEntryEnabled": false,
+    "links": []
+  }
+}

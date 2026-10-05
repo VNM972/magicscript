@@ -1,0 +1,20 @@
+{
+  "index": 1,
+  "name": "Bò Kay",
+  "url": "https://bokay-off.com/",
+  "candidate": {
+    "schemaVersion": 1,
+    "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+    "conditionClass": "SITE_UNDER_CONSTRUCTION",
+    "providerClass": "USER_CURATED_SHORTLIST",
+    "providerRunId": "R79Z-CONTINUATION-candidate-1",
+    "resultUrl": "https://bokay-off.com/",
+    "resultTitle": "Bò Kay",
+    "resultPosition": 1,
+    "acquiredAt": "2026-10-04T16:38:02.838Z",
+    "authority": "NONE"
+  },
+  "at": "2026-10-04T16:38:14.324Z",
+  "homepageInspections": 1,
+  "retries": 0
+}

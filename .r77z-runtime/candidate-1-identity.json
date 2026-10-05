@@ -1,0 +1,37 @@
+{
+  "identity": {
+    "state": "IDENTITY_STRONG",
+    "identity": {
+      "exactOperatorName": "Androcam Productions",
+      "directSiren": "519728166",
+      "directSiret": "51972816600033",
+      "municipality": "Reims",
+      "postcode": "51100",
+      "street": "boulevard Saint-Marceaux, Appt C RDC",
+      "streetNumber": "8"
+    }
+  },
+  "enrichment": {
+    "outcome": "NOT_NEEDED",
+    "finalIdentity": {
+      "state": "IDENTITY_STRONG",
+      "identity": {
+        "exactOperatorName": "Androcam Productions",
+        "directSiren": "519728166",
+        "directSiret": "51972816600033",
+        "municipality": "Reims",
+        "postcode": "51100",
+        "street": "boulevard Saint-Marceaux, Appt C RDC",
+        "streetNumber": "8"
+      }
+    }
+  },
+  "registryRequest": {
+    "schemaVersion": 1,
+    "source": "PAIN_FIRST",
+    "candidateId": "r77z-1",
+    "requestedAt": "2026-10-04T10:51:38.710Z",
+    "lookupMode": "SIRET",
+    "directSiret": "51972816600033"
+  }
+}

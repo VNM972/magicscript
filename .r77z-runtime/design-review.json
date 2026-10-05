@@ -1,0 +1,53 @@
+{
+  "id": "review-dr-v2-51972816600033-DESIGN_REQUEST_V1-r1",
+  "version": "DESIGN_REVIEW_V1",
+  "artifactId": "artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+  "artifactRevision": 1,
+  "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+  "prospectId": "v2-51972816600033",
+  "vertical": "GENERAL_LOCAL_BUSINESS",
+  "reviewedAt": "2026-10-04T10:57:32.807Z",
+  "decision": "APPROVE",
+  "assessment": {
+    "factualGrounding": {
+      "status": "PASS",
+      "finding": "Content blocks and evidence semantics are grounded."
+    },
+    "siteObjectiveClarity": {
+      "status": "PASS",
+      "finding": "Objective is explicit."
+    },
+    "informationHierarchy": {
+      "status": "PASS",
+      "finding": "Hierarchy and section order are explicit."
+    },
+    "ctaCoherence": {
+      "status": "PASS",
+      "finding": "Primary CTA is present across the flow."
+    },
+    "mobileUsability": {
+      "status": "PASS",
+      "finding": "Mobile priorities are explicit."
+    },
+    "accessibility": {
+      "status": "PASS",
+      "finding": "Accessibility considerations are named."
+    },
+    "visualCoherence": {
+      "status": "PASS",
+      "finding": "Visual direction is coherent."
+    },
+    "verticalFit": {
+      "status": "PASS",
+      "finding": "Vertical profile matches the request."
+    },
+    "buildability": {
+      "status": "PASS",
+      "finding": "Component hierarchy is buildable."
+    }
+  },
+  "corrections": [],
+  "provenance": {
+    "executionMode": "DETERMINISTIC_FALLBACK"
+  }
+}

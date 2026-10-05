@@ -1,0 +1,14 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const { DatabaseSync } = require('node:sqlite');
+const root = __dirname;
+const folder = path.join(root, 'd1/v3/d1/miniflare-D1DatabaseObject');
+const file = fs.readdirSync(folder).filter(x => x.endsWith('.sqlite') && x !== 'metadata.sqlite');
+if (file.length !== 1) throw new Error('R36 database file ambiguous');
+const db = new DatabaseSync(path.join(folder, file[0]), { readOnly: true });
+const tables = ['prospects','jobs','job_results','events','v2_admissions','active_production_slots','v2_design_requests','v2_design_artifacts','v2_design_reviews','v2_build_artifacts','v2_visual_qa_reports','v2_proposals','outreach_messages','contacts','phone_trust_states','prototypes'];
+const state = {};
+for (const table of tables) state[table] = db.prepare(`SELECT * FROM ${table}`).all();
+db.close();
+fs.writeFileSync(path.join(root, process.argv[2] || 'state.json'), JSON.stringify(state, null, 2));
+console.log(JSON.stringify({ counts: Object.fromEntries(tables.map(t => [t,state[t].length])), jobs: state.jobs.map(j => ({id:j.id,kind:j.kind,prospectId:j.prospect_id,status:j.status,priority:j.priority,runAfter:j.run_after,error:j.last_error})), events: state.events.map(e => ({type:e.type,prospectId:e.prospect_id,...(e.type === 'discovery.recherche_entreprises_batch' ? {payload:JSON.parse(e.payload_json)} : {})})) }, null, 2));

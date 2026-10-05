@@ -1,0 +1,75 @@
+{
+  "id": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+  "version": "VISUAL_QA_REPORT_V1",
+  "buildArtifactId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+  "designArtifactId": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+  "designArtifactRevision": 1,
+  "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+  "prospectId": "v2-87988492200011",
+  "buildVersion": "BUILD_ARTIFACT_V1",
+  "buildRevision": 1,
+  "attempt": 1,
+  "decision": "CORRECTION_REQUIRED",
+  "issues": [
+    {
+      "category": "BUILD_RENDER",
+      "severity": "MAJOR",
+      "message": "Browser runtime error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "expectedCorrection": "Fix the rendered runtime error."
+    }
+  ],
+  "inspection": {
+    "viewports": [
+      {
+        "name": "DESKTOP",
+        "width": 1440,
+        "height": 900,
+        "horizontalOverflow": -15,
+        "heroVisible": true,
+        "primaryCtaVisible": true,
+        "contentVisible": true,
+        "controlsWithinViewport": true
+      },
+      {
+        "name": "MOBILE",
+        "width": 390,
+        "height": 844,
+        "horizontalOverflow": -15,
+        "heroVisible": true,
+        "primaryCtaVisible": true,
+        "contentVisible": true,
+        "controlsWithinViewport": true
+      }
+    ],
+    "expectedSections": [
+      "hero",
+      "offer",
+      "reassurance",
+      "contact"
+    ],
+    "observedSections": [
+      "hero",
+      "home",
+      "offer",
+      "reassurance",
+      "contact"
+    ],
+    "primaryCta": "Contacter l’entreprise",
+    "brokenAssets": [],
+    "internalLinkErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "unresolvedMarkers": [],
+    "headings": [
+      "h1 Clarifier la valeur de Villa Ancinel",
+      "h2 Clarifier la valeur de Villa Ancinel",
+      "h2 hero",
+      "h2 offer",
+      "h2 reassurance",
+      "h2 contact",
+      "h2 Contacter l’entreprise"
+    ]
+  },
+  "createdAt": "2026-10-02T19:09:30.019Z"
+}

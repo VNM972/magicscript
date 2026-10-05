@@ -100,8 +100,9 @@
     });
     const prototypeLink = personalizedStage.querySelector('[data-prototype-link]');
     if (prototypeLink) {
-      prototypeLink.href = salesRoomUrl(currentFixture);
-      prototypeLink.removeAttribute('target');
+      prototypeLink.href = currentFixture.prototypeUrl || prototypeEntryUrl(currentFixture);
+      prototypeLink.target = '_blank';
+      prototypeLink.rel = 'noreferrer';
       prototypeLink.textContent = 'Voir votre proposition';
     }
     defaultStage.hidden = true;
@@ -277,6 +278,18 @@
     const messageStatus = salesRoom.querySelector('[data-message-status]');
     const messageSubmit = messageForm?.querySelector('button[type="submit"]');
     const meetingButton = salesRoom.querySelector('[data-room-meeting]');
+    const canonicalBookingPath = currentFixture.booking?.bookingPath;
+    const canonicalBookingTarget = typeof canonicalBookingPath === 'string' && /^\/api\/public\/proposals\/[^/?#]+\/booking$/.test(canonicalBookingPath)
+      ? canonicalBookingPath
+      : null;
+    if (bookingCtaContainer && bookingCta && canonicalBookingTarget && currentFixture.proposalId && currentFixture.proposalId === currentFixture.authorizedProposalId) {
+      bookingCtaContainer.hidden = false;
+      bookingCta.addEventListener('click', () => {
+        recordLocalEngagement('BOOKING_CTA_CLICKED', { target: canonicalBookingTarget });
+        void postConfiguredSalesRoomEvent('BOOKING_CTA_CLICKED', { target: canonicalBookingTarget });
+        meetingButton?.click();
+      });
+    }
     const meetingStatus = salesRoom.querySelector('[data-meeting-status]');
     const communicationPanel = salesRoom.querySelector('[data-communication-panel]');
     const bookingPanel = salesRoom.querySelector('[data-booking-panel]');
@@ -284,6 +297,8 @@
     const bookingStatus = salesRoom.querySelector('[data-booking-status]');
     const bookingManage = salesRoom.querySelector('[data-booking-manage]');
     const bookingCancel = salesRoom.querySelector('[data-booking-cancel]');
+    const bookingCtaContainer = salesRoom.querySelector('[data-booking-cta-container]');
+    const bookingCta = salesRoom.querySelector('[data-room-booking-cta]');
     const bookingName = salesRoom.querySelector('[data-booking-name]');
     const bookingPhone = salesRoom.querySelector('[data-booking-phone]');
     const messageLink = salesRoom.querySelector('[data-room-message-link]');
@@ -507,8 +522,9 @@
     if (invalidRoute || !fixture) showUnavailable('UNKNOWN_SLUG');
     else fillPrototypeSurface(fixture);
   } else if (surfaceKind === 'PROSPECT_SALES_ROOM') {
-    if (invalidRoute || !fixture) showUnavailable(invalidRoute ? 'INVALID_ROUTE' : 'UNKNOWN_SLUG');
-    else fillSalesRoomSurface(fixture);
+    // Legacy /p routes are intentionally fail-closed. Proposal/demo remains the only
+    // prospect-facing commercial surface; shared Sales Room code is not initialized.
+    showUnavailable(invalidRoute ? 'INVALID_ROUTE' : 'LEGACY_SALES_ROOM_DEPRECATED');
   }
 
   const header = document.querySelector('[data-header]');
@@ -535,7 +551,7 @@
 
   const contactForm = document.querySelector('[data-contact-form]');
   const contactStatus = document.querySelector('[data-contact-status]');
-  const contactSubmit = contactForm?.querySelector('button[type="submit"]');
+  const contactPreview = contactForm?.querySelector('[data-contact-preview]');
   const setContactStatus = (message, state) => {
     if (!contactStatus) return;
     contactStatus.hidden = !message;
@@ -543,36 +559,12 @@
     contactStatus.dataset.state = state;
   };
 
-  contactForm?.addEventListener('submit', async (event) => {
+  const keepContactLocal = (event) => {
     event.preventDefault();
-    if (!(event.currentTarget instanceof HTMLFormElement)) return;
-    contactSubmit?.setAttribute('disabled', 'disabled');
-    setContactStatus('Transmission en cours…', 'pending');
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(event.currentTarget).entries())),
-      });
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        if (response.status === 404 || result.error === 'email_not_configured') {
-          throw new Error('contact_not_configured');
-        }
-        throw new Error('contact_failed');
-      }
-      event.currentTarget.reset();
-      setContactStatus('Demande transmise. Magic Script reviendra vers toi à l’adresse indiquée.', 'success');
-    } catch (error) {
-      const message = error instanceof Error && error.message === 'contact_not_configured'
-        ? 'Le formulaire est prêt ; la réception professionnelle sera activée lors de la configuration finale.'
-        : 'Le service de contact est momentanément indisponible. Réessaie dans quelques instants.';
-      setContactStatus(message, 'error');
-    } finally {
-      contactSubmit?.removeAttribute('disabled');
-    }
-  });
+    setContactStatus('Mode démonstration : aucune donnée n’a été transmise ni enregistrée.', 'neutral');
+  };
+  contactForm?.addEventListener('submit', keepContactLocal);
+  contactPreview?.addEventListener('click', keepContactLocal);
 
   const reveals = document.querySelectorAll('.reveal');
   const statNodes = document.querySelectorAll('[data-stat-value]');

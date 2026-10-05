@@ -1,0 +1,80 @@
+{
+  "verifiedAt": "2026-10-04T11:03:56.653Z",
+  "status": "CLOSED / UNSUPPORTED_QA_FINDING",
+  "rankedPoolSize": 10,
+  "discoveryQueries": 5,
+  "canonicalInspections": 1,
+  "outcomeDistribution": {
+    "ADMITTED": 1,
+    "NOT_INSPECTED_AFTER_ADMISSION": 9,
+    "NO_PAIN_SIGNAL": 0,
+    "IDENTITY_ABSENT": 0,
+    "NO_ELIGIBLE_LINK": 0,
+    "EXPECTED_REJECTION": 0,
+    "TRANSPORT": 0
+  },
+  "prospectId": "v2-51972816600033",
+  "productionSlot": 2,
+  "design": "SUCCEEDED",
+  "designReview": "APPROVE",
+  "build": "SUCCEEDED",
+  "visualQa": "CORRECTION_REQUIRED",
+  "qaInvocations": 1,
+  "correctionCycleUsed": false,
+  "qaRetests": 0,
+  "reportId": "qa-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+  "d1Mutations": {
+    "prospects": 1,
+    "v2_admissions": 1,
+    "v2_design_requests": 1,
+    "v2_design_artifacts": 1,
+    "v2_design_reviews": 1,
+    "v2_build_artifacts": 1,
+    "v2_visual_qa_reports": 1,
+    "v2_build_corrections": 0,
+    "jobs": 3
+  },
+  "unrelatedD1RowsPreserved": true,
+  "villaSlot1Preserved": true,
+  "villaBuildR1FilesPreserved": true,
+  "preexistingTrackedDiffPreserved": true,
+  "canonicalSourcesPreserved": true,
+  "sourcingAndTestsPreserved": true,
+  "chromeVersion": "Chrome/154.0.8037.93",
+  "viewports": [
+    {
+      "name": "DESKTOP",
+      "width": 1440,
+      "height": 900,
+      "horizontalOverflow": -15,
+      "heroVisible": true,
+      "primaryCtaVisible": true,
+      "contentVisible": true,
+      "controlsWithinViewport": true
+    },
+    {
+      "name": "MOBILE",
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": -15,
+      "heroVisible": true,
+      "primaryCtaVisible": true,
+      "contentVisible": true,
+      "controlsWithinViewport": true
+    }
+  ],
+  "screenshotPaths": [
+    "D:\\MagicScript\\repository\\.r77z-runtime\\qa-a1\\desktop.png",
+    "D:\\MagicScript\\repository\\.r77z-runtime\\qa-a1\\mobile.png"
+  ],
+  "browserAndPreviewStopped": true,
+  "apiStopped": true,
+  "sourcePatch": false,
+  "tests": "NONE; no implementation change",
+  "typecheck": "NONE; no implementation change",
+  "outreach": false,
+  "paidApi": false,
+  "deploy": false,
+  "reproducibility": "NOT_PROVEN",
+  "usage": "USAGE_NOT_EXPOSED"
+}

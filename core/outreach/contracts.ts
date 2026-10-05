@@ -1,6 +1,18 @@
 export const OUTREACH_DRAFT_VERSION = 'OUTREACH_DRAFT_V1' as const;
 export type OutreachChannel = 'EMAIL' | 'MOBILE';
 export type OutreachDraftStatus = 'DRAFT' | 'READY_FOR_OPERATOR' | 'APPROVED' | 'SENT' | 'MOBILE_CONFIRMED' | 'SUPERSEDED';
+export type OutreachQualityStatus = 'READY' | 'NEEDS_CORRECTION' | 'BLOCKED' | 'ABSTAIN';
+export interface OutreachQualityBinding {
+  gateVersion: string;
+  status: OutreachQualityStatus;
+  decision: 'READY_FOR_OPERATOR' | 'REGENERATE' | 'BLOCKED' | 'ABSTAIN';
+  score: number | null;
+  blockers: string[];
+  warnings: string[];
+  attempt: number;
+  revision: number;
+  fingerprint: string;
+}
 
 export interface OutreachGroundingV1 {
   observation: string;
@@ -22,6 +34,7 @@ export interface OutreachDraftV1 {
   grounding: OutreachGroundingV1;
   revision: number;
   contentHash: string;
+  quality: OutreachQualityBinding | null;
   status: OutreachDraftStatus;
   createdAt: string;
   approvedAt: string | null;
@@ -41,5 +54,6 @@ export interface OutreachDraftInputV1 {
   proposalLink: string;
   bookingLink?: string | null;
   sourceRefs: string[];
+  quality?: OutreachQualityBinding | null;
   now?: string;
 }

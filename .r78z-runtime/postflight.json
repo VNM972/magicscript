@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-04T15:07:17.164Z",
+  "status": "SAFE_STOP_PRODUCT_DEFECT",
+  "rootCause": "sourceFiles rendered artifact.verticalProfile verbatim in the public hero eyebrow.",
+  "currentBlocker": "apps/api-worker/src/index.ts::validateCorrectionOutputIntegrity requires favicon.ico and ensureLocalFaviconHtml for every operation; placeholder output rejected with BUILD_INTEGRITY_MISMATCH.",
+  "lastProvenStage": "Generic builder/correction targeted tests and affected typechecks; generated isolated r2 files.",
+  "firstBrokenStage": "Canonical corrected-build success callback/persistence",
+  "buildR2": {
+    "id": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2",
+    "revision": 2,
+    "persisted": false,
+    "generatedRoot": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-51972816600033\\artifact-dr-v2-51972816600033-design_request_v1-design_artifact_v1-r1\\build-r2",
+    "jobId": "job-v2-51972816600033-build-correction-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r2",
+    "jobStatus": "PENDING",
+    "executions": 1,
+    "error": "Success callback failed 500: {\n  \"error\": \"BUILD_INTEGRITY_MISMATCH\"\n}"
+  },
+  "qaA2": null,
+  "buildR3": null,
+  "qaA3": null,
+  "buildR1Immutable": true,
+  "designRevision": 1,
+  "slot": {
+    "slot_id": 2,
+    "prospect_id": "v2-51972816600033",
+    "acquired_at": "2026-10-04T10:57:08.518Z",
+    "release_reason": null
+  },
+  "qaA1Immutable": true,
+  "unrelatedTrackedFilesPreserved": 335,
+  "unrelatedD1RowsPreserved": true,
+  "apiStopped": true,
+  "reproducibility": "NOT_PROVEN",
+  "proof": {
+    "targetedTests": {
+      "command": "node scripts/run-tsx-with-preload.cjs --test core/tests/public-vertical-label.test.ts core/tests/builder.test.ts apps/agent-runner/src/build-correction.test.ts",
+      "pass": 5,
+      "fail": 0,
+      "builderAssertions": 108
+    },
+    "typecheck": {
+      "core": "PASS",
+      "runner": "PASS",
+      "api": "PASS"
+    },
+    "diffCheck": "PASS"
+  },
+  "usage": "USAGE_NOT_EXPOSED"
+}

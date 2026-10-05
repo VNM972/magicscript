@@ -1,14 +1,33 @@
 export type WebDesignReviewStatus =
   | 'PASS'
   | 'PASS_WITH_NOTES'
+  | 'REWORK'
   | 'BLOCKED'
   | 'WAITING_EXTERNAL'
   | 'UNKNOWN';
+
+export type WebDesignReviewType =
+  | 'DETERMINISTIC_COMPLIANCE'
+  | 'CREATIVE_VISUAL'
+  | 'COMBINED';
+
+export interface WebDesignFinding {
+  category: string;
+  severity: 'INFO' | 'WARNING' | 'BLOCKING';
+  description: string;
+  evidence?: string;
+  suggestedAction?: string;
+}
 
 export interface WebDesignReview {
   status: WebDesignReviewStatus;
   owner: string;
   verifier: string;
+  reviewType?: WebDesignReviewType;
+  findings?: readonly WebDesignFinding[];
+  reworkRequired?: boolean;
+  reworkSummary?: string;
+  filesChanged?: readonly string[];
   checks?: readonly string[];
   blockers?: readonly string[];
   notes?: readonly string[];
@@ -18,6 +37,7 @@ export interface WebDesignReview {
 const statuses = new Set<WebDesignReviewStatus>([
   'PASS',
   'PASS_WITH_NOTES',
+  'REWORK',
   'BLOCKED',
   'WAITING_EXTERNAL',
   'UNKNOWN',
@@ -37,6 +57,17 @@ export function parseWebDesignReview(value: unknown): WebDesignReview | null {
     return null;
   }
 
+  const reviewType = value.reviewType === 'DETERMINISTIC_COMPLIANCE' || value.reviewType === 'CREATIVE_VISUAL' || value.reviewType === 'COMBINED'
+    ? value.reviewType
+    : undefined;
+  const findings = Array.isArray(value.findings)
+    ? value.findings.flatMap((item) => {
+        if (!isRecord(item) || typeof item.category !== 'string' || typeof item.description !== 'string') return [];
+        const severity: WebDesignFinding['severity'] = item.severity === 'INFO' || item.severity === 'WARNING' || item.severity === 'BLOCKING' ? item.severity : 'WARNING';
+        return [{ category: item.category, severity, description: item.description, ...(typeof item.evidence === 'string' ? { evidence: item.evidence } : {}), ...(typeof item.suggestedAction === 'string' ? { suggestedAction: item.suggestedAction } : {}) }];
+      })
+    : undefined;
+
   const owner = typeof value.owner === 'string' ? value.owner.trim() : '';
   const verifier = typeof value.verifier === 'string' ? value.verifier.trim() : '';
   if (!owner || !verifier) return null;
@@ -45,6 +76,11 @@ export function parseWebDesignReview(value: unknown): WebDesignReview | null {
     status: value.status as WebDesignReviewStatus,
     owner,
     verifier,
+    ...(reviewType ? { reviewType } : {}),
+    ...(findings ? { findings } : {}),
+    ...(typeof value.reworkRequired === 'boolean' ? { reworkRequired: value.reworkRequired } : {}),
+    ...(typeof value.reworkSummary === 'string' ? { reworkSummary: value.reworkSummary } : {}),
+    ...(stringArray(value.filesChanged) ? { filesChanged: stringArray(value.filesChanged) } : {}),
     ...(stringArray(value.checks) ? { checks: stringArray(value.checks) } : {}),
     ...(stringArray(value.blockers) ? { blockers: stringArray(value.blockers) } : {}),
     ...(stringArray(value.notes) ? { notes: stringArray(value.notes) } : {}),

@@ -1,0 +1,42 @@
+{
+  "benchmarkId": "google-places-structured-provider-exploratory-v1",
+  "provider": "GOOGLE_PLACES_NEW",
+  "sampleHash": "b39721d123fd252a1e9dca276fa49446a454027fcb381958be6cfe207699d75d",
+  "sampleComposition": {"SAMPLE_TOTAL": 10, "UNCOVERED_TOTAL": 8, "POSITIVE_CONTROL_TOTAL": 2, "ADVERSARIAL_TOTAL": 0},
+  "requestAccounting": {"reportedTotalRequests": 10, "artifactTotalRequests": 10, "perProspectRequestCounts": [1,1,1,1,1,1,1,1,1,1], "secondaryRequests": 0, "accountingValid": true},
+  "metrics": {
+    "ENTITY_FOUND": "7 / 10",
+    "IDENTITY_VERIFIED": "7 / 10",
+    "IDENTITY_AMBIGUOUS": "0 / 10",
+    "IDENTITY_REJECTED": "3 / 10",
+    "NOT_FOUND": "0 / 10",
+    "PHONE_FIELD_PRESENT": "7 / 10",
+    "INCREMENTAL_PHONE_COUNT": "7 / 8",
+    "INCREMENTAL_PHONE_RATE": "87.5%",
+    "POSITIVE_CONTROL_ENTITY_MATCH": "0 / 2",
+    "POSITIVE_CONTROL_PHONE_MATCH": "0 / 2",
+    "POSITIVE_CONTROL_PHONE_MISMATCH": "0 / 2",
+    "POSITIVE_CONTROL_PHONE_ABSENT": "2 / 2",
+    "IDENTITY_MISBIND_COUNT": 0,
+    "TOTAL_REQUESTS": 10
+  },
+  "uncoveredResults": [
+    {"canonicalProspect":"BERNARD'S COFFEE SHOP","entityFound":true,"identityVerdict":"VERIFIED","googleBusinessName":"Bernard'S Coffee","googleAddress":"Kiosque n⁸11, Rue de la liberté, Fort-de-France 97200, Martinique","googleWebsite":"https://bernards-coffee.business.site/?utm_source=gmb&utm_medium=referral","nationalPhone":"0696 16 13 27","internationalPhone":"+596 696 16 13 27","incrementalIdentityVerifiedPhone":true,"reason":null},
+    {"canonicalProspect":"CORAIL","entityFound":false,"identityVerdict":"REJECTED","googleBusinessName":null,"googleAddress":null,"googleWebsite":null,"nationalPhone":null,"internationalPhone":null,"incrementalIdentityVerifiedPhone":false,"reason":"all candidates rejected by deterministic identity binding"},
+    {"canonicalProspect":"ENVIE D AILLEURS","entityFound":true,"identityVerdict":"VERIFIED","googleBusinessName":"Envie d'Ailleurs","googleAddress":"15 Rue Victor Hugo, Sainte-Luce 97228, Martinique","googleWebsite":"http://www.boutiques-enviedailleurs.com/","nationalPhone":"05 96 74 32 76","internationalPhone":"+33 5 96 74 32 76","incrementalIdentityVerifiedPhone":true,"reason":null},
+    {"canonicalProspect":"ELECTRONIQUE +","entityFound":true,"identityVerdict":"VERIFIED","googleBusinessName":"ELECTRONIQUE +","googleAddress":"CENTRE COMMERCIAL PLACE D'ARMES, Le Lamentin 97232, Martinique","googleWebsite":null,"nationalPhone":"0596 51 35 85","internationalPhone":"+596 596 51 35 85","incrementalIdentityVerifiedPhone":true,"reason":null},
+    {"canonicalProspect":"KAY JUJU","entityFound":true,"identityVerdict":"VERIFIED","googleBusinessName":"Restaurant Kay Juju - Spécialités Haïtiennes","googleAddress":"182 Route de Lamentin, Fort-de-France 97200, Martinique","googleWebsite":null,"nationalPhone":"0696 53 65 44","internationalPhone":"+596 696 53 65 44","incrementalIdentityVerifiedPhone":true,"reason":null},
+    {"canonicalProspect":"L'UNIVERS DU PNEU","entityFound":true,"identityVerdict":"VERIFIED","googleBusinessName":"L'Univers du Pneu Le Morne Rouge","googleAddress":"Rue Jean-Jaurès Haut du Bourg, Le Morne-Rouge 97260, Martinique","googleWebsite":"https://www.luniversdupneu.mq/","nationalPhone":"0596 66 06 98","internationalPhone":"+596 596 66 06 98","incrementalIdentityVerifiedPhone":true,"reason":null},
+    {"canonicalProspect":"POMPES FUNEBRES CARISTAN","entityFound":true,"identityVerdict":"VERIFIED","googleBusinessName":"Pompes Funèbres Martinique : Pompes Funèbres Caristan","googleAddress":"VV8P+MMW, Zone artisanale Eyma, Basse-Pointe 97218, Martinique","googleWebsite":"http://www.pfcaristan.fr/","nationalPhone":"0696 44 22 30","internationalPhone":"+596 696 44 22 30","incrementalIdentityVerifiedPhone":true,"reason":null},
+    {"canonicalProspect":"SARL SOREIDOM","entityFound":true,"identityVerdict":"VERIFIED","googleBusinessName":"Soreidom","googleAddress":"1 Rue Isambert, Le Robert 97231, Martinique","googleWebsite":"https://www.soreidom.com/fr","nationalPhone":"05 96 38 05 59","internationalPhone":"+33 5 96 38 05 59","incrementalIdentityVerifiedPhone":true,"reason":null}
+  ],
+  "positiveControls": [
+    {"canonicalProspect":"ACTIBURO","intendedBusinessResolved":false,"identityVerdict":"REJECTED","googlePhone":null,"existingTrustedPhone":"02 35 52 82 00","phoneResult":"ABSENT","reason":"all candidates rejected by deterministic identity binding"},
+    {"canonicalProspect":"GIE LIEMAN GESTION","intendedBusinessResolved":false,"identityVerdict":"REJECTED","googlePhone":null,"existingTrustedPhone":"+33939200483","phoneResult":"ABSENT","reason":"all candidates rejected by deterministic identity binding"}
+  ],
+  "tomtomComparison": {"ENTITY_COVERAGE":"TomTom 2/10; Google 7/10","PHONE_COVERAGE":"TomTom incremental 0/8; Google incremental 7/8 (87.5%)","POSITIVE_CONTROL_RESOLUTION":"TomTom 0/2; Google 0/2","IDENTITY_ERRORS":"TomTom 0 reported misbinds; Google 0","REQUEST_COUNT":"TomTom 12 total; Google 10 total"},
+  "gate": {"identityMisbindCount":0,"bothPositiveControlsResolveCorrectly":false,"uncoveredIncrementalPhones":7,"decision":"FAIL","reason":"A positive-control resolution gate is not met despite 7/8 incremental uncovered phones."},
+  "retainedBenchmarkFields": ["provider place ID","provider name","provider address","provider website","national phone","international phone","normalized phone","identity signals/verdict/reason","query","response timestamp","response hash","request count"],
+  "governanceNote":"This benchmark retains only the listed benchmark fields. Google Places content persistence/caching constraints require a later production integration design; persisted place IDs/provenance and provider-content retention must remain architecturally distinct. No legal conclusion is made.",
+  "safety": {"harnessReceivedGKEY":false,"gkeyPersisted":false,"additionalGoogleRequests":0,"tavilyQueries":0,"researchReplay":0,"canonicalContactMutation":false,"trustedPhoneMutation":false,"scoringMutation":false,"qualificationMutation":false,"outreach":false,"deployment":false,"frozenSampleUnchanged":true,"historicalEventsPreserved":true}
+}

@@ -1,0 +1,61 @@
+{
+  "validationId": "google-incremental-phone-independent-validation-v1",
+  "mode": "BOUNDED_PUBLIC_WEB_NO_GOOGLE_API",
+  "historicalBenchmark": "GOOGLE_PLACES_STRUCTURED_PROVIDER_EXPLORATORY_V1_FAIL",
+  "targets": [
+    {
+      "canonicalProspect": "ELECTRONIQUE +",
+      "google": {
+        "providerName": "ELECTRONIQUE +",
+        "providerAddress": "CENTRE COMMERCIAL PLACE D'ARMES, Le Lamentin 97232, Martinique",
+        "providerLocality": "Le Lamentin",
+        "providerPhone": "+596596513585",
+        "providerWebsite": null,
+        "identityVerdict": "VERIFIED"
+      },
+      "independentEvidence": [
+        {"url":"https://electroniqueplus.com/magasins","sourceType":"FIRST_PARTY_OFFICIAL_SITE","httpStatus":404,"identityVerified":false,"phone":null,"note":"Specified official URL returned HTTP 404 in bounded validation."},
+        {"url":"https://electroniqueplus.com/nous-contacter","sourceType":"FIRST_PARTY_OFFICIAL_SITE","httpStatus":200,"identityVerified":false,"phone":null,"note":"No usable page content was returned by the bounded fetch; no phone was inferred."}
+      ],
+      "independentIdentityVerified": false,
+      "independentPhoneSet": [],
+      "phoneMatch": "NOT_VERIFIABLE",
+      "verdict": "NOT_VERIFIABLE",
+      "reason": "The specified first-party URLs did not provide retrievable, identity-bound evidence in this run; the Google phone was not independently confirmed or rejected."
+    },
+    {
+      "canonicalProspect": "POMPES FUNEBRES CARISTAN",
+      "google": {
+        "providerName": "Pompes Funèbres Martinique : Pompes Funèbres Caristan",
+        "providerAddress": "VV8P+MMW, Zone artisanale Eyma, Basse-Pointe 97218, Martinique",
+        "providerLocality": "Basse-Pointe",
+        "providerPhone": "+596696442230",
+        "providerWebsite": "http://www.pfcaristan.fr/",
+        "identityVerdict": "VERIFIED"
+      },
+      "independentEvidence": [
+        {"url":"https://pfcaristan.fr/","sourceType":"FIRST_PARTY_OFFICIAL_SITE","httpStatus":200,"identityVerified":true,"phone":"+596696442230","phoneRole":"general / urgence","locationContext":"Martinique-wide service; official Pompes Funèbres CARISTAN site","evidence":"Official page publishes URGENCE DÉCÈS 596 696 44 22 30 and links the Basse-Pointe agency."},
+        {"url":"https://pfcaristan.fr/","sourceType":"FIRST_PARTY_OFFICIAL_SITE","httpStatus":200,"identityVerified":true,"phone":"+596596518050","phoneRole":"agency","locationContext":"Zone Artisanale Eyma, 97218 BASSE-POINTE","evidence":"Official page lists Pompes Funèbres Caristan at the Google-resolved Basse-Pointe address."}
+      ],
+      "independentIdentityVerified": true,
+      "independentPhoneSet": ["+596696442230","+596596518050"],
+      "phoneMatch": "EXACT_NORMALIZED_MATCH",
+      "verdict": "MATCH",
+      "reason": "The official Caristan site identity-binds the business and Basse-Pointe agency; the Google phone exactly matches the official general/emergency phone. The Basse-Pointe agency also has a distinct official local number, so numbers are not treated as interchangeable."
+    }
+  ],
+  "actiburoRegression": {
+    "officialSources": ["https://actiburo.fr/nous-contacter/","https://actiburo.fr/mentions-legales/"],
+    "identity": "ACTIBURO Martinique, ZI La Lézarde, 97232 Le Lamentin",
+    "validMartiniquePhone": "0596511236",
+    "knownInvalidRouenPhone": "0235528200",
+    "result": "SEPARATE_IDENTITIES; ROUEN_PHONE_NOT_ELIGIBLE",
+    "note": "The repaired trust model rejects a phone unless source ownership and entity binding are established; the historical Rouen number cannot qualify for the Martinique entity."
+  },
+  "decision": "GOOGLE_COVERAGE_SIGNAL_PARTIAL",
+  "decisionReason": "CARISTAN independently matches; ELECTRONIQUE + is NOT_VERIFIABLE from the specified first-party URLs in this bounded run. No material conflict was found, but both clean validations are required for VALIDATED.",
+  "productionValidationJustified": false,
+  "productionValidationReason": "A later mission may be justified after retrieving independently identity-bound evidence for ELECTRONIQUE + and establishing valid positive controls; this bounded result is not sufficient by itself.",
+  "coverageSignal": "7/8 historical Google uncovered incremental phones remains coverage-only and is not promoted.",
+  "safety": {"googleApiRequests":0,"tavilyQueries":0,"researchReplay":0,"canonicalPhoneMutation":false,"trustedPhoneMutation":false,"scoringMutation":false,"outreach":false,"deployment":false,"historicalBenchmarkPreserved":true,"trustedPhoneMigrationPreserved":true,"dirtyTreePreserved":true}
+}

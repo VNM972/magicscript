@@ -1,0 +1,103 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import http from 'node:http';
+import { createRequire } from 'node:module';
+import { Miniflare, convertV4MiniflareOptions } from 'miniflare';
+import worker from '../apps/api-worker/src/index.ts';
+import { D1BuildArtifactStore } from '../core/persistence/d1-build-artifact-store.ts';
+import { D1BuildCorrectionStore, D1VisualQaReportStore } from '../core/persistence/d1-visual-qa-store.ts';
+import { D1JobQueue } from '../core/persistence/d1-job-queue.ts';
+import { createBuildCorrectionRequest } from '../core/visual-qa/engine.ts';
+import { correctionJobFor } from '../core/visual-qa/contracts.ts';
+import { verifyBuildArtifactIntegrity } from '../core/builder/site-builder.ts';
+import { CANONICAL_FAVICON_LINK, deterministicFaviconBytes, ensureLocalFaviconHtml } from '../core/builder/contracts.ts';
+const require=createRequire(import.meta.url);
+const {DB,P,A,B,fingerprints}=require('../.r71z-runtime/preflight.cjs');
+const runtime=path.resolve('.r74z-runtime');
+const baseline=JSON.parse(fs.readFileSync(path.join(runtime,'preflight.json'),'utf8'));
+const write=(name:string,value:unknown)=>fs.writeFileSync(path.join(runtime,name),JSON.stringify(value,null,2)+'\n');
+let stage='NATIVE_D1_PREFLIGHT'; let mf:any,server:any;
+const counts={runnerInvocations:0,claims:0,executorRuns:0,successCallbacks:0,qaInvocations:0};
+let correction:any,job:any;
+async function main(){
+ assert(!fs.existsSync(path.join(runtime,'migration-invocation.json')),'Migration already attempted');
+ mf=new Miniflare(convertV4MiniflareOptions({modules:true,script:'export default {fetch(){return new Response("R74Z local D1 binding");}};',compatibilityDate:'2026-09-04',d1Databases:{DB:'magicscript-local'},resourcePersistencePath:path.resolve('apps/api-worker/.wrangler/state/v3')}));
+ const db=await mf.getD1Database('DB');
+ const all=async(query:string,...args:any[]) => (await db.prepare(query).bind(...args).all()).results;
+ for(const table of ['v2_build_artifacts','v2_visual_qa_reports','v2_design_artifacts','v2_design_requests','v2_design_reviews','v2_build_corrections','v2_proposals','jobs']) assert.deepEqual(await all(`SELECT * FROM ${table} WHERE prospect_id=? ORDER BY id`,P),baseline.rows[table]);
+ assert.deepEqual(await all('PRAGMA foreign_key_check'),[]);
+ assert.deepEqual(await db.prepare('SELECT * FROM active_production_slots WHERE slot_id=1').first(),baseline.rows.slot);
+ const legacyBuildSchema=(await all("SELECT sql FROM sqlite_master WHERE name='v2_build_artifacts'"))[0].sql;
+ assert(!legacyBuildSchema.includes('build_revision'));
+ write('native-d1-preflight.json',{databaseBinding:'magicscript-local',persistencePath:path.resolve('apps/api-worker/.wrangler/state/v3/d1'),existingDbPath:DB,baselineRowsMatch:true});
+ stage='REAL_MIGRATION';
+ const migration=fs.readFileSync('database/migration-v2-build-revision-v1.sql','utf8');
+ const statements=migration.replace(/--[^\n]*/g,'').split(';').map(s=>s.trim()).filter(Boolean);
+ write('migration-invocation.json',{startedAt:new Date().toISOString(),method:'native D1.batch, one atomic batch',statementCount:statements.length,realInvocations:1});
+ const migrationResults=await db.batch(statements.map(sql=>db.prepare(sql)));
+ assert(migrationResults.every((r:any)=>r.success));
+ stage='MIGRATION_INTEGRITY';
+ assert.deepEqual(await all('PRAGMA foreign_key_check'),[]);
+ for(const table of ['v2_visual_qa_reports','v2_design_artifacts','v2_design_requests','v2_design_reviews','v2_build_corrections','v2_proposals','jobs']) assert.deepEqual(await all(`SELECT * FROM ${table} WHERE prospect_id=? ORDER BY id`,P),baseline.rows[table]);
+ const migrated=await all('SELECT * FROM v2_build_artifacts WHERE prospect_id=? ORDER BY id',P);
+ assert.equal(migrated.length,1);const {build_revision,...oldRow}=migrated[0];assert.equal(build_revision,1);assert.deepEqual(oldRow,baseline.rows.v2_build_artifacts[0]);
+ assert.deepEqual(await db.prepare('SELECT * FROM prospects WHERE id=?').bind(P).first(),baseline.rows.prospect);
+ assert.deepEqual(await db.prepare('SELECT * FROM active_production_slots WHERE slot_id=1').first(),baseline.rows.slot);
+ const newSchema=(await all("SELECT sql FROM sqlite_master WHERE name='v2_build_artifacts'"))[0].sql;
+ assert(newSchema.includes('UNIQUE(design_artifact_id, builder_version, build_revision)'));
+ assert.equal((await all("SELECT count(*) n FROM sqlite_master WHERE name LIKE 'r73z_%' OR name='v2_build_artifacts_revision_v1'"))[0].n,0);
+ const builds=new D1BuildArtifactStore(db);const reports=new D1VisualQaReportStore(db);const corrections=new D1BuildCorrectionStore(db);
+ const build=await builds.get(B);assert.equal(build?.buildRevision,1);await verifyBuildArtifactIntegrity(build!);
+ const qa=await reports.get(baseline.qa.id);assert.deepEqual(qa,baseline.qa);
+ const row=baseline.rows.v2_design_artifacts[0];const design={...JSON.parse(row.artifact_json),status:row.status};const request=JSON.parse(baseline.rows.v2_design_requests[0].request_json);
+ write('migration-result.json',{status:'PASS',atomicBatch:true,foreignKeyIntegrity:'PASS',existingRecordsPreserved:true,buildRevision:1,revisionUniqueness:newSchema,migrationResults});
+ console.log('REAL_MIGRATION=PASS; MIGRATION_INTEGRITY=PASS');
+ stage='CORRECTION_REQUEST';
+ correction=createBuildCorrectionRequest(qa!,'ENSURE_LOCAL_FAVICON_V1',{build:build!,design,request},qa!.issues[0]);
+ await corrections.save(correction);assert.deepEqual(await corrections.get(correction.id),correction);write('correction-request.json',correction);
+ stage='CORRECTION_ENQUEUE';
+ const queue=new D1JobQueue(db);job=await queue.enqueue(correctionJobFor(correction));
+ assert.equal(job.status,'PENDING');assert.equal(job.attempts,0);assert(!job.claimedBy);assert(!job.claimedAt);write('correction-job-initial.json',job);
+ const ready=await all("SELECT id,kind FROM jobs WHERE prospect_id=? AND status='PENDING' AND run_after<=?",P,new Date().toISOString());assert.deepEqual(ready,[{id:job.id,kind:'V2_BUILD_CORRECTION'}]);
+ assert.equal((await all("SELECT count(*) n FROM jobs WHERE status IN ('RUNNING','SENDING') AND claimed_at IS NOT NULL AND claimed_at<?",new Date(Date.now()-30*60000).toISOString()))[0].n,0);
+ console.log('CORRECTION_REQUEST=PERSISTED; CORRECTION_JOB=PENDING/0');
+ const cfg=JSON.parse(fs.readFileSync('apps/api-worker/wrangler.local.jsonc','utf8'));
+ const env={...cfg.vars,DB:db,MAGICSCRIPT_RUNNER_PROSPECT_ID:P};
+ const apiCalls:any[]=[];
+ server=http.createServer(async(req,res)=>{
+  const chunks:any[]=[];for await(const c of req)chunks.push(c);const body=Buffer.concat(chunks);
+  const request=new Request(`http://127.0.0.1${req.url}`,{method:req.method,headers:req.headers as any,...(body.length?{body}: {})});
+  const record:any={path:req.url,startedAt:new Date().toISOString()};apiCalls.push(record);
+  try{
+   if(req.url==='/api/runner/jobs/claim'){counts.claims++;assert.equal(counts.claims,1);}
+   if(req.url?.endsWith('/succeed')){counts.successCallbacks++;assert.equal(counts.successCallbacks,1);stage='SUCCESS_PERSISTENCE';}
+   const response=await worker.fetch(request,env as any);const bytes=Buffer.from(await response.arrayBuffer());record.status=response.status;
+   if(req.url==='/api/runner/jobs/claim'&&response.ok&&response.status!==204){const claim=JSON.parse(bytes.toString());assert.equal(claim.job.id,job.id);write('claim.json',claim);counts.executorRuns=1;stage='CORRECTION_EXECUTION';}
+   if(req.url?.endsWith('/succeed')||response.status>=400)record.body=bytes.toString();
+   write('api-calls.json',apiCalls);write('counts.json',counts);res.writeHead(response.status,Object.fromEntries(response.headers));res.end(bytes);
+  }catch(error){record.error=String(error);write('api-calls.json',apiCalls);res.writeHead(500);res.end(JSON.stringify({error:String(error)}));}
+ });
+ await new Promise<void>((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve);});
+ const url=`http://127.0.0.1:${server.address().port}`;
+ process.env.MAGICSCRIPT_API_BASE_URL=url;process.env.MAGICSCRIPT_RUNNER_TOKEN=cfg.vars.MAGICSCRIPT_RUNNER_TOKEN;process.env.MAGICSCRIPT_RUNNER_ID='r74z-villa-ancinel';process.env.MAGICSCRIPT_RUNNER_WORK_DIR=path.join(runtime,'runner');process.env.MAGICSCRIPT_EMAIL_PROVIDER='disabled';process.env.MAGICSCRIPT_SENDING_ENABLED='false';
+ const {runOne}=await import('../apps/agent-runner/src/index.ts');
+ assert(!fs.existsSync(path.join(runtime,'runner-invocation.json')),'Runner already attempted');
+ stage='REAL_RUNNER_CLAIM';counts.runnerInvocations=1;write('runner-invocation.json',{startedAt:new Date().toISOString(),realInvocations:1,apiUrl:url,jobId:job.id});
+ assert.equal(await runOne(),true);write('counts.json',counts);
+ const finalJob=(await all('SELECT * FROM jobs WHERE id=?',job.id))[0];write('correction-job-final.json',finalJob);assert.equal(finalJob.status,'SUCCEEDED',finalJob.last_error);assert.equal(finalJob.attempts,1);
+ assert.equal(counts.claims,1);assert.equal(counts.executorRuns,1);assert.equal(counts.successCallbacks,1);
+ stage='BUILD_R2_VALIDATION';const r2=await builds.get(`${B}-br2`);assert(r2);await verifyBuildArtifactIntegrity(r2);assert.equal(r2.buildRevision,2);assert.equal(r2.qaAttempt,2);assert.equal(r2.approvedRevision,1);assert.equal(r2.previousBuildArtifactId,B);assert.equal(r2.correctionRequestId,correction.id);
+ const read=(root:string,name:string)=>fs.readFileSync(path.join(root,name));
+ assert.deepEqual(fs.readdirSync(r2.outputPath).sort(),['build-manifest.json','favicon.ico','index.html','styles.css']);
+ assert.deepEqual(read(r2.outputPath,'favicon.ico'),Buffer.from(deterministicFaviconBytes()));
+ const html=read(r2.outputPath,'index.html').toString();assert.equal(html.split(CANONICAL_FAVICON_LINK).length-1,1);assert.equal(html,ensureLocalFaviconHtml(read(build!.outputPath,'index.html').toString()));
+ assert.deepEqual(read(r2.outputPath,'styles.css'),read(build!.outputPath,'styles.css'));
+ assert.notEqual(r2.sourceHash,build!.sourceHash);assert.deepEqual(fingerprints(build),baseline.fingerprints);
+ assert.deepEqual(await reports.get(qa!.id),qa);assert.equal((await all('SELECT count(*) n FROM v2_build_artifacts WHERE id=?',r2.id))[0].n,1);
+ assert.equal((await all("SELECT count(*) n FROM jobs WHERE prospect_id=? AND kind='V2_VISUAL_QA'",P))[0].n,0);
+ assert.deepEqual(await db.prepare('SELECT * FROM active_production_slots WHERE slot_id=1').first(),baseline.rows.slot);
+ write('build-r2.json',r2);write('runtime-result.json',{status:'PASS',counts,correctionRequestId:correction.id,jobId:job.id,jobState:finalJob.status,attempts:finalJob.attempts,buildId:r2.id,buildRevision:2,qaAttempt:2,sourceHash:r2.sourceHash,sourcePath:r2.sourcePath,outputPath:r2.outputPath,buildR1Immutable:true,qaA1Immutable:true,faviconBytesValid:true,canonicalFaviconLinkCount:1,stylesAndPageContentPreserved:true,slotPreserved:true});
+ console.log(`CORRECTION_RUN=PASS; BUILD_R2=${r2.id}; HASH=${r2.sourceHash}`);
+}
+try{await main();}catch(error){write('execution-error.json',{stage,at:new Date().toISOString(),counts,correctionRequestId:correction?.id??null,jobId:job?.id??null,error:error instanceof Error?error.stack:String(error)});console.error(`STOP_AT=${stage}: ${error instanceof Error?error.stack:String(error)}`);process.exitCode=1;}finally{if(server)await new Promise<void>(r=>server.close(()=>r()));if(mf)await mf.dispose();}

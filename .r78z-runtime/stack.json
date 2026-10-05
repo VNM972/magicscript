@@ -1,0 +1,7 @@
+﻿{
+    "mechanism":  "Existing GUID stack generation + run-local-api-with-restart Wrangler vars; bounded runOne",
+    "stackId":  "d401cf61-bc1c-4d13-9664-5b53dea2716d",
+    "apiUrl":  "http://127.0.0.1:8787",
+    "apiPid":  22244,
+    "apiStartedAt":  "2026-10-04T15:03:57.3816354Z"
+}

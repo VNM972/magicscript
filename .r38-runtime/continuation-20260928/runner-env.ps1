@@ -1,0 +1,12 @@
+$r36Path=(Get-Content -LiteralPath .r36-runtime/current-r36-path.txt).Trim()
+$env:R36_ROOT='D:\MagicScript\repository\.r38-runtime\continuation-20260928'
+$env:MAGICSCRIPT_API_BASE_URL='http://127.0.0.1:8836'
+$env:MAGICSCRIPT_RUNNER_TOKEN='dev-runner-token'
+$env:MAGICSCRIPT_STACK_ID='r36-host-20260928-9305b676'
+$env:MAGICSCRIPT_RUNNER_ID='r38-runner-continuation'
+$env:MAGICSCRIPT_RUNNER_WORK_DIR="$r36Path/runner"
+$env:MAGICSCRIPT_AGENT_PROVIDER='ollama'
+$env:OLLAMA_MODEL='qwen2.5-coder:3b'
+$env:MAGICSCRIPT_SENDING_ENABLED='false'
+$env:MAGICSCRIPT_EMAIL_PROVIDER='disabled'
+$env:MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED='false'

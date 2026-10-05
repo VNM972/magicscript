@@ -1,0 +1,373 @@
+{
+  "verifiedAt": "2026-10-03T07:16:48.417Z",
+  "dbPath": "D:\\MagicScript\\repository\\apps\\api-worker\\.wrangler\\state\\v3\\d1\\miniflare-D1DatabaseObject\\8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite",
+  "status": "PASS",
+  "rows": {
+    "jobs": [
+      {
+        "id": "job-v2-87988492200011-DESIGN_REQUEST_V1",
+        "kind": "V2_DESIGN_REQUEST",
+        "prospect_id": "v2-87988492200011",
+        "payload_json": "{\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"designRequestVersion\":\"DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"admittedPackId\":\"agent1-r66z-villa-ancinel\"}",
+        "status": "SUCCEEDED",
+        "attempts": 2,
+        "max_attempts": 3,
+        "run_after": "2026-10-02T16:45:49.082Z",
+        "last_error": null,
+        "claimed_by": null,
+        "claimed_at": null,
+        "created_at": "2026-10-02T16:32:22.315Z",
+        "updated_at": "2026-10-02T17:02:32.227Z"
+      },
+      {
+        "id": "job-v2-87988492200011-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+        "kind": "V2_BUILD_SITE",
+        "prospect_id": "v2-87988492200011",
+        "payload_json": "{\"approvedDesignArtifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"approvedRevision\":1,\"builderVersion\":\"builder-v1\"}",
+        "status": "SUCCEEDED",
+        "attempts": 1,
+        "max_attempts": 2,
+        "run_after": "2026-10-02T17:52:10.137Z",
+        "last_error": null,
+        "claimed_by": null,
+        "claimed_at": null,
+        "created_at": "2026-10-02T17:31:28.220Z",
+        "updated_at": "2026-10-02T18:46:54.977Z"
+      },
+      {
+        "id": "job-v2-87988492200011-build-correction-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r2",
+        "kind": "V2_BUILD_CORRECTION",
+        "prospect_id": "v2-87988492200011",
+        "payload_json": "{\"correctionRequestId\":\"correction-qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1\",\"buildArtifactId\":\"build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1\",\"targetBuildRevision\":1,\"nextBuildRevision\":2,\"qaReportId\":\"qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1\",\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"approvedDesignArtifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\"}",
+        "status": "PENDING",
+        "attempts": 0,
+        "max_attempts": 2,
+        "run_after": "2026-10-03T07:05:01.295Z",
+        "last_error": null,
+        "claimed_by": null,
+        "claimed_at": null,
+        "created_at": "2026-10-03T07:05:01.295Z",
+        "updated_at": "2026-10-03T07:05:01.295Z"
+      },
+      {
+        "id": "job-v2-87988492200011-design-review-r1",
+        "kind": "V2_DESIGN_REVIEW",
+        "prospect_id": "v2-87988492200011",
+        "payload_json": "{\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"artifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"artifactRevision\":1}",
+        "status": "SUCCEEDED",
+        "attempts": 1,
+        "max_attempts": 3,
+        "run_after": "2026-10-02T17:02:32.225Z",
+        "last_error": null,
+        "claimed_by": null,
+        "claimed_at": null,
+        "created_at": "2026-10-02T17:02:32.225Z",
+        "updated_at": "2026-10-02T17:31:28.228Z"
+      }
+    ],
+    "v2_build_artifacts": [
+      {
+        "id": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+        "build_version": "BUILD_ARTIFACT_V1",
+        "design_artifact_id": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+        "design_request_id": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+        "prospect_id": "v2-87988492200011",
+        "approved_revision": 1,
+        "build_revision": 1,
+        "builder_version": "builder-v1",
+        "source_path": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\source",
+        "output_path": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\dist",
+        "status": "SUCCEEDED",
+        "source_hash": "f13de1a6577eee49a58e8ed87518980bb67b68dfc33282d0bb839c0403109ab3",
+        "artifact_json": "{\"id\":\"build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1\",\"version\":\"BUILD_ARTIFACT_V1\",\"approvedDesignArtifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"approvedRevision\":1,\"builderVersion\":\"builder-v1\",\"sourcePath\":\"D:\\\\MagicScript\\\\repository\\\\artifacts\\\\v2\\\\sites\\\\v2-87988492200011\\\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\\\source\",\"outputPath\":\"D:\\\\MagicScript\\\\repository\\\\artifacts\\\\v2\\\\sites\\\\v2-87988492200011\\\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\\\dist\",\"status\":\"SUCCEEDED\",\"framework\":\"STATIC_HTML_CSS\",\"sourceHash\":\"f13de1a6577eee49a58e8ed87518980bb67b68dfc33282d0bb839c0403109ab3\",\"createdAt\":\"2026-10-02T18:46:54.940Z\",\"completedAt\":\"2026-10-02T18:46:54.958Z\",\"metadata\":{\"entryFile\":\"index.html\",\"buildCommand\":\"builder-v1 static build\",\"missingAssetRequirements\":[\"logo if supplied\",\"approved business imagery if supplied\",\"no fabricated testimonials or pricing\"]}}",
+        "created_at": "2026-10-02T18:46:54.940Z",
+        "completed_at": "2026-10-02T18:46:54.958Z",
+        "updated_at": "2026-10-02T18:46:54.958Z"
+      }
+    ],
+    "v2_build_corrections": [
+      {
+        "id": "correction-qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+        "correction_version": "BUILD_CORRECTION_REQUEST_V1",
+        "build_artifact_id": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+        "design_artifact_id": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+        "prospect_id": "v2-87988492200011",
+        "qa_report_id": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+        "target_build_revision": 1,
+        "next_build_revision": 2,
+        "correction_json": "{\"id\":\"correction-qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1\",\"version\":\"BUILD_CORRECTION_REQUEST_V1\",\"operation\":\"ENSURE_LOCAL_FAVICON_V1\",\"buildArtifactId\":\"build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1\",\"designArtifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"qaReportId\":\"qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1\",\"targetBuildRevision\":1,\"nextBuildRevision\":2,\"issue\":{\"category\":\"BUILD_RENDER\",\"severity\":\"MAJOR\",\"message\":\"Browser runtime error: Failed to load resource: the server responded with a status of 404 (Not Found)\",\"expectedCorrection\":\"Fix the rendered runtime error.\"},\"createdAt\":\"2026-10-02T19:09:30.019Z\"}",
+        "created_at": "2026-10-02T19:09:30.019Z"
+      }
+    ],
+    "v2_visual_qa_reports": [
+      {
+        "id": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+        "qa_version": "VISUAL_QA_REPORT_V1",
+        "build_artifact_id": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+        "design_artifact_id": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+        "design_request_id": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+        "prospect_id": "v2-87988492200011",
+        "attempt": 1,
+        "decision": "CORRECTION_REQUIRED",
+        "report_json": "{\"id\":\"qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1\",\"version\":\"VISUAL_QA_REPORT_V1\",\"buildArtifactId\":\"build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1\",\"designArtifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"designArtifactRevision\":1,\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"buildVersion\":\"BUILD_ARTIFACT_V1\",\"buildRevision\":1,\"attempt\":1,\"decision\":\"CORRECTION_REQUIRED\",\"issues\":[{\"category\":\"BUILD_RENDER\",\"severity\":\"MAJOR\",\"message\":\"Browser runtime error: Failed to load resource: the server responded with a status of 404 (Not Found)\",\"expectedCorrection\":\"Fix the rendered runtime error.\"}],\"inspection\":{\"viewports\":[{\"name\":\"DESKTOP\",\"width\":1440,\"height\":900,\"horizontalOverflow\":-15,\"heroVisible\":true,\"primaryCtaVisible\":true,\"contentVisible\":true,\"controlsWithinViewport\":true},{\"name\":\"MOBILE\",\"width\":390,\"height\":844,\"horizontalOverflow\":-15,\"heroVisible\":true,\"primaryCtaVisible\":true,\"contentVisible\":true,\"controlsWithinViewport\":true}],\"expectedSections\":[\"hero\",\"offer\",\"reassurance\",\"contact\"],\"observedSections\":[\"hero\",\"home\",\"offer\",\"reassurance\",\"contact\"],\"primaryCta\":\"Contacter l’entreprise\",\"brokenAssets\":[],\"internalLinkErrors\":[],\"consoleErrors\":[\"Failed to load resource: the server responded with a status of 404 (Not Found)\"],\"unresolvedMarkers\":[],\"headings\":[\"h1 Clarifier la valeur de Villa Ancinel\",\"h2 Clarifier la valeur de Villa Ancinel\",\"h2 hero\",\"h2 offer\",\"h2 reassurance\",\"h2 contact\",\"h2 Contacter l’entreprise\"]},\"createdAt\":\"2026-10-02T19:09:30.019Z\"}",
+        "created_at": "2026-10-02T19:09:30.019Z"
+      }
+    ],
+    "v2_design_artifacts": [
+      {
+        "id": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+        "design_request_id": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+        "prospect_id": "v2-87988492200011",
+        "version": "DESIGN_ARTIFACT_V1",
+        "revision": 1,
+        "vertical": "GENERAL_LOCAL_BUSINESS",
+        "artifact_json": "{\"id\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"version\":\"DESIGN_ARTIFACT_V1\",\"revision\":1,\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"verticalProfile\":\"GENERAL_LOCAL_BUSINESS\",\"createdAt\":\"2026-10-02T17:02:32.201Z\",\"provenance\":{\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"evidenceIds\":[\"evidence-1\",\"evidence-2\",\"evidence-3\"],\"executionMode\":\"MODEL\",\"model\":{\"provider\":\"ollama-aider\",\"model\":\"qwen2.5-coder:3b\"}},\"strategy\":{\"siteObjective\":\"Present a credible local business offer with a simple next step.\",\"primaryUserIntent\":\"Understand the offer and take the next practical action.\",\"primaryCta\":\"Contacter l’entreprise\",\"informationHierarchy\":[\"identity\",\"offer clarity\",\"reassurance\",\"contact action\"],\"siteStructure\":\"SINGLE_PAGE\"},\"pages\":[{\"id\":\"home\",\"purpose\":\"Present a credible local business offer with a simple next step.\",\"headingIntent\":\"Clarifier la valeur de Villa Ancinel\",\"content\":[{\"kind\":\"VERIFIED_FACT\",\"text\":\"Villa Ancinel\",\"evidenceIds\":[]},{\"kind\":\"GENERIC_FRAMING\",\"text\":\"Un accompagnement simple et clair pour passer à l’action.\"}],\"ctaIntent\":\"Contacter l’entreprise\",\"visualMediaIntent\":\"Use only supplied or later-approved business imagery; no invented media claims.\",\"evidenceIds\":[\"evidence-1\",\"evidence-2\",\"evidence-3\"]}],\"visualDirection\":{\"mood\":\"balanced, approachable, credible\",\"typography\":\"Readable, high-contrast sans-serif with optional expressive display accent.\",\"layout\":\"Single-column mobile-first flow with clear section boundaries.\",\"spacing\":\"Generous touch-friendly spacing.\",\"imageTreatment\":\"Authentic business imagery only when supplied or approved.\",\"interaction\":\"Calm, obvious, keyboard-accessible interactions.\",\"responsivePriorities\":[\"390px mobile conversion path\",\"touch targets\",\"readable type\",\"desktop widening without reordering CTA\"]},\"buildGuidance\":{\"componentHierarchy\":[\"SiteShell\",\"Header\",\"Hero\",\"ContentSections\",\"PrimaryCta\",\"Footer\"],\"sectionOrder\":[\"hero\",\"offer\",\"reassurance\",\"contact\"],\"contentPriority\":[\"identity\",\"offer\",\"primary action\",\"practical details\"],\"ctaPlacement\":[\"hero\",\"after core offer\",\"footer\"],\"assetRequirements\":[\"logo if supplied\",\"approved business imagery if supplied\",\"no fabricated testimonials or pricing\"]},\"status\":\"DRAFT\"}",
+        "status": "APPROVED",
+        "created_at": "2026-10-02T17:02:32.201Z",
+        "updated_at": "2026-10-02T17:02:32.201Z"
+      }
+    ],
+    "v2_design_requests": [
+      {
+        "id": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+        "prospect_id": "v2-87988492200011",
+        "version": "DESIGN_REQUEST_V1",
+        "pack_id": "agent1-r66z-villa-ancinel",
+        "request_json": "{\"id\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"version\":\"DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"admission\":{\"packId\":\"agent1-r66z-villa-ancinel\",\"schemaVersion\":\"CONTACT_OPPORTUNITY_PACK_V2\"},\"identity\":{\"businessName\":\"Villa Ancinel\",\"legalName\":\"SARL ROBIN ANCINEL\",\"siret\":\"87988492200011\",\"city\":\"LE DIAMANT\",\"location\":\"Quartier Longuet 97223 LE DIAMANT\",\"websiteUrl\":\"https://villa-ancinel.com/\",\"domain\":\"villa-ancinel.com\"},\"opportunity\":{\"digitalFriction\":\"Site en cours de refonte\",\"agent1Verdict\":\"QUALIFIED\",\"icp\":{\"digitalPainSignals\":[\"Site en cours de refonte\"],\"requiresUnprovenCapability\":false,\"outsideCommercialIcp\":false}},\"designInput\":{\"currentWebsiteUrl\":\"https://villa-ancinel.com/\",\"businessVertical\":\"GENERAL_LOCAL_BUSINESS\",\"frictionTrigger\":\"Site en cours de refonte\",\"evidence\":[{\"url\":\"https://villa-ancinel.com/\",\"note\":\"Page publique observee: Site en cours de refonte. Notre site fait peau neuve. Location de la Villa Ancinel pour un sejour en Martinique. Telephone professionnel affiche +596 696 98 60 60. Email public contact@villa-ancinel.com.\\n{\\\"sourcingLane\\\":\\\"PAIN_FIRST\\\",\\\"candidateId\\\":\\\"r66z-villa-ancinel\\\",\\\"stagedWebsiteUrl\\\":\\\"https://villa-ancinel.com/\\\",\\\"domain\\\":\\\"villa-ancinel.com\\\",\\\"acquiredAt\\\":\\\"2026-10-02T16:26:34.022Z\\\",\\\"digitalPainEvidence\\\":[{\\\"observedCondition\\\":\\\"SITE_REBUILDING\\\",\\\"sourceUrl\\\":\\\"https://villa-ancinel.com/\\\",\\\"snapshotDigest\\\":\\\"sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01\\\",\\\"locator\\\":\\\"h1\\\",\\\"observedAt\\\":\\\"2026-09-28T08:46:05.833Z\\\"}]}\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://villa-ancinel.com/mentions-legales/\",\"note\":\"Mentions legales: SARL ROBIN ANCINEL, SIRET 87988492200011, Quartier Longuet 97223 LE DIAMANT. Le site donne des informations relatives a la location de la Villa Ancinel.\",\"supports\":[\"activity\",\"website\"]},{\"url\":\"https://villa-ancinel.com/\",\"note\":\"Deterministically observed public phone (VISIBLE_PAGE_TEXT).\\n{\\\"sourcingLane\\\":\\\"PAIN_FIRST\\\",\\\"candidateId\\\":\\\"r66z-villa-ancinel\\\",\\\"stagedWebsiteUrl\\\":\\\"https://villa-ancinel.com/\\\",\\\"domain\\\":\\\"villa-ancinel.com\\\",\\\"acquiredAt\\\":\\\"2026-10-02T16:26:34.022Z\\\",\\\"digitalPainEvidence\\\":[{\\\"observedCondition\\\":\\\"SITE_REBUILDING\\\",\\\"sourceUrl\\\":\\\"https://villa-ancinel.com/\\\",\\\"snapshotDigest\\\":\\\"sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01\\\",\\\"locator\\\":\\\"h1\\\",\\\"observedAt\\\":\\\"2026-09-28T08:46:05.833Z\\\"}]}\",\"supports\":[\"phone\",\"digitalGap\"]}]},\"createdAt\":\"2026-10-02T16:32:22.289Z\"}",
+        "created_at": "2026-10-02T16:32:22.289Z"
+      }
+    ],
+    "prospect": {
+      "id": "v2-87988492200011",
+      "state": "INGESTED",
+      "updated_at": "2026-10-02T16:32:22.244Z"
+    },
+    "slot": {
+      "slot_id": 1,
+      "prospect_id": "v2-87988492200011",
+      "acquired_at": "2026-10-02T16:32:22.323Z",
+      "release_reason": null
+    }
+  },
+  "build": {
+    "id": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+    "version": "BUILD_ARTIFACT_V1",
+    "approvedDesignArtifactId": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+    "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+    "prospectId": "v2-87988492200011",
+    "approvedRevision": 1,
+    "builderVersion": "builder-v1",
+    "sourcePath": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\source",
+    "outputPath": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\dist",
+    "status": "SUCCEEDED",
+    "framework": "STATIC_HTML_CSS",
+    "sourceHash": "f13de1a6577eee49a58e8ed87518980bb67b68dfc33282d0bb839c0403109ab3",
+    "createdAt": "2026-10-02T18:46:54.940Z",
+    "completedAt": "2026-10-02T18:46:54.958Z",
+    "metadata": {
+      "entryFile": "index.html",
+      "buildCommand": "builder-v1 static build",
+      "missingAssetRequirements": [
+        "logo if supplied",
+        "approved business imagery if supplied",
+        "no fabricated testimonials or pricing"
+      ]
+    }
+  },
+  "design": {
+    "id": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+    "version": "DESIGN_ARTIFACT_V1",
+    "revision": 1,
+    "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+    "prospectId": "v2-87988492200011",
+    "verticalProfile": "GENERAL_LOCAL_BUSINESS",
+    "createdAt": "2026-10-02T17:02:32.201Z",
+    "provenance": {
+      "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+      "evidenceIds": [
+        "evidence-1",
+        "evidence-2",
+        "evidence-3"
+      ],
+      "executionMode": "MODEL",
+      "model": {
+        "provider": "ollama-aider",
+        "model": "qwen2.5-coder:3b"
+      }
+    },
+    "strategy": {
+      "siteObjective": "Present a credible local business offer with a simple next step.",
+      "primaryUserIntent": "Understand the offer and take the next practical action.",
+      "primaryCta": "Contacter l’entreprise",
+      "informationHierarchy": [
+        "identity",
+        "offer clarity",
+        "reassurance",
+        "contact action"
+      ],
+      "siteStructure": "SINGLE_PAGE"
+    },
+    "pages": [
+      {
+        "id": "home",
+        "purpose": "Present a credible local business offer with a simple next step.",
+        "headingIntent": "Clarifier la valeur de Villa Ancinel",
+        "content": [
+          {
+            "kind": "VERIFIED_FACT",
+            "text": "Villa Ancinel",
+            "evidenceIds": []
+          },
+          {
+            "kind": "GENERIC_FRAMING",
+            "text": "Un accompagnement simple et clair pour passer à l’action."
+          }
+        ],
+        "ctaIntent": "Contacter l’entreprise",
+        "visualMediaIntent": "Use only supplied or later-approved business imagery; no invented media claims.",
+        "evidenceIds": [
+          "evidence-1",
+          "evidence-2",
+          "evidence-3"
+        ]
+      }
+    ],
+    "visualDirection": {
+      "mood": "balanced, approachable, credible",
+      "typography": "Readable, high-contrast sans-serif with optional expressive display accent.",
+      "layout": "Single-column mobile-first flow with clear section boundaries.",
+      "spacing": "Generous touch-friendly spacing.",
+      "imageTreatment": "Authentic business imagery only when supplied or approved.",
+      "interaction": "Calm, obvious, keyboard-accessible interactions.",
+      "responsivePriorities": [
+        "390px mobile conversion path",
+        "touch targets",
+        "readable type",
+        "desktop widening without reordering CTA"
+      ]
+    },
+    "buildGuidance": {
+      "componentHierarchy": [
+        "SiteShell",
+        "Header",
+        "Hero",
+        "ContentSections",
+        "PrimaryCta",
+        "Footer"
+      ],
+      "sectionOrder": [
+        "hero",
+        "offer",
+        "reassurance",
+        "contact"
+      ],
+      "contentPriority": [
+        "identity",
+        "offer",
+        "primary action",
+        "practical details"
+      ],
+      "ctaPlacement": [
+        "hero",
+        "after core offer",
+        "footer"
+      ],
+      "assetRequirements": [
+        "logo if supplied",
+        "approved business imagery if supplied",
+        "no fabricated testimonials or pricing"
+      ]
+    },
+    "status": "APPROVED"
+  },
+  "request": {
+    "id": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+    "version": "DESIGN_REQUEST_V1",
+    "prospectId": "v2-87988492200011",
+    "admission": {
+      "packId": "agent1-r66z-villa-ancinel",
+      "schemaVersion": "CONTACT_OPPORTUNITY_PACK_V2"
+    },
+    "identity": {
+      "businessName": "Villa Ancinel",
+      "legalName": "SARL ROBIN ANCINEL",
+      "siret": "87988492200011",
+      "city": "LE DIAMANT",
+      "location": "Quartier Longuet 97223 LE DIAMANT",
+      "websiteUrl": "https://villa-ancinel.com/",
+      "domain": "villa-ancinel.com"
+    },
+    "opportunity": {
+      "digitalFriction": "Site en cours de refonte",
+      "agent1Verdict": "QUALIFIED",
+      "icp": {
+        "digitalPainSignals": [
+          "Site en cours de refonte"
+        ],
+        "requiresUnprovenCapability": false,
+        "outsideCommercialIcp": false
+      }
+    },
+    "designInput": {
+      "currentWebsiteUrl": "https://villa-ancinel.com/",
+      "businessVertical": "GENERAL_LOCAL_BUSINESS",
+      "frictionTrigger": "Site en cours de refonte",
+      "evidence": [
+        {
+          "url": "https://villa-ancinel.com/",
+          "note": "Page publique observee: Site en cours de refonte. Notre site fait peau neuve. Location de la Villa Ancinel pour un sejour en Martinique. Telephone professionnel affiche +596 696 98 60 60. Email public contact@villa-ancinel.com.\n{\"sourcingLane\":\"PAIN_FIRST\",\"candidateId\":\"r66z-villa-ancinel\",\"stagedWebsiteUrl\":\"https://villa-ancinel.com/\",\"domain\":\"villa-ancinel.com\",\"acquiredAt\":\"2026-10-02T16:26:34.022Z\",\"digitalPainEvidence\":[{\"observedCondition\":\"SITE_REBUILDING\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"snapshotDigest\":\"sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01\",\"locator\":\"h1\",\"observedAt\":\"2026-09-28T08:46:05.833Z\"}]}",
+          "supports": [
+            "digitalGap",
+            "activity",
+            "website"
+          ]
+        },
+        {
+          "url": "https://villa-ancinel.com/mentions-legales/",
+          "note": "Mentions legales: SARL ROBIN ANCINEL, SIRET 87988492200011, Quartier Longuet 97223 LE DIAMANT. Le site donne des informations relatives a la location de la Villa Ancinel.",
+          "supports": [
+            "activity",
+            "website"
+          ]
+        },
+        {
+          "url": "https://villa-ancinel.com/",
+          "note": "Deterministically observed public phone (VISIBLE_PAGE_TEXT).\n{\"sourcingLane\":\"PAIN_FIRST\",\"candidateId\":\"r66z-villa-ancinel\",\"stagedWebsiteUrl\":\"https://villa-ancinel.com/\",\"domain\":\"villa-ancinel.com\",\"acquiredAt\":\"2026-10-02T16:26:34.022Z\",\"digitalPainEvidence\":[{\"observedCondition\":\"SITE_REBUILDING\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"snapshotDigest\":\"sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01\",\"locator\":\"h1\",\"observedAt\":\"2026-09-28T08:46:05.833Z\"}]}",
+          "supports": [
+            "phone",
+            "digitalGap"
+          ]
+        }
+      ]
+    },
+    "createdAt": "2026-10-02T16:32:22.289Z"
+  },
+  "fingerprints": {
+    "files": {
+      "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\source\\build-manifest.json": "a10be4529109dfed8666627a342b478100312d9e436688458f3d9bf1c18e8dc9",
+      "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\source\\index.html": "86bbd8aab0692c6f565959e26f2d0967379cb32c779112c3428b37134cc2050c",
+      "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\source\\styles.css": "3cf472724e88b00c43ed9fda8e1704fcee2e61014f1a6efa290aabb5b2cdd2f4",
+      "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\dist\\build-manifest.json": "a10be4529109dfed8666627a342b478100312d9e436688458f3d9bf1c18e8dc9",
+      "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\dist\\index.html": "86bbd8aab0692c6f565959e26f2d0967379cb32c779112c3428b37134cc2050c",
+      "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\dist\\styles.css": "3cf472724e88b00c43ed9fda8e1704fcee2e61014f1a6efa290aabb5b2cdd2f4"
+    },
+    "sourceHash": "f13de1a6577eee49a58e8ed87518980bb67b68dfc33282d0bb839c0403109ab3",
+    "sources": {
+      "core/visual-qa/engine.ts": "988c354a6ca99cae6bbe67e475910ea14b5c6f52c8200a4a0fb115a6d978ad33",
+      "core/visual-qa/contracts.ts": "b03685adda149b66519a2cf6c3d455b32f941792678635e99e214fbc2e46cf4d",
+      "core/persistence/d1-visual-qa-store.ts": "d28ce60d60fe0df151766e148450f52823a67ed854707ed0f17ed447a0160cc1",
+      "apps/api-worker/src/index.ts": "98edba9460d6ddaac920fad57b99300d3989c16d72c314816adec854ea067e94",
+      "apps/agent-runner/src/index.ts": "46d1c0b075a85e9373c604a9c9f6586e3cae8986113e4134a29d49f9261b7d84",
+      "scripts/qa-surface.cjs": "cc45d4e770d7e55d051c237a4b0996df1eeb0ed816ad08b1fd2961c7798519a4",
+      "scripts/local-preview-server.cjs": "a01f6447026b61039586c99b402ace6adcbfc676ef489d98f327d94acaa64e73"
+    },
+    "gitDiffHash": "94c37c8792467574e625681330daa79d5076422ae25541f643289a45c5cdad8d"
+  },
+  "jobId": "job-v2-87988492200011-build-correction-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r2",
+  "correctionRequestId": "correction-qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+  "expectedBuildId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2",
+  "expectedReportId": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2-r2-a2",
+  "migrationPresent": true,
+  "buildR1Immutable": true,
+  "qaA1Immutable": true
+}

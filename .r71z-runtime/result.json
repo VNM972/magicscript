@@ -1,0 +1,147 @@
+{
+  "status": "CLOSED / VISUAL_QA_COMPLETED",
+  "realInvocations": 1,
+  "report": {
+    "id": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+    "version": "VISUAL_QA_REPORT_V1",
+    "buildArtifactId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+    "designArtifactId": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+    "designArtifactRevision": 1,
+    "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+    "prospectId": "v2-87988492200011",
+    "buildVersion": "BUILD_ARTIFACT_V1",
+    "buildRevision": 1,
+    "attempt": 1,
+    "decision": "CORRECTION_REQUIRED",
+    "issues": [
+      {
+        "category": "BUILD_RENDER",
+        "severity": "MAJOR",
+        "message": "Browser runtime error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "expectedCorrection": "Fix the rendered runtime error."
+      }
+    ],
+    "inspection": {
+      "viewports": [
+        {
+          "name": "DESKTOP",
+          "width": 1440,
+          "height": 900,
+          "horizontalOverflow": -15,
+          "heroVisible": true,
+          "primaryCtaVisible": true,
+          "contentVisible": true,
+          "controlsWithinViewport": true
+        },
+        {
+          "name": "MOBILE",
+          "width": 390,
+          "height": 844,
+          "horizontalOverflow": -15,
+          "heroVisible": true,
+          "primaryCtaVisible": true,
+          "contentVisible": true,
+          "controlsWithinViewport": true
+        }
+      ],
+      "expectedSections": [
+        "hero",
+        "offer",
+        "reassurance",
+        "contact"
+      ],
+      "observedSections": [
+        "hero",
+        "home",
+        "offer",
+        "reassurance",
+        "contact"
+      ],
+      "primaryCta": "Contacter l’entreprise",
+      "brokenAssets": [],
+      "internalLinkErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "unresolvedMarkers": [],
+      "headings": [
+        "h1 Clarifier la valeur de Villa Ancinel",
+        "h2 Clarifier la valeur de Villa Ancinel",
+        "h2 hero",
+        "h2 offer",
+        "h2 reassurance",
+        "h2 contact",
+        "h2 Contacter l’entreprise"
+      ]
+    },
+    "createdAt": "2026-10-02T19:09:30.019Z"
+  },
+  "reportPersisted": true,
+  "reportStore": "D1VisualQaReportStore / v2_visual_qa_reports",
+  "dbPath": "D:\\MagicScript\\repository\\apps\\api-worker\\.wrangler\\state\\v3\\d1\\miniflare-D1DatabaseObject\\8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite",
+  "d1Mutations": [
+    {
+      "table": "v2_visual_qa_reports",
+      "reportId": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+      "changes": 1
+    }
+  ],
+  "preExecutionIntegrity": "PASS",
+  "sourceBuildIntegrity": "PASS",
+  "unchangedSnapshots": [
+    "jobs",
+    "v2_build_artifacts",
+    "v2_design_artifacts",
+    "v2_design_requests",
+    "v2_design_reviews",
+    "v2_build_corrections",
+    "v2_proposals",
+    "v2_design_corrections",
+    "prospect",
+    "slots",
+    "allJobs"
+  ],
+  "queueJobsCreated": 0,
+  "prospectFinalState": "INGESTED",
+  "productionSlotFinalState": "HELD",
+  "productionSlot": {
+    "slot_id": 1,
+    "prospect_id": "v2-87988492200011",
+    "acquired_at": "2026-10-02T16:32:22.323Z",
+    "release_reason": null
+  },
+  "heldCapacity": 1,
+  "sourceHash": "f13de1a6577eee49a58e8ed87518980bb67b68dfc33282d0bb839c0403109ab3",
+  "evidenceReferences": [
+    {
+      "id": "r71z-villa-ancinel-desktop",
+      "captureSuccess": true,
+      "capturedAt": "2026-10-02T19:08:07.995Z",
+      "definition": {
+        "name": "DESKTOP",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "renderedUrl": "http://127.0.0.1:12658/",
+      "screenshotPath": "D:\\MagicScript\\repository\\.r71z-runtime\\desktop.png"
+    },
+    {
+      "id": "r71z-villa-ancinel-mobile",
+      "captureSuccess": true,
+      "capturedAt": "2026-10-02T19:08:08.129Z",
+      "definition": {
+        "name": "MOBILE",
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "renderedUrl": "http://127.0.0.1:12658/",
+      "screenshotPath": "D:\\MagicScript\\repository\\.r71z-runtime\\mobile.png"
+    }
+  ],
+  "serverTerminated": true,
+  "browserTerminated": true
+}

@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "candidateIdentityKey": "synthetic-r48-1",
+    "siren": "123456782",
+    "siret": "12345678200002",
+    "factualNames": ["Café des Alizés"],
+    "municipality": "Fort-de-France",
+    "postcode": "97200",
+    "street": "Rue des Hibiscus",
+    "streetNumber": "12"
+  },
+  "providerResponse": { "data": [{ "domain": "Cafe-Des-Alizes.fr" }] },
+  "homepageHtml": "<!doctype html><html><head><title>Site en construction</title><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"CafeOrCoffeeShop\",\"name\":\"Café des Alizés\",\"siret\":\"12345678200002\"}</script></head><body><h1>Site en construction</h1></body></html>"
+}

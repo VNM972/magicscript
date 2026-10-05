@@ -1,0 +1,384 @@
+{
+  "prospects": [
+    {
+      "id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "company_name": "BODY ILES",
+      "legal_name": "BODY ILES",
+      "siren": "443976352",
+      "siret": "44397635200015",
+      "city": "FORT-DE-FRANCE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/44397635200015",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "HIGH_PRIORITY",
+      "brand_key": "BODY ILES",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "96.02B",
+      "location": "64 RUE VICTOR HUGO 97200 FORT-DE-FRANCE",
+      "website_url": "https://www.bodyiles.com/",
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISQUALIFIED",
+      "score": 48,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": "Contact us",
+      "created_at": "2026-09-28T16:06:36.768Z",
+      "updated_at": "2026-09-28T16:09:26.664Z"
+    },
+    {
+      "id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "company_name": "DATEX ANTILLES-GUYANE",
+      "legal_name": "DATEX ANTILLES-GUYANE",
+      "siren": "420481202",
+      "siret": "42048120200067",
+      "city": "FORT DE FRANCE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/42048120200067",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "HIGH_PRIORITY",
+      "brand_key": "DATEX ANTILLES GUYANE",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "56.29A",
+      "location": "CTRE AFF DILL VALMENIERE  EURYDICE D RTE DE LA POINTE DES SABLES 97200 FORT DE FRANCE",
+      "website_url": "https://www.datexantillesguyane.com/",
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISQUALIFIED",
+      "score": 48,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": "contact form",
+      "created_at": "2026-09-28T16:06:36.792Z",
+      "updated_at": "2026-09-28T16:12:20.388Z"
+    },
+    {
+      "id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "company_name": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+      "legal_name": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+      "siren": "189729015",
+      "siret": "18972901500017",
+      "city": "FORT-DE-FRANCE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "RESEARCH",
+      "brand_key": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "56.29B",
+      "location": "LD MORNE DESAIX 97200 FORT-DE-FRANCE",
+      "website_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017",
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": "unknown",
+      "created_at": "2026-09-28T16:06:36.810Z",
+      "updated_at": "2026-09-28T16:15:06.885Z"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "32d48920-04a5-4337-a852-6e12447e6aae",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"32d48920-04a5-4337-a852-6e12447e6aae:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"f07cc11d-1765-43c1-ba40-3acfa1762b0f\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"f07cc11d-1765-43c1-ba40-3acfa1762b0f\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:f07cc11d-1765-43c1-ba40-3acfa1762b0f\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T16:06:36.779Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T16:06:36.782Z",
+      "updated_at": "2026-09-28T16:09:26.670Z"
+    },
+    {
+      "id": "cb690f4e-2009-4b37-bb4c-b4f7bcfc5df4",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"cb690f4e-2009-4b37-bb4c-b4f7bcfc5df4:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T16:06:36.802Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T16:06:36.802Z",
+      "updated_at": "2026-09-28T16:12:20.404Z"
+    },
+    {
+      "id": "79e987b7-a933-423d-8ccb-6f5a16f9bc02",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"79e987b7-a933-423d-8ccb-6f5a16f9bc02:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"a219368b-3ea7-4860-93e5-de7abaff8b11\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"a219368b-3ea7-4860-93e5-de7abaff8b11\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:a219368b-3ea7-4860-93e5-de7abaff8b11\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T16:06:36.820Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T16:06:36.821Z",
+      "updated_at": "2026-09-28T16:15:06.893Z"
+    }
+  ],
+  "job_results": [
+    {
+      "job_id": "32d48920-04a5-4337-a852-6e12447e6aae",
+      "output_json": "{\"activity\":\"96.02B\",\"location\":\"64 RUE VICTOR HUGO 97200 FORT-DE-FRANCE\",\"websiteUrl\":\"https://www.bodyiles.com\",\"opportunity\":\"C\",\"primaryAsset\":\"BODY ILES\",\"primaryFriction\":\"Website navigation is cluttered with too many links and calls-to-action, making it difficult to find the main content.\",\"primaryCta\":\"Contact us\",\"brandAsset\":{\"status\":\"OFFICIAL_LOGO_FOUND\",\"reuseDecision\":\"REUSE_IF_RIGHTS_CLEAR\",\"note\":\"The official website shows a clear logo, which is reused.\",\"sourceUrl\":\"https://www.bodyiles.com/\",\"assetUrl\":\"https://www.bodyiles.com/assets/images/logo.png\"},\"sourceNavigationBlocks\":[{\"label\":\"Home\",\"kind\":\"navigation\"},{\"label\":\"About\",\"kind\":\"navigation\"},{\"label\":\"Services\",\"kind\":\"navigation\"},{\"label\":\"Contact\",\"kind\":\"navigation\"},{\"label\":\"Blog\",\"kind\":\"navigation\"},{\"label\":\"Careers\",\"kind\":\"navigation\"},{\"label\":\"Press\",\"kind\":\"navigation\"},{\"label\":\"FAQ\",\"kind\":\"navigation\"},{\"label\":\"Terms of Service\",\"kind\":\"navigation\"},{\"label\":\"Privacy Policy\",\"kind\":\"navigation\"}],\"sourceNavigationNote\":\"The website has a clean and organized navigation structure with prominent call-to-action buttons.\",\"contactPlan\":{\"recommendedChannel\":\"official_email\",\"targetRole\":\"owner_or_manager\",\"publicContactName\":\"Martinique\",\"routeReason\":\"The official website provides a contact form.\",\"nextAction\":\"Send an email to contact@bodyiles.com\",\"sourceRefs\":[\"https://www.bodyiles.com/contact\"],\"confidence\":1},\"scoreInputs\":{\"digitalGap\":50,\"commercialStrength\":80,\"contactability\":0,\"localFit\":0,\"prototypeLeverage\":50,\"confidence\":90},\"sources\":[{\"url\":\"https://www.bodyiles.com/\",\"note\":\"The official website provides a clear logo, contact form, and navigation structure.\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.facebook.com/bodyiles\",\"note\":\"The official Facebook page shows a clear logo and contact information.\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"siteStatus\":\"UNKNOWN\",\"researchNormalization\":{\"applied\":true,\"reasons\":[\"model phone removed from canonical output pending independent evidence\",\"contactability score held until independent evidence is attached\",\"unsupported localFit score defaulted to zero\"],\"safeScoring\":true},\"contactPresence\":{\"status\":\"REJECTED\",\"identity\":{\"status\":\"REJECTED\",\"matched\":false,\"reason\":\"identity mismatch\",\"observations\":[{\"domain\":\"facebook.com\"}]},\"phone\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"social\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":1,\"sourcesChecked\":[\"https://www.facebook.com/bodyiles\"],\"reasons\":[\"bounded sources checked: 1\"],\"enrichedAt\":\"2026-09-28T16:09:26.250Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]}}",
+      "created_at": "2026-09-28T16:09:26.621Z"
+    },
+    {
+      "job_id": "cb690f4e-2009-4b37-bb4c-b4f7bcfc5df4",
+      "output_json": "{\"activity\":\"56.29A\",\"location\":\"CTRE AFF DILL VALMENIERE  EURYDICE D RTE DE LA POINTE DES SABLES 97200 FORT DE FRANCE\",\"websiteUrl\":\"https://www.datexantillesguyane.com\",\"opportunity\":\"C\",\"primaryAsset\":\"website\",\"primaryFriction\":\"website navigation\",\"primaryCta\":\"contact form\",\"brandAsset\":{\"status\":\"OFFICIAL_LOGO_FOUND\",\"reuseDecision\":\"REUSE_IF_RIGHTS_CLEAR\",\"note\":\"Official logo found on the website\",\"sourceUrl\":\"https://www.datexantillesguyane.com/\",\"assetUrl\":\"https://www.datexantillesguyane.com/assets/images/logo.png\"},\"sourceNavigationBlocks\":[{\"label\":\"Accueil\",\"kind\":\"navigation\"},{\"label\":\"Services\",\"kind\":\"navigation\"},{\"label\":\"Contact\",\"kind\":\"navigation\"},{\"label\":\"Nos produits\",\"kind\":\"content_block\"},{\"label\":\"Nos services\",\"kind\":\"content_block\"},{\"label\":\"Nos offres\",\"kind\":\"content_block\"},{\"label\":\"Nos partenaires\",\"kind\":\"content_block\"},{\"label\":\"Nos actualités\",\"kind\":\"content_block\"},{\"label\":\"Nos engagements\",\"kind\":\"content_block\"},{\"label\":\"Nos valeurs\",\"kind\":\"content_block\"},{\"label\":\"Nos contacts\",\"kind\":\"conversion_cta\"}],\"sourceNavigationNote\":\"Website navigation verified\",\"contactPlan\":{\"recommendedChannel\":\"official_email\",\"targetRole\":\"owner_or_manager\",\"publicContactName\":\"Martinique\",\"routeReason\":\"Official email found on the website\",\"nextAction\":\"Send an email to contact@datexantillesguyane.com\",\"sourceRefs\":[\"https://www.datexantillesguyane.com/contact\"],\"confidence\":1},\"scoreInputs\":{\"digitalGap\":50,\"commercialStrength\":80,\"contactability\":0,\"localFit\":0,\"prototypeLeverage\":50,\"confidence\":90},\"sources\":[{\"url\":\"https://www.datexantillesguyane.com/\",\"note\":\"Official website\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.datexantillesguyane.com/contact\",\"note\":\"Official contact page\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"siteStatus\":\"UNKNOWN\",\"researchNormalization\":{\"applied\":true,\"reasons\":[\"model phone removed from canonical output pending independent evidence\",\"contactability score held until independent evidence is attached\",\"unsupported localFit score defaulted to zero\"],\"safeScoring\":true},\"contactPresence\":{\"status\":\"UNKNOWN\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"datexantillesguyane.com\"}]},\"phone\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"www.datexantillesguyane.com\"],\"evidence\":[{\"value\":\"www.datexantillesguyane.com\",\"sourceUrl\":\"www.datexantillesguyane.com\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":0,\"sourcesChecked\":[],\"reasons\":[\"identity bound\",\"bounded sources checked: 0\"],\"enrichedAt\":\"2026-09-28T16:12:20.316Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]}}",
+      "created_at": "2026-09-28T16:12:20.357Z"
+    },
+    {
+      "job_id": "79e987b7-a933-423d-8ccb-6f5a16f9bc02",
+      "output_json": "{\"activity\":\"56.29B\",\"location\":\"LD MORNE DESAIX 97200 FORT-DE-FRANCE\",\"websiteUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"opportunity\":\"D\",\"primaryAsset\":\"CERCLE DE LA BASE DE DEFENSE DES ANTILLES\",\"primaryFriction\":\"unknown\",\"primaryCta\":\"unknown\",\"brandAsset\":{\"status\":\"UNKNOWN\",\"reuseDecision\":\"UNKNOWN\",\"note\":\"no official website or public presence found\"},\"sourceNavigationBlocks\":[],\"sourceNavigationNote\":\"no official website or public presence found\",\"contactPlan\":{\"recommendedChannel\":\"unknown\",\"targetRole\":\"unknown\",\"publicContactName\":\"unknown\",\"routeReason\":\"unknown\",\"nextAction\":\"unknown\",\"sourceRefs\":[],\"confidence\":0},\"scoreInputs\":{\"digitalGap\":0,\"commercialStrength\":0,\"contactability\":0,\"localFit\":0,\"prototypeLeverage\":0,\"confidence\":0},\"sources\":[{\"url\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"note\":\"official business page\",\"supports\":[\"activity\",\"website\"]}],\"siteStatus\":\"UNKNOWN\",\"researchNormalization\":{\"applied\":true,\"reasons\":[\"model phone removed from canonical output pending independent evidence\"],\"safeScoring\":true},\"contactPresence\":{\"status\":\"VERIFIED\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"annuaire-entreprises.data.gouv.fr\"}]},\"phone\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\"],\"evidence\":[{\"value\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":1,\"sourcesChecked\":[\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\"],\"reasons\":[\"identity bound\",\"bounded sources checked: 1\"],\"enrichedAt\":\"2026-09-28T16:15:06.811Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]}}",
+      "created_at": "2026-09-28T16:15:06.857Z"
+    }
+  ],
+  "events": [
+    {
+      "id": "6b186629-429c-4492-b3ad-d99dc7f754bf",
+      "prospect_id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44397635200015\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"443976352|44397635200015\",\"researchIdentity\":{\"siren\":\"443976352\",\"siret\":\"44397635200015\",\"companyName\":\"BODY ILES\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44397635200015\"},\"classification\":\"HIGH_PRIORITY\",\"score\":79,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T16:06:36.768Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":19,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}",
+      "created_at": "2026-09-28T16:06:36.768Z"
+    },
+    {
+      "id": "755534d9-501d-44f8-92f9-372ca4beb946",
+      "prospect_id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"32d48920-04a5-4337-a852-6e12447e6aae\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T16:06:36.786Z"
+    },
+    {
+      "id": "e4e85c52-5fc7-42cf-afcb-2f8aef02a10d",
+      "prospect_id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/42048120200067\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"420481202|42048120200067\",\"researchIdentity\":{\"siren\":\"420481202\",\"siret\":\"42048120200067\",\"companyName\":\"DATEX ANTILLES-GUYANE\",\"city\":\"FORT DE FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/42048120200067\"},\"classification\":\"HIGH_PRIORITY\",\"score\":78,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T16:06:36.792Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":14,\"sector\":14,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}",
+      "created_at": "2026-09-28T16:06:36.792Z"
+    },
+    {
+      "id": "db7f88c1-e4af-451d-af33-53c6f6ed5c0b",
+      "prospect_id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"cb690f4e-2009-4b37-bb4c-b4f7bcfc5df4\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T16:06:36.805Z"
+    },
+    {
+      "id": "f27478a0-a646-423b-8a0e-b9d52928c103",
+      "prospect_id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"189729015|18972901500017\",\"researchIdentity\":{\"siren\":\"189729015\",\"siret\":\"18972901500017\",\"companyName\":\"CERCLE DE LA BASE DE DEFENSE DES ANTILLES\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\"},\"classification\":\"RESEARCH\",\"score\":70,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T16:06:36.810Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":14,\"sector\":14,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}",
+      "created_at": "2026-09-28T16:06:36.810Z"
+    },
+    {
+      "id": "36c4bbaa-6a37-47ed-976b-2ef05e33fb48",
+      "prospect_id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"79e987b7-a933-423d-8ccb-6f5a16f9bc02\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T16:06:36.822Z"
+    },
+    {
+      "id": "57c6e7f4-7176-4dd0-9415-e95b2cba8fa4",
+      "prospect_id": null,
+      "actor": "system",
+      "type": "discovery.recherche_entreprises_batch",
+      "payload_json": "{\"page\":1,\"nextPage\":2,\"totalPages\":742,\"priorityPagesScanned\":3,\"fallbackPage\":null,\"scanned\":9,\"candidates\":8,\"created\":3,\"skipped\":1,\"intakeMode\":\"AUTOPILOT\",\"authRequired\":false,\"monetaryCost\":0,\"candidateDiagnostics\":{\"enabled\":true,\"complete\":true,\"total\":8,\"retained\":8,\"candidateDecisions\":[{\"occurrence\":1,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":1,\"stableIdentity\":\"18972901500017\",\"displayName\":\"CERCLE DE LA BASE DE DEFENSE DES ANTILLES\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"56.29B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":70,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":2,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":1,\"stableIdentity\":\"42048120200067\",\"displayName\":\"DATEX ANTILLES-GUYANE\",\"municipality\":\"FORT DE FRANCE\",\"naf\":\"56.29A\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"HIGH_PRIORITY\",\"finalEligibilityScore\":78,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":3,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":1,\"stableIdentity\":\"31572855000015\",\"displayName\":\"GEORGES VILOCY\",\"municipality\":\"SCHOELCHER\",\"naf\":\"41.20A\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":2,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"LOW_PRIORITY\",\"finalEligibilityScore\":47,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":4,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":1,\"stableIdentity\":\"42492676400020\",\"displayName\":\"EPIL'ECLAT\",\"municipality\":\"SCHOELCHER\",\"naf\":\"96.02B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"REJECT\",\"finalEligibilityScore\":38,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":5,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":1,\"stableIdentity\":\"44397635200015\",\"displayName\":\"BODY ILES\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"96.02B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"HIGH_PRIORITY\",\"finalEligibilityScore\":79,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":6,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":1,\"stableIdentity\":\"47830809100030\",\"displayName\":\"NATHOU BEAUTE\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"96.02B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"LOW_PRIORITY\",\"finalEligibilityScore\":50,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":7,\"sourceWindow\":\"LOCAL_RETAIL\",\"sourcePage\":1,\"stableIdentity\":\"30316059200018\",\"displayName\":\"SA BATA OUTRE MER (BOM)\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"47.72A\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":66,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":8,\"sourceWindow\":\"LOCAL_RETAIL\",\"sourcePage\":1,\"stableIdentity\":\"39335043400469\",\"displayName\":\"ECOMAX GUADELOUPE\",\"municipality\":\"LE LAMENTIN\",\"naf\":\"70.10Z\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":3,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":61,\"constraints\":[\"NAF_70_10Z_NEUTRAL_SECTOR\",\"ICP_FIRST_WAVE_RESEARCH_CAP\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false}]}}",
+      "created_at": "2026-09-28T16:06:36.833Z"
+    },
+    {
+      "id": "20c1cc36-bd05-4a54-9650-09c3dede9cdd",
+      "prospect_id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "actor": "scoring-agent",
+      "type": "research.scored",
+      "payload_json": "{\"score\":48,\"band\":\"LOW\",\"qualified\":false,\"autoPrototypeEligible\":false,\"sources\":[{\"url\":\"https://www.bodyiles.com/\",\"note\":\"The official website provides a clear logo, contact form, and navigation structure.\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.facebook.com/bodyiles\",\"note\":\"The official Facebook page shows a clear logo and contact information.\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"evidenceIntegrity\":{\"passed\":true,\"reasons\":[],\"rejectedSourceCount\":0,\"supportedClaims\":[\"digitalGap\",\"commercialStrength\",\"localFit\",\"prototypeLeverage\",\"activity\",\"website\"]},\"phoneEvidence\":null,\"contactPresence\":{\"status\":\"REJECTED\",\"identity\":{\"status\":\"REJECTED\",\"matched\":false,\"reason\":\"identity mismatch\",\"observations\":[{\"domain\":\"facebook.com\"}]},\"phone\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"social\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":1,\"sourcesChecked\":[\"https://www.facebook.com/bodyiles\"],\"reasons\":[\"bounded sources checked: 1\"],\"enrichedAt\":\"2026-09-28T16:09:26.250Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]},\"brandAsset\":{\"status\":\"UNKNOWN\",\"reuseDecision\":\"CREATE_ONLY_IF_NO_USABLE_IDENTITY\",\"note\":\"Aucun actif de marque structurÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© dans cette sortie de recherche.\"}}",
+      "created_at": "2026-09-28T16:09:26.667Z"
+    },
+    {
+      "id": "0df31c1d-a1c9-4845-9457-0835bedb4f05",
+      "prospect_id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "actor": "scoring-agent",
+      "type": "research.scored",
+      "payload_json": "{\"score\":48,\"band\":\"LOW\",\"qualified\":false,\"autoPrototypeEligible\":false,\"sources\":[{\"url\":\"https://www.datexantillesguyane.com/\",\"note\":\"Official website\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.datexantillesguyane.com/contact\",\"note\":\"Official contact page\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"evidenceIntegrity\":{\"passed\":true,\"reasons\":[],\"rejectedSourceCount\":0,\"supportedClaims\":[\"digitalGap\",\"commercialStrength\",\"localFit\",\"prototypeLeverage\",\"activity\",\"website\"]},\"phoneEvidence\":null,\"contactPresence\":{\"status\":\"UNKNOWN\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"datexantillesguyane.com\"}]},\"phone\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"www.datexantillesguyane.com\"],\"evidence\":[{\"value\":\"www.datexantillesguyane.com\",\"sourceUrl\":\"www.datexantillesguyane.com\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":0,\"sourcesChecked\":[],\"reasons\":[\"identity bound\",\"bounded sources checked: 0\"],\"enrichedAt\":\"2026-09-28T16:12:20.316Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]},\"brandAsset\":{\"status\":\"UNKNOWN\",\"reuseDecision\":\"CREATE_ONLY_IF_NO_USABLE_IDENTITY\",\"note\":\"Aucun actif de marque structurÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© dans cette sortie de recherche.\"}}",
+      "created_at": "2026-09-28T16:12:20.401Z"
+    },
+    {
+      "id": "d6eee80c-52e5-4aeb-9edc-6ba80f43112d",
+      "prospect_id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "actor": "scoring-agent",
+      "type": "research.scored",
+      "payload_json": "{\"score\":0,\"band\":\"LOW\",\"qualified\":false,\"autoPrototypeEligible\":false,\"sources\":[{\"url\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"note\":\"official business page\",\"supports\":[\"activity\",\"website\"]}],\"evidenceIntegrity\":{\"passed\":true,\"reasons\":[],\"rejectedSourceCount\":0,\"supportedClaims\":[\"digitalGap\",\"commercialStrength\",\"localFit\",\"activity\",\"website\"]},\"phoneEvidence\":null,\"contactPresence\":{\"status\":\"VERIFIED\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"annuaire-entreprises.data.gouv.fr\"}]},\"phone\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\"],\"evidence\":[{\"value\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":1,\"sourcesChecked\":[\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\"],\"reasons\":[\"identity bound\",\"bounded sources checked: 1\"],\"enrichedAt\":\"2026-09-28T16:15:06.811Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]},\"brandAsset\":{\"status\":\"UNKNOWN\",\"reuseDecision\":\"CREATE_ONLY_IF_NO_USABLE_IDENTITY\",\"note\":\"Aucun actif de marque structurÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© dans cette sortie de recherche.\"}}",
+      "created_at": "2026-09-28T16:15:06.889Z"
+    }
+  ],
+  "provider_state": [
+    {
+      "provider": "recherche-entreprises",
+      "key": "martinique-first-wave-food-page",
+      "value": "2",
+      "updated_at": "2026-09-28T16:06:36.825Z"
+    },
+    {
+      "provider": "recherche-entreprises",
+      "key": "martinique-first-wave-beauty-page",
+      "value": "2",
+      "updated_at": "2026-09-28T16:06:36.828Z"
+    },
+    {
+      "provider": "recherche-entreprises",
+      "key": "martinique-first-wave-retail-page",
+      "value": "2",
+      "updated_at": "2026-09-28T16:06:36.830Z"
+    }
+  ],
+  "v2_admissions": [],
+  "active_production_slots": [
+    {
+      "slot_id": 1,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 2,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 3,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 4,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 5,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 6,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 7,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 8,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 9,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 10,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 11,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 12,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 13,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 14,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 15,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 16,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 17,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 18,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 19,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 20,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    }
+  ],
+  "v2_design_requests": [],
+  "v2_design_artifacts": [],
+  "v2_design_reviews": [],
+  "v2_build_artifacts": [],
+  "v2_visual_qa_reports": [],
+  "v2_proposals": [],
+  "outreach_messages": [],
+  "contacts": [],
+  "phone_trust_states": [],
+  "prototypes": []
+}

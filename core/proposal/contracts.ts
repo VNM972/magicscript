@@ -4,7 +4,7 @@ import type { VisualQaReportV1 } from '../visual-qa/contracts';
 
 export const PROPOSAL_VERSION = 'PROPOSAL_V1' as const;
 export type ProposalStatus = 'PROPOSAL_READY';
-export type ProposalEventType = 'PROPOSAL_VIEWED' | 'RETURN_VISIT' | 'SHARE_CLICKED';
+export type ProposalEventType = 'PROPOSAL_VIEWED' | 'RETURN_VISIT' | 'SHARE_CLICKED' | 'BOOKING_CTA_CLICKED';
 
 export interface ProposalV1 {
   id: string;

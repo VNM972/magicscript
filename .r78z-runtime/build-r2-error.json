@@ -1,0 +1,4 @@
+{
+  "at": "2026-10-04T15:04:11.033Z",
+  "error": "AssertionError [ERR_ASSERTION]: Success callback failed 500: {\n  \"error\": \"BUILD_INTEGRITY_MISMATCH\"\n}\n+ actual - expected\n\n+ 'PENDING'\n- 'SUCCEEDED'\n\n    at <anonymous> (D:\\MagicScript\\repository\\.r78z-runtime\\runner.mts:19:167)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+}

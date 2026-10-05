@@ -1,0 +1,30 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { runBenchmark, parseDiscover, parseDetails, evaluateIdentity, sha256, SAMPLE_PATH, DISCOVER_ATTRIBUTES, DETAILS_ATTRIBUTES, validateDiscoverRequest, httpErrorDiagnostic } from './run-tomtom-structured-provider-benchmark.mjs';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const sampleFile = path.join(root, SAMPLE_PATH);
+const original = await fs.readFile(sampleFile, 'utf8');
+const sample = JSON.parse(original).sample[0];
+const response = (body, ok = true, status = 200) => ({ ok, status, async text() { return JSON.stringify(body); } });
+
+test('RUNNER_REQUIRES_TTKEY', async () => { const old = process.env.TTKEY; delete process.env.TTKEY; await assert.rejects(() => runBenchmark({ fetchImpl: async () => { throw new Error('network'); } }), /TTKEY is required/); if (old) process.env.TTKEY = old; });
+test('RUNNER_NEVER_LOGS_OR_PERSISTS_TTKEY', async () => { process.env.TTKEY = 'unit-secret-do-not-persist'; const originalWrite = fs.writeFile; let written = ''; fs.writeFile = async (...args) => { written += String(args[1]); return originalWrite(...args); }; const oldLog = console.log; let logged = ''; console.log = (...args) => { logged += args.join(' '); }; try { await assert.rejects(() => runBenchmark({ fetchImpl: async () => response({ error: 'fixture' }, false, 500) })); } finally { console.log = oldLog; fs.writeFile = originalWrite; } assert.equal(logged.includes('unit-secret-do-not-persist'), false); assert.equal(written.includes('unit-secret-do-not-persist'), false); });
+test('SAMPLE_HASH_VERIFIED_AND_TAMPER_ABORTS', async () => { process.env.TTKEY = 'fixture-key'; const parsed = JSON.parse(original); assert.equal(sha256(JSON.stringify(parsed.sample)), parsed.sampleHash); await fs.writeFile(sampleFile, original.replace('BERNARD', 'TAMPERED')); try { await assert.rejects(() => runBenchmark({ fetchImpl: async () => { throw new Error('must not call'); } }), /sample integrity check failed/); } finally { await fs.writeFile(sampleFile, original); } });
+test('TOMTOM_DISCOVER_PARSE', () => assert.equal(parseDiscover({ results: [{ id: 'x', type: 'POI', title: 'Acme', address: { municipality: 'Fort-de-France' }, contacts: { phones: [{ value: '0596000000' }] } }] })[0].contacts.phone, '0596000000'));
+test('TOMTOM_DETAILS_PARSE', () => assert.equal(parseDetails({ poi: { id: 'x', name: 'Acme', address: { postalCode: '97200' }, contacts: { websites: [{ url: 'https://acme.test' }] } } }).contacts.website, 'https://acme.test'));
+test('WRONG_LOCALITY_REJECTED', () => assert.equal(evaluateIdentity(sample, { title: sample.canonicalName, address: { locality: 'Schoelcher', full: 'Schoelcher', postalCode: '97233' }, contacts: {} }).verdict, 'REJECTED'));
+test('AMBIGUOUS_IDENTITY_FAILS_CLOSED', () => assert.equal(evaluateIdentity(sample, { title: 'Coffee', address: { locality: null, full: null, postalCode: null }, contacts: {} }).verdict, 'AMBIGUOUS'));
+test('PHONE_DOES_NOT_AFFECT_IDENTITY', () => { const noPhone = evaluateIdentity(sample, { title: 'Wrong', address: { locality: sample.canonicalLocality }, contacts: {} }); const phone = evaluateIdentity(sample, { title: 'Wrong', address: { locality: sample.canonicalLocality }, contacts: { phone: '0596000000' } }); assert.equal(noPhone.verdict, phone.verdict); });
+test('DISCOVER_REQUEST_MATCHES_V3_CONTRACT', () => { const body = { query: 'Acme, Fort-de-France, Martinique', maxResults: 3, filters: { types: ['poi'] } }; validateDiscoverRequest(body, 'p'); assert.equal(DISCOVER_ATTRIBUTES, 'results(id,type,title,address,contacts)'); assert.deepEqual(body.filters.types, ['poi']); });
+test('DISCOVER_ATTRIBUTES_VALID', () => assert.equal(DISCOVER_ATTRIBUTES, 'results(id,type,title,address,contacts)'));
+test('DETAILS_ATTRIBUTES_VALID', () => assert.equal(DETAILS_ATTRIBUTES, 'id,type,title,address,contacts'));
+test('EMPTY_QUERY_ABORTS_BEFORE_NETWORK', () => assert.throws(() => validateDiscoverRequest({ query: ' ', maxResults: 3, filters: { types: ['poi'] } }, 'p'), /Invalid Discover query/));
+test('FILTER_TYPES_IS_ARRAY', () => assert.throws(() => validateDiscoverRequest({ query: 'x', maxResults: 3, filters: { types: 'poi' } }, 'p'), /Invalid Discover filters/));
+test('HTTP_400_BODY_RETAINED_AND_DIAGNOSTIC_SANITIZED', () => { const diagnostic = httpErrorDiagnostic({ operation: 'DISCOVER', method: 'POST', endpointPath: '/maps/orbis/places/discover', target: { prospectId: 'p', sampleRole: 'UNCOVERED' }, body: { query: 'x', maxResults: 3, filters: { types: ['poi'] } }, attributes: DISCOVER_ATTRIBUTES, response: { status: 400, headers: { get: () => 'application/json' } }, payload: { errorText: 'invalid Attributes' } }); assert.equal(diagnostic.status, 400); assert.equal(diagnostic.responseBody.errorText, 'invalid Attributes'); assert.equal(JSON.stringify(diagnostic).includes('fixture-key'), false); });
+test('DETAILS_ID_URL_ENCODED', () => assert.equal(encodeURIComponent('a/b?c'), 'a%2Fb%3Fc'));
+test('REQUEST_BUDGET_ENFORCED_AND_RESULT_SANITIZED', async () => { process.env.TTKEY = 'fixture-key'; let calls = 0; const artifact = await runBenchmark({ fetchImpl: async (url) => { calls++; if (url.includes('/discover')) return response({ results: [] }); return response({ poi: {} }); } }); assert.equal(calls, artifact.results.length); assert.equal(artifact.discoverRequests, 10); assert.equal(artifact.detailsRequests, 0); const output = await fs.readFile(path.join(root, 'bulk/reports/tomtom-structured-provider-external-results-v1.json'), 'utf8'); assert.equal(output.includes('fixture-key'), false); assert.equal(output.includes('TomTom-Api-Key'), false); });
+test('NO_CANONICAL_MUTATION_AND_ZERO_TAVILY_USAGE', async () => { const before = await fs.readFile(sampleFile, 'utf8'); assert.equal(before, original); assert.equal((await fs.readdir(path.join(root, 'bulk/reports'))).some((x) => x.includes('tavily') && x.includes('tomtom')), false); });

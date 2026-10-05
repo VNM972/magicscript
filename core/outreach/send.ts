@@ -83,6 +83,7 @@ export class DeterministicFakeEmailTransport {
 export async function confirmManualMobileContacted(input: { draft: OutreachDraftV1; approvedRevision: number; approvedFingerprint: string; proposalReady: boolean; operatorId: string; now: string; contacted: ContactedProjectionStore }): Promise<OutreachDraftV1> {
   if (!input.proposalReady) throw new Error('Proposal is not ready');
   if (input.draft.channel !== 'MOBILE' || input.draft.status !== 'APPROVED') throw new Error('approved mobile draft required');
+  if (input.draft.quality && (input.draft.quality.status !== 'READY' || input.draft.quality.revision !== input.draft.revision || input.draft.quality.fingerprint !== input.draft.contentHash)) throw new Error('approved mobile draft has stale quality gate');
   if (input.draft.revision !== input.approvedRevision || input.draft.contentHash !== input.approvedFingerprint) throw new Error('stale approval or fingerprint mismatch');
   await input.contacted.confirm({ proposalId: input.draft.proposalId, prospectId: input.draft.prospectId, channel: 'MOBILE', draftId: input.draft.id, revision: input.draft.revision, fingerprint: input.draft.contentHash, operatorId: input.operatorId, contactedAt: input.now });
   return { ...input.draft, status: 'MOBILE_CONFIRMED', actionAt: input.now, actionBy: input.operatorId };
@@ -93,6 +94,7 @@ export async function sendApprovedInitialEmail(input: { draft: OutreachDraftV1; 
   if (!input.proposalReady) throw new Error('Proposal is not ready');
   if (input.suppressed || input.doNotContact) throw new Error('Recipient is suppressed or do-not-contact');
   if (draft.channel !== 'EMAIL' || draft.status !== 'APPROVED') throw new Error('draft is not approved for email');
+  if (draft.quality && (draft.quality.status !== 'READY' || draft.quality.revision !== draft.revision || draft.quality.fingerprint !== draft.contentHash)) throw new Error('draft has stale quality gate');
   if (draft.revision !== input.approvedRevision || draft.contentHash !== input.approvedFingerprint) throw new Error('stale approval or fingerprint mismatch');
   const key = `${draft.proposalId}:EMAIL:${draft.revision}:INITIAL`;
   const { reservation } = await input.reservations.reserve({ key, proposalId: draft.proposalId, draftId: draft.id, revision: draft.revision, fingerprint: draft.contentHash, createdAt: input.now });

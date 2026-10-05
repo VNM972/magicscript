@@ -1,0 +1,41 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "magicscript-r36-local",
+  "main": "D:\\MagicScript\\repository\\apps\\api-worker\\src\\index.ts",
+  "compatibility_date": "2026-08-29",
+  "vars": {
+    "MAGICSCRIPT_AUTOPILOT_ENABLED": "true",
+    "MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED": "true",
+    "MAGICSCRIPT_SENDING_ENABLED": "false",
+    "MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED": "false",
+    "MAGICSCRIPT_DAILY_SEND_LIMIT": "10",
+    "MAGICSCRIPT_MAX_FOLLOWUPS": "2",
+    "MAGICSCRIPT_FOLLOWUP_1_DAYS": "3",
+    "MAGICSCRIPT_FOLLOWUP_2_DAYS": "5",
+    "MAGICSCRIPT_JOB_LEASE_MINUTES": "30",
+    "MAGICSCRIPT_MIN_CONTACT_CONFIDENCE": "80",
+    "MAGICSCRIPT_MIN_OUTREACH_CONFIDENCE": "85",
+    "MAGICSCRIPT_AUTO_PROTOTYPE_SCORE": "85",
+    "MAGICSCRIPT_MIN_QUALIFY_SCORE": "65",
+    "MAGICSCRIPT_DATABASE_PROVIDER": "d1",
+    "MAGICSCRIPT_EMAIL_PROVIDER": "disabled",
+    "MAGICSCRIPT_TEST_EMAIL_MODE": "false",
+    "MAGICSCRIPT_TEST_RECIPIENT": "",
+    "MAGICSCRIPT_CONTROL_CENTER_ORIGIN": "http://127.0.0.1:3036",
+    "MAGICSCRIPT_API_TOKEN": "dev-api-token",
+    "MAGICSCRIPT_RUNNER_TOKEN": "dev-runner-token",
+    "MAGICSCRIPT_TARGET_LOCATION": "Martinique",
+    "MAGICSCRIPT_DISCOVERY_BATCH_SIZE": "3",
+    "HUNTER_MONTHLY_CREDIT_BUDGET": "40",
+    "MAGICSCRIPT_STACK_ID": "r36-host-20260928-9305b676",
+    "MAGICSCRIPT_DISCOVERY_CANDIDATE_DIAGNOSTICS": "true"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "magicscript-dev",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "preview_database_id": "magicscript-local"
+    }
+  ]
+}

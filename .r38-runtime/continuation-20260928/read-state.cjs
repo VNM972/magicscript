@@ -1,0 +1,13 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const {DatabaseSync} = require('node:sqlite');
+const root = fs.readFileSync('.r36-runtime/current-r36-path.txt', 'utf8').trim();
+const folder=path.join(root,'d1/v3/d1/miniflare-D1DatabaseObject');
+const files=fs.readdirSync(folder).filter(x=>x.endsWith('.sqlite')&&x!=='metadata.sqlite');
+if(files.length!==1)throw new Error('R36_DATABASE_AMBIGUOUS');
+const db=new DatabaseSync(path.join(folder,files[0]),{readOnly:true});
+const tables=['prospects','jobs','job_results','events','provider_state','v2_admissions','active_production_slots','v2_design_requests','v2_design_artifacts','v2_design_reviews','v2_build_artifacts','v2_visual_qa_reports','v2_proposals','outreach_messages','contacts','phone_trust_states','prototypes'];
+const state=Object.fromEntries(tables.map(t=>[t,db.prepare(`SELECT * FROM ${t}`).all()]));
+db.close();
+fs.writeFileSync(process.argv[2],JSON.stringify(state,null,2));
+console.log(JSON.stringify({counts:Object.fromEntries(tables.map(t=>[t,state[t].length])),providerState:state.provider_state,jobs:state.jobs.map(j=>({id:j.id,kind:j.kind,prospectId:j.prospect_id,status:j.status,attempts:j.attempts,error:j.last_error}))},null,2));

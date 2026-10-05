@@ -1,0 +1,14 @@
+{
+  "version": "BUILD_ARTIFACT_V1",
+  "artifactId": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+  "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+  "prospectId": "v2-87988492200011",
+  "approvedRevision": 1,
+  "framework": "STATIC_HTML_CSS",
+  "buildArtifactId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2",
+  "builderVersion": "builder-v1",
+  "buildRevision": 2,
+  "previousBuildArtifactId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+  "correctionRequestId": "correction-qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+  "qaAttempt": 2
+}

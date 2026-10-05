@@ -1,7 +1,9 @@
 import type { Prospect, ProspectContact, ProspectOpportunity, ProspectState } from '../types/prospect';
+import { isActiveProductionState } from '../orchestrator/deck-commercial-pipeline';
 import { assertTransition } from '../state/prospect-state-machine';
 import type { ProspectRepository } from '../state/repository';
 import type { D1DatabaseLike } from './d1-types';
+import { D1ProductionSlotStore } from './d1-production-slot-store';
 
 interface ProspectRow {
   id: string;
@@ -75,6 +77,10 @@ function prospectFromRow(row: ProspectRow): Prospect {
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
+}
+
+function isProductionWindowExit(from: ProspectState, to: ProspectState): boolean {
+  return isActiveProductionState(from) && !isActiveProductionState(to);
 }
 
 function contactFromRow(row: ContactRow): ProspectContact {
@@ -195,6 +201,9 @@ export class D1ProspectRepository implements ProspectRepository {
     };
 
     await this.saveProspect(updated);
+    if (isProductionWindowExit(current.state, to)) {
+      await new D1ProductionSlotStore(this.db).releaseActiveProductionSlot(id, `canonical transition ${current.state} -> ${to}`);
+    }
     return updated;
   }
 

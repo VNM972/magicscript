@@ -1,0 +1,422 @@
+[
+  {
+    "prospectId": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+    "business": "BODY ILES",
+    "siren": "443976352",
+    "siret": "44397635200015",
+    "activity": "96.02B",
+    "researchStatus": "SUCCEEDED",
+    "researchAttempts": 1,
+    "scoredPresent": true,
+    "evidenceIntegrity": {
+      "passed": true,
+      "reasons": [],
+      "rejectedSourceCount": 0,
+      "supportedClaims": [
+        "digitalGap",
+        "commercialStrength",
+        "localFit",
+        "prototypeLeverage",
+        "activity",
+        "website"
+      ]
+    },
+    "typedPainPersisted": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "authority": {
+      "acceptedSources": [
+        {
+          "url": "https://www.bodyiles.com/",
+          "note": "The official website provides a clear logo, contact form, and navigation structure.",
+          "supports": [
+            "digitalGap",
+            "activity",
+            "website"
+          ]
+        },
+        {
+          "url": "https://www.facebook.com/bodyiles",
+          "note": "The official Facebook page shows a clear logo and contact information.",
+          "supports": [
+            "digitalGap",
+            "activity",
+            "website"
+          ]
+        }
+      ],
+      "supportedClaims": [
+        "digitalGap",
+        "commercialStrength",
+        "localFit",
+        "prototypeLeverage",
+        "activity",
+        "website"
+      ],
+      "contactPresence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "facebook.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://www.facebook.com/bodyiles"
+        ],
+        "reasons": [
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-28T16:09:26.250Z",
+        "truncated": false
+      },
+      "evidenceIntegrityPassed": true,
+      "digitalPainEvidence": {
+        "status": "UNKNOWN",
+        "observations": []
+      },
+      "operatingEvidence": {
+        "status": "UNKNOWN",
+        "facts": []
+      },
+      "websiteAbsent": false,
+      "requiresUnprovenCapability": false,
+      "outsideCommercialIcp": false
+    },
+    "qualificationState": "DISQUALIFIED",
+    "score": 48
+  },
+  {
+    "prospectId": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+    "business": "DATEX ANTILLES-GUYANE",
+    "siren": "420481202",
+    "siret": "42048120200067",
+    "activity": "56.29A",
+    "researchStatus": "SUCCEEDED",
+    "researchAttempts": 1,
+    "scoredPresent": true,
+    "evidenceIntegrity": {
+      "passed": true,
+      "reasons": [],
+      "rejectedSourceCount": 0,
+      "supportedClaims": [
+        "digitalGap",
+        "commercialStrength",
+        "localFit",
+        "prototypeLeverage",
+        "activity",
+        "website"
+      ]
+    },
+    "typedPainPersisted": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "authority": {
+      "acceptedSources": [
+        {
+          "url": "https://www.datexantillesguyane.com/",
+          "note": "Official website",
+          "supports": [
+            "digitalGap",
+            "activity",
+            "website"
+          ]
+        },
+        {
+          "url": "https://www.datexantillesguyane.com/contact",
+          "note": "Official contact page",
+          "supports": [
+            "digitalGap",
+            "activity",
+            "website"
+          ]
+        }
+      ],
+      "supportedClaims": [
+        "digitalGap",
+        "commercialStrength",
+        "localFit",
+        "prototypeLeverage",
+        "activity",
+        "website"
+      ],
+      "contactPresence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "datexantillesguyane.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "www.datexantillesguyane.com"
+          ],
+          "evidence": [
+            {
+              "value": "www.datexantillesguyane.com",
+              "sourceUrl": "www.datexantillesguyane.com",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-28T16:12:20.316Z",
+        "truncated": false
+      },
+      "evidenceIntegrityPassed": true,
+      "digitalPainEvidence": {
+        "status": "UNKNOWN",
+        "observations": []
+      },
+      "operatingEvidence": {
+        "status": "UNKNOWN",
+        "facts": []
+      },
+      "websiteAbsent": false,
+      "requiresUnprovenCapability": false,
+      "outsideCommercialIcp": false
+    },
+    "qualificationState": "DISQUALIFIED",
+    "score": 48
+  },
+  {
+    "prospectId": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+    "business": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+    "siren": "189729015",
+    "siret": "18972901500017",
+    "activity": "56.29B",
+    "researchStatus": "SUCCEEDED",
+    "researchAttempts": 1,
+    "scoredPresent": true,
+    "evidenceIntegrity": {
+      "passed": true,
+      "reasons": [],
+      "rejectedSourceCount": 0,
+      "supportedClaims": [
+        "digitalGap",
+        "commercialStrength",
+        "localFit",
+        "activity",
+        "website"
+      ]
+    },
+    "typedPainPersisted": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "authority": {
+      "acceptedSources": [
+        {
+          "url": "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017",
+          "note": "official business page",
+          "supports": [
+            "activity",
+            "website"
+          ]
+        }
+      ],
+      "supportedClaims": [
+        "digitalGap",
+        "commercialStrength",
+        "localFit",
+        "activity",
+        "website"
+      ],
+      "contactPresence": {
+        "status": "VERIFIED",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "annuaire-entreprises.data.gouv.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017"
+          ],
+          "evidence": [
+            {
+              "value": "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017",
+              "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017"
+        ],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-28T16:15:06.811Z",
+        "truncated": false
+      },
+      "evidenceIntegrityPassed": true,
+      "digitalPainEvidence": {
+        "status": "UNKNOWN",
+        "observations": []
+      },
+      "operatingEvidence": {
+        "status": "UNKNOWN",
+        "facts": []
+      },
+      "websiteAbsent": false,
+      "requiresUnprovenCapability": false,
+      "outsideCommercialIcp": false
+    },
+    "qualificationState": "DISQUALIFIED",
+    "score": 0
+  }
+]

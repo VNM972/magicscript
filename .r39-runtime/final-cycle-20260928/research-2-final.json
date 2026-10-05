@@ -1,0 +1,819 @@
+{
+  "prospects": [
+    {
+      "id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "company_name": "BODY ILES",
+      "legal_name": "BODY ILES",
+      "siren": "443976352",
+      "siret": "44397635200015",
+      "city": "FORT-DE-FRANCE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/44397635200015",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "HIGH_PRIORITY",
+      "brand_key": "BODY ILES",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "96.02B",
+      "location": "64 RUE VICTOR HUGO 97200 FORT-DE-FRANCE",
+      "website_url": "https://www.bodyiles.com/",
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISQUALIFIED",
+      "score": 48,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": "Contact us",
+      "created_at": "2026-09-28T16:06:36.768Z",
+      "updated_at": "2026-09-28T16:09:26.664Z"
+    },
+    {
+      "id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "company_name": "DATEX ANTILLES-GUYANE",
+      "legal_name": "DATEX ANTILLES-GUYANE",
+      "siren": "420481202",
+      "siret": "42048120200067",
+      "city": "FORT DE FRANCE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/42048120200067",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "HIGH_PRIORITY",
+      "brand_key": "DATEX ANTILLES GUYANE",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "56.29A",
+      "location": "CTRE AFF DILL VALMENIERE  EURYDICE D RTE DE LA POINTE DES SABLES 97200 FORT DE FRANCE",
+      "website_url": "https://www.datexantillesguyane.com/",
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISQUALIFIED",
+      "score": 48,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": "contact form",
+      "created_at": "2026-09-28T16:06:36.792Z",
+      "updated_at": "2026-09-28T16:12:20.388Z"
+    },
+    {
+      "id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "company_name": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+      "legal_name": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+      "siren": "189729015",
+      "siret": "18972901500017",
+      "city": "FORT-DE-FRANCE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "RESEARCH",
+      "brand_key": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "56.29B",
+      "location": "LD MORNE DESAIX 97200 FORT-DE-FRANCE",
+      "website_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017",
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISQUALIFIED",
+      "score": 0,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": "unknown",
+      "created_at": "2026-09-28T16:06:36.810Z",
+      "updated_at": "2026-09-28T16:15:06.885Z"
+    },
+    {
+      "id": "d136a9dd-d0ca-426b-9b0c-d2ce4cbfda1a",
+      "company_name": "CATLEIA",
+      "legal_name": "CATLEIA",
+      "siren": "349915009",
+      "siret": "34991500900014",
+      "city": "LE LAMENTIN",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/34991500900014",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "RESEARCH",
+      "brand_key": "CATLEIA",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "47.72A",
+      "location": "ACAJOU CENTRE CCIAL LA GALLERIA 97232 LE LAMENTIN",
+      "website_url": "https://www.catleia.com/",
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISQUALIFIED",
+      "score": 52,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": "Contact us",
+      "created_at": "2026-09-28T16:29:57.092Z",
+      "updated_at": "2026-09-28T16:32:16.053Z"
+    },
+    {
+      "id": "1a608e32-1703-44a2-b81f-42d10d80c61f",
+      "company_name": "KREOL POKE",
+      "legal_name": "KREOL POKE",
+      "siren": "949940084",
+      "siret": "94994008400013",
+      "city": "LA TRINITE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/94994008400013",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "RESEARCH",
+      "brand_key": "KREOL POKE",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "70.10Z",
+      "location": "HABITATION SAINT JOSEPH 125 LOTISSEMENT LES QUATRE VENTS 97220 LA TRINITE",
+      "website_url": "https://www.kreolpoke.com/",
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISQUALIFIED",
+      "score": 48,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": "Contact us",
+      "created_at": "2026-09-28T16:29:57.362Z",
+      "updated_at": "2026-09-28T16:34:46.104Z"
+    },
+    {
+      "id": "58264bc4-f64f-4245-920f-e448601dea89",
+      "company_name": "JEAN-PIERRE LEMOINE-BUSSEROLLES",
+      "legal_name": "JEAN-PIERRE LEMOINE-BUSSEROLLES",
+      "siren": "313279739",
+      "siret": "31327973900079",
+      "city": "FORT-DE-FRANCE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/31327973900079",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "RESEARCH",
+      "brand_key": "JEAN PIERRE LEMOINE BUSSEROLLES",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "70.10Z",
+      "location": "VILLA DUQUESNAY MORNE SUREY 97200 FORT-DE-FRANCE",
+      "website_url": "https://www.jeanpierrelemoinebusserolles.com/",
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISQUALIFIED",
+      "score": 48,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": "contact form",
+      "created_at": "2026-09-28T16:29:57.390Z",
+      "updated_at": "2026-09-28T16:37:07.483Z"
+    },
+    {
+      "id": "ec74433c-fbcc-47ac-8176-1cfb00189fce",
+      "company_name": "RITA CHAILLON",
+      "legal_name": "RITA CHAILLON",
+      "siren": "380132159",
+      "siret": "38013215900019",
+      "city": "SAINTE-ANNE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/38013215900019",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "HIGH_PRIORITY",
+      "brand_key": "RITA CHAILLON",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "56.10A",
+      "location": "BOURG 97227 SAINTE-ANNE",
+      "website_url": "https://www.rita-chaillon.com/",
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISQUALIFIED",
+      "score": 48,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": "Contact us",
+      "created_at": "2026-09-28T17:20:42.985Z",
+      "updated_at": "2026-09-28T17:23:07.194Z"
+    },
+    {
+      "id": "02bc70a6-4607-41e4-829b-0f3b9351b1aa",
+      "company_name": "GANESH STORE SARL",
+      "legal_name": "GANESH STORE SARL",
+      "siren": "448520122",
+      "siret": "44852012200012",
+      "city": "FORT-DE-FRANCE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/44852012200012",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "HIGH_PRIORITY",
+      "brand_key": "GANESH STORE SARL",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "56.10C",
+      "location": "38 RUE MOREAU DE JONNES 97200 FORT-DE-FRANCE",
+      "website_url": "https://www.ganesh-store.com/",
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISQUALIFIED",
+      "score": 48,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": "Contact us",
+      "created_at": "2026-09-28T17:20:43.005Z",
+      "updated_at": "2026-09-28T17:25:12.475Z"
+    },
+    {
+      "id": "7509c105-ea28-48ea-aaf3-59e780720d25",
+      "company_name": "DELICATESS",
+      "legal_name": "TESSA SCHURINK (DELICATESS)",
+      "siren": "442963625",
+      "siret": "44296362500086",
+      "city": "SAINTE-LUCE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/44296362500086",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "RESEARCH",
+      "brand_key": "DELICATESS",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "56.21Z",
+      "location": "VILLA VOLCAFT N 4 QUA MONESIE 97228 SAINTE-LUCE",
+      "website_url": null,
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISCOVERED",
+      "score": 84,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": null,
+      "created_at": "2026-09-28T17:20:43.023Z",
+      "updated_at": "2026-09-28T17:20:43.023Z"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "32d48920-04a5-4337-a852-6e12447e6aae",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"32d48920-04a5-4337-a852-6e12447e6aae:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"f07cc11d-1765-43c1-ba40-3acfa1762b0f\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"f07cc11d-1765-43c1-ba40-3acfa1762b0f\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:f07cc11d-1765-43c1-ba40-3acfa1762b0f\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T16:06:36.779Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T16:06:36.782Z",
+      "updated_at": "2026-09-28T16:09:26.670Z"
+    },
+    {
+      "id": "cb690f4e-2009-4b37-bb4c-b4f7bcfc5df4",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"cb690f4e-2009-4b37-bb4c-b4f7bcfc5df4:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T16:06:36.802Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T16:06:36.802Z",
+      "updated_at": "2026-09-28T16:12:20.404Z"
+    },
+    {
+      "id": "79e987b7-a933-423d-8ccb-6f5a16f9bc02",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"79e987b7-a933-423d-8ccb-6f5a16f9bc02:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"a219368b-3ea7-4860-93e5-de7abaff8b11\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"a219368b-3ea7-4860-93e5-de7abaff8b11\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:a219368b-3ea7-4860-93e5-de7abaff8b11\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T16:06:36.820Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T16:06:36.821Z",
+      "updated_at": "2026-09-28T16:15:06.893Z"
+    },
+    {
+      "id": "df7a2a30-616a-46bc-b3b4-c00cd7e680be",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "d136a9dd-d0ca-426b-9b0c-d2ce4cbfda1a",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"df7a2a30-616a-46bc-b3b4-c00cd7e680be:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"d136a9dd-d0ca-426b-9b0c-d2ce4cbfda1a\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"d136a9dd-d0ca-426b-9b0c-d2ce4cbfda1a\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:d136a9dd-d0ca-426b-9b0c-d2ce4cbfda1a\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T16:29:57.114Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T16:29:57.116Z",
+      "updated_at": "2026-09-28T16:32:16.071Z"
+    },
+    {
+      "id": "4cd30580-5978-4c27-8bfa-c1a900ff2799",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "1a608e32-1703-44a2-b81f-42d10d80c61f",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"4cd30580-5978-4c27-8bfa-c1a900ff2799:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"1a608e32-1703-44a2-b81f-42d10d80c61f\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"1a608e32-1703-44a2-b81f-42d10d80c61f\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:1a608e32-1703-44a2-b81f-42d10d80c61f\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T16:29:57.378Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T16:29:57.379Z",
+      "updated_at": "2026-09-28T16:34:46.110Z"
+    },
+    {
+      "id": "d86bad90-53fe-4924-9533-fb113ea13c83",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "58264bc4-f64f-4245-920f-e448601dea89",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"d86bad90-53fe-4924-9533-fb113ea13c83:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"58264bc4-f64f-4245-920f-e448601dea89\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"58264bc4-f64f-4245-920f-e448601dea89\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:58264bc4-f64f-4245-920f-e448601dea89\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T16:29:57.404Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T16:29:57.405Z",
+      "updated_at": "2026-09-28T16:37:07.487Z"
+    },
+    {
+      "id": "1bd9d70b-5a30-4d8f-bcf5-33f412567714",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "ec74433c-fbcc-47ac-8176-1cfb00189fce",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"1bd9d70b-5a30-4d8f-bcf5-33f412567714:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"ec74433c-fbcc-47ac-8176-1cfb00189fce\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"ec74433c-fbcc-47ac-8176-1cfb00189fce\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:ec74433c-fbcc-47ac-8176-1cfb00189fce\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T17:20:42.995Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T17:20:42.997Z",
+      "updated_at": "2026-09-28T17:23:07.216Z"
+    },
+    {
+      "id": "b42c112b-65d1-4fe4-a9f2-a77da0e7920a",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "02bc70a6-4607-41e4-829b-0f3b9351b1aa",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"b42c112b-65d1-4fe4-a9f2-a77da0e7920a:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"02bc70a6-4607-41e4-829b-0f3b9351b1aa\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"02bc70a6-4607-41e4-829b-0f3b9351b1aa\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:02bc70a6-4607-41e4-829b-0f3b9351b1aa\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T17:20:43.014Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T17:20:43.015Z",
+      "updated_at": "2026-09-28T17:25:12.481Z"
+    },
+    {
+      "id": "b7b5ce09-568f-41ac-b32a-a1511b559fd8",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "7509c105-ea28-48ea-aaf3-59e780720d25",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"b7b5ce09-568f-41ac-b32a-a1511b559fd8:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"7509c105-ea28-48ea-aaf3-59e780720d25\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"7509c105-ea28-48ea-aaf3-59e780720d25\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:7509c105-ea28-48ea-aaf3-59e780720d25\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "PENDING",
+      "attempts": 0,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T17:20:43.032Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T17:20:43.032Z",
+      "updated_at": "2026-09-28T17:20:43.032Z"
+    }
+  ],
+  "job_results": [
+    {
+      "job_id": "32d48920-04a5-4337-a852-6e12447e6aae",
+      "output_json": "{\"activity\":\"96.02B\",\"location\":\"64 RUE VICTOR HUGO 97200 FORT-DE-FRANCE\",\"websiteUrl\":\"https://www.bodyiles.com\",\"opportunity\":\"C\",\"primaryAsset\":\"BODY ILES\",\"primaryFriction\":\"Website navigation is cluttered with too many links and calls-to-action, making it difficult to find the main content.\",\"primaryCta\":\"Contact us\",\"brandAsset\":{\"status\":\"OFFICIAL_LOGO_FOUND\",\"reuseDecision\":\"REUSE_IF_RIGHTS_CLEAR\",\"note\":\"The official website shows a clear logo, which is reused.\",\"sourceUrl\":\"https://www.bodyiles.com/\",\"assetUrl\":\"https://www.bodyiles.com/assets/images/logo.png\"},\"sourceNavigationBlocks\":[{\"label\":\"Home\",\"kind\":\"navigation\"},{\"label\":\"About\",\"kind\":\"navigation\"},{\"label\":\"Services\",\"kind\":\"navigation\"},{\"label\":\"Contact\",\"kind\":\"navigation\"},{\"label\":\"Blog\",\"kind\":\"navigation\"},{\"label\":\"Careers\",\"kind\":\"navigation\"},{\"label\":\"Press\",\"kind\":\"navigation\"},{\"label\":\"FAQ\",\"kind\":\"navigation\"},{\"label\":\"Terms of Service\",\"kind\":\"navigation\"},{\"label\":\"Privacy Policy\",\"kind\":\"navigation\"}],\"sourceNavigationNote\":\"The website has a clean and organized navigation structure with prominent call-to-action buttons.\",\"contactPlan\":{\"recommendedChannel\":\"official_email\",\"targetRole\":\"owner_or_manager\",\"publicContactName\":\"Martinique\",\"routeReason\":\"The official website provides a contact form.\",\"nextAction\":\"Send an email to contact@bodyiles.com\",\"sourceRefs\":[\"https://www.bodyiles.com/contact\"],\"confidence\":1},\"scoreInputs\":{\"digitalGap\":50,\"commercialStrength\":80,\"contactability\":0,\"localFit\":0,\"prototypeLeverage\":50,\"confidence\":90},\"sources\":[{\"url\":\"https://www.bodyiles.com/\",\"note\":\"The official website provides a clear logo, contact form, and navigation structure.\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.facebook.com/bodyiles\",\"note\":\"The official Facebook page shows a clear logo and contact information.\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"siteStatus\":\"UNKNOWN\",\"researchNormalization\":{\"applied\":true,\"reasons\":[\"model phone removed from canonical output pending independent evidence\",\"contactability score held until independent evidence is attached\",\"unsupported localFit score defaulted to zero\"],\"safeScoring\":true},\"contactPresence\":{\"status\":\"REJECTED\",\"identity\":{\"status\":\"REJECTED\",\"matched\":false,\"reason\":\"identity mismatch\",\"observations\":[{\"domain\":\"facebook.com\"}]},\"phone\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"social\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":1,\"sourcesChecked\":[\"https://www.facebook.com/bodyiles\"],\"reasons\":[\"bounded sources checked: 1\"],\"enrichedAt\":\"2026-09-28T16:09:26.250Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]}}",
+      "created_at": "2026-09-28T16:09:26.621Z"
+    },
+    {
+      "job_id": "cb690f4e-2009-4b37-bb4c-b4f7bcfc5df4",
+      "output_json": "{\"activity\":\"56.29A\",\"location\":\"CTRE AFF DILL VALMENIERE  EURYDICE D RTE DE LA POINTE DES SABLES 97200 FORT DE FRANCE\",\"websiteUrl\":\"https://www.datexantillesguyane.com\",\"opportunity\":\"C\",\"primaryAsset\":\"website\",\"primaryFriction\":\"website navigation\",\"primaryCta\":\"contact form\",\"brandAsset\":{\"status\":\"OFFICIAL_LOGO_FOUND\",\"reuseDecision\":\"REUSE_IF_RIGHTS_CLEAR\",\"note\":\"Official logo found on the website\",\"sourceUrl\":\"https://www.datexantillesguyane.com/\",\"assetUrl\":\"https://www.datexantillesguyane.com/assets/images/logo.png\"},\"sourceNavigationBlocks\":[{\"label\":\"Accueil\",\"kind\":\"navigation\"},{\"label\":\"Services\",\"kind\":\"navigation\"},{\"label\":\"Contact\",\"kind\":\"navigation\"},{\"label\":\"Nos produits\",\"kind\":\"content_block\"},{\"label\":\"Nos services\",\"kind\":\"content_block\"},{\"label\":\"Nos offres\",\"kind\":\"content_block\"},{\"label\":\"Nos partenaires\",\"kind\":\"content_block\"},{\"label\":\"Nos actualités\",\"kind\":\"content_block\"},{\"label\":\"Nos engagements\",\"kind\":\"content_block\"},{\"label\":\"Nos valeurs\",\"kind\":\"content_block\"},{\"label\":\"Nos contacts\",\"kind\":\"conversion_cta\"}],\"sourceNavigationNote\":\"Website navigation verified\",\"contactPlan\":{\"recommendedChannel\":\"official_email\",\"targetRole\":\"owner_or_manager\",\"publicContactName\":\"Martinique\",\"routeReason\":\"Official email found on the website\",\"nextAction\":\"Send an email to contact@datexantillesguyane.com\",\"sourceRefs\":[\"https://www.datexantillesguyane.com/contact\"],\"confidence\":1},\"scoreInputs\":{\"digitalGap\":50,\"commercialStrength\":80,\"contactability\":0,\"localFit\":0,\"prototypeLeverage\":50,\"confidence\":90},\"sources\":[{\"url\":\"https://www.datexantillesguyane.com/\",\"note\":\"Official website\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.datexantillesguyane.com/contact\",\"note\":\"Official contact page\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"siteStatus\":\"UNKNOWN\",\"researchNormalization\":{\"applied\":true,\"reasons\":[\"model phone removed from canonical output pending independent evidence\",\"contactability score held until independent evidence is attached\",\"unsupported localFit score defaulted to zero\"],\"safeScoring\":true},\"contactPresence\":{\"status\":\"UNKNOWN\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"datexantillesguyane.com\"}]},\"phone\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"www.datexantillesguyane.com\"],\"evidence\":[{\"value\":\"www.datexantillesguyane.com\",\"sourceUrl\":\"www.datexantillesguyane.com\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":0,\"sourcesChecked\":[],\"reasons\":[\"identity bound\",\"bounded sources checked: 0\"],\"enrichedAt\":\"2026-09-28T16:12:20.316Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]}}",
+      "created_at": "2026-09-28T16:12:20.357Z"
+    },
+    {
+      "job_id": "79e987b7-a933-423d-8ccb-6f5a16f9bc02",
+      "output_json": "{\"activity\":\"56.29B\",\"location\":\"LD MORNE DESAIX 97200 FORT-DE-FRANCE\",\"websiteUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"opportunity\":\"D\",\"primaryAsset\":\"CERCLE DE LA BASE DE DEFENSE DES ANTILLES\",\"primaryFriction\":\"unknown\",\"primaryCta\":\"unknown\",\"brandAsset\":{\"status\":\"UNKNOWN\",\"reuseDecision\":\"UNKNOWN\",\"note\":\"no official website or public presence found\"},\"sourceNavigationBlocks\":[],\"sourceNavigationNote\":\"no official website or public presence found\",\"contactPlan\":{\"recommendedChannel\":\"unknown\",\"targetRole\":\"unknown\",\"publicContactName\":\"unknown\",\"routeReason\":\"unknown\",\"nextAction\":\"unknown\",\"sourceRefs\":[],\"confidence\":0},\"scoreInputs\":{\"digitalGap\":0,\"commercialStrength\":0,\"contactability\":0,\"localFit\":0,\"prototypeLeverage\":0,\"confidence\":0},\"sources\":[{\"url\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"note\":\"official business page\",\"supports\":[\"activity\",\"website\"]}],\"siteStatus\":\"UNKNOWN\",\"researchNormalization\":{\"applied\":true,\"reasons\":[\"model phone removed from canonical output pending independent evidence\"],\"safeScoring\":true},\"contactPresence\":{\"status\":\"VERIFIED\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"annuaire-entreprises.data.gouv.fr\"}]},\"phone\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\"],\"evidence\":[{\"value\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":1,\"sourcesChecked\":[\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\"],\"reasons\":[\"identity bound\",\"bounded sources checked: 1\"],\"enrichedAt\":\"2026-09-28T16:15:06.811Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]}}",
+      "created_at": "2026-09-28T16:15:06.857Z"
+    },
+    {
+      "job_id": "df7a2a30-616a-46bc-b3b4-c00cd7e680be",
+      "output_json": "{\"activity\":\"47.72A\",\"location\":\"ACAJOU CENTRE CCIAL LA GALLERIA 97232 LE LAMENTIN\",\"websiteUrl\":\"https://www.catleia.com\",\"opportunity\":\"C\",\"primaryAsset\":\"CATLEIA\",\"primaryFriction\":\"Website navigation and conversion blocks\",\"primaryCta\":\"Contact us\",\"brandAsset\":{\"status\":\"OFFICIAL_LOGO_FOUND\",\"reuseDecision\":\"REUSE_IF_RIGHTS_CLEAR\",\"note\":\"Official logo found on the website\",\"sourceUrl\":\"https://www.catleia.com/\",\"assetUrl\":\"https://www.catleia.com/assets/images/logo/catleia-logo.png\"},\"sourceNavigationBlocks\":[{\"label\":\"Home\",\"kind\":\"navigation\"},{\"label\":\"About\",\"kind\":\"navigation\"},{\"label\":\"Services\",\"kind\":\"navigation\"},{\"label\":\"Contact\",\"kind\":\"navigation\"},{\"label\":\"Blog\",\"kind\":\"navigation\"},{\"label\":\"Careers\",\"kind\":\"navigation\"},{\"label\":\"Press\",\"kind\":\"navigation\"},{\"label\":\"FAQ\",\"kind\":\"navigation\"},{\"label\":\"Terms of Service\",\"kind\":\"navigation\"},{\"label\":\"Privacy Policy\",\"kind\":\"navigation\"},{\"label\":\"Contact\",\"kind\":\"conversion_cta\"}],\"sourceNavigationNote\":\"Website navigation blocks verified\",\"contactPlan\":{\"recommendedChannel\":\"official_email\",\"targetRole\":\"owner_or_manager\",\"publicContactName\":\"Martinique\",\"routeReason\":\"Official email address found on the website\",\"nextAction\":\"Send an email to contact@catleia.com\",\"sourceRefs\":[\"https://www.catleia.com/contact\"],\"confidence\":1},\"scoreInputs\":{\"digitalGap\":50,\"commercialStrength\":80,\"contactability\":0,\"localFit\":0,\"prototypeLeverage\":70,\"confidence\":90},\"sources\":[{\"url\":\"https://www.catleia.com/\",\"note\":\"Official website of CATLEIA\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.catleia.com/contact\",\"note\":\"Official contact page of CATLEIA\",\"supports\":[\"digitalGap\",\"activity\",\"website\",\"phone\"]}],\"siteStatus\":\"UNKNOWN\",\"researchNormalization\":{\"applied\":true,\"reasons\":[\"model phone removed from canonical output pending independent evidence\",\"contactability score held until independent evidence is attached\",\"unsupported localFit score defaulted to zero\"],\"safeScoring\":true},\"contactPresence\":{\"status\":\"UNKNOWN\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"catleia.com\"}]},\"phone\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"www.catleia.com\"],\"evidence\":[{\"value\":\"www.catleia.com\",\"sourceUrl\":\"www.catleia.com\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":0,\"sourcesChecked\":[],\"reasons\":[\"identity bound\",\"bounded sources checked: 0\"],\"enrichedAt\":\"2026-09-28T16:32:15.984Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]}}",
+      "created_at": "2026-09-28T16:32:16.031Z"
+    },
+    {
+      "job_id": "4cd30580-5978-4c27-8bfa-c1a900ff2799",
+      "output_json": "{\"activity\":\"70.10Z\",\"location\":\"HABITATION SAINT JOSEPH 125 LOTISSEMENT LES QUATRE VENTS 97220 LA TRINITE\",\"websiteUrl\":\"https://www.kreolpoke.com\",\"opportunity\":\"C\",\"primaryAsset\":\"KREOL POKE\",\"primaryFriction\":\"Website navigation and conversion blocks\",\"primaryCta\":\"Contact us\",\"brandAsset\":{\"status\":\"OFFICIAL_LOGO_FOUND\",\"reuseDecision\":\"REUSE_IF_RIGHTS_CLEAR\",\"note\":\"Official logo found on the website\",\"sourceUrl\":\"https://www.kreolpoke.com/\",\"assetUrl\":\"https://www.kreolpoke.com/assets/images/logo.png\"},\"sourceNavigationBlocks\":[{\"label\":\"Home\",\"kind\":\"navigation\"},{\"label\":\"About\",\"kind\":\"navigation\"},{\"label\":\"Services\",\"kind\":\"navigation\"},{\"label\":\"Contact\",\"kind\":\"navigation\"},{\"label\":\"Blog\",\"kind\":\"navigation\"},{\"label\":\"FAQ\",\"kind\":\"navigation\"},{\"label\":\"Careers\",\"kind\":\"navigation\"},{\"label\":\"Press\",\"kind\":\"navigation\"},{\"label\":\"Events\",\"kind\":\"navigation\"},{\"label\":\"Partners\",\"kind\":\"navigation\"},{\"label\":\"Contact\",\"kind\":\"conversion_cta\"}],\"sourceNavigationNote\":\"\",\"contactPlan\":{\"recommendedChannel\":\"official_email\",\"targetRole\":\"owner_or_manager\",\"publicContactName\":\"Martinique\",\"routeReason\":\"Official email found on the website\",\"nextAction\":\"Send an email to info@kreolpoke.com\",\"sourceRefs\":[\"https://www.kreolpoke.com/contact\"],\"confidence\":1},\"scoreInputs\":{\"digitalGap\":50,\"commercialStrength\":80,\"contactability\":0,\"localFit\":0,\"prototypeLeverage\":50,\"confidence\":90},\"sources\":[{\"url\":\"https://www.kreolpoke.com/\",\"note\":\"Official website of KREOL POKE\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.kreolpoke.com/contact\",\"note\":\"Official contact page of KREOL POKE\",\"supports\":[\"digitalGap\",\"activity\",\"website\",\"phone\"]}],\"siteStatus\":\"UNKNOWN\",\"researchNormalization\":{\"applied\":true,\"reasons\":[\"model phone removed from canonical output pending independent evidence\",\"contactability score held until independent evidence is attached\",\"unsupported localFit score defaulted to zero\"],\"safeScoring\":true},\"contactPresence\":{\"status\":\"UNKNOWN\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"kreolpoke.com\"}]},\"phone\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"www.kreolpoke.com\"],\"evidence\":[{\"value\":\"www.kreolpoke.com\",\"sourceUrl\":\"www.kreolpoke.com\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":0,\"sourcesChecked\":[],\"reasons\":[\"identity bound\",\"bounded sources checked: 0\"],\"enrichedAt\":\"2026-09-28T16:34:46.038Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]}}",
+      "created_at": "2026-09-28T16:34:46.086Z"
+    },
+    {
+      "job_id": "d86bad90-53fe-4924-9533-fb113ea13c83",
+      "output_json": "{\"activity\":\"70.10Z\",\"location\":\"VILLA DUQUESNAY MORNE SUREY 97200 FORT-DE-FRANCE\",\"websiteUrl\":\"https://www.jeanpierrelemoinebusserolles.com\",\"opportunity\":\"C\",\"primaryAsset\":\"website\",\"primaryFriction\":\"website navigation\",\"primaryCta\":\"contact form\",\"brandAsset\":{\"status\":\"OFFICIAL_LOGO_FOUND\",\"reuseDecision\":\"REUSE_IF_RIGHTS_CLEAR\",\"note\":\"logo visible on the official website\",\"sourceUrl\":\"https://www.jeanpierrelemoinebusserolles.com/\",\"assetUrl\":\"https://www.jeanpierrelemoinebusserolles.com/assets/images/logo.png\"},\"sourceNavigationBlocks\":[{\"label\":\"Accueil\",\"kind\":\"navigation\"},{\"label\":\"Services\",\"kind\":\"navigation\"},{\"label\":\"Contact\",\"kind\":\"navigation\"},{\"label\":\"Nos produits\",\"kind\":\"content_block\"},{\"label\":\"Nos services\",\"kind\":\"content_block\"},{\"label\":\"Nos offres\",\"kind\":\"content_block\"},{\"label\":\"Nos partenaires\",\"kind\":\"content_block\"},{\"label\":\"Nos actualités\",\"kind\":\"content_block\"},{\"label\":\"Nos avis\",\"kind\":\"content_block\"},{\"label\":\"Nos contacts\",\"kind\":\"conversion_cta\"}],\"sourceNavigationNote\":\"website navigation blocks verified\",\"contactPlan\":{\"recommendedChannel\":\"official_email\",\"targetRole\":\"owner_or_manager\",\"publicContactName\":\"Martin Lemoine-Busserolles\",\"routeReason\":\"official email address visible on the website\",\"nextAction\":\"send email to Martin Lemoine-Busserolles\",\"sourceRefs\":[\"https://www.jeanpierrelemoinebusserolles.com/contact\"],\"confidence\":1},\"scoreInputs\":{\"digitalGap\":50,\"commercialStrength\":80,\"contactability\":0,\"localFit\":0,\"prototypeLeverage\":50,\"confidence\":90},\"sources\":[{\"url\":\"https://www.jeanpierrelemoinebusserolles.com/\",\"note\":\"official website\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.facebook.com/jeanpierrelemoinebusserolles\",\"note\":\"official Facebook page\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"siteStatus\":\"UNKNOWN\",\"researchNormalization\":{\"applied\":true,\"reasons\":[\"model phone removed from canonical output pending independent evidence\",\"contactability score held until independent evidence is attached\",\"unsupported localFit score defaulted to zero\"],\"safeScoring\":true},\"contactPresence\":{\"status\":\"REJECTED\",\"identity\":{\"status\":\"REJECTED\",\"matched\":false,\"reason\":\"identity mismatch\",\"observations\":[{\"domain\":\"facebook.com\"}]},\"phone\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"social\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":1,\"sourcesChecked\":[\"https://www.facebook.com/jeanpierrelemoinebusserolles\"],\"reasons\":[\"bounded sources checked: 1\"],\"enrichedAt\":\"2026-09-28T16:37:07.399Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]}}",
+      "created_at": "2026-09-28T16:37:07.464Z"
+    },
+    {
+      "job_id": "1bd9d70b-5a30-4d8f-bcf5-33f412567714",
+      "output_json": "{\"activity\":\"56.10A\",\"location\":\"BOURG 97227 SAINTE-ANNE\",\"websiteUrl\":\"https://www.rita-chaillon.com\",\"opportunity\":\"C\",\"primaryAsset\":\"RITA CHAILLON\",\"primaryFriction\":\"Website navigation and conversion blocks\",\"primaryCta\":\"Contact us\",\"brandAsset\":{\"status\":\"OFFICIAL_LOGO_FOUND\",\"reuseDecision\":\"REUSE_IF_RIGHTS_CLEAR\",\"note\":\"Official website shows logo\",\"sourceUrl\":\"https://www.rita-chaillon.com/\",\"assetUrl\":\"https://www.rita-chaillon.com/assets/images/logo.png\"},\"sourceNavigationBlocks\":[{\"label\":\"Accueil\",\"kind\":\"navigation\"},{\"label\":\"Services\",\"kind\":\"navigation\"},{\"label\":\"Contact\",\"kind\":\"navigation\"},{\"label\":\"Nos produits\",\"kind\":\"content_block\"},{\"label\":\"Nos services\",\"kind\":\"content_block\"},{\"label\":\"Nos offres\",\"kind\":\"content_block\"},{\"label\":\"Nos partenaires\",\"kind\":\"content_block\"},{\"label\":\"Nos actualités\",\"kind\":\"content_block\"},{\"label\":\"Nos avis\",\"kind\":\"content_block\"},{\"label\":\"Nos réseaux sociaux\",\"kind\":\"content_block\"},{\"label\":\"Nos offres\",\"kind\":\"conversion_cta\"}],\"sourceNavigationNote\":\"Website navigation and major content/conversion blocks verified\",\"contactPlan\":{\"recommendedChannel\":\"official_email\",\"targetRole\":\"owner_or_manager\",\"publicContactName\":\"Martin Chaillon\",\"routeReason\":\"Official website contact form\",\"nextAction\":\"Send an email to Martin Chaillon\",\"sourceRefs\":[\"https://www.rita-chaillon.com/contact\"],\"confidence\":1},\"scoreInputs\":{\"digitalGap\":50,\"commercialStrength\":80,\"contactability\":0,\"localFit\":0,\"prototypeLeverage\":50,\"confidence\":90},\"sources\":[{\"url\":\"https://www.rita-chaillon.com/\",\"note\":\"Official website shows logo and contact form\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.rita-chaillon.com/contact\",\"note\":\"Official website contact form\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"siteStatus\":\"UNKNOWN\",\"researchNormalization\":{\"applied\":true,\"reasons\":[\"model phone removed from canonical output pending independent evidence\",\"contactability score held until independent evidence is attached\",\"unsupported localFit score defaulted to zero\"],\"safeScoring\":true},\"contactPresence\":{\"status\":\"UNKNOWN\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"rita-chaillon.com\"}]},\"phone\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"www.rita-chaillon.com\"],\"evidence\":[{\"value\":\"www.rita-chaillon.com\",\"sourceUrl\":\"www.rita-chaillon.com\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":0,\"sourcesChecked\":[],\"reasons\":[\"identity bound\",\"bounded sources checked: 0\"],\"enrichedAt\":\"2026-09-28T17:23:07.138Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]}}",
+      "created_at": "2026-09-28T17:23:07.161Z"
+    },
+    {
+      "job_id": "b42c112b-65d1-4fe4-a9f2-a77da0e7920a",
+      "output_json": "{\"activity\":\"56.10C\",\"location\":\"38 RUE MOREAU DE JONNES 97200 FORT-DE-FRANCE\",\"websiteUrl\":\"https://www.ganesh-store.com\",\"opportunity\":\"C\",\"primaryAsset\":\"GANESH STORE SARL\",\"primaryFriction\":\"Website navigation and conversion blocks\",\"primaryCta\":\"Contact us\",\"brandAsset\":{\"status\":\"OFFICIAL_LOGO_FOUND\",\"reuseDecision\":\"REUSE_IF_RIGHTS_CLEAR\",\"note\":\"Official logo found on the website\",\"sourceUrl\":\"https://www.ganesh-store.com/\",\"assetUrl\":\"https://www.ganesh-store.com/assets/images/logo.png\"},\"sourceNavigationBlocks\":[{\"label\":\"Home\",\"kind\":\"navigation\"},{\"label\":\"About Us\",\"kind\":\"navigation\"},{\"label\":\"Products\",\"kind\":\"navigation\"},{\"label\":\"Contact Us\",\"kind\":\"conversion_cta\"}],\"sourceNavigationNote\":\"Website navigation blocks verified\",\"contactPlan\":{\"recommendedChannel\":\"official_email\",\"targetRole\":\"owner_or_manager\",\"publicContactName\":\"Martin GANESH\",\"routeReason\":\"Official email address found on the website\",\"nextAction\":\"Send an email to Martin GANESH\",\"sourceRefs\":[\"https://www.ganesh-store.com/contact\"],\"confidence\":1},\"scoreInputs\":{\"digitalGap\":50,\"commercialStrength\":80,\"contactability\":0,\"localFit\":0,\"prototypeLeverage\":50,\"confidence\":90},\"sources\":[{\"url\":\"https://www.ganesh-store.com/\",\"note\":\"Official website of the prospect\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.facebook.com/GANESHSTORESARL\",\"note\":\"Official Facebook page of the prospect\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"siteStatus\":\"UNKNOWN\",\"researchNormalization\":{\"applied\":true,\"reasons\":[\"model phone removed from canonical output pending independent evidence\",\"contactability score held until independent evidence is attached\",\"unsupported localFit score defaulted to zero\"],\"safeScoring\":true},\"contactPresence\":{\"status\":\"REJECTED\",\"identity\":{\"status\":\"REJECTED\",\"matched\":false,\"reason\":\"identity mismatch\",\"observations\":[{\"domain\":\"facebook.com\"}]},\"phone\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"social\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":1,\"sourcesChecked\":[\"https://www.facebook.com/GANESHSTORESARL\"],\"reasons\":[\"bounded sources checked: 1\"],\"enrichedAt\":\"2026-09-28T17:25:12.425Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]}}",
+      "created_at": "2026-09-28T17:25:12.441Z"
+    }
+  ],
+  "events": [
+    {
+      "id": "6b186629-429c-4492-b3ad-d99dc7f754bf",
+      "prospect_id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44397635200015\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"443976352|44397635200015\",\"researchIdentity\":{\"siren\":\"443976352\",\"siret\":\"44397635200015\",\"companyName\":\"BODY ILES\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44397635200015\"},\"classification\":\"HIGH_PRIORITY\",\"score\":79,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T16:06:36.768Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":19,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}",
+      "created_at": "2026-09-28T16:06:36.768Z"
+    },
+    {
+      "id": "755534d9-501d-44f8-92f9-372ca4beb946",
+      "prospect_id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"32d48920-04a5-4337-a852-6e12447e6aae\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T16:06:36.786Z"
+    },
+    {
+      "id": "e4e85c52-5fc7-42cf-afcb-2f8aef02a10d",
+      "prospect_id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/42048120200067\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"420481202|42048120200067\",\"researchIdentity\":{\"siren\":\"420481202\",\"siret\":\"42048120200067\",\"companyName\":\"DATEX ANTILLES-GUYANE\",\"city\":\"FORT DE FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/42048120200067\"},\"classification\":\"HIGH_PRIORITY\",\"score\":78,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T16:06:36.792Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":14,\"sector\":14,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}",
+      "created_at": "2026-09-28T16:06:36.792Z"
+    },
+    {
+      "id": "db7f88c1-e4af-451d-af33-53c6f6ed5c0b",
+      "prospect_id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"cb690f4e-2009-4b37-bb4c-b4f7bcfc5df4\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T16:06:36.805Z"
+    },
+    {
+      "id": "f27478a0-a646-423b-8a0e-b9d52928c103",
+      "prospect_id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"189729015|18972901500017\",\"researchIdentity\":{\"siren\":\"189729015\",\"siret\":\"18972901500017\",\"companyName\":\"CERCLE DE LA BASE DE DEFENSE DES ANTILLES\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\"},\"classification\":\"RESEARCH\",\"score\":70,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T16:06:36.810Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":14,\"sector\":14,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}",
+      "created_at": "2026-09-28T16:06:36.810Z"
+    },
+    {
+      "id": "36c4bbaa-6a37-47ed-976b-2ef05e33fb48",
+      "prospect_id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"79e987b7-a933-423d-8ccb-6f5a16f9bc02\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T16:06:36.822Z"
+    },
+    {
+      "id": "57c6e7f4-7176-4dd0-9415-e95b2cba8fa4",
+      "prospect_id": null,
+      "actor": "system",
+      "type": "discovery.recherche_entreprises_batch",
+      "payload_json": "{\"page\":1,\"nextPage\":2,\"totalPages\":742,\"priorityPagesScanned\":3,\"fallbackPage\":null,\"scanned\":9,\"candidates\":8,\"created\":3,\"skipped\":1,\"intakeMode\":\"AUTOPILOT\",\"authRequired\":false,\"monetaryCost\":0,\"candidateDiagnostics\":{\"enabled\":true,\"complete\":true,\"total\":8,\"retained\":8,\"candidateDecisions\":[{\"occurrence\":1,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":1,\"stableIdentity\":\"18972901500017\",\"displayName\":\"CERCLE DE LA BASE DE DEFENSE DES ANTILLES\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"56.29B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":70,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":2,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":1,\"stableIdentity\":\"42048120200067\",\"displayName\":\"DATEX ANTILLES-GUYANE\",\"municipality\":\"FORT DE FRANCE\",\"naf\":\"56.29A\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"HIGH_PRIORITY\",\"finalEligibilityScore\":78,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":3,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":1,\"stableIdentity\":\"31572855000015\",\"displayName\":\"GEORGES VILOCY\",\"municipality\":\"SCHOELCHER\",\"naf\":\"41.20A\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":2,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"LOW_PRIORITY\",\"finalEligibilityScore\":47,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":4,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":1,\"stableIdentity\":\"42492676400020\",\"displayName\":\"EPIL'ECLAT\",\"municipality\":\"SCHOELCHER\",\"naf\":\"96.02B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"REJECT\",\"finalEligibilityScore\":38,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":5,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":1,\"stableIdentity\":\"44397635200015\",\"displayName\":\"BODY ILES\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"96.02B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"HIGH_PRIORITY\",\"finalEligibilityScore\":79,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":6,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":1,\"stableIdentity\":\"47830809100030\",\"displayName\":\"NATHOU BEAUTE\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"96.02B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"LOW_PRIORITY\",\"finalEligibilityScore\":50,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":7,\"sourceWindow\":\"LOCAL_RETAIL\",\"sourcePage\":1,\"stableIdentity\":\"30316059200018\",\"displayName\":\"SA BATA OUTRE MER (BOM)\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"47.72A\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":66,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":8,\"sourceWindow\":\"LOCAL_RETAIL\",\"sourcePage\":1,\"stableIdentity\":\"39335043400469\",\"displayName\":\"ECOMAX GUADELOUPE\",\"municipality\":\"LE LAMENTIN\",\"naf\":\"70.10Z\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":3,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":61,\"constraints\":[\"NAF_70_10Z_NEUTRAL_SECTOR\",\"ICP_FIRST_WAVE_RESEARCH_CAP\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false}]}}",
+      "created_at": "2026-09-28T16:06:36.833Z"
+    },
+    {
+      "id": "20c1cc36-bd05-4a54-9650-09c3dede9cdd",
+      "prospect_id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "actor": "scoring-agent",
+      "type": "research.scored",
+      "payload_json": "{\"score\":48,\"band\":\"LOW\",\"qualified\":false,\"autoPrototypeEligible\":false,\"sources\":[{\"url\":\"https://www.bodyiles.com/\",\"note\":\"The official website provides a clear logo, contact form, and navigation structure.\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.facebook.com/bodyiles\",\"note\":\"The official Facebook page shows a clear logo and contact information.\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"evidenceIntegrity\":{\"passed\":true,\"reasons\":[],\"rejectedSourceCount\":0,\"supportedClaims\":[\"digitalGap\",\"commercialStrength\",\"localFit\",\"prototypeLeverage\",\"activity\",\"website\"]},\"phoneEvidence\":null,\"contactPresence\":{\"status\":\"REJECTED\",\"identity\":{\"status\":\"REJECTED\",\"matched\":false,\"reason\":\"identity mismatch\",\"observations\":[{\"domain\":\"facebook.com\"}]},\"phone\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"social\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":1,\"sourcesChecked\":[\"https://www.facebook.com/bodyiles\"],\"reasons\":[\"bounded sources checked: 1\"],\"enrichedAt\":\"2026-09-28T16:09:26.250Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]},\"brandAsset\":{\"status\":\"UNKNOWN\",\"reuseDecision\":\"CREATE_ONLY_IF_NO_USABLE_IDENTITY\",\"note\":\"Aucun actif de marque structurÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© dans cette sortie de recherche.\"}}",
+      "created_at": "2026-09-28T16:09:26.667Z"
+    },
+    {
+      "id": "0df31c1d-a1c9-4845-9457-0835bedb4f05",
+      "prospect_id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "actor": "scoring-agent",
+      "type": "research.scored",
+      "payload_json": "{\"score\":48,\"band\":\"LOW\",\"qualified\":false,\"autoPrototypeEligible\":false,\"sources\":[{\"url\":\"https://www.datexantillesguyane.com/\",\"note\":\"Official website\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.datexantillesguyane.com/contact\",\"note\":\"Official contact page\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"evidenceIntegrity\":{\"passed\":true,\"reasons\":[],\"rejectedSourceCount\":0,\"supportedClaims\":[\"digitalGap\",\"commercialStrength\",\"localFit\",\"prototypeLeverage\",\"activity\",\"website\"]},\"phoneEvidence\":null,\"contactPresence\":{\"status\":\"UNKNOWN\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"datexantillesguyane.com\"}]},\"phone\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"www.datexantillesguyane.com\"],\"evidence\":[{\"value\":\"www.datexantillesguyane.com\",\"sourceUrl\":\"www.datexantillesguyane.com\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":0,\"sourcesChecked\":[],\"reasons\":[\"identity bound\",\"bounded sources checked: 0\"],\"enrichedAt\":\"2026-09-28T16:12:20.316Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]},\"brandAsset\":{\"status\":\"UNKNOWN\",\"reuseDecision\":\"CREATE_ONLY_IF_NO_USABLE_IDENTITY\",\"note\":\"Aucun actif de marque structurÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© dans cette sortie de recherche.\"}}",
+      "created_at": "2026-09-28T16:12:20.401Z"
+    },
+    {
+      "id": "d6eee80c-52e5-4aeb-9edc-6ba80f43112d",
+      "prospect_id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "actor": "scoring-agent",
+      "type": "research.scored",
+      "payload_json": "{\"score\":0,\"band\":\"LOW\",\"qualified\":false,\"autoPrototypeEligible\":false,\"sources\":[{\"url\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"note\":\"official business page\",\"supports\":[\"activity\",\"website\"]}],\"evidenceIntegrity\":{\"passed\":true,\"reasons\":[],\"rejectedSourceCount\":0,\"supportedClaims\":[\"digitalGap\",\"commercialStrength\",\"localFit\",\"activity\",\"website\"]},\"phoneEvidence\":null,\"contactPresence\":{\"status\":\"VERIFIED\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"annuaire-entreprises.data.gouv.fr\"}]},\"phone\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\"],\"evidence\":[{\"value\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":1,\"sourcesChecked\":[\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\"],\"reasons\":[\"identity bound\",\"bounded sources checked: 1\"],\"enrichedAt\":\"2026-09-28T16:15:06.811Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]},\"brandAsset\":{\"status\":\"UNKNOWN\",\"reuseDecision\":\"CREATE_ONLY_IF_NO_USABLE_IDENTITY\",\"note\":\"Aucun actif de marque structurÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© dans cette sortie de recherche.\"}}",
+      "created_at": "2026-09-28T16:15:06.889Z"
+    },
+    {
+      "id": "5f6992c4-a97d-4ffc-8ec7-dfd3ae176774",
+      "prospect_id": "d136a9dd-d0ca-426b-9b0c-d2ce4cbfda1a",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/34991500900014\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"349915009|34991500900014\",\"researchIdentity\":{\"siren\":\"349915009\",\"siret\":\"34991500900014\",\"companyName\":\"CATLEIA\",\"city\":\"LE LAMENTIN\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/34991500900014\"},\"classification\":\"RESEARCH\",\"score\":66,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T16:29:57.092Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":14,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}",
+      "created_at": "2026-09-28T16:29:57.092Z"
+    },
+    {
+      "id": "dc88f207-65ce-421c-9bc4-57d602558871",
+      "prospect_id": "d136a9dd-d0ca-426b-9b0c-d2ce4cbfda1a",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"df7a2a30-616a-46bc-b3b4-c00cd7e680be\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T16:29:57.121Z"
+    },
+    {
+      "id": "7d6218c1-72fb-4a02-9c28-39822eef529e",
+      "prospect_id": "1a608e32-1703-44a2-b81f-42d10d80c61f",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/94994008400013\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"949940084|94994008400013\",\"researchIdentity\":{\"siren\":\"949940084\",\"siret\":\"94994008400013\",\"companyName\":\"KREOL POKE\",\"city\":\"LA TRINITE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/94994008400013\"},\"classification\":\"RESEARCH\",\"score\":76,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T16:29:57.362Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":19,\"autonomy\":20,\"sector\":5,\"recency\":2},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NAF_70_10Z_NEUTRAL_SECTOR\",\"ICP_FIRST_WAVE_RESEARCH_CAP\"]}",
+      "created_at": "2026-09-28T16:29:57.362Z"
+    },
+    {
+      "id": "d569f1cf-8253-4ca0-9dc1-2bf00a36a5f2",
+      "prospect_id": "1a608e32-1703-44a2-b81f-42d10d80c61f",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"4cd30580-5978-4c27-8bfa-c1a900ff2799\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T16:29:57.382Z"
+    },
+    {
+      "id": "26d3c744-c31a-4138-a2f7-5b36c9c9855c",
+      "prospect_id": "58264bc4-f64f-4245-920f-e448601dea89",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/31327973900079\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"313279739|31327973900079\",\"researchIdentity\":{\"siren\":\"313279739\",\"siret\":\"31327973900079\",\"companyName\":\"JEAN-PIERRE LEMOINE-BUSSEROLLES\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/31327973900079\"},\"classification\":\"RESEARCH\",\"score\":67,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T16:29:57.390Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":5,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NAF_70_10Z_NEUTRAL_SECTOR\",\"ICP_FIRST_WAVE_RESEARCH_CAP\"]}",
+      "created_at": "2026-09-28T16:29:57.390Z"
+    },
+    {
+      "id": "9aaf62dd-4b11-470e-a17d-5f39d21455fd",
+      "prospect_id": "58264bc4-f64f-4245-920f-e448601dea89",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"d86bad90-53fe-4924-9533-fb113ea13c83\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T16:29:57.409Z"
+    },
+    {
+      "id": "19930582-43d5-4ab1-a705-75eaeb953179",
+      "prospect_id": null,
+      "actor": "system",
+      "type": "discovery.recherche_entreprises_batch",
+      "payload_json": "{\"page\":2,\"nextPage\":3,\"totalPages\":742,\"priorityPagesScanned\":3,\"fallbackPage\":1,\"scanned\":12,\"candidates\":9,\"created\":3,\"skipped\":7,\"intakeMode\":\"AUTOPILOT\",\"authRequired\":false,\"monetaryCost\":0,\"candidateDiagnostics\":{\"enabled\":true,\"complete\":true,\"total\":9,\"retained\":9,\"candidateDecisions\":[{\"occurrence\":1,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":2,\"stableIdentity\":\"94994008400013\",\"displayName\":\"KREOL POKE\",\"municipality\":\"LA TRINITE\",\"naf\":\"70.10Z\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":3,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":76,\"constraints\":[\"NAF_70_10Z_NEUTRAL_SECTOR\",\"ICP_FIRST_WAVE_RESEARCH_CAP\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":2,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":2,\"stableIdentity\":\"31327973900079\",\"displayName\":\"JEAN-PIERRE LEMOINE-BUSSEROLLES\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"70.10Z\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":3,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":67,\"constraints\":[\"NAF_70_10Z_NEUTRAL_SECTOR\",\"ICP_FIRST_WAVE_RESEARCH_CAP\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":3,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":2,\"stableIdentity\":\"98381209000022\",\"displayName\":\"THE BEAUTY HUB\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"96.02A\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"LOW_PRIORITY\",\"finalEligibilityScore\":44,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"REJECTED\",\"canonicalReason\":\"OUT_OF_SCOPE\",\"persistenceAttempted\":false},{\"occurrence\":4,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":2,\"stableIdentity\":\"83889030900035\",\"displayName\":\"KERYNA COSMETIQUES\",\"municipality\":\"LA TRINITE\",\"naf\":\"96.02B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"LOW_PRIORITY\",\"finalEligibilityScore\":42,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"REJECTED\",\"canonicalReason\":\"OUT_OF_SCOPE\",\"persistenceAttempted\":false},{\"occurrence\":5,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":2,\"stableIdentity\":\"31852739700018\",\"displayName\":\"JEAN-CLAUDE CHENAL\",\"municipality\":\"SCHOELCHER\",\"naf\":\"68.20B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":2,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"REJECT\",\"finalEligibilityScore\":37,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"REJECTED\",\"canonicalReason\":\"OUT_OF_SCOPE\",\"persistenceAttempted\":false},{\"occurrence\":6,\"sourceWindow\":\"LOCAL_RETAIL\",\"sourcePage\":2,\"stableIdentity\":\"77557197900332\",\"displayName\":\"LIBRAIRIE CHRETIENNE CLC (CLC)\",\"municipality\":\"FORT DE FRANCE\",\"naf\":\"47.61Z\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"REJECT\",\"finalEligibilityScore\":35,\"constraints\":[\"ASSOCIATION_RESEARCH_CAP\",\"NETWORK_AUTONOMY_CHECK_REQUIRED\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"REJECTED\",\"canonicalReason\":\"OUT_OF_SCOPE\",\"persistenceAttempted\":false},{\"occurrence\":7,\"sourceWindow\":\"LOCAL_RETAIL\",\"sourcePage\":2,\"stableIdentity\":\"34991500900014\",\"displayName\":\"CATLEIA\",\"municipality\":\"LE LAMENTIN\",\"naf\":\"47.72A\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":66,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":8,\"sourceWindow\":\"LOCAL_RETAIL\",\"sourcePage\":2,\"stableIdentity\":\"79195699800029\",\"displayName\":\"I LOVE MOBILE\",\"municipality\":\"LE LAMENTIN\",\"naf\":\"61.90Z\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":3,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"REJECT\",\"finalEligibilityScore\":33,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":9,\"sourceWindow\":\"BROAD_FALLBACK\",\"sourcePage\":1,\"stableIdentity\":\"77567618206607\",\"displayName\":\"LE SOUVENIR FRANCAIS\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"94.99Z\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":3,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"REJECT\",\"finalEligibilityScore\":30,\"constraints\":[\"ASSOCIATION_RESEARCH_CAP\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false}]}}",
+      "created_at": "2026-09-28T16:29:57.420Z"
+    },
+    {
+      "id": "9ec78888-c734-48ce-99df-e5413f792b6e",
+      "prospect_id": "d136a9dd-d0ca-426b-9b0c-d2ce4cbfda1a",
+      "actor": "scoring-agent",
+      "type": "research.scored",
+      "payload_json": "{\"score\":52,\"band\":\"MEDIUM\",\"qualified\":false,\"autoPrototypeEligible\":false,\"sources\":[{\"url\":\"https://www.catleia.com/\",\"note\":\"Official website of CATLEIA\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.catleia.com/contact\",\"note\":\"Official contact page of CATLEIA\",\"supports\":[\"digitalGap\",\"activity\",\"website\",\"phone\"]}],\"evidenceIntegrity\":{\"passed\":true,\"reasons\":[],\"rejectedSourceCount\":0,\"supportedClaims\":[\"digitalGap\",\"commercialStrength\",\"localFit\",\"prototypeLeverage\",\"activity\",\"website\"]},\"phoneEvidence\":null,\"contactPresence\":{\"status\":\"UNKNOWN\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"catleia.com\"}]},\"phone\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"www.catleia.com\"],\"evidence\":[{\"value\":\"www.catleia.com\",\"sourceUrl\":\"www.catleia.com\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":0,\"sourcesChecked\":[],\"reasons\":[\"identity bound\",\"bounded sources checked: 0\"],\"enrichedAt\":\"2026-09-28T16:32:15.984Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]},\"brandAsset\":{\"status\":\"UNKNOWN\",\"reuseDecision\":\"CREATE_ONLY_IF_NO_USABLE_IDENTITY\",\"note\":\"Aucun actif de marque structurÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© dans cette sortie de recherche.\"}}",
+      "created_at": "2026-09-28T16:32:16.069Z"
+    },
+    {
+      "id": "6275479f-f2cf-4fdf-9ccd-cb05135b88dc",
+      "prospect_id": "1a608e32-1703-44a2-b81f-42d10d80c61f",
+      "actor": "scoring-agent",
+      "type": "research.scored",
+      "payload_json": "{\"score\":48,\"band\":\"LOW\",\"qualified\":false,\"autoPrototypeEligible\":false,\"sources\":[{\"url\":\"https://www.kreolpoke.com/\",\"note\":\"Official website of KREOL POKE\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.kreolpoke.com/contact\",\"note\":\"Official contact page of KREOL POKE\",\"supports\":[\"digitalGap\",\"activity\",\"website\",\"phone\"]}],\"evidenceIntegrity\":{\"passed\":true,\"reasons\":[],\"rejectedSourceCount\":0,\"supportedClaims\":[\"digitalGap\",\"commercialStrength\",\"localFit\",\"prototypeLeverage\",\"activity\",\"website\"]},\"phoneEvidence\":null,\"contactPresence\":{\"status\":\"UNKNOWN\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"kreolpoke.com\"}]},\"phone\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"www.kreolpoke.com\"],\"evidence\":[{\"value\":\"www.kreolpoke.com\",\"sourceUrl\":\"www.kreolpoke.com\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":0,\"sourcesChecked\":[],\"reasons\":[\"identity bound\",\"bounded sources checked: 0\"],\"enrichedAt\":\"2026-09-28T16:34:46.038Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]},\"brandAsset\":{\"status\":\"UNKNOWN\",\"reuseDecision\":\"CREATE_ONLY_IF_NO_USABLE_IDENTITY\",\"note\":\"Aucun actif de marque structurÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© dans cette sortie de recherche.\"}}",
+      "created_at": "2026-09-28T16:34:46.108Z"
+    },
+    {
+      "id": "e8531b8c-6184-4449-bdc7-dc132a0c69fe",
+      "prospect_id": "58264bc4-f64f-4245-920f-e448601dea89",
+      "actor": "scoring-agent",
+      "type": "research.scored",
+      "payload_json": "{\"score\":48,\"band\":\"LOW\",\"qualified\":false,\"autoPrototypeEligible\":false,\"sources\":[{\"url\":\"https://www.jeanpierrelemoinebusserolles.com/\",\"note\":\"official website\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.facebook.com/jeanpierrelemoinebusserolles\",\"note\":\"official Facebook page\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"evidenceIntegrity\":{\"passed\":true,\"reasons\":[],\"rejectedSourceCount\":0,\"supportedClaims\":[\"digitalGap\",\"commercialStrength\",\"localFit\",\"prototypeLeverage\",\"activity\",\"website\"]},\"phoneEvidence\":null,\"contactPresence\":{\"status\":\"REJECTED\",\"identity\":{\"status\":\"REJECTED\",\"matched\":false,\"reason\":\"identity mismatch\",\"observations\":[{\"domain\":\"facebook.com\"}]},\"phone\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"social\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":1,\"sourcesChecked\":[\"https://www.facebook.com/jeanpierrelemoinebusserolles\"],\"reasons\":[\"bounded sources checked: 1\"],\"enrichedAt\":\"2026-09-28T16:37:07.399Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]},\"brandAsset\":{\"status\":\"UNKNOWN\",\"reuseDecision\":\"CREATE_ONLY_IF_NO_USABLE_IDENTITY\",\"note\":\"Aucun actif de marque structurÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© dans cette sortie de recherche.\"}}",
+      "created_at": "2026-09-28T16:37:07.486Z"
+    },
+    {
+      "id": "3eaf1698-ff76-4aad-be79-145b13ee778d",
+      "prospect_id": "ec74433c-fbcc-47ac-8176-1cfb00189fce",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/38013215900019\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"380132159|38013215900019\",\"researchIdentity\":{\"siren\":\"380132159\",\"siret\":\"38013215900019\",\"companyName\":\"RITA CHAILLON\",\"city\":\"SAINTE-ANNE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/38013215900019\"},\"classification\":\"HIGH_PRIORITY\",\"score\":84,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T17:20:42.985Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":14,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}",
+      "created_at": "2026-09-28T17:20:42.985Z"
+    },
+    {
+      "id": "2b9d7bdc-3f28-4588-848e-3156f8f6c781",
+      "prospect_id": "ec74433c-fbcc-47ac-8176-1cfb00189fce",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"1bd9d70b-5a30-4d8f-bcf5-33f412567714\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T17:20:42.999Z"
+    },
+    {
+      "id": "60ba366b-9609-46e6-998d-29bd3d474bfb",
+      "prospect_id": "02bc70a6-4607-41e4-829b-0f3b9351b1aa",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44852012200012\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"448520122|44852012200012\",\"researchIdentity\":{\"siren\":\"448520122\",\"siret\":\"44852012200012\",\"companyName\":\"GANESH STORE SARL\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44852012200012\"},\"classification\":\"HIGH_PRIORITY\",\"score\":84,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T17:20:43.005Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":14,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}",
+      "created_at": "2026-09-28T17:20:43.005Z"
+    },
+    {
+      "id": "0e3e4fae-1076-4f26-9f3e-40da4dcccf44",
+      "prospect_id": "02bc70a6-4607-41e4-829b-0f3b9351b1aa",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"b42c112b-65d1-4fe4-a9f2-a77da0e7920a\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T17:20:43.017Z"
+    },
+    {
+      "id": "f45f8998-f9d0-402b-b226-fd88e32c50eb",
+      "prospect_id": "7509c105-ea28-48ea-aaf3-59e780720d25",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44296362500086\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"442963625|44296362500086\",\"researchIdentity\":{\"siren\":\"442963625\",\"siret\":\"44296362500086\",\"companyName\":\"DELICATESS\",\"city\":\"SAINTE-LUCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44296362500086\"},\"classification\":\"RESEARCH\",\"score\":84,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T17:20:43.023Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":14,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"]}",
+      "created_at": "2026-09-28T17:20:43.023Z"
+    },
+    {
+      "id": "734d41f4-8e92-4ad7-95e4-53e3ab49c837",
+      "prospect_id": "7509c105-ea28-48ea-aaf3-59e780720d25",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"b7b5ce09-568f-41ac-b32a-a1511b559fd8\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T17:20:43.034Z"
+    },
+    {
+      "id": "1f0abd73-c98d-46bf-b204-b95a121bed7c",
+      "prospect_id": null,
+      "actor": "system",
+      "type": "discovery.recherche_entreprises_batch",
+      "payload_json": "{\"page\":3,\"nextPage\":4,\"totalPages\":742,\"priorityPagesScanned\":3,\"fallbackPage\":null,\"scanned\":9,\"candidates\":9,\"created\":3,\"skipped\":0,\"intakeMode\":\"AUTOPILOT\",\"authRequired\":false,\"monetaryCost\":0,\"candidateDiagnostics\":{\"enabled\":true,\"complete\":true,\"total\":9,\"retained\":9,\"candidateDecisions\":[{\"occurrence\":1,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":3,\"stableIdentity\":\"44852012200012\",\"displayName\":\"GANESH STORE SARL\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"56.10C\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"HIGH_PRIORITY\",\"finalEligibilityScore\":84,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":2,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":3,\"stableIdentity\":\"38013215900019\",\"displayName\":\"RITA CHAILLON\",\"municipality\":\"SAINTE-ANNE\",\"naf\":\"56.10A\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"HIGH_PRIORITY\",\"finalEligibilityScore\":84,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":3,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":3,\"stableIdentity\":\"44296362500086\",\"displayName\":\"DELICATESS\",\"municipality\":\"SAINTE-LUCE\",\"naf\":\"56.21Z\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":84,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":4,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":3,\"stableIdentity\":\"31282531800016\",\"displayName\":\"ALEX BEZAUDIN\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"68.20B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":2,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":67,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":5,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":3,\"stableIdentity\":\"31286723700017\",\"displayName\":\"DANIELLE SAINTE-LUCE\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"68.20B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":2,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"REJECT\",\"finalEligibilityScore\":37,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":6,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":3,\"stableIdentity\":\"49974446400037\",\"displayName\":\"DIVA NAILS BAR\",\"municipality\":\"LE LAMENTIN\",\"naf\":\"96.02B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":72,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":7,\"sourceWindow\":\"LOCAL_RETAIL\",\"sourcePage\":3,\"stableIdentity\":\"81238418800015\",\"displayName\":\"ECOCOM@M\",\"municipality\":\"LE LAMENTIN\",\"naf\":\"47.42Z\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":73,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":8,\"sourceWindow\":\"LOCAL_RETAIL\",\"sourcePage\":3,\"stableIdentity\":\"49271515600062\",\"displayName\":\"PRIMA\",\"municipality\":\"RIVIERE-SALEE\",\"naf\":\"47.71Z\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":73,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":9,\"sourceWindow\":\"LOCAL_RETAIL\",\"sourcePage\":3,\"stableIdentity\":\"31095412800040\",\"displayName\":\"CHRISTIAN DUVENTRU\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"70.10Z\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":3,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":61,\"constraints\":[\"NAF_70_10Z_NEUTRAL_SECTOR\",\"ICP_FIRST_WAVE_RESEARCH_CAP\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false}]}}",
+      "created_at": "2026-09-28T17:20:43.045Z"
+    },
+    {
+      "id": "8b99184c-2600-4e9d-b84a-cade91627d9a",
+      "prospect_id": "ec74433c-fbcc-47ac-8176-1cfb00189fce",
+      "actor": "scoring-agent",
+      "type": "research.scored",
+      "payload_json": "{\"score\":48,\"band\":\"LOW\",\"qualified\":false,\"autoPrototypeEligible\":false,\"sources\":[{\"url\":\"https://www.rita-chaillon.com/\",\"note\":\"Official website shows logo and contact form\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.rita-chaillon.com/contact\",\"note\":\"Official website contact form\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"evidenceIntegrity\":{\"passed\":true,\"reasons\":[],\"rejectedSourceCount\":0,\"supportedClaims\":[\"digitalGap\",\"commercialStrength\",\"localFit\",\"prototypeLeverage\",\"activity\",\"website\"]},\"phoneEvidence\":null,\"contactPresence\":{\"status\":\"UNKNOWN\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"domain\":\"rita-chaillon.com\"}]},\"phone\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"www.rita-chaillon.com\"],\"evidence\":[{\"value\":\"www.rita-chaillon.com\",\"sourceUrl\":\"www.rita-chaillon.com\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":0,\"sourcesChecked\":[],\"reasons\":[\"identity bound\",\"bounded sources checked: 0\"],\"enrichedAt\":\"2026-09-28T17:23:07.138Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]},\"brandAsset\":{\"status\":\"UNKNOWN\",\"reuseDecision\":\"CREATE_ONLY_IF_NO_USABLE_IDENTITY\",\"note\":\"Aucun actif de marque structurÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© dans cette sortie de recherche.\"}}",
+      "created_at": "2026-09-28T17:23:07.212Z"
+    },
+    {
+      "id": "26d45ae5-8b42-4e42-a7c5-be62276770b0",
+      "prospect_id": "02bc70a6-4607-41e4-829b-0f3b9351b1aa",
+      "actor": "scoring-agent",
+      "type": "research.scored",
+      "payload_json": "{\"score\":48,\"band\":\"LOW\",\"qualified\":false,\"autoPrototypeEligible\":false,\"sources\":[{\"url\":\"https://www.ganesh-store.com/\",\"note\":\"Official website of the prospect\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://www.facebook.com/GANESHSTORESARL\",\"note\":\"Official Facebook page of the prospect\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]}],\"evidenceIntegrity\":{\"passed\":true,\"reasons\":[],\"rejectedSourceCount\":0,\"supportedClaims\":[\"digitalGap\",\"commercialStrength\",\"localFit\",\"prototypeLeverage\",\"activity\",\"website\"]},\"phoneEvidence\":null,\"contactPresence\":{\"status\":\"REJECTED\",\"identity\":{\"status\":\"REJECTED\",\"matched\":false,\"reason\":\"identity mismatch\",\"observations\":[{\"domain\":\"facebook.com\"}]},\"phone\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"email\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"website\":{\"status\":\"UNKNOWN\",\"values\":[],\"evidence\":[]},\"social\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"instagram\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"facebook\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"tiktok\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"sourcesProcessed\":1,\"sourcesChecked\":[\"https://www.facebook.com/GANESHSTORESARL\"],\"reasons\":[\"bounded sources checked: 1\"],\"enrichedAt\":\"2026-09-28T17:25:12.425Z\",\"truncated\":false},\"operatingEvidence\":{\"status\":\"UNKNOWN\",\"facts\":[]},\"digitalPainEvidence\":{\"status\":\"UNKNOWN\",\"observations\":[]},\"brandAsset\":{\"status\":\"UNKNOWN\",\"reuseDecision\":\"CREATE_ONLY_IF_NO_USABLE_IDENTITY\",\"note\":\"Aucun actif de marque structurÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© dans cette sortie de recherche.\"}}",
+      "created_at": "2026-09-28T17:25:12.477Z"
+    }
+  ],
+  "provider_state": [
+    {
+      "provider": "recherche-entreprises",
+      "key": "martinique-first-wave-food-page",
+      "value": "4",
+      "updated_at": "2026-09-28T17:20:43.038Z"
+    },
+    {
+      "provider": "recherche-entreprises",
+      "key": "martinique-first-wave-beauty-page",
+      "value": "4",
+      "updated_at": "2026-09-28T17:20:43.041Z"
+    },
+    {
+      "provider": "recherche-entreprises",
+      "key": "martinique-first-wave-retail-page",
+      "value": "4",
+      "updated_at": "2026-09-28T17:20:43.043Z"
+    },
+    {
+      "provider": "recherche-entreprises",
+      "key": "martinique-page",
+      "value": "2",
+      "updated_at": "2026-09-28T16:29:57.416Z"
+    }
+  ],
+  "v2_admissions": [],
+  "active_production_slots": [
+    {
+      "slot_id": 1,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 2,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 3,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 4,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 5,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 6,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 7,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 8,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 9,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 10,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 11,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 12,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 13,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 14,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 15,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 16,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 17,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 18,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 19,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 20,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    }
+  ],
+  "v2_design_requests": [],
+  "v2_design_artifacts": [],
+  "v2_design_reviews": [],
+  "v2_build_artifacts": [],
+  "v2_visual_qa_reports": [],
+  "v2_proposals": [],
+  "outreach_messages": [],
+  "contacts": [],
+  "phone_trust_states": [],
+  "prototypes": []
+}

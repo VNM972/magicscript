@@ -1,0 +1,12 @@
+{
+  "version": "BUILD_ARTIFACT_V1",
+  "artifactId": "artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+  "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+  "prospectId": "v2-51972816600033",
+  "approvedRevision": 1,
+  "framework": "STATIC_HTML_CSS",
+  "buildArtifactId": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+  "builderVersion": "builder-v1",
+  "buildRevision": 1,
+  "qaAttempt": 1
+}

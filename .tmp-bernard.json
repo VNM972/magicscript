@@ -1,0 +1,45 @@
+﻿{
+  "prospect": {
+    "id": "7c2901b1-fab6-40c2-8645-ee6f51329544",
+    "companyName": "BERNARD'S COFFEE SHOP",
+    "legalName": "BERNARD'S COFFEE SHOP",
+    "siren": "892355967",
+    "siret": "89235596700027",
+    "city": "FORT-DE-FRANCE",
+    "sourceUrl": "https://recherche-entreprises.api.gouv.fr/search?q=Bernard%27s%20Coffee",
+    "activityTaxonomy": "NAF_2008",
+    "commercialEligibility": "HIGH_PRIORITY",
+    "brandKey": "BERNARD S COFFEE SHOP",
+    "initialResearchRepresentative": true,
+    "activity": "Torréfaction du café; NAF 10.83Z",
+    "location": "Kiosque, 11 Rue de la Liberté, 97200 Fort-de-France, Martinique",
+    "state": "DISQUALIFIED",
+    "score": 0,
+    "primaryCta": "Unknown pending Research",
+    "createdAt": "2026-09-15T16:23:18.408Z",
+    "updatedAt": "2026-09-15T17:05:31.199Z"
+  },
+  "contacts": [],
+  "contactability": {
+    "identity": {
+      "prospectId": "7c2901b1-fab6-40c2-8645-ee6f51329544",
+      "siren": "892355967",
+      "siret": "89235596700027"
+    },
+    "status": "MISSING",
+    "channels": [],
+    "preparation": null
+  },
+  "prototype": null,
+  "salesRoom": null,
+  "commercialLinks": {
+    "prototypeUrl": null,
+    "prototypeEntryUrl": null,
+    "salesRoomUrl": null,
+    "salesRoomSlug": "bernard-s-coffee-shop",
+    "salesRoomStatus": "ACTIVE",
+    "personalizedUrl": null,
+    "personalizedEntryEnabled": false,
+    "links": []
+  }
+}

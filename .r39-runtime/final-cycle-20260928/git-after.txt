@@ -1,0 +1,283 @@
+ M .gitignore
+ M AGENTS.md
+ M CLAUDE.md
+ M agents/agent-2-prototype.md
+ M agents/agent-3-commercial.md
+ M agents/swarm/orchestrator.md
+ M agents/swarm/outreach.md
+ M agents/swarm/response-classifier.md
+ M apps/agent-runner/src/api.ts
+ M apps/agent-runner/src/index.ts
+ M apps/api-worker/src/index.ts
+ M apps/api-worker/src/runner-admission.integration.test.mjs
+ M apps/control-center/app/globals.css
+ M apps/control-center/app/layout.tsx
+ M apps/control-center/app/page.tsx
+ M apps/control-center/components/OutreachReview.tsx
+ M apps/control-center/lib/deck.ts
+ M apps/control-center/lib/outreach.ts
+ M artifacts/v2/outreach/m010-final-acceptance.json
+ M config/magicscript-v2-boundary.json
+ M core/admission/contact-opportunity-pack.ts
+ M core/admission/v2-admission.ts
+ M core/index.ts
+ M core/orchestrator/engine.ts
+ M core/outreach/contracts.ts
+ M core/outreach/engine.ts
+ M core/outreach/send.ts
+ M core/persistence/d1-job-queue.ts
+ M core/persistence/d1-outreach-draft-store.ts
+ M core/persistence/d1-prospect-repository.ts
+ M core/personalization/entry-links.ts
+ M core/proposal/contracts.ts
+ M core/proposal/tracking.ts
+ M core/prototypes/web-design-review.ts
+ M core/providers/discovery.ts
+ M core/providers/insee-sirene.ts
+ M core/providers/recherche-entreprises.ts
+ M core/tests/orchestrator.test.ts
+ M core/tests/outreach-draft.test.ts
+ M core/tests/outreach-policy.test.ts
+ M core/tests/prototype-cost-gate.test.ts
+ M core/tests/recherche-entreprises.test.ts
+ M core/tests/v2-admission.test.ts
+ M database/migration-v2-outreach-draft-v1.sql
+ M database/schema.sql
+ M docs/cloudflare-inventory.md
+ M docs/magicscript-v2-boundary.md
+ M outreach/templates.md
+ M scripts/m010-final-acceptance.mts
+ M scripts/magic-script.ps1
+ M scripts/qa-surface.cjs
+ M scripts/qa-surface.test.cjs
+ M scripts/smoke-full-funnel.mjs
+ M scripts/smoke-swarm.mjs
+ M scripts/start-local-swarm.ps1
+ M sites/magicscript-v2/public/app.js
+ M sites/magicscript-v2/public/index.html
+ M sites/magicscript-v2/public/mentions-legales.html
+ M sites/magicscript-v2/public/politique-confidentialite.html
+ M sites/magicscript-v2/public/styles.css
+?? ._list_prospects.py
+?? ._prospects.json
+?? .r27-runtime/
+?? .r31-runtime/
+?? .r32-runtime/
+?? .r35-runtime/
+?? .r36-runtime/
+?? .r38-runtime/
+?? .r39-runtime/
+?? .tmp-acquisition-replay.json
+?? .tmp-acquisition-rerun.json
+?? .tmp-bernard.json
+?? .tmp-classification.json
+?? .tmp-kay.json
+?? .tmp-latest-acquisition.json
+?? .tmp-phone-gap-audit.json
+?? .tmp-postmigration-counts.json
+?? .tmp-prospects-summary.json
+?? .tmp-reenrichment-data.json
+?? .tmp-reenrichment-inventory.json
+?? .tmp-replay-rerun.json
+?? .tmp-replay-run.json
+?? .tmp-tavily-final-d1.json
+?? .tmp-tavily-replay.json
+?? .tmp-telemetry-report-summary.txt
+?? agents/agent-4-web-design.md
+?? apps/agent-runner/src/agent1-canonical.test.ts
+?? apps/agent-runner/src/agent1-canonical.ts
+?? apps/agent-runner/src/aider.ts
+?? apps/agent-runner/src/deploy-mode.test.ts
+?? apps/agent-runner/src/ollama-schema.test.ts
+?? apps/agent-runner/src/ollama-schema.ts
+?? apps/agent-runner/src/ollama.test.ts
+?? apps/agent-runner/src/ollama.ts
+?? apps/agent-runner/src/operating-evidence.test.ts
+?? apps/agent-runner/src/operating-evidence.ts
+?? apps/agent-runner/src/parse-json.test.ts
+?? apps/agent-runner/src/phone-evidence.test.ts
+?? apps/agent-runner/src/phone-evidence.ts
+?? apps/agent-runner/src/presence-enrichment.test.ts
+?? apps/agent-runner/src/presence-enrichment.ts
+?? apps/agent-runner/src/prompts.test.ts
+?? apps/agent-runner/src/prototype-conversion-repair.test.ts
+?? apps/agent-runner/src/prototype-conversion-source.test.ts
+?? apps/agent-runner/src/prototype-conversion-source.ts
+?? apps/agent-runner/src/prototype-conversion.test.ts
+?? apps/agent-runner/src/prototype-creative-loop.test.ts
+?? apps/agent-runner/src/prototype-creative-loop.ts
+?? apps/agent-runner/src/prototype-creative-review-loop.test.ts
+?? apps/agent-runner/src/prototype-creative-review-loop.ts
+?? apps/agent-runner/src/prototype-qa.test.ts
+?? apps/agent-runner/src/prototype-qa.ts
+?? apps/agent-runner/src/prototype-scaffold.test.ts
+?? apps/agent-runner/src/prototype-scaffold.ts
+?? apps/agent-runner/src/prototype-source-files.test.ts
+?? apps/agent-runner/src/prototype-source-files.ts
+?? apps/agent-runner/src/prototype-source-navigation.ts
+?? apps/agent-runner/src/prototype-web-design-review.test.ts
+?? apps/agent-runner/src/prototype-web-design-review.ts
+?? apps/agent-runner/src/provider-discovery-handoff.test.ts
+?? apps/agent-runner/src/research-output.test.ts
+?? apps/agent-runner/src/research-output.ts
+?? apps/agent-runner/src/synthetic-creative-idempotency.test.ts
+?? apps/agent-runner/src/synthetic-creative-job.test.ts
+?? apps/agent-runner/src/synthetic-creative-job.ts
+?? apps/agent-runner/src/synthetic-creative-matrix.test.ts
+?? apps/agent-runner/src/synthetic-creative-matrix.ts
+?? apps/agent-runner/src/synthetic-creative-persistence.test.ts
+?? apps/agent-runner/src/synthetic-render-evidence.test.ts
+?? apps/agent-runner/src/synthetic-render-evidence.ts
+?? apps/api-worker/src/commercial-eligibility.integration.test.mjs
+?? apps/api-worker/src/commercial-lifecycle.test.mjs
+?? apps/api-worker/src/commercial-lifecycle.ts
+?? apps/api-worker/src/evidence-integrity.integration.test.mjs
+?? apps/api-worker/src/human-review.integration.test.mjs
+?? apps/api-worker/src/manual-discovery.integration.test.mjs
+?? apps/api-worker/src/outreach-drafts.integration.test.mjs
+?? apps/api-worker/src/outreach-edit.integration.test.mjs
+?? apps/api-worker/src/prototype-deployment.integration.test.mjs
+?? apps/api-worker/src/provider-discovery-handoff.integration.test.mjs
+?? apps/api-worker/src/shadow-qualification.integration.test.mjs
+?? apps/api-worker/src/synthetic-creative-persistence.integration.test.mjs
+?? apps/control-center/app/api/
+?? apps/control-center/components/DeckPipeline.tsx
+?? apps/control-center/lib/synthetic-creative-trace.test.ts
+?? artifacts/real-creative-canary-1-safe-stop.md
+?? artifacts/synthetic-creative/
+?? artifacts/v2/outreach/m010-health-diagnostic.json
+?? bulk/
+?? core/admission/agent1-evidence-projection.ts
+?? core/admission/persisted-agent1-evidence.ts
+?? core/contact-acquisition/
+?? core/contact-presence/
+?? core/experimentation/
+?? core/feedback/
+?? core/google-places-trust.ts
+?? core/icp/
+?? core/orchestrator/agent1-replenishment.ts
+?? core/orchestrator/contactability.ts
+?? core/orchestrator/deck-commercial-pipeline.ts
+?? core/orchestrator/google-discovery.ts
+?? core/orchestrator/prospect-commercial-view.ts
+?? core/outreach/commercial-catalog.ts
+?? core/outreach/commercial-contract.ts
+?? core/outreach/commercial-exemplars.ts
+?? core/outreach/commercial-fixture.ts
+?? core/outreach/commercial-oracles.ts
+?? core/outreach/commercial-policy.ts
+?? core/outreach/commercial-preparation-context.ts
+?? core/outreach/commercial-preparation.ts
+?? core/outreach/commercial-profiles.ts
+?? core/outreach/commercial-quality-gate.ts
+?? core/outreach/draft-lifecycle.ts
+?? core/persistence/d1-commercial-preparation-context-store.ts
+?? core/persistence/d1-production-slot-store.ts
+?? core/persistence/human-decision-store.ts
+?? core/persistence/operator-feedback-store.ts
+?? core/phone-trust.ts
+?? core/phone/
+?? core/project/
+?? core/proposal/booking-cta.ts
+?? core/proposal/booking-runtime.ts
+?? core/prototypes/design-directions.ts
+?? core/providers/first-wave-discovery.ts
+?? core/providers/google-places-discovery.ts
+?? core/research/
+?? core/telemetry/
+?? core/tests/agent1-evidence-projection.test.ts
+?? core/tests/agent1-replenishment.test.ts
+?? core/tests/agent3-commercial.test.ts
+?? core/tests/aggregator.test.ts
+?? core/tests/booking-cta-a1-fix2.test.ts
+?? core/tests/booking-cta-a1.test.ts
+?? core/tests/commercial-preparation-context.test.ts
+?? core/tests/commercial-preparation.test.ts
+?? core/tests/commercial-quality-gate.test.ts
+?? core/tests/contact-acquisition.test.ts
+?? core/tests/contact-presence-enrichment.test.ts
+?? core/tests/contact-source-telemetry.test.ts
+?? core/tests/d1-production-slot-store.test.ts
+?? core/tests/deck-commercial-pipeline.test.ts
+?? core/tests/design-directions.test.ts
+?? core/tests/digital-pain-evidence.test.ts
+?? core/tests/evidence-calibration.test.ts
+?? core/tests/experiment-manager.test.ts
+?? core/tests/first-wave-discovery.test.ts
+?? core/tests/fixtures/
+?? core/tests/google-places-discovery-adapter.test.ts
+?? core/tests/google-places-orchestrator.test.ts
+?? core/tests/google-places-trust.test.ts
+?? core/tests/human-decision.test.ts
+?? core/tests/icp-decision.test.ts
+?? core/tests/operating-evidence.test.ts
+?? core/tests/operator-feedback.test.ts
+?? core/tests/persisted-agent1-evidence.test.ts
+?? core/tests/proposal-booking-runtime.test.ts
+?? core/tests/prospect-reenrichment-migration.test.ts
+?? core/tests/score-provenance.test.ts
+?? core/tests/source-fetcher.test.ts
+?? core/tests/tavily-search-provider.test.ts
+?? database/migration-v2-commercial-preparation-context-v1.sql
+?? docs/agent1-v2-icp.md
+?? docs/agent1-v2-replenishment.md
+?? docs/agent3-commercial-contract.md
+?? docs/checkpoints/
+?? docs/external-pattern-adoption-map.md
+?? docs/founder-book.md
+?? docs/google-places-production-validation-v1.md
+?? docs/magicscript-v2-deck-final-spec.md
+?? docs/magicscript-v2-quality-gate.md
+?? docs/mobile-conversion-gate.md
+?? docs/v1-control-center-acceptance.md
+?? docs/v1-field-freeze.md
+?? project/
+?? prospects/safiu-protection.md
+?? prototypes/safiu-protection/
+?? scripts/analyze-owned-traversal.mjs
+?? scripts/audit-local-state.mjs
+?? scripts/audit-local-state.sql
+?? scripts/audit-research-candidates.sql
+?? scripts/audit-trusted-phone-provenance.mjs
+?? scripts/compute-tavily-final-report.mjs
+?? scripts/compute-yield-attribution.mjs
+?? scripts/configure-cloudflare-local.ps1
+?? scripts/ensure-full-smoke-fixture.ps1
+?? scripts/ensure-synthetic-prospect.ps1
+?? scripts/freeze-google-places-orchestrator-canary-v1.mjs
+?? scripts/hydrate-tavily-contact-presence.mjs
+?? scripts/inspect-latest-acquisition.mjs
+?? scripts/inspect-tavily-final.sql
+?? scripts/m010-approved-successor-proof.mts
+?? scripts/m010-health-diagnostic.mts
+?? scripts/m010-r10-focused-proof.mts
+?? scripts/m010c-fake-send-inprocess.mjs
+?? scripts/overnight-state.cjs
+?? scripts/overnight-state.test.cjs
+?? scripts/phone-gap-audit.mjs
+?? scripts/project-control.ts
+?? scripts/reenrich-canonical-prospects.mjs
+?? scripts/reenrichment-data.sql
+?? scripts/reenrichment-final-report.mjs
+?? scripts/reenrichment-inventory.sql
+?? scripts/replay-owned-site-traversal.mjs
+?? scripts/replay-source-telemetry.mjs
+?? scripts/report-source-telemetry.mjs
+?? scripts/run-contact-acquisition-replay.mjs
+?? scripts/run-google-places-discovery-adapter-v1.test.ts
+?? scripts/run-google-places-discovery-adapter-v1.ts
+?? scripts/run-google-places-orchestrator-canary-v1.test.ts
+?? scripts/run-google-places-orchestrator-canary-v1.ts
+?? scripts/run-google-places-production-validation-v1.mjs
+?? scripts/run-google-places-production-validation-v1.test.mjs
+?? scripts/run-google-places-structured-provider-benchmark.mjs
+?? scripts/run-google-places-structured-provider-benchmark.test.mjs
+?? scripts/run-local-api-with-restart.cjs
+?? scripts/run-synthetic-creative-matrix.ts
+?? scripts/run-synthetic-render-proof.ts
+?? scripts/run-tomtom-structured-provider-benchmark.mjs
+?? scripts/run-tomtom-structured-provider-benchmark.test.mjs
+?? scripts/run-trusted-phone-canonical-correction-v1.mjs
+?? scripts/snapshot-bulk-martinique.mjs
+?? sites/magicscript-v2/wrangler.worker.jsonc
+?? sites/mpatrimoine/

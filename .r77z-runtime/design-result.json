@@ -1,0 +1,28 @@
+{
+  "job": {
+    "id": "job-v2-51972816600033-DESIGN_REQUEST_V1",
+    "kind": "V2_DESIGN_REQUEST",
+    "prospect_id": "v2-51972816600033",
+    "payload_json": "{\"designRequestId\":\"dr-v2-51972816600033-DESIGN_REQUEST_V1\",\"designRequestVersion\":\"DESIGN_REQUEST_V1\",\"prospectId\":\"v2-51972816600033\",\"admittedPackId\":\"agent1-r77z-androcam\"}",
+    "status": "SUCCEEDED",
+    "attempts": 1,
+    "max_attempts": 3,
+    "run_after": "2026-10-04T10:57:08.489Z",
+    "last_error": null,
+    "claimed_by": null,
+    "claimed_at": null,
+    "created_at": "2026-10-04T10:57:08.510Z",
+    "updated_at": "2026-10-04T10:57:23.801Z"
+  },
+  "counts": {
+    "claims": 1,
+    "success": 1,
+    "fail": 0
+  },
+  "slot": {
+    "slot_id": 2,
+    "prospect_id": "v2-51972816600033",
+    "acquired_at": "2026-10-04T10:57:08.518Z",
+    "release_reason": null
+  }
+}

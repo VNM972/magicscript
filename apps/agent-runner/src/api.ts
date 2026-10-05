@@ -1,4 +1,9 @@
 import type { SendReservationStatus } from './email/send-idempotency';
+import type { BuildArtifactV1 } from '../../../core/builder/contracts';
+import type { BuildCorrectionRequestV1, VisualQaReportV1 } from '../../../core/visual-qa/contracts';
+import type { DesignRequestV1 } from '../../../core/design/design-request';
+import type { DesignArtifactV1 } from '../../../core/design/design-artifact';
+import type { ActiveProductionSlot } from '../../../core/persistence/d1-production-slot-store';
 
 export interface RunnerJob {
   id: string;
@@ -79,6 +84,29 @@ export interface ClaimedJob {
   designRequest?: Record<string, unknown> | null;
   designArtifact?: Record<string, unknown> | null;
   designCorrection?: Record<string, unknown> | null;
+  buildCorrectionContext?: {
+    correctionRequest: BuildCorrectionRequestV1;
+    targetBuild: BuildArtifactV1;
+    qaReport: VisualQaReportV1;
+    designRequest: DesignRequestV1;
+    approvedDesignArtifact: DesignArtifactV1;
+    existingCorrectedBuild?: BuildArtifactV1 | null;
+    productionSlot: ActiveProductionSlot;
+  } | null;
+}
+
+export interface FakeTransportAttempt {
+  provider: 'fake';
+  outcome: 'SUCCESS' | 'FAILURE';
+  recipient: string;
+  subject: string;
+  body: string;
+  proposalLink: string;
+  draftId: string;
+  revision: number;
+  fingerprint: string;
+  idempotencyKey: string;
+  sendCount: 1;
 }
 
 export class MagicScriptApi {
@@ -181,6 +209,26 @@ export class MagicScriptApi {
     }
 
     return body.status;
+  }
+
+  async recordFakeTransportAttempt(
+    jobId: string,
+    attempt: FakeTransportAttempt,
+  ): Promise<void> {
+    const response = await fetch(
+      `${this.baseUrl}/api/runner/jobs/${encodeURIComponent(jobId)}/fake-transport-attempt`,
+      {
+        method: 'POST',
+        headers: this.headers(),
+        body: JSON.stringify(attempt),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Fake transport evidence failed ${response.status}: ${await response.text()}`,
+      );
+    }
   }
 
   async inboundEmail(input: {

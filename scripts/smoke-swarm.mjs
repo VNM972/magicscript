@@ -29,10 +29,15 @@ async function main() {
   console.log('OK Autopilot enabled locally');
   console.log(`OK Email transport safety: ${health.emailProvider}${health.sendingEnabled ? ' (internal dry-run enabled)' : ' (disabled)'}`);
 
-  const tick = await request('/api/autopilot/tick', {
-    method: 'POST',
-    body: '{}',
-  });
+  const existingBeforeTick = await request('/api/prospects');
+  const smokeProspectCap = 50;
+  const existingProspects = existingBeforeTick.prospects || [];
+  const tick = existingProspects.length >= smokeProspectCap
+    ? { reason: `smoke cap reached (${smokeProspectCap})` }
+    : await request('/api/autopilot/tick', {
+        method: 'POST',
+        body: '{}',
+      });
 
   console.log(
     tick?.provider === 'recherche-entreprises'

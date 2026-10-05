@@ -1,0 +1,161 @@
+{
+  "mission": "R79Z",
+  "status": "BLOCKED_NO_COMMERCIAL_PROSPECT",
+  "programPhase": "COMMERCIAL_ACTIVATION",
+  "at": "2026-10-04T16:23:58.103Z",
+  "candidatesRanked": 10,
+  "canonicalInvocations": 8,
+  "distinctBusinessesInspected": 7,
+  "results": [
+    {
+      "rank": 1,
+      "name": "ProDiscount / BTRG Services",
+      "url": "https://www.prodiscount.fr/",
+      "result": {
+        "index": 1,
+        "name": "ProDiscount / BTRG Services",
+        "url": "https://www.prodiscount.fr/",
+        "pageState": "FETCH_FAILED",
+        "httpResultClass": "NETWORK_ERROR",
+        "qualification": "FETCH_FAILED",
+        "identity": null,
+        "enrichment": null
+      },
+      "networkRecovery": {
+        "index": 1,
+        "name": "ProDiscount / BTRG Services",
+        "url": "https://www.prodiscount.fr/",
+        "canonicalInvocation": 2,
+        "pageState": "FETCH_FAILED",
+        "httpResultClass": "REDIRECT",
+        "qualification": "FETCH_FAILED",
+        "identity": null,
+        "enrichment": null
+      }
+    },
+    {
+      "rank": 2,
+      "name": "Palais Impérial",
+      "url": "https://www.palaisimperial.fr/",
+      "result": {
+        "index": 2,
+        "name": "Palais Impérial",
+        "url": "https://www.palaisimperial.fr/",
+        "pageState": "FETCH_FAILED",
+        "httpResultClass": "NETWORK_ERROR",
+        "qualification": "FETCH_FAILED",
+        "identity": null,
+        "enrichment": null
+      }
+    },
+    {
+      "rank": 3,
+      "name": "Auberge de l’Est à l’Ouest",
+      "url": "https://delestalouest.bzh/",
+      "result": {
+        "index": 3,
+        "name": "Auberge de l’Est à l’Ouest",
+        "url": "https://delestalouest.bzh/",
+        "pageState": "PAGE_OBSERVED",
+        "httpResultClass": "SUCCESS",
+        "title": "Auberge de l'Est à l'Ouest",
+        "h1": [
+          "Auberge de l'Est à l'Ouest"
+        ],
+        "qualification": "NO_PAIN_SIGNAL",
+        "identity": null,
+        "enrichment": null
+      }
+    },
+    {
+      "rank": 4,
+      "name": "David Guitton",
+      "url": "https://www.davidguitton.com/",
+      "result": {
+        "index": 4,
+        "name": "David Guitton",
+        "url": "https://www.davidguitton.com/",
+        "pageState": "FETCH_FAILED",
+        "httpResultClass": "UNSUPPORTED",
+        "qualification": "FETCH_FAILED",
+        "identity": null,
+        "enrichment": null
+      }
+    },
+    {
+      "rank": 5,
+      "name": "Julien Honoré Artisan Coiffeur",
+      "url": "https://www.julienhonore.com/",
+      "result": {
+        "index": 5,
+        "name": "Julien Honoré Artisan Coiffeur",
+        "url": "https://www.julienhonore.com/",
+        "pageState": "FETCH_FAILED",
+        "httpResultClass": "NETWORK_ERROR",
+        "qualification": "FETCH_FAILED",
+        "identity": null,
+        "enrichment": null
+      }
+    },
+    {
+      "rank": 6,
+      "name": "Arc Institut",
+      "url": "https://www.arcinstitut.com/",
+      "result": {
+        "index": 6,
+        "name": "Arc Institut",
+        "url": "https://www.arcinstitut.com/",
+        "pageState": "FETCH_FAILED",
+        "httpResultClass": "REDIRECT",
+        "qualification": "FETCH_FAILED",
+        "identity": null,
+        "enrichment": null
+      }
+    },
+    {
+      "rank": 7,
+      "name": "Le Wood Maubeuge",
+      "url": "https://lewoodmaubeuge.fr/",
+      "result": {
+        "index": 7,
+        "name": "Le Wood Maubeuge",
+        "url": "https://lewoodmaubeuge.fr/",
+        "pageState": "PAGE_OBSERVED",
+        "httpResultClass": "SUCCESS",
+        "title": "ACCUEIL - Le Wood Maubeuge",
+        "h1": [],
+        "qualification": "NO_PAIN_SIGNAL",
+        "identity": null,
+        "enrichment": null
+      }
+    }
+  ],
+  "selectedProspect": null,
+  "prospectId": null,
+  "admission": "NOT_PERFORMED",
+  "productionSlot": "NOT_ACQUIRED; capacity available; existing holders preserved",
+  "design": "NOT_RUN",
+  "designReview": "NOT_RUN",
+  "finalBuild": null,
+  "finalVisualQa": null,
+  "correctionCyclesUsed": 0,
+  "prospectSafeDemo": null,
+  "demoVerified": false,
+  "contactOpportunityPack": null,
+  "recommendedManualChannel": null,
+  "firstContactDraftReady": false,
+  "outreachSent": false,
+  "productSourceFilesModified": [],
+  "newProductDefect": null,
+  "technicalAcceptance": "COMPLETE",
+  "reproducibility": "PROVEN",
+  "commercialReadiness": "NOT_READY",
+  "oneBlocker": "No admissible and commercially contactable prospect established within the bounded inspection budget.",
+  "nextAllowedAction": "Run a newly authorized bounded commercial PAIN_FIRST sourcing batch excluding all previously processed prospects and these seven inspected businesses.",
+  "verification": {
+    "at": "2026-10-04T16:22:57.454Z",
+    "trackedDiffUnchanged": true,
+    "canonicalSourcesUnchanged": true,
+    "prospectsAdmissionsSlotsUnchanged": true
+  }
+}

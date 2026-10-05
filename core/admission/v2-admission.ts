@@ -1,5 +1,6 @@
 import type { D1DatabaseLike } from '../persistence/d1-types';
 import type { ProspectRepository } from '../state/repository';
+import { decidePackIcp } from '../icp/icp-decision';
 import type { Prospect } from '../types/prospect';
 import {
   CONTACT_OPPORTUNITY_PACK_VERSION,
@@ -31,6 +32,17 @@ export async function admitContactOpportunityPack(
   const shapeReasons = validatePackShape(input);
   if (shapeReasons.length) return { admitted: false, reasonCode: 'INVALID_PACK' };
   const normalized = normalizePack(input as ContactOpportunityPackV2);
+  const icpEvidence = (input as ContactOpportunityPackV2).opportunity?.icp;
+  if (icpEvidence) {
+    const icp = decidePackIcp(input as ContactOpportunityPackV2);
+    if (icp.outcome !== 'ADMIT') {
+      return {
+        admitted: false,
+        reasonCode: icp.outcome === 'NEEDS_CONTACT_DISCOVERY' ? 'NO_QUALIFYING_CONTACT' : 'INVALID_PACK',
+        normalizedPack: normalized,
+      };
+    }
+  }
   const valid = normalized.contacts.filter((contact) => contact.trustStatus === 'DERIVED_VALID');
   const qualifying = qualifyingContacts(normalized);
   if (qualifying.length === 0) {
@@ -75,7 +87,7 @@ export class InMemoryV2AdmissionStore implements V2AdmissionStore {
 export class D1V2AdmissionStore implements V2AdmissionStore {
   constructor(private readonly db: D1DatabaseLike) {}
   async getByProspectId(prospectId: string): Promise<NormalizedContactOpportunityPack | null> {
-    const row = await this.db.prepare(`SELECT p.*, a.pack_id, a.schema_version, a.received_at FROM prospects p JOIN v2_admissions a ON a.prospect_id = p.id WHERE p.id = ? AND p.state = 'INGESTED' LIMIT 1`).bind(prospectId).first<Record<string, unknown>>();
+    const row = await this.db.prepare(`SELECT p.*, a.pack_id, a.schema_version, a.received_at FROM prospects p JOIN v2_admissions a ON a.prospect_id = p.id WHERE p.id = ? AND a.result = 'ADMITTED' ORDER BY a.received_at DESC LIMIT 1`).bind(prospectId).first<Record<string, unknown>>();
     if (!row) return null;
     const contacts = await this.db.prepare('SELECT * FROM v2_admission_contacts WHERE prospect_id = ? ORDER BY id').bind(prospectId).all<Record<string, unknown>>();
     return { schemaVersion: row.schema_version as NormalizedContactOpportunityPack['schemaVersion'], packId: row.pack_id as string, source: { agent: 'AGENT_1', provenance: 'persisted-v2-admission', receivedAt: row.received_at as string }, identity: { businessName: row.company_name as string, legalName: row.legal_name as string | undefined, siren: row.siren as string | undefined, siret: row.siret as string | undefined, websiteUrl: row.website_url as string | undefined, domain: row.v2_domain as string | undefined, city: row.city as string | undefined, location: row.location as string | undefined }, contacts: (contacts.results ?? []).map((c) => ({ channel: c.channel as never, value: c.raw_value as string, normalizedValue: c.normalized_value as string, trustStatus: c.validation_status as never, sourceUrl: c.source_url as string | undefined, sourceType: c.source_type as string | undefined })), opportunity: { digitalFriction: row.primary_friction as string | undefined, businessContext: row.primary_asset as string | undefined } };

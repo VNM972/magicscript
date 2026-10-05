@@ -1,0 +1,19 @@
+{
+  "id": "correction-qa-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2-r2-a2",
+  "version": "BUILD_CORRECTION_REQUEST_V1",
+  "operation": "ENSURE_LOCAL_FAVICON_V1",
+  "buildArtifactId": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2",
+  "designArtifactId": "artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+  "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+  "prospectId": "v2-51972816600033",
+  "qaReportId": "qa-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2-r2-a2",
+  "targetBuildRevision": 2,
+  "nextBuildRevision": 3,
+  "issue": {
+    "category": "BUILD_RENDER",
+    "severity": "MAJOR",
+    "message": "Browser runtime error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "expectedCorrection": "Fix the rendered runtime error."
+  },
+  "createdAt": "2026-10-04T15:20:46.306Z"
+}

@@ -1,0 +1,111 @@
+{
+  "counts": {
+    "prospects": 1,
+    "jobs": 1,
+    "job_results": 1,
+    "events": 2,
+    "admissions": 0,
+    "outreach": 0,
+    "prototypes": 0,
+    "proposals": 0,
+    "provider_cursor_rows": 0,
+    "occupied_slots": 0
+  },
+  "job": {
+    "status": "SUCCEEDED",
+    "attempts": 1,
+    "lastError": null
+  },
+  "normalizedLocalFit": 0,
+  "normalizedLocalFitSupport": false,
+  "normalization": {
+    "applied": true,
+    "reasons": [
+      "model phone removed from canonical output pending independent evidence",
+      "contactability score held until independent evidence is attached",
+      "unsupported localFit score defaulted to zero"
+    ],
+    "safeScoring": true
+  },
+  "digitalPain": {
+    "status": "VERIFIED",
+    "observations": [
+      {
+        "type": "REBUILDING",
+        "observation": "Site en cours de refonte",
+        "sourceUrl": "https://villa-ancinel.com/",
+        "sourceType": "OWNED_WEBSITE",
+        "evidenceType": "VISIBLE_SITE_NOTICE",
+        "integrityStatus": "ACCEPTED",
+        "inspectionMethod": "FETCHED_TITLE_H1",
+        "observedAt": "2026-09-28T11:38:07.460Z",
+        "snapshotDigest": "sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01",
+        "finalUrl": "https://villa-ancinel.com/",
+        "supportingText": "Site en cours de refonte",
+        "locator": "h1"
+      }
+    ]
+  },
+  "scoredPresent": true,
+  "integrity": {
+    "passed": true,
+    "reasons": [],
+    "rejectedSourceCount": 0,
+    "supportedClaims": [
+      "digitalGap",
+      "commercialStrength",
+      "contactability",
+      "prototypeLeverage",
+      "activity",
+      "website",
+      "phone"
+    ]
+  },
+  "scoredTypedPain": {
+    "status": "VERIFIED",
+    "observations": [
+      {
+        "type": "REBUILDING",
+        "observation": "Site en cours de refonte",
+        "sourceUrl": "https://villa-ancinel.com/",
+        "sourceType": "OWNED_WEBSITE",
+        "evidenceType": "VISIBLE_SITE_NOTICE",
+        "integrityStatus": "ACCEPTED",
+        "inspectionMethod": "FETCHED_TITLE_H1",
+        "observedAt": "2026-09-28T11:38:07.460Z",
+        "snapshotDigest": "sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01",
+        "finalUrl": "https://villa-ancinel.com/",
+        "supportingText": "Site en cours de refonte",
+        "locator": "h1"
+      }
+    ]
+  },
+  "authorityTypedPain": {
+    "status": "VERIFIED",
+    "observations": [
+      {
+        "type": "REBUILDING",
+        "observation": "Site en cours de refonte",
+        "sourceUrl": "https://villa-ancinel.com/",
+        "sourceType": "OWNED_WEBSITE",
+        "evidenceType": "VISIBLE_SITE_NOTICE",
+        "integrityStatus": "ACCEPTED",
+        "inspectionMethod": "FETCHED_TITLE_H1",
+        "observedAt": "2026-09-28T11:38:07.460Z",
+        "snapshotDigest": "sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01",
+        "finalUrl": "https://villa-ancinel.com/",
+        "supportingText": "Site en cours de refonte",
+        "locator": "h1"
+      }
+    ]
+  },
+  "adapterStatus": "INSUFFICIENT_EVIDENCE",
+  "adapterReasons": [
+    {
+      "code": "COMMERCIAL_FAMILY_UNRESOLVED",
+      "detail": "No canonical family is established by existing authority."
+    }
+  ],
+  "slotChanges": false,
+  "captureStatus": "UNAVAILABLE"
+}

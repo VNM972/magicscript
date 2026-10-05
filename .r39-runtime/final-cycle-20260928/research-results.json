@@ -1,0 +1,236 @@
+[
+  {
+    "prospectId": "ec74433c-fbcc-47ac-8176-1cfb00189fce",
+    "name": "RITA CHAILLON",
+    "siren": "380132159",
+    "siret": "38013215900019",
+    "activity": "56.10A",
+    "state": "DISQUALIFIED",
+    "jobId": "1bd9d70b-5a30-4d8f-bcf5-33f412567714",
+    "jobStatus": "SUCCEEDED",
+    "attempts": 1,
+    "scoredEventId": "8b99184c-2600-4e9d-b84a-cade91627d9a",
+    "scoredPresent": true,
+    "evidenceIntegrity": {
+      "passed": true,
+      "reasons": [],
+      "rejectedSourceCount": 0,
+      "supportedClaims": [
+        "digitalGap",
+        "commercialStrength",
+        "localFit",
+        "prototypeLeverage",
+        "activity",
+        "website"
+      ]
+    },
+    "acceptedSources": [
+      {
+        "url": "https://www.rita-chaillon.com/",
+        "note": "Official website shows logo and contact form",
+        "supports": [
+          "digitalGap",
+          "activity",
+          "website"
+        ]
+      },
+      {
+        "url": "https://www.rita-chaillon.com/contact",
+        "note": "Official website contact form",
+        "supports": [
+          "digitalGap",
+          "activity",
+          "website"
+        ]
+      }
+    ],
+    "websiteAuthority": {
+      "url": "https://www.rita-chaillon.com/",
+      "conflict": false
+    },
+    "typedPainPersisted": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "canonicalDigitalPain": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "operatingEvidence": {
+      "status": "UNKNOWN",
+      "facts": []
+    },
+    "researchScoredAuthorityPass": true,
+    "shadow": {
+      "shadow": true,
+      "status": "INSUFFICIENT_EVIDENCE",
+      "reasons": [
+        {
+          "code": "DIGITAL_PAIN_UNPROVEN",
+          "detail": "Digital pain must be grounded in an accepted persisted claim."
+        },
+        {
+          "code": "COMMERCIAL_FAMILY_UNRESOLVED",
+          "detail": "No canonical family is established by existing authority."
+        }
+      ]
+    }
+  },
+  {
+    "prospectId": "02bc70a6-4607-41e4-829b-0f3b9351b1aa",
+    "name": "GANESH STORE SARL",
+    "siren": "448520122",
+    "siret": "44852012200012",
+    "activity": "56.10C",
+    "state": "DISQUALIFIED",
+    "jobId": "b42c112b-65d1-4fe4-a9f2-a77da0e7920a",
+    "jobStatus": "SUCCEEDED",
+    "attempts": 1,
+    "scoredEventId": "26d45ae5-8b42-4e42-a7c5-be62276770b0",
+    "scoredPresent": true,
+    "evidenceIntegrity": {
+      "passed": true,
+      "reasons": [],
+      "rejectedSourceCount": 0,
+      "supportedClaims": [
+        "digitalGap",
+        "commercialStrength",
+        "localFit",
+        "prototypeLeverage",
+        "activity",
+        "website"
+      ]
+    },
+    "acceptedSources": [
+      {
+        "url": "https://www.ganesh-store.com/",
+        "note": "Official website of the prospect",
+        "supports": [
+          "digitalGap",
+          "activity",
+          "website"
+        ]
+      },
+      {
+        "url": "https://www.facebook.com/GANESHSTORESARL",
+        "note": "Official Facebook page of the prospect",
+        "supports": [
+          "digitalGap",
+          "activity",
+          "website"
+        ]
+      }
+    ],
+    "websiteAuthority": {
+      "conflict": false
+    },
+    "typedPainPersisted": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "canonicalDigitalPain": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "operatingEvidence": {
+      "status": "UNKNOWN",
+      "facts": []
+    },
+    "researchScoredAuthorityPass": true,
+    "shadow": {
+      "shadow": true,
+      "status": "INSUFFICIENT_EVIDENCE",
+      "reasons": [
+        {
+          "code": "WEBSITE_STATUS_UNVERIFIED",
+          "detail": "Website presence or bounded absence is not proven by accepted evidence."
+        },
+        {
+          "code": "DIGITAL_PAIN_UNPROVEN",
+          "detail": "Digital pain must be grounded in an accepted persisted claim."
+        },
+        {
+          "code": "COMMERCIAL_FAMILY_UNRESOLVED",
+          "detail": "No canonical family is established by existing authority."
+        }
+      ]
+    }
+  },
+  {
+    "prospectId": "7509c105-ea28-48ea-aaf3-59e780720d25",
+    "name": "DELICATESS",
+    "siren": "442963625",
+    "siret": "44296362500086",
+    "activity": "56.21Z",
+    "state": "DISQUALIFIED",
+    "jobId": "b7b5ce09-568f-41ac-b32a-a1511b559fd8",
+    "jobStatus": "SUCCEEDED",
+    "attempts": 1,
+    "scoredEventId": "a0c0a26b-561a-44cb-a5c8-73164db7bfb1",
+    "scoredPresent": true,
+    "evidenceIntegrity": {
+      "passed": true,
+      "reasons": [],
+      "rejectedSourceCount": 0,
+      "supportedClaims": [
+        "digitalGap",
+        "commercialStrength",
+        "localFit",
+        "prototypeLeverage",
+        "activity",
+        "website"
+      ]
+    },
+    "acceptedSources": [
+      {
+        "url": "https://www.delicatess.com/",
+        "note": "Official website and Facebook page.",
+        "supports": [
+          "digitalGap",
+          "activity",
+          "website"
+        ]
+      },
+      {
+        "url": "https://www.delicatess.com/contact",
+        "note": "Official contact page.",
+        "supports": [
+          "digitalGap",
+          "activity",
+          "website"
+        ]
+      }
+    ],
+    "websiteAuthority": {
+      "url": "https://www.delicatess.com/",
+      "conflict": false
+    },
+    "typedPainPersisted": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "canonicalDigitalPain": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "operatingEvidence": {
+      "status": "UNKNOWN",
+      "facts": []
+    },
+    "researchScoredAuthorityPass": true,
+    "shadow": {
+      "shadow": true,
+      "status": "INSUFFICIENT_EVIDENCE",
+      "reasons": [
+        {
+          "code": "DIGITAL_PAIN_UNPROVEN",
+          "detail": "Digital pain must be grounded in an accepted persisted claim."
+        },
+        {
+          "code": "COMMERCIAL_FAMILY_UNRESOLVED",
+          "detail": "No canonical family is established by existing authority."
+        }
+      ]
+    }
+  }
+]

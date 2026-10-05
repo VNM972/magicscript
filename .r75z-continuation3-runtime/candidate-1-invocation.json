@@ -1,0 +1,20 @@
+{
+  "name": "Medi Conciergerie",
+  "url": "https://medi-conciergerie.com/",
+  "discovery": "https://medi-conciergerie.com/accueil-en-construction/",
+  "candidate": {
+    "schemaVersion": 1,
+    "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+    "conditionClass": "SITE_UNDER_CONSTRUCTION",
+    "providerClass": "MANUAL_OPERATOR",
+    "providerRunId": "manual-operator:2026-10-04T10:11:01.263Z",
+    "resultUrl": "https://medi-conciergerie.com/",
+    "resultPosition": 1,
+    "acquiredAt": "2026-10-04T10:11:01.263Z",
+    "authority": "NONE"
+  },
+  "startedAt": "2026-10-04T10:11:01.265Z",
+  "homepageInspections": 1,
+  "environmentRetries": 0,
+  "environment": "Known unrestricted native HTTPS execution"
+}

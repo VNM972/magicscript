@@ -1,0 +1,1646 @@
+[
+  {
+    "path": "apps/agent-runner/src/agent1-canonical.test.ts",
+    "hash": "4108AA44B739BA431505B526F996E494F624D8B42CC494581D6C9B0B9BA66FDC"
+  },
+  {
+    "path": "apps/agent-runner/src/agent1-canonical.ts",
+    "hash": "F6AA9FE828F59A72D93FFD0271F23CBDFCFE40F4060D8DD68DFF58E2E5740C0A"
+  },
+  {
+    "path": "apps/agent-runner/src/aider.ts",
+    "hash": "4A1CE4097A6BA342E5661FC211EB2E74D81B21336F6531C6264CB7B44F210729"
+  },
+  {
+    "path": "apps/agent-runner/src/deploy-mode.test.ts",
+    "hash": "F4D2BF036701073D49BA1168EAF2EEEC4158961E5C17FDDAA80261520494F717"
+  },
+  {
+    "path": "apps/agent-runner/src/ollama-schema.test.ts",
+    "hash": "C7AD4C1FEBDF79FCB0943EF192CB5D56E1E7748728F6F11E7CD6E178167F9359"
+  },
+  {
+    "path": "apps/agent-runner/src/ollama-schema.ts",
+    "hash": "3F501EB289A00BBA6C03B5D30FECAE6EF03D74C429AAF55ACBC17628BEFC0416"
+  },
+  {
+    "path": "apps/agent-runner/src/ollama.test.ts",
+    "hash": "02196B5FD4F100AAD950D2EDC44C191C5C00F42AA238E7B7F0B0F64958D07287"
+  },
+  {
+    "path": "apps/agent-runner/src/ollama.ts",
+    "hash": "85678D2A2F7C09E932EB45B34C168CE5FDC0E445F2EA5B87E82C092A4159FC6D"
+  },
+  {
+    "path": "apps/agent-runner/src/operating-evidence.test.ts",
+    "hash": "8E9E5FFA176A3F995D7B5BB73921FEB6BDE8631C8D9CF5B9CD13A9AA2870CC6C"
+  },
+  {
+    "path": "apps/agent-runner/src/operating-evidence.ts",
+    "hash": "E308D06FBA7E4B90D513AE3ADC9E60C2606C62423A693865CD41493823BD2CC6"
+  },
+  {
+    "path": "apps/agent-runner/src/parse-json.test.ts",
+    "hash": "CFE7123CD78F64E304845E720196323D3EE1466A0EC72E9F7704483D30926F0F"
+  },
+  {
+    "path": "apps/agent-runner/src/phone-evidence.test.ts",
+    "hash": "ED9F49711E38BEEBE7CC6D7B65FAD046458F11CEABE0AAB4A179975D1F53437E"
+  },
+  {
+    "path": "apps/agent-runner/src/phone-evidence.ts",
+    "hash": "8DBE245E21C180A3FFEA60249303EF453F63AAAA2CCB4AC9793862A48C325C10"
+  },
+  {
+    "path": "apps/agent-runner/src/presence-enrichment.test.ts",
+    "hash": "D65D60E6F7A9EEADA374D6332FB058AFDA7711F46DC4EAF5B4EAB2D42C83C2C5"
+  },
+  {
+    "path": "apps/agent-runner/src/presence-enrichment.ts",
+    "hash": "BEAD1F5F207F5EB4EFCAB09A305E08CC5EF30C39978B1BA913CF71CCE5866014"
+  },
+  {
+    "path": "apps/agent-runner/src/prompts.test.ts",
+    "hash": "20D971A0C18CB84E81680594D92B99C3BAF05A2FD673A76587C340DB97D50EF4"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-conversion-repair.test.ts",
+    "hash": "43D60BF7C91E97BBFBB37C214069285BC6816449E7FA0A465C4DDADAE438927E"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-conversion-source.test.ts",
+    "hash": "A6FDE669EB1FF9202E64E5F487B68262F76DDA5AB48DEB9FE42479A158C10E19"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-conversion-source.ts",
+    "hash": "D870EA7535AAAEB3C6C9DF2C9A780D20CBA84B2C15995F90C0304CED68DBEF30"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-conversion.test.ts",
+    "hash": "C1565E8E806B980A2FFB7475DD3ABC36E08C9D178EF7AAAA93193F4DE8622E13"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-creative-loop.test.ts",
+    "hash": "7A30C6CF522A0445728D3B08F14A0549658C12A7773DCA6C1820BD8DB23B5B89"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-creative-loop.ts",
+    "hash": "AA137DF25EA4375DF59C3761EEDB22DA5729D5BA98F824EC57A81009B411565E"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-creative-review-loop.test.ts",
+    "hash": "859132D15210AD4C832F79A725A9AD6807A84377676FA8EB6C4FB5594970B7D6"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-creative-review-loop.ts",
+    "hash": "65EF94D7FE129C3B4A45181CCC61721D98166B0B4D2EB9B2B1CDEC068E5A207A"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-qa.test.ts",
+    "hash": "828CCA3B0199E568C55D710416902747E8A0D31758EEF31D9CA5F1F6797BBB1C"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-qa.ts",
+    "hash": "2F8491752DE929C750AAD41BC9AC403CCEB90D541A8D95EC5FE6D89054B3B844"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-scaffold.test.ts",
+    "hash": "7EEABFEE0CE5C14AD71EAE2CC55194F9C69BD2DC3F8ADEBEE32E25C305D5A22A"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-scaffold.ts",
+    "hash": "1D48A7ECE8164B6E7F1A99812AA3B47FFEEBBCCE66CFE52DD823C9A2CE71BC22"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-source-files.test.ts",
+    "hash": "7B0E9FA1B940A824159B2CE3E9C9E1C27655C36B0FBD087EB79CE6BB10C6EC4D"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-source-files.ts",
+    "hash": "C7424A69F7371374BBB1F748773D066B001579593E23092204CB723DB0E88954"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-source-navigation.ts",
+    "hash": "5EF99AC42D55DB139DE096C7E072D6DEFEB4FCEBD7DC3C6F4AA7C6014D0A8CDE"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-web-design-review.test.ts",
+    "hash": "C5A4095D8DD9EC13E361BD9D91F34FA42E151E1464B7F18CE6D2FF1A742E6F62"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype-web-design-review.ts",
+    "hash": "472019546407320C6C4CF2488CB285A2518AFB0650E1AB08B45DFE1E47AA157F"
+  },
+  {
+    "path": "apps/agent-runner/src/provider-discovery-handoff.test.ts",
+    "hash": "3B8B281735CF9500AAC30488AB96B73840FBC3E2A259457E86207C3B7BAAEF31"
+  },
+  {
+    "path": "apps/agent-runner/src/research-output.test.ts",
+    "hash": "11A47E76ADB861FF6A60EDDCDAE55AC20D002134AF29636380A250D570F4673A"
+  },
+  {
+    "path": "apps/agent-runner/src/research-output.ts",
+    "hash": "E75E58343447712BEEE62531ADF3023785F82DA73B0C4463782FF8C9F28B52BF"
+  },
+  {
+    "path": "apps/agent-runner/src/synthetic-creative-idempotency.test.ts",
+    "hash": "00E7831EFBDC717A74ED1D6068FC4D0A8610764CF52DE614A013E900EC951C8E"
+  },
+  {
+    "path": "apps/agent-runner/src/synthetic-creative-job.test.ts",
+    "hash": "BBB45648A95380530CB4A2C305A0BD7C4BE7BFB609025E21133DE236F5CD4929"
+  },
+  {
+    "path": "apps/agent-runner/src/synthetic-creative-job.ts",
+    "hash": "B57321406905705BC12D25695E831ABF76D13154F843A99B3FB3017EE557491B"
+  },
+  {
+    "path": "apps/agent-runner/src/synthetic-creative-matrix.test.ts",
+    "hash": "514DCEE95E5F1F202763ABCAAB4295F055110AAD6B354B933A979D6E0E6E5B87"
+  },
+  {
+    "path": "apps/agent-runner/src/synthetic-creative-matrix.ts",
+    "hash": "818F042C4A1E8E9AACB53FCAFFC2AE72549D20A3A6C75ECDAD64B97AC9ECD56D"
+  },
+  {
+    "path": "apps/agent-runner/src/synthetic-creative-persistence.test.ts",
+    "hash": "28428CCDF590B86BA4AC3BC40619D4BC968D8B2A96025E67DB3930C63711069A"
+  },
+  {
+    "path": "apps/agent-runner/src/synthetic-render-evidence.test.ts",
+    "hash": "1B0E1C1E1D2B6A0F39BC4230699D5AA11613F0D6F1412C639BC21D80491DC72C"
+  },
+  {
+    "path": "apps/agent-runner/src/synthetic-render-evidence.ts",
+    "hash": "87AD0FCCF1FAEB50A30984B14476C0C73A77DBB8857BEEF94A3E98FE34CA806B"
+  },
+  {
+    "path": "apps/api-worker/src/commercial-eligibility.integration.test.mjs",
+    "hash": "CEC93DDC53A2F7D35DBC4179C6E8BC39474CA46A73E2FA4FC8699C017A7B0A0A"
+  },
+  {
+    "path": "apps/api-worker/src/commercial-lifecycle.test.mjs",
+    "hash": "C270E8809C7958F7D4B5410AB4A8B345AC5B25FC31F9590B6CBEDBB8BBD6030E"
+  },
+  {
+    "path": "apps/api-worker/src/commercial-lifecycle.ts",
+    "hash": "8A4E0058DD6FB5C83526D42F433E0B1D7A12270FD372B6AB665B3A7D64A62B2E"
+  },
+  {
+    "path": "apps/api-worker/src/evidence-integrity.integration.test.mjs",
+    "hash": "481819ADF13B9C888FB8941A325F826B492F6A30062B8A29BCB9118ABD0A4294"
+  },
+  {
+    "path": "apps/api-worker/src/human-review.integration.test.mjs",
+    "hash": "CA9B060CECCB3C167F91BB191014DBCE69497758B6EE6429B762806B438FC0B6"
+  },
+  {
+    "path": "apps/api-worker/src/manual-discovery.integration.test.mjs",
+    "hash": "384F2094ACCED608867A4BDEA790CEE6B2312D6650E3C4037846B8EEBFF75B3D"
+  },
+  {
+    "path": "apps/api-worker/src/outreach-drafts.integration.test.mjs",
+    "hash": "3E4254EF8B486CCACCBEC564B33ED337CFB511A11A7CCD6BA2281714FB0EAAAD"
+  },
+  {
+    "path": "apps/api-worker/src/outreach-edit.integration.test.mjs",
+    "hash": "11FD6E8F5171C528BC58B90550662D56C45A253E54952E99F40996440F1BB6B7"
+  },
+  {
+    "path": "apps/api-worker/src/prototype-deployment.integration.test.mjs",
+    "hash": "E35E599D50EE53E9F2DB5F3CE8979626BA0E912152A011E76E1807DA8650A249"
+  },
+  {
+    "path": "apps/api-worker/src/provider-discovery-handoff.integration.test.mjs",
+    "hash": "F6D1B1B1E9E98CC6960011A3E9ED29B63A86777EF5EFFB23138B84A7F80BF9D6"
+  },
+  {
+    "path": "apps/api-worker/src/shadow-qualification.integration.test.mjs",
+    "hash": "70E69CBEBFC529F31B44AFF23A5E622CFCD7CF8B4222FA7F7E09F7022E9A0C33"
+  },
+  {
+    "path": "apps/api-worker/src/synthetic-creative-persistence.integration.test.mjs",
+    "hash": "A864A7CE5C83DF1AE5543B5C0E8EABA9D23E6CCC6E4E3CDCBF33EFCE330EE147"
+  },
+  {
+    "path": "apps/control-center/app/api/synthetic-creative/artifact/route.ts",
+    "hash": "616C97FF2C8A3D5F05E5AC21203EB880675489CDDF3F688184109368C60EEBB5"
+  },
+  {
+    "path": "apps/control-center/components/DeckPipeline.tsx",
+    "hash": "AA373454E742049BCFC8E9E5D4274E0D542C68BE3D3A73F889ED0736C92D3D18"
+  },
+  {
+    "path": "apps/control-center/lib/synthetic-creative-trace.test.ts",
+    "hash": "90AEE127EEB953C9C87859C232DECD5006C356783E1E2344974F1C23CED0F04A"
+  },
+  {
+    "path": "core/admission/agent1-evidence-projection.ts",
+    "hash": "9748514277B1AAF7274324F8873BA44D6CCE5B3028B02BB9069541703C3FFFA0"
+  },
+  {
+    "path": "core/admission/persisted-agent1-evidence.ts",
+    "hash": "DDFC804B3DB422024B73080D378CD2AD57663B4DD86CED34AEFC5A5F65F22533"
+  },
+  {
+    "path": "core/contact-acquisition/agent.ts",
+    "hash": "B78BE40D4793D73305C3578EBBAADD3FD42EEE48CFA1D7AD9E44A932FEFFC970"
+  },
+  {
+    "path": "core/contact-acquisition/tavily.ts",
+    "hash": "39EEFF8477FE6F538F49871A08FFAB5FC9AFC25ED42D6FF22391866BCB998E1A"
+  },
+  {
+    "path": "core/contact-acquisition/telemetry.ts",
+    "hash": "7D7770A72DC2B062A49458F32AE00E651D6500BE93026E7581B1946EE658C041"
+  },
+  {
+    "path": "core/contact-presence/enrichment.ts",
+    "hash": "19AA561372DEA57CC07A61EA808C020E12BE6EABE8656C86617D42D7F019DFE1"
+  },
+  {
+    "path": "core/experimentation/dogfood-seeds.ts",
+    "hash": "5555A6DC843E0987639B21975D083A911CA931738A59838B8FBD05188DF9CBAA"
+  },
+  {
+    "path": "core/experimentation/experiment-manager.ts",
+    "hash": "69DA311B5556B4F655CA8B2D0539EE2EBD954C37ACD3EA81ACD09AFCD3E17A75"
+  },
+  {
+    "path": "core/feedback/aggregated-insight-contract.ts",
+    "hash": "62131861B86D02905B7F2460CC6CE477091223BDF0130E8ECA2E05749022AB45"
+  },
+  {
+    "path": "core/feedback/aggregator.ts",
+    "hash": "8EB6A988F3F738B958835D35E484CAE58BA34089A4E8D7506E5481A2D5577210"
+  },
+  {
+    "path": "core/feedback/human-decision-contract.ts",
+    "hash": "B26425D01D6D4053AFF1B697FBB467D9CAA25FFC55A98D5A5B065191C607172E"
+  },
+  {
+    "path": "core/feedback/operator-feedback-contract.ts",
+    "hash": "31B4FACBCC767E05B113ED0B611A00F9C10192AF4F7C7CC78CFFF592E1D10249"
+  },
+  {
+    "path": "core/feedback/playbook-change-proposal-builder.test.ts",
+    "hash": "8DBDF3F0C11A5D11A0F6164D2A5197667ED7348ABB686BF3082411FB3807898E"
+  },
+  {
+    "path": "core/feedback/playbook-change-proposal-builder.ts",
+    "hash": "89CB1AA5B36A33F8C42405021ABBDC19072439207129A231C6D9FA4AABE7369C"
+  },
+  {
+    "path": "core/feedback/playbook-change-proposal-contract.ts",
+    "hash": "8AE6E8780B05A6957C773590FA2F6354562419D90CD6E628ECDBC0A12448BB06"
+  },
+  {
+    "path": "core/google-places-trust.ts",
+    "hash": "9E10034F5D5528DB1884C8E8967FFAA52C410ED574581ADB15608009745FE240"
+  },
+  {
+    "path": "core/icp/icp-decision.ts",
+    "hash": "EF6B0F510E364E0BC443D6E678AE50802B20787D32A17266A7ACA259C11D658C"
+  },
+  {
+    "path": "core/icp/local-service-archetypes.ts",
+    "hash": "D845CDD8DAB7111264B4A4F42BF15960A08F61280F8333177A01575D819A55A7"
+  },
+  {
+    "path": "core/orchestrator/agent1-replenishment.ts",
+    "hash": "D10C432532F6FD44D1E1513F0C5040736231A0AB062CC115B6E6F98D7C880DBD"
+  },
+  {
+    "path": "core/orchestrator/contactability.ts",
+    "hash": "938E82776490EC34413ABAFF55D5ACEC7E07631B89E43A40675849E19C57730F"
+  },
+  {
+    "path": "core/orchestrator/deck-commercial-pipeline.ts",
+    "hash": "99E8BD22E170B1CEC77F1633140ABC8C4D4ADF20F622560B85DAB2FB39D964A3"
+  },
+  {
+    "path": "core/orchestrator/google-discovery.ts",
+    "hash": "749580EF75125D6EBB81A2A50F57E7FD82FAE247DD37FD441DBEF32A098DCD0B"
+  },
+  {
+    "path": "core/orchestrator/prospect-commercial-view.ts",
+    "hash": "E36BD9CAA83917305517F0C888401B11BB376DE82C493C1C984B9F8FB8D4D7D5"
+  },
+  {
+    "path": "core/outreach/commercial-catalog.ts",
+    "hash": "731E5C618BFDCECC89BADE81E38F36D988E8C2284EAC1D12D3108E6338C68180"
+  },
+  {
+    "path": "core/outreach/commercial-contract.ts",
+    "hash": "5987F63999060777DD54AF5B3180B5208B8EF06EA0F8F198491DA4D7A03FC7BB"
+  },
+  {
+    "path": "core/outreach/commercial-exemplars.ts",
+    "hash": "6A4BB3116AFF243F9AD40875D0EC52D19A6F6520BF9E85F2EDB3264D0272776B"
+  },
+  {
+    "path": "core/outreach/commercial-fixture.ts",
+    "hash": "DA2A7650BF1EA14204204C3C371ABE778C362B813BFFC779BEBAE4928AD30AE4"
+  },
+  {
+    "path": "core/outreach/commercial-oracles.ts",
+    "hash": "1E1646DA176A2E7C3FBE4FB2DE4E8C830E1D4516EF78BA08B3FDB0DCB5DCE67B"
+  },
+  {
+    "path": "core/outreach/commercial-policy.ts",
+    "hash": "2B90C8854EC37E53AFA648AC173A34A814D6DDAB1A6D3C6592589D677E30EA2D"
+  },
+  {
+    "path": "core/outreach/commercial-preparation-context.ts",
+    "hash": "A938725A102DBA1C30BD6763E8DEBB85E35AC4B639375C32C79A9B9364F4F5B7"
+  },
+  {
+    "path": "core/outreach/commercial-preparation.ts",
+    "hash": "C911F7341E767784CC02793254E25100FB436FC3546DAC5F1EA2036AFD77B600"
+  },
+  {
+    "path": "core/outreach/commercial-profiles.ts",
+    "hash": "C3E72CFE6367BD1917ED7AB5DFE26550F979BFE7583BE0B823CEE9A05FDF5316"
+  },
+  {
+    "path": "core/outreach/commercial-quality-gate.ts",
+    "hash": "8807C5E94C58BA6B5C08EF4DC5096276E888D7049B86ED2DF28181C00CD04742"
+  },
+  {
+    "path": "core/outreach/draft-lifecycle.ts",
+    "hash": "896D9DCCEC36413A8DA675E0C42D7810F3EFCA1F99F4C073E8E250CC32E5CC6B"
+  },
+  {
+    "path": "core/persistence/d1-commercial-preparation-context-store.ts",
+    "hash": "27B46383928F74134D63B28A83E4E4FE434D226F5537E2DC8B2EE5142F2015AE"
+  },
+  {
+    "path": "core/persistence/d1-production-slot-store.ts",
+    "hash": "86575F361CE9C157DCBAD03BFB0608E50EB77E0A0696A2E4BBF38CCC433D7ECD"
+  },
+  {
+    "path": "core/persistence/human-decision-store.ts",
+    "hash": "FA9D5D248418C8E018DB4F413031F2AA1CD18298F023CEAFEB15E5948F0F22DD"
+  },
+  {
+    "path": "core/persistence/operator-feedback-store.ts",
+    "hash": "E491F7DE503338FEF84ACCB73192BB49D16A6EF5E79F3E7588990AE1252C8830"
+  },
+  {
+    "path": "core/phone-trust.ts",
+    "hash": "56A210C490979CF168EBCA4E1D145D4FA508AD3498B247F6107909373780BF09"
+  },
+  {
+    "path": "core/phone/phone-record.ts",
+    "hash": "A70052DF9536308F349359765B1830103FB35D36A7813AC861E050CE84163F75"
+  },
+  {
+    "path": "core/project/index.ts",
+    "hash": "B207A77368DBA00994FEE707CAFDBF8D8603290F9DED78A73F9098ADC814118D"
+  },
+  {
+    "path": "core/project/project-orchestrator.ts",
+    "hash": "0636A497B0657713E960AC8393DD2263030A38B7F5A09041CBC100F66B458474"
+  },
+  {
+    "path": "core/project/project-state.ts",
+    "hash": "646827FD71268A70E95E45B9A605FD270571D2E9F1FE09475E359A474F2D88DD"
+  },
+  {
+    "path": "core/proposal/booking-cta.ts",
+    "hash": "14AE309886FEEBEAEA6474F7AD4A1AFF209B9F70E815A87F9E0E63AA56CE5B2E"
+  },
+  {
+    "path": "core/proposal/booking-runtime.ts",
+    "hash": "A25FCEBDBACB4686E21387BC24D39563819A7854372E3CC557CAD7A4337AB4F7"
+  },
+  {
+    "path": "core/prototypes/design-directions.ts",
+    "hash": "2F93013E1AE906F5B6C34A27739DF86B1C7968CCE42B5FEEA86455C030A3D567"
+  },
+  {
+    "path": "core/providers/first-wave-discovery.ts",
+    "hash": "731E8E061E50117C5EFE0A873E3F3F6CA2F4AA3FDD94949F99948D257B1F460E"
+  },
+  {
+    "path": "core/providers/google-places-discovery.ts",
+    "hash": "729495BB39D44CA3F6BB16FBC6AF4310B6C1AB420093DAAFE96B0B7F4DD153B5"
+  },
+  {
+    "path": "core/research/digital-pain-evidence.ts",
+    "hash": "5DBED61F350E9F9541E4C9C0ED735427E1761B602D2C26D59C9D026D42B97FFE"
+  },
+  {
+    "path": "core/research/evidence-calibration.ts",
+    "hash": "4CF2C85CBB89BBA738184EC0813A73D3EE89DFCAD1D41EA959018DD00408734D"
+  },
+  {
+    "path": "core/research/evidence-integrity.ts",
+    "hash": "F394ADA5DDDCDABEFFA6F0EBC84CF8ED057561E4ECF2EFDAB326D91BF181C9F3"
+  },
+  {
+    "path": "core/research/operating-evidence.ts",
+    "hash": "DD4B025ACDD666048805F6158B9A356EB36FD5F82231A07EC3C7F9045938980B"
+  },
+  {
+    "path": "core/research/phone-extractor.ts",
+    "hash": "449BDECA44592BC582582922D67B56EE945E1523D5434CD62FEB4E7881A9EBA4"
+  },
+  {
+    "path": "core/research/source-fetcher.ts",
+    "hash": "39765E2E697F3195147927E2F6F1CD856BC7B57B65907CF98F76C4C83C1C2561"
+  },
+  {
+    "path": "core/telemetry/discovery-telemetry.ts",
+    "hash": "814F1ABA496B4209F7F0A63698B58774B25FAFDDC1005E6C4CD96D9912142344"
+  },
+  {
+    "path": "core/tests/agent1-evidence-projection.test.ts",
+    "hash": "96EB023592F0F4EA2307FD0828CAB96F77FE8975FC49713A474B65D1079CBCCD"
+  },
+  {
+    "path": "core/tests/agent1-replenishment.test.ts",
+    "hash": "014142B679705AB3BBDB404F330F8D57E48EF2358EC96DA06B254A59790B2725"
+  },
+  {
+    "path": "core/tests/agent3-commercial.test.ts",
+    "hash": "B690D02F59787C9D179F56FEB6EB9036623E81DD509AF9495C392FACB77297FD"
+  },
+  {
+    "path": "core/tests/aggregator.test.ts",
+    "hash": "CB30DF99DF185A0EEDF896FBD54BFEE61002E6315C6B6522FDA2847822353BC9"
+  },
+  {
+    "path": "core/tests/booking-cta-a1-fix2.test.ts",
+    "hash": "04A272233E842F70F77C5F53B1CF4A8D64FFAAE76877702FBD03C39B9FAEC55F"
+  },
+  {
+    "path": "core/tests/booking-cta-a1.test.ts",
+    "hash": "AA28EA70122D1551841BBF60C150CEF789A3D4EFD511CAE16E92F76938E97FEA"
+  },
+  {
+    "path": "core/tests/commercial-preparation-context.test.ts",
+    "hash": "3D0A400305FC05E21CE99A3610AB00969E4A11D5EE72E9A3F60E4BE93BE8BB89"
+  },
+  {
+    "path": "core/tests/commercial-preparation.test.ts",
+    "hash": "730C6D327EC7FBD24857B3E1618E76676B350FF330E0FCA2D0EA418ED9876EB6"
+  },
+  {
+    "path": "core/tests/commercial-quality-gate.test.ts",
+    "hash": "248A94655CD5ED9476B81856F1D4763FD4F3129FF3EC3E5EFFA975E1AF4ABC6D"
+  },
+  {
+    "path": "core/tests/contact-acquisition.test.ts",
+    "hash": "639E964EB4221463B550B52B327D7556ABD4D4E7543D2558B8FAC9BA37605A6C"
+  },
+  {
+    "path": "core/tests/contact-presence-enrichment.test.ts",
+    "hash": "F174C4FEA539626DCACCC427C97BE37D3673C8714B37AAA09DD95E3848AEA0DC"
+  },
+  {
+    "path": "core/tests/contact-source-telemetry.test.ts",
+    "hash": "23CC98DDA0D8D632131CCEB48C3D261DDDBEF513FC0B797432140BCF62979884"
+  },
+  {
+    "path": "core/tests/d1-production-slot-store.test.ts",
+    "hash": "0B449FEAFE37AEA3D00E0AD7C5414EF48BA68354F97C5995BB8403F7F3EC3C14"
+  },
+  {
+    "path": "core/tests/deck-commercial-pipeline.test.ts",
+    "hash": "18B619C2A9F1D774370204813F7B979C38ECD855FC7F95FDEB0972156682BEFE"
+  },
+  {
+    "path": "core/tests/design-directions.test.ts",
+    "hash": "9472EB7F4421D081C230916D42FA4B027EFEA2150EC349516AF72434135C3564"
+  },
+  {
+    "path": "core/tests/digital-pain-evidence.test.ts",
+    "hash": "164419E72C46D761CF2B89850961EECD12C8EED8AFB97D3FA0FAA8490BC37625"
+  },
+  {
+    "path": "core/tests/evidence-calibration.test.ts",
+    "hash": "C51B3820256CCBED3D469743F6D68B94F80D3583F93DCBAAE60D810F26A9A567"
+  },
+  {
+    "path": "core/tests/experiment-manager.test.ts",
+    "hash": "F05630D0155788B0042953C1947948FF4E0DDECE132033D8ABE4BCC8F3A32E9B"
+  },
+  {
+    "path": "core/tests/first-wave-discovery.test.ts",
+    "hash": "24EEF292EBB5E405383F4A959BCF52ABD27A4B96589F114E0C78FA4773FC24FA"
+  },
+  {
+    "path": "core/tests/fixtures/agent3-commercial/fixtures.ts",
+    "hash": "1232A99A43A96CC508D735BB68EF959D338930C0F24417EDD2B1ACD6B40800F4"
+  },
+  {
+    "path": "core/tests/google-places-discovery-adapter.test.ts",
+    "hash": "EB08B221C6B2FD9ED6B20C5A0CB717313F61C3A18788D7DFE06B99D115594F8C"
+  },
+  {
+    "path": "core/tests/google-places-orchestrator.test.ts",
+    "hash": "4F4F64FFC9D20A7CE842C2B891E64972EE0640F52833267B00C637D6A5639AD7"
+  },
+  {
+    "path": "core/tests/google-places-trust.test.ts",
+    "hash": "4E9FAA22846B289106FAB905790E172D64A3016B1BBE0F803A0F642EABBFA2D3"
+  },
+  {
+    "path": "core/tests/human-decision.test.ts",
+    "hash": "D9DBDC4842430D94A9185D2B86A22ED83DCD90F2B4CF53D35668BCDDFF09C9CF"
+  },
+  {
+    "path": "core/tests/icp-decision.test.ts",
+    "hash": "B3C660A4778D8F3D2A8C64F7289DE8B67A8588FBB883D1526126A240DA048674"
+  },
+  {
+    "path": "core/tests/operating-evidence.test.ts",
+    "hash": "46B9054B3DD1C7C0BC62AEE6BBCF52B2ED8EFD0B37FC720C6C9C564C94A4B55E"
+  },
+  {
+    "path": "core/tests/operator-feedback.test.ts",
+    "hash": "DE7EB8369AA7B863D315E8BD56218865ACAA6109CA43DCCAFB31F5D456985A91"
+  },
+  {
+    "path": "core/tests/persisted-agent1-evidence.test.ts",
+    "hash": "E3FDAF0FB2BDC79166CF563005A9A9B65E78BEC7C34462FA9D6A42C44741A4DB"
+  },
+  {
+    "path": "core/tests/proposal-booking-runtime.test.ts",
+    "hash": "93AA2141FEF92DEBE4089F861D6B96320A0584B68795B99AC77FFF73DCCBEDC3"
+  },
+  {
+    "path": "core/tests/prospect-reenrichment-migration.test.ts",
+    "hash": "F61DEA00584E2C9F6C21A164DEF9431B8827645A6412A85088677002063DAF89"
+  },
+  {
+    "path": "core/tests/score-provenance.test.ts",
+    "hash": "CB245AF26935170E0AB9E68DD1DE040DF17B02CB79A9E030195607BD7E5431F8"
+  },
+  {
+    "path": "core/tests/source-fetcher.test.ts",
+    "hash": "E9EE3EF04F7CE28E08A9E23F8DF01EF23F6683A1D805DD5DB9EC0754CA56AC5B"
+  },
+  {
+    "path": "core/tests/tavily-search-provider.test.ts",
+    "hash": "87F3946042C1D52F1B1C39DC4DFEB0BADEEACF79DBC218BADECE1BBE8E1A719C"
+  },
+  {
+    "path": "database/migration-v2-commercial-preparation-context-v1.sql",
+    "hash": "8B8A29134B516D987E9DD8367678ADF2969AE0767E8878CB0551F94C203CA40A"
+  },
+  {
+    "path": "scripts/analyze-owned-traversal.mjs",
+    "hash": "7F1CF76C7E8BBE8EF1E8E0407BDC708CE6400D76E47F3749BD99362739C00DCA"
+  },
+  {
+    "path": "scripts/audit-local-state.mjs",
+    "hash": "2EFDCCF7B2A16BB3081F63DF5A814C7F7497946ABED71D0E1E3569FD6B6B01C4"
+  },
+  {
+    "path": "scripts/audit-local-state.sql",
+    "hash": "91D906B4429FDADBFD61D0489133C41E4D12B8FF7E4D2C8450831015413DFA12"
+  },
+  {
+    "path": "scripts/audit-research-candidates.sql",
+    "hash": "65B24C288C0C2E4AB4EB2540A00A52301D321FDD11966006B72E935A2A99B4F7"
+  },
+  {
+    "path": "scripts/audit-trusted-phone-provenance.mjs",
+    "hash": "5CF68E1E77A7F3EEA7C412E38C7913DF5543B3079C5E7F9C5B55D640E9734482"
+  },
+  {
+    "path": "scripts/compute-tavily-final-report.mjs",
+    "hash": "AB9DB186D595BEEB0D8390BB189DF27B7802330675938F7C0170624C82AED6EC"
+  },
+  {
+    "path": "scripts/compute-yield-attribution.mjs",
+    "hash": "60E9CAC96BC2D361C3EF3CC38F66E68D4BA2D94292EB9D8A5721F8D71A186658"
+  },
+  {
+    "path": "scripts/configure-cloudflare-local.ps1",
+    "hash": "67B1F3806F58104F77A8A28325323BBD8B409417BD7D343DBF4BDA72A4EF2775"
+  },
+  {
+    "path": "scripts/ensure-full-smoke-fixture.ps1",
+    "hash": "9AFD8845BC775568F97DB05DAF22FFA979661589FC1299A8116EEF479D04332A"
+  },
+  {
+    "path": "scripts/ensure-synthetic-prospect.ps1",
+    "hash": "18C6BE5B6B6282A2A7B84EFED597BD2446551E60F1113E2760EF0B60849CEAD3"
+  },
+  {
+    "path": "scripts/freeze-google-places-orchestrator-canary-v1.mjs",
+    "hash": "51B94C83742F9B6784E3C685B483DA35FA86C93211FD0A7BF5C91DA2EA918DB7"
+  },
+  {
+    "path": "scripts/hydrate-tavily-contact-presence.mjs",
+    "hash": "704075A1D40398BD8E33DF4CA366EE08426A3C121942F645BB75B97803E166AF"
+  },
+  {
+    "path": "scripts/inspect-latest-acquisition.mjs",
+    "hash": "3801CBFF7F60CBB691CCD6BB6BFF7C4E9A1C88C85FD79824F958CED70DE0BD15"
+  },
+  {
+    "path": "scripts/inspect-tavily-final.sql",
+    "hash": "4CD70E187050BB6A7175D125A6CAEA0F31AC7E701312B98CB67A800FF350A8C5"
+  },
+  {
+    "path": "scripts/m010-approved-successor-proof.mts",
+    "hash": "378485DEAE824392B7DE8EDAE0E70BF16722EEB6445CA2749F124A42545D4056"
+  },
+  {
+    "path": "scripts/m010-health-diagnostic.mts",
+    "hash": "8445BADFA6835468CEAC03295046A6F0C50F520014BFC2C989687614A0DD4A94"
+  },
+  {
+    "path": "scripts/m010-r10-focused-proof.mts",
+    "hash": "B49246D88A4BD55DEAC6D8828BBC1595F46E4D6AC8E7ACDB391D8B69E8F7F6A7"
+  },
+  {
+    "path": "scripts/m010c-fake-send-inprocess.mjs",
+    "hash": "D990B8989E46248D52547B212FF34B5AEA12D26B69EADA3D46D11313D2417262"
+  },
+  {
+    "path": "scripts/overnight-state.cjs",
+    "hash": "F977435BA5CF701C7106BD82952E5B1E51776E063CC2C2AD07E0B0A74EA3897A"
+  },
+  {
+    "path": "scripts/overnight-state.test.cjs",
+    "hash": "F5DFF623B4597B3694C1E56071800BE568C518CCA4350FCB5C0CB7696EB2AA9C"
+  },
+  {
+    "path": "scripts/phone-gap-audit.mjs",
+    "hash": "0177C708971DE7D6D6BBE627E89DFC0CB3F47764E7B4767F342F8E213EBF6347"
+  },
+  {
+    "path": "scripts/project-control.ts",
+    "hash": "EA3A2325BA2B760188455293C1007BCF4FDB80AC19F5409E6619A116722F52A1"
+  },
+  {
+    "path": "scripts/reenrich-canonical-prospects.mjs",
+    "hash": "4D3D706022587BCD8B86281BFC11CDC58B0DE2BD967086D7CDA8E6446CC2EA1E"
+  },
+  {
+    "path": "scripts/reenrichment-data.sql",
+    "hash": "8B9AF9BE1776D4AA5CEF1CCC52F684972601A1FDF36C270EDB39DF1F1B5749CF"
+  },
+  {
+    "path": "scripts/reenrichment-final-report.mjs",
+    "hash": "43BC630A19E3F3FD69A297B0D4FED337E6FE89491CF4C16C05D432B638AD1264"
+  },
+  {
+    "path": "scripts/reenrichment-inventory.sql",
+    "hash": "9491DA1BEC5AE6B5FAE05F82B653175C6F2488C431105BB40A6D847A2C1EAEDF"
+  },
+  {
+    "path": "scripts/replay-owned-site-traversal.mjs",
+    "hash": "8A536243EA2A239B0E48E82224DE70579C71634A5A2E859F0057FD2F4173A4A7"
+  },
+  {
+    "path": "scripts/replay-source-telemetry.mjs",
+    "hash": "4E394EA4EE27093F8564BF765354DFA3890DA58148CC4AB1E0B2AED7715AECE9"
+  },
+  {
+    "path": "scripts/report-source-telemetry.mjs",
+    "hash": "D763E8EAC7A5C938D96233FD0A315A66F00F165CB4D3BDC9E86C59CB78B9AE6B"
+  },
+  {
+    "path": "scripts/run-contact-acquisition-replay.mjs",
+    "hash": "710EE6C6CBCC6BFE5F112C4EDEAFE4038B2F9933C4B043A348A6437EC064AC10"
+  },
+  {
+    "path": "scripts/run-google-places-discovery-adapter-v1.test.ts",
+    "hash": "E57404DA43741A7BE93F4483414A4AC71C055535B94DB76C6B6E5D7408091ACD"
+  },
+  {
+    "path": "scripts/run-google-places-discovery-adapter-v1.ts",
+    "hash": "3853DBF4AB3D1B61962FDA1F24DB08F08FDA8E83BC3B8649143E4092A82DD37B"
+  },
+  {
+    "path": "scripts/run-google-places-orchestrator-canary-v1.test.ts",
+    "hash": "487B41925935C553A8EF6F577E084AE3D9BF4B73026D21A90E56DED1AA634D08"
+  },
+  {
+    "path": "scripts/run-google-places-orchestrator-canary-v1.ts",
+    "hash": "A4A7D615A8E2A6D24ADE35629F5159C79B92C0C9816FCD48C84CF54817A8BD06"
+  },
+  {
+    "path": "scripts/run-google-places-production-validation-v1.mjs",
+    "hash": "79517369052AADBE34433D9D446768E8C6392434D32F88152F8053E6D5AA5B2B"
+  },
+  {
+    "path": "scripts/run-google-places-production-validation-v1.test.mjs",
+    "hash": "C7C00BAE8AD3BF6904190006646CA61F4A37EB89F6112F194B459C2CDC7B164B"
+  },
+  {
+    "path": "scripts/run-google-places-structured-provider-benchmark.mjs",
+    "hash": "D000F4CE985FC2A82D1424934287D7DEF8F9A25FE1F6BA9DA3D32FE194EDB80A"
+  },
+  {
+    "path": "scripts/run-google-places-structured-provider-benchmark.test.mjs",
+    "hash": "D5D1B265AB566C163E3FC6810B29133AB8B928C08FD85151B7E6B12FCA768EC8"
+  },
+  {
+    "path": "scripts/run-local-api-with-restart.cjs",
+    "hash": "6F93F3067ACF5F96E84E265AA25528B64A53F71530D9949DF4E46ECCD882A5EE"
+  },
+  {
+    "path": "scripts/run-synthetic-creative-matrix.ts",
+    "hash": "56B86F7BE72AE43F46481E4F6386D5DBA6EF17E7DD26F8930FB4890B6F20D35C"
+  },
+  {
+    "path": "scripts/run-synthetic-render-proof.ts",
+    "hash": "AB7B7A06FECEBFAD5F33418B83F4518F74BBCBD6AEE0ABC4258A6EEC2514E9C8"
+  },
+  {
+    "path": "scripts/run-tomtom-structured-provider-benchmark.mjs",
+    "hash": "94AB83BBC4DB225464D9953F50FB882B958C9B32D3BB5B3031A2B64FEE36E486"
+  },
+  {
+    "path": "scripts/run-tomtom-structured-provider-benchmark.test.mjs",
+    "hash": "9E15384AFA73F62F7E2A1E33D0E1A9F4BC67C5D2321555858F30DFB2BECB327A"
+  },
+  {
+    "path": "scripts/run-trusted-phone-canonical-correction-v1.mjs",
+    "hash": "6EEFE7FD83CB200BE8F121F7430C9528FEBBD7918D4DB1E055ACE587F5F879BC"
+  },
+  {
+    "path": "scripts/snapshot-bulk-martinique.mjs",
+    "hash": "9B21E902244B0C19C129A87A7F44A0EC50CB5E5AD1303A48E0128B0908583B88"
+  },
+  {
+    "path": "AGENTS.md",
+    "hash": "3F818DDEE81497559122A5055043B97721F1F0F57D95C010106F6CE7D09AE1E4"
+  },
+  {
+    "path": "CLAUDE.md",
+    "hash": "51F686FA747969B568EBE6187ED7D579D32A1079B6AA4F9F9C9EA0DCD35EE120"
+  },
+  {
+    "path": "apps/agent-runner/README.md",
+    "hash": "9D0C9180DF7157DB055B89C08DA8B5CE41390EE29518A11E3739608CA7798D27"
+  },
+  {
+    "path": "apps/agent-runner/package.json",
+    "hash": "A082F148DE2D061C283E030F87574EE52E999A3A9B3231C6BA41CE6024201C0B"
+  },
+  {
+    "path": "apps/agent-runner/src/api.ts",
+    "hash": "5F9BCD58058995138885297D886D26358B417F17B5A2E2F9D36778A51B019224"
+  },
+  {
+    "path": "apps/agent-runner/src/deploy.ts",
+    "hash": "7EA969B312AC8E4561404FF049E532C1178472AE0676B156C22ED05A65AE476C"
+  },
+  {
+    "path": "apps/agent-runner/src/email/README.md",
+    "hash": "C16329690209913CC416A9A681DF2B64EC62D4E782B1AC2706358199A23E05F6"
+  },
+  {
+    "path": "apps/agent-runner/src/email/amen.ts",
+    "hash": "E018FC499EB15A68B8C55270442B4DE1FBF24D19C3FC6830B430117E503F2FE6"
+  },
+  {
+    "path": "apps/agent-runner/src/email/assets/magic-script-logo-email.png",
+    "hash": "89F97A217E345AF768D3BF04583BCC26F04E933D5F32C2C7D1BDA2EABD0C9B5D"
+  },
+  {
+    "path": "apps/agent-runner/src/email/check.ts",
+    "hash": "EA2E8F1A5A5456FFAA8CBEE0E673EC413172D0A25E89B5A877E90119E06BFFCE"
+  },
+  {
+    "path": "apps/agent-runner/src/email/config.ts",
+    "hash": "F147AE8228013CCADC2F0BBF937059FD9D2D45AC3CAB14BCB00AA928E39ED205"
+  },
+  {
+    "path": "apps/agent-runner/src/email/send-idempotency.test.ts",
+    "hash": "03853410ED18C2AA90A318B83265745E932D0589E3EEEDCAB1A11D3D0754454A"
+  },
+  {
+    "path": "apps/agent-runner/src/email/send-idempotency.ts",
+    "hash": "01A028EBD44C2579A9203C3FFAD73343CAAA210544416B962BD05AC107D27A6D"
+  },
+  {
+    "path": "apps/agent-runner/src/email/test-send.ts",
+    "hash": "48F296B5D2E6F947555FB62A3DBE31EE352D0C84946564DB173D42B35AB7D218"
+  },
+  {
+    "path": "apps/agent-runner/src/index.ts",
+    "hash": "13082A39940B2903EBFD500AB1229BF79C9A65076F67D8F72BBB193CBD96D62C"
+  },
+  {
+    "path": "apps/agent-runner/src/kimi.ts",
+    "hash": "4970C506D21282228BE58A14B8A683F3981D08770B8198A37E15D1D8D6019F9B"
+  },
+  {
+    "path": "apps/agent-runner/src/process.ts",
+    "hash": "D7258989FDF6AEC6E807B7D9E9BB53AB820176F76D620F4B971B0680DDF66330"
+  },
+  {
+    "path": "apps/agent-runner/src/prompts.ts",
+    "hash": "1AC88FF45797ACF2DE87B00F3C77EFBD27FC567AA0785CA4294F47E499AA5B94"
+  },
+  {
+    "path": "apps/agent-runner/src/prototype.ts",
+    "hash": "3BEB5F71F4673DD9075BA5376F97594AF4D1EE308F1F204D215343ADF23B5228"
+  },
+  {
+    "path": "apps/agent-runner/tsconfig.json",
+    "hash": "7A4D3AC11E9F82A5238394FD7B5403FC5FC303F974939BDBA6A293E567A12649"
+  },
+  {
+    "path": "apps/api-worker/README.md",
+    "hash": "8C4E88F44748B76B99A46AAA1582671535ACA7B1B802789A2C0C25EC8B9F3B93"
+  },
+  {
+    "path": "apps/api-worker/package.json",
+    "hash": "AA65DBDE735E72E85103C108F6915E8BADECA52420739DDAA0453A4652A49C2B"
+  },
+  {
+    "path": "apps/api-worker/src/calendar-booking.integration.test.mjs",
+    "hash": "83716A8E0F9E2411DDC0D32BABC85E94A7A3359993E6A450116E8C4FB999A150"
+  },
+  {
+    "path": "apps/api-worker/src/call-copilot.integration.test.mjs",
+    "hash": "690C3FF769413FA3181251E995D5B8E7CB461BEC05C6404F9DB300596A3DCC3B"
+  },
+  {
+    "path": "apps/api-worker/src/engagement-score.integration.test.mjs",
+    "hash": "91063A34A940162BBF370AA54D2F0191A7DA5604F8A344C8C7D786A08BC1E0EE"
+  },
+  {
+    "path": "apps/api-worker/src/funnel-lifecycle.integration.test.mjs",
+    "hash": "7D4F53BE16AD331BF61CE8D0D6BF18E48A903E1454D44865495B44E6415537C4"
+  },
+  {
+    "path": "apps/api-worker/src/index.ts",
+    "hash": "81E68B56AA7C5259E535AFE520E6F07521D414FD4713A2396BDB63A6B18003E6"
+  },
+  {
+    "path": "apps/api-worker/src/prototype-cost-gate-api.integration.test.mjs",
+    "hash": "4CBAAD730CF3AC31736839172ECB7F5A64CF9AE62A64400D1FCF0A46DCC22E3C"
+  },
+  {
+    "path": "apps/api-worker/src/prototype-cost-gate-persistence.integration.test.mjs",
+    "hash": "C171EA779EAF4760B1D628B5A5554355ABE8D7E1923133F1601BA075EAFC3B0E"
+  },
+  {
+    "path": "apps/api-worker/src/runner-admission.integration.test.mjs",
+    "hash": "83D9B0D586D863F90826311AE4D609B5277E8F9531079E68057928EAE442EAB7"
+  },
+  {
+    "path": "apps/api-worker/src/sales-room.integration.test.mjs",
+    "hash": "41FF09CBC6458A6F04514D4AC2F91762D8931C24AEC90FB65A3B656FD4CEDE7F"
+  },
+  {
+    "path": "apps/api-worker/tsconfig.json",
+    "hash": "995433E0E71AF75034D6DD23F2F1FA0B81B187EADB1F74C60282A4DCB11FB042"
+  },
+  {
+    "path": "apps/api-worker/wrangler.jsonc",
+    "hash": "D697A857873A2F477FE4FD5E6D4F1009358F68FD76A01328C2DD14B35F70DC0D"
+  },
+  {
+    "path": "apps/api-worker/wrangler.local.jsonc",
+    "hash": "8B0308D470638A07F9A0FF10054C9D2659D5DDD952055E1E90DE5BFC90138B76"
+  },
+  {
+    "path": "apps/control-center/AGENTS.md",
+    "hash": "63F2C50380ED6303237CCE215CE27AF1D620D094C215E28D1B1538A3C070E3BB"
+  },
+  {
+    "path": "apps/control-center/CLAUDE.md",
+    "hash": "336CC4FBF19BEAADA7CCF9986414FA91851A8D7A07DFB3CCBE800A69EED0AB49"
+  },
+  {
+    "path": "apps/control-center/app/call-copilot-actions.ts",
+    "hash": "E0BAD3EA4BFC50111EA5394E99BDE8230AB3542C7E8005D5136158DF66FA6F01"
+  },
+  {
+    "path": "apps/control-center/app/globals.css",
+    "hash": "E44E16D60ACEBB4B909781198C587F10E102C2742D1452EA758C5C3EBEBE0459"
+  },
+  {
+    "path": "apps/control-center/app/layout.tsx",
+    "hash": "BE27DC7BC73A200CFEC3FF75D6A76FA05227B8A0C3A8F50A3514E8065CC57F59"
+  },
+  {
+    "path": "apps/control-center/app/page.tsx",
+    "hash": "8214BB402F0B4C3F8D2151BD2D037ADB1D1CDA1ACBDDE70F04BC79670A131DFB"
+  },
+  {
+    "path": "apps/control-center/components/CallCopilot.tsx",
+    "hash": "5E08ED5249D76D2C8B539134621F3EB64601F1BFEAC94235BFF07792C407811C"
+  },
+  {
+    "path": "apps/control-center/components/HubControlPlane.tsx",
+    "hash": "CE4C2D6964E91DE8571B9AADA170900DBC57DF90802685DF2D5CBF8656909CAA"
+  },
+  {
+    "path": "apps/control-center/components/LiveRefresh.tsx",
+    "hash": "3F8FD05D8051874965774BF6D7D2986FF66BCF136FCF8170DD31A1ADF8C45475"
+  },
+  {
+    "path": "apps/control-center/components/LiveSwarmGraph.tsx",
+    "hash": "26355093D4C4803B36F1A28D2AB2C7097D5270A7B282FC60890F5907B8D2DF39"
+  },
+  {
+    "path": "apps/control-center/components/OutreachReview.tsx",
+    "hash": "7D3BCE64FC0D63BC597C73A2897E636A114E671F96F05E9540B3C4C5F85FDA8D"
+  },
+  {
+    "path": "apps/control-center/components/ProspectDetailsLink.tsx",
+    "hash": "DEE7C7D05877B43DD5BEB009695DFAF54D38B5E6C2F7B46EF92B7705CF6E21BF"
+  },
+  {
+    "path": "apps/control-center/components/ProspectPipeline.test.tsx",
+    "hash": "DE677D540B267290DB1A2B3152F5EA28B270791DC4AFF46A339B2780028EF1B7"
+  },
+  {
+    "path": "apps/control-center/components/ProspectPipeline.tsx",
+    "hash": "01E56524C65FFBEDCF0871E37DF19AD667B17592A07AE3E2A61EEF32EB522113"
+  },
+  {
+    "path": "apps/control-center/lib/api.test.ts",
+    "hash": "43F12567157198DC34D3FDC5C8FF743E1AC735CC761D024C70F60C50F4543CD9"
+  },
+  {
+    "path": "apps/control-center/lib/api.ts",
+    "hash": "4EE31BB888170E696056FAC157E786EF3711DAC4E73460A911B0067BB741FE3B"
+  },
+  {
+    "path": "apps/control-center/lib/bu-summary.ts",
+    "hash": "690D5A1A5C0661971F6B8BB7D17B7A85BD289714DD15F5116F3F41567007238F"
+  },
+  {
+    "path": "apps/control-center/lib/deck.ts",
+    "hash": "1621ADF9470FA2FC6A5335F4FD1A8AF8E0772FCECFC7F20E4412E52F34CD7DEE"
+  },
+  {
+    "path": "apps/control-center/lib/founder-escalation.ts",
+    "hash": "78E76290A208BC9DAEEA61FED144D835C39694EE903E3A12E9700063275DF1D8"
+  },
+  {
+    "path": "apps/control-center/lib/outreach.ts",
+    "hash": "5D313E01837C75486F6BC4891EAE6A6EB5B3CBA78E81A5D81F96DB4FDDD448EB"
+  },
+  {
+    "path": "apps/control-center/next.config.js",
+    "hash": "04F0E0CCF3380E240ED097874C78B5D37C9E3C09D1E95C5A2CFACDE8B62F3FBD"
+  },
+  {
+    "path": "apps/control-center/package.json",
+    "hash": "5478A16AA37D4662E982EF5AB5AD200875C7FB414947CE075F6A4B4B245D8E36"
+  },
+  {
+    "path": "apps/control-center/tsconfig.json",
+    "hash": "B668D9955CAE072020C32541588E9B9D20FA6DDCA18D435E57CAA2A6365BFF37"
+  },
+  {
+    "path": "config/magicscript-v2-boundary.json",
+    "hash": "33579091C8FA830FCE83DA0885D85EDCCC9E39F3EDCEF38F8784BA144DB99D39"
+  },
+  {
+    "path": "core/README.md",
+    "hash": "7BAEA5F52D5DAB15E2092D202FD6BD5B666C42AA65D6C2FBD4F091024BF86150"
+  },
+  {
+    "path": "core/admission/contact-opportunity-pack.ts",
+    "hash": "B9AB888179D2D1547CD0BF28E0429144314CEEBC03D5E4F459A9A739904BDB05"
+  },
+  {
+    "path": "core/admission/v2-admission.ts",
+    "hash": "3F83EFF623BED5100286CFB8A51537189D205A80E43CD9EED846AB0166D4D4BF"
+  },
+  {
+    "path": "core/builder/contracts.ts",
+    "hash": "DF0FE22182BDC2FFE89C2815304CFCFFBC5557EE7506648D0480D673498B2A5D"
+  },
+  {
+    "path": "core/builder/site-builder.ts",
+    "hash": "712DE997E03272AC9617BC9BBE6BB466FEC5ED291DF5D03BF339346DC75E7BCB"
+  },
+  {
+    "path": "core/config.ts",
+    "hash": "6D0124FD44176D5AFB23D4AB7CF5B62955A2DA625765FA2A6093C360EC553FFC"
+  },
+  {
+    "path": "core/design/design-artifact.ts",
+    "hash": "B913EF3C4D93B223AAEA35B2FAF1368F1B0A8D2C1E138AD983B64F488C89B683"
+  },
+  {
+    "path": "core/design/design-director.ts",
+    "hash": "A1DE8D483225DEC3EA9950667ADD1BDB8D2EFB523FAAADCB7034C32ADC33FE5F"
+  },
+  {
+    "path": "core/design/design-handoff.ts",
+    "hash": "4AB9D8F6097288246A3A7228F9994055B20F12D6BE9DE4B42162DC9003040875"
+  },
+  {
+    "path": "core/design/design-request.ts",
+    "hash": "2CCDF059C42FC857CB7A33FF32BDEEF7DCEA0337F590D8DB8900CA54CFF5F4F9"
+  },
+  {
+    "path": "core/design/design-review.ts",
+    "hash": "4E8CFC40EA2734CD839F81721D9E7DE5651CECD9845C54509C925E53544F149E"
+  },
+  {
+    "path": "core/events/event-store.ts",
+    "hash": "073EBFB5EB546443EB3724B529A8E2C89D60607F1E61941AF8F30D70DC6E41F9"
+  },
+  {
+    "path": "core/hubs/registry.ts",
+    "hash": "E3661066E7D0892501A3FF8C8DB340EB7C9D2B81F8123DC77F75D6F62F0E7227"
+  },
+  {
+    "path": "core/hubs/team.ts",
+    "hash": "DD91863D538E505FC4779D3C4E55C651EA4C6906BCFE1877945217BAD9F22A5B"
+  },
+  {
+    "path": "core/index.ts",
+    "hash": "81C8388284A45990D5FE8982F14C418BF5447F62BE566495B8E105F6FE63CAA5"
+  },
+  {
+    "path": "core/jobs/in-memory-queue.ts",
+    "hash": "361AD9ABE859AB87424FBB5DF95CD6BC15B2D0C5EF1CBA48F8909811E02F6B0E"
+  },
+  {
+    "path": "core/jobs/priority.ts",
+    "hash": "9A38A26B13CE1AC2660ACC9429C43518C54935F1297650E460BA2AF3AA968C05"
+  },
+  {
+    "path": "core/jobs/types.ts",
+    "hash": "A688BF69A7C5AE96B1B6D8A7E094F9A768D23DB98AB80062E4B25AB274C0DD63"
+  },
+  {
+    "path": "core/orchestrator/bu-handoff-pipeline.ts",
+    "hash": "AE25AD95445586809DF618AFB4ED4E060DF6811C141DC67D51BEAA2ECC49F70A"
+  },
+  {
+    "path": "core/orchestrator/business-documents.ts",
+    "hash": "881FF970F44FE498E39816131A6C3C5A7503088BD654DFDE10B41F3F498B6B05"
+  },
+  {
+    "path": "core/orchestrator/calendar-booking.ts",
+    "hash": "E8347D462C30DACA4A020544DF646E836EBCA6A884A37ED9A8C23AAFCA9BC9CD"
+  },
+  {
+    "path": "core/orchestrator/call-copilot.ts",
+    "hash": "A970F737372EE596266B6C2F0DFB62B6E0EDD547C40A6B241577EFDD5DC0B8F9"
+  },
+  {
+    "path": "core/orchestrator/canonical-quote.ts",
+    "hash": "2542CF90799F5BC6450C3BDDA55E98F582F0E1344D6C3BF6878B29283C77E5AD"
+  },
+  {
+    "path": "core/orchestrator/commercial-lifecycle.ts",
+    "hash": "E5C006568E680959C40F48FAF0849C0AA04EB199731BD84FA4EAB3DD2204F25D"
+  },
+  {
+    "path": "core/orchestrator/commercial-scope-from-prospect.ts",
+    "hash": "97F010169BD12DBA4FF26ECA2C0C42364974B07D12E8E01A9AE2991B6B8AD341"
+  },
+  {
+    "path": "core/orchestrator/commercial-scope.ts",
+    "hash": "454FE3BD56A1BA036B65A04439B77CB8EBCF9AE6F7179664AC5B4141076F5C0F"
+  },
+  {
+    "path": "core/orchestrator/engagement-score.ts",
+    "hash": "CFFCEBEAE7E8D0B2BEBFF58C7B38F938C8AAA3CE29EEFBF226DC2514D2207112"
+  },
+  {
+    "path": "core/orchestrator/engine.ts",
+    "hash": "E9985BB85476662F4D3CC13FA5EBACC3837CF05EC982BE96E7801DFEF7A5C633"
+  },
+  {
+    "path": "core/orchestrator/escalation.ts",
+    "hash": "67C108FBAD8D301A64203B84CE912C02EC2E8DADB2A1483661AE2D42DF2532B5"
+  },
+  {
+    "path": "core/orchestrator/handoff.ts",
+    "hash": "CFE3C61608903EC54CB3C954CD527BCBBE64E9F01F67600F0695737A056AFFED"
+  },
+  {
+    "path": "core/orchestrator/next-action.ts",
+    "hash": "195D9F695F9E0C8EEDDF7C7553257BB91E32572751AD299C15020550F8DB0085"
+  },
+  {
+    "path": "core/orchestrator/outreach-policy.ts",
+    "hash": "EBFD265E9E6296AF677134900C014BF9A24319A5F7CEECBD2A17ADF8B465A711"
+  },
+  {
+    "path": "core/orchestrator/pricing-policy.ts",
+    "hash": "981D71E5C0DFB755868CFFD4ADB34C3FFB5107F6F65F69EBD4DB9331E9DE1DBD"
+  },
+  {
+    "path": "core/orchestrator/prospect-intake-identity.ts",
+    "hash": "5A5810DA87CFD76B98D13EC47AEC31C90D62F7A9ECA8661B955E26B3C70A4F79"
+  },
+  {
+    "path": "core/orchestrator/prototype-cost-gate.ts",
+    "hash": "D58377FD7E37BC9BE79250852EAA055620A0A9AA8CC9639578389D6E33FBE314"
+  },
+  {
+    "path": "core/orchestrator/quote-dossier.ts",
+    "hash": "CB20EA0663EFD8389FC0EC86A0D75D150D959DC63512099C333A10B703555AAF"
+  },
+  {
+    "path": "core/outreach/contracts.ts",
+    "hash": "48897BA7A255E2CE28B6EC9480139E15F187C07BC7A139A9F2068CCE21D883F7"
+  },
+  {
+    "path": "core/outreach/engine.ts",
+    "hash": "0F3FD64372099DFC70DC49D9C3D51B83EB12FD3A8560964CDCEE9EA779886C86"
+  },
+  {
+    "path": "core/outreach/send.ts",
+    "hash": "5EAF92AF197772EAB50B211430045F1C427A02DBD5AD72F8EADCB293B0F348C2"
+  },
+  {
+    "path": "core/overnight/index.ts",
+    "hash": "7C198330F02EB46BF219847057F4331B32E15C3D760A0EC6AE63D30AC8497119"
+  },
+  {
+    "path": "core/overnight/mission-compiler.ts",
+    "hash": "40BA9691341FAB1BD74D919600911203726F4704AFBA2A6CCBB55E3AF2345CCA"
+  },
+  {
+    "path": "core/overnight/session-state.ts",
+    "hash": "668DB2CF0EC94C57289FE2DD15F687AB8F79CFCBF58EE98689479B232FA97BC9"
+  },
+  {
+    "path": "core/package.json",
+    "hash": "3D7E593EF2707A3843E39F02D574A33FCB44315237C0FDC3C10F04DCCB835668"
+  },
+  {
+    "path": "core/persistence/d1-build-artifact-store.ts",
+    "hash": "833EC54237B79DFB87E9FAD06D908F5E858CAC2DC98F01461659E0D1C5FB32BB"
+  },
+  {
+    "path": "core/persistence/d1-design-artifact-store.ts",
+    "hash": "A9B706F208858E81F318E338A68AD8D703A0C1BF764972FAEA963773F1F4D1F5"
+  },
+  {
+    "path": "core/persistence/d1-design-request-store.ts",
+    "hash": "E0BF671373FCC3644014410A6E74BC6AE4645CEBDBEB31ABA36D72F02B765206"
+  },
+  {
+    "path": "core/persistence/d1-design-review-store.ts",
+    "hash": "109F9C57AD514DB1DC04C4866845A19F3E36B511AB8518253E26E42DE1951D08"
+  },
+  {
+    "path": "core/persistence/d1-event-store.ts",
+    "hash": "01E3B6918068FD762CB4B269075913D7D6E6584F28F271C3E6955C4A90A9E6CB"
+  },
+  {
+    "path": "core/persistence/d1-job-queue.ts",
+    "hash": "E99CE82F94D81153311CB4FFC576AD017D72D10F8B809B6B74A5DE8F4073A30A"
+  },
+  {
+    "path": "core/persistence/d1-outreach-draft-store.ts",
+    "hash": "C5AC25C269EC5BC3CE2BC79F7FA97CAF657F88D270E7906EDAADB5C50BB01039"
+  },
+  {
+    "path": "core/persistence/d1-proposal-store.ts",
+    "hash": "4C4A47C105E91E862DECDD7125F899ED867CAA7C331CA3B780E65D7D64D89298"
+  },
+  {
+    "path": "core/persistence/d1-prospect-repository.ts",
+    "hash": "E094AC7AB7B42F0ECB9BD1380C56A7577203F7776B72469014436196562C3CAB"
+  },
+  {
+    "path": "core/persistence/d1-types.ts",
+    "hash": "03DFC4BFB688D7CDE673EA4AB7A97384D662D52D5AECCFB9C1FA206245267E18"
+  },
+  {
+    "path": "core/persistence/d1-visual-qa-store.ts",
+    "hash": "82E9C5CF5F78474FB1C13D2C7ACB8D912BB1B5775FC0B3885C4ACD1D97CDC9F2"
+  },
+  {
+    "path": "core/personalization/entry-links.ts",
+    "hash": "67CAC4D714A7E5035F3F433993796B1F7E1AF5047466044851A25F6E34C3EB4E"
+  },
+  {
+    "path": "core/personalization/sales-room.ts",
+    "hash": "9FED02AE38C1B4B0EEBA3C838CC448B407F3375C45D487707A8D1A314E642E0D"
+  },
+  {
+    "path": "core/proposal/contracts.ts",
+    "hash": "AE7064AFE0E4D9F33BE13C806DB0D65DF54E114046E5E3A737154634AF22DA04"
+  },
+  {
+    "path": "core/proposal/packaging.ts",
+    "hash": "A7F66969D0D0D1700E75342BF801486BFB599314DA1C026BA318AAB4443E999B"
+  },
+  {
+    "path": "core/proposal/tracking.ts",
+    "hash": "7148BC07A5A61BDC4F34FED55EE7EFFB975C2780A9FDC1D54B1BBE2B97E1829B"
+  },
+  {
+    "path": "core/prototypes/web-design-review.ts",
+    "hash": "9892D078D0D47F802F418F37145955804D1B380D7319331A89917C6D11A43F05"
+  },
+  {
+    "path": "core/providers/contact.ts",
+    "hash": "7473B5C87BDDD81D33014A9756A05369336A647A50448E9E375C5690DFFC9D46"
+  },
+  {
+    "path": "core/providers/discovery.ts",
+    "hash": "B54DB2515819C14D84AEE6EE7FDC4CFB7E935FAA1619C471127272DED59DF5E8"
+  },
+  {
+    "path": "core/providers/email.ts",
+    "hash": "2AB24E7C69455FC04F517725BD2DC58DB0450EE8FD8A8F891E94CD80E2FDA075"
+  },
+  {
+    "path": "core/providers/hunter.ts",
+    "hash": "A8277B0411BC0A203B688EA9A0799476B1DBA8551AFB13E71B4634515DBCADDA"
+  },
+  {
+    "path": "core/providers/insee-sirene.ts",
+    "hash": "B39147B1DA14BCC572B5241F0D005D5E6F9C50C075FBAE1C0C3F4D5E48A406AD"
+  },
+  {
+    "path": "core/providers/recherche-entreprises.ts",
+    "hash": "17F8BB122116E0CFD646C43EBABD6B09BF9235808AE6B6463595BCA80DFAD7AC"
+  },
+  {
+    "path": "core/scoring/commercial-eligibility.ts",
+    "hash": "866BE4C671ACBCF811E2856295BBB5A6820E1F1B38575DC9188574C14C9E9C94"
+  },
+  {
+    "path": "core/scoring/prospect-score.ts",
+    "hash": "98EC402560C602E24AC2EA75BEEFE0B626B5DEA8184266DF8596521D77427F8D"
+  },
+  {
+    "path": "core/simulation/call-copilot-scenarios.ts",
+    "hash": "0B43FB86C41B80A0487C4C1DC96DD72A0A904C42822D24CD8D0F6053A2E0572F"
+  },
+  {
+    "path": "core/state/prospect-state-machine.ts",
+    "hash": "CA5996BC58CEC03C2C5811D096A1AD1574568DEADF966F2475835CC26CCBFCF4"
+  },
+  {
+    "path": "core/state/repository.ts",
+    "hash": "4EA3A1304F5B49EA45ADA14BF9488926CD29B63F950BE09293BB1746E6AEE11F"
+  },
+  {
+    "path": "core/tests/agent1-batch.test.ts",
+    "hash": "59BBC973C06BDA1E1EA378D962F8EFA3AE98E9E8F2551D4940CDD3DD18CE74FD"
+  },
+  {
+    "path": "core/tests/bu-handoff.integration.test.ts",
+    "hash": "68955F6461600301AED8D015BFEDE7EE38F163F7A88502BD6FD4D932D4C3DD8E"
+  },
+  {
+    "path": "core/tests/bu-watch.test.ts",
+    "hash": "07159A8B89C4E2C964B4D33DAB5E61DFB30D98040895E8DE16C7C02AAECC08FF"
+  },
+  {
+    "path": "core/tests/builder.test.ts",
+    "hash": "273C26D29D391C88D805F7613151865F42A7C635574A3D94A99081FE39E920AA"
+  },
+  {
+    "path": "core/tests/business-documents.test.ts",
+    "hash": "5D2D7A33A7F378DF9FF3FA74640E53DA200504FF2145ABEDD6F7F36F4772227B"
+  },
+  {
+    "path": "core/tests/calendar-booking.test.ts",
+    "hash": "45899D70D418A82630103E6DCEA33DAC3F5A4F19C3EE422B811574EF55A93AAE"
+  },
+  {
+    "path": "core/tests/call-copilot.test.ts",
+    "hash": "695F253154CA9D03CB528DE0C8E68A79706F325FF60ADA6425E8E8B332CFB19A"
+  },
+  {
+    "path": "core/tests/commercial-eligibility.test.ts",
+    "hash": "C61DB070523F0CB007AB3DC26207EAEB91154090724DA4A0BC55F51A80E822F1"
+  },
+  {
+    "path": "core/tests/commercial-lifecycle.test.ts",
+    "hash": "02F82AE029F98B6BBF72BB33A2193B47E357FF8D41CB1942A8BF453A486A8655"
+  },
+  {
+    "path": "core/tests/commercial-scope-from-prospect.test.ts",
+    "hash": "BAF7A3693D8BF3F19A10800E0D3BECE56C1F0C31D94EFBA3C47FA340279A5072"
+  },
+  {
+    "path": "core/tests/commercial-scope.test.ts",
+    "hash": "CA9B3B7B80C8AEAC8E14A8E3FC8EFEC4DCDE2A872166186BB94117592B7CCC1F"
+  },
+  {
+    "path": "core/tests/contactability.test.ts",
+    "hash": "991B8E0F6BEC0A00A2347EC6358F5936E2C21EE83A99D4F3F940B3BB90D08464"
+  },
+  {
+    "path": "core/tests/design-artifact.test.ts",
+    "hash": "E84A115F01835B93EDFC2DB6DFA799EBB90BF27F072587E02ADA8BF2804734F7"
+  },
+  {
+    "path": "core/tests/design-director.test.ts",
+    "hash": "9C4B092F3D01DED330DFAD141015EAAFF11A972935A722E45B7E69B9E6C04F38"
+  },
+  {
+    "path": "core/tests/design-handoff.test.ts",
+    "hash": "26F23B750810F2923AC2D3EC588E40F7D1378469027F30736EE74670C1AD5BDC"
+  },
+  {
+    "path": "core/tests/engagement-score.test.ts",
+    "hash": "3A69A02BABBD79FA569AE63400435C00D2CCD9E8E41A337B067691AABCC26ECF"
+  },
+  {
+    "path": "core/tests/entry-links.test.ts",
+    "hash": "AAA55425E7A9EBA35465A176948A1BD8FE56170F187B8D9D772D6F23A3A565D0"
+  },
+  {
+    "path": "core/tests/evidence-contract-security.test.ts",
+    "hash": "091FA123A5D06F38CA7FC164A1E967AD6FA972608BF57026D199155043CD6CB7"
+  },
+  {
+    "path": "core/tests/evidence-integrity.test.ts",
+    "hash": "AAAF6E15EBD12289750167C397C22AF8205BDDCD2229CEB3B1163E00E84130FA"
+  },
+  {
+    "path": "core/tests/handoff.test.ts",
+    "hash": "6E9665F015E6E75BE759171FA6276F6C281F82DEE9638677CF7533627CACDFCA"
+  },
+  {
+    "path": "core/tests/hubs.test.ts",
+    "hash": "F55954E64BC78138C04EB55A6F5368D62DC996ACC159375837F6F57F61C55255"
+  },
+  {
+    "path": "core/tests/insee-sirene.test.ts",
+    "hash": "B27C766DAAF71CECE55CFC9449664E4D455720A4D7EE540D5FD1B4757A4D02FB"
+  },
+  {
+    "path": "core/tests/job-priority.test.ts",
+    "hash": "1D0986E57172E6C8D2D16B3E611B3B3ACD93C57E979D46AE0C3B91E6BFF680E7"
+  },
+  {
+    "path": "core/tests/orchestrator.test.ts",
+    "hash": "8589BDEE80AB514DFB883351D611FD8339593F5CB58EEB262E91C8055142BEAA"
+  },
+  {
+    "path": "core/tests/outreach-draft.test.ts",
+    "hash": "D28C3B7A0798D424BF12900D35108AF7FCC585C6CAE3E158F84FEC3D1C7766F4"
+  },
+  {
+    "path": "core/tests/outreach-policy.test.ts",
+    "hash": "B566DB76AAB06995928C97BCD97461228228A78271DACA382FD33E48662289A2"
+  },
+  {
+    "path": "core/tests/overnight.test.ts",
+    "hash": "10C84CB5606FE277EEAB5DD78CAE48919FA0E33EB90463D7A11550370C8D6A3B"
+  },
+  {
+    "path": "core/tests/phone-extractor.test.ts",
+    "hash": "83A77A633B2108B425A8415ABA603B138D418454B67D59B1D4CDCBC9A8B6B49F"
+  },
+  {
+    "path": "core/tests/phone-record.test.ts",
+    "hash": "3A9415AF3E13C189F1C1E7E65C18AB1B79A084FEC8BA26EA3001E8500D32C090"
+  },
+  {
+    "path": "core/tests/phone-trust.test.ts",
+    "hash": "8550E056EBD97C103B12F666CA1EAE3A7C2ADB4E4F7CE5A176FA47E1A824F936"
+  },
+  {
+    "path": "core/tests/pricing-policy.test.ts",
+    "hash": "7B9723E430737C05B2B1FEA09B0402B0744737C9F4B1818F6BA64137FD2E90CB"
+  },
+  {
+    "path": "core/tests/project-control.test.ts",
+    "hash": "3D50FBB60B3E0A02F9650CA71DFBF4E304161B622A0BB455FB1C229B2F687AC3"
+  },
+  {
+    "path": "core/tests/prospect-commercial-view.test.ts",
+    "hash": "00500422B12B085F22F22EF1E72E83D2DA46EBCF40F421BBCBC6490404D48D32"
+  },
+  {
+    "path": "core/tests/prospect-intake-identity.test.ts",
+    "hash": "CC98486C0B134E4A360517A79F84FCA35C3E6727F5A38E6FB43B0557754CFB8B"
+  },
+  {
+    "path": "core/tests/prospect-sas.test.ts",
+    "hash": "61CEDF2ACAC10D04E537E7E50DD1217F23F736D86677FD08B43A4B16BA317C50"
+  },
+  {
+    "path": "core/tests/prototype-cost-gate.test.ts",
+    "hash": "0415097C486E67104D484AE860297308D167BFF011AD4F5BD8AD50B5837D1DB3"
+  },
+  {
+    "path": "core/tests/prototype-flow.test.ts",
+    "hash": "3777DB283F2159730B63641A0AFB54639D21B98B37E802198DCCC5B007539743"
+  },
+  {
+    "path": "core/tests/quote-dossier.test.ts",
+    "hash": "9CE0D01E6D7DF85395CEAED85D1EAF10112B9D5B236D841942E6D2B60BC02CC9"
+  },
+  {
+    "path": "core/tests/recherche-entreprises.test.ts",
+    "hash": "9EA1AA4A3A983E08685A43759E18E0F4778CE86F0E764534308E5A061767B169"
+  },
+  {
+    "path": "core/tests/scoring.test.ts",
+    "hash": "2915A4AF56380620316AAD34658DA0AC336EC607A71AF5B50B4B41DB682F98D4"
+  },
+  {
+    "path": "core/tests/state-machine.test.ts",
+    "hash": "E5326968D239092C9D8F4214F24A611F093EDDDA378B86C460982017B58EAB4B"
+  },
+  {
+    "path": "core/tests/v2-admission.test.ts",
+    "hash": "056F3867DBF9A3181025849FD2EDA594D141094199F09A39F34BD67741B342E1"
+  },
+  {
+    "path": "core/tests/web-design-review.test.ts",
+    "hash": "DBE8C1E2D8890F58D2526975A970260A7D60B2B9DE1C7D037E34D295B6257BB7"
+  },
+  {
+    "path": "core/tsconfig.json",
+    "hash": "9B06E92415E8C1877A2AAA26844162281C54A0AF7E01E228CEE86E003C8B17B5"
+  },
+  {
+    "path": "core/types/agent1-batch.ts",
+    "hash": "E348D5D4AD94D60E720BBA368BC2FAD4931C576744EDB842505D5274851869F0"
+  },
+  {
+    "path": "core/types/bu-watch.ts",
+    "hash": "259900D65CC64D2BDB7063CDDF793DBF0F62A44D6BB363DE9DCB3147643C48D6"
+  },
+  {
+    "path": "core/types/events.ts",
+    "hash": "D239CBC5D534AAB816DD2376D31106E96B865ED67736243ABEEAC2804BFE6AA2"
+  },
+  {
+    "path": "core/types/prospect-sas.ts",
+    "hash": "3F98163D7C623D605A2FD4A2231F9E57FF3B6793F886A90D9793A0126853C54D"
+  },
+  {
+    "path": "core/types/prospect.ts",
+    "hash": "0DDFC017DC9616592A785BEC5B1A2F38F7B73A52F0F251AE842C6686E8651D13"
+  },
+  {
+    "path": "core/visual-qa/contracts.ts",
+    "hash": "A664891FF09ACB8DD513FAEAF437E19963BA9DAB6B8359AE449D6FEFE1F80228"
+  },
+  {
+    "path": "core/visual-qa/engine.ts",
+    "hash": "51EF43A23885071D0DC13B7C6A9BB345FEF2195D187DD77AF45CE66012CBF61A"
+  },
+  {
+    "path": "database/README.md",
+    "hash": "1EF2FC105FE7AD9D1A306BF3D1A0B81C67914151415F7BA788E38C4122457F9A"
+  },
+  {
+    "path": "database/migration-prototype-human-review-v1.sql",
+    "hash": "D0F16A9D309D98E78E27B12A94459A8A7BDE415D578C2EF01CAA30A81508A8A8"
+  },
+  {
+    "path": "database/migration-v2-admission-v2.sql",
+    "hash": "FA74F832052CB39F281059DFB679F4D711AEE07124B3296AAAE5BED8342B0A6A"
+  },
+  {
+    "path": "database/migration-v2-builder-v1.sql",
+    "hash": "70F42EAF003E2E0FBB40F74E78EC0C4A09EEDA4C93EFECF8BE1DDE30CAFCE35C"
+  },
+  {
+    "path": "database/migration-v2-design-artifact-v1.sql",
+    "hash": "56F190FD2CD7187489401B964FB6B731F8EE7CFFFB86C43885E7B8D42FA7B458"
+  },
+  {
+    "path": "database/migration-v2-design-director-v1.sql",
+    "hash": "E2483E595BEDA3C1E78110323D04B27B331A65279B61777D97C0CE43CBF3C5D4"
+  },
+  {
+    "path": "database/migration-v2-design-handoff-v1.sql",
+    "hash": "30FD641474E186BBBBC9BA6085C4A80FF2C456F4BEDE90446537C14911340A8F"
+  },
+  {
+    "path": "database/migration-v2-outreach-draft-v1.sql",
+    "hash": "0A86A622FC62BD8E27D29406F07C55EE12BA466E4C424EDF0B496B64748DEC71"
+  },
+  {
+    "path": "database/migration-v2-proposal-v1.sql",
+    "hash": "0F134A1DDB1FDD25DF5439364D51FE43AE91B6024D40A3176A8DA6C43739A0E0"
+  },
+  {
+    "path": "database/migration-v2-visual-qa-v1.sql",
+    "hash": "8C46B8D7467AA0858C0417E3A83C2B8A8B3AD6431EF76479A5F2CC578F07B6D8"
+  },
+  {
+    "path": "database/schema.sql",
+    "hash": "066EA947B4EFBF114AF237A479E181EFBEA84A2BB1FA310F0171873255C85FA8"
+  },
+  {
+    "path": "scripts/check-free-directory.mjs",
+    "hash": "DF81ADC9B1E7112BB2929FB497B99D13DB11D41F97CC6A831DCFDC6722F3DC0D"
+  },
+  {
+    "path": "scripts/configure-mail-test.ps1",
+    "hash": "C5B92C7EA86FA43ED2371E52BF9B9AA6D0A27A58FAFFC302DC6FC626348DBAD7"
+  },
+  {
+    "path": "scripts/legal-surface.test.cjs",
+    "hash": "6711C92866080D4076B11798EF7B6724BA7B924397F6EF0873DE3EDFBECB3D01"
+  },
+  {
+    "path": "scripts/local-preview-server.cjs",
+    "hash": "A01F6447026B61039586C99B402ACE6ADCBFC676EF489D98F327D94ACAA64E73"
+  },
+  {
+    "path": "scripts/local-preview-server.test.cjs",
+    "hash": "7DEFEB2C5EB45E1A73DAE1E2BF6FD888438028BD6B88FA49006B1C3EBF18152F"
+  },
+  {
+    "path": "scripts/m005r-inprocess.mjs",
+    "hash": "DC36C4AAFF9159637463B59933E49F79C133D13790901252048612ED051E35AB"
+  },
+  {
+    "path": "scripts/m005r-loader.mjs",
+    "hash": "9AA044A542EBF06BABE26E8C77C105DCC45B6A1EF60DADE78E9D388E8741AA30"
+  },
+  {
+    "path": "scripts/m007-browser-qa.cjs",
+    "hash": "F4E34B7BC43914920A865F46617539332B5510D138154FB991E3E7C90046BCAB"
+  },
+  {
+    "path": "scripts/m007r-final-acceptance.mts",
+    "hash": "DAEBECBD9649DBA58543B25360EBB5BA10B88176CE3CE5E34E2C95DBA9CF80F9"
+  },
+  {
+    "path": "scripts/m007r-local-acceptance.mts",
+    "hash": "39850A79B0A30FE978D1823BA0252F4692484AB695E6816CECA8E39BBD0BEAA0"
+  },
+  {
+    "path": "scripts/m008-final-acceptance.mts",
+    "hash": "35D1297596CEEC8F3B68FD2F68345CDDE9FCC21D28A94E984F070D4887603F4C"
+  },
+  {
+    "path": "scripts/m009-final-acceptance.mts",
+    "hash": "90747580A0AB6F429403F6268AA334E0D6B4539AD04EC3786CB4BCFB384ADD73"
+  },
+  {
+    "path": "scripts/m010-b-fixtures.json",
+    "hash": "C59E40EA68E190704F4B86C8CE96EEE2FC56DF4DA83958ADED61429723F1EBCB"
+  },
+  {
+    "path": "scripts/m010-final-acceptance.mts",
+    "hash": "37A1293A44B7C16C98F8B21F218F5C05BD8A44574B0DEE45E6A8BA0C6319752A"
+  },
+  {
+    "path": "scripts/m010a2-inprocess.mjs",
+    "hash": "DB5A7B05C2B901B1A3FCBA9DBCC92CE4215A8E3B9919836617D6812B54810345"
+  },
+  {
+    "path": "scripts/magic-script.ps1",
+    "hash": "BBD50F94778F5418A4C2A6CA0DEAC5655A87D8DBF252E10611D8303EFAABD88B"
+  },
+  {
+    "path": "scripts/qa-surface.cjs",
+    "hash": "CC45D4E770D7E55D051C237A4B0996DF1EEB0ED816AD08B1FD2961C7798519A4"
+  },
+  {
+    "path": "scripts/qa-surface.test.cjs",
+    "hash": "F61D1DE96CDED3EF13BC3779C29F1F770C7EF5DB6F6214559B508706822A5487"
+  },
+  {
+    "path": "scripts/run-tsx-with-preload.cjs",
+    "hash": "8DC3EA287F416F752B83A84FCF92FA0F3967F59D365F2508A439ABAA16CACD29"
+  },
+  {
+    "path": "scripts/smoke-full-funnel.mjs",
+    "hash": "A5D558E30E1B342AF12DDF90A9E0816F4BB9CBD7B82E6B67072D042758D66C00"
+  },
+  {
+    "path": "scripts/smoke-swarm.mjs",
+    "hash": "EC3D089440CFBF36AE7F680476AE3DB5FCAB0B9748A08644F41368100D1290A6"
+  },
+  {
+    "path": "scripts/start-local-swarm.ps1",
+    "hash": "50A967F7C3E96E99D971217E1E5688599A4560F33A66B837485E7CFBFC97E34B"
+  },
+  {
+    "path": "scripts/stop-local-swarm.ps1",
+    "hash": "38835772EEF0740EDD28AD9DAA313D54B31694ED802BBF55232E6A1916EBE475"
+  },
+  {
+    "path": "scripts/tsx-preload.cjs",
+    "hash": "744640822D51BC4208ED648A6ABAFA6FA4122C35B520E10CF98CADF1BFB22E34"
+  },
+  {
+    "path": "scripts/tsx-preload.mjs",
+    "hash": "F8C6D249458459C686D51DDEF51A84DD9B036925BCE777646159B6911F0DE451"
+  },
+  {
+    "path": "scripts/validate-v2-boundary.mjs",
+    "hash": "D39B0251B0E4E58789B3C4F685EAFCBECA78DF0F867E24D28F10B67504E02FF8"
+  },
+  {
+    "path": "scripts/wp07-browser-qa.cjs",
+    "hash": "F8965B09DEC4B38F9A8AB873A8F190BC2EFC371A47C2E52313FA43A4CB094D52"
+  }
+]

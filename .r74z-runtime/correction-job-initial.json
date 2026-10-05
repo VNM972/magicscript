@@ -1,0 +1,20 @@
+{
+  "id": "job-v2-87988492200011-build-correction-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r2",
+  "kind": "V2_BUILD_CORRECTION",
+  "prospectId": "v2-87988492200011",
+  "payload": {
+    "correctionRequestId": "correction-qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+    "buildArtifactId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+    "targetBuildRevision": 1,
+    "nextBuildRevision": 2,
+    "qaReportId": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+    "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+    "approvedDesignArtifactId": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1"
+  },
+  "maxAttempts": 2,
+  "runAfter": "2026-10-03T07:05:01.295Z",
+  "status": "PENDING",
+  "attempts": 0,
+  "createdAt": "2026-10-03T07:05:01.295Z",
+  "updatedAt": "2026-10-03T07:05:01.295Z"
+}

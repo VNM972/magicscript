@@ -1,0 +1,66 @@
+{
+  "status": "COMPLETE",
+  "capabilityGate": "PASS",
+  "hunterLiveCapability": "PROVEN",
+  "results": [
+    {
+      "targetIdentityKey": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "target": "BODY ILES",
+      "hunterState": "CANDIDATE_DOMAIN",
+      "hunterRequests": 1,
+      "firstPartyFetch": "REDIRECT_NOT_FOLLOWED",
+      "firstPartyIdentity": "NOT_REACHED",
+      "r42Result": "NOT_REACHED",
+      "r42Condition": "NOT_REACHED",
+      "firstPartyRequests": 1,
+      "requestTimestamp": "2026-10-01T15:30:38.062Z",
+      "hunterDomain": "iles.com",
+      "knownDomainAvailable": "YES",
+      "hunterDomainMatchesKnownDomain": "NO"
+    },
+    {
+      "targetIdentityKey": "d136a9dd-d0ca-426b-9b0c-d2ce4cbfda1a",
+      "target": "CATLEIA",
+      "hunterState": "PROVIDER_NO_RESULT",
+      "hunterRequests": 1,
+      "firstPartyFetch": "NOT_REACHED",
+      "firstPartyIdentity": "NOT_REACHED",
+      "r42Result": "NOT_REACHED",
+      "r42Condition": "NOT_REACHED",
+      "firstPartyRequests": 0,
+      "requestTimestamp": "2026-10-01T15:30:38.509Z",
+      "knownDomainAvailable": "YES",
+      "hunterDomainMatchesKnownDomain": "NO_HUNTER_RESULT"
+    },
+    {
+      "targetIdentityKey": "1a608e32-1703-44a2-b81f-42d10d80c61f",
+      "target": "KREOL POKE",
+      "hunterState": "CANDIDATE_DOMAIN",
+      "hunterRequests": 1,
+      "firstPartyFetch": "PASS",
+      "firstPartyIdentity": "FIRST_PARTY_IDENTITY_INSUFFICIENT",
+      "r42Result": "NOT_REACHED",
+      "r42Condition": "NOT_REACHED",
+      "firstPartyRequests": 1,
+      "requestTimestamp": "2026-10-01T15:30:38.559Z",
+      "hunterDomain": "kreol.se",
+      "knownDomainAvailable": "YES",
+      "hunterDomainMatchesKnownDomain": "NO"
+    },
+    {
+      "targetIdentityKey": "ec74433c-fbcc-47ac-8176-1cfb00189fce",
+      "target": "RITA CHAILLON",
+      "hunterState": "CANDIDATE_DOMAIN",
+      "hunterRequests": 1,
+      "firstPartyFetch": "REDIRECT_NOT_FOLLOWED",
+      "firstPartyIdentity": "NOT_REACHED",
+      "r42Result": "NOT_REACHED",
+      "r42Condition": "NOT_REACHED",
+      "firstPartyRequests": 1,
+      "requestTimestamp": "2026-10-01T15:30:38.765Z",
+      "hunterDomain": "ritacorp.com",
+      "knownDomainAvailable": "YES",
+      "hunterDomainMatchesKnownDomain": "NO"
+    }
+  ]
+}

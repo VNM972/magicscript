@@ -1,0 +1,32 @@
+{
+  "prospect": {
+    "id": "r35-villa-ancinel-c5ff222e",
+    "companyName": "Villa Ancinel",
+    "legalName": "SARL ROBIN ANCINEL",
+    "siren": "879884922",
+    "siret": "87988492200011",
+    "city": "Le Diamant",
+    "location": "Le Diamant, Martinique",
+    "activity": "Location de la Villa Ancinel pour des sejours touristiques",
+    "websiteUrl": "https://villa-ancinel.com/",
+    "sourceUrl": "https://villa-ancinel.com/",
+    "state": "DISCOVERED",
+    "createdAt": "2026-09-28T11:36:15.517Z",
+    "updatedAt": "2026-09-28T11:36:15.517Z"
+  },
+  "job": {
+    "id": "r35-research-c5ff222e",
+    "kind": "RUN_RESEARCH_SWARM",
+    "prospectId": "r35-villa-ancinel-c5ff222e",
+    "payload": {
+      "provenance": "r35-bounded-host-pilot"
+    },
+    "maxAttempts": 1,
+    "runAfter": "2026-09-28T11:36:15.517Z",
+    "status": "PENDING",
+    "attempts": 0,
+    "createdAt": "2026-09-28T11:36:15.525Z",
+    "updatedAt": "2026-09-28T11:36:15.525Z"
+  },
+  "seedStatus": "UNVERIFIED_RESEARCH_SEED"
+}

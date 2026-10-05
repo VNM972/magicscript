@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "counts": {
+    "runnerInvocations": 1,
+    "claimRequests": 1,
+    "realClaims": 1,
+    "executorRuns": 1,
+    "successCallbacks": 1,
+    "failCallbacks": 0,
+    "qaInvocations": 0
+  },
+  "buildId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2",
+  "buildRevision": 2,
+  "qaAttempt": 2,
+  "approvedRevision": 1,
+  "outputPath": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\build-r2\\dist",
+  "sourceHash": "722baecc7eccfc46f87283bea82e6ed0bed50d749f8fe7e36591f4f6409cc037",
+  "buildR1Immutable": true,
+  "qaA1Immutable": true,
+  "faviconPresent": true,
+  "faviconLinkCount": 1,
+  "stylesAndPageContentPreserved": true,
+  "requestReused": true,
+  "jobReused": true,
+  "slot": {
+    "slot_id": 1,
+    "prospect_id": "v2-87988492200011",
+    "acquired_at": "2026-10-02T16:32:22.323Z",
+    "release_reason": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "PAGD Bâtiment",
+  "url": "https://www.pagd.fr/",
+  "pageState": "PAGE_OBSERVED",
+  "httpResultClass": "SUCCESS",
+  "title": "Site en construction",
+  "h1": [
+    ""
+  ],
+  "qualification": "PAIN_SIGNAL_CONFIRMED",
+  "identity": "IDENTITY_ABSENT",
+  "enrichment": "NO_ELIGIBLE_LINK",
+  "registryRequest": null
+}

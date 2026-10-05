@@ -100,7 +100,44 @@ test('sending switch blocks email jobs', async () => {
 
   assert.equal(plan.nextAction, 'SEND_EMAIL');
   assert.equal(plan.queuedJobId, undefined);
+  assert.equal(plan.humanRequired, true);
   assert.equal(plan.reason, 'Sending disabled');
+});
+
+test('commercial sending requires explicit operator provenance even when enabled', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+
+  await prospects.saveProspect({
+    id: 'operator-send-required',
+    companyName: 'Operator Send Test',
+    state: 'OUTREACH_VERIFIED',
+    createdAt: '2026-08-29T00:00:00.000Z',
+    updatedAt: '2026-08-29T00:00:00.000Z',
+  });
+
+  const engine = new OrchestratorEngine({
+    config: loadConfig({
+      MAGICSCRIPT_AUTOPILOT_ENABLED: 'true',
+      MAGICSCRIPT_SENDING_ENABLED: 'true',
+      MAGICSCRIPT_EMAIL_PROVIDER: 'dry-run',
+    }),
+    prospects,
+    events,
+    jobs,
+    idFactory: () => 'operator-send-guard',
+    now: () => new Date('2026-08-29T12:00:00.000Z'),
+  });
+
+  const automaticPlan = await engine.planProspect('operator-send-required');
+  assert.equal(automaticPlan.queuedJobId, undefined);
+  assert.equal(automaticPlan.humanRequired, true);
+  assert.equal(automaticPlan.reason, 'Commercial sending requires explicit operator action');
+
+  const operatorPlan = await engine.planProspect('operator-send-required', 'operator-send');
+  assert.equal(operatorPlan.queuedJobId, 'operator-send-guard');
+  assert.equal(operatorPlan.humanRequired, false);
 });
 
 test('deployment switch blocks prototype deploy jobs', async () => {
@@ -471,4 +508,219 @@ test('FULL authorization allows prototype build and is preserved in payload', as
     pending[0]?.payload.prototypeAuthorization,
     'FULL',
   );
+});
+
+
+test('internal processing queues research without global autopilot', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+
+  await prospects.saveProspect({
+    id: 'h2-discovered',
+    companyName: 'H2 Retail Prospect',
+    state: 'DISCOVERED',
+    createdAt: '2026-09-10T12:00:00.000Z',
+    updatedAt: '2026-09-10T12:00:00.000Z',
+  });
+
+  const engine = new OrchestratorEngine({
+    config: loadConfig({
+      MAGICSCRIPT_AUTOPILOT_ENABLED: 'false',
+      MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED: 'true',
+      MAGICSCRIPT_SENDING_ENABLED: 'false',
+      MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED: 'false',
+    }),
+    prospects,
+    events,
+    jobs,
+    idFactory: () => 'h2-research-job',
+    now: () => new Date('2026-09-10T12:05:00.000Z'),
+  });
+
+  const plan = await engine.planProspect('h2-discovered');
+
+  assert.equal(plan.nextAction, 'RUN_RESEARCH_SWARM');
+  assert.ok(plan.queuedJobId);
+
+  const pending = await jobs.list('PENDING');
+  assert.equal(pending.length, 1);
+  assert.equal(pending[0]?.kind, 'RUN_RESEARCH_SWARM');
+});
+
+test('internal processing queues contact discovery after qualification without global autopilot', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+
+  await prospects.saveProspect({
+    id: 'h2-qualified',
+    companyName: 'H2 Qualified Prospect',
+    state: 'QUALIFIED',
+    createdAt: '2026-09-10T12:00:00.000Z',
+    updatedAt: '2026-09-10T12:00:00.000Z',
+  });
+
+  const engine = new OrchestratorEngine({
+    config: loadConfig({
+      MAGICSCRIPT_AUTOPILOT_ENABLED: 'false',
+      MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED: 'true',
+      MAGICSCRIPT_SENDING_ENABLED: 'false',
+      MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED: 'false',
+    }),
+    prospects,
+    events,
+    jobs,
+    idFactory: () => 'h2-contact-job',
+    now: () => new Date('2026-09-10T12:05:00.000Z'),
+  });
+
+  const plan = await engine.planProspect('h2-qualified');
+
+  assert.equal(plan.nextAction, 'DISCOVER_CONTACT');
+  assert.ok(plan.queuedJobId);
+
+  const pending = await jobs.list('PENDING');
+  assert.equal(pending.length, 1);
+  assert.equal(pending[0]?.kind, 'DISCOVER_CONTACT');
+});
+
+test('internal processing does not unlock outreach automation', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+
+  await prospects.saveProspect({
+    id: 'h2-outreach',
+    companyName: 'H2 Outreach Prospect',
+    state: 'OUTREACH_READY',
+    createdAt: '2026-09-10T12:00:00.000Z',
+    updatedAt: '2026-09-10T12:00:00.000Z',
+  });
+
+  const engine = new OrchestratorEngine({
+    config: loadConfig({
+      MAGICSCRIPT_AUTOPILOT_ENABLED: 'false',
+      MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED: 'true',
+      MAGICSCRIPT_SENDING_ENABLED: 'false',
+      MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED: 'false',
+    }),
+    prospects,
+    events,
+    jobs,
+    idFactory: () => 'must-not-be-used-h2-outreach',
+    now: () => new Date('2026-09-10T12:05:00.000Z'),
+  });
+
+  const plan = await engine.planProspect('h2-outreach');
+
+  assert.equal(plan.nextAction, 'GENERATE_OUTREACH');
+  assert.equal(plan.queuedJobId, undefined);
+  assert.equal((await jobs.list('PENDING')).length, 0);
+});
+
+test('internal processing does not unlock prototype automation', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+
+  await prospects.saveProspect({
+    id: 'h2-prototype',
+    companyName: 'H2 Prototype Prospect',
+    state: 'PROTOTYPE_REQUIRED',
+    createdAt: '2026-09-10T12:00:00.000Z',
+    updatedAt: '2026-09-10T12:00:00.000Z',
+  });
+
+  const engine = new OrchestratorEngine({
+    config: loadConfig({
+      MAGICSCRIPT_AUTOPILOT_ENABLED: 'false',
+      MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED: 'true',
+      MAGICSCRIPT_SENDING_ENABLED: 'false',
+      MAGICSCRIPT_PROTOTYPE_DEPLOY_ENABLED: 'false',
+    }),
+    prospects,
+    events,
+    jobs,
+    idFactory: () => 'must-not-be-used-h2-prototype',
+    now: () => new Date('2026-09-10T12:05:00.000Z'),
+  });
+
+  const plan = await engine.planProspect('h2-prototype');
+
+  assert.equal(plan.nextAction, 'GENERATE_PROTOTYPE_STRATEGY');
+  assert.equal(plan.queuedJobId, undefined);
+  assert.equal((await jobs.list('PENDING')).length, 0);
+});
+
+test('planProspect passes provenance to enqueued job payload when supplied', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+  let id = 100;
+
+  await prospects.saveProspect({
+    id: 'provenance-1',
+    companyName: 'Provenance Test',
+    state: 'DISCOVERED',
+    createdAt: '2026-08-29T00:00:00.000Z',
+    updatedAt: '2026-08-29T00:00:00.000Z',
+  });
+
+  const engine = new OrchestratorEngine({
+    config: loadConfig({ MAGICSCRIPT_AUTOPILOT_ENABLED: 'true' }),
+    prospects, events, jobs,
+    idFactory: () => `prov-id-${++id}`,
+    now: () => new Date('2026-08-29T12:00:00.000Z'),
+  });
+
+  const plan = await engine.planProspect('provenance-1', 'PILOT-01');
+  assert.equal(plan.nextAction, 'RUN_RESEARCH_SWARM');
+  const pending = await jobs.list('PENDING');
+  const job = pending.find((j) => j.prospectId === 'provenance-1');
+  assert.ok(job, 'expected a job for the prospect');
+  assert.ok(job.payload, 'expected job payload');
+  assert.equal((job.payload as Record<string, unknown>).provenance, 'PILOT-01');
+});
+
+test('planProspect omits provenance from payload when not supplied', async () => {
+  const prospects = new InMemoryProspectRepository();
+  const events = new InMemoryEventStore();
+  const jobs = new InMemoryJobQueue();
+  let id = 200;
+
+  await prospects.saveProspect({
+    id: 'provenance-2',
+    companyName: 'No Provenance',
+    state: 'DISCOVERED',
+    createdAt: '2026-08-29T00:00:00.000Z',
+    updatedAt: '2026-08-29T00:00:00.000Z',
+  });
+
+  const engine = new OrchestratorEngine({
+    config: loadConfig({ MAGICSCRIPT_AUTOPILOT_ENABLED: 'true' }),
+    prospects, events, jobs,
+    idFactory: () => `prov-id-${++id}`,
+    now: () => new Date('2026-08-29T12:00:00.000Z'),
+  });
+
+  const plan = await engine.planProspect('provenance-2');
+  assert.equal(plan.nextAction, 'RUN_RESEARCH_SWARM');
+  const pending = await jobs.list('PENDING');
+  const job = pending.find((j) => j.prospectId === 'provenance-2');
+  assert.ok(job, 'expected a job for the prospect');
+  const payload = job.payload as Record<string, unknown>;
+  assert.equal(Object.prototype.hasOwnProperty.call(payload, 'provenance'), false,
+    'payload must not contain provenance when not supplied');
+});
+
+test('internal processing remains fail-closed by default', () => {
+  const config = loadConfig({
+    MAGICSCRIPT_AUTOPILOT_ENABLED: 'false',
+  });
+
+  assert.equal(config.autopilotEnabled, false);
+  assert.equal(config.internalProcessingEnabled, false);
+  assert.equal(config.sendingEnabled, false);
+  assert.equal(config.prototypeDeployEnabled, false);
 });

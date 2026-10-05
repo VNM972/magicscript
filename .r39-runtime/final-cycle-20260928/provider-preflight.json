@@ -1,0 +1,8 @@
+{
+  "ok": true,
+  "provider": "recherche-entreprises",
+  "phase": "first-wave-page-1",
+  "httpStatus": 200,
+  "schemaValid": true,
+  "resultCount": 5
+}

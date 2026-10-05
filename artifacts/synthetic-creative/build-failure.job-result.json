@@ -1,0 +1,127 @@
+{
+  "kind": "CREATIVE_WEB_DESIGN_SYNTHETIC",
+  "synthetic": true,
+  "fixtureId": "synthetic-build-failure",
+  "technicalJobStatus": "BLOCKED",
+  "creativeVerdict": "BLOCKED",
+  "before": {
+    "artifactFingerprint": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb",
+    "protectedFactsFingerprint": "348d2fd219c8293dc3258afe43ca4a430769a00e38dbad9dff7dde936c2414a1",
+    "protectedContractFingerprint": "1b8090533a9670458c020ab227b3009d35a51ce2411621de6d462a4a52ad40f2",
+    "fileInventory": [
+      "app/globals.css",
+      "app/page.tsx"
+    ],
+    "creativeReview": {
+      "status": "REWORK",
+      "findings": [
+        {
+          "code": "FLAT_COMPOSITION",
+          "category": "antiSlop",
+          "severity": "BLOCKING",
+          "message": "Repeated card/grid/panel composition."
+        },
+        {
+          "code": "HIERARCHY",
+          "category": "hierarchy",
+          "severity": "BLOCKING",
+          "message": "Insufficient heading hierarchy."
+        },
+        {
+          "code": "MOBILE_COMPOSITION",
+          "category": "mobile",
+          "severity": "WARNING",
+          "message": "No bounded mobile composition rule."
+        }
+      ],
+      "checkedAt": "2026-09-15T15:34:03.497Z",
+      "owner": "WEB_DESIGN"
+    },
+    "timestamp": "2026-09-15T15:34:03.494Z"
+  },
+  "qaPreflight": {
+    "phase": "QA_PREFLIGHT",
+    "passed": true,
+    "blockers": [],
+    "checkedAt": "2026-09-15T15:34:03.498Z"
+  },
+  "iterations": [
+    {
+      "index": 1,
+      "findingsBefore": [
+        {
+          "code": "FLAT_COMPOSITION",
+          "category": "antiSlop",
+          "severity": "BLOCKING",
+          "message": "Repeated card/grid/panel composition."
+        },
+        {
+          "code": "HIERARCHY",
+          "category": "hierarchy",
+          "severity": "BLOCKING",
+          "message": "Insufficient heading hierarchy."
+        },
+        {
+          "code": "MOBILE_COMPOSITION",
+          "category": "mobile",
+          "severity": "WARNING",
+          "message": "No bounded mobile composition rule."
+        }
+      ],
+      "plannedChanges": [
+        "bounded presentation-only rework"
+      ],
+      "filesChanged": [
+        "app/globals.css"
+      ],
+      "diffMetadata": {
+        "beforeBytes": 64,
+        "afterBytes": 64,
+        "changed": true
+      },
+      "buildResult": {
+        "command": "synthetic-failing-build",
+        "exitCode": 1,
+        "status": "FAILED",
+        "outputPath": null,
+        "timestamp": "2026-09-15T15:34:03.506Z"
+      },
+      "creativeReviewAfter": {
+        "status": "BLOCKED",
+        "findings": [
+          {
+            "code": "BUILD_FAILURE",
+            "category": "technical",
+            "severity": "BLOCKING",
+            "message": "Rebuild failed; last known-good artifact restored."
+          }
+        ],
+        "checkedAt": "2026-09-15T15:34:03.513Z",
+        "owner": "WEB_DESIGN"
+      },
+      "fingerprints": {
+        "before": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb",
+        "after": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb"
+      },
+      "protectedFactsPreserved": true,
+      "protectedContractPreserved": true,
+      "timestamp": "2026-09-15T15:34:03.515Z"
+    }
+  ],
+  "qaFinal": {
+    "phase": "QA_FINAL",
+    "passed": true,
+    "blockers": [],
+    "checkedAt": "2026-09-15T15:34:03.515Z"
+  },
+  "after": {
+    "artifactFingerprint": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb",
+    "creativeVerdict": "BLOCKED",
+    "renderEvidence": null,
+    "timestamp": "2026-09-15T15:34:03.515Z"
+  },
+  "externalActions": [],
+  "startedAt": "2026-09-15T15:34:03.494Z",
+  "completedAt": "2026-09-15T15:34:03.515Z",
+  "blockers": []
+}

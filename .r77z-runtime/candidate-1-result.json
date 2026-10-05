@@ -1,0 +1,22 @@
+{
+  "index": 1,
+  "name": "Androcam Productions",
+  "url": "https://androcam-productions.com/",
+  "pageState": "PAGE_OBSERVED",
+  "httpResultClass": "SUCCESS",
+  "title": "Androcam Productions — Vidéaste à Reims | Site en cours de refonte",
+  "h1": [
+    "Site en cours de refonte"
+  ],
+  "qualification": "PAIN_SIGNAL_CONFIRMED",
+  "identity": "IDENTITY_STRONG",
+  "enrichment": "NOT_NEEDED",
+  "registryRequest": {
+    "schemaVersion": 1,
+    "source": "PAIN_FIRST",
+    "candidateId": "r77z-1",
+    "requestedAt": "2026-10-04T10:51:38.710Z",
+    "lookupMode": "SIRET",
+    "directSiret": "51972816600033"
+  }
+}

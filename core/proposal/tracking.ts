@@ -9,3 +9,5 @@ export function proposalViewEvent(input: { session: ProposalSessionState; now: s
 }
 
 export function proposalShareEvent(): ProposalEventType { return 'SHARE_CLICKED'; }
+
+export function proposalBookingCtaEvent(): ProposalEventType { return 'BOOKING_CTA_CLICKED'; }

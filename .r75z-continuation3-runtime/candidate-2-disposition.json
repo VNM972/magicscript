@@ -1,0 +1,16 @@
+{
+  "index": 2,
+  "name": "LM Charpente",
+  "url": "https://lmcharpente.com/",
+  "discovery": "https://lmcharpente.com/lm-charpente-en-construction/",
+  "pageState": "PAGE_OBSERVED",
+  "httpResultClass": "SUCCESS",
+  "title": "Accueil - LM Charpente",
+  "h1": [],
+  "qualification": "NO_PAIN_SIGNAL",
+  "identity": null,
+  "enrichment": null,
+  "registryRequest": null,
+  "admission": "NOT_PERFORMED",
+  "reason": "NO_PAIN_SIGNAL"
+}

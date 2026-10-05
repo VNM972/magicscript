@@ -4,6 +4,8 @@ Version de travail — brouillons uniquement.
 
 Ces modèles servent de cadre à l’Agent 3. Ils ne déclenchent aucun envoi et ne remplacent ni la validation humaine, ni le fact-check, ni la liste de suppression.
 
+Pour le premier contact EMAIL / MOBILE, appliquer le [contrat canonique A3-CP01](../docs/agent3-commercial-contract.md) et ses politiques exécutables. Ces textes sont des illustrations éditoriales, pas des fixtures validées ni un mécanisme de génération. Les modèles de devis et de relance concernent des étapes distinctes, qui ne sont pas activées par CP01. Un brouillon MOBILE doit être conçu selon sa propre politique ; aucun de ces emails ne doit simplement être raccourci pour ce canal.
+
 ## Règles communes
 
 - Utiliser uniquement des faits vérifiés dans le dossier du prospect.
@@ -14,7 +16,7 @@ Ces modèles servent de cadre à l’Agent 3. Ils ne déclenchent aucun envoi et
 - Ne jamais utiliser une URL `file://`, une URL locale ou une URL Preview temporaire dans un message commercial.
 - `{{prototype_url}}` doit être l’URL HTTPS exacte du prototype déployé et vérifié.
 - `{{personalized_magic_script_url}}` ne peut être utilisé que si la base publique est vérifiée et si l’identifiant opaque du prospect est résolu.
-- Une variable absente devient `UNKNOWN` et bloque le brouillon concerné ; elle n’est jamais devinée.
+- Une variable obligatoire absente reste `UNKNOWN` et bloque le brouillon concerné ; elle n’est jamais devinée. Si le nom de contact facultatif est inconnu, utiliser « Bonjour, » sans titre ni nom inventé.
 
 ## Variables attendues
 
@@ -23,11 +25,11 @@ Ces modèles servent de cadre à l’Agent 3. Ils ne déclenchent aucun envoi et
 | `{{company_name}}` | Nom vérifié de l’entreprise |
 | `{{contact_name}}` | Facultatif ; uniquement s’il est vérifié |
 | `{{verified_observation}}` | Un actif précis et sourcé |
-| `{{digital_opportunity}}` | Une opportunité crédible, sans perte ou résultat inventé |
+| `{{digital_opportunity}}` | Une opportunité étayée par les claims autorisés ; jamais assimilée automatiquement à une observation |
 | `{{prototype_url}}` | Lien HTTPS exact vers la démo vérifiée |
 | `{{personalized_magic_script_url}}` | Lien public HTTPS avec identifiant opaque, facultatif au premier stade |
 | `{{scope_summary}}` | Périmètre réel de la proposition |
-| `{{price}}` | Tarif fourni et validé par Stéphane, jamais généré par le modèle |
+| `{{price}}` | Tarif du devis validé humainement et cohérent avec l’autorité catalogue ; jamais généré par le modèle |
 | `{{valid_until}}` | Date de validité fournie et validée, si nécessaire |
 | `{{source_information}}` | Origine réellement utilisée pour contacter l’adresse |
 | `{{sender_signature}}` | Signature ajoutée par le transport Magic Script |
@@ -37,6 +39,8 @@ Ces modèles servent de cadre à l’Agent 3. Ils ne déclenchent aucun envoi et
 ### Conditions de préparation
 
 Le prototype doit être déployé et vérifié. Le contact doit être validé, non supprimé et cohérent avec l’activité professionnelle ciblée.
+
+Le premier contact exige aussi un historique autorisant ce premier contact, des claims sourcés et une valeur soutenue. La présence d’un dossier ne suffit pas. Un motif d’abstention bloque ce modèle ; ne pas combler les lacunes par des compliments ou des affirmations génériques.
 
 Si `{{prototype_url}}` est absent ou non vérifié, le brouillon reste `readyToSend = false`.
 

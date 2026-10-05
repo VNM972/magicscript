@@ -1,0 +1,8 @@
+{
+  "apiTerminated": true,
+  "apiPortClosed": true,
+  "apiStartedAt": "2026-10-04T10:55:29.3066815Z",
+  "at": "2026-10-04T11:02:09.6753330Z",
+  "apiPid": 21884,
+  "method": "Verified own PID/start instant and stack GUID; targeted process tree termination"
+}

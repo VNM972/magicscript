@@ -1,0 +1,66 @@
+{
+  "id": "qa-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br3-r3-a3",
+  "version": "VISUAL_QA_REPORT_V1",
+  "buildArtifactId": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br3",
+  "designArtifactId": "artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+  "designArtifactRevision": 1,
+  "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+  "prospectId": "v2-51972816600033",
+  "buildVersion": "BUILD_ARTIFACT_V1",
+  "buildRevision": 3,
+  "attempt": 3,
+  "decision": "PASS",
+  "issues": [],
+  "inspection": {
+    "viewports": [
+      {
+        "name": "DESKTOP",
+        "width": 1440,
+        "height": 900,
+        "horizontalOverflow": -15,
+        "heroVisible": true,
+        "primaryCtaVisible": true,
+        "contentVisible": true,
+        "controlsWithinViewport": true
+      },
+      {
+        "name": "MOBILE",
+        "width": 390,
+        "height": 844,
+        "horizontalOverflow": -15,
+        "heroVisible": true,
+        "primaryCtaVisible": true,
+        "contentVisible": true,
+        "controlsWithinViewport": true
+      }
+    ],
+    "expectedSections": [
+      "hero",
+      "offer",
+      "reassurance",
+      "contact"
+    ],
+    "observedSections": [
+      "hero",
+      "home",
+      "offer",
+      "reassurance",
+      "contact"
+    ],
+    "primaryCta": "Contacter l’entreprise",
+    "brokenAssets": [],
+    "internalLinkErrors": [],
+    "consoleErrors": [],
+    "unresolvedMarkers": [],
+    "headings": [
+      "h1 Clarifier la valeur de Androcam Productions",
+      "h2 Clarifier la valeur de Androcam Productions",
+      "h2 hero",
+      "h2 offer",
+      "h2 reassurance",
+      "h2 contact",
+      "h2 Contacter l’entreprise"
+    ]
+  },
+  "createdAt": "2026-10-04T15:21:35.982Z"
+}

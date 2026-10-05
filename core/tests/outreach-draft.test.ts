@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { approveOutreachDraft, confirmManualMobile, createOutreachDraft, editOutreachDraft, InMemoryOutreachDraftStore } from '../outreach/engine';
 import { confirmManualMobileContacted, DeterministicFakeEmailTransport, InMemoryContactedProjectionStore, InMemoryInitialSendReservationStore, sendApprovedInitialEmail } from '../outreach/send';
+const readyQuality = { gateVersion: 'AGENT3_COMMERCIAL_QUALITY_GATE_V1', status: 'READY' as const, decision: 'READY_FOR_OPERATOR' as const, score: 100, blockers: [], warnings: [], attempt: 1, revision: 1, fingerprint: 'placeholder' };
+
 
 test('creates deterministic grounded email with proposal link', async () => {
   const store = new InMemoryOutreachDraftStore();
@@ -32,16 +34,43 @@ test('requires approval and exact hash before manual mobile confirmation', async
 
 test('edits create immutable revisions and approval binds exact revision and fingerprint', async () => {
   const store = new InMemoryOutreachDraftStore();
-  const first = await createOutreachDraft({ proposalId: 'p-r', prospectId: 's-r', businessName: 'Test', channel: 'EMAIL', recipient: 'a@test.test', observation: 'fact', proposalLink: 'https://proposal.test/p/r', sourceRefs: ['ref'] }, store);
+  const first = await createOutreachDraft({ proposalId: 'p-r', prospectId: 's-r', businessName: 'Test', channel: 'EMAIL', recipient: 'a@test.test', observation: 'fact', proposalLink: 'https://proposal.test/p/r', sourceRefs: ['ref'], quality: readyQuality }, store);
+  assert.equal(first.status, 'READY_FOR_OPERATOR');
+  const approved = await approveOutreachDraft(store, first.id, first.revision, first.contentHash, 'operator');
+  assert.equal(approved.status, 'APPROVED');
   const second = await editOutreachDraft(store, first.id, { subject: first.subject, body: `${first.body}\nEdited` });
   assert.equal(first.revision, 1);
   assert.equal(second.revision, 2);
   assert.equal((await store.get(first.id))?.body, first.body);
+  assert.equal(second.status, 'DRAFT');
   await assert.rejects(() => approveOutreachDraft(store, second.id, 1, second.contentHash, 'operator'), /stale/);
-  const approved = await approveOutreachDraft(store, second.id, 2, second.contentHash, 'operator');
-  assert.equal(approved.status, 'APPROVED');
+  await assert.rejects(() => approveOutreachDraft(store, second.id, 2, second.contentHash, 'operator'), /not awaiting approval/);
 });
-
+test('approved source remains historical and its approval cannot authorize a successor', async () => {
+  const store = new InMemoryOutreachDraftStore();
+  const first = await createOutreachDraft({ proposalId: 'p-history', prospectId: 's-history', businessName: 'Test', channel: 'EMAIL', recipient: 'a@test.test', observation: 'fact', proposalLink: 'https://proposal.test/p/history', sourceRefs: ['ref'], quality: readyQuality }, store);
+  const approved = await approveOutreachDraft(store, first.id, first.revision, first.contentHash, 'operator');
+  const snapshot = structuredClone(approved);
+  await assert.rejects(() => editOutreachDraft(store, first.id, { subject: first.subject, body: first.body }), /changed content/);
+  const second = await editOutreachDraft(store, first.id, { subject: first.subject, body: `${first.body}\nEdited` });
+  assert.deepEqual(await store.get(first.id), snapshot);
+  assert.equal(second.revision, 2);
+  assert.notEqual(second.contentHash, first.contentHash);
+  assert.equal(second.status, 'DRAFT');
+  assert.equal(second.approvedAt, null);
+  assert.equal(second.approvedBy, null);
+  await assert.rejects(() => editOutreachDraft(store, first.id, { subject: first.subject, body: 'Another edit' }), /already exists/);
+  const transport = new DeterministicFakeEmailTransport();
+  const contacted = new InMemoryContactedProjectionStore();
+  const reservations = new InMemoryInitialSendReservationStore();
+  const input = { draft: second, approvedRevision: first.revision, approvedFingerprint: first.contentHash, proposalReady: true, operatorId: 'operator', now: '2026-01-01T00:00:00.000Z', transport, contacted, reservations };
+  await assert.rejects(() => sendApprovedInitialEmail(input), /not approved/);
+  await assert.rejects(() => approveOutreachDraft(store, second.id, first.revision, first.contentHash, 'operator'), /stale/);
+  await assert.rejects(() => approveOutreachDraft(store, second.id, second.revision, second.contentHash, 'operator'), /not awaiting approval/);
+  assert.equal(transport.list().length, 0);
+  assert.equal(reservations.list().length, 0);
+  assert.equal(contacted.get('p-history', 'EMAIL'), null);
+});
 test('atomic fake initial send is idempotent and successful email creates CONTACTED', async () => {
   const store = new InMemoryOutreachDraftStore();
   const draft = await createOutreachDraft({ proposalId: 'p-send', prospectId: 's-send', businessName: 'Test', channel: 'EMAIL', recipient: 'a@test.test', observation: 'fact', proposalLink: 'https://proposal.test/p/send', sourceRefs: ['ref'] }, store);

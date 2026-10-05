@@ -1,0 +1,20 @@
+{
+  "name": "RB Agency",
+  "url": "https://rb-agency.fr/",
+  "discovery": "https://rb-agency.fr/fr/",
+  "candidate": {
+    "schemaVersion": 1,
+    "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+    "conditionClass": "SITE_UNDER_CONSTRUCTION",
+    "providerClass": "MANUAL_OPERATOR",
+    "providerRunId": "manual-operator:2026-10-04T10:11:42.007Z",
+    "resultUrl": "https://rb-agency.fr/",
+    "resultPosition": 1,
+    "acquiredAt": "2026-10-04T10:11:42.007Z",
+    "authority": "NONE"
+  },
+  "startedAt": "2026-10-04T10:11:42.010Z",
+  "homepageInspections": 1,
+  "environmentRetries": 0,
+  "environment": "Known unrestricted native HTTPS execution"
+}

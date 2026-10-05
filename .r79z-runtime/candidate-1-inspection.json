@@ -1,0 +1,13 @@
+{
+  "pageState": "FETCH_FAILED",
+  "observation": {
+    "schemaVersion": 1,
+    "requestedUrl": "https://www.prodiscount.fr/",
+    "inspectedAt": "2026-10-04T16:20:18.236Z",
+    "httpResultClass": "NETWORK_ERROR"
+  },
+  "staging": {
+    "state": "FETCH_FAILED",
+    "authority": "NON_AUTHORITATIVE"
+  }
+}

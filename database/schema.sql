@@ -31,6 +31,19 @@ CREATE TABLE IF NOT EXISTS prospects (
 CREATE INDEX IF NOT EXISTS idx_prospects_state ON prospects(state);
 CREATE INDEX IF NOT EXISTS idx_prospects_score ON prospects(score);
 
+-- Fixed persistent authority for the active pre-contact production window.
+-- Exactly twenty rows are seeded; one prospect can hold at most one row.
+CREATE TABLE IF NOT EXISTS active_production_slots (
+  slot_id INTEGER PRIMARY KEY CHECK (slot_id BETWEEN 1 AND 20),
+  prospect_id TEXT UNIQUE,
+  acquired_at TEXT,
+  release_reason TEXT,
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE SET NULL
+);
+INSERT OR IGNORE INTO active_production_slots (slot_id) VALUES
+  (1), (2), (3), (4), (5), (6), (7), (8), (9), (10),
+  (11), (12), (13), (14), (15), (16), (17), (18), (19), (20);
+
 -- Append-only current phone trust projection. Historical phone/evidence events remain in events.
 CREATE TABLE IF NOT EXISTS phone_trust_states (
   prospect_id TEXT PRIMARY KEY,
@@ -115,6 +128,20 @@ CREATE TABLE IF NOT EXISTS events (
 CREATE INDEX IF NOT EXISTS idx_events_prospect_created
   ON events(prospect_id, created_at DESC);
 
+-- CP05-A4 append-only human decisions; proposal revision is bound by fingerprint.
+CREATE TABLE IF NOT EXISTS v2_playbook_human_decisions (
+  decision_id TEXT PRIMARY KEY,
+  proposal_id TEXT NOT NULL,
+  proposal_version TEXT NOT NULL,
+  proposal_fingerprint TEXT NOT NULL,
+  decided_at TEXT NOT NULL,
+  decision_json TEXT NOT NULL
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_v2_human_decision_proposal_revision
+  ON v2_playbook_human_decisions(proposal_id, proposal_fingerprint);
+CREATE INDEX IF NOT EXISTS idx_v2_human_decision_proposal
+  ON v2_playbook_human_decisions(proposal_id, decided_at);
+
 CREATE TABLE IF NOT EXISTS jobs (
   id TEXT PRIMARY KEY,
   kind TEXT NOT NULL,
@@ -172,15 +199,33 @@ CREATE INDEX IF NOT EXISTS idx_v2_design_artifacts_prospect ON v2_design_artifac
 
 CREATE TABLE IF NOT EXISTS v2_build_artifacts (
   id TEXT PRIMARY KEY, build_version TEXT NOT NULL, design_artifact_id TEXT NOT NULL, design_request_id TEXT NOT NULL,
-  prospect_id TEXT NOT NULL, approved_revision INTEGER NOT NULL, builder_version TEXT NOT NULL, source_path TEXT NOT NULL,
+  prospect_id TEXT NOT NULL, approved_revision INTEGER NOT NULL, build_revision INTEGER NOT NULL DEFAULT 1 CHECK (typeof(build_revision) = 'integer' AND build_revision >= 1), builder_version TEXT NOT NULL, source_path TEXT NOT NULL,
   output_path TEXT NOT NULL, status TEXT NOT NULL, source_hash TEXT, artifact_json TEXT NOT NULL,
   created_at TEXT NOT NULL, completed_at TEXT NOT NULL, updated_at TEXT NOT NULL,
   FOREIGN KEY (design_artifact_id) REFERENCES v2_design_artifacts(id) ON DELETE CASCADE,
   FOREIGN KEY (design_request_id) REFERENCES v2_design_requests(id) ON DELETE CASCADE,
   FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE,
-  UNIQUE(design_artifact_id, builder_version)
+  UNIQUE(design_artifact_id, builder_version, build_revision)
 );
 CREATE INDEX IF NOT EXISTS idx_v2_build_artifacts_prospect ON v2_build_artifacts(prospect_id, created_at);
+
+CREATE TABLE IF NOT EXISTS v2_proposals (
+  id TEXT PRIMARY KEY,
+  canonical_key TEXT NOT NULL UNIQUE,
+  prospect_id TEXT NOT NULL,
+  build_artifact_id TEXT NOT NULL,
+  token TEXT NOT NULL,
+  status TEXT NOT NULL,
+  proposal_json TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_v2_proposals_token
+  ON v2_proposals(token);
+
+CREATE INDEX IF NOT EXISTS idx_v2_proposals_created_at
+  ON v2_proposals(created_at DESC);
+
 CREATE TABLE IF NOT EXISTS v2_visual_qa_reports (
   id TEXT PRIMARY KEY, qa_version TEXT NOT NULL, build_artifact_id TEXT NOT NULL, design_artifact_id TEXT NOT NULL,
   design_request_id TEXT NOT NULL, prospect_id TEXT NOT NULL, attempt INTEGER NOT NULL, decision TEXT NOT NULL,
@@ -337,7 +382,10 @@ CREATE INDEX IF NOT EXISTS idx_escalations_status
 CREATE TABLE IF NOT EXISTS meetings (
   id TEXT PRIMARY KEY,
   prospect_id TEXT NOT NULL,
-  sales_room_slug TEXT NOT NULL,
+  -- Legacy Sales Room linkage retained for existing meetings; Proposal bookings
+  -- use the neutral authority key below and do not resolve through Sales Room.
+  sales_room_slug TEXT NOT NULL DEFAULT '',
+  proposal_id TEXT,
   communication_mode TEXT NOT NULL CHECK (communication_mode IN ('email', 'phone')),
   start_at_utc TEXT NOT NULL,
   end_at_utc TEXT NOT NULL,
@@ -574,3 +622,24 @@ CREATE TABLE IF NOT EXISTS provider_state (
   updated_at TEXT NOT NULL,
   PRIMARY KEY (provider, key)
 );
+
+-- CP05-A1 raw operator feedback is append-only and never interpreted here.
+CREATE TABLE IF NOT EXISTS v2_operator_feedback_events (
+  event_id TEXT PRIMARY KEY,
+  schema_version INTEGER NOT NULL CHECK (schema_version = 1),
+  event_version TEXT NOT NULL CHECK (event_version = 'OPERATOR_FEEDBACK_EVENT_V1'),
+  signal TEXT NOT NULL CHECK (signal IN ('ACCEPTED_UNCHANGED', 'EDITED', 'SECTION_EDITED', 'CHANNEL_SELECTED', 'SEND_CANCELLED', 'RESPONSE_RECEIVED', 'MEETING_BOOKED', 'REJECTED')),
+  prospect_id TEXT NOT NULL,
+  proposal_id TEXT NOT NULL,
+  action_at TEXT NOT NULL,
+  event_json TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_v2_operator_feedback_prospect
+  ON v2_operator_feedback_events(prospect_id, action_at, event_id);
+CREATE TRIGGER IF NOT EXISTS trg_v2_operator_feedback_immutable
+BEFORE UPDATE ON v2_operator_feedback_events
+BEGIN
+  SELECT RAISE(ABORT, 'v2_operator_feedback_events are immutable');
+END;

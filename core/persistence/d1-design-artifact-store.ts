@@ -9,6 +9,6 @@ export class D1DesignArtifactStore implements DesignArtifactStore {
     return row ? JSON.parse(row.artifact_json) as DesignArtifactV1 : null;
   }
   async save(artifact: DesignArtifactV1): Promise<void> {
-    await this.db.prepare(`INSERT INTO v2_design_artifacts (id, design_request_id, prospect_id, version, revision, vertical, artifact_json, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(design_request_id, version, revision) DO UPDATE SET artifact_json = excluded.artifact_json, status = excluded.status, updated_at = excluded.updated_at`).bind(artifact.id, artifact.designRequestId, artifact.prospectId, artifact.version, artifact.revision, artifact.verticalProfile, JSON.stringify(artifact), artifact.status, artifact.createdAt, artifact.createdAt).run();
+    await this.db.prepare(`INSERT INTO v2_design_artifacts (id, design_request_id, prospect_id, version, revision, vertical, artifact_json, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(design_request_id, version, revision) DO UPDATE SET artifact_json = excluded.artifact_json, status = excluded.status, updated_at = excluded.updated_at`).bind(artifact.id, artifact.designRequestId, artifact.prospectId, artifact.version, artifact.revision, artifact.verticalProfile, JSON.stringify(artifact), artifact.status, artifact.createdAt, artifact.createdAt).run();
   }
 }

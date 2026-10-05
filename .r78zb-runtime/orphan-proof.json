@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "source": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-51972816600033\\artifact-dr-v2-51972816600033-design_request_v1-design_artifact_v1-r1\\build-r2\\source",
+  "output": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-51972816600033\\artifact-dr-v2-51972816600033-design_request_v1-design_artifact_v1-r1\\build-r2\\dist",
+  "correctionId": "correction-qa-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+  "hashes": {
+    "build-manifest.json": "4d4e1c074ac5db9d4ab2006812d030dda0120c22875e10493f7348d316a752c0",
+    "index.html": "f42853543804d92f16596fb0514a90816937116f02923e6d834ddf0532ec8da7",
+    "styles.css": "3cf472724e88b00c43ed9fda8e1704fcee2e61014f1a6efa290aabb5b2cdd2f4"
+  }
+}

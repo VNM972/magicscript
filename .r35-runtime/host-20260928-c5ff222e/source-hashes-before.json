@@ -1,0 +1,22 @@
+[
+  {
+    "Algorithm": "SHA256",
+    "Hash": "E75E58343447712BEEE62531ADF3023785F82DA73B0C4463782FF8C9F28B52BF",
+    "Path": "D:\\MagicScript\\repository\\apps\\agent-runner\\src\\research-output.ts"
+  },
+  {
+    "Algorithm": "SHA256",
+    "Hash": "13082A39940B2903EBFD500AB1229BF79C9A65076F67D8F72BBB193CBD96D62C",
+    "Path": "D:\\MagicScript\\repository\\apps\\agent-runner\\src\\index.ts"
+  },
+  {
+    "Algorithm": "SHA256",
+    "Hash": "81E68B56AA7C5259E535AFE520E6F07521D414FD4713A2396BDB63A6B18003E6",
+    "Path": "D:\\MagicScript\\repository\\apps\\api-worker\\src\\index.ts"
+  },
+  {
+    "Algorithm": "SHA256",
+    "Hash": "DDFC804B3DB422024B73080D378CD2AD57663B4DD86CED34AEFC5A5F65F22533",
+    "Path": "D:\\MagicScript\\repository\\core\\admission\\persisted-agent1-evidence.ts"
+  }
+]

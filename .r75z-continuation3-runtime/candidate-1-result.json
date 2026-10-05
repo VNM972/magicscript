@@ -1,0 +1,16 @@
+{
+  "index": 1,
+  "name": "Medi Conciergerie",
+  "url": "https://medi-conciergerie.com/",
+  "discovery": "https://medi-conciergerie.com/accueil-en-construction/",
+  "pageState": "PAGE_OBSERVED",
+  "httpResultClass": "SUCCESS",
+  "title": "Accueil - Medi Conciergerie",
+  "h1": [
+    "Kontan wè zot (Bienvenue)"
+  ],
+  "qualification": "NO_PAIN_SIGNAL",
+  "identity": null,
+  "enrichment": null,
+  "registryRequest": null
+}

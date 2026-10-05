@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-03T08:17:56.155Z",
+  "hostname": "www.zakari.fr",
+  "answers": [
+    {
+      "address": "162.159.143.12",
+      "family": 4
+    },
+    {
+      "address": "172.66.3.8",
+      "family": 4
+    }
+  ],
+  "selected": {
+    "address": "162.159.143.12",
+    "family": 4
+  },
+  "tcp": {
+    "state": "FAILED",
+    "name": "Error",
+    "code": "EACCES",
+    "syscall": "connect",
+    "address": "162.159.143.12",
+    "port": 443,
+    "message": "connect EACCES 162.159.143.12:443"
+  },
+  "httpRequests": 0,
+  "tlsRequests": 0,
+  "canonicalInspections": 0
+}

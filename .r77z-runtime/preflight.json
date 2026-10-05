@@ -1,0 +1,18 @@
+{
+  "verifiedAt": "2026-10-04T10:51:27.782Z",
+  "dbPath": "D:\\MagicScript\\repository\\apps\\api-worker\\.wrangler\\state\\v3\\d1\\miniflare-D1DatabaseObject\\8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite",
+  "d1Sha256": "fa5bc5ac8e931eef041ebfe16e83a23fe3a64243c72bfef1efa2b614432257da",
+  "trackedDiffSha256": "94c37c8792467574e625681330daa79d5076422ae25541f643289a45c5cdad8d",
+  "canonicalFiles": {
+    "core/research/pain-first-homepage-transport.ts": "074e40b5c7db0bbf8de68de8b2e1dcd72f05206f42111e77461da4a657e77877",
+    "core/research/pain-first-homepage-network.ts": "aeeec20e01ec459fb57125698da0167b89506e55f1a85a15d786108104edd77f",
+    "core/research/pain-first-staging.ts": "6b8e922b2749662fde6b513db08fce11ffd7266abee185a57a22e43873b02f7c",
+    "core/research/website-seed.ts": "a4c5460738fe1d9d0e2f4f459961d8517368846b5c0de1742db9ffb7b45698b4",
+    "core/research/digital-pain-evidence.ts": "ba09ff0e9c23957c761732ff36113fbb353768c5a1475e3c5c4acc2e07550d06",
+    "core/admission/pain-first-agent1-projection.ts": "5f0dcbf2c9be71b36e0b0b64dd494efe1b06e7dd3ed9403b86dfd14a98fadb13",
+    "core/admission/v2-admission.ts": "3f83eff623bed5100286cfb8a51537189d205a80e43cd9eed846ab0166d4d4bf"
+  },
+  "sourcingSha256": "f7663d1b1cfe4b406a1b4d4e7dbd38944201a9e0f4a04acfe0bc57ba665767f1",
+  "testSha256": "517e4debbb359dd3f4620d1710bf0fb6525767038b46e7f479a39389b4395434",
+  "sourceChanges": false
+}

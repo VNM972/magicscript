@@ -1,0 +1,20 @@
+{
+  "name": "Chateau de Toulondit",
+  "url": "https://www.toulondit.fr/",
+  "discovery": "Previously discovered public restaurant result in R75Z continuation 2; not previously canonically inspected; outside Martinique, eligibility remains canonical",
+  "candidate": {
+    "schemaVersion": 1,
+    "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+    "conditionClass": "SITE_UNDER_CONSTRUCTION",
+    "providerClass": "MANUAL_OPERATOR",
+    "providerRunId": "manual-operator:2026-10-04T10:11:54.473Z",
+    "resultUrl": "https://www.toulondit.fr/",
+    "resultPosition": 1,
+    "acquiredAt": "2026-10-04T10:11:54.473Z",
+    "authority": "NONE"
+  },
+  "startedAt": "2026-10-04T10:11:54.477Z",
+  "homepageInspections": 1,
+  "environmentRetries": 0,
+  "environment": "Known unrestricted native HTTPS execution"
+}

@@ -1,0 +1,556 @@
+{
+  "job": {
+    "id": "job-v2-51972816600033-build-correction-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r2",
+    "kind": "V2_BUILD_CORRECTION",
+    "prospectId": "v2-51972816600033",
+    "payload": {
+      "correctionRequestId": "correction-qa-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+      "buildArtifactId": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+      "targetBuildRevision": 1,
+      "nextBuildRevision": 2,
+      "qaReportId": "qa-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+      "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+      "approvedDesignArtifactId": "artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+      "designDirection": {
+        "id": "corporate-premium",
+        "label": "Corporate Premium",
+        "eligibleSectors": [
+          "corporate",
+          "institutionnel",
+          "finance",
+          "patrimoine",
+          "immobilier",
+          "direction"
+        ],
+        "positioning": [
+          "premium",
+          "haut de gamme",
+          "institutionnel",
+          "strategie"
+        ],
+        "visualPrinciples": [
+          "quiet confidence",
+          "editorial spacing",
+          "evidence-led restraint"
+        ],
+        "heroStrategy": "Lead with the verified positioning and decision value, using space rather than decorative effects.",
+        "sectionGrammar": [
+          "hero",
+          "value thesis",
+          "expertise",
+          "selected evidence",
+          "engagement path"
+        ],
+        "ctaStrategy": "Invite one qualified conversation or dossier review.",
+        "imageStrategy": "Use verified portrait, environment or architectural detail with disciplined cropping.",
+        "typographicCharacter": "Editorial serif accent with sober sans-serif reading text.",
+        "density": "LOW",
+        "motionBudget": "LOW",
+        "mobileBehavior": [
+          "preserve whitespace without hiding key proof",
+          "keep the primary action visible at 390px"
+        ],
+        "proofRequirements": [
+          "mandates, assets, returns, clients and track record require direct evidence"
+        ],
+        "antiPatterns": [
+          "robot imagery",
+          "AI brain",
+          "random circuitry",
+          "generic SaaS dashboard",
+          "generic dashboard layout",
+          "excessive glassmorphism",
+          "meaningless neon",
+          "gratuitous gradient",
+          "excessive rounded cards",
+          "card-wall composition",
+          "repeated identical section layouts",
+          "repetitive boxed sections",
+          "hero assembled from interchangeable blocks without a clear art direction",
+          "flat visual hierarchy",
+          "insufficient real imagery when verified visual assets exist",
+          "insufficient negative space",
+          "monotonous editorial rhythm",
+          "floating blobs",
+          "fake metrics",
+          "fake trust logos",
+          "generic stock-template hierarchy"
+        ]
+      }
+    },
+    "status": "RUNNING",
+    "attempts": 1,
+    "maxAttempts": 2,
+    "runAfter": "2026-10-04T15:02:57.961Z",
+    "createdAt": "2026-10-04T15:02:57.961Z",
+    "updatedAt": "2026-10-04T15:04:10.756Z",
+    "claimedBy": "r78z-androcam",
+    "claimedAt": "2026-10-04T15:04:10.756Z"
+  },
+  "prospect": {
+    "id": "v2-51972816600033",
+    "companyName": "Androcam Productions",
+    "siren": "519728166",
+    "siret": "51972816600033",
+    "city": "Reims",
+    "location": "51100 Reims",
+    "websiteUrl": "https://androcam-productions.com/",
+    "v2Domain": "androcam-productions.com",
+    "state": "INGESTED",
+    "primaryFriction": "Site en cours de refonte",
+    "primaryAsset": "Photographe et vidéaste à Reims : films d'entreprise, événementiel, clips.",
+    "createdAt": "2026-10-04T10:57:08.446Z",
+    "updatedAt": "2026-10-04T10:57:08.446Z"
+  },
+  "contacts": [],
+  "outreachDraft": null,
+  "researchContext": null,
+  "agent1Context": null,
+  "latestReply": null,
+  "threadParentMessageId": null,
+  "prototypeContext": null,
+  "prototypeConversion": null,
+  "prototypeStrategy": null,
+  "designRequest": {
+    "id": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+    "version": "DESIGN_REQUEST_V1",
+    "prospectId": "v2-51972816600033",
+    "admission": {
+      "packId": "agent1-r77z-androcam",
+      "schemaVersion": "CONTACT_OPPORTUNITY_PACK_V2"
+    },
+    "identity": {
+      "businessName": "Androcam Productions",
+      "siren": "519728166",
+      "siret": "51972816600033",
+      "city": "Reims",
+      "location": "51100 Reims",
+      "websiteUrl": "https://androcam-productions.com/",
+      "domain": "androcam-productions.com"
+    },
+    "opportunity": {
+      "digitalFriction": "Site en cours de refonte",
+      "agent1Verdict": "QUALIFIED",
+      "icp": {
+        "digitalPainSignals": [
+          "Site en cours de refonte"
+        ],
+        "requiresUnprovenCapability": false,
+        "outsideCommercialIcp": false
+      },
+      "businessContext": "Photographe et vidéaste à Reims : films d'entreprise, événementiel, clips."
+    },
+    "designInput": {
+      "currentWebsiteUrl": "https://androcam-productions.com/",
+      "businessVertical": "GENERAL_LOCAL_BUSINESS",
+      "brandContext": "Photographe et vidéaste à Reims : films d'entreprise, événementiel, clips.",
+      "frictionTrigger": "Site en cours de refonte",
+      "evidence": [
+        {
+          "url": "https://androcam-productions.com/",
+          "note": "Canonical bounded live homepage observation; same supplied HTML contains LocalBusiness identity, SIRET and explicit mailto contact.\n{\"sourcingLane\":\"PAIN_FIRST\",\"candidateId\":\"r77z-androcam\",\"stagedWebsiteUrl\":\"https://androcam-productions.com/\",\"domain\":\"androcam-productions.com\",\"acquiredAt\":\"2026-10-04T10:51:27.782Z\",\"digitalPainEvidence\":[{\"observedCondition\":\"SITE_REBUILDING\",\"sourceUrl\":\"https://androcam-productions.com/\",\"snapshotDigest\":\"sha256:fe8df54cebbeb0ecc3ac64736d3a37304044afeb91061574bfa21a20fee0c5d3\",\"locator\":\"h1\",\"observedAt\":\"2026-10-04T10:51:38.582Z\"}]}",
+          "supports": [
+            "website",
+            "digitalGap",
+            "identity",
+            "contact"
+          ],
+          "observedAt": "2026-10-04T10:51:38.582Z"
+        }
+      ]
+    },
+    "createdAt": "2026-10-04T10:57:08.489Z"
+  },
+  "designArtifact": {
+    "id": "artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+    "version": "DESIGN_ARTIFACT_V1",
+    "revision": 1,
+    "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+    "prospectId": "v2-51972816600033",
+    "verticalProfile": "GENERAL_LOCAL_BUSINESS",
+    "createdAt": "2026-10-04T10:57:23.761Z",
+    "provenance": {
+      "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+      "evidenceIds": [
+        "evidence-1"
+      ],
+      "executionMode": "MODEL",
+      "model": {
+        "provider": "ollama-aider",
+        "model": "qwen2.5-coder:3b"
+      }
+    },
+    "strategy": {
+      "siteObjective": "Present a credible local business offer with a simple next step.",
+      "primaryUserIntent": "Understand the offer and take the next practical action.",
+      "primaryCta": "Contacter l’entreprise",
+      "informationHierarchy": [
+        "identity",
+        "offer clarity",
+        "reassurance",
+        "contact action"
+      ],
+      "siteStructure": "SINGLE_PAGE"
+    },
+    "pages": [
+      {
+        "id": "home",
+        "purpose": "Present a credible local business offer with a simple next step.",
+        "headingIntent": "Clarifier la valeur de Androcam Productions",
+        "content": [
+          {
+            "kind": "VERIFIED_FACT",
+            "text": "Androcam Productions",
+            "evidenceIds": []
+          },
+          {
+            "kind": "GENERIC_FRAMING",
+            "text": "Un accompagnement simple et clair pour passer à l’action."
+          }
+        ],
+        "ctaIntent": "Contacter l’entreprise",
+        "visualMediaIntent": "Use only supplied or later-approved business imagery; no invented media claims.",
+        "evidenceIds": [
+          "evidence-1"
+        ]
+      }
+    ],
+    "visualDirection": {
+      "mood": "balanced, approachable, credible",
+      "typography": "Readable, high-contrast sans-serif with optional expressive display accent.",
+      "layout": "Single-column mobile-first flow with clear section boundaries.",
+      "spacing": "Generous touch-friendly spacing.",
+      "imageTreatment": "Authentic business imagery only when supplied or approved.",
+      "interaction": "Calm, obvious, keyboard-accessible interactions.",
+      "responsivePriorities": [
+        "390px mobile conversion path",
+        "touch targets",
+        "readable type",
+        "desktop widening without reordering CTA"
+      ]
+    },
+    "buildGuidance": {
+      "componentHierarchy": [
+        "SiteShell",
+        "Header",
+        "Hero",
+        "ContentSections",
+        "PrimaryCta",
+        "Footer"
+      ],
+      "sectionOrder": [
+        "hero",
+        "offer",
+        "reassurance",
+        "contact"
+      ],
+      "contentPriority": [
+        "identity",
+        "offer",
+        "primary action",
+        "practical details"
+      ],
+      "ctaPlacement": [
+        "hero",
+        "after core offer",
+        "footer"
+      ],
+      "assetRequirements": [
+        "logo if supplied",
+        "approved business imagery if supplied",
+        "no fabricated testimonials or pricing"
+      ]
+    },
+    "status": "APPROVED"
+  },
+  "designCorrection": null,
+  "buildCorrectionContext": {
+    "correctionRequest": {
+      "id": "correction-qa-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+      "version": "BUILD_CORRECTION_REQUEST_V1",
+      "operation": "NORMALIZE_PUBLIC_VERTICAL_LABEL_V1",
+      "buildArtifactId": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+      "designArtifactId": "artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+      "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+      "prospectId": "v2-51972816600033",
+      "qaReportId": "qa-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+      "targetBuildRevision": 1,
+      "nextBuildRevision": 2,
+      "issue": {
+        "category": "PLACEHOLDER",
+        "severity": "CRITICAL",
+        "message": "Unresolved or unsafe rendered marker: GENERAL_LOCAL_BUSINESS",
+        "expectedCorrection": "Remove debug/template content without inventing facts."
+      },
+      "createdAt": "2026-10-04T11:02:11.659Z"
+    },
+    "targetBuild": {
+      "id": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+      "version": "BUILD_ARTIFACT_V1",
+      "approvedDesignArtifactId": "artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+      "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+      "prospectId": "v2-51972816600033",
+      "approvedRevision": 1,
+      "buildRevision": 1,
+      "qaAttempt": 1,
+      "builderVersion": "builder-v1",
+      "sourcePath": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-51972816600033\\artifact-dr-v2-51972816600033-design_request_v1-design_artifact_v1-r1\\source",
+      "outputPath": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-51972816600033\\artifact-dr-v2-51972816600033-design_request_v1-design_artifact_v1-r1\\dist",
+      "status": "SUCCEEDED",
+      "framework": "STATIC_HTML_CSS",
+      "sourceHash": "f56a8e21069f094a69ff3e15371b55296e9119c4e8846a9717e2f378eac8c8e7",
+      "createdAt": "2026-10-04T10:57:44.782Z",
+      "completedAt": "2026-10-04T10:57:44.804Z",
+      "metadata": {
+        "entryFile": "index.html",
+        "buildCommand": "builder-v1 static build",
+        "missingAssetRequirements": [
+          "logo if supplied",
+          "approved business imagery if supplied",
+          "no fabricated testimonials or pricing"
+        ]
+      }
+    },
+    "qaReport": {
+      "id": "qa-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+      "version": "VISUAL_QA_REPORT_V1",
+      "buildArtifactId": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+      "designArtifactId": "artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+      "designArtifactRevision": 1,
+      "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+      "prospectId": "v2-51972816600033",
+      "buildVersion": "BUILD_ARTIFACT_V1",
+      "buildRevision": 1,
+      "attempt": 1,
+      "decision": "CORRECTION_REQUIRED",
+      "issues": [
+        {
+          "category": "PLACEHOLDER",
+          "severity": "CRITICAL",
+          "message": "Unresolved or unsafe rendered marker: GENERAL_LOCAL_BUSINESS",
+          "expectedCorrection": "Remove debug/template content without inventing facts."
+        },
+        {
+          "category": "BUILD_RENDER",
+          "severity": "MAJOR",
+          "message": "Browser runtime error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+          "expectedCorrection": "Fix the rendered runtime error."
+        }
+      ],
+      "inspection": {
+        "viewports": [
+          {
+            "name": "DESKTOP",
+            "width": 1440,
+            "height": 900,
+            "horizontalOverflow": -15,
+            "heroVisible": true,
+            "primaryCtaVisible": true,
+            "contentVisible": true,
+            "controlsWithinViewport": true
+          },
+          {
+            "name": "MOBILE",
+            "width": 390,
+            "height": 844,
+            "horizontalOverflow": -15,
+            "heroVisible": true,
+            "primaryCtaVisible": true,
+            "contentVisible": true,
+            "controlsWithinViewport": true
+          }
+        ],
+        "expectedSections": [
+          "hero",
+          "offer",
+          "reassurance",
+          "contact"
+        ],
+        "observedSections": [
+          "hero",
+          "home",
+          "offer",
+          "reassurance",
+          "contact"
+        ],
+        "primaryCta": "Contacter l’entreprise",
+        "brokenAssets": [],
+        "internalLinkErrors": [],
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ],
+        "unresolvedMarkers": [
+          "GENERAL_LOCAL_BUSINESS"
+        ],
+        "headings": [
+          "h1 Clarifier la valeur de Androcam Productions",
+          "h2 Clarifier la valeur de Androcam Productions",
+          "h2 hero",
+          "h2 offer",
+          "h2 reassurance",
+          "h2 contact",
+          "h2 Contacter l’entreprise"
+        ]
+      },
+      "createdAt": "2026-10-04T11:02:11.659Z"
+    },
+    "designRequest": {
+      "id": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+      "version": "DESIGN_REQUEST_V1",
+      "prospectId": "v2-51972816600033",
+      "admission": {
+        "packId": "agent1-r77z-androcam",
+        "schemaVersion": "CONTACT_OPPORTUNITY_PACK_V2"
+      },
+      "identity": {
+        "businessName": "Androcam Productions",
+        "siren": "519728166",
+        "siret": "51972816600033",
+        "city": "Reims",
+        "location": "51100 Reims",
+        "websiteUrl": "https://androcam-productions.com/",
+        "domain": "androcam-productions.com"
+      },
+      "opportunity": {
+        "digitalFriction": "Site en cours de refonte",
+        "agent1Verdict": "QUALIFIED",
+        "icp": {
+          "digitalPainSignals": [
+            "Site en cours de refonte"
+          ],
+          "requiresUnprovenCapability": false,
+          "outsideCommercialIcp": false
+        },
+        "businessContext": "Photographe et vidéaste à Reims : films d'entreprise, événementiel, clips."
+      },
+      "designInput": {
+        "currentWebsiteUrl": "https://androcam-productions.com/",
+        "businessVertical": "GENERAL_LOCAL_BUSINESS",
+        "brandContext": "Photographe et vidéaste à Reims : films d'entreprise, événementiel, clips.",
+        "frictionTrigger": "Site en cours de refonte",
+        "evidence": [
+          {
+            "url": "https://androcam-productions.com/",
+            "note": "Canonical bounded live homepage observation; same supplied HTML contains LocalBusiness identity, SIRET and explicit mailto contact.\n{\"sourcingLane\":\"PAIN_FIRST\",\"candidateId\":\"r77z-androcam\",\"stagedWebsiteUrl\":\"https://androcam-productions.com/\",\"domain\":\"androcam-productions.com\",\"acquiredAt\":\"2026-10-04T10:51:27.782Z\",\"digitalPainEvidence\":[{\"observedCondition\":\"SITE_REBUILDING\",\"sourceUrl\":\"https://androcam-productions.com/\",\"snapshotDigest\":\"sha256:fe8df54cebbeb0ecc3ac64736d3a37304044afeb91061574bfa21a20fee0c5d3\",\"locator\":\"h1\",\"observedAt\":\"2026-10-04T10:51:38.582Z\"}]}",
+            "supports": [
+              "website",
+              "digitalGap",
+              "identity",
+              "contact"
+            ],
+            "observedAt": "2026-10-04T10:51:38.582Z"
+          }
+        ]
+      },
+      "createdAt": "2026-10-04T10:57:08.489Z"
+    },
+    "approvedDesignArtifact": {
+      "id": "artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+      "version": "DESIGN_ARTIFACT_V1",
+      "revision": 1,
+      "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+      "prospectId": "v2-51972816600033",
+      "verticalProfile": "GENERAL_LOCAL_BUSINESS",
+      "createdAt": "2026-10-04T10:57:23.761Z",
+      "provenance": {
+        "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+        "evidenceIds": [
+          "evidence-1"
+        ],
+        "executionMode": "MODEL",
+        "model": {
+          "provider": "ollama-aider",
+          "model": "qwen2.5-coder:3b"
+        }
+      },
+      "strategy": {
+        "siteObjective": "Present a credible local business offer with a simple next step.",
+        "primaryUserIntent": "Understand the offer and take the next practical action.",
+        "primaryCta": "Contacter l’entreprise",
+        "informationHierarchy": [
+          "identity",
+          "offer clarity",
+          "reassurance",
+          "contact action"
+        ],
+        "siteStructure": "SINGLE_PAGE"
+      },
+      "pages": [
+        {
+          "id": "home",
+          "purpose": "Present a credible local business offer with a simple next step.",
+          "headingIntent": "Clarifier la valeur de Androcam Productions",
+          "content": [
+            {
+              "kind": "VERIFIED_FACT",
+              "text": "Androcam Productions",
+              "evidenceIds": []
+            },
+            {
+              "kind": "GENERIC_FRAMING",
+              "text": "Un accompagnement simple et clair pour passer à l’action."
+            }
+          ],
+          "ctaIntent": "Contacter l’entreprise",
+          "visualMediaIntent": "Use only supplied or later-approved business imagery; no invented media claims.",
+          "evidenceIds": [
+            "evidence-1"
+          ]
+        }
+      ],
+      "visualDirection": {
+        "mood": "balanced, approachable, credible",
+        "typography": "Readable, high-contrast sans-serif with optional expressive display accent.",
+        "layout": "Single-column mobile-first flow with clear section boundaries.",
+        "spacing": "Generous touch-friendly spacing.",
+        "imageTreatment": "Authentic business imagery only when supplied or approved.",
+        "interaction": "Calm, obvious, keyboard-accessible interactions.",
+        "responsivePriorities": [
+          "390px mobile conversion path",
+          "touch targets",
+          "readable type",
+          "desktop widening without reordering CTA"
+        ]
+      },
+      "buildGuidance": {
+        "componentHierarchy": [
+          "SiteShell",
+          "Header",
+          "Hero",
+          "ContentSections",
+          "PrimaryCta",
+          "Footer"
+        ],
+        "sectionOrder": [
+          "hero",
+          "offer",
+          "reassurance",
+          "contact"
+        ],
+        "contentPriority": [
+          "identity",
+          "offer",
+          "primary action",
+          "practical details"
+        ],
+        "ctaPlacement": [
+          "hero",
+          "after core offer",
+          "footer"
+        ],
+        "assetRequirements": [
+          "logo if supplied",
+          "approved business imagery if supplied",
+          "no fabricated testimonials or pricing"
+        ]
+      },
+      "status": "APPROVED"
+    },
+    "existingCorrectedBuild": null,
+    "productionSlot": {
+      "slotId": 2,
+      "prospectId": "v2-51972816600033",
+      "acquiredAt": "2026-10-04T10:57:08.518Z"
+    }
+  }
+}

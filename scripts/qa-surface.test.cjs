@@ -15,14 +15,13 @@ test('qa surface defaults cover the three local commercial surfaces', () => {
   assert.deepEqual(routesFor(args), [
     { name: 'public', route: '/' },
     { name: 'prototype', route: '/demo/snemm' },
-    { name: 'sales-room', route: '/p/snemm' },
   ]);
   assert.deepEqual(viewportsFor(args.viewport), [VIEWPORTS.desktop, VIEWPORTS.mobile]);
 });
 
-test('qa surface accepts a bounded route and exact viewport', () => {
-  const args = parseArgs(['--surface', 'sales-room', '--fixture', 'safiu-protection', '--viewport', 'mobile']);
-  assert.deepEqual(routesFor(args), [{ name: 'sales-room', route: '/p/safiu-protection' }]);
+test('qa surface accepts the canonical Proposal surface and exact viewport', () => {
+  const args = parseArgs(['--surface', 'prototype', '--fixture', 'safiu-protection', '--viewport', 'mobile']);
+  assert.deepEqual(routesFor(args), [{ name: 'prototype', route: '/demo/safiu-protection' }]);
   assert.deepEqual(viewportsFor(args.viewport), [VIEWPORTS.mobile]);
 });
 

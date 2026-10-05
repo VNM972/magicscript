@@ -1,0 +1,46 @@
+{
+  "kind": "CREATIVE_WEB_DESIGN_SYNTHETIC",
+  "synthetic": true,
+  "fixtureId": "synthetic-already-good",
+  "technicalJobStatus": "SUCCEEDED",
+  "creativeVerdict": "PASS",
+  "before": {
+    "artifactFingerprint": "751127b0133cd290be559790a0f79955bdc16c30166bf658bc7884e068aacea0",
+    "protectedFactsFingerprint": "448b6687d25dc12beb5536f8275d3ce1497e0d1de3c359f93ef67ba2c2d88674",
+    "protectedContractFingerprint": "1b8090533a9670458c020ab227b3009d35a51ce2411621de6d462a4a52ad40f2",
+    "fileInventory": [
+      "app/globals.css",
+      "app/page.tsx"
+    ],
+    "creativeReview": {
+      "status": "PASS",
+      "findings": [],
+      "checkedAt": "2026-09-15T15:34:03.374Z",
+      "owner": "WEB_DESIGN"
+    },
+    "timestamp": "2026-09-15T15:34:03.370Z"
+  },
+  "qaPreflight": {
+    "phase": "QA_PREFLIGHT",
+    "passed": true,
+    "blockers": [],
+    "checkedAt": "2026-09-15T15:34:03.374Z"
+  },
+  "iterations": [],
+  "qaFinal": {
+    "phase": "QA_FINAL",
+    "passed": true,
+    "blockers": [],
+    "checkedAt": "2026-09-15T15:34:03.380Z"
+  },
+  "after": {
+    "artifactFingerprint": "751127b0133cd290be559790a0f79955bdc16c30166bf658bc7884e068aacea0",
+    "creativeVerdict": "PASS",
+    "renderEvidence": null,
+    "timestamp": "2026-09-15T15:34:03.380Z"
+  },
+  "externalActions": [],
+  "startedAt": "2026-09-15T15:34:03.370Z",
+  "completedAt": "2026-09-15T15:34:03.380Z",
+  "blockers": []
+}

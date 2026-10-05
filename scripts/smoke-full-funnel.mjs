@@ -57,10 +57,25 @@ async function main() {
     `OK safe transport provider=${health.emailProvider} testMode=${health.testEmailMode}`,
   );
 
-  await request('/api/autopilot/tick', {
-    method: 'POST',
-    body: '{}',
-  });
+  const smokeProspectId = process.env.MAGICSCRIPT_SMOKE_PROSPECT_ID?.trim();
+  if (smokeProspectId) {
+    await request('/api/orchestrator/plan', {
+      method: 'POST',
+      body: JSON.stringify({ prospectId: smokeProspectId }),
+    });
+    console.log(`Deterministic smoke fixture planned: ${smokeProspectId}`);
+  } else {
+    const existingBeforeTick = await request('/api/prospects');
+    const smokeProspectCap = 50;
+    if ((existingBeforeTick.prospects || []).length >= smokeProspectCap) {
+      console.log(`Discovery skipped: smoke cap reached (${smokeProspectCap})`);
+    } else {
+      await request('/api/autopilot/tick', {
+        method: 'POST',
+        body: '{}',
+      });
+    }
+  }
 
   const terminal = new Set([
     'DISQUALIFIED',

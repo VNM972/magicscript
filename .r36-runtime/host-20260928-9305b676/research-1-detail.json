@@ -1,0 +1,114 @@
+{
+  "prospect": {
+    "id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+    "companyName": "BODY ILES",
+    "legalName": "BODY ILES",
+    "siren": "443976352",
+    "siret": "44397635200015",
+    "city": "FORT-DE-FRANCE",
+    "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/44397635200015",
+    "activityTaxonomy": "NAF_2008",
+    "commercialEligibility": "HIGH_PRIORITY",
+    "brandKey": "BODY ILES",
+    "initialResearchRepresentative": true,
+    "activity": "96.02B",
+    "location": "64 RUE VICTOR HUGO 97200 FORT-DE-FRANCE",
+    "websiteUrl": "https://www.bodyiles.com/",
+    "state": "DISQUALIFIED",
+    "score": 48,
+    "primaryCta": "Contact us",
+    "createdAt": "2026-09-28T16:06:36.768Z",
+    "updatedAt": "2026-09-28T16:09:26.664Z"
+  },
+  "contacts": [],
+  "contactability": {
+    "identity": {
+      "prospectId": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "siren": "443976352",
+      "siret": "44397635200015"
+    },
+    "status": "MISSING",
+    "channels": [],
+    "preparation": null
+  },
+  "contactAcquisition": null,
+  "contactPresence": {
+    "status": "REJECTED",
+    "identity": {
+      "status": "REJECTED",
+      "matched": false,
+      "reason": "identity mismatch",
+      "observations": [
+        {
+          "domain": "facebook.com"
+        }
+      ]
+    },
+    "phone": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "email": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "website": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "social": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "instagram": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "facebook": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "tiktok": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "whatsapp": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "contactForm": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "sourcesProcessed": 1,
+    "sourcesChecked": [
+      "https://www.facebook.com/bodyiles"
+    ],
+    "reasons": [
+      "bounded sources checked: 1"
+    ],
+    "enrichedAt": "2026-09-28T16:09:26.25Z",
+    "truncated": false
+  },
+  "prototype": null,
+  "salesRoom": null,
+  "commercialLinks": {
+    "prototypeUrl": null,
+    "prototypeEntryUrl": null,
+    "salesRoomUrl": null,
+    "salesRoomSlug": "body-iles",
+    "salesRoomStatus": "ACTIVE",
+    "personalizedUrl": null,
+    "personalizedEntryEnabled": false,
+    "links": []
+  }
+}

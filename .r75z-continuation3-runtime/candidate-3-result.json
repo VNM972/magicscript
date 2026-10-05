@@ -1,0 +1,16 @@
+{
+  "index": 3,
+  "name": "Accent Immo",
+  "url": "https://accentimmo.fr/",
+  "discovery": "https://accentimmo.fr/",
+  "pageState": "PAGE_OBSERVED",
+  "httpResultClass": "SUCCESS",
+  "title": "Accent Immo – L'immobilier tout simplement !",
+  "h1": [
+    "Site en construction"
+  ],
+  "qualification": "PAIN_SIGNAL_CONFIRMED",
+  "identity": "IDENTITY_ABSENT",
+  "enrichment": "NO_ELIGIBLE_LINK",
+  "registryRequest": null
+}

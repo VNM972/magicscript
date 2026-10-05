@@ -1,0 +1,124 @@
+{
+  "prospect": {
+    "id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+    "companyName": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+    "legalName": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+    "siren": "189729015",
+    "siret": "18972901500017",
+    "city": "FORT-DE-FRANCE",
+    "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017",
+    "activityTaxonomy": "NAF_2008",
+    "commercialEligibility": "RESEARCH",
+    "brandKey": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+    "initialResearchRepresentative": true,
+    "activity": "56.29B",
+    "location": "LD MORNE DESAIX 97200 FORT-DE-FRANCE",
+    "websiteUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017",
+    "state": "DISQUALIFIED",
+    "score": 0,
+    "primaryCta": "unknown",
+    "createdAt": "2026-09-28T16:06:36.81Z",
+    "updatedAt": "2026-09-28T16:15:06.885Z"
+  },
+  "contacts": [],
+  "contactability": {
+    "identity": {
+      "prospectId": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "siren": "189729015",
+      "siret": "18972901500017"
+    },
+    "status": "MISSING",
+    "channels": [],
+    "preparation": null
+  },
+  "contactAcquisition": null,
+  "contactPresence": {
+    "status": "VERIFIED",
+    "identity": {
+      "status": "VERIFIED",
+      "matched": true,
+      "reason": "identity bound",
+      "observations": [
+        {
+          "domain": "annuaire-entreprises.data.gouv.fr"
+        }
+      ]
+    },
+    "phone": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "email": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "website": {
+      "status": "VERIFIED",
+      "values": [
+        "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017"
+      ],
+      "evidence": [
+        {
+          "value": "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017",
+          "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017",
+          "kind": "social",
+          "evidenceType": "OWNED_WEBSITE"
+        }
+      ]
+    },
+    "social": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "instagram": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "facebook": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "tiktok": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "whatsapp": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "contactForm": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "sourcesProcessed": 1,
+    "sourcesChecked": [
+      "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017"
+    ],
+    "reasons": [
+      "identity bound",
+      "bounded sources checked: 1"
+    ],
+    "enrichedAt": "2026-09-28T16:15:06.811Z",
+    "truncated": false
+  },
+  "prototype": null,
+  "salesRoom": null,
+  "commercialLinks": {
+    "prototypeUrl": null,
+    "prototypeEntryUrl": null,
+    "salesRoomUrl": null,
+    "salesRoomSlug": "cercle-de-la-base-de-defense-des-antilles",
+    "salesRoomStatus": "ACTIVE",
+    "personalizedUrl": null,
+    "personalizedEntryEnabled": false,
+    "links": []
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "kind": "CREATIVE_WEB_DESIGN_SYNTHETIC",
+  "synthetic": true,
+  "fixtureId": "synthetic-impossible",
+  "technicalJobStatus": "SUCCEEDED",
+  "creativeVerdict": "EXHAUSTED",
+  "before": {
+    "artifactFingerprint": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb",
+    "protectedFactsFingerprint": "ce516627ffd39a5bba74bb3e7686783e5c1a5378463022fba7fb3ab33f797ef6",
+    "protectedContractFingerprint": "1b8090533a9670458c020ab227b3009d35a51ce2411621de6d462a4a52ad40f2",
+    "fileInventory": [
+      "app/globals.css",
+      "app/page.tsx"
+    ],
+    "creativeReview": {
+      "status": "REWORK",
+      "findings": [
+        {
+          "code": "UNIMPROVABLE",
+          "category": "layout",
+          "severity": "BLOCKING",
+          "message": "Fixture remains intentionally impossible."
+        }
+      ],
+      "checkedAt": "2026-09-15T15:34:03.471Z",
+      "owner": "WEB_DESIGN"
+    },
+    "timestamp": "2026-09-15T15:34:03.471Z"
+  },
+  "qaPreflight": {
+    "phase": "QA_PREFLIGHT",
+    "passed": true,
+    "blockers": [],
+    "checkedAt": "2026-09-15T15:34:03.473Z"
+  },
+  "iterations": [
+    {
+      "index": 1,
+      "findingsBefore": [
+        {
+          "code": "UNIMPROVABLE",
+          "category": "layout",
+          "severity": "BLOCKING",
+          "message": "Fixture remains intentionally impossible."
+        }
+      ],
+      "plannedChanges": [
+        "bounded presentation-only rework"
+      ],
+      "filesChanged": [],
+      "diffMetadata": {
+        "beforeBytes": 64,
+        "afterBytes": 64,
+        "changed": false
+      },
+      "buildResult": {
+        "command": "synthetic-local-build",
+        "exitCode": 0,
+        "status": "PASSED",
+        "outputPath": "out",
+        "timestamp": "2026-09-15T15:34:03.482Z"
+      },
+      "creativeReviewAfter": {
+        "status": "REWORK",
+        "findings": [
+          {
+            "code": "UNIMPROVABLE",
+            "category": "layout",
+            "severity": "BLOCKING",
+            "message": "Fixture remains intentionally impossible."
+          }
+        ],
+        "checkedAt": "2026-09-15T15:34:03.471Z",
+        "owner": "WEB_DESIGN"
+      },
+      "fingerprints": {
+        "before": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb",
+        "after": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb"
+      },
+      "protectedFactsPreserved": true,
+      "protectedContractPreserved": true,
+      "timestamp": "2026-09-15T15:34:03.482Z"
+    },
+    {
+      "index": 2,
+      "findingsBefore": [
+        {
+          "code": "UNIMPROVABLE",
+          "category": "layout",
+          "severity": "BLOCKING",
+          "message": "Fixture remains intentionally impossible."
+        }
+      ],
+      "plannedChanges": [
+        "bounded presentation-only rework"
+      ],
+      "filesChanged": [],
+      "diffMetadata": {
+        "beforeBytes": 64,
+        "afterBytes": 64,
+        "changed": false
+      },
+      "buildResult": {
+        "command": "synthetic-local-build",
+        "exitCode": 0,
+        "status": "PASSED",
+        "outputPath": "out",
+        "timestamp": "2026-09-15T15:34:03.485Z"
+      },
+      "creativeReviewAfter": {
+        "status": "REWORK",
+        "findings": [
+          {
+            "code": "UNIMPROVABLE",
+            "category": "layout",
+            "severity": "BLOCKING",
+            "message": "Fixture remains intentionally impossible."
+          }
+        ],
+        "checkedAt": "2026-09-15T15:34:03.471Z",
+        "owner": "WEB_DESIGN"
+      },
+      "fingerprints": {
+        "before": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb",
+        "after": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb"
+      },
+      "protectedFactsPreserved": true,
+      "protectedContractPreserved": true,
+      "timestamp": "2026-09-15T15:34:03.485Z"
+    },
+    {
+      "index": 3,
+      "findingsBefore": [
+        {
+          "code": "UNIMPROVABLE",
+          "category": "layout",
+          "severity": "BLOCKING",
+          "message": "Fixture remains intentionally impossible."
+        }
+      ],
+      "plannedChanges": [
+        "bounded presentation-only rework"
+      ],
+      "filesChanged": [],
+      "diffMetadata": {
+        "beforeBytes": 64,
+        "afterBytes": 64,
+        "changed": false
+      },
+      "buildResult": {
+        "command": "synthetic-local-build",
+        "exitCode": 0,
+        "status": "PASSED",
+        "outputPath": "out",
+        "timestamp": "2026-09-15T15:34:03.488Z"
+      },
+      "creativeReviewAfter": {
+        "status": "REWORK",
+        "findings": [
+          {
+            "code": "UNIMPROVABLE",
+            "category": "layout",
+            "severity": "BLOCKING",
+            "message": "Fixture remains intentionally impossible."
+          }
+        ],
+        "checkedAt": "2026-09-15T15:34:03.471Z",
+        "owner": "WEB_DESIGN"
+      },
+      "fingerprints": {
+        "before": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb",
+        "after": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb"
+      },
+      "protectedFactsPreserved": true,
+      "protectedContractPreserved": true,
+      "timestamp": "2026-09-15T15:34:03.488Z"
+    }
+  ],
+  "qaFinal": {
+    "phase": "QA_FINAL",
+    "passed": true,
+    "blockers": [],
+    "checkedAt": "2026-09-15T15:34:03.488Z"
+  },
+  "after": {
+    "artifactFingerprint": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb",
+    "creativeVerdict": "EXHAUSTED",
+    "renderEvidence": null,
+    "timestamp": "2026-09-15T15:34:03.488Z"
+  },
+  "externalActions": [],
+  "startedAt": "2026-09-15T15:34:03.471Z",
+  "completedAt": "2026-09-15T15:34:03.488Z",
+  "blockers": []
+}

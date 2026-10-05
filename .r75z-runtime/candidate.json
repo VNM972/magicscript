@@ -1,0 +1,18 @@
+{
+  "name": "Zakari",
+  "source": "Canonical manual PAIN_FIRST query intake; search result https://www.zakari.fr/site-en-construction; homepage alone evaluated",
+  "candidate": {
+    "schemaVersion": 1,
+    "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+    "conditionClass": "SITE_UNDER_CONSTRUCTION",
+    "providerClass": "MANUAL_BROWSER_SEARCH",
+    "resultUrl": "https://www.zakari.fr/",
+    "resultTitle": "SARL ZAKARI",
+    "resultPosition": 5,
+    "acquiredAt": "2026-10-03T07:34:43.759Z",
+    "providerRunId": "R75Z-manual-pain-first",
+    "authority": "NONE"
+  },
+  "excludedProspect": "v2-87988492200011",
+  "existingCandidateReview": "No other V2 admission; examined persisted local candidates lacked accepted digital-pain/contact evidence."
+}

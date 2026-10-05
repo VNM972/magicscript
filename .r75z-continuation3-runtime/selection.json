@@ -1,0 +1,41 @@
+{
+  "candidates": [
+    {
+      "name": "Medi Conciergerie",
+      "url": "https://medi-conciergerie.com/",
+      "discovery": "https://medi-conciergerie.com/accueil-en-construction/"
+    },
+    {
+      "name": "LM Charpente",
+      "url": "https://lmcharpente.com/",
+      "discovery": "https://lmcharpente.com/lm-charpente-en-construction/"
+    },
+    {
+      "name": "Accent Immo",
+      "url": "https://accentimmo.fr/",
+      "discovery": "https://accentimmo.fr/"
+    },
+    {
+      "name": "RB Agency",
+      "url": "https://rb-agency.fr/",
+      "discovery": "https://rb-agency.fr/fr/"
+    },
+    {
+      "name": "Chateau de Toulondit",
+      "url": "https://www.toulondit.fr/",
+      "discovery": "Previously discovered public restaurant result in R75Z continuation 2; not previously canonically inspected; outside Martinique, eligibility remains canonical"
+    }
+  ],
+  "excluded": [
+    "Villa Ancinel",
+    "Zakari",
+    "Evasion Nautique 972"
+  ],
+  "sourcePriorityCheck": "89 stored non-null websites; only Villa had a construction/refonte friction. Bounded existing artifacts also Villa. No new eligible candidate selected from those records.",
+  "queries": [
+    "\"site en construction\" Martinique",
+    "\"site en cours de refonte\" Martinique",
+    "\"Martinique\" \"site en construction\" (restaurant OR salon OR artisan OR location) -zakari -evasionnautique972 -villa-ancinel"
+  ],
+  "queryCount": 3
+}

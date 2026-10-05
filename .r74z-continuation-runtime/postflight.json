@@ -1,0 +1,327 @@
+{
+  "verifiedAt": "2026-10-03T07:22:59.885Z",
+  "status": "CLOSED / ACCEPTANCE_COMPLETE",
+  "report": {
+    "id": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2-r2-a2",
+    "version": "VISUAL_QA_REPORT_V1",
+    "buildArtifactId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2",
+    "designArtifactId": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+    "designArtifactRevision": 1,
+    "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+    "prospectId": "v2-87988492200011",
+    "buildVersion": "BUILD_ARTIFACT_V1",
+    "buildRevision": 2,
+    "attempt": 2,
+    "decision": "PASS",
+    "issues": [],
+    "inspection": {
+      "viewports": [
+        {
+          "name": "DESKTOP",
+          "width": 1440,
+          "height": 900,
+          "horizontalOverflow": -15,
+          "heroVisible": true,
+          "primaryCtaVisible": true,
+          "contentVisible": true,
+          "controlsWithinViewport": true
+        },
+        {
+          "name": "MOBILE",
+          "width": 390,
+          "height": 844,
+          "horizontalOverflow": -15,
+          "heroVisible": true,
+          "primaryCtaVisible": true,
+          "contentVisible": true,
+          "controlsWithinViewport": true
+        }
+      ],
+      "expectedSections": [
+        "hero",
+        "offer",
+        "reassurance",
+        "contact"
+      ],
+      "observedSections": [
+        "hero",
+        "home",
+        "offer",
+        "reassurance",
+        "contact"
+      ],
+      "primaryCta": "Contacter l’entreprise",
+      "brokenAssets": [],
+      "internalLinkErrors": [],
+      "consoleErrors": [],
+      "unresolvedMarkers": [],
+      "headings": [
+        "h1 Clarifier la valeur de Villa Ancinel",
+        "h2 Clarifier la valeur de Villa Ancinel",
+        "h2 hero",
+        "h2 offer",
+        "h2 reassurance",
+        "h2 contact",
+        "h2 Contacter l’entreprise"
+      ]
+    },
+    "createdAt": "2026-10-03T07:21:12.937Z"
+  },
+  "rows": {
+    "jobs": [
+      {
+        "id": "job-v2-87988492200011-DESIGN_REQUEST_V1",
+        "kind": "V2_DESIGN_REQUEST",
+        "prospect_id": "v2-87988492200011",
+        "payload_json": "{\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"designRequestVersion\":\"DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"admittedPackId\":\"agent1-r66z-villa-ancinel\"}",
+        "status": "SUCCEEDED",
+        "attempts": 2,
+        "max_attempts": 3,
+        "run_after": "2026-10-02T16:45:49.082Z",
+        "last_error": null,
+        "claimed_by": null,
+        "claimed_at": null,
+        "created_at": "2026-10-02T16:32:22.315Z",
+        "updated_at": "2026-10-02T17:02:32.227Z"
+      },
+      {
+        "id": "job-v2-87988492200011-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+        "kind": "V2_BUILD_SITE",
+        "prospect_id": "v2-87988492200011",
+        "payload_json": "{\"approvedDesignArtifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"approvedRevision\":1,\"builderVersion\":\"builder-v1\"}",
+        "status": "SUCCEEDED",
+        "attempts": 1,
+        "max_attempts": 2,
+        "run_after": "2026-10-02T17:52:10.137Z",
+        "last_error": null,
+        "claimed_by": null,
+        "claimed_at": null,
+        "created_at": "2026-10-02T17:31:28.220Z",
+        "updated_at": "2026-10-02T18:46:54.977Z"
+      },
+      {
+        "id": "job-v2-87988492200011-build-correction-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r2",
+        "kind": "V2_BUILD_CORRECTION",
+        "prospect_id": "v2-87988492200011",
+        "payload_json": "{\"correctionRequestId\":\"correction-qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1\",\"buildArtifactId\":\"build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1\",\"targetBuildRevision\":1,\"nextBuildRevision\":2,\"qaReportId\":\"qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1\",\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"approvedDesignArtifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\"}",
+        "status": "SUCCEEDED",
+        "attempts": 1,
+        "max_attempts": 2,
+        "run_after": "2026-10-03T07:05:01.295Z",
+        "last_error": null,
+        "claimed_by": null,
+        "claimed_at": null,
+        "created_at": "2026-10-03T07:05:01.295Z",
+        "updated_at": "2026-10-03T07:18:59.885Z"
+      },
+      {
+        "id": "job-v2-87988492200011-design-review-r1",
+        "kind": "V2_DESIGN_REVIEW",
+        "prospect_id": "v2-87988492200011",
+        "payload_json": "{\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"artifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"artifactRevision\":1}",
+        "status": "SUCCEEDED",
+        "attempts": 1,
+        "max_attempts": 3,
+        "run_after": "2026-10-02T17:02:32.225Z",
+        "last_error": null,
+        "claimed_by": null,
+        "claimed_at": null,
+        "created_at": "2026-10-02T17:02:32.225Z",
+        "updated_at": "2026-10-02T17:31:28.228Z"
+      }
+    ],
+    "v2_build_artifacts": [
+      {
+        "id": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+        "build_version": "BUILD_ARTIFACT_V1",
+        "design_artifact_id": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+        "design_request_id": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+        "prospect_id": "v2-87988492200011",
+        "approved_revision": 1,
+        "build_revision": 1,
+        "builder_version": "builder-v1",
+        "source_path": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\source",
+        "output_path": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\dist",
+        "status": "SUCCEEDED",
+        "source_hash": "f13de1a6577eee49a58e8ed87518980bb67b68dfc33282d0bb839c0403109ab3",
+        "artifact_json": "{\"id\":\"build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1\",\"version\":\"BUILD_ARTIFACT_V1\",\"approvedDesignArtifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"approvedRevision\":1,\"builderVersion\":\"builder-v1\",\"sourcePath\":\"D:\\\\MagicScript\\\\repository\\\\artifacts\\\\v2\\\\sites\\\\v2-87988492200011\\\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\\\source\",\"outputPath\":\"D:\\\\MagicScript\\\\repository\\\\artifacts\\\\v2\\\\sites\\\\v2-87988492200011\\\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\\\dist\",\"status\":\"SUCCEEDED\",\"framework\":\"STATIC_HTML_CSS\",\"sourceHash\":\"f13de1a6577eee49a58e8ed87518980bb67b68dfc33282d0bb839c0403109ab3\",\"createdAt\":\"2026-10-02T18:46:54.940Z\",\"completedAt\":\"2026-10-02T18:46:54.958Z\",\"metadata\":{\"entryFile\":\"index.html\",\"buildCommand\":\"builder-v1 static build\",\"missingAssetRequirements\":[\"logo if supplied\",\"approved business imagery if supplied\",\"no fabricated testimonials or pricing\"]}}",
+        "created_at": "2026-10-02T18:46:54.940Z",
+        "completed_at": "2026-10-02T18:46:54.958Z",
+        "updated_at": "2026-10-02T18:46:54.958Z"
+      },
+      {
+        "id": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2",
+        "build_version": "BUILD_ARTIFACT_V1",
+        "design_artifact_id": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+        "design_request_id": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+        "prospect_id": "v2-87988492200011",
+        "approved_revision": 1,
+        "build_revision": 2,
+        "builder_version": "builder-v1",
+        "source_path": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\build-r2\\source",
+        "output_path": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\build-r2\\dist",
+        "status": "SUCCEEDED",
+        "source_hash": "722baecc7eccfc46f87283bea82e6ed0bed50d749f8fe7e36591f4f6409cc037",
+        "artifact_json": "{\"id\":\"build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2\",\"version\":\"BUILD_ARTIFACT_V1\",\"approvedDesignArtifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"approvedRevision\":1,\"buildRevision\":2,\"qaAttempt\":2,\"previousBuildArtifactId\":\"build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1\",\"correctionRequestId\":\"correction-qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1\",\"builderVersion\":\"builder-v1\",\"sourcePath\":\"D:\\\\MagicScript\\\\repository\\\\artifacts\\\\v2\\\\sites\\\\v2-87988492200011\\\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\\\build-r2\\\\source\",\"outputPath\":\"D:\\\\MagicScript\\\\repository\\\\artifacts\\\\v2\\\\sites\\\\v2-87988492200011\\\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\\\build-r2\\\\dist\",\"status\":\"SUCCEEDED\",\"framework\":\"STATIC_HTML_CSS\",\"sourceHash\":\"722baecc7eccfc46f87283bea82e6ed0bed50d749f8fe7e36591f4f6409cc037\",\"createdAt\":\"2026-10-03T07:18:59.783Z\",\"completedAt\":\"2026-10-03T07:18:59.783Z\",\"metadata\":{\"entryFile\":\"index.html\",\"buildCommand\":\"builder-v1 static correction ENSURE_LOCAL_FAVICON_V1\",\"missingAssetRequirements\":[\"logo if supplied\",\"approved business imagery if supplied\",\"no fabricated testimonials or pricing\"],\"outputIntegrity\":{\"parentSourceFiles\":{\"build-manifest.json\":\"ewogICJ2ZXJzaW9uIjogIkJVSUxEX0FSVElGQUNUX1YxIiwKICAiYXJ0aWZhY3RJZCI6ICJhcnRpZmFjdC1kci12Mi04Nzk4ODQ5MjIwMDAxMS1ERVNJR05fUkVRVUVTVF9WMS1ERVNJR05fQVJUSUZBQ1RfVjEtcjEiLAogICJkZXNpZ25SZXF1ZXN0SWQiOiAiZHItdjItODc5ODg0OTIyMDAwMTEtREVTSUdOX1JFUVVFU1RfVjEiLAogICJwcm9zcGVjdElkIjogInYyLTg3OTg4NDkyMjAwMDExIiwKICAiYXBwcm92ZWRSZXZpc2lvbiI6IDEsCiAgImZyYW1ld29yayI6ICJTVEFUSUNfSFRNTF9DU1MiCn0K\",\"index.html\":\"PCFkb2N0eXBlIGh0bWw+CjxodG1sIGxhbmc9ImZyIj48aGVhZD48bWV0YSBjaGFyc2V0PSJ1dGYtOCI+PG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCxpbml0aWFsLXNjYWxlPTEiPjx0aXRsZT5WaWxsYSBBbmNpbmVsPC90aXRsZT48bWV0YSBuYW1lPSJkZXNjcmlwdGlvbiIgY29udGVudD0iUHJlc2VudCBhIGNyZWRpYmxlIGxvY2FsIGJ1c2luZXNzIG9mZmVyIHdpdGggYSBzaW1wbGUgbmV4dCBzdGVwLiI+PGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJzdHlsZXMuY3NzIj48L2hlYWQ+PGJvZHk+PGhlYWRlciBjbGFzcz0ic2l0ZS1oZWFkZXIiPjxhIGNsYXNzPSJicmFuZCIgaHJlZj0iI3RvcCI+VmlsbGEgQW5jaW5lbDwvYT48bmF2IGFyaWEtbGFiZWw9Ik5hdmlnYXRpb24gcHJpbmNpcGFsZSI+PGEgaHJlZj0iI2hvbWUiPkNsYXJpZmllciBsYSB2YWxldXIgZGUgVmlsbGEgQW5jaW5lbDwvYT48YSBocmVmPSIjY29udGFjdCI+Q29udGFjdGVyIGzigJllbnRyZXByaXNlPC9hPjwvbmF2PjwvaGVhZGVyPjxtYWluIGlkPSJ0b3AiPjxzZWN0aW9uIGNsYXNzPSJoZXJvIiBhcmlhLWxhYmVsbGVkYnk9Imhlcm8tdGl0bGUiPjxwIGNsYXNzPSJleWVicm93Ij5HRU5FUkFMX0xPQ0FMX0JVU0lORVNTPC9wPjxoMSBpZD0iaGVyby10aXRsZSI+Q2xhcmlmaWVyIGxhIHZhbGV1ciBkZSBWaWxsYSBBbmNpbmVsPC9oMT48cD5VbmRlcnN0YW5kIHRoZSBvZmZlciBhbmQgdGFrZSB0aGUgbmV4dCBwcmFjdGljYWwgYWN0aW9uLjwvcD48YSBjbGFzcz0iY3RhIGN0YS1wcmltYXJ5IiBocmVmPSIjY29udGFjdCI+Q29udGFjdGVyIGzigJllbnRyZXByaXNlPC9hPjwvc2VjdGlvbj48c2VjdGlvbiBpZD0iaG9tZSIgYXJpYS1sYWJlbGxlZGJ5PSJoZWFkaW5nLWhvbWUiPjxwIGNsYXNzPSJleWVicm93Ij5QcmVzZW50IGEgY3JlZGlibGUgbG9jYWwgYnVzaW5lc3Mgb2ZmZXIgd2l0aCBhIHNpbXBsZSBuZXh0IHN0ZXAuPC9wPjxoMiBpZD0iaGVhZGluZy1ob21lIj5DbGFyaWZpZXIgbGEgdmFsZXVyIGRlIFZpbGxhIEFuY2luZWw8L2gyPjxwIGNsYXNzPSJjb250ZW50LWJsb2NrIGNvbnRlbnQtdmVyaWZpZWRfZmFjdCI+VmlsbGEgQW5jaW5lbDwvcD4KPHAgY2xhc3M9ImNvbnRlbnQtYmxvY2sgY29udGVudC1nZW5lcmljX2ZyYW1pbmciPlVuIGFjY29tcGFnbmVtZW50IHNpbXBsZSBldCBjbGFpciBwb3VyIHBhc3NlciDDoCBs4oCZYWN0aW9uLjwvcD48YSBjbGFzcz0iY3RhIGN0YS1zZWNvbmRhcnkiIGhyZWY9IiNjb250YWN0Ij5Db250YWN0ZXIgbOKAmWVudHJlcHJpc2U8L2E+PC9zZWN0aW9uPjxzZWN0aW9uIGNsYXNzPSJhcHByb3ZlZC1zdHJ1Y3R1cmUiIGRhdGEtYXBwcm92ZWQtc2VjdGlvbj0iaGVybyIgYXJpYS1sYWJlbGxlZGJ5PSJhcHByb3ZlZC1oZXJvIj48cCBjbGFzcz0iZXllYnJvdyI+QXBwcm92ZWQgc3RydWN0dXJlPC9wPjxoMiBpZD0iYXBwcm92ZWQtaGVybyI+aGVybzwvaDI+PHAgY2xhc3M9ImNvbnRlbnQtZGVzaWduX3BsYWNlaG9sZGVyIj5BcHByb3ZlZCBzdHJ1Y3R1cmFsIHBsYWNlaG9sZGVyOyBidXNpbmVzcyBjb250ZW50IHJlbWFpbnMgZ292ZXJuZWQgYnkgdGhlIGRlc2lnbiBhcnRpZmFjdC48L3A+PC9zZWN0aW9uPgo8c2VjdGlvbiBjbGFzcz0iYXBwcm92ZWQtc3RydWN0dXJlIiBkYXRhLWFwcHJvdmVkLXNlY3Rpb249Im9mZmVyIiBhcmlhLWxhYmVsbGVkYnk9ImFwcHJvdmVkLW9mZmVyIj48cCBjbGFzcz0iZXllYnJvdyI+QXBwcm92ZWQgc3RydWN0dXJlPC9wPjxoMiBpZD0iYXBwcm92ZWQtb2ZmZXIiPm9mZmVyPC9oMj48cCBjbGFzcz0iY29udGVudC1kZXNpZ25fcGxhY2Vob2xkZXIiPkFwcHJvdmVkIHN0cnVjdHVyYWwgcGxhY2Vob2xkZXI7IGJ1c2luZXNzIGNvbnRlbnQgcmVtYWlucyBnb3Zlcm5lZCBieSB0aGUgZGVzaWduIGFydGlmYWN0LjwvcD48L3NlY3Rpb24+CjxzZWN0aW9uIGNsYXNzPSJhcHByb3ZlZC1zdHJ1Y3R1cmUiIGRhdGEtYXBwcm92ZWQtc2VjdGlvbj0icmVhc3N1cmFuY2UiIGFyaWEtbGFiZWxsZWRieT0iYXBwcm92ZWQtcmVhc3N1cmFuY2UiPjxwIGNsYXNzPSJleWVicm93Ij5BcHByb3ZlZCBzdHJ1Y3R1cmU8L3A+PGgyIGlkPSJhcHByb3ZlZC1yZWFzc3VyYW5jZSI+cmVhc3N1cmFuY2U8L2gyPjxwIGNsYXNzPSJjb250ZW50LWRlc2lnbl9wbGFjZWhvbGRlciI+QXBwcm92ZWQgc3RydWN0dXJhbCBwbGFjZWhvbGRlcjsgYnVzaW5lc3MgY29udGVudCByZW1haW5zIGdvdmVybmVkIGJ5IHRoZSBkZXNpZ24gYXJ0aWZhY3QuPC9wPjwvc2VjdGlvbj4KPHNlY3Rpb24gY2xhc3M9ImFwcHJvdmVkLXN0cnVjdHVyZSIgZGF0YS1hcHByb3ZlZC1zZWN0aW9uPSJjb250YWN0IiBhcmlhLWxhYmVsbGVkYnk9ImFwcHJvdmVkLWNvbnRhY3QiPjxwIGNsYXNzPSJleWVicm93Ij5BcHByb3ZlZCBzdHJ1Y3R1cmU8L3A+PGgyIGlkPSJhcHByb3ZlZC1jb250YWN0Ij5jb250YWN0PC9oMj48cCBjbGFzcz0iY29udGVudC1kZXNpZ25fcGxhY2Vob2xkZXIiPkFwcHJvdmVkIHN0cnVjdHVyYWwgcGxhY2Vob2xkZXI7IGJ1c2luZXNzIGNvbnRlbnQgcmVtYWlucyBnb3Zlcm5lZCBieSB0aGUgZGVzaWduIGFydGlmYWN0LjwvcD48L3NlY3Rpb24+PHNlY3Rpb24gaWQ9ImNvbnRhY3QiIGNsYXNzPSJjb250YWN0IiBhcmlhLWxhYmVsbGVkYnk9ImNvbnRhY3QtdGl0bGUiPjxoMiBpZD0iY29udGFjdC10aXRsZSI+Q29udGFjdGVyIGzigJllbnRyZXByaXNlPC9oMj48cD5DZXR0ZSBkw6ltb25zdHJhdGlvbiBwcsOpc2VudGUgbGEgc3RydWN0dXJlIGFwcHJvdXbDqWUuIExlcyBjb29yZG9ubsOpZXMgZXQgYWN0aW9ucyBvcMOpcmF0aW9ubmVsbGVzIHJlc3RlbnQgw6AgY29ubmVjdGVyLjwvcD48YSBjbGFzcz0iY3RhIGN0YS1wcmltYXJ5IiBocmVmPSIjdG9wIj5Db250YWN0ZXIgbOKAmWVudHJlcHJpc2U8L2E+PC9zZWN0aW9uPjwvbWFpbj48Zm9vdGVyPjxwPlZpbGxhIEFuY2luZWw8L3A+PHAgY2xhc3M9ImFzc2V0LW5vdGUiPk3DqWRpYXMgw6AgZm91cm5pciA6IGxvZ28gaWYgc3VwcGxpZWQgOyBhcHByb3ZlZCBidXNpbmVzcyBpbWFnZXJ5IGlmIHN1cHBsaWVkPC9wPjwvZm9vdGVyPjwvYm9keT48L2h0bWw+Cg==\",\"styles.css\":\"OnJvb3R7Zm9udC1mYW1pbHk6SW50ZXIsdWktc2Fucy1zZXJpZixzeXN0ZW0tdWksc2Fucy1zZXJpZjtjb2xvcjojMTcyMDJhO2JhY2tncm91bmQ6I2Y3ZjRlZjtsaW5lLWhlaWdodDoxLjZ9Kntib3gtc2l6aW5nOmJvcmRlci1ib3h9Ym9keXttYXJnaW46MH1he2NvbG9yOmluaGVyaXR9LnNpdGUtaGVhZGVyLG1haW4sZm9vdGVye21heC13aWR0aDoxMTIwcHg7bWFyZ2luOmF1dG87cGFkZGluZzoxcmVtIDEuMjVyZW19LnNpdGUtaGVhZGVye2Rpc3BsYXk6ZmxleDtqdXN0aWZ5LWNvbnRlbnQ6c3BhY2UtYmV0d2VlbjtnYXA6MXJlbTthbGlnbi1pdGVtczpjZW50ZXJ9LnNpdGUtaGVhZGVyIG5hdntkaXNwbGF5OmZsZXg7Z2FwOjFyZW07ZmxleC13cmFwOndyYXB9LmJyYW5ke2ZvbnQtd2VpZ2h0OjgwMDt0ZXh0LWRlY29yYXRpb246bm9uZX0uaGVyb3twYWRkaW5nOjVyZW0gMS4yNXJlbSA0cmVtO2JhY2tncm91bmQ6IzE3MjAyYTtjb2xvcjojZmZmO2JvcmRlci1yYWRpdXM6MCAwIDJyZW0gMnJlbX0uaGVybyBoMXtmb250LXNpemU6Y2xhbXAoMi4yNXJlbSw4dncsNXJlbSk7bGluZS1oZWlnaHQ6MS4wNTttYXgtd2lkdGg6MTJjaDttYXJnaW46LjVyZW0gMCAxLjI1cmVtfS5oZXJvIHB7bWF4LXdpZHRoOjQycmVtfS5leWVicm93e2ZvbnQtc2l6ZTouNzhyZW07bGV0dGVyLXNwYWNpbmc6LjEyZW07dGV4dC10cmFuc2Zvcm06dXBwZXJjYXNlO2ZvbnQtd2VpZ2h0OjcwMDtvcGFjaXR5Oi43NX1zZWN0aW9uOm5vdCguaGVybyl7cGFkZGluZzozLjVyZW0gMDtib3JkZXItYm90dG9tOjFweCBzb2xpZCAjZDlkMmM4O21heC13aWR0aDo3NjBweH1oMntmb250LXNpemU6Y2xhbXAoMS43cmVtLDV2dywzcmVtKTtsaW5lLWhlaWdodDoxLjF9LmNvbnRlbnQtYmxvY2t7Zm9udC1zaXplOjEuMXJlbX0uY29udGVudC1kZXNpZ25fcGxhY2Vob2xkZXJ7Ym9yZGVyOjFweCBkYXNoZWQgIzhkODI3NTtwYWRkaW5nOjFyZW07YmFja2dyb3VuZDojZWVlOGRmfS5jdGF7ZGlzcGxheTppbmxpbmUtYmxvY2s7cGFkZGluZzouOHJlbSAxLjFyZW07Ym9yZGVyLXJhZGl1czo5OTlweDtmb250LXdlaWdodDo3MDA7dGV4dC1kZWNvcmF0aW9uOm5vbmU7bWFyZ2luLXRvcDoxcmVtfS5jdGEtcHJpbWFyeXtiYWNrZ3JvdW5kOiNlODc5NDU7Y29sb3I6I2ZmZn0uY3RhLXNlY29uZGFyeXtib3JkZXI6MXB4IHNvbGlkIGN1cnJlbnRDb2xvcn0uY29udGFjdHtiYWNrZ3JvdW5kOiNlYmUzZDc7cGFkZGluZzoycmVtIWltcG9ydGFudDttYXJnaW4tdG9wOjJyZW07Ym9yZGVyLXJhZGl1czoxcmVtfWZvb3RlcntwYWRkaW5nLWJsb2NrOjJyZW07Zm9udC1zaXplOi45cmVtfS5hc3NldC1ub3Rle29wYWNpdHk6Ljd9QG1lZGlhKG1pbi13aWR0aDo3MDBweCl7Lmhlcm97cGFkZGluZzo3cmVtIDVyZW19LnNpdGUtaGVhZGVyLG1haW4sZm9vdGVye3BhZGRpbmctaW5saW5lOjJyZW19fQ==\"},\"sourceFiles\":{\"build-manifest.json\":\"ewogICJ2ZXJzaW9uIjogIkJVSUxEX0FSVElGQUNUX1YxIiwKICAiYXJ0aWZhY3RJZCI6ICJhcnRpZmFjdC1kci12Mi04Nzk4ODQ5MjIwMDAxMS1ERVNJR05fUkVRVUVTVF9WMS1ERVNJR05fQVJUSUZBQ1RfVjEtcjEiLAogICJkZXNpZ25SZXF1ZXN0SWQiOiAiZHItdjItODc5ODg0OTIyMDAwMTEtREVTSUdOX1JFUVVFU1RfVjEiLAogICJwcm9zcGVjdElkIjogInYyLTg3OTg4NDkyMjAwMDExIiwKICAiYXBwcm92ZWRSZXZpc2lvbiI6IDEsCiAgImZyYW1ld29yayI6ICJTVEFUSUNfSFRNTF9DU1MiLAogICJidWlsZEFydGlmYWN0SWQiOiAiYnVpbGQtYXJ0aWZhY3QtZHItdjItODc5ODg0OTIyMDAwMTEtREVTSUdOX1JFUVVFU1RfVjEtREVTSUdOX0FSVElGQUNUX1YxLXIxLWJ1aWxkZXItdjEtYnIyIiwKICAiYnVpbGRlclZlcnNpb24iOiAiYnVpbGRlci12MSIsCiAgImJ1aWxkUmV2aXNpb24iOiAyLAogICJwcmV2aW91c0J1aWxkQXJ0aWZhY3RJZCI6ICJidWlsZC1hcnRpZmFjdC1kci12Mi04Nzk4ODQ5MjIwMDAxMS1ERVNJR05fUkVRVUVTVF9WMS1ERVNJR05fQVJUSUZBQ1RfVjEtcjEtYnVpbGRlci12MSIsCiAgImNvcnJlY3Rpb25SZXF1ZXN0SWQiOiAiY29ycmVjdGlvbi1xYS1idWlsZC1hcnRpZmFjdC1kci12Mi04Nzk4ODQ5MjIwMDAxMS1ERVNJR05fUkVRVUVTVF9WMS1ERVNJR05fQVJUSUZBQ1RfVjEtcjEtYnVpbGRlci12MS1yMS1hMSIsCiAgInFhQXR0ZW1wdCI6IDIKfQo=\",\"favicon.ico\":\"AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/////////////////////////////////////////////////////////////////////////////////////w==\",\"index.html\":\"PCFkb2N0eXBlIGh0bWw+CjxodG1sIGxhbmc9ImZyIj48aGVhZD48bWV0YSBjaGFyc2V0PSJ1dGYtOCI+PG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCxpbml0aWFsLXNjYWxlPTEiPjx0aXRsZT5WaWxsYSBBbmNpbmVsPC90aXRsZT48bWV0YSBuYW1lPSJkZXNjcmlwdGlvbiIgY29udGVudD0iUHJlc2VudCBhIGNyZWRpYmxlIGxvY2FsIGJ1c2luZXNzIG9mZmVyIHdpdGggYSBzaW1wbGUgbmV4dCBzdGVwLiI+PGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJzdHlsZXMuY3NzIj48bGluayByZWw9Imljb24iIHR5cGU9ImltYWdlL3gtaWNvbiIgaHJlZj0iLi9mYXZpY29uLmljbyI+PC9oZWFkPjxib2R5PjxoZWFkZXIgY2xhc3M9InNpdGUtaGVhZGVyIj48YSBjbGFzcz0iYnJhbmQiIGhyZWY9IiN0b3AiPlZpbGxhIEFuY2luZWw8L2E+PG5hdiBhcmlhLWxhYmVsPSJOYXZpZ2F0aW9uIHByaW5jaXBhbGUiPjxhIGhyZWY9IiNob21lIj5DbGFyaWZpZXIgbGEgdmFsZXVyIGRlIFZpbGxhIEFuY2luZWw8L2E+PGEgaHJlZj0iI2NvbnRhY3QiPkNvbnRhY3RlciBs4oCZZW50cmVwcmlzZTwvYT48L25hdj48L2hlYWRlcj48bWFpbiBpZD0idG9wIj48c2VjdGlvbiBjbGFzcz0iaGVybyIgYXJpYS1sYWJlbGxlZGJ5PSJoZXJvLXRpdGxlIj48cCBjbGFzcz0iZXllYnJvdyI+R0VORVJBTF9MT0NBTF9CVVNJTkVTUzwvcD48aDEgaWQ9Imhlcm8tdGl0bGUiPkNsYXJpZmllciBsYSB2YWxldXIgZGUgVmlsbGEgQW5jaW5lbDwvaDE+PHA+VW5kZXJzdGFuZCB0aGUgb2ZmZXIgYW5kIHRha2UgdGhlIG5leHQgcHJhY3RpY2FsIGFjdGlvbi48L3A+PGEgY2xhc3M9ImN0YSBjdGEtcHJpbWFyeSIgaHJlZj0iI2NvbnRhY3QiPkNvbnRhY3RlciBs4oCZZW50cmVwcmlzZTwvYT48L3NlY3Rpb24+PHNlY3Rpb24gaWQ9ImhvbWUiIGFyaWEtbGFiZWxsZWRieT0iaGVhZGluZy1ob21lIj48cCBjbGFzcz0iZXllYnJvdyI+UHJlc2VudCBhIGNyZWRpYmxlIGxvY2FsIGJ1c2luZXNzIG9mZmVyIHdpdGggYSBzaW1wbGUgbmV4dCBzdGVwLjwvcD48aDIgaWQ9ImhlYWRpbmctaG9tZSI+Q2xhcmlmaWVyIGxhIHZhbGV1ciBkZSBWaWxsYSBBbmNpbmVsPC9oMj48cCBjbGFzcz0iY29udGVudC1ibG9jayBjb250ZW50LXZlcmlmaWVkX2ZhY3QiPlZpbGxhIEFuY2luZWw8L3A+CjxwIGNsYXNzPSJjb250ZW50LWJsb2NrIGNvbnRlbnQtZ2VuZXJpY19mcmFtaW5nIj5VbiBhY2NvbXBhZ25lbWVudCBzaW1wbGUgZXQgY2xhaXIgcG91ciBwYXNzZXIgw6AgbOKAmWFjdGlvbi48L3A+PGEgY2xhc3M9ImN0YSBjdGEtc2Vjb25kYXJ5IiBocmVmPSIjY29udGFjdCI+Q29udGFjdGVyIGzigJllbnRyZXByaXNlPC9hPjwvc2VjdGlvbj48c2VjdGlvbiBjbGFzcz0iYXBwcm92ZWQtc3RydWN0dXJlIiBkYXRhLWFwcHJvdmVkLXNlY3Rpb249Imhlcm8iIGFyaWEtbGFiZWxsZWRieT0iYXBwcm92ZWQtaGVybyI+PHAgY2xhc3M9ImV5ZWJyb3ciPkFwcHJvdmVkIHN0cnVjdHVyZTwvcD48aDIgaWQ9ImFwcHJvdmVkLWhlcm8iPmhlcm88L2gyPjxwIGNsYXNzPSJjb250ZW50LWRlc2lnbl9wbGFjZWhvbGRlciI+QXBwcm92ZWQgc3RydWN0dXJhbCBwbGFjZWhvbGRlcjsgYnVzaW5lc3MgY29udGVudCByZW1haW5zIGdvdmVybmVkIGJ5IHRoZSBkZXNpZ24gYXJ0aWZhY3QuPC9wPjwvc2VjdGlvbj4KPHNlY3Rpb24gY2xhc3M9ImFwcHJvdmVkLXN0cnVjdHVyZSIgZGF0YS1hcHByb3ZlZC1zZWN0aW9uPSJvZmZlciIgYXJpYS1sYWJlbGxlZGJ5PSJhcHByb3ZlZC1vZmZlciI+PHAgY2xhc3M9ImV5ZWJyb3ciPkFwcHJvdmVkIHN0cnVjdHVyZTwvcD48aDIgaWQ9ImFwcHJvdmVkLW9mZmVyIj5vZmZlcjwvaDI+PHAgY2xhc3M9ImNvbnRlbnQtZGVzaWduX3BsYWNlaG9sZGVyIj5BcHByb3ZlZCBzdHJ1Y3R1cmFsIHBsYWNlaG9sZGVyOyBidXNpbmVzcyBjb250ZW50IHJlbWFpbnMgZ292ZXJuZWQgYnkgdGhlIGRlc2lnbiBhcnRpZmFjdC48L3A+PC9zZWN0aW9uPgo8c2VjdGlvbiBjbGFzcz0iYXBwcm92ZWQtc3RydWN0dXJlIiBkYXRhLWFwcHJvdmVkLXNlY3Rpb249InJlYXNzdXJhbmNlIiBhcmlhLWxhYmVsbGVkYnk9ImFwcHJvdmVkLXJlYXNzdXJhbmNlIj48cCBjbGFzcz0iZXllYnJvdyI+QXBwcm92ZWQgc3RydWN0dXJlPC9wPjxoMiBpZD0iYXBwcm92ZWQtcmVhc3N1cmFuY2UiPnJlYXNzdXJhbmNlPC9oMj48cCBjbGFzcz0iY29udGVudC1kZXNpZ25fcGxhY2Vob2xkZXIiPkFwcHJvdmVkIHN0cnVjdHVyYWwgcGxhY2Vob2xkZXI7IGJ1c2luZXNzIGNvbnRlbnQgcmVtYWlucyBnb3Zlcm5lZCBieSB0aGUgZGVzaWduIGFydGlmYWN0LjwvcD48L3NlY3Rpb24+CjxzZWN0aW9uIGNsYXNzPSJhcHByb3ZlZC1zdHJ1Y3R1cmUiIGRhdGEtYXBwcm92ZWQtc2VjdGlvbj0iY29udGFjdCIgYXJpYS1sYWJlbGxlZGJ5PSJhcHByb3ZlZC1jb250YWN0Ij48cCBjbGFzcz0iZXllYnJvdyI+QXBwcm92ZWQgc3RydWN0dXJlPC9wPjxoMiBpZD0iYXBwcm92ZWQtY29udGFjdCI+Y29udGFjdDwvaDI+PHAgY2xhc3M9ImNvbnRlbnQtZGVzaWduX3BsYWNlaG9sZGVyIj5BcHByb3ZlZCBzdHJ1Y3R1cmFsIHBsYWNlaG9sZGVyOyBidXNpbmVzcyBjb250ZW50IHJlbWFpbnMgZ292ZXJuZWQgYnkgdGhlIGRlc2lnbiBhcnRpZmFjdC48L3A+PC9zZWN0aW9uPjxzZWN0aW9uIGlkPSJjb250YWN0IiBjbGFzcz0iY29udGFjdCIgYXJpYS1sYWJlbGxlZGJ5PSJjb250YWN0LXRpdGxlIj48aDIgaWQ9ImNvbnRhY3QtdGl0bGUiPkNvbnRhY3RlciBs4oCZZW50cmVwcmlzZTwvaDI+PHA+Q2V0dGUgZMOpbW9uc3RyYXRpb24gcHLDqXNlbnRlIGxhIHN0cnVjdHVyZSBhcHByb3V2w6llLiBMZXMgY29vcmRvbm7DqWVzIGV0IGFjdGlvbnMgb3DDqXJhdGlvbm5lbGxlcyByZXN0ZW50IMOgIGNvbm5lY3Rlci48L3A+PGEgY2xhc3M9ImN0YSBjdGEtcHJpbWFyeSIgaHJlZj0iI3RvcCI+Q29udGFjdGVyIGzigJllbnRyZXByaXNlPC9hPjwvc2VjdGlvbj48L21haW4+PGZvb3Rlcj48cD5WaWxsYSBBbmNpbmVsPC9wPjxwIGNsYXNzPSJhc3NldC1ub3RlIj5Nw6lkaWFzIMOgIGZvdXJuaXIgOiBsb2dvIGlmIHN1cHBsaWVkIDsgYXBwcm92ZWQgYnVzaW5lc3MgaW1hZ2VyeSBpZiBzdXBwbGllZDwvcD48L2Zvb3Rlcj48L2JvZHk+PC9odG1sPgo=\",\"styles.css\":\"OnJvb3R7Zm9udC1mYW1pbHk6SW50ZXIsdWktc2Fucy1zZXJpZixzeXN0ZW0tdWksc2Fucy1zZXJpZjtjb2xvcjojMTcyMDJhO2JhY2tncm91bmQ6I2Y3ZjRlZjtsaW5lLWhlaWdodDoxLjZ9Kntib3gtc2l6aW5nOmJvcmRlci1ib3h9Ym9keXttYXJnaW46MH1he2NvbG9yOmluaGVyaXR9LnNpdGUtaGVhZGVyLG1haW4sZm9vdGVye21heC13aWR0aDoxMTIwcHg7bWFyZ2luOmF1dG87cGFkZGluZzoxcmVtIDEuMjVyZW19LnNpdGUtaGVhZGVye2Rpc3BsYXk6ZmxleDtqdXN0aWZ5LWNvbnRlbnQ6c3BhY2UtYmV0d2VlbjtnYXA6MXJlbTthbGlnbi1pdGVtczpjZW50ZXJ9LnNpdGUtaGVhZGVyIG5hdntkaXNwbGF5OmZsZXg7Z2FwOjFyZW07ZmxleC13cmFwOndyYXB9LmJyYW5ke2ZvbnQtd2VpZ2h0OjgwMDt0ZXh0LWRlY29yYXRpb246bm9uZX0uaGVyb3twYWRkaW5nOjVyZW0gMS4yNXJlbSA0cmVtO2JhY2tncm91bmQ6IzE3MjAyYTtjb2xvcjojZmZmO2JvcmRlci1yYWRpdXM6MCAwIDJyZW0gMnJlbX0uaGVybyBoMXtmb250LXNpemU6Y2xhbXAoMi4yNXJlbSw4dncsNXJlbSk7bGluZS1oZWlnaHQ6MS4wNTttYXgtd2lkdGg6MTJjaDttYXJnaW46LjVyZW0gMCAxLjI1cmVtfS5oZXJvIHB7bWF4LXdpZHRoOjQycmVtfS5leWVicm93e2ZvbnQtc2l6ZTouNzhyZW07bGV0dGVyLXNwYWNpbmc6LjEyZW07dGV4dC10cmFuc2Zvcm06dXBwZXJjYXNlO2ZvbnQtd2VpZ2h0OjcwMDtvcGFjaXR5Oi43NX1zZWN0aW9uOm5vdCguaGVybyl7cGFkZGluZzozLjVyZW0gMDtib3JkZXItYm90dG9tOjFweCBzb2xpZCAjZDlkMmM4O21heC13aWR0aDo3NjBweH1oMntmb250LXNpemU6Y2xhbXAoMS43cmVtLDV2dywzcmVtKTtsaW5lLWhlaWdodDoxLjF9LmNvbnRlbnQtYmxvY2t7Zm9udC1zaXplOjEuMXJlbX0uY29udGVudC1kZXNpZ25fcGxhY2Vob2xkZXJ7Ym9yZGVyOjFweCBkYXNoZWQgIzhkODI3NTtwYWRkaW5nOjFyZW07YmFja2dyb3VuZDojZWVlOGRmfS5jdGF7ZGlzcGxheTppbmxpbmUtYmxvY2s7cGFkZGluZzouOHJlbSAxLjFyZW07Ym9yZGVyLXJhZGl1czo5OTlweDtmb250LXdlaWdodDo3MDA7dGV4dC1kZWNvcmF0aW9uOm5vbmU7bWFyZ2luLXRvcDoxcmVtfS5jdGEtcHJpbWFyeXtiYWNrZ3JvdW5kOiNlODc5NDU7Y29sb3I6I2ZmZn0uY3RhLXNlY29uZGFyeXtib3JkZXI6MXB4IHNvbGlkIGN1cnJlbnRDb2xvcn0uY29udGFjdHtiYWNrZ3JvdW5kOiNlYmUzZDc7cGFkZGluZzoycmVtIWltcG9ydGFudDttYXJnaW4tdG9wOjJyZW07Ym9yZGVyLXJhZGl1czoxcmVtfWZvb3RlcntwYWRkaW5nLWJsb2NrOjJyZW07Zm9udC1zaXplOi45cmVtfS5hc3NldC1ub3Rle29wYWNpdHk6Ljd9QG1lZGlhKG1pbi13aWR0aDo3MDBweCl7Lmhlcm97cGFkZGluZzo3cmVtIDVyZW19LnNpdGUtaGVhZGVyLG1haW4sZm9vdGVye3BhZGRpbmctaW5saW5lOjJyZW19fQ==\"},\"outputFiles\":{\"build-manifest.json\":\"ewogICJ2ZXJzaW9uIjogIkJVSUxEX0FSVElGQUNUX1YxIiwKICAiYXJ0aWZhY3RJZCI6ICJhcnRpZmFjdC1kci12Mi04Nzk4ODQ5MjIwMDAxMS1ERVNJR05fUkVRVUVTVF9WMS1ERVNJR05fQVJUSUZBQ1RfVjEtcjEiLAogICJkZXNpZ25SZXF1ZXN0SWQiOiAiZHItdjItODc5ODg0OTIyMDAwMTEtREVTSUdOX1JFUVVFU1RfVjEiLAogICJwcm9zcGVjdElkIjogInYyLTg3OTg4NDkyMjAwMDExIiwKICAiYXBwcm92ZWRSZXZpc2lvbiI6IDEsCiAgImZyYW1ld29yayI6ICJTVEFUSUNfSFRNTF9DU1MiLAogICJidWlsZEFydGlmYWN0SWQiOiAiYnVpbGQtYXJ0aWZhY3QtZHItdjItODc5ODg0OTIyMDAwMTEtREVTSUdOX1JFUVVFU1RfVjEtREVTSUdOX0FSVElGQUNUX1YxLXIxLWJ1aWxkZXItdjEtYnIyIiwKICAiYnVpbGRlclZlcnNpb24iOiAiYnVpbGRlci12MSIsCiAgImJ1aWxkUmV2aXNpb24iOiAyLAogICJwcmV2aW91c0J1aWxkQXJ0aWZhY3RJZCI6ICJidWlsZC1hcnRpZmFjdC1kci12Mi04Nzk4ODQ5MjIwMDAxMS1ERVNJR05fUkVRVUVTVF9WMS1ERVNJR05fQVJUSUZBQ1RfVjEtcjEtYnVpbGRlci12MSIsCiAgImNvcnJlY3Rpb25SZXF1ZXN0SWQiOiAiY29ycmVjdGlvbi1xYS1idWlsZC1hcnRpZmFjdC1kci12Mi04Nzk4ODQ5MjIwMDAxMS1ERVNJR05fUkVRVUVTVF9WMS1ERVNJR05fQVJUSUZBQ1RfVjEtcjEtYnVpbGRlci12MS1yMS1hMSIsCiAgInFhQXR0ZW1wdCI6IDIKfQo=\",\"favicon.ico\":\"AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/////////////////////////////////////////////////////////////////////////////////////w==\",\"index.html\":\"PCFkb2N0eXBlIGh0bWw+CjxodG1sIGxhbmc9ImZyIj48aGVhZD48bWV0YSBjaGFyc2V0PSJ1dGYtOCI+PG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCxpbml0aWFsLXNjYWxlPTEiPjx0aXRsZT5WaWxsYSBBbmNpbmVsPC90aXRsZT48bWV0YSBuYW1lPSJkZXNjcmlwdGlvbiIgY29udGVudD0iUHJlc2VudCBhIGNyZWRpYmxlIGxvY2FsIGJ1c2luZXNzIG9mZmVyIHdpdGggYSBzaW1wbGUgbmV4dCBzdGVwLiI+PGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJzdHlsZXMuY3NzIj48bGluayByZWw9Imljb24iIHR5cGU9ImltYWdlL3gtaWNvbiIgaHJlZj0iLi9mYXZpY29uLmljbyI+PC9oZWFkPjxib2R5PjxoZWFkZXIgY2xhc3M9InNpdGUtaGVhZGVyIj48YSBjbGFzcz0iYnJhbmQiIGhyZWY9IiN0b3AiPlZpbGxhIEFuY2luZWw8L2E+PG5hdiBhcmlhLWxhYmVsPSJOYXZpZ2F0aW9uIHByaW5jaXBhbGUiPjxhIGhyZWY9IiNob21lIj5DbGFyaWZpZXIgbGEgdmFsZXVyIGRlIFZpbGxhIEFuY2luZWw8L2E+PGEgaHJlZj0iI2NvbnRhY3QiPkNvbnRhY3RlciBs4oCZZW50cmVwcmlzZTwvYT48L25hdj48L2hlYWRlcj48bWFpbiBpZD0idG9wIj48c2VjdGlvbiBjbGFzcz0iaGVybyIgYXJpYS1sYWJlbGxlZGJ5PSJoZXJvLXRpdGxlIj48cCBjbGFzcz0iZXllYnJvdyI+R0VORVJBTF9MT0NBTF9CVVNJTkVTUzwvcD48aDEgaWQ9Imhlcm8tdGl0bGUiPkNsYXJpZmllciBsYSB2YWxldXIgZGUgVmlsbGEgQW5jaW5lbDwvaDE+PHA+VW5kZXJzdGFuZCB0aGUgb2ZmZXIgYW5kIHRha2UgdGhlIG5leHQgcHJhY3RpY2FsIGFjdGlvbi48L3A+PGEgY2xhc3M9ImN0YSBjdGEtcHJpbWFyeSIgaHJlZj0iI2NvbnRhY3QiPkNvbnRhY3RlciBs4oCZZW50cmVwcmlzZTwvYT48L3NlY3Rpb24+PHNlY3Rpb24gaWQ9ImhvbWUiIGFyaWEtbGFiZWxsZWRieT0iaGVhZGluZy1ob21lIj48cCBjbGFzcz0iZXllYnJvdyI+UHJlc2VudCBhIGNyZWRpYmxlIGxvY2FsIGJ1c2luZXNzIG9mZmVyIHdpdGggYSBzaW1wbGUgbmV4dCBzdGVwLjwvcD48aDIgaWQ9ImhlYWRpbmctaG9tZSI+Q2xhcmlmaWVyIGxhIHZhbGV1ciBkZSBWaWxsYSBBbmNpbmVsPC9oMj48cCBjbGFzcz0iY29udGVudC1ibG9jayBjb250ZW50LXZlcmlmaWVkX2ZhY3QiPlZpbGxhIEFuY2luZWw8L3A+CjxwIGNsYXNzPSJjb250ZW50LWJsb2NrIGNvbnRlbnQtZ2VuZXJpY19mcmFtaW5nIj5VbiBhY2NvbXBhZ25lbWVudCBzaW1wbGUgZXQgY2xhaXIgcG91ciBwYXNzZXIgw6AgbOKAmWFjdGlvbi48L3A+PGEgY2xhc3M9ImN0YSBjdGEtc2Vjb25kYXJ5IiBocmVmPSIjY29udGFjdCI+Q29udGFjdGVyIGzigJllbnRyZXByaXNlPC9hPjwvc2VjdGlvbj48c2VjdGlvbiBjbGFzcz0iYXBwcm92ZWQtc3RydWN0dXJlIiBkYXRhLWFwcHJvdmVkLXNlY3Rpb249Imhlcm8iIGFyaWEtbGFiZWxsZWRieT0iYXBwcm92ZWQtaGVybyI+PHAgY2xhc3M9ImV5ZWJyb3ciPkFwcHJvdmVkIHN0cnVjdHVyZTwvcD48aDIgaWQ9ImFwcHJvdmVkLWhlcm8iPmhlcm88L2gyPjxwIGNsYXNzPSJjb250ZW50LWRlc2lnbl9wbGFjZWhvbGRlciI+QXBwcm92ZWQgc3RydWN0dXJhbCBwbGFjZWhvbGRlcjsgYnVzaW5lc3MgY29udGVudCByZW1haW5zIGdvdmVybmVkIGJ5IHRoZSBkZXNpZ24gYXJ0aWZhY3QuPC9wPjwvc2VjdGlvbj4KPHNlY3Rpb24gY2xhc3M9ImFwcHJvdmVkLXN0cnVjdHVyZSIgZGF0YS1hcHByb3ZlZC1zZWN0aW9uPSJvZmZlciIgYXJpYS1sYWJlbGxlZGJ5PSJhcHByb3ZlZC1vZmZlciI+PHAgY2xhc3M9ImV5ZWJyb3ciPkFwcHJvdmVkIHN0cnVjdHVyZTwvcD48aDIgaWQ9ImFwcHJvdmVkLW9mZmVyIj5vZmZlcjwvaDI+PHAgY2xhc3M9ImNvbnRlbnQtZGVzaWduX3BsYWNlaG9sZGVyIj5BcHByb3ZlZCBzdHJ1Y3R1cmFsIHBsYWNlaG9sZGVyOyBidXNpbmVzcyBjb250ZW50IHJlbWFpbnMgZ292ZXJuZWQgYnkgdGhlIGRlc2lnbiBhcnRpZmFjdC48L3A+PC9zZWN0aW9uPgo8c2VjdGlvbiBjbGFzcz0iYXBwcm92ZWQtc3RydWN0dXJlIiBkYXRhLWFwcHJvdmVkLXNlY3Rpb249InJlYXNzdXJhbmNlIiBhcmlhLWxhYmVsbGVkYnk9ImFwcHJvdmVkLXJlYXNzdXJhbmNlIj48cCBjbGFzcz0iZXllYnJvdyI+QXBwcm92ZWQgc3RydWN0dXJlPC9wPjxoMiBpZD0iYXBwcm92ZWQtcmVhc3N1cmFuY2UiPnJlYXNzdXJhbmNlPC9oMj48cCBjbGFzcz0iY29udGVudC1kZXNpZ25fcGxhY2Vob2xkZXIiPkFwcHJvdmVkIHN0cnVjdHVyYWwgcGxhY2Vob2xkZXI7IGJ1c2luZXNzIGNvbnRlbnQgcmVtYWlucyBnb3Zlcm5lZCBieSB0aGUgZGVzaWduIGFydGlmYWN0LjwvcD48L3NlY3Rpb24+CjxzZWN0aW9uIGNsYXNzPSJhcHByb3ZlZC1zdHJ1Y3R1cmUiIGRhdGEtYXBwcm92ZWQtc2VjdGlvbj0iY29udGFjdCIgYXJpYS1sYWJlbGxlZGJ5PSJhcHByb3ZlZC1jb250YWN0Ij48cCBjbGFzcz0iZXllYnJvdyI+QXBwcm92ZWQgc3RydWN0dXJlPC9wPjxoMiBpZD0iYXBwcm92ZWQtY29udGFjdCI+Y29udGFjdDwvaDI+PHAgY2xhc3M9ImNvbnRlbnQtZGVzaWduX3BsYWNlaG9sZGVyIj5BcHByb3ZlZCBzdHJ1Y3R1cmFsIHBsYWNlaG9sZGVyOyBidXNpbmVzcyBjb250ZW50IHJlbWFpbnMgZ292ZXJuZWQgYnkgdGhlIGRlc2lnbiBhcnRpZmFjdC48L3A+PC9zZWN0aW9uPjxzZWN0aW9uIGlkPSJjb250YWN0IiBjbGFzcz0iY29udGFjdCIgYXJpYS1sYWJlbGxlZGJ5PSJjb250YWN0LXRpdGxlIj48aDIgaWQ9ImNvbnRhY3QtdGl0bGUiPkNvbnRhY3RlciBs4oCZZW50cmVwcmlzZTwvaDI+PHA+Q2V0dGUgZMOpbW9uc3RyYXRpb24gcHLDqXNlbnRlIGxhIHN0cnVjdHVyZSBhcHByb3V2w6llLiBMZXMgY29vcmRvbm7DqWVzIGV0IGFjdGlvbnMgb3DDqXJhdGlvbm5lbGxlcyByZXN0ZW50IMOgIGNvbm5lY3Rlci48L3A+PGEgY2xhc3M9ImN0YSBjdGEtcHJpbWFyeSIgaHJlZj0iI3RvcCI+Q29udGFjdGVyIGzigJllbnRyZXByaXNlPC9hPjwvc2VjdGlvbj48L21haW4+PGZvb3Rlcj48cD5WaWxsYSBBbmNpbmVsPC9wPjxwIGNsYXNzPSJhc3NldC1ub3RlIj5Nw6lkaWFzIMOgIGZvdXJuaXIgOiBsb2dvIGlmIHN1cHBsaWVkIDsgYXBwcm92ZWQgYnVzaW5lc3MgaW1hZ2VyeSBpZiBzdXBwbGllZDwvcD48L2Zvb3Rlcj48L2JvZHk+PC9odG1sPgo=\",\"styles.css\":\"OnJvb3R7Zm9udC1mYW1pbHk6SW50ZXIsdWktc2Fucy1zZXJpZixzeXN0ZW0tdWksc2Fucy1zZXJpZjtjb2xvcjojMTcyMDJhO2JhY2tncm91bmQ6I2Y3ZjRlZjtsaW5lLWhlaWdodDoxLjZ9Kntib3gtc2l6aW5nOmJvcmRlci1ib3h9Ym9keXttYXJnaW46MH1he2NvbG9yOmluaGVyaXR9LnNpdGUtaGVhZGVyLG1haW4sZm9vdGVye21heC13aWR0aDoxMTIwcHg7bWFyZ2luOmF1dG87cGFkZGluZzoxcmVtIDEuMjVyZW19LnNpdGUtaGVhZGVye2Rpc3BsYXk6ZmxleDtqdXN0aWZ5LWNvbnRlbnQ6c3BhY2UtYmV0d2VlbjtnYXA6MXJlbTthbGlnbi1pdGVtczpjZW50ZXJ9LnNpdGUtaGVhZGVyIG5hdntkaXNwbGF5OmZsZXg7Z2FwOjFyZW07ZmxleC13cmFwOndyYXB9LmJyYW5ke2ZvbnQtd2VpZ2h0OjgwMDt0ZXh0LWRlY29yYXRpb246bm9uZX0uaGVyb3twYWRkaW5nOjVyZW0gMS4yNXJlbSA0cmVtO2JhY2tncm91bmQ6IzE3MjAyYTtjb2xvcjojZmZmO2JvcmRlci1yYWRpdXM6MCAwIDJyZW0gMnJlbX0uaGVybyBoMXtmb250LXNpemU6Y2xhbXAoMi4yNXJlbSw4dncsNXJlbSk7bGluZS1oZWlnaHQ6MS4wNTttYXgtd2lkdGg6MTJjaDttYXJnaW46LjVyZW0gMCAxLjI1cmVtfS5oZXJvIHB7bWF4LXdpZHRoOjQycmVtfS5leWVicm93e2ZvbnQtc2l6ZTouNzhyZW07bGV0dGVyLXNwYWNpbmc6LjEyZW07dGV4dC10cmFuc2Zvcm06dXBwZXJjYXNlO2ZvbnQtd2VpZ2h0OjcwMDtvcGFjaXR5Oi43NX1zZWN0aW9uOm5vdCguaGVybyl7cGFkZGluZzozLjVyZW0gMDtib3JkZXItYm90dG9tOjFweCBzb2xpZCAjZDlkMmM4O21heC13aWR0aDo3NjBweH1oMntmb250LXNpemU6Y2xhbXAoMS43cmVtLDV2dywzcmVtKTtsaW5lLWhlaWdodDoxLjF9LmNvbnRlbnQtYmxvY2t7Zm9udC1zaXplOjEuMXJlbX0uY29udGVudC1kZXNpZ25fcGxhY2Vob2xkZXJ7Ym9yZGVyOjFweCBkYXNoZWQgIzhkODI3NTtwYWRkaW5nOjFyZW07YmFja2dyb3VuZDojZWVlOGRmfS5jdGF7ZGlzcGxheTppbmxpbmUtYmxvY2s7cGFkZGluZzouOHJlbSAxLjFyZW07Ym9yZGVyLXJhZGl1czo5OTlweDtmb250LXdlaWdodDo3MDA7dGV4dC1kZWNvcmF0aW9uOm5vbmU7bWFyZ2luLXRvcDoxcmVtfS5jdGEtcHJpbWFyeXtiYWNrZ3JvdW5kOiNlODc5NDU7Y29sb3I6I2ZmZn0uY3RhLXNlY29uZGFyeXtib3JkZXI6MXB4IHNvbGlkIGN1cnJlbnRDb2xvcn0uY29udGFjdHtiYWNrZ3JvdW5kOiNlYmUzZDc7cGFkZGluZzoycmVtIWltcG9ydGFudDttYXJnaW4tdG9wOjJyZW07Ym9yZGVyLXJhZGl1czoxcmVtfWZvb3RlcntwYWRkaW5nLWJsb2NrOjJyZW07Zm9udC1zaXplOi45cmVtfS5hc3NldC1ub3Rle29wYWNpdHk6Ljd9QG1lZGlhKG1pbi13aWR0aDo3MDBweCl7Lmhlcm97cGFkZGluZzo3cmVtIDVyZW19LnNpdGUtaGVhZGVyLG1haW4sZm9vdGVye3BhZGRpbmctaW5saW5lOjJyZW19fQ==\"}}}}",
+        "created_at": "2026-10-03T07:18:59.783Z",
+        "completed_at": "2026-10-03T07:18:59.783Z",
+        "updated_at": "2026-10-03T07:18:59.783Z"
+      }
+    ],
+    "v2_build_corrections": [
+      {
+        "id": "correction-qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+        "correction_version": "BUILD_CORRECTION_REQUEST_V1",
+        "build_artifact_id": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+        "design_artifact_id": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+        "prospect_id": "v2-87988492200011",
+        "qa_report_id": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+        "target_build_revision": 1,
+        "next_build_revision": 2,
+        "correction_json": "{\"id\":\"correction-qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1\",\"version\":\"BUILD_CORRECTION_REQUEST_V1\",\"operation\":\"ENSURE_LOCAL_FAVICON_V1\",\"buildArtifactId\":\"build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1\",\"designArtifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"qaReportId\":\"qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1\",\"targetBuildRevision\":1,\"nextBuildRevision\":2,\"issue\":{\"category\":\"BUILD_RENDER\",\"severity\":\"MAJOR\",\"message\":\"Browser runtime error: Failed to load resource: the server responded with a status of 404 (Not Found)\",\"expectedCorrection\":\"Fix the rendered runtime error.\"},\"createdAt\":\"2026-10-02T19:09:30.019Z\"}",
+        "created_at": "2026-10-02T19:09:30.019Z"
+      }
+    ],
+    "v2_visual_qa_reports": [
+      {
+        "id": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2-r2-a2",
+        "qa_version": "VISUAL_QA_REPORT_V1",
+        "build_artifact_id": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2",
+        "design_artifact_id": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+        "design_request_id": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+        "prospect_id": "v2-87988492200011",
+        "attempt": 2,
+        "decision": "PASS",
+        "report_json": "{\"id\":\"qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2-r2-a2\",\"version\":\"VISUAL_QA_REPORT_V1\",\"buildArtifactId\":\"build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2\",\"designArtifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"designArtifactRevision\":1,\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"buildVersion\":\"BUILD_ARTIFACT_V1\",\"buildRevision\":2,\"attempt\":2,\"decision\":\"PASS\",\"issues\":[],\"inspection\":{\"viewports\":[{\"name\":\"DESKTOP\",\"width\":1440,\"height\":900,\"horizontalOverflow\":-15,\"heroVisible\":true,\"primaryCtaVisible\":true,\"contentVisible\":true,\"controlsWithinViewport\":true},{\"name\":\"MOBILE\",\"width\":390,\"height\":844,\"horizontalOverflow\":-15,\"heroVisible\":true,\"primaryCtaVisible\":true,\"contentVisible\":true,\"controlsWithinViewport\":true}],\"expectedSections\":[\"hero\",\"offer\",\"reassurance\",\"contact\"],\"observedSections\":[\"hero\",\"home\",\"offer\",\"reassurance\",\"contact\"],\"primaryCta\":\"Contacter l’entreprise\",\"brokenAssets\":[],\"internalLinkErrors\":[],\"consoleErrors\":[],\"unresolvedMarkers\":[],\"headings\":[\"h1 Clarifier la valeur de Villa Ancinel\",\"h2 Clarifier la valeur de Villa Ancinel\",\"h2 hero\",\"h2 offer\",\"h2 reassurance\",\"h2 contact\",\"h2 Contacter l’entreprise\"]},\"createdAt\":\"2026-10-03T07:21:12.937Z\"}",
+        "created_at": "2026-10-03T07:21:12.937Z"
+      },
+      {
+        "id": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+        "qa_version": "VISUAL_QA_REPORT_V1",
+        "build_artifact_id": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+        "design_artifact_id": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+        "design_request_id": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+        "prospect_id": "v2-87988492200011",
+        "attempt": 1,
+        "decision": "CORRECTION_REQUIRED",
+        "report_json": "{\"id\":\"qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1\",\"version\":\"VISUAL_QA_REPORT_V1\",\"buildArtifactId\":\"build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1\",\"designArtifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"designArtifactRevision\":1,\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"buildVersion\":\"BUILD_ARTIFACT_V1\",\"buildRevision\":1,\"attempt\":1,\"decision\":\"CORRECTION_REQUIRED\",\"issues\":[{\"category\":\"BUILD_RENDER\",\"severity\":\"MAJOR\",\"message\":\"Browser runtime error: Failed to load resource: the server responded with a status of 404 (Not Found)\",\"expectedCorrection\":\"Fix the rendered runtime error.\"}],\"inspection\":{\"viewports\":[{\"name\":\"DESKTOP\",\"width\":1440,\"height\":900,\"horizontalOverflow\":-15,\"heroVisible\":true,\"primaryCtaVisible\":true,\"contentVisible\":true,\"controlsWithinViewport\":true},{\"name\":\"MOBILE\",\"width\":390,\"height\":844,\"horizontalOverflow\":-15,\"heroVisible\":true,\"primaryCtaVisible\":true,\"contentVisible\":true,\"controlsWithinViewport\":true}],\"expectedSections\":[\"hero\",\"offer\",\"reassurance\",\"contact\"],\"observedSections\":[\"hero\",\"home\",\"offer\",\"reassurance\",\"contact\"],\"primaryCta\":\"Contacter l’entreprise\",\"brokenAssets\":[],\"internalLinkErrors\":[],\"consoleErrors\":[\"Failed to load resource: the server responded with a status of 404 (Not Found)\"],\"unresolvedMarkers\":[],\"headings\":[\"h1 Clarifier la valeur de Villa Ancinel\",\"h2 Clarifier la valeur de Villa Ancinel\",\"h2 hero\",\"h2 offer\",\"h2 reassurance\",\"h2 contact\",\"h2 Contacter l’entreprise\"]},\"createdAt\":\"2026-10-02T19:09:30.019Z\"}",
+        "created_at": "2026-10-02T19:09:30.019Z"
+      }
+    ],
+    "v2_design_artifacts": [
+      {
+        "id": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+        "design_request_id": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+        "prospect_id": "v2-87988492200011",
+        "version": "DESIGN_ARTIFACT_V1",
+        "revision": 1,
+        "vertical": "GENERAL_LOCAL_BUSINESS",
+        "artifact_json": "{\"id\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\",\"version\":\"DESIGN_ARTIFACT_V1\",\"revision\":1,\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"verticalProfile\":\"GENERAL_LOCAL_BUSINESS\",\"createdAt\":\"2026-10-02T17:02:32.201Z\",\"provenance\":{\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"evidenceIds\":[\"evidence-1\",\"evidence-2\",\"evidence-3\"],\"executionMode\":\"MODEL\",\"model\":{\"provider\":\"ollama-aider\",\"model\":\"qwen2.5-coder:3b\"}},\"strategy\":{\"siteObjective\":\"Present a credible local business offer with a simple next step.\",\"primaryUserIntent\":\"Understand the offer and take the next practical action.\",\"primaryCta\":\"Contacter l’entreprise\",\"informationHierarchy\":[\"identity\",\"offer clarity\",\"reassurance\",\"contact action\"],\"siteStructure\":\"SINGLE_PAGE\"},\"pages\":[{\"id\":\"home\",\"purpose\":\"Present a credible local business offer with a simple next step.\",\"headingIntent\":\"Clarifier la valeur de Villa Ancinel\",\"content\":[{\"kind\":\"VERIFIED_FACT\",\"text\":\"Villa Ancinel\",\"evidenceIds\":[]},{\"kind\":\"GENERIC_FRAMING\",\"text\":\"Un accompagnement simple et clair pour passer à l’action.\"}],\"ctaIntent\":\"Contacter l’entreprise\",\"visualMediaIntent\":\"Use only supplied or later-approved business imagery; no invented media claims.\",\"evidenceIds\":[\"evidence-1\",\"evidence-2\",\"evidence-3\"]}],\"visualDirection\":{\"mood\":\"balanced, approachable, credible\",\"typography\":\"Readable, high-contrast sans-serif with optional expressive display accent.\",\"layout\":\"Single-column mobile-first flow with clear section boundaries.\",\"spacing\":\"Generous touch-friendly spacing.\",\"imageTreatment\":\"Authentic business imagery only when supplied or approved.\",\"interaction\":\"Calm, obvious, keyboard-accessible interactions.\",\"responsivePriorities\":[\"390px mobile conversion path\",\"touch targets\",\"readable type\",\"desktop widening without reordering CTA\"]},\"buildGuidance\":{\"componentHierarchy\":[\"SiteShell\",\"Header\",\"Hero\",\"ContentSections\",\"PrimaryCta\",\"Footer\"],\"sectionOrder\":[\"hero\",\"offer\",\"reassurance\",\"contact\"],\"contentPriority\":[\"identity\",\"offer\",\"primary action\",\"practical details\"],\"ctaPlacement\":[\"hero\",\"after core offer\",\"footer\"],\"assetRequirements\":[\"logo if supplied\",\"approved business imagery if supplied\",\"no fabricated testimonials or pricing\"]},\"status\":\"DRAFT\"}",
+        "status": "APPROVED",
+        "created_at": "2026-10-02T17:02:32.201Z",
+        "updated_at": "2026-10-02T17:02:32.201Z"
+      }
+    ],
+    "v2_design_requests": [
+      {
+        "id": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+        "prospect_id": "v2-87988492200011",
+        "version": "DESIGN_REQUEST_V1",
+        "pack_id": "agent1-r66z-villa-ancinel",
+        "request_json": "{\"id\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"version\":\"DESIGN_REQUEST_V1\",\"prospectId\":\"v2-87988492200011\",\"admission\":{\"packId\":\"agent1-r66z-villa-ancinel\",\"schemaVersion\":\"CONTACT_OPPORTUNITY_PACK_V2\"},\"identity\":{\"businessName\":\"Villa Ancinel\",\"legalName\":\"SARL ROBIN ANCINEL\",\"siret\":\"87988492200011\",\"city\":\"LE DIAMANT\",\"location\":\"Quartier Longuet 97223 LE DIAMANT\",\"websiteUrl\":\"https://villa-ancinel.com/\",\"domain\":\"villa-ancinel.com\"},\"opportunity\":{\"digitalFriction\":\"Site en cours de refonte\",\"agent1Verdict\":\"QUALIFIED\",\"icp\":{\"digitalPainSignals\":[\"Site en cours de refonte\"],\"requiresUnprovenCapability\":false,\"outsideCommercialIcp\":false}},\"designInput\":{\"currentWebsiteUrl\":\"https://villa-ancinel.com/\",\"businessVertical\":\"GENERAL_LOCAL_BUSINESS\",\"frictionTrigger\":\"Site en cours de refonte\",\"evidence\":[{\"url\":\"https://villa-ancinel.com/\",\"note\":\"Page publique observee: Site en cours de refonte. Notre site fait peau neuve. Location de la Villa Ancinel pour un sejour en Martinique. Telephone professionnel affiche +596 696 98 60 60. Email public contact@villa-ancinel.com.\\n{\\\"sourcingLane\\\":\\\"PAIN_FIRST\\\",\\\"candidateId\\\":\\\"r66z-villa-ancinel\\\",\\\"stagedWebsiteUrl\\\":\\\"https://villa-ancinel.com/\\\",\\\"domain\\\":\\\"villa-ancinel.com\\\",\\\"acquiredAt\\\":\\\"2026-10-02T16:26:34.022Z\\\",\\\"digitalPainEvidence\\\":[{\\\"observedCondition\\\":\\\"SITE_REBUILDING\\\",\\\"sourceUrl\\\":\\\"https://villa-ancinel.com/\\\",\\\"snapshotDigest\\\":\\\"sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01\\\",\\\"locator\\\":\\\"h1\\\",\\\"observedAt\\\":\\\"2026-09-28T08:46:05.833Z\\\"}]}\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://villa-ancinel.com/mentions-legales/\",\"note\":\"Mentions legales: SARL ROBIN ANCINEL, SIRET 87988492200011, Quartier Longuet 97223 LE DIAMANT. Le site donne des informations relatives a la location de la Villa Ancinel.\",\"supports\":[\"activity\",\"website\"]},{\"url\":\"https://villa-ancinel.com/\",\"note\":\"Deterministically observed public phone (VISIBLE_PAGE_TEXT).\\n{\\\"sourcingLane\\\":\\\"PAIN_FIRST\\\",\\\"candidateId\\\":\\\"r66z-villa-ancinel\\\",\\\"stagedWebsiteUrl\\\":\\\"https://villa-ancinel.com/\\\",\\\"domain\\\":\\\"villa-ancinel.com\\\",\\\"acquiredAt\\\":\\\"2026-10-02T16:26:34.022Z\\\",\\\"digitalPainEvidence\\\":[{\\\"observedCondition\\\":\\\"SITE_REBUILDING\\\",\\\"sourceUrl\\\":\\\"https://villa-ancinel.com/\\\",\\\"snapshotDigest\\\":\\\"sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01\\\",\\\"locator\\\":\\\"h1\\\",\\\"observedAt\\\":\\\"2026-09-28T08:46:05.833Z\\\"}]}\",\"supports\":[\"phone\",\"digitalGap\"]}]},\"createdAt\":\"2026-10-02T16:32:22.289Z\"}",
+        "created_at": "2026-10-02T16:32:22.289Z"
+      }
+    ],
+    "prospect": {
+      "id": "v2-87988492200011",
+      "state": "INGESTED",
+      "updated_at": "2026-10-02T16:32:22.244Z"
+    },
+    "slot": {
+      "slot_id": 1,
+      "prospect_id": "v2-87988492200011",
+      "acquired_at": "2026-10-02T16:32:22.323Z",
+      "release_reason": null
+    }
+  },
+  "counts": {
+    "runnerInvocations": 1,
+    "claimRequests": 1,
+    "realClaims": 1,
+    "executorRuns": 1,
+    "successCallbacks": 1,
+    "failCallbacks": 0,
+    "qaInvocations": 1
+  },
+  "buildR1Immutable": true,
+  "qaA1Immutable": true,
+  "productSourceUnchanged": true,
+  "prospectFinalState": "INGESTED",
+  "slot": {
+    "slot_id": 1,
+    "prospect_id": "v2-87988492200011",
+    "acquired_at": "2026-10-02T16:32:22.323Z",
+    "release_reason": null
+  },
+  "correctionJob": {
+    "id": "job-v2-87988492200011-build-correction-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r2",
+    "kind": "V2_BUILD_CORRECTION",
+    "prospect_id": "v2-87988492200011",
+    "payload_json": "{\"correctionRequestId\":\"correction-qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1\",\"buildArtifactId\":\"build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1\",\"targetBuildRevision\":1,\"nextBuildRevision\":2,\"qaReportId\":\"qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1\",\"designRequestId\":\"dr-v2-87988492200011-DESIGN_REQUEST_V1\",\"approvedDesignArtifactId\":\"artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1\"}",
+    "status": "SUCCEEDED",
+    "attempts": 1,
+    "max_attempts": 2,
+    "run_after": "2026-10-03T07:05:01.295Z",
+    "last_error": null,
+    "claimed_by": null,
+    "claimed_at": null,
+    "created_at": "2026-10-03T07:05:01.295Z",
+    "updated_at": "2026-10-03T07:18:59.885Z"
+  },
+  "browserVersion": "Chrome/154.0.8037.93",
+  "faviconHttpStatus": 200,
+  "evidenceReferences": [
+    {
+      "id": "r74z-continuation-build-r2-desktop",
+      "captureSuccess": true,
+      "capturedAt": "2026-10-03T07:19:43.964Z",
+      "definition": {
+        "name": "DESKTOP",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "renderedUrl": "http://127.0.0.1:52069/",
+      "screenshotPath": "D:\\MagicScript\\repository\\.r74z-continuation-runtime\\desktop.png",
+      "buildArtifactId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2",
+      "favicon": {
+        "url": "http://127.0.0.1:52069/favicon.ico",
+        "status": 200
+      }
+    },
+    {
+      "id": "r74z-continuation-build-r2-mobile",
+      "captureSuccess": true,
+      "capturedAt": "2026-10-03T07:19:44.076Z",
+      "definition": {
+        "name": "MOBILE",
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "renderedUrl": "http://127.0.0.1:52069/",
+      "screenshotPath": "D:\\MagicScript\\repository\\.r74z-continuation-runtime\\mobile.png",
+      "buildArtifactId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2",
+      "favicon": {
+        "url": "http://127.0.0.1:52069/favicon.ico",
+        "status": 200
+      }
+    }
+  ],
+  "apiTerminated": true,
+  "browserTerminated": true,
+  "previewServerTerminated": true,
+  "bookkeepingRecovery": "QA persisted PASS before postflight assembly encountered missing api-cleanup.json. Final independent read-only D1 verification completed without any second runner or QA invocation."
+}

@@ -1,0 +1,6 @@
+{
+  "fetch": 2,
+  "url": "https://www.google.com/search?q=site%3Afacebook.com%20Martinique%20%22pas%20de%20site%20internet%22&num=5",
+  "status": 302,
+  "location": "https://consent.google.com/ml?continue=https://www.google.com/search%3Fq%3Dsite%253Afacebook.com%2520Martinique%2520%2522pas%2520de%2520site%2520internet%2522%26num%3D5&gl=FR&m=0&pc=srp&uxe=bip&cm=2&hl=fr&src=1"
+}

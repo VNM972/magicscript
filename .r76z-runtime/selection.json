@@ -1,0 +1,213 @@
+{
+  "queries": [
+    "intitle:\"site en construction\" Martinique -site:zakari.fr -site:evasionnautique972.com -site:accentimmo.fr -site:rb-agency.fr -site:medi-conciergerie.com -site:lmcharpente.com",
+    "intitle:\"site en cours de refonte\" Martinique -site:villa-ancinel.com",
+    "\"site en construction\" \"SIRET\" restaurant"
+  ],
+  "queryCount": 3,
+  "query1And2": "No returned result had a matching notice hint; no homepage inspection triggered",
+  "geography": "First two queries Martinique; third has no geography filter. No location or ICP authority inferred from metadata.",
+  "hints": [
+    {
+      "candidate": {
+        "schemaVersion": 1,
+        "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+        "conditionClass": "SITE_UNDER_CONSTRUCTION",
+        "providerClass": "MANUAL_BROWSER_SEARCH",
+        "providerRunId": "R76Z-query-3",
+        "resultUrl": "https://www.pagd.fr/",
+        "resultTitle": "PAGD Bâtiment",
+        "resultPosition": 1,
+        "acquiredAt": "2026-10-04T10:20:11.011Z",
+        "authority": "NONE"
+      },
+      "noticeText": "Site en construction",
+      "identityHint": "SIRET 379 216 526 000 28",
+      "localityHint": "75017 PARIS"
+    },
+    {
+      "candidate": {
+        "schemaVersion": 1,
+        "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+        "conditionClass": "SITE_UNDER_CONSTRUCTION",
+        "providerClass": "MANUAL_BROWSER_SEARCH",
+        "providerRunId": "R76Z-query-3",
+        "resultUrl": "https://amelmartin.com/",
+        "resultTitle": "Amel Martin Photographe",
+        "resultPosition": 2,
+        "acquiredAt": "2026-10-04T10:20:11.011Z",
+        "authority": "NONE"
+      },
+      "noticeText": "SITE EN CONSTRUCTION",
+      "identityHint": "SIRET: 87829394300022",
+      "localityHint": ""
+    },
+    {
+      "candidate": {
+        "schemaVersion": 1,
+        "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+        "conditionClass": "SITE_UNDER_CONSTRUCTION",
+        "providerClass": "MANUAL_BROWSER_SEARCH",
+        "providerRunId": "R76Z-query-3",
+        "resultUrl": "https://app.dataprospects.fr/entreprises/NAJMUDDIN/902475227",
+        "resultTitle": "NAJMUDDIN directory",
+        "resultPosition": 3,
+        "acquiredAt": "2026-10-04T10:20:11.011Z",
+        "authority": "NONE"
+      },
+      "noticeText": "Entreprise NAJMUDDIN à LYON (69001)",
+      "identityHint": "90247522700028",
+      "localityHint": "LYON"
+    },
+    {
+      "candidate": {
+        "schemaVersion": 1,
+        "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+        "conditionClass": "SITE_UNDER_CONSTRUCTION",
+        "providerClass": "MANUAL_BROWSER_SEARCH",
+        "providerRunId": "R76Z-query-3",
+        "resultUrl": "https://www.chaconsultant.fr/",
+        "resultTitle": "CHA Consultant",
+        "resultPosition": 4,
+        "acquiredAt": "2026-10-04T10:20:11.011Z",
+        "authority": "NONE"
+      },
+      "noticeText": "CHA CONSULTANT",
+      "identityHint": "998 969 067 00011",
+      "localityHint": "MONTAGNOLE"
+    },
+    {
+      "candidate": {
+        "schemaVersion": 1,
+        "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+        "conditionClass": "SITE_UNDER_CONSTRUCTION",
+        "providerClass": "MANUAL_BROWSER_SEARCH",
+        "providerRunId": "R76Z-query-3",
+        "resultUrl": "https://www.psychologuevoiron.fr/",
+        "resultTitle": "Psychologue Voiron",
+        "resultPosition": 5,
+        "acquiredAt": "2026-10-04T10:20:11.011Z",
+        "authority": "NONE"
+      },
+      "noticeText": "... SITE EN CONSTRUCTION d'autres infos à venir...",
+      "identityHint": "92303637000016",
+      "localityHint": "Voiron"
+    },
+    {
+      "candidate": {
+        "schemaVersion": 1,
+        "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+        "conditionClass": "SITE_UNDER_CONSTRUCTION",
+        "providerClass": "MANUAL_BROWSER_SEARCH",
+        "providerRunId": "R76Z-query-3",
+        "resultUrl": "https://www.earl-des-borderies.fr/",
+        "resultTitle": "EARL des Borderies",
+        "resultPosition": 6,
+        "acquiredAt": "2026-10-04T10:20:11.011Z",
+        "authority": "NONE"
+      },
+      "noticeText": "EARL DES BORDERIES",
+      "identityHint": "801.739.244.00011",
+      "localityHint": "Bussière-Poitevine"
+    },
+    {
+      "candidate": {
+        "schemaVersion": 1,
+        "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+        "conditionClass": "SITE_UNDER_CONSTRUCTION",
+        "providerClass": "MANUAL_BROWSER_SEARCH",
+        "providerRunId": "R76Z-query-3",
+        "resultUrl": "https://www.imprimerie-marcos.fr/",
+        "resultTitle": "Imprimerie Marcos",
+        "resultPosition": 7,
+        "acquiredAt": "2026-10-04T10:20:11.011Z",
+        "authority": "NONE"
+      },
+      "noticeText": "Nos presses s'activent — Site en construction",
+      "identityHint": "",
+      "localityHint": "Anglet"
+    },
+    {
+      "candidate": {
+        "schemaVersion": 1,
+        "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+        "conditionClass": "SITE_UNDER_CONSTRUCTION",
+        "providerClass": "MANUAL_BROWSER_SEARCH",
+        "providerRunId": "R76Z-query-3",
+        "resultUrl": "https://lecumebleue.elevage-familial.com/",
+        "resultTitle": "Chatterie L’écume bleue",
+        "resultPosition": 8,
+        "acquiredAt": "2026-10-04T10:20:11.011Z",
+        "authority": "NONE"
+      },
+      "noticeText": "Accueil",
+      "identityHint": "820.804.995.00018",
+      "localityHint": "Le Mans"
+    }
+  ],
+  "exclusions": [
+    "https://villa-ancinel.com/",
+    "https://www.zakari.fr/",
+    "https://evasionnautique972.com/",
+    "https://medi-conciergerie.com/",
+    "https://lmcharpente.com/",
+    "https://accentimmo.fr/",
+    "https://rb-agency.fr/",
+    "https://www.toulondit.fr/"
+  ],
+  "selection": {
+    "authority": "NONE",
+    "candidates": [
+      {
+        "schemaVersion": 1,
+        "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+        "conditionClass": "SITE_UNDER_CONSTRUCTION",
+        "providerClass": "MANUAL_BROWSER_SEARCH",
+        "providerRunId": "R76Z-query-3",
+        "resultUrl": "https://www.pagd.fr/",
+        "resultTitle": "PAGD Bâtiment",
+        "resultPosition": 1,
+        "acquiredAt": "2026-10-04T10:20:11.011Z",
+        "authority": "NONE"
+      },
+      {
+        "schemaVersion": 1,
+        "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+        "conditionClass": "SITE_UNDER_CONSTRUCTION",
+        "providerClass": "MANUAL_BROWSER_SEARCH",
+        "providerRunId": "R76Z-query-3",
+        "resultUrl": "https://amelmartin.com/",
+        "resultTitle": "Amel Martin Photographe",
+        "resultPosition": 2,
+        "acquiredAt": "2026-10-04T10:20:11.011Z",
+        "authority": "NONE"
+      }
+    ],
+    "rejections": [
+      {
+        "resultUrl": "https://app.dataprospects.fr/entreprises/NAJMUDDIN/902475227",
+        "reason": "URL_REJECTED"
+      },
+      {
+        "resultUrl": "https://www.chaconsultant.fr/",
+        "reason": "NO_MATCHING_NOTICE_HINT"
+      },
+      {
+        "resultUrl": "https://www.psychologuevoiron.fr/",
+        "reason": "NO_MATCHING_NOTICE_HINT"
+      },
+      {
+        "resultUrl": "https://www.earl-des-borderies.fr/",
+        "reason": "NO_MATCHING_NOTICE_HINT"
+      },
+      {
+        "resultUrl": "https://www.imprimerie-marcos.fr/",
+        "reason": "NO_MATCHING_NOTICE_HINT"
+      },
+      {
+        "resultUrl": "https://lecumebleue.elevage-familial.com/",
+        "reason": "NO_MATCHING_NOTICE_HINT"
+      }
+    ]
+  }
+}

@@ -15,6 +15,7 @@ interface DraftRow {
   grounding_json: string;
   revision: number;
   content_hash: string;
+  quality_gate_json: string | null;
   status: OutreachDraftV1['status'];
   created_at: string;
   approved_at: string | null;
@@ -38,6 +39,7 @@ function fromRow(row: DraftRow): OutreachDraftV1 {
     grounding: JSON.parse(row.grounding_json),
     revision: row.revision,
     contentHash: row.content_hash,
+    quality: row.quality_gate_json ? JSON.parse(row.quality_gate_json) : null,
     status: row.status,
     createdAt: row.created_at,
     approvedAt: row.approved_at,
@@ -74,12 +76,12 @@ export class D1OutreachDraftStore implements OutreachDraftStore {
     await this.db.prepare(`
       INSERT INTO v2_outreach_drafts
         (id, proposal_id, prospect_id, channel, recipient_ref, subject, body, proposal_link, booking_link,
-         grounding_json, revision, content_hash, status, created_at, approved_at, approved_by, action_at, action_by)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         grounding_json, revision, content_hash, quality_gate_json, status, created_at, approved_at, approved_by, action_at, action_by)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       ON CONFLICT(id) DO NOTHING
     `).bind(
       draft.id, draft.proposalId, draft.prospectId, draft.channel, draft.recipientRef, draft.subject, draft.body,
-      draft.proposalLink, draft.bookingLink, JSON.stringify(draft.grounding), draft.revision, draft.contentHash,
+      draft.proposalLink, draft.bookingLink, JSON.stringify(draft.grounding), draft.revision, draft.contentHash, JSON.stringify(draft.quality),
       draft.status, draft.createdAt, draft.approvedAt, draft.approvedBy, draft.actionAt, draft.actionBy,
     ).run();
   }

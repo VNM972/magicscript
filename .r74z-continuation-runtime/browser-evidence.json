@@ -1,0 +1,44 @@
+{
+  "viewports": [
+    {
+      "name": "DESKTOP",
+      "width": 1440,
+      "height": 900,
+      "horizontalOverflow": -15,
+      "heroVisible": true,
+      "primaryCtaVisible": true,
+      "contentVisible": true,
+      "controlsWithinViewport": true
+    },
+    {
+      "name": "MOBILE",
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": -15,
+      "heroVisible": true,
+      "primaryCtaVisible": true,
+      "contentVisible": true,
+      "controlsWithinViewport": true
+    }
+  ],
+  "observedSections": [
+    "hero",
+    "home",
+    "offer",
+    "reassurance",
+    "contact"
+  ],
+  "brokenAssets": [],
+  "internalLinkErrors": [],
+  "consoleErrors": [],
+  "unresolvedMarkers": [],
+  "headings": [
+    "h1 Clarifier la valeur de Villa Ancinel",
+    "h2 Clarifier la valeur de Villa Ancinel",
+    "h2 hero",
+    "h2 offer",
+    "h2 reassurance",
+    "h2 contact",
+    "h2 Contacter l’entreprise"
+  ]
+}

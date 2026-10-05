@@ -1,0 +1,3516 @@
+{
+  "eligible": 33,
+  "candidateSources": 959,
+  "identityVerified": 276,
+  "selected": "NOT_OBSERVABLE_SEPARATELY_FROM_CANDIDATES",
+  "attempted": "NOT_OBSERVABLE_GLOBALLY_FROM_PERSISTED_EVENTS",
+  "stats": {
+    "OWNED_WEBSITE": {
+      "candidate": 22,
+      "selected": 22,
+      "attempted": "NOT_OBSERVABLE",
+      "success": "NOT_OBSERVABLE",
+      "failed": "NOT_OBSERVABLE",
+      "skipped": "NOT_OBSERVABLE",
+      "identity": 22,
+      "phoneObserved": 0,
+      "emailObserved": 0,
+      "formObserved": 0,
+      "canonicalPhone": 0,
+      "canonicalEmail": 0,
+      "canonicalForm": 0
+    },
+    "CONTACT_PAGE": {
+      "candidate": 40,
+      "selected": 40,
+      "attempted": "NOT_OBSERVABLE",
+      "success": "NOT_OBSERVABLE",
+      "failed": "NOT_OBSERVABLE",
+      "skipped": "NOT_OBSERVABLE",
+      "identity": 23,
+      "phoneObserved": 0,
+      "emailObserved": 0,
+      "formObserved": 0,
+      "canonicalPhone": 0,
+      "canonicalEmail": 0,
+      "canonicalForm": 0
+    },
+    "LEGAL_PAGE": {
+      "candidate": 13,
+      "selected": 13,
+      "attempted": "NOT_OBSERVABLE",
+      "success": "NOT_OBSERVABLE",
+      "failed": "NOT_OBSERVABLE",
+      "skipped": "NOT_OBSERVABLE",
+      "identity": 9,
+      "phoneObserved": 0,
+      "emailObserved": 0,
+      "formObserved": 0,
+      "canonicalPhone": 0,
+      "canonicalEmail": 0,
+      "canonicalForm": 0
+    },
+    "FACEBOOK": {
+      "candidate": 149,
+      "selected": 149,
+      "attempted": "NOT_OBSERVABLE",
+      "success": "NOT_OBSERVABLE",
+      "failed": "NOT_OBSERVABLE",
+      "skipped": "NOT_OBSERVABLE",
+      "identity": 17,
+      "phoneObserved": 0,
+      "emailObserved": 0,
+      "formObserved": 0,
+      "canonicalPhone": 0,
+      "canonicalEmail": 0,
+      "canonicalForm": 0
+    },
+    "INSTAGRAM": {
+      "candidate": 126,
+      "selected": 126,
+      "attempted": "NOT_OBSERVABLE",
+      "success": "NOT_OBSERVABLE",
+      "failed": "NOT_OBSERVABLE",
+      "skipped": "NOT_OBSERVABLE",
+      "identity": 6,
+      "phoneObserved": 0,
+      "emailObserved": 0,
+      "formObserved": 0,
+      "canonicalPhone": 0,
+      "canonicalEmail": 0,
+      "canonicalForm": 0
+    },
+    "TIKTOK": {
+      "candidate": 0,
+      "selected": 0,
+      "attempted": "NOT_OBSERVABLE",
+      "success": "NOT_OBSERVABLE",
+      "failed": "NOT_OBSERVABLE",
+      "skipped": "NOT_OBSERVABLE",
+      "identity": 0,
+      "phoneObserved": 0,
+      "emailObserved": 0,
+      "formObserved": 0,
+      "canonicalPhone": 0,
+      "canonicalEmail": 0,
+      "canonicalForm": 0
+    },
+    "WHATSAPP": {
+      "candidate": 0,
+      "selected": 0,
+      "attempted": "NOT_OBSERVABLE",
+      "success": "NOT_OBSERVABLE",
+      "failed": "NOT_OBSERVABLE",
+      "skipped": "NOT_OBSERVABLE",
+      "identity": 0,
+      "phoneObserved": 0,
+      "emailObserved": 0,
+      "formObserved": 0,
+      "canonicalPhone": 0,
+      "canonicalEmail": 0,
+      "canonicalForm": 0
+    },
+    "BOOKING_PLATFORM": {
+      "candidate": 0,
+      "selected": 0,
+      "attempted": "NOT_OBSERVABLE",
+      "success": "NOT_OBSERVABLE",
+      "failed": "NOT_OBSERVABLE",
+      "skipped": "NOT_OBSERVABLE",
+      "identity": 0,
+      "phoneObserved": 0,
+      "emailObserved": 0,
+      "formObserved": 0,
+      "canonicalPhone": 0,
+      "canonicalEmail": 0,
+      "canonicalForm": 0
+    },
+    "MENU_ORDER_PLATFORM": {
+      "candidate": 0,
+      "selected": 0,
+      "attempted": "NOT_OBSERVABLE",
+      "success": "NOT_OBSERVABLE",
+      "failed": "NOT_OBSERVABLE",
+      "skipped": "NOT_OBSERVABLE",
+      "identity": 0,
+      "phoneObserved": 0,
+      "emailObserved": 0,
+      "formObserved": 0,
+      "canonicalPhone": 0,
+      "canonicalEmail": 0,
+      "canonicalForm": 0
+    },
+    "VERTICAL_PLATFORM": {
+      "candidate": 0,
+      "selected": 0,
+      "attempted": "NOT_OBSERVABLE",
+      "success": "NOT_OBSERVABLE",
+      "failed": "NOT_OBSERVABLE",
+      "skipped": "NOT_OBSERVABLE",
+      "identity": 0,
+      "phoneObserved": 0,
+      "emailObserved": 0,
+      "formObserved": 0,
+      "canonicalPhone": 0,
+      "canonicalEmail": 0,
+      "canonicalForm": 0
+    },
+    "BUSINESS_DIRECTORY": {
+      "candidate": 0,
+      "selected": 0,
+      "attempted": "NOT_OBSERVABLE",
+      "success": "NOT_OBSERVABLE",
+      "failed": "NOT_OBSERVABLE",
+      "skipped": "NOT_OBSERVABLE",
+      "identity": 0,
+      "phoneObserved": 0,
+      "emailObserved": 0,
+      "formObserved": 0,
+      "canonicalPhone": 0,
+      "canonicalEmail": 0,
+      "canonicalForm": 0
+    },
+    "REGISTRY": {
+      "candidate": 44,
+      "selected": 44,
+      "attempted": "NOT_OBSERVABLE",
+      "success": "NOT_OBSERVABLE",
+      "failed": "NOT_OBSERVABLE",
+      "skipped": "NOT_OBSERVABLE",
+      "identity": 38,
+      "phoneObserved": 0,
+      "emailObserved": 0,
+      "formObserved": 0,
+      "canonicalPhone": 0,
+      "canonicalEmail": 0,
+      "canonicalForm": 0
+    },
+    "OTHER_PUBLIC_SOURCE": {
+      "candidate": 565,
+      "selected": 565,
+      "attempted": "NOT_OBSERVABLE",
+      "success": "NOT_OBSERVABLE",
+      "failed": "NOT_OBSERVABLE",
+      "skipped": "NOT_OBSERVABLE",
+      "identity": 161,
+      "phoneObserved": 11,
+      "emailObserved": 10,
+      "formObserved": 27,
+      "canonicalPhone": 11,
+      "canonicalEmail": 10,
+      "canonicalForm": 27
+    }
+  },
+  "failureCounts": {
+    "FETCH_ERROR: fetch failed": 4,
+    "HTTP_STATUS_403": 20,
+    "RESPONSE_TOO_LARGE": 10,
+    "HTTP_STATUS_503": 1,
+    "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com": 1,
+    "TIMEOUT": 1,
+    "UNSUPPORTED_CONTENT_TYPE: text/xml": 1,
+    "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com": 1,
+    "HTTP_STATUS_429": 2
+  },
+  "otherSubtypeCounts": {
+    "OTHER_UNKNOWN": 429,
+    "REGISTRY_OR_LEGAL_REFERENCE": 60,
+    "MAP_OR_LOCATION_PAGE": 15,
+    "ARTICLE_OR_MEDIA": 43,
+    "PDF_OR_DOCUMENT": 14,
+    "BOOKING_PLATFORM": 4
+  },
+  "highValueNoPhone": [
+    {
+      "id": "2d57e173-159e-4ae3-a77e-bdec4eaa246e",
+      "name": "SARL SOREIDOM",
+      "sourceCount": 29,
+      "identityVerified": 15,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "linkedin.com"
+            },
+            {
+              "name": "𝗦𝗼𝗿𝗲𝗶𝗱𝗼𝗺",
+              "domain": "fr.linkedin.com"
+            },
+            {
+              "domain": "linkedin.com"
+            },
+            {
+              "name": "𝗦𝗼𝗿𝗲𝗶𝗱𝗼𝗺",
+              "domain": "fr.linkedin.com"
+            },
+            {
+              "domain": "linkedin.com"
+            },
+            {
+              "name": "𝗦𝗼𝗿𝗲𝗶𝗱𝗼𝗺",
+              "domain": "fr.linkedin.com"
+            },
+            {
+              "domain": "linkedin.com"
+            },
+            {
+              "name": "𝗦𝗼𝗿𝗲𝗶𝗱𝗼𝗺",
+              "domain": "fr.linkedin.com"
+            },
+            {
+              "domain": "linkedin.com"
+            },
+            {
+              "name": "𝗦𝗼𝗿𝗲𝗶𝗱𝗼𝗺",
+              "domain": "fr.linkedin.com"
+            },
+            {
+              "domain": "linkedin.com"
+            },
+            {
+              "name": "𝗦𝗼𝗿𝗲𝗶𝗱𝗼𝗺",
+              "domain": "fr.linkedin.com"
+            },
+            {
+              "domain": "linkedin.com"
+            },
+            {
+              "name": "𝗦𝗼𝗿𝗲𝗶𝗱𝗼𝗺",
+              "domain": "fr.linkedin.com"
+            },
+            {
+              "domain": "linkedin.com"
+            },
+            {
+              "name": "𝗦𝗼𝗿𝗲𝗶𝗱𝗼𝗺",
+              "domain": "fr.linkedin.com"
+            },
+            {
+              "domain": "linkedin.com"
+            },
+            {
+              "name": "𝗦𝗼𝗿𝗲𝗶𝗱𝗼𝗺",
+              "domain": "fr.linkedin.com"
+            },
+            {
+              "name": "𝗦𝗼𝗿𝗲𝗶𝗱𝗼𝗺",
+              "domain": "fr.linkedin.com",
+              "city": "Paris"
+            },
+            {
+              "domain": "linkedin.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "VERIFIED",
+          "values": [
+            "https://www.linkedin.com/shareArticle?mini=true&url=https://www.info-clipper.com/en/company/martinique/sarl-soreidom.mqd4odk3f.html&title=SARL%20SOREIDOM%20Martinique%2C%20LE%20ROBERT%20%7C%20Info-clipper.com&summary=Obtain%20information%20about%20SARL%20SOREIDOM%20%3A%20Get%20Martiniquan%20Registry%20information%2C%20check%20legal%20status%2C%20identify%20shareholders%20and%20directors%2C%20assess%20financial%20performance.%20Start%20here%20KYC%2C%20compliance%20and%20Due%20Diligence%20processes.&source=info-clipper.com",
+            "https://twitter.com/intent/tweet?text=SARL%20SOREIDOM%20Martinique%2C%20LE%20ROBERT%20%7C%20Info-clipper.com&url=https://www.info-clipper.com/en/company/martinique/sarl-soreidom.mqd4odk3f.html",
+            "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.procedures-collectives.com%2Fentreprise%2F352519540-soreidom%2F",
+            "https://fr.linkedin.com/company/societe.com",
+            "https://twitter.com/Societe_com",
+            "https://www.youtube.com/@Soci%C3%A9t%C3%A9_FR",
+            "https://www.tiktok.com/@societe.com"
+          ],
+          "evidence": [
+            {
+              "value": "https://www.linkedin.com/shareArticle?mini=true&url=https://www.info-clipper.com/en/company/martinique/sarl-soreidom.mqd4odk3f.html&title=SARL%20SOREIDOM%20Martinique%2C%20LE%20ROBERT%20%7C%20Info-clipper.com&summary=Obtain%20information%20about%20SARL%20SOREIDOM%20%3A%20Get%20Martiniquan%20Registry%20information%2C%20check%20legal%20status%2C%20identify%20shareholders%20and%20directors%2C%20assess%20financial%20performance.%20Start%20here%20KYC%2C%20compliance%20and%20Due%20Diligence%20processes.&source=info-clipper.com",
+              "sourceUrl": "https://www.info-clipper.com/en/company/martinique/sarl-soreidom.mqd4odk3f.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://twitter.com/intent/tweet?text=SARL%20SOREIDOM%20Martinique%2C%20LE%20ROBERT%20%7C%20Info-clipper.com&url=https://www.info-clipper.com/en/company/martinique/sarl-soreidom.mqd4odk3f.html",
+              "sourceUrl": "https://www.info-clipper.com/en/company/martinique/sarl-soreidom.mqd4odk3f.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.procedures-collectives.com%2Fentreprise%2F352519540-soreidom%2F",
+              "sourceUrl": "https://www.procedures-collectives.com/entreprise/352519540-soreidom/",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://fr.linkedin.com/company/societe.com",
+              "sourceUrl": "https://www.societe.com/societe/sarl-soreidom-352519540.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://twitter.com/Societe_com",
+              "sourceUrl": "https://www.societe.com/societe/sarl-soreidom-352519540.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://www.youtube.com/@Soci%C3%A9t%C3%A9_FR",
+              "sourceUrl": "https://www.societe.com/societe/sarl-soreidom-352519540.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://www.tiktok.com/@societe.com",
+              "sourceUrl": "https://www.societe.com/societe/sarl-soreidom-352519540.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            }
+          ]
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "VERIFIED",
+          "values": [
+            "https://www.tiktok.com/@societe.com"
+          ],
+          "evidence": [
+            {
+              "value": "https://www.tiktok.com/@societe.com",
+              "sourceUrl": "https://www.societe.com/societe/sarl-soreidom-352519540.html",
+              "kind": "tiktok",
+              "evidenceType": "TIKTOK_HREF"
+            }
+          ]
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "VERIFIED",
+          "values": [
+            "https://www.info-clipper.com/en/company/martinique/sarl-soreidom.mqd4odk3f.html",
+            "https://www.procedures-collectives.com/entreprise/352519540-soreidom/",
+            "https://www.societe.com/societe/sarl-soreidom-352519540.html",
+            "https://entreprises.lefigaro.fr/sarl-soreidom-972/entreprise-352519540"
+          ],
+          "evidence": [
+            {
+              "value": "https://www.info-clipper.com/en/company/martinique/sarl-soreidom.mqd4odk3f.html",
+              "sourceUrl": "https://www.info-clipper.com/en/company/martinique/sarl-soreidom.mqd4odk3f.html",
+              "kind": "contactForm",
+              "evidenceType": "CONTACT_FORM"
+            },
+            {
+              "value": "https://www.procedures-collectives.com/entreprise/352519540-soreidom/",
+              "sourceUrl": "https://www.procedures-collectives.com/entreprise/352519540-soreidom/",
+              "kind": "contactForm",
+              "evidenceType": "CONTACT_FORM"
+            },
+            {
+              "value": "https://www.societe.com/societe/sarl-soreidom-352519540.html",
+              "sourceUrl": "https://www.societe.com/societe/sarl-soreidom-352519540.html",
+              "kind": "contactForm",
+              "evidenceType": "CONTACT_FORM"
+            },
+            {
+              "value": "https://entreprises.lefigaro.fr/sarl-soreidom-972/entreprise-352519540",
+              "sourceUrl": "https://entreprises.lefigaro.fr/sarl-soreidom-972/entreprise-352519540",
+              "kind": "contactForm",
+              "evidenceType": "CONTACT_FORM"
+            }
+          ]
+        },
+        "sourcesProcessed": 6,
+        "sourcesChecked": [
+          "https://www.linkedin.com/company/soreidom-sea-freight",
+          "https://www.info-clipper.com/en/company/martinique/sarl-soreidom.mqd4odk3f.html",
+          "https://www.procedures-collectives.com/entreprise/352519540-soreidom/",
+          "https://annuaire-entreprises.data.gouv.fr/etablissement/35251954000020",
+          "https://www.societe.com/societe/sarl-soreidom-352519540.html",
+          "https://entreprises.lefigaro.fr/sarl-soreidom-972/entreprise-352519540"
+        ],
+        "reasons": [
+          "bounded sources checked: 6"
+        ],
+        "enrichedAt": "2026-09-16T07:50:34.100Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "82ed270e-8e1f-4cff-95dc-ff0c8d1028ad",
+      "name": "JACQUES ALLALI",
+      "sourceCount": 24,
+      "identityVerified": 2,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "app.dataprospects.fr"
+            },
+            {
+              "name": "Commerce de gros hors auto/moto"
+            },
+            {
+              "name": "Interm. spécialisés commerce d'autres produits spécifiques"
+            },
+            {
+              "name": "Entreprises d'Interm. spécialisés commerce d'autres produits spécifiques à SCHOELCHER"
+            },
+            {
+              "name": "Quel est le numéro SIREN de MONSIEUR MOURAD BELAL ?"
+            },
+            {
+              "name": "Quelle est l'activité de MONSIEUR MOURAD BELAL ?"
+            },
+            {
+              "name": "Quelle est la forme juridique de MONSIEUR MOURAD BELAL ?"
+            },
+            {
+              "name": "Combien d'établissements compte MONSIEUR MOURAD BELAL ?"
+            },
+            {
+              "name": "Quelle est la date de création de MONSIEUR MOURAD BELAL ?"
+            },
+            {
+              "name": "Quel est le numéro de TVA de MONSIEUR MOURAD BELAL ?"
+            },
+            {
+              "name": "Quel est l'état administratif de MONSIEUR MOURAD BELAL ?"
+            },
+            {
+              "domain": "app.dataprospects.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://app.dataprospects.fr/entreprises/MONSIEUR-MOURAD-BELAL/437554256"
+        ],
+        "reasons": [
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "ec045b5e-00be-44a3-a556-cfbc88cf56bb",
+      "name": "JEAN-PIERRE EUVRARD",
+      "sourceCount": 26,
+      "identityVerified": 4,
+      "presence": {
+        "status": "VERIFIED",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "app.dataprospects.fr"
+            },
+            {
+              "name": "Entreprises de activités immobilières"
+            },
+            {
+              "name": "Location de terrains et d'autres biens immobiliers"
+            },
+            {
+              "name": "Entreprises de Location de terrains et d'autres biens immobiliers à FORTDEFRANCE"
+            },
+            {
+              "name": "Quel est le numéro SIREN de MONSIEUR JEAN-PIERRE EUVRARD ?"
+            },
+            {
+              "name": "Quelle est l'activité de MONSIEUR JEAN-PIERRE EUVRARD ?"
+            },
+            {
+              "name": "Quelle est la forme juridique de MONSIEUR JEAN-PIERRE EUVRARD ?"
+            },
+            {
+              "name": "Combien d'établissements compte MONSIEUR JEAN-PIERRE EUVRARD ?"
+            },
+            {
+              "name": "Quelle est la date de création de MONSIEUR JEAN-PIERRE EUVRARD ?"
+            },
+            {
+              "name": "Quel est le numéro de TVA de MONSIEUR JEAN-PIERRE EUVRARD ?"
+            },
+            {
+              "name": "Quel est l'état administratif de MONSIEUR JEAN-PIERRE EUVRARD ?"
+            },
+            {
+              "domain": "app.dataprospects.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "VERIFIED",
+          "values": [
+            "info@dataprospects.fr"
+          ],
+          "evidence": [
+            {
+              "value": "info@dataprospects.fr",
+              "sourceUrl": "https://app.dataprospects.fr/entreprises/MONSIEUR-JEAN-PIERRE-EUVRARD/411134281",
+              "kind": "email",
+              "evidenceType": "MAILTO_HREF"
+            }
+          ]
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "VERIFIED",
+          "values": [
+            "https://fr.linkedin.com/company/societe.com",
+            "https://twitter.com/Societe_com",
+            "https://www.youtube.com/@Soci%C3%A9t%C3%A9_FR",
+            "https://www.tiktok.com/@societe.com"
+          ],
+          "evidence": [
+            {
+              "value": "https://fr.linkedin.com/company/societe.com",
+              "sourceUrl": "https://www.societe.com/societe/monsieur-jean-pierre-euvrard-411134281.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://twitter.com/Societe_com",
+              "sourceUrl": "https://www.societe.com/societe/monsieur-jean-pierre-euvrard-411134281.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://www.youtube.com/@Soci%C3%A9t%C3%A9_FR",
+              "sourceUrl": "https://www.societe.com/societe/monsieur-jean-pierre-euvrard-411134281.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://www.tiktok.com/@societe.com",
+              "sourceUrl": "https://www.societe.com/societe/monsieur-jean-pierre-euvrard-411134281.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            }
+          ]
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "VERIFIED",
+          "values": [
+            "https://www.tiktok.com/@societe.com"
+          ],
+          "evidence": [
+            {
+              "value": "https://www.tiktok.com/@societe.com",
+              "sourceUrl": "https://www.societe.com/societe/monsieur-jean-pierre-euvrard-411134281.html",
+              "kind": "tiktok",
+              "evidenceType": "TIKTOK_HREF"
+            }
+          ]
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "VERIFIED",
+          "values": [
+            "https://app.dataprospects.fr/entreprises/MONSIEUR-JEAN-PIERRE-EUVRARD/411134281",
+            "https://www.societe.com/societe/monsieur-jean-pierre-euvrard-411134281.html",
+            "https://entreprises.lefigaro.fr/monsieur-jean-pierre-euvrard-972/entreprise-411134281"
+          ],
+          "evidence": [
+            {
+              "value": "https://app.dataprospects.fr/entreprises/MONSIEUR-JEAN-PIERRE-EUVRARD/411134281",
+              "sourceUrl": "https://app.dataprospects.fr/entreprises/MONSIEUR-JEAN-PIERRE-EUVRARD/411134281",
+              "kind": "contactForm",
+              "evidenceType": "CONTACT_FORM"
+            },
+            {
+              "value": "https://www.societe.com/societe/monsieur-jean-pierre-euvrard-411134281.html",
+              "sourceUrl": "https://www.societe.com/societe/monsieur-jean-pierre-euvrard-411134281.html",
+              "kind": "contactForm",
+              "evidenceType": "CONTACT_FORM"
+            },
+            {
+              "value": "https://entreprises.lefigaro.fr/monsieur-jean-pierre-euvrard-972/entreprise-411134281",
+              "sourceUrl": "https://entreprises.lefigaro.fr/monsieur-jean-pierre-euvrard-972/entreprise-411134281",
+              "kind": "contactForm",
+              "evidenceType": "CONTACT_FORM"
+            }
+          ]
+        },
+        "sourcesProcessed": 3,
+        "sourcesChecked": [
+          "https://app.dataprospects.fr/entreprises/MONSIEUR-JEAN-PIERRE-EUVRARD/411134281",
+          "https://www.societe.com/societe/monsieur-jean-pierre-euvrard-411134281.html",
+          "https://entreprises.lefigaro.fr/monsieur-jean-pierre-euvrard-972/entreprise-411134281"
+        ],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 3"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "acc3f066-717d-42cc-a8a1-2984da954e3a",
+      "name": "POINT MAT BRICO",
+      "sourceCount": 24,
+      "identityVerified": 6,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "name": "Entreprises par départements"
+            },
+            {
+              "name": "Martinique (972)"
+            },
+            {
+              "name": "46.73A"
+            },
+            {
+              "domain": "annuaire-entreprises.data.gouv.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "VERIFIED",
+          "values": [
+            "https://www.linkedin.com/shareArticle?mini=true&url=https://annuaire-entreprises.data.gouv.fr/etablissement/83378726000011",
+            "https://www.linkedin.com/company/annuaire-des-entreprises",
+            "https://www.linkedin.com/company/la-gazette-france/about/",
+            "https://www.facebook.com/lagazettefrance",
+            "https://www.youtube.com/channel/UC9SMIGkI7qUHWhOyY6E2tRQ"
+          ],
+          "evidence": [
+            {
+              "value": "https://www.linkedin.com/shareArticle?mini=true&url=https://annuaire-entreprises.data.gouv.fr/etablissement/83378726000011",
+              "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/83378726000011",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://www.linkedin.com/company/annuaire-des-entreprises",
+              "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/83378726000011",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://www.linkedin.com/company/la-gazette-france/about/",
+              "sourceUrl": "https://entreprises.lagazettefrance.fr/entreprise/point-mat-brico-833787260",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://www.facebook.com/lagazettefrance",
+              "sourceUrl": "https://entreprises.lagazettefrance.fr/entreprise/point-mat-brico-833787260",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://www.youtube.com/channel/UC9SMIGkI7qUHWhOyY6E2tRQ",
+              "sourceUrl": "https://entreprises.lagazettefrance.fr/entreprise/point-mat-brico-833787260",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            }
+          ]
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "VERIFIED",
+          "values": [
+            "https://www.facebook.com/lagazettefrance"
+          ],
+          "evidence": [
+            {
+              "value": "https://www.facebook.com/lagazettefrance",
+              "sourceUrl": "https://entreprises.lagazettefrance.fr/entreprise/point-mat-brico-833787260",
+              "kind": "facebook",
+              "evidenceType": "FACEBOOK_HREF"
+            }
+          ]
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "VERIFIED",
+          "values": [
+            "https://annuaire-entreprises.data.gouv.fr/etablissement/83378726000011",
+            "https://entreprises.lefigaro.fr/point-mat-brico-972/entreprise-833787260"
+          ],
+          "evidence": [
+            {
+              "value": "https://annuaire-entreprises.data.gouv.fr/etablissement/83378726000011",
+              "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/83378726000011",
+              "kind": "contactForm",
+              "evidenceType": "CONTACT_FORM"
+            },
+            {
+              "value": "https://entreprises.lefigaro.fr/point-mat-brico-972/entreprise-833787260",
+              "sourceUrl": "https://entreprises.lefigaro.fr/point-mat-brico-972/entreprise-833787260",
+              "kind": "contactForm",
+              "evidenceType": "CONTACT_FORM"
+            }
+          ]
+        },
+        "sourcesProcessed": 4,
+        "sourcesChecked": [
+          "https://annuaire-entreprises.data.gouv.fr/entreprise/point-mat-brico-833787260",
+          "https://annuaire-entreprises.data.gouv.fr/etablissement/83378726000011",
+          "https://entreprises.lagazettefrance.fr/entreprise/point-mat-brico-833787260",
+          "https://entreprises.lefigaro.fr/point-mat-brico-972/entreprise-833787260"
+        ],
+        "reasons": [
+          "bounded sources checked: 4"
+        ],
+        "enrichedAt": "2026-09-16T07:50:34.100Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "d0dafaae-aebe-46c2-a532-5264a5a0d4f4",
+      "name": "SASU-YOUYOU-MARKET",
+      "sourceCount": 30,
+      "identityVerified": 12,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "annuaire-entreprises.data.gouv.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 3,
+        "sourcesChecked": [
+          "https://annuaire-entreprises.data.gouv.fr/etablissement/84274162100010",
+          "https://annuaire-entreprises.data.gouv.fr/entreprise/youyou-market-sasu-youyou-market-842741621",
+          "https://www.societe.com/societe/youyou-market-842741621.html"
+        ],
+        "reasons": [
+          "bounded sources checked: 3"
+        ],
+        "enrichedAt": "2026-09-16T07:50:34.100Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "19706c05-657c-496d-8295-9ac5545c695a",
+      "name": "CORAIL",
+      "sourceCount": 30,
+      "identityVerified": 10,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "societe.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 5,
+        "sourcesChecked": [
+          "https://www.societe.com/societe/corail-382760577.html",
+          "https://annuaire-entreprises.data.gouv.fr/entreprise/382760577",
+          "https://www.booking.com/hotel/mq/le-corail-residence-terre-et-truffes.fr.html",
+          "https://annuaire-entreprises.data.gouv.fr/etablissement/38276057700025",
+          "https://app.lexpace.com/entreprise/corail-382760577"
+        ],
+        "reasons": [
+          "bounded sources checked: 5"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "445f1f9f-4d07-4c61-834a-c8116d4414bb",
+      "name": "ELECTRONIQUE +",
+      "sourceCount": 30,
+      "identityVerified": 7,
+      "presence": {
+        "status": "VERIFIED",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "electroniqueplus.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "https://electroniqueplus.com/"
+          ],
+          "evidence": [
+            {
+              "value": "https://electroniqueplus.com/",
+              "sourceUrl": "https://electroniqueplus.com/",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 5,
+        "sourcesChecked": [
+          "https://electroniqueplus.com/",
+          "https://magasin-electronique.com/ville/le-lamentin_97232",
+          "https://annuaire-entreprises.data.gouv.fr/etablissement/39148567900016",
+          "https://annuaire-entreprises.data.gouv.fr/entreprise/electronique-391485679",
+          "https://societe.busyplace.fr/entreprise/electronique/391485679"
+        ],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 5"
+        ],
+        "enrichedAt": "2026-09-16T07:50:34.100Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "96d973b1-f68b-4a01-959a-1ee8e40d053e",
+      "name": "LE COMPTOIR MEDICAL",
+      "sourceCount": 30,
+      "identityVerified": 17,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "annuaire-entreprises.data.gouv.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 6,
+        "sourcesChecked": [
+          "https://annuaire-entreprises.data.gouv.fr/entreprise/388571929",
+          "https://www.facebook.com/login.php?next=https%3A%2F%2Fwww.facebook.com%2FComptoirMedical%2Falbums%2F3292692354298255",
+          "https://m.facebook.com/ComptoirMedical/albums/1577401365827371",
+          "https://annuaire-entreprises.data.gouv.fr/etablissement/38857192900040",
+          "https://commerce.e-pro.fr/dom-tom/h-medical_f802929",
+          "https://www.societe.com/societe/le-comptoir-medical-388571929.html"
+        ],
+        "reasons": [
+          "bounded sources checked: 6"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "b09ab56f-faa4-4125-8506-f28351a6af67",
+      "name": "VESPA ANTILLES",
+      "sourceCount": 30,
+      "identityVerified": 7,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "pple.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 5,
+        "sourcesChecked": [
+          "https://www.pple.fr/entreprise/vespa-antilles-35079310500049",
+          "https://annuaire-entreprises.data.gouv.fr/etablissement/35079310500023",
+          "https://entreprises.lefigaro.fr/vespa-antilles-972/entreprise-350793105",
+          "https://annuaire-entreprises.data.gouv.fr/etablissement/35079310500015",
+          "https://annuaire-entreprises.data.gouv.fr/entreprise/vespa-antilles-350793105"
+        ],
+        "reasons": [
+          "bounded sources checked: 5"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "73576dde-c29e-44ec-9a0d-fa7c0e0fb712",
+      "name": "ATHENA TRADING",
+      "sourceCount": 30,
+      "identityVerified": 14,
+      "presence": {
+        "status": "VERIFIED",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "athena-trading.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "https://athena-trading.com/"
+          ],
+          "evidence": [
+            {
+              "value": "https://athena-trading.com/",
+              "sourceUrl": "https://athena-trading.com/",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 8,
+        "sourcesChecked": [
+          "https://athena-trading.com/",
+          "https://annuaire-entreprises.data.gouv.fr/entreprise/820719847",
+          "https://entreprises.lagazettefrance.fr/entreprise/athena-trading-820719847",
+          "https://app.dataprospects.fr/entreprises/MY-PAYE-RH/834999161",
+          "https://athena-trading.com/contact",
+          "https://athena-trading.com/contactez-nous",
+          "https://athena-trading.com/nous-contacter",
+          "https://athena-trading.com/mentions-legales"
+        ],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 8"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "9912f815-5406-4792-8218-bb2eeaf02862",
+      "name": "MART'AUDIO",
+      "sourceCount": 30,
+      "identityVerified": 9,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "annuaire-entreprises.data.gouv.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 5,
+        "sourcesChecked": [
+          "https://annuaire-entreprises.data.gouv.fr/etablissement/93381442800019",
+          "https://www.societe.com/societe/mart-audio-933814428.html",
+          "https://entreprises.lagazettefrance.fr/entreprise/mad-inina-medical-918741620",
+          "https://annuaire-entreprises.data.gouv.fr/entreprise/933814428",
+          "https://entreprises.lefigaro.fr/mart-audio-972/entreprise-933814428"
+        ],
+        "reasons": [
+          "bounded sources checked: 5"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "fb951634-6f69-46f8-9f46-8db04e780e69",
+      "name": "ENVIE D AILLEURS",
+      "sourceCount": 30,
+      "identityVerified": 6,
+      "presence": {
+        "status": "VERIFIED",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "annuaire-entreprises.data.gouv.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "VERIFIED",
+          "values": [
+            "https://fr.linkedin.com/company/societe.com",
+            "https://twitter.com/Societe_com",
+            "https://www.youtube.com/@Soci%C3%A9t%C3%A9_FR",
+            "https://www.tiktok.com/@societe.com"
+          ],
+          "evidence": [
+            {
+              "value": "https://fr.linkedin.com/company/societe.com",
+              "sourceUrl": "https://www.societe.com/societe/e-d-a-feeling-513919704.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://twitter.com/Societe_com",
+              "sourceUrl": "https://www.societe.com/societe/e-d-a-feeling-513919704.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://www.youtube.com/@Soci%C3%A9t%C3%A9_FR",
+              "sourceUrl": "https://www.societe.com/societe/e-d-a-feeling-513919704.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            },
+            {
+              "value": "https://www.tiktok.com/@societe.com",
+              "sourceUrl": "https://www.societe.com/societe/e-d-a-feeling-513919704.html",
+              "kind": "social",
+              "evidenceType": "SOCIAL_HREF"
+            }
+          ]
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "VERIFIED",
+          "values": [
+            "https://www.tiktok.com/@societe.com"
+          ],
+          "evidence": [
+            {
+              "value": "https://www.tiktok.com/@societe.com",
+              "sourceUrl": "https://www.societe.com/societe/e-d-a-feeling-513919704.html",
+              "kind": "tiktok",
+              "evidenceType": "TIKTOK_HREF"
+            }
+          ]
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "VERIFIED",
+          "values": [
+            "https://www.societe.com/societe/e-d-a-feeling-513919704.html"
+          ],
+          "evidence": [
+            {
+              "value": "https://www.societe.com/societe/e-d-a-feeling-513919704.html",
+              "sourceUrl": "https://www.societe.com/societe/e-d-a-feeling-513919704.html",
+              "kind": "contactForm",
+              "evidenceType": "CONTACT_FORM"
+            }
+          ]
+        },
+        "sourcesProcessed": 3,
+        "sourcesChecked": [
+          "https://annuaire-entreprises.data.gouv.fr/etablissement/51391970400017",
+          "https://annuaire-entreprises.data.gouv.fr/entreprise/513919704",
+          "https://www.societe.com/societe/e-d-a-feeling-513919704.html"
+        ],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 3"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "d2c22cec-1091-4e81-8c50-cc90cb0f7216",
+      "name": "GUY HOQUET L'IMMOBILIER",
+      "sourceCount": 30,
+      "identityVerified": 8,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "name": "Agence immobilière à Martinique Fort de France",
+              "domain": "martinique-fort-de-france.guy-hoquet.com",
+              "city": "Fort de France"
+            },
+            {
+              "domain": "martinique-fort-de-france.guy-hoquet.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 4,
+        "sourcesChecked": [
+          "https://martinique-fort-de-france.guy-hoquet.com/mon-agence",
+          "https://annuaire-entreprises.data.gouv.fr/etablissement/51870544700010",
+          "https://www.cyphoma.com/professionals/real-estate/menhir-immobilier-franchise",
+          "https://annuaire-entreprises.data.gouv.fr/entreprise/518705447"
+        ],
+        "reasons": [
+          "bounded sources checked: 4"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "50c1fb37-77d1-42d3-8417-20f58aab8238",
+      "name": "SAVOIE",
+      "sourceCount": 30,
+      "identityVerified": 4,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "annuaire-entreprises.data.gouv.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 2,
+        "sourcesChecked": [
+          "https://annuaire-entreprises.data.gouv.fr/entreprise/518842349",
+          "https://app.dataprospects.fr/entreprises/PANCARAIB/423427574"
+        ],
+        "reasons": [
+          "bounded sources checked: 2"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "f5eedd9c-2e39-46eb-9663-1d9b3a7f6cad",
+      "name": "L'UNIVERS DU PNEU",
+      "sourceCount": 30,
+      "identityVerified": 4,
+      "presence": {
+        "status": "VERIFIED",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "societeinfo.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://societeinfo.com/app/recherche/societe/521924241"
+        ],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "0fef5908-9927-426a-bc3f-80249ab45b68",
+      "name": "PASS' TRAVEL",
+      "sourceCount": 30,
+      "identityVerified": 9,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "pass-consulting.com"
+            },
+            {
+              "domain": "pass-consulting.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 5,
+        "sourcesChecked": [
+          "https://www.pass-consulting.com/en/industries/travel/",
+          "https://www.societe.com/societe/pass-travel-532972650.html",
+          "https://fichesociete.fr/entreprise/antilles-tours-sarl-494130669",
+          "https://www.societe.com/societe/pass-travel-532972650.html",
+          "https://www.societe.com/societe/pass-travel-532972650.html"
+        ],
+        "reasons": [
+          "bounded sources checked: 5"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "c5e10d79-12f9-448b-8fe7-cf16a7a3969e",
+      "name": "DISVEA",
+      "sourceCount": 30,
+      "identityVerified": 12,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "pple.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 6,
+        "sourcesChecked": [
+          "https://www.pple.fr/entreprise/nocibe-53127268000020",
+          "https://www.societe.com/societe/disvea-531272680.html",
+          "https://entreprises.lefigaro.fr/disvea-972/entreprise-531272680",
+          "https://annuaire-entreprises.data.gouv.fr/entreprise/531272680",
+          "https://www.domtomemploi.fr/entreprise/disvea-le-lamentin-martinique",
+          "https://leguichetdesformalites.fr/entreprise/531272680-disvea"
+        ],
+        "reasons": [
+          "bounded sources checked: 6"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "ad4d9766-c85d-447a-9e5d-91ca81dbcd5f",
+      "name": "GRAZIELLA EUGENIE",
+      "sourceCount": 30,
+      "identityVerified": 4,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "societe.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://www.societe.com/manager/Graziella.EUGENIE.vIMXCzGAcHF.html"
+        ],
+        "reasons": [
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "85cfec6d-035d-47eb-b4bc-c09e09f9484e",
+      "name": "DARTY HABITAT NATURE ET DECOUVERTES",
+      "sourceCount": 30,
+      "identityVerified": 11,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "annuaire-entreprises.data.gouv.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 5,
+        "sourcesChecked": [
+          "https://annuaire-entreprises.data.gouv.fr/etablissement/33164760200019",
+          "https://entreprises.lagazettefrance.fr/entreprise/cie-martiniquaise-de-distribution-331647602",
+          "https://www.societe.com/societe/cie-martiniquaise-de-distribution-331647602.html",
+          "https://annuaire-entreprises.data.gouv.fr/entreprise/331647602",
+          "https://labonnealternance.apprentissage.beta.gouv.fr/emploi/recruteurs_lba/33164760200019/architecte-d-int%C3%A9rieur?romes=F1102&radius=30&job_name=Architecte+d%27int%C3%A9rieur&activeItems=lba%253A33164760200019"
+        ],
+        "reasons": [
+          "bounded sources checked: 5"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    },
+    {
+      "id": "0fb087b7-bd21-4591-9930-020b8653d7c6",
+      "name": "GEORGES PLAVONIL",
+      "sourceCount": 30,
+      "identityVerified": 4,
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "name": "GEORGES PLAVONIL (97200 Fort-de-France) : établissements, SIREN et démarches",
+              "domain": "leguichetdesformalites.fr"
+            },
+            {
+              "name": "Accueil"
+            },
+            {
+              "name": "Entreprises"
+            },
+            {
+              "name": "GEORGES PLAVONIL"
+            },
+            {
+              "name": "Quels sont les identifiants de GEORGES PLAVONIL ?"
+            },
+            {
+              "name": "Où se situe le siège social de GEORGES PLAVONIL ?"
+            },
+            {
+              "name": "Qui dirige GEORGES PLAVONIL ?"
+            },
+            {
+              "name": "GEORGES PLAVONIL est-elle toujours en activité ?"
+            },
+            {
+              "name": "Comment réaliser une formalité pour GEORGES PLAVONIL ?"
+            },
+            {
+              "domain": "leguichetdesformalites.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://leguichetdesformalites.fr/entreprise/323811877-georges-plavonil"
+        ],
+        "reasons": [
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-16T07:34:19.638Z",
+        "truncated": false
+      }
+    }
+  ],
+  "sample": [
+    {
+      "name": "ATHENA TRADING",
+      "sourceCount": 10,
+      "sourceFindings": [
+        {
+          "url": "https://athena-trading.com/",
+          "sourceType": "OWNED_WEBSITE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 3621,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "796568636"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "VERIFIED"
+        },
+        {
+          "url": "https://athenaatrading.com/category/uncategorized",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "FETCH_ERROR: fetch failed",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.pappers.fr/entreprise/athena-trading-820719847",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://athenaatrading.com/contact-us",
+          "sourceType": "CONTACT_PAGE",
+          "fetchOk": false,
+          "fetchReason": "FETCH_ERROR: fetch failed",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://annuaire-entreprises.data.gouv.fr/entreprise/820719847",
+          "sourceType": "REGISTRY",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 846,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "51-334386436-0",
+            "281789544396333",
+            "969000441191035083-157",
+            "4249687509699379",
+            "88.172.184.233",
+            "969000441191035083-157",
+            "4249687509699379"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://www.europages.co.uk/en/company/athena-trading-22339784",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "RESPONSE_TOO_LARGE",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.dnb.com/business-directory/company-profiles.athena_trading.006202c14cea2488fcc623a48fbaac48.html",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://entreprises.lagazettefrance.fr/entreprise/athena-trading-820719847",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 124031,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "820719847",
+            "820719847",
+            "820719847",
+            "820719847",
+            "30/05/2016",
+            "2016-05-30",
+            "17820719847",
+            "820719847"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://data-prospection.fr/entreprise/athena-trading/820719847",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://app.dataprospects.fr/entreprises/SAS-PAYE-ET-RH/834999161",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 64887,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "834999161",
+            "834999161",
+            "834999161",
+            "20260713-1",
+            "+0152-0153",
+            "+0152-0153",
+            "+0152-0153",
+            "+0152-0153"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        }
+      ]
+    },
+    {
+      "name": "AUDITION CONSEIL",
+      "sourceCount": 10,
+      "sourceFindings": [
+        {
+          "url": "https://audition-conseil.com/",
+          "sourceType": "OWNED_WEBSITE",
+          "fetchOk": false,
+          "fetchReason": "FETCH_ERROR: fetch failed",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://auditionconseil-guadeloupe-martinique.fr/centres-auditifs/audioprothesiste-schoelcher",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 232579,
+          "tel": 2,
+          "jsonld": 1,
+          "phoneLike": [
+            "1472147649485903",
+            "1472147649485903",
+            "2018-01-10",
+            "2025-04-16",
+            "1563277750",
+            "1.42857143",
+            "246018612082158",
+            "0596716171"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://www.pagesjaunes.fr/pros/08351619",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://fr.mappy.com/poi/59c3abca0351d15f9fdf7619",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 43598,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "81/35/00/00/77/07",
+            "813500007707",
+            "813500007707",
+            "684226288210",
+            "1.0-20260908",
+            "202609081733",
+            "81/35/00/00/77/07",
+            "813500007707"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://auditionconseilantilles.com/",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 170636,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "1778497091",
+            "1787283906",
+            "1787283906",
+            "1787283906",
+            "1787283906",
+            "1787283906",
+            "1787283906",
+            "1787283906"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://annuaire-entreprises.data.gouv.fr/etablissement/44337074700034",
+          "sourceType": "REGISTRY",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 842,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "40-82784743-0",
+            "281789544399672",
+            "969000441191035083-393",
+            "094695691553576",
+            "88.172.184.233",
+            "969000441191035083-393",
+            "094695691553576"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://www.instagram.com/auditionconseil_martinique",
+          "sourceType": "INSTAGRAM",
+          "fetchOk": false,
+          "fetchReason": "RESPONSE_TOO_LARGE",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.facebook.com/auditionconseilmartinique",
+          "sourceType": "FACEBOOK",
+          "fetchOk": false,
+          "fetchReason": "RESPONSE_TOO_LARGE",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.facebook.com/AuditionConseilSchoelcher?locale=ta_IN",
+          "sourceType": "FACEBOOK",
+          "fetchOk": false,
+          "fetchReason": "RESPONSE_TOO_LARGE",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.pappers.fr/entreprise/soc-caribeenne-de-laudition-443370747",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        }
+      ]
+    },
+    {
+      "name": "BERNARD'S COFFEE SHOP",
+      "sourceCount": 10,
+      "sourceFindings": [
+        {
+          "url": "https://www.societe.com/societe/bernard-s-coffee-shop-892355967.html",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 113423,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "892355967",
+            "892355967",
+            "892355967",
+            "892355967",
+            "892355967",
+            "892355967",
+            "892355967",
+            "892355967"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "VERIFIED"
+        },
+        {
+          "url": "https://annuaire-entreprises.data.gouv.fr/entreprise/892355967",
+          "sourceType": "REGISTRY",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 847,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "31-19909586-0",
+            "281789544401509",
+            "969000441191035083-918",
+            "32332201823007",
+            "88.172.184.233",
+            "969000441191035083-918",
+            "32332201823007"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "VERIFIED"
+        },
+        {
+          "url": "https://www.facebook.com/100063594235047/about",
+          "sourceType": "FACEBOOK",
+          "fetchOk": false,
+          "fetchReason": "RESPONSE_TOO_LARGE",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.instagram.com/p/CMLFKRrDNeZ",
+          "sourceType": "INSTAGRAM",
+          "fetchOk": false,
+          "fetchReason": "RESPONSE_TOO_LARGE",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.facebook.com/103291058425924/albums/109451141143249",
+          "sourceType": "FACEBOOK",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 403604,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "0.86666666666667",
+            "0.86666666666667",
+            "0.86666666666667",
+            "7686034682034974301",
+            "7686034682034974301",
+            "7686034682034974301",
+            "1047650063",
+            "103291058425924"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "VERIFIED"
+        },
+        {
+          "url": "https://www.facebook.com/100063594235047?locale=cy_GB",
+          "sourceType": "FACEBOOK",
+          "fetchOk": false,
+          "fetchReason": "RESPONSE_TOO_LARGE",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.pappers.fr/entreprise/bernards-coffee-shop-892355967",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://app.dataprospects.fr/entreprises/CAFE-ANTILLES/944718535",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 60691,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "944718535",
+            "944718535",
+            "944718535",
+            "20260713-1",
+            "+0152-0153",
+            "+0152-0153",
+            "+0152-0153",
+            "+0152-0153"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://chillin972.com/2022/03/23/on-a-teste-le-bernards-coffee-shop-avant-linauguration",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 197541,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "148302628",
+            "2022/03/23",
+            "0 0 100 100",
+            "0 0 100 100",
+            "1785880900",
+            "1771405207",
+            "1436783281",
+            "1738187798"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "VERIFIED"
+        },
+        {
+          "url": "https://www.instagram.com/bernards_coffee?hl=en",
+          "sourceType": "INSTAGRAM",
+          "fetchOk": false,
+          "fetchReason": "RESPONSE_TOO_LARGE",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        }
+      ]
+    },
+    {
+      "name": "COPROPRIETE MARITIME - STRATEGE DES MERS",
+      "sourceCount": 5,
+      "sourceFindings": [
+        {
+          "url": "https://entreprises.lagazettefrance.fr/entreprise/copropriete-maritime-stratege-des-mers-419555487",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 106710,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "419555487",
+            "419555487",
+            "419555487",
+            "419555487",
+            "29/08/1997",
+            "1997-08-29",
+            "2419555487",
+            "419555487"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "VERIFIED"
+        },
+        {
+          "url": "https://www.societe.com/societe/copropriete-maritime-stratege-des-mers-419555487.html",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 69152,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "419555487",
+            "419555487",
+            "419555487",
+            "419555487",
+            "419555487",
+            "419555487",
+            "419555487",
+            "419555487"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "VERIFIED"
+        },
+        {
+          "url": "https://infonet.fr/entreprises/41955257500013-erimen-henri",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://entreprises.lefigaro.fr/copropriete-maritime-stratege-des-me-972/entreprise-354093106",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 104910,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "1787583776",
+            "354093106",
+            "1365012064333",
+            "0 0 18 16",
+            "8.934 4.398 2.812 9.77",
+            "163.163 0 0 1-.006.034",
+            "165.165 0 0 0-.005.034",
+            "72.72 0 0 0 .202.51.63"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://www.societe.com/societe/madame-pascale-bobineau-354093106.html",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 75145,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "354093106",
+            "354093106",
+            "354093106",
+            "354093106",
+            "354093106",
+            "354093106",
+            "354093106",
+            "354093106"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "VERIFIED"
+        }
+      ]
+    },
+    {
+      "name": "CORAIL",
+      "sourceCount": 10,
+      "sourceFindings": [
+        {
+          "url": "https://www.corail.fr/",
+          "sourceType": "OWNED_WEBSITE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_503",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.societe.com/societe/corail-382760577.html",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 211969,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "382760577",
+            "382760577",
+            "382760577",
+            "382760577",
+            "382760577",
+            "382760577",
+            "382760577",
+            "382760577"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://annuaire-entreprises.data.gouv.fr/entreprise/382760577",
+          "sourceType": "REGISTRY",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 848,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "49-267694479-0",
+            "281789544405018",
+            "969000441191035083-125",
+            "7317874574887729",
+            "88.172.184.233",
+            "969000441191035083-125",
+            "7317874574887729"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://www.skyscanner.net/hotels/martinique/le-lamentin-hotels/le-corail-residence-terre-et-truffes/ht-225115420",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "RESPONSE_TOO_LARGE",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.booking.com/hotel/mq/le-corail-residence-terre-et-truffes.fr.html",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 7033,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "1760623098515",
+            "1789544405727"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://www.facebook.com/sylvain.renecorail",
+          "sourceType": "FACEBOOK",
+          "fetchOk": false,
+          "fetchReason": "RESPONSE_TOO_LARGE",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://annuaire-entreprises.data.gouv.fr/etablissement/38276057700025",
+          "sourceType": "REGISTRY",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 847,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "35-40352867-0",
+            "281789544406063",
+            "969000441191035083-191",
+            "444267452402467",
+            "88.172.184.233",
+            "969000441191035083-191",
+            "444267452402467"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://www.pappers.fr/entreprise/bpce-lease-reunion-310836614",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.bedroomvillas.com/property/le-corail-r%C3%A9sidence-terre-et-truffes/BC-15014284",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://app.lexpace.com/entreprise/corail-382760577",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 109337,
+          "tel": 1,
+          "jsonld": 0,
+          "phoneLike": [
+            "382760577",
+            "382760577",
+            "382760577",
+            "382760577",
+            "382760577",
+            "382760577",
+            "382760577",
+            "1991-08-09"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        }
+      ]
+    },
+    {
+      "name": "DARTY HABITAT NATURE ET DECOUVERTES",
+      "sourceCount": 10,
+      "sourceFindings": [
+        {
+          "url": "https://www.dartyhabitat.com/",
+          "sourceType": "OWNED_WEBSITE",
+          "fetchOk": false,
+          "fetchReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://annuaire-entreprises.data.gouv.fr/etablissement/33164760200019",
+          "sourceType": "REGISTRY",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 842,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "42-111416566-0",
+            "281789544406328",
+            "969000441191035083-525",
+            "568782933494570",
+            "88.172.184.233",
+            "969000441191035083-525",
+            "568782933494570"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://www.pagesjaunes.fr/pros/55395777",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://rubypayeur.com/societe/cie-martiniquaise-de-distribution-331647602",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.pappers.fr/entreprise/comadi-cie-martiniquaise-de-distribution-331647602",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://entreprises.lagazettefrance.fr/entreprise/cie-martiniquaise-de-distribution-331647602",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 126117,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "331647602",
+            "331647602",
+            "331647602",
+            "331647602",
+            "04/01/1985",
+            "1985-01-04",
+            "44331647602",
+            "331647602"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://us.kompass.com/c/cie-martiniquaise-de-distribution/fra0362d3",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.societe.com/societe/cie-martiniquaise-de-distribution-331647602.html",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 216132,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "331647602",
+            "331647602",
+            "331647602",
+            "331647602",
+            "331647602",
+            "331647602",
+            "331647602",
+            "331647602"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://annuaire-entreprises.data.gouv.fr/entreprise/331647602",
+          "sourceType": "REGISTRY",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 845,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "43-122387105-0",
+            "281789544407067",
+            "969000441191035083-576",
+            "795377563929387",
+            "88.172.184.233",
+            "969000441191035083-576",
+            "795377563929387"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://labonnealternance.apprentissage.beta.gouv.fr/emploi/recruteurs_lba/33164760200019/architecte-d-int%C3%A9rieur?romes=F1102&radius=30&job_name=Architecte+d%27int%C3%A9rieur&activeItems=lba%253A33164760200019",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 248760,
+          "tel": 1,
+          "jsonld": 0,
+          "phoneLike": [
+            "22 22 44 44",
+            "0 0 80 80",
+            "0 0 80 80",
+            "0 0 80 80",
+            "33164760200019",
+            "33164760200019",
+            "33164760200019",
+            "33164760200019"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        }
+      ]
+    },
+    {
+      "name": "DISVEA",
+      "sourceCount": 10,
+      "sourceFindings": [
+        {
+          "url": "https://www.disvea.com/",
+          "sourceType": "OWNED_WEBSITE",
+          "fetchOk": false,
+          "fetchReason": "FETCH_ERROR: fetch failed",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.pple.fr/entreprise/disvea-53127268000020",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "TIMEOUT",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.societe.com/societe/disvea-531272680.html",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 149903,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "531272680",
+            "531272680",
+            "531272680",
+            "531272680",
+            "531272680",
+            "531272680",
+            "531272680",
+            "531272680"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://www.verif.com/societe/DISVEA-531272680",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://entreprises.lefigaro.fr/disvea-972/entreprise-531272680",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 125004,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "1787583776",
+            "531272680",
+            "1365012064333",
+            "0 0 18 16",
+            "8.934 4.398 2.812 9.77",
+            "163.163 0 0 1-.006.034",
+            "165.165 0 0 0-.005.034",
+            "72.72 0 0 0 .202.51.63"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://annuaire-entreprises.data.gouv.fr/entreprise/531272680",
+          "sourceType": "REGISTRY",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 844,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "44-140707666-0",
+            "281789544417566",
+            "969000441191035083-662",
+            "686090599664428",
+            "88.172.184.233",
+            "969000441191035083-662",
+            "686090599664428"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://www.pappers.fr/entreprise/disvea-531272680",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.domtomemploi.fr/entreprise/disvea-le-lamentin-martinique",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 30110,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "1781263931",
+            "531272680",
+            "531272680",
+            "53127268000012",
+            "0 0 24 24",
+            "0 7-9 13-9 13",
+            "9 9 0 0 1 18 0",
+            "0 0 24 24"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://lesentreprises.com/entreprises/531272680",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://leguichetdesformalites.fr/entreprise/531272680-disvea",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 180398,
+          "tel": 3,
+          "jsonld": 0,
+          "phoneLike": [
+            "531272680",
+            "531272680",
+            "531272680",
+            "531272680",
+            "1783581111",
+            "1783581111",
+            "1783581111",
+            "1783581111"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        }
+      ]
+    },
+    {
+      "name": "ELECTRONIQUE +",
+      "sourceCount": 7,
+      "sourceFindings": [
+        {
+          "url": "https://www.electroniqueplus.com/",
+          "sourceType": "OWNED_WEBSITE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [],
+          "parserPhone": "UNKNOWN",
+          "identity": "VERIFIED"
+        },
+        {
+          "url": "https://magasin-electronique.com/ville/le-lamentin_97232",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 211397,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "2020-08-13",
+            "2020-08-13",
+            "1.9444444444444",
+            "0.83333333333333",
+            "2.2222222222222",
+            "2.2222222222222",
+            "1.6666666666667",
+            "1.3888888888889"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://electroniqueplus.com/magasins",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "UNSUPPORTED_CONTENT_TYPE: text/xml",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://annuaire-entreprises.data.gouv.fr/etablissement/39148567900016",
+          "sourceType": "REGISTRY",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 853,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "44-140708102-0",
+            "281789544418972",
+            "969000441191035083-662",
+            "688246673247020",
+            "88.172.184.233",
+            "969000441191035083-662",
+            "688246673247020"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://www.pappers.fr/entreprise/electronique-391485679",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://annuaire-entreprises.data.gouv.fr/entreprise/electronique-391485679",
+          "sourceType": "REGISTRY",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 843,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "44-140708113-0",
+            "281789544419028",
+            "969000441191035083-662",
+            "688319687691052",
+            "88.172.184.233",
+            "969000441191035083-662",
+            "688319687691052"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://societe.busyplace.fr/entreprise/electronique/391485679",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 251184,
+          "tel": 3,
+          "jsonld": 0,
+          "phoneLike": [
+            "669857718",
+            "0 0 24 24",
+            "0 0 24 24",
+            "2 2 0 01-2-2",
+            "2 2 0 012-2",
+            "2 2 0 012 2",
+            "2 2 0 01-2-2",
+            "2 2 0 002-2"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        }
+      ]
+    },
+    {
+      "name": "ENVIE D AILLEURS",
+      "sourceCount": 6,
+      "sourceFindings": [
+        {
+          "url": "https://annuaire-entreprises.data.gouv.fr/etablissement/51391970400017",
+          "sourceType": "REGISTRY",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 844,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "41-92979921-0",
+            "281789544419143",
+            "969000441191035083-439",
+            "987079909804841",
+            "88.172.184.233",
+            "969000441191035083-439",
+            "987079909804841"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "VERIFIED"
+        },
+        {
+          "url": "https://annuaire-entreprises.data.gouv.fr/entreprise/513919704",
+          "sourceType": "REGISTRY",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 844,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "37-55747735-0",
+            "281789544419167",
+            "969000441191035083-264",
+            "106558525868837",
+            "88.172.184.233",
+            "969000441191035083-264",
+            "106558525868837"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "VERIFIED"
+        },
+        {
+          "url": "https://www.pappers.fr/entreprise/e-d-a-feeling-513919704",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://tn.kompass.com/c/e-d-a-feeling/fra034pw4",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://www.societe.com/societe/e-d-a-feeling-513919704.html",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 122495,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": [
+            "513919704",
+            "513919704",
+            "513919704",
+            "513919704",
+            "513919704",
+            "513919704",
+            "513919704",
+            "513919704"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "VERIFIED"
+        },
+        {
+          "url": "https://www.dnb.com/business-directory/company-information.miscellaneous_durable_goods_merchant_wholesalers.mq.martinique.sainte-luce.html",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_403",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        }
+      ]
+    },
+    {
+      "name": "GEORGES PLAVONIL",
+      "sourceCount": 4,
+      "sourceFindings": [
+        {
+          "url": "https://www.georgesplavonil.com/",
+          "sourceType": "OWNED_WEBSITE",
+          "fetchOk": false,
+          "fetchReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://leguichetdesformalites.fr/entreprise/323811877-georges-plavonil",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": true,
+          "fetchReason": null,
+          "bytes": 161096,
+          "tel": 3,
+          "jsonld": 0,
+          "phoneLike": [
+            "323811877",
+            "323811877",
+            "323811877",
+            "323811877",
+            "1783581111",
+            "1783581111",
+            "1783581111",
+            "1783581111"
+          ],
+          "parserPhone": "UNKNOWN",
+          "identity": "REJECTED"
+        },
+        {
+          "url": "https://socs.fr/entreprise/994405587",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_429",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        },
+        {
+          "url": "https://socs.fr/entreprise/490730330",
+          "sourceType": "OTHER_PUBLIC_SOURCE",
+          "fetchOk": false,
+          "fetchReason": "HTTP_STATUS_429",
+          "bytes": 0,
+          "tel": 0,
+          "jsonld": 0,
+          "phoneLike": []
+        }
+      ]
+    }
+  ]
+}

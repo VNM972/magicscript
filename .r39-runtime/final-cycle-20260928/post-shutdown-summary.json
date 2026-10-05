@@ -1,0 +1,121 @@
+{
+  "counts": {
+    "prospects": 9,
+    "jobs": 9,
+    "job_results": 9,
+    "events": 30,
+    "provider_state": 4,
+    "v2_admissions": 0,
+    "active_production_slots": 20,
+    "v2_design_requests": 0,
+    "v2_design_artifacts": 0,
+    "v2_design_reviews": 0,
+    "v2_build_artifacts": 0,
+    "v2_visual_qa_reports": 0,
+    "v2_proposals": 0,
+    "outreach_messages": 0,
+    "contacts": 0,
+    "phone_trust_states": 0,
+    "prototypes": 0
+  },
+  "providerState": [
+    {
+      "provider": "recherche-entreprises",
+      "key": "martinique-first-wave-food-page",
+      "value": "4",
+      "updated_at": "2026-09-28T17:20:43.038Z"
+    },
+    {
+      "provider": "recherche-entreprises",
+      "key": "martinique-first-wave-beauty-page",
+      "value": "4",
+      "updated_at": "2026-09-28T17:20:43.041Z"
+    },
+    {
+      "provider": "recherche-entreprises",
+      "key": "martinique-first-wave-retail-page",
+      "value": "4",
+      "updated_at": "2026-09-28T17:20:43.043Z"
+    },
+    {
+      "provider": "recherche-entreprises",
+      "key": "martinique-page",
+      "value": "2",
+      "updated_at": "2026-09-28T16:29:57.416Z"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "32d48920-04a5-4337-a852-6e12447e6aae",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospectId": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "id": "cb690f4e-2009-4b37-bb4c-b4f7bcfc5df4",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospectId": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "id": "79e987b7-a933-423d-8ccb-6f5a16f9bc02",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospectId": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "id": "df7a2a30-616a-46bc-b3b4-c00cd7e680be",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospectId": "d136a9dd-d0ca-426b-9b0c-d2ce4cbfda1a",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "id": "4cd30580-5978-4c27-8bfa-c1a900ff2799",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospectId": "1a608e32-1703-44a2-b81f-42d10d80c61f",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "id": "d86bad90-53fe-4924-9533-fb113ea13c83",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospectId": "58264bc4-f64f-4245-920f-e448601dea89",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "id": "1bd9d70b-5a30-4d8f-bcf5-33f412567714",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospectId": "ec74433c-fbcc-47ac-8176-1cfb00189fce",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "id": "b42c112b-65d1-4fe4-a9f2-a77da0e7920a",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospectId": "02bc70a6-4607-41e4-829b-0f3b9351b1aa",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "error": null
+    },
+    {
+      "id": "b7b5ce09-568f-41ac-b32a-a1511b559fd8",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospectId": "7509c105-ea28-48ea-aaf3-59e780720d25",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "error": null
+    }
+  ]
+}

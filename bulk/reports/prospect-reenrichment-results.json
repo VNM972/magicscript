@@ -1,0 +1,2663 @@
+{
+  "generatedAt": "2026-09-16T06:30:21.721Z",
+  "algorithmVersion": "contact-presence-enrichment-v1-replay-2026-09-16",
+  "counts": {
+    "total": 95,
+    "eligible": 33,
+    "reenriched": 33,
+    "alreadyCurrent": 0
+  },
+  "results": [
+    {
+      "id": "0e93bc69-bc2d-420d-9159-5235f313d92e",
+      "name": "VIP FINANCE",
+      "eventId": "cpv1-0e93bc69-bc2d-420d-9159-5235f313d92e-bb67d34b0a803efd650f8a27",
+      "fingerprint": "bb67d34b0a803efd650f8a27b984129c91808905add43bd260f200864f6c7e45",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "vipfinance.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "www.vipfinance.com"
+          ],
+          "evidence": [
+            {
+              "value": "www.vipfinance.com",
+              "sourceUrl": "www.vipfinance.com",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:21.991Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "0fb087b7-bd21-4591-9930-020b8653d7c6",
+      "name": "GEORGES PLAVONIL",
+      "eventId": "cpv1-0fb087b7-bd21-4591-9930-020b8653d7c6-b32fd9147eb155cd4a6425ed",
+      "fingerprint": "b32fd9147eb155cd4a6425edba47f26b29549a2e13651ab1c74596bbc458a083",
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "facebook.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://www.facebook.com/georgesplavonil"
+        ],
+        "reasons": [
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-16T06:30:22.437Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "0fef5908-9927-426a-bc3f-80249ab45b68",
+      "name": "PASS' TRAVEL",
+      "eventId": "cpv1-0fef5908-9927-426a-bc3f-80249ab45b68-ca7677af3722c4ea7cb0d618",
+      "fingerprint": "ca7677af3722c4ea7cb0d618fabce3b48eef77b9358f6bfbcb5522374940584d",
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "pass-consulting.com"
+            },
+            {
+              "domain": "pass-consulting.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 2,
+        "sourcesChecked": [
+          "https://www.pass-consulting.com/en/industries/travel/",
+          "https://www.pass-consulting.com/en/industries/travel/index.php"
+        ],
+        "reasons": [
+          "bounded sources checked: 2"
+        ],
+        "enrichedAt": "2026-09-16T06:30:22.807Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "19706c05-657c-496d-8295-9ac5545c695a",
+      "name": "CORAIL",
+      "eventId": "cpv1-19706c05-657c-496d-8295-9ac5545c695a-d44491af535f87d57d96a535",
+      "fingerprint": "d44491af535f87d57d96a5358291f9568cc1f2218b1386c486d1980be97d0ca1",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "corail.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "www.corail.fr"
+          ],
+          "evidence": [
+            {
+              "value": "www.corail.fr",
+              "sourceUrl": "www.corail.fr",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:22.926Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 60,
+      "newScore": 60
+    },
+    {
+      "id": "2467794e-98f4-422c-9e81-662193cc0d89",
+      "name": "EVELYNE PILLET (RENAUD)",
+      "eventId": "cpv1-2467794e-98f4-422c-9e81-662193cc0d89-19941b5f45a9aed39cb7e3ef",
+      "fingerprint": "19941b5f45a9aed39cb7e3efaee3bb6344150363d3477b94fa24e1c3d6a36522",
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "facebook.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://www.facebook.com/EvelynePilletRenaud"
+        ],
+        "reasons": [
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-16T06:30:23.185Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "2d57e173-159e-4ae3-a77e-bdec4eaa246e",
+      "name": "SARL SOREIDOM",
+      "eventId": "cpv1-2d57e173-159e-4ae3-a77e-bdec4eaa246e-c65dae89c20ab46f28a4e32c",
+      "fingerprint": "c65dae89c20ab46f28a4e32c89d1688b542b68832751de4e1f08c2456f7718f5",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": []
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:23.185Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 72,
+      "newScore": 72
+    },
+    {
+      "id": "402627ff-a3ca-4493-82ff-a568d4f70bb0",
+      "name": "MICHEL BES",
+      "eventId": "cpv1-402627ff-a3ca-4493-82ff-a568d4f70bb0-d2bd8506e55f55c227630079",
+      "fingerprint": "d2bd8506e55f55c2276300799c0fdc2817e8691e80d963317228e6415627455d",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": []
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:23.186Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "445f1f9f-4d07-4c61-834a-c8116d4414bb",
+      "name": "ELECTRONIQUE +",
+      "eventId": "cpv1-445f1f9f-4d07-4c61-834a-c8116d4414bb-63e86fdf0f0a3cc48fbe59bc",
+      "fingerprint": "63e86fdf0f0a3cc48fbe59bc5c26056cb6e4d0bf7b3fc95ce93a6709e676accc",
+      "presence": {
+        "status": "VERIFIED",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "electroniqueplus.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "https://electroniqueplus.com/"
+          ],
+          "evidence": [
+            {
+              "value": "https://electroniqueplus.com/",
+              "sourceUrl": "https://electroniqueplus.com/",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://electroniqueplus.com/"
+        ],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-16T06:30:23.666Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "49a20d08-d4db-4998-b236-311e7d737cdd",
+      "name": "GIE LIEMAN GESTION",
+      "eventId": "cpv1-49a20d08-d4db-4998-b236-311e7d737cdd-0da2db20496b5a0c1f615af3",
+      "fingerprint": "0da2db20496b5a0c1f615af345939182d4f62448cf50deba837e1167cef2c638",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": []
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:23.666Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 75,
+      "newScore": 75
+    },
+    {
+      "id": "50c1fb37-77d1-42d3-8417-20f58aab8238",
+      "name": "SAVOIE",
+      "eventId": "cpv1-50c1fb37-77d1-42d3-8417-20f58aab8238-305f84a0d8d8272896fa8ded",
+      "fingerprint": "305f84a0d8d8272896fa8ded2dcc0c51d41e6a33b99a753ccdcb7dc0c6005271",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "savoie.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "www.savoie.com"
+          ],
+          "evidence": [
+            {
+              "value": "www.savoie.com",
+              "sourceUrl": "www.savoie.com",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:24.065Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 73,
+      "newScore": 73
+    },
+    {
+      "id": "5a8560d0-231a-4096-9200-8680ac5819a8",
+      "name": "COPROPRIETE MARITIME - STRATEGE DES MERS",
+      "eventId": "cpv1-5a8560d0-231a-4096-9200-8680ac5819a8-2484facbee83b3f01cbecc12",
+      "fingerprint": "2484facbee83b3f01cbecc126a350dedd0a49ff68a4f785cbb627d53f9ecf5f6",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": []
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:24.065Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "5d1ad3d5-b8ff-417d-97a2-b40ce7b8ce1c",
+      "name": "LE BAYOU",
+      "eventId": "cpv1-5d1ad3d5-b8ff-417d-97a2-b40ce7b8ce1c-87432405bfee94c3fef61c7c",
+      "fingerprint": "87432405bfee94c3fef61c7c3f60fd72541e0c5a944aae035c4b79b87b184fd5",
+      "presence": {
+        "status": "VERIFIED",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "le-bayou.eventofy.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "https://le-bayou.eventofy.com/"
+          ],
+          "evidence": [
+            {
+              "value": "https://le-bayou.eventofy.com/",
+              "sourceUrl": "https://le-bayou.eventofy.com/",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "VERIFIED",
+          "values": [
+            "https://le-bayou.eventofy.com/"
+          ],
+          "evidence": [
+            {
+              "value": "https://le-bayou.eventofy.com/",
+              "sourceUrl": "https://le-bayou.eventofy.com/",
+              "kind": "contactForm",
+              "evidenceType": "CONTACT_FORM"
+            }
+          ]
+        },
+        "sourcesProcessed": 3,
+        "sourcesChecked": [
+          "https://le-bayou.eventofy.com/",
+          "https://recherche-entreprises.api.gouv.fr/search?q=Le%20Bayou%20Fort-de-France",
+          "https://app.menu-touch.fr/index.php?id_client=22424"
+        ],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 3"
+        ],
+        "enrichedAt": "2026-09-16T06:30:24.567Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 34,
+      "newScore": 34
+    },
+    {
+      "id": "73576dde-c29e-44ec-9a0d-fa7c0e0fb712",
+      "name": "ATHENA TRADING",
+      "eventId": "cpv1-73576dde-c29e-44ec-9a0d-fa7c0e0fb712-64830f87b446a3d88797e83c",
+      "fingerprint": "64830f87b446a3d88797e83c42b465d858c6fe56720a4a88e4784fcb7aa2fbb4",
+      "presence": {
+        "status": "VERIFIED",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "athena-trading.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "https://athena-trading.com/"
+          ],
+          "evidence": [
+            {
+              "value": "https://athena-trading.com/",
+              "sourceUrl": "https://athena-trading.com/",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 3,
+        "sourcesChecked": [
+          "https://athena-trading.com/",
+          "https://athena-trading.com/contact",
+          "https://athena-trading.com/assets/logo.png"
+        ],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 3"
+        ],
+        "enrichedAt": "2026-09-16T06:30:24.787Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 73,
+      "newScore": 73
+    },
+    {
+      "id": "7847ee99-d76d-4fe1-920d-d94fab26df78",
+      "name": "GEORGES SYLVESTRE (MARIE-NELLY)",
+      "eventId": "cpv1-7847ee99-d76d-4fe1-920d-d94fab26df78-7d6b18f57eaaaf68258c5a32",
+      "fingerprint": "7d6b18f57eaaaf68258c5a32491fc7e1da0b76bb8e736fd6f86b6b7c6589c4a7",
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "facebook.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://www.facebook.com/georges-sylvestre-marie-nelly"
+        ],
+        "reasons": [
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-16T06:30:25.031Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "7c2901b1-fab6-40c2-8645-ee6f51329544",
+      "name": "BERNARD'S COFFEE SHOP",
+      "eventId": "cpv1-7c2901b1-fab6-40c2-8645-ee6f51329544-f4ad994118011e844ce68d53",
+      "fingerprint": "f4ad994118011e844ce68d5362d9c2daab122af2e9ba8541bcf9519d0a7727d8",
+      "presence": {
+        "status": "VERIFIED",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "recherche-entreprises.api.gouv.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "VERIFIED",
+          "values": [
+            "0.597651721"
+          ],
+          "evidence": [
+            {
+              "value": "0.597651721",
+              "sourceUrl": "https://recherche-entreprises.api.gouv.fr/search?q=Bernard%27s%20Coffee",
+              "kind": "phone",
+              "evidenceType": "VISIBLE_PHONE"
+            }
+          ]
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://recherche-entreprises.api.gouv.fr/search?q=Bernard%27s%20Coffee"
+        ],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-16T06:30:25.345Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "82ed270e-8e1f-4cff-95dc-ff0c8d1028ad",
+      "name": "JACQUES ALLALI",
+      "eventId": "cpv1-82ed270e-8e1f-4cff-95dc-ff0c8d1028ad-2a09c1cf651c3e33e474e94c",
+      "fingerprint": "2a09c1cf651c3e33e474e94c03d2dafce39cb8adf11a77e84fd630289ae1ce46",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": []
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:25.347Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 72,
+      "newScore": 72
+    },
+    {
+      "id": "85cfec6d-035d-47eb-b4bc-c09e09f9484e",
+      "name": "DARTY HABITAT NATURE ET DECOUVERTES",
+      "eventId": "cpv1-85cfec6d-035d-47eb-b4bc-c09e09f9484e-ea92a36783ccc65da3b191bb",
+      "fingerprint": "ea92a36783ccc65da3b191bbb1d7f100a9e76a48ee3370a189475d3edc5600d2",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "dartyhabitat.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "www.dartyhabitat.com"
+          ],
+          "evidence": [
+            {
+              "value": "www.dartyhabitat.com",
+              "sourceUrl": "www.dartyhabitat.com",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:25.357Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "8a14759d-8956-4e8b-82ef-51317362b72f",
+      "name": "POMPES FUNEBRES CARISTAN",
+      "eventId": "cpv1-8a14759d-8956-4e8b-82ef-51317362b72f-32c93003a50cf7c39d7472a6",
+      "fingerprint": "32c93003a50cf7c39d7472a67a95ff2310783104bcd5b825d4bea9b332845b4f",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": []
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:25.358Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "96d973b1-f68b-4a01-959a-1ee8e40d053e",
+      "name": "LE COMPTOIR MEDICAL",
+      "eventId": "cpv1-96d973b1-f68b-4a01-959a-1ee8e40d053e-7f1b01e5a051a30bfb0e7656",
+      "fingerprint": "7f1b01e5a051a30bfb0e7656eb5f1591b03501d1c9e0e2daaa01b004dda0ddb4",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "lecomptoirmedical.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "www.lecomptoirmedical.com"
+          ],
+          "evidence": [
+            {
+              "value": "www.lecomptoirmedical.com",
+              "sourceUrl": "www.lecomptoirmedical.com",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:25.546Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 60,
+      "newScore": 60
+    },
+    {
+      "id": "9912f815-5406-4792-8218-bb2eeaf02862",
+      "name": "MART'AUDIO",
+      "eventId": "cpv1-9912f815-5406-4792-8218-bb2eeaf02862-054d8cf0b88b5ad6c2c6a1f4",
+      "fingerprint": "054d8cf0b88b5ad6c2c6a1f4369b477ec3c3b011325f767167a88427b8f7f0c2",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "mart-audio.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "www.mart-audio.com"
+          ],
+          "evidence": [
+            {
+              "value": "www.mart-audio.com",
+              "sourceUrl": "www.mart-audio.com",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:25.552Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 73,
+      "newScore": 73
+    },
+    {
+      "id": "a5c8065e-4b34-40ec-b17e-5507f82b47a7",
+      "name": "AUDITION CONSEIL",
+      "eventId": "cpv1-a5c8065e-4b34-40ec-b17e-5507f82b47a7-a0fac77686a8622a8c4ce0b6",
+      "fingerprint": "a0fac77686a8622a8c4ce0b60cfdbfd4bb5de5854a8c8f43d4e747f41e308b93",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "audition-conseil.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "audition-conseil.com"
+          ],
+          "evidence": [
+            {
+              "value": "audition-conseil.com",
+              "sourceUrl": "audition-conseil.com",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:25.640Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "acc3f066-717d-42cc-a8a1-2984da954e3a",
+      "name": "POINT MAT BRICO",
+      "eventId": "cpv1-acc3f066-717d-42cc-a8a1-2984da954e3a-ced70003219dd8a0a9576bb7",
+      "fingerprint": "ced70003219dd8a0a9576bb79dbd45eca8181b1e4690af46d6e6be7eb78f62d9",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": []
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:25.640Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "ad4d9766-c85d-447a-9e5d-91ca81dbcd5f",
+      "name": "GRAZIELLA EUGENIE",
+      "eventId": "cpv1-ad4d9766-c85d-447a-9e5d-91ca81dbcd5f-d652df49a4f6a907c5efff2a",
+      "fingerprint": "d652df49a4f6a907c5efff2a8b2e5e80f7568bdd4cdf0e995121443a439f8363",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "graziellaeugenie.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "www.graziellaeugenie.com"
+          ],
+          "evidence": [
+            {
+              "value": "www.graziellaeugenie.com",
+              "sourceUrl": "www.graziellaeugenie.com",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:25.645Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "b09ab56f-faa4-4125-8506-f28351a6af67",
+      "name": "VESPA ANTILLES",
+      "eventId": "cpv1-b09ab56f-faa4-4125-8506-f28351a6af67-4cc12f5e804b48bad1f696bd",
+      "fingerprint": "4cc12f5e804b48bad1f696bdd886b8069792acc576a0053722c19357f443c339",
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "facebook.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://www.facebook.com/VESPAANTILLES"
+        ],
+        "reasons": [
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-16T06:30:25.897Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 73,
+      "newScore": 73
+    },
+    {
+      "id": "b154bdc2-86d7-49cc-b72b-7d48168ef6d4",
+      "name": "ACTIBURO",
+      "eventId": "cpv1-b154bdc2-86d7-49cc-b72b-7d48168ef6d4-1a9417a72ad878bc4bf81fb7",
+      "fingerprint": "1a9417a72ad878bc4bf81fb76afaca2886bb12a5aaa4dd2a4fa8dff5c3956c95",
+      "presence": {
+        "status": "VERIFIED",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "actiburo.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "VERIFIED",
+          "values": [
+            "02 35 52 82 00"
+          ],
+          "evidence": [
+            {
+              "value": "02 35 52 82 00",
+              "sourceUrl": "https://www.actiburo.com/",
+              "kind": "phone",
+              "evidenceType": "VISIBLE_PHONE"
+            }
+          ]
+        },
+        "email": {
+          "status": "VERIFIED",
+          "values": [
+            "contact@actiburo.com"
+          ],
+          "evidence": [
+            {
+              "value": "contact@actiburo.com",
+              "sourceUrl": "https://www.actiburo.com/",
+              "kind": "email",
+              "evidenceType": "VISIBLE_EMAIL"
+            }
+          ]
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "https://www.actiburo.com/"
+          ],
+          "evidence": [
+            {
+              "value": "https://www.actiburo.com/",
+              "sourceUrl": "https://www.actiburo.com/",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "VERIFIED",
+          "values": [
+            "https://www.actiburo.com/contact-domiciliation-rouen/"
+          ],
+          "evidence": [
+            {
+              "value": "https://www.actiburo.com/contact-domiciliation-rouen/",
+              "sourceUrl": "https://www.actiburo.com/contact-domiciliation-rouen/",
+              "kind": "contactForm",
+              "evidenceType": "CONTACT_FORM"
+            }
+          ]
+        },
+        "sourcesProcessed": 2,
+        "sourcesChecked": [
+          "https://www.actiburo.com/",
+          "https://www.actiburo.com/contact-domiciliation-rouen/"
+        ],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 2"
+        ],
+        "enrichedAt": "2026-09-16T06:30:27.612Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "c5e10d79-12f9-448b-8fe7-cf16a7a3969e",
+      "name": "DISVEA",
+      "eventId": "cpv1-c5e10d79-12f9-448b-8fe7-cf16a7a3969e-fbcee1b900e84b274a413689",
+      "fingerprint": "fbcee1b900e84b274a413689c92201663620cf8849bf491704c04016e3af1cb7",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "disvea.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "www.disvea.com"
+          ],
+          "evidence": [
+            {
+              "value": "www.disvea.com",
+              "sourceUrl": "www.disvea.com",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:27.841Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "cc39f49b-3306-44b5-af7c-7fd1dc9633d1",
+      "name": "SOCIETE MARTINIQUAISE DE LOCATION (SOMARLOC)",
+      "eventId": "cpv1-cc39f49b-3306-44b5-af7c-7fd1dc9633d1-70acc1308d6dd257a89d7e5a",
+      "fingerprint": "70acc1308d6dd257a89d7e5a3f3426631df7686ad4e34aa0233c8f9509f03725",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "somarloc.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "www.somarloc.com"
+          ],
+          "evidence": [
+            {
+              "value": "www.somarloc.com",
+              "sourceUrl": "www.somarloc.com",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:27.847Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "d0dafaae-aebe-46c2-a532-5264a5a0d4f4",
+      "name": "SASU-YOUYOU-MARKET",
+      "eventId": "cpv1-d0dafaae-aebe-46c2-a532-5264a5a0d4f4-a93fd60681f12e2ed9255984",
+      "fingerprint": "a93fd60681f12e2ed925598415b829f61d30308a8b3990bac1e6224ea7024af3",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "youyou-market.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "www.youyou-market.com"
+          ],
+          "evidence": [
+            {
+              "value": "www.youyou-market.com",
+              "sourceUrl": "www.youyou-market.com",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:27.863Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "d12e10f8-6252-4f28-9c50-aa2742aa74c0",
+      "name": "KAY JUJU",
+      "eventId": "cpv1-d12e10f8-6252-4f28-9c50-aa2742aa74c0-3252cb140aa9118566ebccde",
+      "fingerprint": "3252cb140aa9118566ebccde40c9824bad50aaafea26f48a3b9e8565f9db52f4",
+      "presence": {
+        "status": "VERIFIED",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": [
+            {
+              "domain": "recherche-entreprises.api.gouv.fr"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "VERIFIED",
+          "values": [
+            "https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju"
+          ],
+          "evidence": [
+            {
+              "value": "https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju",
+              "sourceUrl": "https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju",
+              "kind": "social",
+              "evidenceType": "OWNED_WEBSITE"
+            }
+          ]
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju"
+        ],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-16T06:30:28.111Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    },
+    {
+      "id": "d2c22cec-1091-4e81-8c50-cc90cb0f7216",
+      "name": "GUY HOQUET L'IMMOBILIER",
+      "eventId": "cpv1-d2c22cec-1091-4e81-8c50-cc90cb0f7216-132a87fc91832978c5fe4878",
+      "fingerprint": "132a87fc91832978c5fe4878d45b51e9c0fc63212ff7b3a4bd197d98409434c1",
+      "presence": {
+        "status": "REJECTED",
+        "identity": {
+          "status": "REJECTED",
+          "matched": false,
+          "reason": "identity mismatch",
+          "observations": [
+            {
+              "domain": "facebook.com"
+            }
+          ]
+        },
+        "phone": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "N/A",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 1,
+        "sourcesChecked": [
+          "https://www.facebook.com/MenhirImmoFranchise/"
+        ],
+        "reasons": [
+          "bounded sources checked: 1"
+        ],
+        "enrichedAt": "2026-09-16T06:30:28.361Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 73,
+      "newScore": 73
+    },
+    {
+      "id": "ec045b5e-00be-44a3-a556-cfbc88cf56bb",
+      "name": "JEAN-PIERRE EUVRARD",
+      "eventId": "cpv1-ec045b5e-00be-44a3-a556-cfbc88cf56bb-27b5a74c9ae44dad3f51b31a",
+      "fingerprint": "27b5a74c9ae44dad3f51b31ae92f7c798b1ae18637caf040dac6af240c947242",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": []
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:28.362Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 67,
+      "newScore": 67
+    },
+    {
+      "id": "f5eedd9c-2e39-46eb-9663-1d9b3a7f6cad",
+      "name": "L'UNIVERS DU PNEU",
+      "eventId": "cpv1-f5eedd9c-2e39-46eb-9663-1d9b3a7f6cad-9cb17ff39aefdd8a73df2eb8",
+      "fingerprint": "9cb17ff39aefdd8a73df2eb8317dc2f34598b6b818f4eccbc802845da8d0c1d8",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": []
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:28.362Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 80,
+      "newScore": 80
+    },
+    {
+      "id": "fb951634-6f69-46f8-9f46-8db04e780e69",
+      "name": "ENVIE D AILLEURS",
+      "eventId": "cpv1-fb951634-6f69-46f8-9f46-8db04e780e69-bdefb505b85479ed2c2bedf6",
+      "fingerprint": "bdefb505b85479ed2c2bedf6fc43686c117042ac727e204c136d12702715aabe",
+      "presence": {
+        "status": "UNKNOWN",
+        "identity": {
+          "status": "VERIFIED",
+          "matched": true,
+          "reason": "identity bound",
+          "observations": []
+        },
+        "phone": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "email": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "website": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "social": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "instagram": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "facebook": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "tiktok": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "whatsapp": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "contactForm": {
+          "status": "UNKNOWN",
+          "values": [],
+          "evidence": []
+        },
+        "sourcesProcessed": 0,
+        "sourcesChecked": [],
+        "reasons": [
+          "identity bound",
+          "bounded sources checked: 0"
+        ],
+        "enrichedAt": "2026-09-16T06:30:28.362Z",
+        "truncated": false
+      },
+      "researchReplayed": false,
+      "oldScore": 0,
+      "newScore": 0
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "browserExecutable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "browserVersion": "Chrome/154.0.8037.93",
+  "protocolVersion": "1.3",
+  "localServeUrl": "http://127.0.0.1:57158",
+  "previewRoot": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-51972816600033\\artifact-dr-v2-51972816600033-design_request_v1-design_artifact_v1-r1\\dist",
+  "rootHttpStatus": 200,
+  "captures": [
+    {
+      "id": "r77z-androcam-desktop",
+      "captureSuccess": true,
+      "capturedAt": "2026-10-04T10:59:21.167Z",
+      "definition": {
+        "name": "DESKTOP",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "renderedUrl": "http://127.0.0.1:57158/",
+      "screenshotPath": "D:\\MagicScript\\repository\\.r77z-runtime\\qa-a1\\desktop.png"
+    },
+    {
+      "id": "r77z-androcam-mobile",
+      "captureSuccess": true,
+      "capturedAt": "2026-10-04T10:59:21.293Z",
+      "definition": {
+        "name": "MOBILE",
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "renderedUrl": "http://127.0.0.1:57158/",
+      "screenshotPath": "D:\\MagicScript\\repository\\.r77z-runtime\\qa-a1\\mobile.png"
+    }
+  ],
+  "evidence": {
+    "viewports": [
+      {
+        "name": "DESKTOP",
+        "width": 1440,
+        "height": 900,
+        "horizontalOverflow": -15,
+        "heroVisible": true,
+        "primaryCtaVisible": true,
+        "contentVisible": true,
+        "controlsWithinViewport": true
+      },
+      {
+        "name": "MOBILE",
+        "width": 390,
+        "height": 844,
+        "horizontalOverflow": -15,
+        "heroVisible": true,
+        "primaryCtaVisible": true,
+        "contentVisible": true,
+        "controlsWithinViewport": true
+      }
+    ],
+    "observedSections": [
+      "hero",
+      "home",
+      "offer",
+      "reassurance",
+      "contact"
+    ],
+    "brokenAssets": [],
+    "internalLinkErrors": [],
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "unresolvedMarkers": [],
+    "headings": [
+      "h1 Clarifier la valeur de Androcam Productions",
+      "h2 Clarifier la valeur de Androcam Productions",
+      "h2 hero",
+      "h2 offer",
+      "h2 reassurance",
+      "h2 contact",
+      "h2 Contacter l’entreprise"
+    ]
+  },
+  "serverTerminated": true,
+  "browserTerminated": true
+}

@@ -1,0 +1,2566 @@
+{
+  "matrix": {
+    "HOMEPAGE": {
+      "generated": 22,
+      "attempted": 22,
+      "succeeded": 6,
+      "failed": 16,
+      "failures": {
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.youyou-market.com": 1,
+        "HTTP_STATUS_503": 1,
+        "RESPONSE_TOO_LARGE": 1,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.vespa-antilles.com": 1,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.mart-audio.com": 1,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.menhir-immobilier.fr": 1,
+        "FETCH_ERROR: fetch failed": 3,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.graziellaeugenie.com": 1,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com": 1,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com": 1,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.georges-sylvestre-marie-nelly.com": 1,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.evelypillet-renaud.com": 1,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.somarloc.com": 1,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.vipfinance.com": 1
+      },
+      "phone": 1,
+      "email": 1,
+      "form": 1
+    },
+    "GENERATED_CONTACT_PATH": {
+      "generated": 110,
+      "attempted": 110,
+      "succeeded": 13,
+      "failed": 97,
+      "failures": {
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.youyou-market.com": 5,
+        "HTTP_STATUS_503": 5,
+        "HTTP_STATUS_404": 21,
+        "RESPONSE_TOO_LARGE": 1,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.vespa-antilles.com": 5,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.mart-audio.com": 5,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.menhir-immobilier.fr": 5,
+        "FETCH_ERROR: fetch failed": 15,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.graziellaeugenie.com": 5,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com": 5,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com": 5,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.georges-sylvestre-marie-nelly.com": 5,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.evelypillet-renaud.com": 5,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.somarloc.com": 5,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.vipfinance.com": 5
+      },
+      "phone": 2,
+      "email": 2,
+      "form": 2
+    },
+    "GENERATED_LEGAL_PATH": {
+      "generated": 68,
+      "attempted": 68,
+      "succeeded": 9,
+      "failed": 59,
+      "failures": {
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.youyou-market.com": 3,
+        "HTTP_STATUS_503": 3,
+        "HTTP_STATUS_404": 14,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.vespa-antilles.com": 3,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.mart-audio.com": 3,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.menhir-immobilier.fr": 3,
+        "FETCH_ERROR: fetch failed": 9,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.graziellaeugenie.com": 3,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com": 3,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com": 3,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.georges-sylvestre-marie-nelly.com": 3,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.evelypillet-renaud.com": 3,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.somarloc.com": 3,
+        "FETCH_ERROR: getaddrinfo ENOTFOUND www.vipfinance.com": 3
+      },
+      "phone": 2,
+      "email": 2,
+      "form": 0
+    },
+    "DISCOVERED_LINK": {
+      "generated": 3,
+      "attempted": 3,
+      "succeeded": 3,
+      "failed": 0,
+      "failures": {},
+      "phone": 1,
+      "email": 1,
+      "form": 1
+    }
+  },
+  "homepage": [
+    {
+      "business": "SASU-YOUYOU-MARKET",
+      "homepage": "https://www.youyou-market.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.youyou-market.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.youyou-market.com"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "CORAIL",
+      "homepage": "https://www.corail.fr/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.corail.fr/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "HTTP_STATUS_503"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "ELECTRONIQUE +",
+      "homepage": "https://www.electroniqueplus.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.electroniqueplus.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_SUCCEEDED",
+        "contentType": "text/html",
+        "responseBytes": 0,
+        "redirectCount": 1
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "LE COMPTOIR MEDICAL",
+      "homepage": "https://www.lecomptoirmedical.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.lecomptoirmedical.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "RESPONSE_TOO_LARGE"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "VESPA ANTILLES",
+      "homepage": "https://www.vespa-antilles.com",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.vespa-antilles.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vespa-antilles.com"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "ATHENA TRADING",
+      "homepage": "https://athena-trading.com",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://athena-trading.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_SUCCEEDED",
+        "contentType": "text/html",
+        "responseBytes": 3621,
+        "redirectCount": 0
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "MART'AUDIO",
+      "homepage": "https://www.mart-audio.com",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.mart-audio.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.mart-audio.com"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "GUY HOQUET L'IMMOBILIER",
+      "homepage": "https://www.menhir-immobilier.fr/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.menhir-immobilier.fr/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.menhir-immobilier.fr"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "SAVOIE",
+      "homepage": "https://www.savoie.com",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.savoie.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: fetch failed"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "PASS' TRAVEL",
+      "homepage": "https://pass-travel.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://pass-travel.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_SUCCEEDED",
+        "contentType": "text/html",
+        "responseBytes": 107192,
+        "redirectCount": 1
+      },
+      "discovered": 2,
+      "discoveredAttempted": 2
+    },
+    {
+      "business": "DISVEA",
+      "homepage": "https://www.disvea.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.disvea.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: fetch failed"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "GRAZIELLA EUGENIE",
+      "homepage": "https://www.graziellaeugenie.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.graziellaeugenie.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.graziellaeugenie.com"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "DARTY HABITAT NATURE ET DECOUVERTES",
+      "homepage": "https://www.dartyhabitat.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.dartyhabitat.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "GEORGES PLAVONIL",
+      "homepage": "https://www.georgesplavonil.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.georgesplavonil.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "GEORGES SYLVESTRE (MARIE-NELLY)",
+      "homepage": "https://www.georges-sylvestre-marie-nelly.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.georges-sylvestre-marie-nelly.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georges-sylvestre-marie-nelly.com"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "EVELYNE PILLET (RENAUD)",
+      "homepage": "https://www.evelypillet-renaud.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.evelypillet-renaud.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.evelypillet-renaud.com"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "SOCIETE MARTINIQUAISE DE LOCATION (SOMARLOC)",
+      "homepage": "https://www.somarloc.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.somarloc.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.somarloc.com"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "AUDITION CONSEIL",
+      "homepage": "https://audition-conseil.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://audition-conseil.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: fetch failed"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "ACTIBURO",
+      "homepage": "https://www.actiburo.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.actiburo.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_SUCCEEDED",
+        "contentType": "text/html",
+        "responseBytes": 49792,
+        "redirectCount": 0
+      },
+      "discovered": 1,
+      "discoveredAttempted": 1
+    },
+    {
+      "business": "VIP FINANCE",
+      "homepage": "https://www.vipfinance.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://www.vipfinance.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_FAILED",
+        "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vipfinance.com"
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "LE BAYOU",
+      "homepage": "https://le-bayou.eventofy.com/",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://le-bayou.eventofy.com/",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_SUCCEEDED",
+        "contentType": "text/html",
+        "responseBytes": 30561,
+        "redirectCount": 0
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    },
+    {
+      "business": "KAY JUJU",
+      "homepage": "https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju",
+      "outcome": {
+        "path": "/",
+        "pathOrigin": "HOMEPAGE",
+        "normalizedUrl": "https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju",
+        "generatedAt": "2026-09-16T00:00:00.000Z",
+        "lifecycle": "FETCH_SUCCEEDED",
+        "contentType": "application/json",
+        "responseBytes": 4020,
+        "redirectCount": 0
+      },
+      "discovered": 0,
+      "discoveredAttempted": 0
+    }
+  ],
+  "results": [
+    {
+      "prospectId": "d0dafaae-aebe-46c2-a532-5264a5a0d4f4",
+      "business": "SASU-YOUYOU-MARKET",
+      "homepage": "https://www.youyou-market.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.youyou-market.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.youyou-market.com"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.youyou-market.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.youyou-market.com"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.youyou-market.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.youyou-market.com"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.youyou-market.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.youyou-market.com"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.youyou-market.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.youyou-market.com"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.youyou-market.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.youyou-market.com"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.youyou-market.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.youyou-market.com"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.youyou-market.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.youyou-market.com"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.youyou-market.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.youyou-market.com"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "19706c05-657c-496d-8295-9ac5545c695a",
+      "business": "CORAIL",
+      "homepage": "https://www.corail.fr/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.corail.fr/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_503"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.corail.fr/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_503"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.corail.fr/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_503"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.corail.fr/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_503"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.corail.fr/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_503"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.corail.fr/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_503"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.corail.fr/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_503"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.corail.fr/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_503"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.corail.fr/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_503"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "445f1f9f-4d07-4c61-834a-c8116d4414bb",
+      "business": "ELECTRONIQUE +",
+      "homepage": "https://www.electroniqueplus.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.electroniqueplus.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 0,
+          "redirectCount": 1
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.electroniqueplus.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.electroniqueplus.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.electroniqueplus.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 0,
+          "redirectCount": 1
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.electroniqueplus.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.electroniqueplus.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.electroniqueplus.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.electroniqueplus.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.electroniqueplus.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        }
+      ],
+      "successfulSources": [
+        {
+          "url": "https://electroniqueplus.com/",
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://electroniqueplus.com/nous-contacter",
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        }
+      ]
+    },
+    {
+      "prospectId": "96d973b1-f68b-4a01-959a-1ee8e40d053e",
+      "business": "LE COMPTOIR MEDICAL",
+      "homepage": "https://www.lecomptoirmedical.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.lecomptoirmedical.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "RESPONSE_TOO_LARGE"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.lecomptoirmedical.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.lecomptoirmedical.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.lecomptoirmedical.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "RESPONSE_TOO_LARGE"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.lecomptoirmedical.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.lecomptoirmedical.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.lecomptoirmedical.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.lecomptoirmedical.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.lecomptoirmedical.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "b09ab56f-faa4-4125-8506-f28351a6af67",
+      "business": "VESPA ANTILLES",
+      "homepage": "https://www.vespa-antilles.com",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.vespa-antilles.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vespa-antilles.com"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.vespa-antilles.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vespa-antilles.com"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.vespa-antilles.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vespa-antilles.com"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.vespa-antilles.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vespa-antilles.com"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.vespa-antilles.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vespa-antilles.com"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.vespa-antilles.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vespa-antilles.com"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.vespa-antilles.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vespa-antilles.com"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.vespa-antilles.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vespa-antilles.com"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.vespa-antilles.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vespa-antilles.com"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "73576dde-c29e-44ec-9a0d-fa7c0e0fb712",
+      "business": "ATHENA TRADING",
+      "homepage": "https://athena-trading.com",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://athena-trading.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 3621,
+          "redirectCount": 0
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://athena-trading.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 3621,
+          "redirectCount": 0
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://athena-trading.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 3621,
+          "redirectCount": 0
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://athena-trading.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 3621,
+          "redirectCount": 0
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://athena-trading.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 3621,
+          "redirectCount": 0
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://athena-trading.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 3621,
+          "redirectCount": 0
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://athena-trading.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 3621,
+          "redirectCount": 0
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://athena-trading.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 3621,
+          "redirectCount": 0
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://athena-trading.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 3621,
+          "redirectCount": 0
+        }
+      ],
+      "successfulSources": [
+        {
+          "url": "https://athena-trading.com/",
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://athena-trading.com/contact",
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://athena-trading.com/contactez-nous",
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://athena-trading.com/nous-contacter",
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://athena-trading.com/mentions-legales",
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://athena-trading.com/mentions-l%C3%A9gales",
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://athena-trading.com/legal",
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://athena-trading.com/about",
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://athena-trading.com/a-propos",
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        }
+      ]
+    },
+    {
+      "prospectId": "9912f815-5406-4792-8218-bb2eeaf02862",
+      "business": "MART'AUDIO",
+      "homepage": "https://www.mart-audio.com",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.mart-audio.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.mart-audio.com"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.mart-audio.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.mart-audio.com"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.mart-audio.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.mart-audio.com"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.mart-audio.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.mart-audio.com"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.mart-audio.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.mart-audio.com"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.mart-audio.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.mart-audio.com"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.mart-audio.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.mart-audio.com"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.mart-audio.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.mart-audio.com"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.mart-audio.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.mart-audio.com"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "d2c22cec-1091-4e81-8c50-cc90cb0f7216",
+      "business": "GUY HOQUET L'IMMOBILIER",
+      "homepage": "https://www.menhir-immobilier.fr/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.menhir-immobilier.fr/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.menhir-immobilier.fr"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.menhir-immobilier.fr/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.menhir-immobilier.fr"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.menhir-immobilier.fr/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.menhir-immobilier.fr"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.menhir-immobilier.fr/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.menhir-immobilier.fr"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.menhir-immobilier.fr/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.menhir-immobilier.fr"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.menhir-immobilier.fr/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.menhir-immobilier.fr"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.menhir-immobilier.fr/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.menhir-immobilier.fr"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.menhir-immobilier.fr/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.menhir-immobilier.fr"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.menhir-immobilier.fr/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.menhir-immobilier.fr"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "50c1fb37-77d1-42d3-8417-20f58aab8238",
+      "business": "SAVOIE",
+      "homepage": "https://www.savoie.com",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.savoie.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.savoie.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.savoie.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.savoie.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.savoie.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.savoie.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.savoie.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.savoie.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.savoie.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "0fef5908-9927-426a-bc3f-80249ab45b68",
+      "business": "PASS' TRAVEL",
+      "homepage": "https://pass-travel.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://pass-travel.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 107192,
+          "redirectCount": 1
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://pass-travel.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 107192,
+          "redirectCount": 1
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://pass-travel.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 107192,
+          "redirectCount": 1
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://pass-travel.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 107192,
+          "redirectCount": 1
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://pass-travel.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 107192,
+          "redirectCount": 1
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://pass-travel.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 107192,
+          "redirectCount": 1
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://pass-travel.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 107192,
+          "redirectCount": 1
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://pass-travel.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 107192,
+          "redirectCount": 1
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://pass-travel.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 107192,
+          "redirectCount": 1
+        },
+        {
+          "path": "/en/company/about-pass/",
+          "pathOrigin": "DISCOVERED_LINK",
+          "normalizedUrl": "https://pass-travel.com/en/company/about-pass/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 107192,
+          "redirectCount": 1
+        },
+        {
+          "path": "/en/contact/",
+          "pathOrigin": "DISCOVERED_LINK",
+          "normalizedUrl": "https://pass-travel.com/en/contact/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 107192,
+          "redirectCount": 1
+        },
+        {
+          "path": "/en/legal-information/",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://pass-travel.com/en/legal-information/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 107192,
+          "redirectCount": 1
+        }
+      ],
+      "successfulSources": [
+        {
+          "url": "https://www.pass-consulting.com/en/industries/travel/",
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.pass-consulting.com/en/industries/travel/index.php",
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.pass-consulting.com/en/industries/travel/index.php",
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.pass-consulting.com/en/industries/travel/index.php",
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.pass-consulting.com/en/industries/travel/index.php",
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.pass-consulting.com/en/industries/travel/index.php",
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.pass-consulting.com/en/industries/travel/index.php",
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.pass-consulting.com/en/industries/travel/index.php",
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.pass-consulting.com/en/industries/travel/index.php",
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.pass-consulting.com/en/industries/travel/index.php",
+          "path": "/en/company/about-pass/",
+          "pathOrigin": "DISCOVERED_LINK",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.pass-consulting.com/en/industries/travel/index.php",
+          "path": "/en/contact/",
+          "pathOrigin": "DISCOVERED_LINK",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.pass-consulting.com/en/industries/travel/index.php",
+          "path": "/en/legal-information/",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        }
+      ]
+    },
+    {
+      "prospectId": "c5e10d79-12f9-448b-8fe7-cf16a7a3969e",
+      "business": "DISVEA",
+      "homepage": "https://www.disvea.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.disvea.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.disvea.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.disvea.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.disvea.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.disvea.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.disvea.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.disvea.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.disvea.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.disvea.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "ad4d9766-c85d-447a-9e5d-91ca81dbcd5f",
+      "business": "GRAZIELLA EUGENIE",
+      "homepage": "https://www.graziellaeugenie.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.graziellaeugenie.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.graziellaeugenie.com"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.graziellaeugenie.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.graziellaeugenie.com"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.graziellaeugenie.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.graziellaeugenie.com"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.graziellaeugenie.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.graziellaeugenie.com"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.graziellaeugenie.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.graziellaeugenie.com"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.graziellaeugenie.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.graziellaeugenie.com"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.graziellaeugenie.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.graziellaeugenie.com"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.graziellaeugenie.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.graziellaeugenie.com"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.graziellaeugenie.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.graziellaeugenie.com"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "85cfec6d-035d-47eb-b4bc-c09e09f9484e",
+      "business": "DARTY HABITAT NATURE ET DECOUVERTES",
+      "homepage": "https://www.dartyhabitat.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.dartyhabitat.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.dartyhabitat.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.dartyhabitat.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.dartyhabitat.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.dartyhabitat.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.dartyhabitat.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.dartyhabitat.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.dartyhabitat.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.dartyhabitat.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.dartyhabitat.com"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "0fb087b7-bd21-4591-9930-020b8653d7c6",
+      "business": "GEORGES PLAVONIL",
+      "homepage": "https://www.georgesplavonil.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.georgesplavonil.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.georgesplavonil.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.georgesplavonil.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.georgesplavonil.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.georgesplavonil.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.georgesplavonil.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.georgesplavonil.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.georgesplavonil.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.georgesplavonil.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georgesplavonil.com"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "7847ee99-d76d-4fe1-920d-d94fab26df78",
+      "business": "GEORGES SYLVESTRE (MARIE-NELLY)",
+      "homepage": "https://www.georges-sylvestre-marie-nelly.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.georges-sylvestre-marie-nelly.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georges-sylvestre-marie-nelly.com"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.georges-sylvestre-marie-nelly.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georges-sylvestre-marie-nelly.com"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.georges-sylvestre-marie-nelly.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georges-sylvestre-marie-nelly.com"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.georges-sylvestre-marie-nelly.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georges-sylvestre-marie-nelly.com"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.georges-sylvestre-marie-nelly.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georges-sylvestre-marie-nelly.com"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.georges-sylvestre-marie-nelly.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georges-sylvestre-marie-nelly.com"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.georges-sylvestre-marie-nelly.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georges-sylvestre-marie-nelly.com"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.georges-sylvestre-marie-nelly.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georges-sylvestre-marie-nelly.com"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.georges-sylvestre-marie-nelly.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.georges-sylvestre-marie-nelly.com"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "2467794e-98f4-422c-9e81-662193cc0d89",
+      "business": "EVELYNE PILLET (RENAUD)",
+      "homepage": "https://www.evelypillet-renaud.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.evelypillet-renaud.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.evelypillet-renaud.com"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.evelypillet-renaud.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.evelypillet-renaud.com"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.evelypillet-renaud.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.evelypillet-renaud.com"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.evelypillet-renaud.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.evelypillet-renaud.com"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.evelypillet-renaud.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.evelypillet-renaud.com"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.evelypillet-renaud.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.evelypillet-renaud.com"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.evelypillet-renaud.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.evelypillet-renaud.com"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.evelypillet-renaud.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.evelypillet-renaud.com"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.evelypillet-renaud.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.evelypillet-renaud.com"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "cc39f49b-3306-44b5-af7c-7fd1dc9633d1",
+      "business": "SOCIETE MARTINIQUAISE DE LOCATION (SOMARLOC)",
+      "homepage": "https://www.somarloc.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.somarloc.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.somarloc.com"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.somarloc.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.somarloc.com"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.somarloc.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.somarloc.com"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.somarloc.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.somarloc.com"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.somarloc.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.somarloc.com"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.somarloc.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.somarloc.com"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.somarloc.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.somarloc.com"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.somarloc.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.somarloc.com"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.somarloc.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.somarloc.com"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "a5c8065e-4b34-40ec-b17e-5507f82b47a7",
+      "business": "AUDITION CONSEIL",
+      "homepage": "https://audition-conseil.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://audition-conseil.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://audition-conseil.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://audition-conseil.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://audition-conseil.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://audition-conseil.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://audition-conseil.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://audition-conseil.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://audition-conseil.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://audition-conseil.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: fetch failed"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "b154bdc2-86d7-49cc-b72b-7d48168ef6d4",
+      "business": "ACTIBURO",
+      "homepage": "https://www.actiburo.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.actiburo.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 49792,
+          "redirectCount": 0
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.actiburo.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 45674,
+          "redirectCount": 1
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.actiburo.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.actiburo.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 52150,
+          "redirectCount": 1
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.actiburo.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 49335,
+          "redirectCount": 1
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.actiburo.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.actiburo.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.actiburo.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.actiburo.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/contact-domiciliation-rouen/",
+          "pathOrigin": "DISCOVERED_LINK",
+          "normalizedUrl": "https://www.actiburo.com/contact-domiciliation-rouen/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 45674,
+          "redirectCount": 0
+        },
+        {
+          "path": "/mentions-legales/",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.actiburo.com/mentions-legales/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 49335,
+          "redirectCount": 0
+        }
+      ],
+      "successfulSources": [
+        {
+          "url": "https://www.actiburo.com/",
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "phone": "VERIFIED",
+          "email": "VERIFIED",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.actiburo.com/contact-domiciliation-rouen/",
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "phone": "VERIFIED",
+          "email": "VERIFIED",
+          "form": "VERIFIED",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.actiburo.com/nous-contacter/",
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "phone": "VERIFIED",
+          "email": "VERIFIED",
+          "form": "VERIFIED",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.actiburo.com/mentions-legales/",
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "phone": "VERIFIED",
+          "email": "VERIFIED",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.actiburo.com/contact-domiciliation-rouen/",
+          "path": "/contact-domiciliation-rouen/",
+          "pathOrigin": "DISCOVERED_LINK",
+          "phone": "VERIFIED",
+          "email": "VERIFIED",
+          "form": "VERIFIED",
+          "jsSuspected": false
+        },
+        {
+          "url": "https://www.actiburo.com/mentions-legales/",
+          "path": "/mentions-legales/",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "phone": "VERIFIED",
+          "email": "VERIFIED",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        }
+      ]
+    },
+    {
+      "prospectId": "0e93bc69-bc2d-420d-9159-5235f313d92e",
+      "business": "VIP FINANCE",
+      "homepage": "https://www.vipfinance.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://www.vipfinance.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vipfinance.com"
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.vipfinance.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vipfinance.com"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.vipfinance.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vipfinance.com"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.vipfinance.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vipfinance.com"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.vipfinance.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vipfinance.com"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.vipfinance.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vipfinance.com"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://www.vipfinance.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vipfinance.com"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.vipfinance.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vipfinance.com"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://www.vipfinance.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "FETCH_ERROR: getaddrinfo ENOTFOUND www.vipfinance.com"
+        }
+      ],
+      "successfulSources": []
+    },
+    {
+      "prospectId": "5d1ad3d5-b8ff-417d-97a2-b40ce7b8ce1c",
+      "business": "LE BAYOU",
+      "homepage": "https://le-bayou.eventofy.com/",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://le-bayou.eventofy.com/",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "text/html",
+          "responseBytes": 30561,
+          "redirectCount": 0
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://le-bayou.eventofy.com/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://le-bayou.eventofy.com/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://le-bayou.eventofy.com/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://le-bayou.eventofy.com/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://le-bayou.eventofy.com/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://le-bayou.eventofy.com/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://le-bayou.eventofy.com/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://le-bayou.eventofy.com/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        }
+      ],
+      "successfulSources": [
+        {
+          "url": "https://le-bayou.eventofy.com/",
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "VERIFIED",
+          "jsSuspected": false
+        }
+      ]
+    },
+    {
+      "prospectId": "d12e10f8-6252-4f28-9c50-aa2742aa74c0",
+      "business": "KAY JUJU",
+      "homepage": "https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju",
+      "manifest": [
+        {
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "normalizedUrl": "https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_SUCCEEDED",
+          "contentType": "application/json",
+          "responseBytes": 4020,
+          "redirectCount": 0
+        },
+        {
+          "path": "/contact",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://recherche-entreprises.api.gouv.fr/contact",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/contactez-nous",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://recherche-entreprises.api.gouv.fr/contactez-nous",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/nous-contacter",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://recherche-entreprises.api.gouv.fr/nous-contacter",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/mentions-legales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://recherche-entreprises.api.gouv.fr/mentions-legales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/mentions-légales",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://recherche-entreprises.api.gouv.fr/mentions-l%C3%A9gales",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/legal",
+          "pathOrigin": "GENERATED_LEGAL_PATH",
+          "normalizedUrl": "https://recherche-entreprises.api.gouv.fr/legal",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/about",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://recherche-entreprises.api.gouv.fr/about",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        },
+        {
+          "path": "/a-propos",
+          "pathOrigin": "GENERATED_CONTACT_PATH",
+          "normalizedUrl": "https://recherche-entreprises.api.gouv.fr/a-propos",
+          "generatedAt": "2026-09-16T00:00:00.000Z",
+          "lifecycle": "FETCH_FAILED",
+          "failureReason": "HTTP_STATUS_404"
+        }
+      ],
+      "successfulSources": [
+        {
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju",
+          "path": "/",
+          "pathOrigin": "HOMEPAGE",
+          "phone": "UNKNOWN",
+          "email": "UNKNOWN",
+          "form": "UNKNOWN",
+          "jsSuspected": false
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "prospects": 22,
+    "entries": 203,
+    "failures": 172
+  }
+}

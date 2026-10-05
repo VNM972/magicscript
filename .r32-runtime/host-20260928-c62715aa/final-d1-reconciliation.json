@@ -1,0 +1,21 @@
+[
+  {
+    "results": [
+      {
+        "prospects": 1,
+        "jobs": 1,
+        "job_results": 1,
+        "research_scored": 1,
+        "admissions": 0,
+        "outreach": 0,
+        "slot_changes": 0,
+        "prototypes": 0,
+        "provider_cursor_rows": 0
+      }
+    ],
+    "success": true,
+    "meta": {
+      "duration": 2
+    }
+  }
+]

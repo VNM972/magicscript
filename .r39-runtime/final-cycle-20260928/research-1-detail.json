@@ -1,0 +1,122 @@
+{
+  "prospect": {
+    "id": "ec74433c-fbcc-47ac-8176-1cfb00189fce",
+    "companyName": "RITA CHAILLON",
+    "legalName": "RITA CHAILLON",
+    "siren": "380132159",
+    "siret": "38013215900019",
+    "city": "SAINTE-ANNE",
+    "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/38013215900019",
+    "activityTaxonomy": "NAF_2008",
+    "commercialEligibility": "HIGH_PRIORITY",
+    "brandKey": "RITA CHAILLON",
+    "initialResearchRepresentative": true,
+    "activity": "56.10A",
+    "location": "BOURG 97227 SAINTE-ANNE",
+    "websiteUrl": "https://www.rita-chaillon.com/",
+    "state": "DISQUALIFIED",
+    "score": 48,
+    "primaryCta": "Contact us",
+    "createdAt": "2026-09-28T17:20:42.985Z",
+    "updatedAt": "2026-09-28T17:23:07.194Z"
+  },
+  "contacts": [],
+  "contactability": {
+    "identity": {
+      "prospectId": "ec74433c-fbcc-47ac-8176-1cfb00189fce",
+      "siren": "380132159",
+      "siret": "38013215900019"
+    },
+    "status": "MISSING",
+    "channels": [],
+    "preparation": null
+  },
+  "contactAcquisition": null,
+  "contactPresence": {
+    "status": "UNKNOWN",
+    "identity": {
+      "status": "VERIFIED",
+      "matched": true,
+      "reason": "identity bound",
+      "observations": [
+        {
+          "domain": "rita-chaillon.com"
+        }
+      ]
+    },
+    "phone": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "email": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "website": {
+      "status": "VERIFIED",
+      "values": [
+        "www.rita-chaillon.com"
+      ],
+      "evidence": [
+        {
+          "value": "www.rita-chaillon.com",
+          "sourceUrl": "www.rita-chaillon.com",
+          "kind": "social",
+          "evidenceType": "OWNED_WEBSITE"
+        }
+      ]
+    },
+    "social": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "instagram": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "facebook": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "tiktok": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "whatsapp": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "contactForm": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "sourcesProcessed": 0,
+    "sourcesChecked": [],
+    "reasons": [
+      "identity bound",
+      "bounded sources checked: 0"
+    ],
+    "enrichedAt": "2026-09-28T17:23:07.138Z",
+    "truncated": false
+  },
+  "prototype": null,
+  "salesRoom": null,
+  "commercialLinks": {
+    "prototypeUrl": null,
+    "prototypeEntryUrl": null,
+    "salesRoomUrl": null,
+    "salesRoomSlug": "rita-chaillon",
+    "salesRoomStatus": "ACTIVE",
+    "personalizedUrl": null,
+    "personalizedEntryEnabled": false,
+    "links": []
+  }
+}

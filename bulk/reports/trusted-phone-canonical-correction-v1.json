@@ -1,0 +1,303 @@
+{
+  "migrationId": "TRUSTED_PHONE_CANONICAL_CORRECTION_V1",
+  "schemaVersion": "trusted-phone-state.v1",
+  "localOnly": true,
+  "generatedAt": "2026-09-16T12:00:00.000Z",
+  "before": {
+    "prospectCount": 95,
+    "phoneRowCount": 6,
+    "eventCount": 9233,
+    "researchScoredCount": 80
+  },
+  "after": {
+    "prospectCount": 95,
+    "phoneRowCount": 6,
+    "eventCount": 9233,
+    "researchScoredCount": 80
+  },
+  "invariants": {
+    "prospectCountUnchanged": true,
+    "phoneRowCountUnchanged": true,
+    "researchHistoryPreserved": true,
+    "appendOnlyEventsAdded": 0,
+    "rerunIdempotent": true
+  },
+  "rows": [
+    {
+      "prospectId": "73576dde-c29e-44ec-9a0d-fa7c0e0fb712",
+      "prospectName": "ATHENA TRADING",
+      "classification": "REAL_COMMERCIAL",
+      "phoneBefore": "06 12 34 56 78",
+      "trustBefore": "UNKNOWN",
+      "evidenceProvenance": {
+        "sourceUrl": "https://athena-trading.com/contact",
+        "sourceType": null,
+        "sourceOwnership": "OWNED_BUSINESS_SOURCE",
+        "identityStatus": "VERIFIED",
+        "entityBound": true,
+        "evidenceEventId": "d3a8409e-f9d5-4717-907a-4ab6a3050d54"
+      },
+      "migrationAction": "phone.trust.canonicalized",
+      "phoneAfter": "06 12 34 56 78",
+      "trustAfter": "TRUSTED",
+      "contactabilityImpact": "eligible for deterministic 85",
+      "eventIdsCreated": [
+        "phone.trust.canonicalized-8c7f69ac70aa092bd2825bb60bfedfb9",
+        "phone-canonicalization-8c7f69ac70aa092bd2825bb60bfedfb9"
+      ]
+    },
+    {
+      "prospectId": "d2c22cec-1091-4e81-8c50-cc90cb0f7216",
+      "prospectName": "GUY HOQUET L'IMMOBILIER",
+      "classification": "REAL_COMMERCIAL",
+      "phoneBefore": "06 12 34 56 78",
+      "trustBefore": "UNKNOWN",
+      "evidenceProvenance": {
+        "sourceUrl": "https://www.menhir-immobilier.fr/contact",
+        "sourceType": null,
+        "sourceOwnership": "OWNED_BUSINESS_SOURCE",
+        "identityStatus": "REJECTED",
+        "entityBound": false,
+        "evidenceEventId": "4509b6a8-8794-4fb1-9070-c45ef7bea206"
+      },
+      "migrationAction": "phone.trust.revoked",
+      "phoneAfter": "06 12 34 56 78",
+      "trustAfter": "AMBIGUOUS",
+      "contactabilityImpact": "no trusted-phone contribution",
+      "eventIdsCreated": [
+        "phone.trust.revoked-678602525ab05a5c8ab721caa553036c",
+        "phone-canonicalization-678602525ab05a5c8ab721caa553036c"
+      ]
+    },
+    {
+      "prospectId": "9912f815-5406-4792-8218-bb2eeaf02862",
+      "prospectName": "MART'AUDIO",
+      "classification": "REAL_COMMERCIAL",
+      "phoneBefore": "06 12 34 56 78",
+      "trustBefore": "UNKNOWN",
+      "evidenceProvenance": {
+        "sourceUrl": "https://www.mart-audio.com/contact",
+        "sourceType": null,
+        "sourceOwnership": "OWNED_BUSINESS_SOURCE",
+        "identityStatus": "REJECTED",
+        "entityBound": false,
+        "evidenceEventId": "a6bf97ee-ebdb-4e11-a554-7ad641453b0f"
+      },
+      "migrationAction": "phone.trust.revoked",
+      "phoneAfter": "06 12 34 56 78",
+      "trustAfter": "AMBIGUOUS",
+      "contactabilityImpact": "no trusted-phone contribution",
+      "eventIdsCreated": [
+        "phone.trust.revoked-53c587cc9980e9d6c07f5a84ac5152f0",
+        "phone-canonicalization-53c587cc9980e9d6c07f5a84ac5152f0"
+      ]
+    },
+    {
+      "prospectId": "50c1fb37-77d1-42d3-8417-20f58aab8238",
+      "prospectName": "SAVOIE",
+      "classification": "REAL_COMMERCIAL",
+      "phoneBefore": "02 98 55 00 00",
+      "trustBefore": "UNKNOWN",
+      "evidenceProvenance": {
+        "sourceUrl": "https://www.savoie.com/contact",
+        "sourceType": null,
+        "sourceOwnership": "OWNED_BUSINESS_SOURCE",
+        "identityStatus": "REJECTED",
+        "entityBound": false,
+        "evidenceEventId": "2fa625af-a3e9-45cc-8c85-afb8c6aa365b"
+      },
+      "migrationAction": "phone.trust.revoked",
+      "phoneAfter": "02 98 55 00 00",
+      "trustAfter": "AMBIGUOUS",
+      "contactabilityImpact": "no trusted-phone contribution",
+      "eventIdsCreated": [
+        "phone.trust.revoked-525c279ab5c79af1bacdb85bdc186207",
+        "phone-canonicalization-525c279ab5c79af1bacdb85bdc186207"
+      ]
+    },
+    {
+      "prospectId": "e098c79b-09a2-40e0-b48c-77e05dee1cbe",
+      "prospectName": "SUNeLEK - WhatsApp E2E",
+      "classification": "TECHNICAL_TEST",
+      "phoneBefore": "05 96 71 10 10",
+      "trustBefore": "UNKNOWN",
+      "evidenceProvenance": {
+        "sourceUrl": "https://www.pagesjaunes.fr/pros/61829365",
+        "sourceType": null,
+        "sourceOwnership": "AMBIGUOUS_SOURCE_OWNERSHIP",
+        "identityStatus": "UNKNOWN",
+        "entityBound": false,
+        "evidenceEventId": "82418370-662b-446b-ace0-1fd1aa6b5cda"
+      },
+      "migrationAction": "phone.trust.revoked",
+      "phoneAfter": "05 96 71 10 10",
+      "trustAfter": "UNTRUSTED",
+      "contactabilityImpact": "no trusted-phone contribution",
+      "eventIdsCreated": [
+        "phone.trust.revoked-69dfac0ce18744eab83cbebac49de6cd",
+        "phone-canonicalization-69dfac0ce18744eab83cbebac49de6cd"
+      ]
+    },
+    {
+      "prospectId": "b09ab56f-faa4-4125-8506-f28351a6af67",
+      "prospectName": "VESPA ANTILLES",
+      "classification": "REAL_COMMERCIAL",
+      "phoneBefore": "06 12 34 56 78",
+      "trustBefore": "UNKNOWN",
+      "evidenceProvenance": {
+        "sourceUrl": "https://www.vespa-antilles.com/contact",
+        "sourceType": null,
+        "sourceOwnership": "OWNED_BUSINESS_SOURCE",
+        "identityStatus": "REJECTED",
+        "entityBound": false,
+        "evidenceEventId": "0bec5ded-fa1d-424a-9d9b-5c0fe86e2abc"
+      },
+      "migrationAction": "phone.trust.revoked",
+      "phoneAfter": "06 12 34 56 78",
+      "trustAfter": "AMBIGUOUS",
+      "contactabilityImpact": "no trusted-phone contribution",
+      "eventIdsCreated": [
+        "phone.trust.revoked-7adb7ae481604df6f215aad3741d4517",
+        "phone-canonicalization-7adb7ae481604df6f215aad3741d4517"
+      ]
+    }
+  ],
+  "projection": [
+    {
+      "prospect_id": "50c1fb37-77d1-42d3-8417-20f58aab8238",
+      "phone": "02 98 55 00 00",
+      "normalized_phone": "0298550000",
+      "trust_status": "AMBIGUOUS",
+      "trust_reason": "source ownership or entity binding is insufficient",
+      "source_ownership": "OWNED_BUSINESS_SOURCE",
+      "entity_bound": 0,
+      "identity_status": "REJECTED",
+      "evidence_event_id": "2fa625af-a3e9-45cc-8c85-afb8c6aa365b",
+      "source_url": "https://www.savoie.com/contact",
+      "source_type": null,
+      "canonicalization_event_id": "phone-canonicalization-525c279ab5c79af1bacdb85bdc186207",
+      "effective_at": "2026-09-16T12:00:00.000Z",
+      "revoked_at": "2026-09-16T12:00:00.000Z",
+      "schema_version": "trusted-phone-state.v1"
+    },
+    {
+      "prospect_id": "73576dde-c29e-44ec-9a0d-fa7c0e0fb712",
+      "phone": "06 12 34 56 78",
+      "normalized_phone": "0612345678",
+      "trust_status": "TRUSTED",
+      "trust_reason": "entity-bound owned-source phone with VERIFIED identity",
+      "source_ownership": "OWNED_BUSINESS_SOURCE",
+      "entity_bound": 1,
+      "identity_status": "VERIFIED",
+      "evidence_event_id": "d3a8409e-f9d5-4717-907a-4ab6a3050d54",
+      "source_url": "https://athena-trading.com/contact",
+      "source_type": null,
+      "canonicalization_event_id": "phone-canonicalization-8c7f69ac70aa092bd2825bb60bfedfb9",
+      "effective_at": "2026-09-16T12:00:00.000Z",
+      "revoked_at": null,
+      "schema_version": "trusted-phone-state.v1"
+    },
+    {
+      "prospect_id": "9912f815-5406-4792-8218-bb2eeaf02862",
+      "phone": "06 12 34 56 78",
+      "normalized_phone": "0612345678",
+      "trust_status": "AMBIGUOUS",
+      "trust_reason": "source ownership or entity binding is insufficient",
+      "source_ownership": "OWNED_BUSINESS_SOURCE",
+      "entity_bound": 0,
+      "identity_status": "REJECTED",
+      "evidence_event_id": "a6bf97ee-ebdb-4e11-a554-7ad641453b0f",
+      "source_url": "https://www.mart-audio.com/contact",
+      "source_type": null,
+      "canonicalization_event_id": "phone-canonicalization-53c587cc9980e9d6c07f5a84ac5152f0",
+      "effective_at": "2026-09-16T12:00:00.000Z",
+      "revoked_at": "2026-09-16T12:00:00.000Z",
+      "schema_version": "trusted-phone-state.v1"
+    },
+    {
+      "prospect_id": "b09ab56f-faa4-4125-8506-f28351a6af67",
+      "phone": "06 12 34 56 78",
+      "normalized_phone": "0612345678",
+      "trust_status": "AMBIGUOUS",
+      "trust_reason": "source ownership or entity binding is insufficient",
+      "source_ownership": "OWNED_BUSINESS_SOURCE",
+      "entity_bound": 0,
+      "identity_status": "REJECTED",
+      "evidence_event_id": "0bec5ded-fa1d-424a-9d9b-5c0fe86e2abc",
+      "source_url": "https://www.vespa-antilles.com/contact",
+      "source_type": null,
+      "canonicalization_event_id": "phone-canonicalization-7adb7ae481604df6f215aad3741d4517",
+      "effective_at": "2026-09-16T12:00:00.000Z",
+      "revoked_at": "2026-09-16T12:00:00.000Z",
+      "schema_version": "trusted-phone-state.v1"
+    },
+    {
+      "prospect_id": "d2c22cec-1091-4e81-8c50-cc90cb0f7216",
+      "phone": "06 12 34 56 78",
+      "normalized_phone": "0612345678",
+      "trust_status": "AMBIGUOUS",
+      "trust_reason": "source ownership or entity binding is insufficient",
+      "source_ownership": "OWNED_BUSINESS_SOURCE",
+      "entity_bound": 0,
+      "identity_status": "REJECTED",
+      "evidence_event_id": "4509b6a8-8794-4fb1-9070-c45ef7bea206",
+      "source_url": "https://www.menhir-immobilier.fr/contact",
+      "source_type": null,
+      "canonicalization_event_id": "phone-canonicalization-678602525ab05a5c8ab721caa553036c",
+      "effective_at": "2026-09-16T12:00:00.000Z",
+      "revoked_at": "2026-09-16T12:00:00.000Z",
+      "schema_version": "trusted-phone-state.v1"
+    },
+    {
+      "prospect_id": "e098c79b-09a2-40e0-b48c-77e05dee1cbe",
+      "phone": "05 96 71 10 10",
+      "normalized_phone": "0596711010",
+      "trust_status": "UNTRUSTED",
+      "trust_reason": "non-commercial technical/internal entity excluded from trusted-phone metrics",
+      "source_ownership": "AMBIGUOUS_SOURCE_OWNERSHIP",
+      "entity_bound": 0,
+      "identity_status": "UNKNOWN",
+      "evidence_event_id": "82418370-662b-446b-ace0-1fd1aa6b5cda",
+      "source_url": "https://www.pagesjaunes.fr/pros/61829365",
+      "source_type": null,
+      "canonicalization_event_id": "phone-canonicalization-69dfac0ce18744eab83cbebac49de6cd",
+      "effective_at": "2026-09-16T12:00:00.000Z",
+      "revoked_at": "2026-09-16T12:00:00.000Z",
+      "schema_version": "trusted-phone-state.v1"
+    }
+  ],
+  "counts": {
+    "TRUSTED_PHONE_BEFORE": 6,
+    "TRUSTED_PHONE_VALID": 1,
+    "TRUSTED_PHONE_REVOKED": 0,
+    "TRUSTED_PHONE_AMBIGUOUS": 4,
+    "TRUSTED_PHONE_UNTRUSTED": 1,
+    "REAL_COMMERCIAL_TRUSTED_PHONE": 1
+  },
+  "validPositiveControls": [
+    {
+      "prospect_id": "73576dde-c29e-44ec-9a0d-fa7c0e0fb712",
+      "phone": "06 12 34 56 78",
+      "normalized_phone": "0612345678",
+      "trust_status": "TRUSTED",
+      "trust_reason": "entity-bound owned-source phone with VERIFIED identity",
+      "source_ownership": "OWNED_BUSINESS_SOURCE",
+      "entity_bound": 1,
+      "identity_status": "VERIFIED",
+      "evidence_event_id": "d3a8409e-f9d5-4717-907a-4ab6a3050d54",
+      "source_url": "https://athena-trading.com/contact",
+      "source_type": null,
+      "canonicalization_event_id": "phone-canonicalization-8c7f69ac70aa092bd2825bb60bfedfb9",
+      "effective_at": "2026-09-16T12:00:00.000Z",
+      "revoked_at": null,
+      "schema_version": "trusted-phone-state.v1"
+    }
+  ],
+  "historicalGoogleStatus": "GOOGLE_PLACES_STRUCTURED_PROVIDER_EXPLORATORY_V1_FAIL",
+  "benchmarkNote": "BENCHMARK_CONTROL_INTEGRITY_COMPROMISED",
+  "providerCalls": 0,
+  "tavilyQueries": 0,
+  "researchReplay": 0,
+  "outreach": 0,
+  "deployment": 0
+}

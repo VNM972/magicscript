@@ -1,0 +1,35 @@
+{
+  "status": "CLOSED / ACCEPTANCE_COMPLETE",
+  "buildR1Immutable": true,
+  "buildR2Immutable": true,
+  "qaA1Immutable": true,
+  "qaA2Immutable": true,
+  "designRevision": 1,
+  "slot": {
+    "slot_id": 2,
+    "prospect_id": "v2-51972816600033",
+    "acquired_at": "2026-10-04T10:57:08.518Z",
+    "release_reason": null
+  },
+  "placeholderRetries": 1,
+  "faviconCorrectionExecutions": 1,
+  "qaA2Invocations": 1,
+  "qaA3Invocations": 1,
+  "buildR2": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2",
+  "buildR3": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br3",
+  "qaA2": "qa-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2-r2-a2",
+  "qaA3": "qa-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br3-r3-a3",
+  "generalLocalBusinessVisible": false,
+  "faviconHttpStatus": 200,
+  "reproducibility": "PROVEN",
+  "trackedFilesPreserved": 338,
+  "tests": {
+    "pass": 44,
+    "fail": 0
+  },
+  "apiTypecheck": "PASS",
+  "diffCheck": "PASS",
+  "usage": "USAGE_NOT_EXPOSED",
+  "apiStopped": true,
+  "currentStateUpdated": true
+}

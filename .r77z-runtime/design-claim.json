@@ -1,0 +1,163 @@
+{
+  "job": {
+    "id": "job-v2-51972816600033-DESIGN_REQUEST_V1",
+    "kind": "V2_DESIGN_REQUEST",
+    "prospectId": "v2-51972816600033",
+    "payload": {
+      "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+      "designRequestVersion": "DESIGN_REQUEST_V1",
+      "prospectId": "v2-51972816600033",
+      "admittedPackId": "agent1-r77z-androcam",
+      "designDirection": {
+        "id": "corporate-premium",
+        "label": "Corporate Premium",
+        "eligibleSectors": [
+          "corporate",
+          "institutionnel",
+          "finance",
+          "patrimoine",
+          "immobilier",
+          "direction"
+        ],
+        "positioning": [
+          "premium",
+          "haut de gamme",
+          "institutionnel",
+          "strategie"
+        ],
+        "visualPrinciples": [
+          "quiet confidence",
+          "editorial spacing",
+          "evidence-led restraint"
+        ],
+        "heroStrategy": "Lead with the verified positioning and decision value, using space rather than decorative effects.",
+        "sectionGrammar": [
+          "hero",
+          "value thesis",
+          "expertise",
+          "selected evidence",
+          "engagement path"
+        ],
+        "ctaStrategy": "Invite one qualified conversation or dossier review.",
+        "imageStrategy": "Use verified portrait, environment or architectural detail with disciplined cropping.",
+        "typographicCharacter": "Editorial serif accent with sober sans-serif reading text.",
+        "density": "LOW",
+        "motionBudget": "LOW",
+        "mobileBehavior": [
+          "preserve whitespace without hiding key proof",
+          "keep the primary action visible at 390px"
+        ],
+        "proofRequirements": [
+          "mandates, assets, returns, clients and track record require direct evidence"
+        ],
+        "antiPatterns": [
+          "robot imagery",
+          "AI brain",
+          "random circuitry",
+          "generic SaaS dashboard",
+          "generic dashboard layout",
+          "excessive glassmorphism",
+          "meaningless neon",
+          "gratuitous gradient",
+          "excessive rounded cards",
+          "card-wall composition",
+          "repeated identical section layouts",
+          "repetitive boxed sections",
+          "hero assembled from interchangeable blocks without a clear art direction",
+          "flat visual hierarchy",
+          "insufficient real imagery when verified visual assets exist",
+          "insufficient negative space",
+          "monotonous editorial rhythm",
+          "floating blobs",
+          "fake metrics",
+          "fake trust logos",
+          "generic stock-template hierarchy"
+        ]
+      }
+    },
+    "status": "RUNNING",
+    "attempts": 1,
+    "maxAttempts": 3,
+    "runAfter": "2026-10-04T10:57:08.489Z",
+    "createdAt": "2026-10-04T10:57:08.510Z",
+    "updatedAt": "2026-10-04T10:57:23.638Z",
+    "claimedBy": "r77z-androcam",
+    "claimedAt": "2026-10-04T10:57:23.638Z"
+  },
+  "prospect": {
+    "id": "v2-51972816600033",
+    "companyName": "Androcam Productions",
+    "siren": "519728166",
+    "siret": "51972816600033",
+    "city": "Reims",
+    "location": "51100 Reims",
+    "websiteUrl": "https://androcam-productions.com/",
+    "v2Domain": "androcam-productions.com",
+    "state": "INGESTED",
+    "primaryFriction": "Site en cours de refonte",
+    "primaryAsset": "Photographe et vidéaste à Reims : films d'entreprise, événementiel, clips.",
+    "createdAt": "2026-10-04T10:57:08.446Z",
+    "updatedAt": "2026-10-04T10:57:08.446Z"
+  },
+  "contacts": [],
+  "outreachDraft": null,
+  "researchContext": null,
+  "agent1Context": null,
+  "latestReply": null,
+  "threadParentMessageId": null,
+  "prototypeContext": null,
+  "prototypeConversion": null,
+  "prototypeStrategy": null,
+  "designRequest": {
+    "id": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+    "version": "DESIGN_REQUEST_V1",
+    "prospectId": "v2-51972816600033",
+    "admission": {
+      "packId": "agent1-r77z-androcam",
+      "schemaVersion": "CONTACT_OPPORTUNITY_PACK_V2"
+    },
+    "identity": {
+      "businessName": "Androcam Productions",
+      "siren": "519728166",
+      "siret": "51972816600033",
+      "city": "Reims",
+      "location": "51100 Reims",
+      "websiteUrl": "https://androcam-productions.com/",
+      "domain": "androcam-productions.com"
+    },
+    "opportunity": {
+      "digitalFriction": "Site en cours de refonte",
+      "agent1Verdict": "QUALIFIED",
+      "icp": {
+        "digitalPainSignals": [
+          "Site en cours de refonte"
+        ],
+        "requiresUnprovenCapability": false,
+        "outsideCommercialIcp": false
+      },
+      "businessContext": "Photographe et vidéaste à Reims : films d'entreprise, événementiel, clips."
+    },
+    "designInput": {
+      "currentWebsiteUrl": "https://androcam-productions.com/",
+      "businessVertical": "GENERAL_LOCAL_BUSINESS",
+      "brandContext": "Photographe et vidéaste à Reims : films d'entreprise, événementiel, clips.",
+      "frictionTrigger": "Site en cours de refonte",
+      "evidence": [
+        {
+          "url": "https://androcam-productions.com/",
+          "note": "Canonical bounded live homepage observation; same supplied HTML contains LocalBusiness identity, SIRET and explicit mailto contact.\n{\"sourcingLane\":\"PAIN_FIRST\",\"candidateId\":\"r77z-androcam\",\"stagedWebsiteUrl\":\"https://androcam-productions.com/\",\"domain\":\"androcam-productions.com\",\"acquiredAt\":\"2026-10-04T10:51:27.782Z\",\"digitalPainEvidence\":[{\"observedCondition\":\"SITE_REBUILDING\",\"sourceUrl\":\"https://androcam-productions.com/\",\"snapshotDigest\":\"sha256:fe8df54cebbeb0ecc3ac64736d3a37304044afeb91061574bfa21a20fee0c5d3\",\"locator\":\"h1\",\"observedAt\":\"2026-10-04T10:51:38.582Z\"}]}",
+          "supports": [
+            "website",
+            "digitalGap",
+            "identity",
+            "contact"
+          ],
+          "observedAt": "2026-10-04T10:51:38.582Z"
+        }
+      ]
+    },
+    "createdAt": "2026-10-04T10:57:08.489Z"
+  },
+  "designArtifact": null,
+  "designCorrection": null
+}

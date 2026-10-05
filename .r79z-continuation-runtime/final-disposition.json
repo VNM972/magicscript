@@ -1,0 +1,83 @@
+{
+  "mission": "R79Z CONTINUATION",
+  "status": "BLOCKED_CURATED_CANDIDATES",
+  "candidatesInspected": 4,
+  "canonicalHomepageInvocations": 4,
+  "retries": 0,
+  "candidateResults": [
+    {
+      "index": 1,
+      "name": "Bò Kay",
+      "url": "https://bokay-off.com/",
+      "pageState": "FETCH_FAILED",
+      "httpResultClass": "UNSUPPORTED",
+      "qualification": "FETCH_FAILED",
+      "identity": null,
+      "enrichment": null
+    },
+    {
+      "index": 2,
+      "name": "Mary and the Wax",
+      "url": "https://maryandthewax.com/",
+      "pageState": "FETCH_FAILED",
+      "httpResultClass": "UNSUPPORTED",
+      "qualification": "FETCH_FAILED",
+      "identity": null,
+      "enrichment": null
+    },
+    {
+      "index": 3,
+      "name": "Planète Quads Martinique",
+      "url": "https://www.planetequads.com/",
+      "pageState": "PAGE_OBSERVED",
+      "httpResultClass": "SUCCESS",
+      "title": "Planète Quads Martinique - Visitez la Martinique en quads et buggys",
+      "h1": [
+        "Randonnée en quad"
+      ],
+      "qualification": "NO_PAIN_SIGNAL",
+      "identity": null,
+      "enrichment": null
+    },
+    {
+      "index": 4,
+      "name": "Maisons Alizéa",
+      "url": "https://maisons-alizea.com/",
+      "pageState": "FETCH_FAILED",
+      "httpResultClass": "SERVER_ERROR",
+      "qualification": "FETCH_FAILED",
+      "identity": null,
+      "enrichment": null
+    }
+  ],
+  "selectedProspect": "NONE",
+  "prospectId": "NONE",
+  "contactability": "NONE",
+  "admission": "NOT_PERFORMED",
+  "productionSlot": "NOT_ACQUIRED",
+  "design": "NOT_RUN",
+  "designReview": "NOT_RUN",
+  "finalBuild": "NOT_RUN",
+  "finalVisualQa": "NOT_RUN",
+  "correctionCyclesUsed": 0,
+  "prospectSafeDemo": "NONE",
+  "demoVerified": false,
+  "contactOpportunityPack": "NONE",
+  "recommendedManualChannel": "NONE",
+  "firstContactDraftReady": false,
+  "outreachSent": false,
+  "productSourceFilesModified": [],
+  "newProductDefect": "NONE",
+  "commercialReadiness": "NOT_READY",
+  "technicalAcceptance": "COMPLETE",
+  "reproducibility": "PROVEN",
+  "programPhase": "COMMERCIAL_ACTIVATION",
+  "currentState": "UPDATED",
+  "nextAllowedAction": "Await a new externally sourced shortlist and explicit authorization for bounded canonical inspection.",
+  "verification": {
+    "at": "2026-10-04T16:38:59.68Z",
+    "trackedDiffUnchanged": true,
+    "canonicalSourcesUnchanged": true,
+    "canonicalD1RowsUnchanged": true
+  }
+}

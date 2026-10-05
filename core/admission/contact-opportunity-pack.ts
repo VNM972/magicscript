@@ -31,6 +31,24 @@ export interface PackOpportunity {
   digitalFriction?: string;
   businessContext?: string;
   agent1Verdict?: string;
+  /** Typed ICP evidence supplied by Agent 1 for the canonical decision engine. */
+  icp?: {
+    commercialFamily?: 'RESTAURANTS_BARS_CAFES' | 'BEAUTY_HAIR_BARBER' | 'LOCAL_RETAIL' | 'LOCAL_SERVICES';
+    /**
+     * Official NAF/APE activity code (e.g. "47.78C") produced deterministically
+     * by upstream INSEE / Recherche Entreprises discovery. This is the producer-backed
+     * authority for the LOCAL_RETAIL commercial family (NAF division 47 only).
+     * Free-text or LLM-inferred values never substitute for this field.
+     */
+    nafCode?: string;
+    websiteQuality?: { isProfessional: boolean; observations?: readonly string[] };
+    decisionAuthority?: { isCentrallyManaged: boolean; hasLocalAuthority: boolean; observations?: readonly string[] };
+    digitalPainSignals?: readonly string[];
+    requiresUnprovenCapability?: boolean;
+    bookingPlatformWithNoAdditionalValue?: boolean;
+    isCorporatePhotographerWithModernSite?: boolean;
+    outsideCommercialIcp?: boolean;
+  };
 }
 
 export interface ContactOpportunityPackV2 {
@@ -85,15 +103,33 @@ function phoneCountry(value: string, identity: PackIdentity): string | undefined
   return /martinique|fort-de-france|972/.test(location) ? 'MQ' : 'FR';
 }
 
+function normalizeAdmissionPhone(value: string, identity: PackIdentity): { normalizedValue: string; phoneType: PhoneType } {
+  const country = phoneCountry(value, identity);
+  const normalizedValue = normalizePhoneE164(value, country);
+  const phoneType = normalizedValue ? classifyPhoneType(value, country) : 'UNKNOWN';
+  const nationalDigits = value.replace(/\D/g, '');
+  if (country !== 'MQ' || phoneType !== 'UNKNOWN' || !/^0[67]\d{8}$/.test(nationalDigits)) return { normalizedValue, phoneType };
+
+  // Martinique identity selects MQ for local numbers, but French-format 06/07
+  // mobiles remain legitimate. This bounded fallback never applies to 05/landlines
+  // and never overrides a valid MQ mobile or landline classification.
+  const frenchType = classifyPhoneType(value, 'FR');
+  if (frenchType === 'MOBILE') {
+    return {
+      normalizedValue: normalizePhoneE164(value, 'FR'),
+      phoneType: frenchType,
+    };
+  }
+  return { normalizedValue, phoneType };
+}
+
 export function normalizePackContact(contact: PackContact, identity: PackIdentity): NormalizedPackContact {
   if (contact.channel === 'EMAIL') {
     const normalizedValue = normalizeEmail(contact.value);
     return { ...contact, normalizedValue: normalizedValue ?? contact.value.trim().toLowerCase(), trustStatus: normalizedValue ? 'DERIVED_VALID' : 'INVALID' };
   }
   if (contact.channel === 'MOBILE' || contact.channel === 'LANDLINE' || contact.channel === 'WHATSAPP') {
-    const country = phoneCountry(contact.value, identity);
-    const normalizedValue = normalizePhoneE164(contact.value, country);
-    const phoneType = normalizedValue ? classifyPhoneType(contact.value, country) : 'UNKNOWN';
+    const { normalizedValue, phoneType } = normalizeAdmissionPhone(contact.value, identity);
     const qualifiesAsMobile = (contact.channel === 'MOBILE' || contact.channel === 'WHATSAPP') && phoneType === 'MOBILE';
     return { ...contact, normalizedValue: normalizedValue || contact.value.trim(), phoneType, trustStatus: qualifiesAsMobile || (contact.channel === 'LANDLINE' && phoneType === 'LANDLINE') ? 'DERIVED_VALID' : 'INVALID' };
   }
@@ -123,6 +159,15 @@ export function validatePackShape(value: unknown): string[] {
   return reasons;
 }
 
+/**
+ * True when a single normalized contact is a qualifying admission channel:
+ * a DERIVED_VALID EMAIL, or a DERIVED_VALID MOBILE classified as mobile type.
+ * Landline, Instagram, Facebook and contact-form alone never qualify.
+ */
+export function qualifyPackContact(contact: NormalizedPackContact): boolean {
+  return contact.trustStatus === 'DERIVED_VALID' && (contact.channel === 'EMAIL' || (contact.channel === 'MOBILE' && contact.phoneType === 'MOBILE'));
+}
+
 export function qualifyingContacts(pack: NormalizedContactOpportunityPack): NormalizedPackContact[] {
-  return pack.contacts.filter((contact) => contact.trustStatus === 'DERIVED_VALID' && (contact.channel === 'EMAIL' || (contact.channel === 'MOBILE' && contact.phoneType === 'MOBILE')));
+  return pack.contacts.filter(qualifyPackContact);
 }

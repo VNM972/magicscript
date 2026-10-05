@@ -1,0 +1,13 @@
+{
+  "pageState": "FETCH_FAILED",
+  "observation": {
+    "schemaVersion": 1,
+    "requestedUrl": "https://maryandthewax.com/",
+    "inspectedAt": "2026-10-04T16:38:23.858Z",
+    "httpResultClass": "UNSUPPORTED"
+  },
+  "staging": {
+    "state": "FETCH_FAILED",
+    "authority": "NON_AUTHORITATIVE"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+  "version": "BUILD_ARTIFACT_V1",
+  "approvedDesignArtifactId": "artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+  "designRequestId": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+  "prospectId": "v2-51972816600033",
+  "approvedRevision": 1,
+  "buildRevision": 1,
+  "qaAttempt": 1,
+  "builderVersion": "builder-v1",
+  "sourcePath": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-51972816600033\\artifact-dr-v2-51972816600033-design_request_v1-design_artifact_v1-r1\\source",
+  "outputPath": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-51972816600033\\artifact-dr-v2-51972816600033-design_request_v1-design_artifact_v1-r1\\dist",
+  "status": "SUCCEEDED",
+  "framework": "STATIC_HTML_CSS",
+  "sourceHash": "f56a8e21069f094a69ff3e15371b55296e9119c4e8846a9717e2f378eac8c8e7",
+  "createdAt": "2026-10-04T10:57:44.782Z",
+  "completedAt": "2026-10-04T10:57:44.804Z",
+  "metadata": {
+    "entryFile": "index.html",
+    "buildCommand": "builder-v1 static build",
+    "missingAssetRequirements": [
+      "logo if supplied",
+      "approved business imagery if supplied",
+      "no fabricated testimonials or pricing"
+    ]
+  }
+}

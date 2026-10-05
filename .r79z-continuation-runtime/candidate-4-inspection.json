@@ -1,0 +1,13 @@
+{
+  "pageState": "FETCH_FAILED",
+  "observation": {
+    "schemaVersion": 1,
+    "requestedUrl": "https://maisons-alizea.com/",
+    "inspectedAt": "2026-10-04T16:38:44.778Z",
+    "httpResultClass": "SERVER_ERROR"
+  },
+  "staging": {
+    "state": "FETCH_FAILED",
+    "authority": "NON_AUTHORITATIVE"
+  }
+}

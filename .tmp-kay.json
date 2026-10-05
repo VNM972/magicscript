@@ -1,0 +1,46 @@
+﻿{
+  "prospect": {
+    "id": "d12e10f8-6252-4f28-9c50-aa2742aa74c0",
+    "companyName": "KAY JUJU",
+    "legalName": "KAY JUJU",
+    "siren": "920247814",
+    "siret": "92024781400014",
+    "city": "FORT-DE-FRANCE",
+    "sourceUrl": "https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju",
+    "activityTaxonomy": "NAF_2008",
+    "commercialEligibility": "HIGH_PRIORITY",
+    "brandKey": "KAY JUJU",
+    "initialResearchRepresentative": true,
+    "activity": "Restauration; NAF 56.10C",
+    "location": "182 Bois Boyer, Route du Lamentin, 97200 Fort-de-France, Martinique",
+    "websiteUrl": "https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju",
+    "state": "DISQUALIFIED",
+    "score": 0,
+    "primaryCta": "Unknown pending Research",
+    "createdAt": "2026-09-15T16:23:18.398Z",
+    "updatedAt": "2026-09-15T17:04:03.343Z"
+  },
+  "contacts": [],
+  "contactability": {
+    "identity": {
+      "prospectId": "d12e10f8-6252-4f28-9c50-aa2742aa74c0",
+      "siren": "920247814",
+      "siret": "92024781400014"
+    },
+    "status": "MISSING",
+    "channels": [],
+    "preparation": null
+  },
+  "prototype": null,
+  "salesRoom": null,
+  "commercialLinks": {
+    "prototypeUrl": null,
+    "prototypeEntryUrl": null,
+    "salesRoomUrl": null,
+    "salesRoomSlug": "kay-juju",
+    "salesRoomStatus": "ACTIVE",
+    "personalizedUrl": null,
+    "personalizedEntryEnabled": false,
+    "links": []
+  }
+}

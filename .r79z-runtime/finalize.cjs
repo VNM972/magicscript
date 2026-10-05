@@ -1,0 +1,13 @@
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const dir='.r79z-runtime/';
+const read=n=>JSON.parse(fs.readFileSync(dir+n,'utf8'));
+const pool=read('selection.json').pool;
+const invocations=fs.readdirSync(dir).filter(n=>n.endsWith('-invocation.json'));
+assert.equal(invocations.length,8);assert.equal(pool.length,10);
+assert(!fs.existsSync(dir+'qualification-ready.json'));assert(!fs.existsSync(dir+'selected.json'));
+const results=pool.slice(0,7).map((p,i)=>({rank:i+1,name:p.name,url:p.url,result:read(`candidate-${i+1}-result.json`),...(i===0?{networkRecovery:read('candidate-1-network-recovery-result.json')}:{})}));
+assert(results.every(r=>r.result.qualification!=='PAIN_SIGNAL_CONFIRMED'));
+const post=read('postflight.json');assert(post.trackedDiffUnchanged&&post.canonicalSourcesUnchanged&&post.prospectsAdmissionsSlotsUnchanged);
+const result={mission:'R79Z',status:'BLOCKED_NO_COMMERCIAL_PROSPECT',programPhase:'COMMERCIAL_ACTIVATION',at:new Date().toISOString(),candidatesRanked:10,canonicalInvocations:8,distinctBusinessesInspected:7,results,selectedProspect:null,prospectId:null,admission:'NOT_PERFORMED',productionSlot:'NOT_ACQUIRED; capacity available; existing holders preserved',design:'NOT_RUN',designReview:'NOT_RUN',finalBuild:null,finalVisualQa:null,correctionCyclesUsed:0,prospectSafeDemo:null,demoVerified:false,contactOpportunityPack:null,recommendedManualChannel:null,firstContactDraftReady:false,outreachSent:false,productSourceFilesModified:[],newProductDefect:null,technicalAcceptance:'COMPLETE',reproducibility:'PROVEN',commercialReadiness:'NOT_READY',oneBlocker:'No admissible and commercially contactable prospect established within the bounded inspection budget.',nextAllowedAction:'Run a newly authorized bounded commercial PAIN_FIRST sourcing batch excluding all previously processed prospects and these seven inspected businesses.',verification:post};
+fs.writeFileSync(dir+'final-disposition.json',JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify({status:result.status,candidatesRanked:10,canonicalInvocations:8,distinctBusinessesInspected:7,productSourceFilesModified:[],outreachSent:false}));

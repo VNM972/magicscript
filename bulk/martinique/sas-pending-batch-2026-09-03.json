@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-03",
+  "status": "WAITING_LOCAL_D1_PERSISTENCE",
+  "scope": {
+    "territory": "Martinique",
+    "sourceBase": "local D1 magicscript-dev",
+    "contactAllowed": false,
+    "commercialActivation": "DISABLED",
+    "prototypeAutomation": "DISABLED",
+    "cloudflareWrites": "BLOCKED_TEMPORARILY"
+  },
+  "baseline": {
+    "rowsTotal": 57,
+    "syntheticRowsExcluded": 2,
+    "realRowsTotal": 55,
+    "realMartiniqueRows": 51,
+    "realMartiniqueCommunesRepresented": 13,
+    "d1Sha256BeforeAttempt": "bfa8d5c7c8baaec4427d66c82618cf0c687d737489c6fc2abb0126b3f0309340"
+  },
+  "batch": [
+    {"id":"c2f2ff56-3e02-46e9-9ce0-ea7f0737a5b5","companyName":"Martinique Best Secret","activity":"Excursions touristiques terrestres en petit groupe et transferts aéroport-hôtel","commune":"Saint-Joseph","websiteUrl":null,"socialUrls":["https://instagram.com/reel/C1PU-sPMmaO"],"state":"SAS_PENDING","sourceUrl":"https://www.martinique.org/fr/que-faire/randonnees/martinique-best-secret","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"NO_WEBSITE_LINK_LISTED","services":["excursions touristiques terrestres","transferts aéroport-hôtel","guide privatif"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"64ad5607-3bd0-4837-bc95-ae828e9b4590","companyName":"Cap Loisirs Randonnée","activity":"Randonnées en buggy","commune":"Sainte-Anne","websiteUrl":null,"socialUrls":[],"state":"SAS_PENDING","sourceUrl":"https://www.martinique.org/fr/que-faire/sports-et-decouvertes-terre/cap-loisirs-randonnee","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"NO_WEBSITE_LINK_LISTED","services":["randonnées buggy"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"517b0ea9-d539-4a4d-a310-137b180e8c64","companyName":"Kaiali Excursions","activity":"Guides et excursions ; randonnées et bivouac","commune":"L'Ajoupa-Bouillon","websiteUrl":null,"socialUrls":["https://instagram.com/kaiali.excursions97"],"state":"SAS_PENDING","sourceUrl":"https://www.martinique.org/fr/que-faire/randonnees/kaiali-excursions","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"NO_WEBSITE_LINK_LISTED","services":["randonnées","bivouac en pleine nature"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"9f8f474d-3090-4378-8a65-703251db4a69","companyName":"Rando/Training/Brunch","activity":"Randonnée encadrée, training en plein air et brunch local","commune":"Le Morne-Vert","websiteUrl":null,"socialUrls":[],"state":"SAS_PENDING","sourceUrl":"https://www.martinique.org/fr/que-faire/randonnees/randotrainingbrunch","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"NO_WEBSITE_LINK_LISTED","services":["randonnées encadrées","training plein air","brunch local"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"8d7883f9-5fa2-427e-8207-a4ba8b619e67","companyName":"L'AIME RÔDE SAS","activity":"Restauration traditionnelle, bar et vente sur place ou à emporter","commune":"Le Morne-Vert","websiteUrl":null,"socialUrls":[],"state":"SAS_PENDING","sourceUrl":"https://www.aqcs-martinique.com/region/nord-caraibe/","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"NO_WEBSITE_LINK_LISTED","services":["restauration traditionnelle","bar","vente sur place ou à emporter"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"8f12b668-b82f-4f28-88b4-b7893452c631","companyName":"LA BOULANGERIE DU COIN","activity":"Boulangerie, pâtisserie et sandwicherie sur place ou à emporter","commune":"Le Carbet","websiteUrl":null,"socialUrls":[],"state":"SAS_PENDING","sourceUrl":"https://www.aqcs-martinique.com/region/nord-caraibe/","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"NO_WEBSITE_LINK_LISTED","services":["boulangerie","pâtisserie","sandwicherie"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"ee5db903-0323-4206-bc04-1d8b4b846e73","companyName":"PATISSERIE TENDRESSE CARAIBE","activity":"Pâtisserie artisanale et pâtisserie fine","commune":"Le Carbet","websiteUrl":null,"socialUrls":[],"state":"SAS_PENDING","sourceUrl":"https://www.aqcs-martinique.com/region/nord-caraibe/","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"NO_WEBSITE_LINK_LISTED","services":["pâtisserie artisanale","pâtisserie fine"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"48848f57-2b97-4387-b8fa-748d165aa0ba","companyName":"ZIOUKA GLACES","activity":"Fabrication de glaces et sorbets artisanaux","commune":"Le Carbet","websiteUrl":null,"socialUrls":[],"state":"SAS_PENDING","sourceUrl":"https://www.aqcs-martinique.com/region/nord-caraibe/","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"NO_WEBSITE_LINK_LISTED","services":["glaces artisanales","sorbets artisanaux"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"081caa85-0fb0-43da-a257-7bc38a3cb840","companyName":"BOUCHERIE 2L","activity":"Commerce de détail de viande et vente de viande locale","commune":"Saint-Pierre","websiteUrl":null,"socialUrls":[],"state":"SAS_PENDING","sourceUrl":"https://www.aqcs-martinique.com/region/nord-caraibe/","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"NO_WEBSITE_LINK_LISTED","services":["boucherie","viande locale"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"3bd41cab-d6a1-46dc-91a3-b09658010c17","companyName":"LA DOUCE GAELLE","activity":"Vente d’épices et de liqueurs, vente en ligne et livraison","commune":"Saint-Pierre","websiteUrl":null,"socialUrls":[],"state":"SAS_PENDING","sourceUrl":"https://www.aqcs-martinique.com/region/nord-caraibe/","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"NO_WEBSITE_LINK_LISTED","services":["épices","liqueurs","vente en ligne","livraison"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"dfa21e68-53d0-44f0-8f13-bb07c818c43a","companyName":"Kayak Evasion Martinique","activity":"Pirogue, kayak et paddle sur le littoral et la mangrove","commune":"Sainte-Luce","websiteUrl":null,"socialUrls":["https://www.tripadvisor.fr/Attraction_Review-g1202635-d13566735-Reviews-Kayak_Evasion_Martinique-Sainte_Luce_Arrondissement_of_Le_Marin_Martinique.html"],"state":"SAS_PENDING","sourceUrl":"https://www.martinique.org/fr/que-faire/sports-activites-nautiques/kayak-evasion-martinique","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"DIRECTORY_ONLY_LINK_LISTED","services":["pirogue","kayak","paddle","découverte de la mangrove"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"62c02785-6489-4c6f-9a64-293079887d90","companyName":"South Discover Base Nautique","activity":"Base nautique associative : voile, kayak, canoë et plongée","commune":"Sainte-Luce","websiteUrl":null,"socialUrls":["https://www.facebook.com/South-Discover-564362280378328"],"state":"SAS_PENDING","sourceUrl":"https://www.martinique.org/fr/que-faire/sports-activites-nautiques/south-discover-base-nautique","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"SOCIAL_ONLY_LINK_LISTED","services":["planche à voile","dériveur","catamaran","kayak","canoë","plongée"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"5d587a9a-2b89-4c23-96e2-14781fe6e84d","companyName":"Natiyabel","activity":"Plongée, formations, palmes-masque-tuba et location de kayaks/paddles","commune":"Sainte-Anne","websiteUrl":"https://www.plongee-martinique.fr","socialUrls":["https://www.facebook.com/plongeemartinique.natiyabel"],"state":"SAS_PENDING","sourceUrl":"https://www.martinique.org/fr/que-faire/sports-activites-nautiques/natiyabel","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"OFFICIAL_WEBSITE_AND_SOCIAL_LISTED","services":["baptêmes de plongée","formations PADI/FFESSM/ANMP","explorations","palmes-masque-tuba","location de kayaks et paddles"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"34269be2-0c4e-4b68-b3c2-87e4be90e1d3","companyName":"Denebola - Les Plaisirs Nautiques","activity":"Écotourisme nautique, voilier, excursion, randonnée palmée et paddle","commune":"Le Robert","websiteUrl":"https://www.croisieres-denebola.com","socialUrls":["https://www.facebook.com/Dénébola-Les-Plaisirs-Nautiques-172713132787790"],"state":"SAS_PENDING","sourceUrl":"https://www.martinique.org/fr/que-faire/sports-activites-nautiques/denebola-les-plaisirs-nautiques","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"BOOKING_WEBSITE_LISTED","services":["excursion en voilier","randonnée palmée","paddle","découverte de la baie du Robert"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"48eb9f33-7f79-492e-9def-27524d0b20df","companyName":"Fleurdo Ecoexcursion","activity":"Éco-excursion en pirogues transparentes et bateau solaire sur le littoral et la mangrove","commune":"Le Vauclin","websiteUrl":null,"socialUrls":["https://www.facebook.com/fleurdo972","https://www.facebook.com/piroguestransparentes.fleurdo"],"state":"SAS_PENDING","sourceUrl":"https://www.martinique.org/fr/que-faire/sports-activites-nautiques/fleurdo-ecoexcursion","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"SOCIAL_ONLY_CURRENT_PROFILE","services":["pirogues transparentes","bateau solaire","lecture des écosystèmes marins","repas fait maison"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"eb2f7507-72ad-4ad8-878b-3504e1f329fa","companyName":"Amphitrite","activity":"Excursions en mer, observation des cétacés, pêche et sorties à la carte","commune":"Case-Pilote","websiteUrl":"https://www.amphitrite-martinique.com","socialUrls":["https://www.facebook.com/AmphitriteDauphinsMartinique"],"state":"SAS_PENDING","sourceUrl":"https://www.martinique.org/fr/que-faire/sports-activites-nautiques/amphitrite","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"OFFICIAL_WEBSITE_AND_SOCIAL_LISTED","services":["sorties dauphins","sorties nord Caraïbes","balade au coucher du soleil","pêche traditionnelle et sportive","privatisation"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"ac28dabb-7c61-475c-8ae4-99ec473338af","companyName":"Madisail","activity":"Sorties voile, balade aquatique guidée et expérience avec produits locaux","commune":"Case-Pilote","websiteUrl":"https://www.madisail.com","socialUrls":["https://www.facebook.com/madisailcom","https://instagram.com/madisail"],"state":"SAS_PENDING","sourceUrl":"https://www.martinique.org/fr/que-faire/sports-activites-nautiques/madisail","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"OFFICIAL_WEBSITE_AND_SOCIAL_LISTED","services":["navigation à la voile","balade aquatique guidée","découverte de la biodiversité","repas local"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]},
+    {"id":"7e516e88-1bd4-40e7-82d7-74f87cb3f963","companyName":"Alpha Plongée Martinique","activity":"Baptêmes, formations, plongées d’exploration et randonnée palmée","commune":"Les Anses-d'Arlet","websiteUrl":"https://www.alphaplongee.com","socialUrls":["https://www.facebook.com/alphaplongee.martinique"],"state":"SAS_PENDING","sourceUrl":"https://www.martinique.org/fr/que-faire/sports-activites-nautiques/alpha-plongee-martinique","sourceDate":"2026-09-03","confidence":"HIGH","digitalSignal":"OFFICIAL_WEBSITE_AND_SOCIAL_LISTED","services":["baptêmes de plongée","formations","plongées d’exploration","randonnée palmée"],"brandAsset":"UNKNOWN","photos":"PUBLIC_DIRECTORY_MEDIA_PRESENT","unknown":["legalName","founders","publicDocuments"]}
+  ],
+  "coverage": {
+    "method": "Décompte des lignes localisées par commune ; couverture proportionnelle non calculée faute de dénominateur public homogène et actuel.",
+    "denominatorSource": "https://www.insee.fr/fr/information/8740222",
+    "stagedAfterBatch": {
+      "rowsTotal": 75,
+      "realRowsTotal": 73,
+      "realMartiniqueRows": 69,
+      "communesRepresented": 21,
+      "communesInMartinique": 34,
+      "coverageEstimated": "61.8% des communes représentées par au moins un prospect identifié ; ne mesure pas la couverture de marché.",
+      "byCommune": [
+        {"commune":"Fort-de-France","prospectsIdentifies":18,"prospectsSas":0,"qualifies":10},
+        {"commune":"Le Lamentin","prospectsIdentifies":15,"prospectsSas":0,"qualifies":5},
+        {"commune":"Ducos","prospectsIdentifies":4,"prospectsSas":0,"qualifies":1},
+        {"commune":"Saint-Pierre","prospectsIdentifies":4,"prospectsSas":2,"qualifies":1},
+        {"commune":"Le Carbet","prospectsIdentifies":3,"prospectsSas":3,"qualifies":0},
+        {"commune":"Les Trois-Îlets","prospectsIdentifies":3,"prospectsSas":0,"qualifies":0},
+        {"commune":"Sainte-Luce","prospectsIdentifies":3,"prospectsSas":2,"qualifies":1},
+        {"commune":"Case-Pilote","prospectsIdentifies":2,"prospectsSas":2,"qualifies":0},
+        {"commune":"Le Morne-Vert","prospectsIdentifies":2,"prospectsSas":2,"qualifies":0},
+        {"commune":"Le Robert","prospectsIdentifies":2,"prospectsSas":1,"qualifies":0},
+        {"commune":"Rivière-Salée","prospectsIdentifies":2,"prospectsSas":0,"qualifies":1},
+        {"commune":"Sainte-Anne","prospectsIdentifies":2,"prospectsSas":2,"qualifies":0},
+        {"commune":"Basse-Pointe","prospectsIdentifies":1,"prospectsSas":0,"qualifies":0},
+        {"commune":"Gros-Morne","prospectsIdentifies":1,"prospectsSas":0,"qualifies":0},
+        {"commune":"L'Ajoupa-Bouillon","prospectsIdentifies":1,"prospectsSas":1,"qualifies":0},
+        {"commune":"La Trinité","prospectsIdentifies":1,"prospectsSas":0,"qualifies":1},
+        {"commune":"Le François","prospectsIdentifies":1,"prospectsSas":0,"qualifies":1},
+        {"commune":"Le Marin","prospectsIdentifies":1,"prospectsSas":0,"qualifies":0},
+        {"commune":"Le Vauclin","prospectsIdentifies":1,"prospectsSas":1,"qualifies":0},
+        {"commune":"Les Anses-d'Arlet","prospectsIdentifies":1,"prospectsSas":1,"qualifies":0},
+        {"commune":"Saint-Joseph","prospectsIdentifies":1,"prospectsSas":1,"qualifies":0}
+      ]
+    }
+  },
+  "verification": {
+    "sourceUrlsPresent": true,
+    "allBatchStatesSasPendingOnIsolatedCopy": true,
+    "contactsCreatedOnIsolatedCopy": 0,
+    "jobsCreatedOnIsolatedCopy": 0,
+    "evidenceEventsOnIsolatedCopy": 18,
+    "duplicateCheck": "18 noms absents de la base lue avant staging ; doublons intra-batch absents.",
+    "syntheticConversion": false,
+    "externalContact": false,
+    "externalEmail": false,
+    "commercialMutation": false
+  },
+  "persistence": {
+    "isolatedCopy": "C:/Users/svmir/Documents/Codex/2026-09-02/referenced-chatgpt-conversation-this-is-an-3/work/real-prospects-batch.sqlite",
+    "backupBeforeAttempt": "C:/Users/svmir/Documents/Codex/2026-09-02/referenced-chatgpt-conversation-this-is-an-3/work/real-prospects-before-batch.sqlite",
+    "d1WriteAttempt": "REFUSED_EPERM",
+    "d1ActualRowsAfterAttempt": 57,
+    "d1ActualSasPendingAfterAttempt": 0,
+    "nextAction": "WAITING_LOCAL_D1_WRITE_ACCESS",
+    "notClaimedAsIntegrated": true
+  },
+  "sourceCatalog": [
+    "https://www.martinique.org/fr/que-faire/randonnees/martinique-best-secret",
+    "https://www.martinique.org/fr/que-faire/sports-et-decouvertes-terre/cap-loisirs-randonnee",
+    "https://www.martinique.org/fr/que-faire/randonnees/kaiali-excursions",
+    "https://www.martinique.org/fr/que-faire/randonnees/randotrainingbrunch",
+    "https://www.aqcs-martinique.com/region/nord-caraibe/",
+    "https://www.martinique.org/fr/que-faire/sports-activites-nautiques/kayak-evasion-martinique",
+    "https://www.martinique.org/fr/que-faire/sports-activites-nautiques/south-discover-base-nautique",
+    "https://www.martinique.org/fr/que-faire/sports-activites-nautiques/natiyabel",
+    "https://www.martinique.org/fr/que-faire/sports-activites-nautiques/denebola-les-plaisirs-nautiques",
+    "https://www.martinique.org/fr/que-faire/sports-activites-nautiques/fleurdo-ecoexcursion",
+    "https://www.martinique.org/fr/que-faire/sports-activites-nautiques/amphitrite",
+    "https://www.martinique.org/fr/que-faire/sports-activites-nautiques/madisail",
+    "https://www.martinique.org/fr/que-faire/sports-activites-nautiques/alpha-plongee-martinique"
+    ,"https://www.insee.fr/fr/information/8740222"
+  ]
+}

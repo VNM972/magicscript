@@ -1,0 +1,8 @@
+[
+  {
+    "path": "/api/runner/jobs/claim",
+    "startedAt": "2026-10-03T07:05:02.812Z",
+    "status": 503,
+    "body": "{\n  \"error\": \"Runner requests require a configured stack generation\"\n}"
+  }
+]

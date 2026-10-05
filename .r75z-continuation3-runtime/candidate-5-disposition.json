@@ -1,0 +1,18 @@
+{
+  "index": 5,
+  "name": "Chateau de Toulondit",
+  "url": "https://www.toulondit.fr/",
+  "discovery": "Previously discovered public restaurant result in R75Z continuation 2; not previously canonically inspected; outside Martinique, eligibility remains canonical",
+  "pageState": "PAGE_OBSERVED",
+  "httpResultClass": "SUCCESS",
+  "title": "Accueil - Chateau de Toulondit",
+  "h1": [
+    "Château de Toulondit"
+  ],
+  "qualification": "NO_PAIN_SIGNAL",
+  "identity": null,
+  "enrichment": null,
+  "registryRequest": null,
+  "admission": "NOT_PERFORMED",
+  "reason": "NO_PAIN_SIGNAL"
+}

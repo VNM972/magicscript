@@ -1,0 +1,14 @@
+{
+  "projection": "PROJECTABLE",
+  "icp": {
+    "outcome": "ADMIT",
+    "reasonCode": "SUPPORTED_EASY_WIN",
+    "version": "AGENT1_V2_ICP_V1"
+  },
+  "identityState": "IDENTITY_STRONG",
+  "contactLocator": "LocalBusiness.email corroborated by explicit mailto anchor",
+  "classification": "UNRESOLVED; unchanged PAIN_FIRST allowance",
+  "decisionAuthority": "UNRESOLVED; omitted rather than invented",
+  "registry": "Not required by current V2 admission contract; no R55 prospect-creation transition invoked",
+  "sourceDigest": "sha256:fe8df54cebbeb0ecc3ac64736d3a37304044afeb91061574bfa21a20fee0c5d3"
+}

@@ -1,0 +1,122 @@
+{
+  "prospect": {
+    "id": "7509c105-ea28-48ea-aaf3-59e780720d25",
+    "companyName": "DELICATESS",
+    "legalName": "TESSA SCHURINK (DELICATESS)",
+    "siren": "442963625",
+    "siret": "44296362500086",
+    "city": "SAINTE-LUCE",
+    "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/44296362500086",
+    "activityTaxonomy": "NAF_2008",
+    "commercialEligibility": "RESEARCH",
+    "brandKey": "DELICATESS",
+    "initialResearchRepresentative": true,
+    "activity": "56.21Z",
+    "location": "VILLA VOLCAFT N 4 QUA MONESIE 97228 SAINTE-LUCE",
+    "websiteUrl": "https://www.delicatess.com/",
+    "state": "DISQUALIFIED",
+    "score": 48,
+    "primaryCta": "Contact us",
+    "createdAt": "2026-09-28T17:20:43.023Z",
+    "updatedAt": "2026-09-28T17:28:07.249Z"
+  },
+  "contacts": [],
+  "contactability": {
+    "identity": {
+      "prospectId": "7509c105-ea28-48ea-aaf3-59e780720d25",
+      "siren": "442963625",
+      "siret": "44296362500086"
+    },
+    "status": "MISSING",
+    "channels": [],
+    "preparation": null
+  },
+  "contactAcquisition": null,
+  "contactPresence": {
+    "status": "UNKNOWN",
+    "identity": {
+      "status": "VERIFIED",
+      "matched": true,
+      "reason": "identity bound",
+      "observations": [
+        {
+          "domain": "delicatess.com"
+        }
+      ]
+    },
+    "phone": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "email": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "website": {
+      "status": "VERIFIED",
+      "values": [
+        "www.delicatess.com"
+      ],
+      "evidence": [
+        {
+          "value": "www.delicatess.com",
+          "sourceUrl": "www.delicatess.com",
+          "kind": "social",
+          "evidenceType": "OWNED_WEBSITE"
+        }
+      ]
+    },
+    "social": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "instagram": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "facebook": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "tiktok": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "whatsapp": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "contactForm": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "sourcesProcessed": 0,
+    "sourcesChecked": [],
+    "reasons": [
+      "identity bound",
+      "bounded sources checked: 0"
+    ],
+    "enrichedAt": "2026-09-28T17:27:36.85Z",
+    "truncated": false
+  },
+  "prototype": null,
+  "salesRoom": null,
+  "commercialLinks": {
+    "prototypeUrl": null,
+    "prototypeEntryUrl": null,
+    "salesRoomUrl": null,
+    "salesRoomSlug": "delicatess",
+    "salesRoomStatus": "ACTIVE",
+    "personalizedUrl": null,
+    "personalizedEntryEnabled": false,
+    "links": []
+  }
+}

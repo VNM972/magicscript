@@ -23,7 +23,7 @@ function usage() {
     '',
     'Options:',
     '  --route <path>              Route to test, for example /p/snemm',
-    '  --surface <name>            public | prototype | sales-room | all',
+    '  --surface <name>            public | prototype | all',
     '  --fixture <slug>            Fixture slug (default: snemm)',
     '  --viewport <name>           desktop | mobile | both (default: both)',
     '  --output-dir <directory>   Screenshot/report directory',
@@ -61,8 +61,8 @@ function parseArgs(argv) {
   if (!['desktop', 'mobile', 'both'].includes(args.viewport)) {
     throw new Error('--viewport must be desktop, mobile, or both');
   }
-  if (args.surface && !['public', 'prototype', 'sales-room', 'all'].includes(args.surface)) {
-    throw new Error('--surface must be public, prototype, sales-room, or all');
+  if (args.surface && !['public', 'prototype', 'all'].includes(args.surface)) {
+    throw new Error('--surface must be public, prototype, or all');
   }
   if (!Number.isInteger(args.preferredPort) || args.preferredPort < 0 || args.preferredPort > 65535) {
     throw new Error('--port must be a valid TCP port');
@@ -80,11 +80,9 @@ function routesFor(args) {
   if (args.route) return [{ name: 'custom', route: args.route }];
   if (args.surface === 'public') return [{ name: 'public', route: '/' }];
   if (args.surface === 'prototype') return [{ name: 'prototype', route: `/demo/${args.fixture}` }];
-  if (args.surface === 'sales-room') return [{ name: 'sales-room', route: `/p/${args.fixture}` }];
   return [
     { name: 'public', route: '/' },
     { name: 'prototype', route: `/demo/${args.fixture}` },
-    { name: 'sales-room', route: `/p/${args.fixture}` },
   ];
 }
 
@@ -374,13 +372,6 @@ function truncate(value, max = 300) {
 }
 
 function expectations(surface) {
-  if (surface === 'sales-room') {
-    return {
-      markers: ['voir le prototype', 'réserver un échange', 'envoyer un message', 'partager'],
-      selector: 'form',
-      noPrice: true,
-    };
-  }
   if (surface === 'prototype') return { markers: ['snemm', 'voir votre proposition'] };
   return { markers: ['magic script'] };
 }

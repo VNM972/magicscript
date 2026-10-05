@@ -1,0 +1,549 @@
+ M .gitignore
+ M AGENTS.md
+ M CLAUDE.md
+ M agents/agent-2-prototype.md
+ M agents/agent-3-commercial.md
+ M agents/swarm/orchestrator.md
+ M agents/swarm/outreach.md
+ M agents/swarm/response-classifier.md
+ M apps/agent-runner/src/api.ts
+ M apps/agent-runner/src/index.ts
+ M apps/api-worker/src/index.ts
+ M apps/api-worker/src/runner-admission.integration.test.mjs
+ M apps/control-center/app/globals.css
+ M apps/control-center/app/layout.tsx
+ M apps/control-center/app/page.tsx
+ M apps/control-center/components/OutreachReview.tsx
+ M apps/control-center/lib/deck.ts
+ M apps/control-center/lib/outreach.ts
+ M artifacts/v2/outreach/m010-final-acceptance.json
+ M config/magicscript-v2-boundary.json
+ M core/admission/contact-opportunity-pack.ts
+ M core/admission/v2-admission.ts
+ M core/index.ts
+ M core/orchestrator/engine.ts
+ M core/outreach/contracts.ts
+ M core/outreach/engine.ts
+ M core/outreach/send.ts
+ M core/persistence/d1-job-queue.ts
+ M core/persistence/d1-outreach-draft-store.ts
+ M core/persistence/d1-prospect-repository.ts
+ M core/personalization/entry-links.ts
+ M core/proposal/contracts.ts
+ M core/proposal/tracking.ts
+ M core/prototypes/web-design-review.ts
+ M core/providers/discovery.ts
+ M core/providers/insee-sirene.ts
+ M core/providers/recherche-entreprises.ts
+ M core/tests/orchestrator.test.ts
+ M core/tests/outreach-draft.test.ts
+ M core/tests/outreach-policy.test.ts
+ M core/tests/prototype-cost-gate.test.ts
+ M core/tests/recherche-entreprises.test.ts
+ M core/tests/v2-admission.test.ts
+ M database/migration-v2-outreach-draft-v1.sql
+ M database/schema.sql
+ M docs/cloudflare-inventory.md
+ M docs/magicscript-v2-boundary.md
+ M outreach/templates.md
+ M scripts/m010-final-acceptance.mts
+ M scripts/magic-script.ps1
+ M scripts/qa-surface.cjs
+ M scripts/qa-surface.test.cjs
+ M scripts/smoke-full-funnel.mjs
+ M scripts/smoke-swarm.mjs
+ M scripts/start-local-swarm.ps1
+ M sites/magicscript-v2/public/app.js
+ M sites/magicscript-v2/public/index.html
+ M sites/magicscript-v2/public/mentions-legales.html
+ M sites/magicscript-v2/public/politique-confidentialite.html
+ M sites/magicscript-v2/public/styles.css
+?? ._list_prospects.py
+?? ._prospects.json
+?? .r27-runtime/r27-live-20260919-01/v3/cache/miniflare-CacheObject/metadata.sqlite
+?? .r27-runtime/r27-live-20260919-01/v3/cache/miniflare-CacheObject/metadata.sqlite-shm
+?? .r27-runtime/r27-live-20260919-01/v3/cache/miniflare-CacheObject/metadata.sqlite-wal
+?? .r27-runtime/r27-live-20260919-01/v3/d1/miniflare-D1DatabaseObject/8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite
+?? .r27-runtime/r27-live-20260919-01/v3/d1/miniflare-D1DatabaseObject/8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite-shm
+?? .r27-runtime/r27-live-20260919-01/v3/d1/miniflare-D1DatabaseObject/8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite-wal
+?? .r27-runtime/r27-live-20260919-01/v3/d1/miniflare-D1DatabaseObject/metadata.sqlite
+?? .r27-runtime/r27-live-20260919-01/v3/d1/miniflare-D1DatabaseObject/metadata.sqlite-shm
+?? .r27-runtime/r27-live-20260919-01/v3/d1/miniflare-D1DatabaseObject/metadata.sqlite-wal
+?? .r27-runtime/r27-live-20260919-01/v3/observability/miniflare-wobs-trace-store/a590acd76969f996ec6e4b599c3c09f58c283a76f2d61392b5d3046caf557602.sqlite
+?? .r27-runtime/r27-live-20260919-01/v3/observability/miniflare-wobs-trace-store/a590acd76969f996ec6e4b599c3c09f58c283a76f2d61392b5d3046caf557602.sqlite-shm
+?? .r27-runtime/r27-live-20260919-01/v3/observability/miniflare-wobs-trace-store/a590acd76969f996ec6e4b599c3c09f58c283a76f2d61392b5d3046caf557602.sqlite-wal
+?? .r27-runtime/r27-live-20260919-01/v3/observability/miniflare-wobs-trace-store/metadata.sqlite
+?? .r27-runtime/r27-live-20260919-01/v3/observability/miniflare-wobs-trace-store/metadata.sqlite-shm
+?? .r27-runtime/r27-live-20260919-01/v3/observability/miniflare-wobs-trace-store/metadata.sqlite-wal
+?? .r27-runtime/research-results.json
+?? .r31-runtime/host-20260928-2ce003f6/capability-d1-read.json
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/cache/miniflare-CacheObject/metadata.sqlite
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/cache/miniflare-CacheObject/metadata.sqlite-shm
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/cache/miniflare-CacheObject/metadata.sqlite-wal
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/d1/miniflare-D1DatabaseObject/8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/d1/miniflare-D1DatabaseObject/8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite-shm
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/d1/miniflare-D1DatabaseObject/8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite-wal
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/d1/miniflare-D1DatabaseObject/metadata.sqlite
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/d1/miniflare-D1DatabaseObject/metadata.sqlite-shm
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/d1/miniflare-D1DatabaseObject/metadata.sqlite-wal
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/observability/miniflare-wobs-trace-store/a590acd76969f996ec6e4b599c3c09f58c283a76f2d61392b5d3046caf557602.sqlite
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/observability/miniflare-wobs-trace-store/a590acd76969f996ec6e4b599c3c09f58c283a76f2d61392b5d3046caf557602.sqlite-shm
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/observability/miniflare-wobs-trace-store/a590acd76969f996ec6e4b599c3c09f58c283a76f2d61392b5d3046caf557602.sqlite-wal
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/observability/miniflare-wobs-trace-store/metadata.sqlite
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/observability/miniflare-wobs-trace-store/metadata.sqlite-shm
+?? .r31-runtime/host-20260928-2ce003f6/d1/v3/observability/miniflare-wobs-trace-store/metadata.sqlite-wal
+?? .r31-runtime/host-20260928-2ce003f6/final-d1-reconciliation.json
+?? .r31-runtime/host-20260928-2ce003f6/health.json
+?? .r31-runtime/host-20260928-2ce003f6/owned-process-ids.json
+?? .r31-runtime/host-20260928-2ce003f6/selection-fetch-1.html
+?? .r31-runtime/host-20260928-2ce003f6/selection-fetch-1.json
+?? .r31-runtime/host-20260928-2ce003f6/selection-fetch-2.html
+?? .r31-runtime/host-20260928-2ce003f6/selection-fetch-2.json
+?? .r31-runtime/host-20260928-2ce003f6/selection-fetch-3.html
+?? .r31-runtime/host-20260928-2ce003f6/selection-fetch-3.json
+?? .r31-runtime/host-20260928-2ce003f6/selection-fetch-4.html
+?? .r31-runtime/host-20260928-2ce003f6/selection-fetch-4.json
+?? .r31-runtime/host-20260928-2ce003f6/selection-fetch-5.html
+?? .r31-runtime/host-20260928-2ce003f6/selection-fetch-6.html
+?? .r31-runtime/host-20260928-2ce003f6/selection-fetch-7.html
+?? .r31-runtime/host-20260928-2ce003f6/selection-fetch-8.html
+?? .r31-runtime/host-20260928-2ce003f6/selection-fetch-9.html
+?? .r31-runtime/host-20260928-2ce003f6/shutdown-proof.json
+?? .r31-runtime/host-20260928-2ce003f6/target-selection.json
+?? .r32-runtime/host-20260928-c62715aa/baseline.json
+?? .r32-runtime/host-20260928-c62715aa/canonical-gate-proof.json
+?? .r32-runtime/host-20260928-c62715aa/capability-d1-read.json
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/cache/miniflare-CacheObject/metadata.sqlite
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/cache/miniflare-CacheObject/metadata.sqlite-shm
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/cache/miniflare-CacheObject/metadata.sqlite-wal
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/d1/miniflare-D1DatabaseObject/8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/d1/miniflare-D1DatabaseObject/8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite-shm
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/d1/miniflare-D1DatabaseObject/8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite-wal
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/d1/miniflare-D1DatabaseObject/metadata.sqlite
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/d1/miniflare-D1DatabaseObject/metadata.sqlite-shm
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/d1/miniflare-D1DatabaseObject/metadata.sqlite-wal
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/observability/miniflare-wobs-trace-store/a590acd76969f996ec6e4b599c3c09f58c283a76f2d61392b5d3046caf557602.sqlite
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/observability/miniflare-wobs-trace-store/a590acd76969f996ec6e4b599c3c09f58c283a76f2d61392b5d3046caf557602.sqlite-shm
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/observability/miniflare-wobs-trace-store/a590acd76969f996ec6e4b599c3c09f58c283a76f2d61392b5d3046caf557602.sqlite-wal
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/observability/miniflare-wobs-trace-store/metadata.sqlite
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/observability/miniflare-wobs-trace-store/metadata.sqlite-shm
+?? .r32-runtime/host-20260928-c62715aa/d1/v3/observability/miniflare-wobs-trace-store/metadata.sqlite-wal
+?? .r32-runtime/host-20260928-c62715aa/fetch-2.html
+?? .r32-runtime/host-20260928-c62715aa/fetch-2.json
+?? .r32-runtime/host-20260928-c62715aa/fetch-3.html
+?? .r32-runtime/host-20260928-c62715aa/fetch-3.json
+?? .r32-runtime/host-20260928-c62715aa/fetch-4.html
+?? .r32-runtime/host-20260928-c62715aa/fetch-4.json
+?? .r32-runtime/host-20260928-c62715aa/fetch-5.html
+?? .r32-runtime/host-20260928-c62715aa/fetch-5.json
+?? .r32-runtime/host-20260928-c62715aa/fetch-6.html
+?? .r32-runtime/host-20260928-c62715aa/fetch-6.json
+?? .r32-runtime/host-20260928-c62715aa/fetch-7.html
+?? .r32-runtime/host-20260928-c62715aa/fetch-7.json
+?? .r32-runtime/host-20260928-c62715aa/final-d1-reconciliation.json
+?? .r32-runtime/host-20260928-c62715aa/frozen-target.json
+?? .r32-runtime/host-20260928-c62715aa/health.json
+?? .r32-runtime/host-20260928-c62715aa/manual-intake.json
+?? .r32-runtime/host-20260928-c62715aa/owned-process-ids.json
+?? .r32-runtime/host-20260928-c62715aa/persisted-proof.json
+?? .r32-runtime/host-20260928-c62715aa/runtime-fetch-count.json
+?? .r32-runtime/host-20260928-c62715aa/runtime-observations.jsonl
+?? .r32-runtime/host-20260928-c62715aa/shutdown-proof.json
+?? .r32-runtime/host-20260928-c62715aa/source-page-proof.json
+?? .tmp-acquisition-replay.json
+?? .tmp-acquisition-rerun.json
+?? .tmp-bernard.json
+?? .tmp-classification.json
+?? .tmp-kay.json
+?? .tmp-latest-acquisition.json
+?? .tmp-phone-gap-audit.json
+?? .tmp-postmigration-counts.json
+?? .tmp-prospects-summary.json
+?? .tmp-reenrichment-data.json
+?? .tmp-reenrichment-inventory.json
+?? .tmp-replay-rerun.json
+?? .tmp-replay-run.json
+?? .tmp-tavily-final-d1.json
+?? .tmp-tavily-replay.json
+?? .tmp-telemetry-report-summary.txt
+?? agents/agent-4-web-design.md
+?? apps/agent-runner/src/agent1-canonical.test.ts
+?? apps/agent-runner/src/agent1-canonical.ts
+?? apps/agent-runner/src/aider.ts
+?? apps/agent-runner/src/deploy-mode.test.ts
+?? apps/agent-runner/src/ollama-schema.test.ts
+?? apps/agent-runner/src/ollama-schema.ts
+?? apps/agent-runner/src/ollama.test.ts
+?? apps/agent-runner/src/ollama.ts
+?? apps/agent-runner/src/operating-evidence.test.ts
+?? apps/agent-runner/src/operating-evidence.ts
+?? apps/agent-runner/src/parse-json.test.ts
+?? apps/agent-runner/src/phone-evidence.test.ts
+?? apps/agent-runner/src/phone-evidence.ts
+?? apps/agent-runner/src/presence-enrichment.test.ts
+?? apps/agent-runner/src/presence-enrichment.ts
+?? apps/agent-runner/src/prompts.test.ts
+?? apps/agent-runner/src/prototype-conversion-repair.test.ts
+?? apps/agent-runner/src/prototype-conversion-source.test.ts
+?? apps/agent-runner/src/prototype-conversion-source.ts
+?? apps/agent-runner/src/prototype-conversion.test.ts
+?? apps/agent-runner/src/prototype-creative-loop.test.ts
+?? apps/agent-runner/src/prototype-creative-loop.ts
+?? apps/agent-runner/src/prototype-creative-review-loop.test.ts
+?? apps/agent-runner/src/prototype-creative-review-loop.ts
+?? apps/agent-runner/src/prototype-qa.test.ts
+?? apps/agent-runner/src/prototype-qa.ts
+?? apps/agent-runner/src/prototype-scaffold.test.ts
+?? apps/agent-runner/src/prototype-scaffold.ts
+?? apps/agent-runner/src/prototype-source-files.test.ts
+?? apps/agent-runner/src/prototype-source-files.ts
+?? apps/agent-runner/src/prototype-source-navigation.ts
+?? apps/agent-runner/src/prototype-web-design-review.test.ts
+?? apps/agent-runner/src/prototype-web-design-review.ts
+?? apps/agent-runner/src/provider-discovery-handoff.test.ts
+?? apps/agent-runner/src/research-output.test.ts
+?? apps/agent-runner/src/research-output.ts
+?? apps/agent-runner/src/synthetic-creative-idempotency.test.ts
+?? apps/agent-runner/src/synthetic-creative-job.test.ts
+?? apps/agent-runner/src/synthetic-creative-job.ts
+?? apps/agent-runner/src/synthetic-creative-matrix.test.ts
+?? apps/agent-runner/src/synthetic-creative-matrix.ts
+?? apps/agent-runner/src/synthetic-creative-persistence.test.ts
+?? apps/agent-runner/src/synthetic-render-evidence.test.ts
+?? apps/agent-runner/src/synthetic-render-evidence.ts
+?? apps/api-worker/src/commercial-eligibility.integration.test.mjs
+?? apps/api-worker/src/commercial-lifecycle.test.mjs
+?? apps/api-worker/src/commercial-lifecycle.ts
+?? apps/api-worker/src/evidence-integrity.integration.test.mjs
+?? apps/api-worker/src/human-review.integration.test.mjs
+?? apps/api-worker/src/manual-discovery.integration.test.mjs
+?? apps/api-worker/src/outreach-drafts.integration.test.mjs
+?? apps/api-worker/src/outreach-edit.integration.test.mjs
+?? apps/api-worker/src/prototype-deployment.integration.test.mjs
+?? apps/api-worker/src/provider-discovery-handoff.integration.test.mjs
+?? apps/api-worker/src/shadow-qualification.integration.test.mjs
+?? apps/api-worker/src/synthetic-creative-persistence.integration.test.mjs
+?? apps/control-center/app/api/synthetic-creative/artifact/route.ts
+?? apps/control-center/components/DeckPipeline.tsx
+?? apps/control-center/lib/synthetic-creative-trace.test.ts
+?? artifacts/real-creative-canary-1-safe-stop.md
+?? artifacts/synthetic-creative/already-good.job-result.json
+?? artifacts/synthetic-creative/broken-mobile.job-result.json
+?? artifacts/synthetic-creative/build-failure.job-result.json
+?? artifacts/synthetic-creative/dense-content.job-result.json
+?? artifacts/synthetic-creative/impossible.job-result.json
+?? artifacts/synthetic-creative/matrix-manifest.json
+?? artifacts/synthetic-creative/protected-contract.job-result.json
+?? artifacts/synthetic-creative/protected-facts.job-result.json
+?? artifacts/synthetic-creative/render-evidence/desktop-033f8f6cb2458bcb.png
+?? artifacts/synthetic-creative/render-evidence/mobile-ad92cc2b8886801e.png
+?? artifacts/synthetic-creative/render-evidence/render-manifest.json
+?? artifacts/synthetic-creative/runtime-fixture/app/globals.css
+?? artifacts/synthetic-creative/runtime-fixture/app/layout.tsx
+?? artifacts/synthetic-creative/runtime-fixture/app/page.tsx
+?? artifacts/synthetic-creative/runtime-fixture/next.config.js
+?? artifacts/synthetic-creative/runtime-fixture/package-lock.json
+?? artifacts/synthetic-creative/runtime-fixture/package.json
+?? artifacts/synthetic-creative/runtime-fixture/tsconfig.json
+?? artifacts/synthetic-creative/ugly.job-result.json
+?? artifacts/v2/outreach/m010-health-diagnostic.json
+?? bulk/README.md
+?? bulk/martinique/019e118b-54cd-4085-a61b-54a846fe950a.md
+?? bulk/martinique/01a0f0d1-2f45-46e6-bb9a-d4e38973174b.md
+?? bulk/martinique/0ccd1a72-187c-4053-845f-3bc54121069d.md
+?? bulk/martinique/0f81b0ed-1f57-421c-aaed-85015c431baa.md
+?? bulk/martinique/179b2145-1454-4919-b518-428f0dcf4760.md
+?? bulk/martinique/21420fbb-72bd-4a37-b34a-19f2ed77f4e0.md
+?? bulk/martinique/23151e23-579f-424d-a629-0430c5676722.md
+?? bulk/martinique/25d37ec7-c8fe-4cca-b9ec-a43c632482e3.md
+?? bulk/martinique/275bb1e3-b999-4eba-83de-45d85c32b931.md
+?? bulk/martinique/2ac64a6a-6920-4151-a90e-1820e367ec5d.md
+?? bulk/martinique/2b337d96-861e-46c4-b960-2c51f62c02ad.md
+?? bulk/martinique/3f3dfce6-697e-4ec0-b1b2-ead53c468709.md
+?? bulk/martinique/4b76cb39-46bb-4583-ae06-2da7f055418a.md
+?? bulk/martinique/4cc2b65b-02e3-42bf-8bc7-a5787c351a4f.md
+?? bulk/martinique/4d9337bf-c8cb-44ff-b192-6915b1eddffa.md
+?? bulk/martinique/56a57399-1917-4455-a1ea-4d53e81bacf0.md
+?? bulk/martinique/56cb7cd1-a762-45a8-ab21-af1165890d80.md
+?? bulk/martinique/57955a24-b74a-4176-bad3-db3083ac2656.md
+?? bulk/martinique/57ea6ecb-6170-4aef-b135-c17652b03bf3.md
+?? bulk/martinique/5bd05368-cdf3-444a-a2c1-b1ef5d1bb029.md
+?? bulk/martinique/6124bf69-ae35-419f-85e0-e491e0d52cf1.md
+?? bulk/martinique/649ae177-36d8-4804-a082-4069b95a0e86.md
+?? bulk/martinique/6ab95ee2-8fa3-48fb-a354-2137817634fc.md
+?? bulk/martinique/6c5ec70e-5a81-46b8-b1d9-2445d302d5dc.md
+?? bulk/martinique/6d624316-cc4f-40bc-aa66-dabcd83d8b31.md
+?? bulk/martinique/7101af89-be8f-45ed-b17b-794cbff65755.md
+?? bulk/martinique/73443884-39de-4aae-a6e6-24a1433a12ee.md
+?? bulk/martinique/776667fb-d60f-47ed-8d69-4e190b03ac4d.md
+?? bulk/martinique/80628c9c-e17d-4c58-996e-ce189b7a090f.md
+?? bulk/martinique/81f1e3ff-b2e5-4379-b27b-e923ac3a99bf.md
+?? bulk/martinique/88827016-931f-4777-9e5e-1a2b8714c6d7.md
+?? bulk/martinique/8c48d357-d6b9-4c80-8e28-0e760c0c06c6.md
+?? bulk/martinique/96a77be3-680c-46fc-9882-8568b84219c1.md
+?? bulk/martinique/99333708-2b8c-4b22-8ef4-e8e58e2a5566.md
+?? bulk/martinique/a38681c7-e7e6-470c-a90e-220088fe625e.md
+?? bulk/martinique/a97c4945-ece6-4590-9503-74180fe91f67.md
+?? bulk/martinique/af8c9cc6-4c49-4aa5-9365-40fc79fa480d.md
+?? bulk/martinique/b41082c6-84e8-4981-8163-9fbe1addeebf.md
+?? bulk/martinique/b6437e30-edf7-441c-87ac-828c56977807.md
+?? bulk/martinique/bb428966-e820-4e76-89f2-457b879aceb4.md
+?? bulk/martinique/bbd73175-accc-40a4-a24b-a9d147bfdfff.md
+?? bulk/martinique/c66cd2c2-9d8c-4d04-b83c-15f38a14058f.md
+?? bulk/martinique/c7ebc520-44a6-411b-906a-690fbd4df2a3.md
+?? bulk/martinique/c965f79e-5aaa-4624-b73f-01e361c0be4e.md
+?? bulk/martinique/cf8479be-7c9b-46ce-9bc3-eea3b46223cb.md
+?? bulk/martinique/d2053b57-68a5-45d8-8fbb-e549096be39c.md
+?? bulk/martinique/da0d4664-6a21-4a47-a0b3-daab7bd13b9d.md
+?? bulk/martinique/dd85cd4c-9348-45bb-bce8-84917b9bc76f.md
+?? bulk/martinique/e1182a15-88f4-4ce1-8071-19cf0b078fd2.md
+?? bulk/martinique/f401d5ae-49d0-46b0-97c4-8846d05cb25d.md
+?? bulk/martinique/index.md
+?? bulk/martinique/sas-pending-batch-2026-09-03.json
+?? bulk/reports/contact-source-telemetry-v1.json
+?? bulk/reports/contact-yield-attribution.json
+?? bulk/reports/day-1-operating-pack-2026-09-07.md
+?? bulk/reports/deck-v1-closure-2026-09-07.md
+?? bulk/reports/first-sales-run-lite-2026-09-06.md
+?? bulk/reports/founder-input-next-block-2026-09-07.md
+?? bulk/reports/google-incremental-phone-independent-validation-v1.json
+?? bulk/reports/google-places-orchestrator-canary-v1-final.json
+?? bulk/reports/google-places-orchestrator-canary-v1-live-results.json
+?? bulk/reports/google-places-orchestrator-canary-v1-sample.json
+?? bulk/reports/google-places-production-validation-v1-external-results-v3.json
+?? bulk/reports/google-places-production-validation-v1-external-results.json
+?? bulk/reports/google-places-production-validation-v1-final-v3.json
+?? bulk/reports/google-places-production-validation-v1-forensic.json
+?? bulk/reports/google-places-production-validation-v1-sample-v2.json
+?? bulk/reports/google-places-production-validation-v1-sample-v3.json
+?? bulk/reports/google-places-production-validation-v1-sample.json
+?? bulk/reports/google-places-production-validation-v1.json
+?? bulk/reports/google-places-structured-discovery-adapter-v1-live-final.json
+?? bulk/reports/google-places-structured-discovery-adapter-v1-live-results.json
+?? bulk/reports/google-places-structured-provider-exploratory-v1.json
+?? bulk/reports/google-places-structured-provider-external-results-v1.json
+?? bulk/reports/local-runtime-safety-2026-09-07.md
+?? bulk/reports/local-state-audit.json
+?? bulk/reports/morning-full-window-2026-09-07.md
+?? bulk/reports/owned-traversal-attribution-v1.json
+?? bulk/reports/prospect-reenrichment-results.json
+?? bulk/reports/public-verification-2026-09-02.md
+?? bulk/reports/site-review-atelier-2026-09-02.md
+?? bulk/reports/tavily-final-report.json
+?? bulk/reports/tomtom-structured-provider-exploratory-v1.json
+?? bulk/reports/tomtom-structured-provider-external-results-v1.json
+?? bulk/reports/tomtom-structured-provider-sample-v1.json
+?? bulk/reports/trusted-phone-canonical-correction-v1.json
+?? bulk/reports/trusted-phone-provenance-audit-v1.json
+?? bulk/safiu-protection.md
+?? bulk/snemm.md
+?? bulk/sunelek.md
+?? core/admission/agent1-evidence-projection.ts
+?? core/admission/persisted-agent1-evidence.ts
+?? core/contact-acquisition/agent.ts
+?? core/contact-acquisition/tavily.ts
+?? core/contact-acquisition/telemetry.ts
+?? core/contact-presence/enrichment.ts
+?? core/experimentation/dogfood-seeds.ts
+?? core/experimentation/experiment-manager.ts
+?? core/feedback/aggregated-insight-contract.ts
+?? core/feedback/aggregator.ts
+?? core/feedback/human-decision-contract.ts
+?? core/feedback/operator-feedback-contract.ts
+?? core/feedback/playbook-change-proposal-builder.test.ts
+?? core/feedback/playbook-change-proposal-builder.ts
+?? core/feedback/playbook-change-proposal-contract.ts
+?? core/google-places-trust.ts
+?? core/icp/icp-decision.ts
+?? core/icp/local-service-archetypes.ts
+?? core/orchestrator/agent1-replenishment.ts
+?? core/orchestrator/contactability.ts
+?? core/orchestrator/deck-commercial-pipeline.ts
+?? core/orchestrator/google-discovery.ts
+?? core/orchestrator/prospect-commercial-view.ts
+?? core/outreach/commercial-catalog.ts
+?? core/outreach/commercial-contract.ts
+?? core/outreach/commercial-exemplars.ts
+?? core/outreach/commercial-fixture.ts
+?? core/outreach/commercial-oracles.ts
+?? core/outreach/commercial-policy.ts
+?? core/outreach/commercial-preparation-context.ts
+?? core/outreach/commercial-preparation.ts
+?? core/outreach/commercial-profiles.ts
+?? core/outreach/commercial-quality-gate.ts
+?? core/outreach/draft-lifecycle.ts
+?? core/persistence/d1-commercial-preparation-context-store.ts
+?? core/persistence/d1-production-slot-store.ts
+?? core/persistence/human-decision-store.ts
+?? core/persistence/operator-feedback-store.ts
+?? core/phone-trust.ts
+?? core/phone/phone-record.ts
+?? core/project/index.ts
+?? core/project/project-orchestrator.ts
+?? core/project/project-state.ts
+?? core/proposal/booking-cta.ts
+?? core/proposal/booking-runtime.ts
+?? core/prototypes/design-directions.ts
+?? core/providers/first-wave-discovery.ts
+?? core/providers/google-places-discovery.ts
+?? core/research/digital-pain-evidence.ts
+?? core/research/evidence-calibration.ts
+?? core/research/evidence-integrity.ts
+?? core/research/operating-evidence.ts
+?? core/research/phone-extractor.ts
+?? core/research/source-fetcher.ts
+?? core/telemetry/discovery-telemetry.ts
+?? core/tests/agent1-evidence-projection.test.ts
+?? core/tests/agent1-replenishment.test.ts
+?? core/tests/agent3-commercial.test.ts
+?? core/tests/aggregator.test.ts
+?? core/tests/booking-cta-a1-fix2.test.ts
+?? core/tests/booking-cta-a1.test.ts
+?? core/tests/commercial-preparation-context.test.ts
+?? core/tests/commercial-preparation.test.ts
+?? core/tests/commercial-quality-gate.test.ts
+?? core/tests/contact-acquisition.test.ts
+?? core/tests/contact-presence-enrichment.test.ts
+?? core/tests/contact-source-telemetry.test.ts
+?? core/tests/d1-production-slot-store.test.ts
+?? core/tests/deck-commercial-pipeline.test.ts
+?? core/tests/design-directions.test.ts
+?? core/tests/digital-pain-evidence.test.ts
+?? core/tests/evidence-calibration.test.ts
+?? core/tests/experiment-manager.test.ts
+?? core/tests/first-wave-discovery.test.ts
+?? core/tests/fixtures/agent3-commercial/fixtures.ts
+?? core/tests/google-places-discovery-adapter.test.ts
+?? core/tests/google-places-orchestrator.test.ts
+?? core/tests/google-places-trust.test.ts
+?? core/tests/human-decision.test.ts
+?? core/tests/icp-decision.test.ts
+?? core/tests/operating-evidence.test.ts
+?? core/tests/operator-feedback.test.ts
+?? core/tests/persisted-agent1-evidence.test.ts
+?? core/tests/proposal-booking-runtime.test.ts
+?? core/tests/prospect-reenrichment-migration.test.ts
+?? core/tests/score-provenance.test.ts
+?? core/tests/source-fetcher.test.ts
+?? core/tests/tavily-search-provider.test.ts
+?? database/migration-v2-commercial-preparation-context-v1.sql
+?? docs/agent1-v2-icp.md
+?? docs/agent1-v2-replenishment.md
+?? docs/agent3-commercial-contract.md
+?? docs/checkpoints/magic-script-agent1-canonical-bridge-2026-09-15.md
+?? docs/checkpoints/magic-script-bu-visibility-creative-v1-2026-09-15.md
+?? docs/checkpoints/magic-script-contact-acquisition-agent-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-contact-extraction-gap-fix-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-contact-presence-enrichment-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-contact-yield-attribution-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-google-incremental-phone-independent-validation-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-google-places-discovery-adapter-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-google-places-orchestrator-canary-v1-final-2026-09-16.md
+?? docs/checkpoints/magic-script-google-places-orchestrator-integration-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-google-places-production-validation-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-google-places-production-validation-v1-forensic-2026-09-16.md
+?? docs/checkpoints/magic-script-google-places-production-validation-v3-final-2026-09-16.md
+?? docs/checkpoints/magic-script-google-places-production-validation-v3-hash-resolution-2026-09-16.md
+?? docs/checkpoints/magic-script-google-places-production-validation-v3-preparation-2026-09-16.md
+?? docs/checkpoints/magic-script-google-places-structured-discovery-adapter-v1-live-final-2026-09-16.md
+?? docs/checkpoints/magic-script-google-places-structured-provider-exploratory-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-owned-site-fetch-reliability-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-per-source-contact-telemetry-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-prospect-database-reenrichment-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-real-tunnel-le-bayou-2026-09-15.md
+?? docs/checkpoints/magic-script-smart-traversal-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-tomtom-structured-provider-exploratory-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-trusted-phone-canonical-correction-v1-2026-09-16.md
+?? docs/checkpoints/magic-script-trusted-phone-provenance-audit-v1-2026-09-16.md
+?? docs/external-pattern-adoption-map.md
+?? docs/founder-book.md
+?? docs/google-places-production-validation-v1.md
+?? docs/magicscript-v2-deck-final-spec.md
+?? docs/magicscript-v2-quality-gate.md
+?? docs/mobile-conversion-gate.md
+?? docs/v1-control-center-acceptance.md
+?? docs/v1-field-freeze.md
+?? project/PROJECT_STATE.json
+?? prospects/safiu-protection.md
+?? prototypes/safiu-protection/AGENTS.md
+?? prototypes/safiu-protection/CLAUDE.md
+?? prototypes/safiu-protection/app/globals.css
+?? prototypes/safiu-protection/app/layout.tsx
+?? prototypes/safiu-protection/app/page.tsx
+?? prototypes/safiu-protection/app/site-config.ts
+?? prototypes/safiu-protection/functions/api/contact.js
+?? prototypes/safiu-protection/next.config.js
+?? prototypes/safiu-protection/package-lock.json
+?? prototypes/safiu-protection/package.json
+?? prototypes/safiu-protection/postcss.config.js
+?? prototypes/safiu-protection/public/media/founder-bryks.png
+?? prototypes/safiu-protection/public/media/founder-jammeh-enhanced.png
+?? prototypes/safiu-protection/public/media/founder-jammeh.png
+?? prototypes/safiu-protection/public/media/mission-1-poster.jpg
+?? prototypes/safiu-protection/public/media/mission-1.mp4
+?? prototypes/safiu-protection/public/media/mission-2-poster.jpg
+?? prototypes/safiu-protection/public/media/mission-2.mp4
+?? prototypes/safiu-protection/public/media/mission-3-poster.jpg
+?? prototypes/safiu-protection/public/media/mission-3.mp4
+?? prototypes/safiu-protection/public/media/safiu-collage.jpg
+?? prototypes/safiu-protection/public/media/safiu-logo.png
+?? prototypes/safiu-protection/public/media/team-universal-aviation-wide.jpg
+?? prototypes/safiu-protection/public/media/team-universal-aviation.jpg
+?? prototypes/safiu-protection/public/media/trophy-event.jpg
+?? prototypes/safiu-protection/tsconfig.json
+?? prototypes/safiu-protection/wrangler.toml
+?? scripts/analyze-owned-traversal.mjs
+?? scripts/audit-local-state.mjs
+?? scripts/audit-local-state.sql
+?? scripts/audit-research-candidates.sql
+?? scripts/audit-trusted-phone-provenance.mjs
+?? scripts/compute-tavily-final-report.mjs
+?? scripts/compute-yield-attribution.mjs
+?? scripts/configure-cloudflare-local.ps1
+?? scripts/ensure-full-smoke-fixture.ps1
+?? scripts/ensure-synthetic-prospect.ps1
+?? scripts/freeze-google-places-orchestrator-canary-v1.mjs
+?? scripts/hydrate-tavily-contact-presence.mjs
+?? scripts/inspect-latest-acquisition.mjs
+?? scripts/inspect-tavily-final.sql
+?? scripts/m010-approved-successor-proof.mts
+?? scripts/m010-health-diagnostic.mts
+?? scripts/m010-r10-focused-proof.mts
+?? scripts/m010c-fake-send-inprocess.mjs
+?? scripts/overnight-state.cjs
+?? scripts/overnight-state.test.cjs
+?? scripts/phone-gap-audit.mjs
+?? scripts/project-control.ts
+?? scripts/reenrich-canonical-prospects.mjs
+?? scripts/reenrichment-data.sql
+?? scripts/reenrichment-final-report.mjs
+?? scripts/reenrichment-inventory.sql
+?? scripts/replay-owned-site-traversal.mjs
+?? scripts/replay-source-telemetry.mjs
+?? scripts/report-source-telemetry.mjs
+?? scripts/run-contact-acquisition-replay.mjs
+?? scripts/run-google-places-discovery-adapter-v1.test.ts
+?? scripts/run-google-places-discovery-adapter-v1.ts
+?? scripts/run-google-places-orchestrator-canary-v1.test.ts
+?? scripts/run-google-places-orchestrator-canary-v1.ts
+?? scripts/run-google-places-production-validation-v1.mjs
+?? scripts/run-google-places-production-validation-v1.test.mjs
+?? scripts/run-google-places-structured-provider-benchmark.mjs
+?? scripts/run-google-places-structured-provider-benchmark.test.mjs
+?? scripts/run-local-api-with-restart.cjs
+?? scripts/run-synthetic-creative-matrix.ts
+?? scripts/run-synthetic-render-proof.ts
+?? scripts/run-tomtom-structured-provider-benchmark.mjs
+?? scripts/run-tomtom-structured-provider-benchmark.test.mjs
+?? scripts/run-trusted-phone-canonical-correction-v1.mjs
+?? scripts/snapshot-bulk-martinique.mjs
+?? sites/magicscript-v2/wrangler.worker.jsonc
+?? sites/mpatrimoine/public/assets/building-exterior.png
+?? sites/mpatrimoine/public/assets/hero-enhanced.png
+?? sites/mpatrimoine/public/assets/logo.png
+?? sites/mpatrimoine/public/assets/t3-before-01.jpeg
+?? sites/mpatrimoine/public/assets/t3-before-02.jpeg
+?? sites/mpatrimoine/public/assets/t3-before-03.jpeg
+?? sites/mpatrimoine/public/assets/t3-before-04.jpeg
+?? sites/mpatrimoine/public/index.html
+?? sites/mpatrimoine/public/styles.css

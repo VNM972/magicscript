@@ -1,0 +1,13 @@
+{
+  "pageState": "FETCH_FAILED",
+  "observation": {
+    "schemaVersion": 1,
+    "requestedUrl": "https://bokay-off.com/",
+    "inspectedAt": "2026-10-04T16:38:14.326Z",
+    "httpResultClass": "UNSUPPORTED"
+  },
+  "staging": {
+    "state": "FETCH_FAILED",
+    "authority": "NON_AUTHORITATIVE"
+  }
+}

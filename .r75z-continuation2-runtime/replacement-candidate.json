@@ -1,0 +1,23 @@
+{
+  "name": "Evasion Nautique 972",
+  "source": "https://evasionnautique972.com/",
+  "selection": "One distinct local consumer-facing nautical rental business; public search title Site en construction; metadata non-authoritative",
+  "intake": {
+    "candidates": [
+      {
+        "schemaVersion": 1,
+        "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+        "conditionClass": "SITE_UNDER_CONSTRUCTION",
+        "providerClass": "MANUAL_OPERATOR",
+        "providerRunId": "manual-operator:2026-10-04T10:03:40.223Z",
+        "resultUrl": "https://evasionnautique972.com/",
+        "resultPosition": 1,
+        "acquiredAt": "2026-10-04T10:03:40.223Z",
+        "authority": "NONE"
+      }
+    ],
+    "rejections": [],
+    "acceptedCount": 1,
+    "rejectedCount": 0
+  }
+}

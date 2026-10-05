@@ -1,0 +1,14 @@
+{
+  "targetedTests": {
+    "command": "node scripts/run-tsx-with-preload.cjs --test core/tests/public-vertical-label.test.ts core/tests/builder.test.ts apps/agent-runner/src/build-correction.test.ts",
+    "pass": 5,
+    "fail": 0,
+    "builderAssertions": 108
+  },
+  "typecheck": {
+    "core": "PASS",
+    "runner": "PASS",
+    "api": "PASS"
+  },
+  "diffCheck": "PASS"
+}

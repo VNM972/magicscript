@@ -1,0 +1,579 @@
+{
+  "job": {
+    "id": "job-v2-87988492200011-build-correction-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r2",
+    "kind": "V2_BUILD_CORRECTION",
+    "prospectId": "v2-87988492200011",
+    "payload": {
+      "correctionRequestId": "correction-qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+      "buildArtifactId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+      "targetBuildRevision": 1,
+      "nextBuildRevision": 2,
+      "qaReportId": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+      "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+      "approvedDesignArtifactId": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+      "designDirection": {
+        "id": "corporate-premium",
+        "label": "Corporate Premium",
+        "eligibleSectors": [
+          "corporate",
+          "institutionnel",
+          "finance",
+          "patrimoine",
+          "immobilier",
+          "direction"
+        ],
+        "positioning": [
+          "premium",
+          "haut de gamme",
+          "institutionnel",
+          "strategie"
+        ],
+        "visualPrinciples": [
+          "quiet confidence",
+          "editorial spacing",
+          "evidence-led restraint"
+        ],
+        "heroStrategy": "Lead with the verified positioning and decision value, using space rather than decorative effects.",
+        "sectionGrammar": [
+          "hero",
+          "value thesis",
+          "expertise",
+          "selected evidence",
+          "engagement path"
+        ],
+        "ctaStrategy": "Invite one qualified conversation or dossier review.",
+        "imageStrategy": "Use verified portrait, environment or architectural detail with disciplined cropping.",
+        "typographicCharacter": "Editorial serif accent with sober sans-serif reading text.",
+        "density": "LOW",
+        "motionBudget": "LOW",
+        "mobileBehavior": [
+          "preserve whitespace without hiding key proof",
+          "keep the primary action visible at 390px"
+        ],
+        "proofRequirements": [
+          "mandates, assets, returns, clients and track record require direct evidence"
+        ],
+        "antiPatterns": [
+          "robot imagery",
+          "AI brain",
+          "random circuitry",
+          "generic SaaS dashboard",
+          "generic dashboard layout",
+          "excessive glassmorphism",
+          "meaningless neon",
+          "gratuitous gradient",
+          "excessive rounded cards",
+          "card-wall composition",
+          "repeated identical section layouts",
+          "repetitive boxed sections",
+          "hero assembled from interchangeable blocks without a clear art direction",
+          "flat visual hierarchy",
+          "insufficient real imagery when verified visual assets exist",
+          "insufficient negative space",
+          "monotonous editorial rhythm",
+          "floating blobs",
+          "fake metrics",
+          "fake trust logos",
+          "generic stock-template hierarchy"
+        ]
+      }
+    },
+    "status": "RUNNING",
+    "attempts": 1,
+    "maxAttempts": 2,
+    "runAfter": "2026-10-03T07:05:01.295Z",
+    "createdAt": "2026-10-03T07:05:01.295Z",
+    "updatedAt": "2026-10-03T07:18:59.622Z",
+    "claimedBy": "r74z-continuation-villa-ancinel",
+    "claimedAt": "2026-10-03T07:18:59.622Z"
+  },
+  "prospect": {
+    "id": "v2-87988492200011",
+    "companyName": "Villa Ancinel",
+    "legalName": "SARL ROBIN ANCINEL",
+    "siret": "87988492200011",
+    "city": "LE DIAMANT",
+    "location": "Quartier Longuet 97223 LE DIAMANT",
+    "websiteUrl": "https://villa-ancinel.com/",
+    "v2Domain": "villa-ancinel.com",
+    "state": "INGESTED",
+    "primaryFriction": "Site en cours de refonte",
+    "createdAt": "2026-10-02T16:32:22.244Z",
+    "updatedAt": "2026-10-02T16:32:22.244Z"
+  },
+  "contacts": [],
+  "outreachDraft": null,
+  "researchContext": null,
+  "agent1Context": null,
+  "latestReply": null,
+  "threadParentMessageId": null,
+  "prototypeContext": null,
+  "prototypeConversion": null,
+  "prototypeStrategy": null,
+  "designRequest": {
+    "id": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+    "version": "DESIGN_REQUEST_V1",
+    "prospectId": "v2-87988492200011",
+    "admission": {
+      "packId": "agent1-r66z-villa-ancinel",
+      "schemaVersion": "CONTACT_OPPORTUNITY_PACK_V2"
+    },
+    "identity": {
+      "businessName": "Villa Ancinel",
+      "legalName": "SARL ROBIN ANCINEL",
+      "siret": "87988492200011",
+      "city": "LE DIAMANT",
+      "location": "Quartier Longuet 97223 LE DIAMANT",
+      "websiteUrl": "https://villa-ancinel.com/",
+      "domain": "villa-ancinel.com"
+    },
+    "opportunity": {
+      "digitalFriction": "Site en cours de refonte",
+      "agent1Verdict": "QUALIFIED",
+      "icp": {
+        "digitalPainSignals": [
+          "Site en cours de refonte"
+        ],
+        "requiresUnprovenCapability": false,
+        "outsideCommercialIcp": false
+      }
+    },
+    "designInput": {
+      "currentWebsiteUrl": "https://villa-ancinel.com/",
+      "businessVertical": "GENERAL_LOCAL_BUSINESS",
+      "frictionTrigger": "Site en cours de refonte",
+      "evidence": [
+        {
+          "url": "https://villa-ancinel.com/",
+          "note": "Page publique observee: Site en cours de refonte. Notre site fait peau neuve. Location de la Villa Ancinel pour un sejour en Martinique. Telephone professionnel affiche +596 696 98 60 60. Email public contact@villa-ancinel.com.\n{\"sourcingLane\":\"PAIN_FIRST\",\"candidateId\":\"r66z-villa-ancinel\",\"stagedWebsiteUrl\":\"https://villa-ancinel.com/\",\"domain\":\"villa-ancinel.com\",\"acquiredAt\":\"2026-10-02T16:26:34.022Z\",\"digitalPainEvidence\":[{\"observedCondition\":\"SITE_REBUILDING\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"snapshotDigest\":\"sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01\",\"locator\":\"h1\",\"observedAt\":\"2026-09-28T08:46:05.833Z\"}]}",
+          "supports": [
+            "digitalGap",
+            "activity",
+            "website"
+          ]
+        },
+        {
+          "url": "https://villa-ancinel.com/mentions-legales/",
+          "note": "Mentions legales: SARL ROBIN ANCINEL, SIRET 87988492200011, Quartier Longuet 97223 LE DIAMANT. Le site donne des informations relatives a la location de la Villa Ancinel.",
+          "supports": [
+            "activity",
+            "website"
+          ]
+        },
+        {
+          "url": "https://villa-ancinel.com/",
+          "note": "Deterministically observed public phone (VISIBLE_PAGE_TEXT).\n{\"sourcingLane\":\"PAIN_FIRST\",\"candidateId\":\"r66z-villa-ancinel\",\"stagedWebsiteUrl\":\"https://villa-ancinel.com/\",\"domain\":\"villa-ancinel.com\",\"acquiredAt\":\"2026-10-02T16:26:34.022Z\",\"digitalPainEvidence\":[{\"observedCondition\":\"SITE_REBUILDING\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"snapshotDigest\":\"sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01\",\"locator\":\"h1\",\"observedAt\":\"2026-09-28T08:46:05.833Z\"}]}",
+          "supports": [
+            "phone",
+            "digitalGap"
+          ]
+        }
+      ]
+    },
+    "createdAt": "2026-10-02T16:32:22.289Z"
+  },
+  "designArtifact": {
+    "id": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+    "version": "DESIGN_ARTIFACT_V1",
+    "revision": 1,
+    "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+    "prospectId": "v2-87988492200011",
+    "verticalProfile": "GENERAL_LOCAL_BUSINESS",
+    "createdAt": "2026-10-02T17:02:32.201Z",
+    "provenance": {
+      "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+      "evidenceIds": [
+        "evidence-1",
+        "evidence-2",
+        "evidence-3"
+      ],
+      "executionMode": "MODEL",
+      "model": {
+        "provider": "ollama-aider",
+        "model": "qwen2.5-coder:3b"
+      }
+    },
+    "strategy": {
+      "siteObjective": "Present a credible local business offer with a simple next step.",
+      "primaryUserIntent": "Understand the offer and take the next practical action.",
+      "primaryCta": "Contacter l’entreprise",
+      "informationHierarchy": [
+        "identity",
+        "offer clarity",
+        "reassurance",
+        "contact action"
+      ],
+      "siteStructure": "SINGLE_PAGE"
+    },
+    "pages": [
+      {
+        "id": "home",
+        "purpose": "Present a credible local business offer with a simple next step.",
+        "headingIntent": "Clarifier la valeur de Villa Ancinel",
+        "content": [
+          {
+            "kind": "VERIFIED_FACT",
+            "text": "Villa Ancinel",
+            "evidenceIds": []
+          },
+          {
+            "kind": "GENERIC_FRAMING",
+            "text": "Un accompagnement simple et clair pour passer à l’action."
+          }
+        ],
+        "ctaIntent": "Contacter l’entreprise",
+        "visualMediaIntent": "Use only supplied or later-approved business imagery; no invented media claims.",
+        "evidenceIds": [
+          "evidence-1",
+          "evidence-2",
+          "evidence-3"
+        ]
+      }
+    ],
+    "visualDirection": {
+      "mood": "balanced, approachable, credible",
+      "typography": "Readable, high-contrast sans-serif with optional expressive display accent.",
+      "layout": "Single-column mobile-first flow with clear section boundaries.",
+      "spacing": "Generous touch-friendly spacing.",
+      "imageTreatment": "Authentic business imagery only when supplied or approved.",
+      "interaction": "Calm, obvious, keyboard-accessible interactions.",
+      "responsivePriorities": [
+        "390px mobile conversion path",
+        "touch targets",
+        "readable type",
+        "desktop widening without reordering CTA"
+      ]
+    },
+    "buildGuidance": {
+      "componentHierarchy": [
+        "SiteShell",
+        "Header",
+        "Hero",
+        "ContentSections",
+        "PrimaryCta",
+        "Footer"
+      ],
+      "sectionOrder": [
+        "hero",
+        "offer",
+        "reassurance",
+        "contact"
+      ],
+      "contentPriority": [
+        "identity",
+        "offer",
+        "primary action",
+        "practical details"
+      ],
+      "ctaPlacement": [
+        "hero",
+        "after core offer",
+        "footer"
+      ],
+      "assetRequirements": [
+        "logo if supplied",
+        "approved business imagery if supplied",
+        "no fabricated testimonials or pricing"
+      ]
+    },
+    "status": "APPROVED"
+  },
+  "designCorrection": null,
+  "buildCorrectionContext": {
+    "correctionRequest": {
+      "id": "correction-qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+      "version": "BUILD_CORRECTION_REQUEST_V1",
+      "operation": "ENSURE_LOCAL_FAVICON_V1",
+      "buildArtifactId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+      "designArtifactId": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+      "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+      "prospectId": "v2-87988492200011",
+      "qaReportId": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+      "targetBuildRevision": 1,
+      "nextBuildRevision": 2,
+      "issue": {
+        "category": "BUILD_RENDER",
+        "severity": "MAJOR",
+        "message": "Browser runtime error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "expectedCorrection": "Fix the rendered runtime error."
+      },
+      "createdAt": "2026-10-02T19:09:30.019Z"
+    },
+    "targetBuild": {
+      "id": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+      "version": "BUILD_ARTIFACT_V1",
+      "approvedDesignArtifactId": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+      "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+      "prospectId": "v2-87988492200011",
+      "approvedRevision": 1,
+      "builderVersion": "builder-v1",
+      "sourcePath": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\source",
+      "outputPath": "D:\\MagicScript\\repository\\artifacts\\v2\\sites\\v2-87988492200011\\artifact-dr-v2-87988492200011-design_request_v1-design_artifact_v1-r1\\dist",
+      "status": "SUCCEEDED",
+      "framework": "STATIC_HTML_CSS",
+      "sourceHash": "f13de1a6577eee49a58e8ed87518980bb67b68dfc33282d0bb839c0403109ab3",
+      "createdAt": "2026-10-02T18:46:54.940Z",
+      "completedAt": "2026-10-02T18:46:54.958Z",
+      "metadata": {
+        "entryFile": "index.html",
+        "buildCommand": "builder-v1 static build",
+        "missingAssetRequirements": [
+          "logo if supplied",
+          "approved business imagery if supplied",
+          "no fabricated testimonials or pricing"
+        ]
+      },
+      "buildRevision": 1,
+      "qaAttempt": 1
+    },
+    "qaReport": {
+      "id": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+      "version": "VISUAL_QA_REPORT_V1",
+      "buildArtifactId": "build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+      "designArtifactId": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+      "designArtifactRevision": 1,
+      "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+      "prospectId": "v2-87988492200011",
+      "buildVersion": "BUILD_ARTIFACT_V1",
+      "buildRevision": 1,
+      "attempt": 1,
+      "decision": "CORRECTION_REQUIRED",
+      "issues": [
+        {
+          "category": "BUILD_RENDER",
+          "severity": "MAJOR",
+          "message": "Browser runtime error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+          "expectedCorrection": "Fix the rendered runtime error."
+        }
+      ],
+      "inspection": {
+        "viewports": [
+          {
+            "name": "DESKTOP",
+            "width": 1440,
+            "height": 900,
+            "horizontalOverflow": -15,
+            "heroVisible": true,
+            "primaryCtaVisible": true,
+            "contentVisible": true,
+            "controlsWithinViewport": true
+          },
+          {
+            "name": "MOBILE",
+            "width": 390,
+            "height": 844,
+            "horizontalOverflow": -15,
+            "heroVisible": true,
+            "primaryCtaVisible": true,
+            "contentVisible": true,
+            "controlsWithinViewport": true
+          }
+        ],
+        "expectedSections": [
+          "hero",
+          "offer",
+          "reassurance",
+          "contact"
+        ],
+        "observedSections": [
+          "hero",
+          "home",
+          "offer",
+          "reassurance",
+          "contact"
+        ],
+        "primaryCta": "Contacter l’entreprise",
+        "brokenAssets": [],
+        "internalLinkErrors": [],
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ],
+        "unresolvedMarkers": [],
+        "headings": [
+          "h1 Clarifier la valeur de Villa Ancinel",
+          "h2 Clarifier la valeur de Villa Ancinel",
+          "h2 hero",
+          "h2 offer",
+          "h2 reassurance",
+          "h2 contact",
+          "h2 Contacter l’entreprise"
+        ]
+      },
+      "createdAt": "2026-10-02T19:09:30.019Z"
+    },
+    "designRequest": {
+      "id": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+      "version": "DESIGN_REQUEST_V1",
+      "prospectId": "v2-87988492200011",
+      "admission": {
+        "packId": "agent1-r66z-villa-ancinel",
+        "schemaVersion": "CONTACT_OPPORTUNITY_PACK_V2"
+      },
+      "identity": {
+        "businessName": "Villa Ancinel",
+        "legalName": "SARL ROBIN ANCINEL",
+        "siret": "87988492200011",
+        "city": "LE DIAMANT",
+        "location": "Quartier Longuet 97223 LE DIAMANT",
+        "websiteUrl": "https://villa-ancinel.com/",
+        "domain": "villa-ancinel.com"
+      },
+      "opportunity": {
+        "digitalFriction": "Site en cours de refonte",
+        "agent1Verdict": "QUALIFIED",
+        "icp": {
+          "digitalPainSignals": [
+            "Site en cours de refonte"
+          ],
+          "requiresUnprovenCapability": false,
+          "outsideCommercialIcp": false
+        }
+      },
+      "designInput": {
+        "currentWebsiteUrl": "https://villa-ancinel.com/",
+        "businessVertical": "GENERAL_LOCAL_BUSINESS",
+        "frictionTrigger": "Site en cours de refonte",
+        "evidence": [
+          {
+            "url": "https://villa-ancinel.com/",
+            "note": "Page publique observee: Site en cours de refonte. Notre site fait peau neuve. Location de la Villa Ancinel pour un sejour en Martinique. Telephone professionnel affiche +596 696 98 60 60. Email public contact@villa-ancinel.com.\n{\"sourcingLane\":\"PAIN_FIRST\",\"candidateId\":\"r66z-villa-ancinel\",\"stagedWebsiteUrl\":\"https://villa-ancinel.com/\",\"domain\":\"villa-ancinel.com\",\"acquiredAt\":\"2026-10-02T16:26:34.022Z\",\"digitalPainEvidence\":[{\"observedCondition\":\"SITE_REBUILDING\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"snapshotDigest\":\"sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01\",\"locator\":\"h1\",\"observedAt\":\"2026-09-28T08:46:05.833Z\"}]}",
+            "supports": [
+              "digitalGap",
+              "activity",
+              "website"
+            ]
+          },
+          {
+            "url": "https://villa-ancinel.com/mentions-legales/",
+            "note": "Mentions legales: SARL ROBIN ANCINEL, SIRET 87988492200011, Quartier Longuet 97223 LE DIAMANT. Le site donne des informations relatives a la location de la Villa Ancinel.",
+            "supports": [
+              "activity",
+              "website"
+            ]
+          },
+          {
+            "url": "https://villa-ancinel.com/",
+            "note": "Deterministically observed public phone (VISIBLE_PAGE_TEXT).\n{\"sourcingLane\":\"PAIN_FIRST\",\"candidateId\":\"r66z-villa-ancinel\",\"stagedWebsiteUrl\":\"https://villa-ancinel.com/\",\"domain\":\"villa-ancinel.com\",\"acquiredAt\":\"2026-10-02T16:26:34.022Z\",\"digitalPainEvidence\":[{\"observedCondition\":\"SITE_REBUILDING\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"snapshotDigest\":\"sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01\",\"locator\":\"h1\",\"observedAt\":\"2026-09-28T08:46:05.833Z\"}]}",
+            "supports": [
+              "phone",
+              "digitalGap"
+            ]
+          }
+        ]
+      },
+      "createdAt": "2026-10-02T16:32:22.289Z"
+    },
+    "approvedDesignArtifact": {
+      "id": "artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1",
+      "version": "DESIGN_ARTIFACT_V1",
+      "revision": 1,
+      "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+      "prospectId": "v2-87988492200011",
+      "verticalProfile": "GENERAL_LOCAL_BUSINESS",
+      "createdAt": "2026-10-02T17:02:32.201Z",
+      "provenance": {
+        "designRequestId": "dr-v2-87988492200011-DESIGN_REQUEST_V1",
+        "evidenceIds": [
+          "evidence-1",
+          "evidence-2",
+          "evidence-3"
+        ],
+        "executionMode": "MODEL",
+        "model": {
+          "provider": "ollama-aider",
+          "model": "qwen2.5-coder:3b"
+        }
+      },
+      "strategy": {
+        "siteObjective": "Present a credible local business offer with a simple next step.",
+        "primaryUserIntent": "Understand the offer and take the next practical action.",
+        "primaryCta": "Contacter l’entreprise",
+        "informationHierarchy": [
+          "identity",
+          "offer clarity",
+          "reassurance",
+          "contact action"
+        ],
+        "siteStructure": "SINGLE_PAGE"
+      },
+      "pages": [
+        {
+          "id": "home",
+          "purpose": "Present a credible local business offer with a simple next step.",
+          "headingIntent": "Clarifier la valeur de Villa Ancinel",
+          "content": [
+            {
+              "kind": "VERIFIED_FACT",
+              "text": "Villa Ancinel",
+              "evidenceIds": []
+            },
+            {
+              "kind": "GENERIC_FRAMING",
+              "text": "Un accompagnement simple et clair pour passer à l’action."
+            }
+          ],
+          "ctaIntent": "Contacter l’entreprise",
+          "visualMediaIntent": "Use only supplied or later-approved business imagery; no invented media claims.",
+          "evidenceIds": [
+            "evidence-1",
+            "evidence-2",
+            "evidence-3"
+          ]
+        }
+      ],
+      "visualDirection": {
+        "mood": "balanced, approachable, credible",
+        "typography": "Readable, high-contrast sans-serif with optional expressive display accent.",
+        "layout": "Single-column mobile-first flow with clear section boundaries.",
+        "spacing": "Generous touch-friendly spacing.",
+        "imageTreatment": "Authentic business imagery only when supplied or approved.",
+        "interaction": "Calm, obvious, keyboard-accessible interactions.",
+        "responsivePriorities": [
+          "390px mobile conversion path",
+          "touch targets",
+          "readable type",
+          "desktop widening without reordering CTA"
+        ]
+      },
+      "buildGuidance": {
+        "componentHierarchy": [
+          "SiteShell",
+          "Header",
+          "Hero",
+          "ContentSections",
+          "PrimaryCta",
+          "Footer"
+        ],
+        "sectionOrder": [
+          "hero",
+          "offer",
+          "reassurance",
+          "contact"
+        ],
+        "contentPriority": [
+          "identity",
+          "offer",
+          "primary action",
+          "practical details"
+        ],
+        "ctaPlacement": [
+          "hero",
+          "after core offer",
+          "footer"
+        ],
+        "assetRequirements": [
+          "logo if supplied",
+          "approved business imagery if supplied",
+          "no fabricated testimonials or pricing"
+        ]
+      },
+      "status": "APPROVED"
+    },
+    "existingCorrectedBuild": null,
+    "productionSlot": {
+      "slotId": 1,
+      "prospectId": "v2-87988492200011",
+      "acquiredAt": "2026-10-02T16:32:22.323Z"
+    }
+  }
+}

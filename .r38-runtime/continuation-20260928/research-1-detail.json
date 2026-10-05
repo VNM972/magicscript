@@ -1,0 +1,122 @@
+{
+  "prospect": {
+    "id": "d136a9dd-d0ca-426b-9b0c-d2ce4cbfda1a",
+    "companyName": "CATLEIA",
+    "legalName": "CATLEIA",
+    "siren": "349915009",
+    "siret": "34991500900014",
+    "city": "LE LAMENTIN",
+    "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/34991500900014",
+    "activityTaxonomy": "NAF_2008",
+    "commercialEligibility": "RESEARCH",
+    "brandKey": "CATLEIA",
+    "initialResearchRepresentative": true,
+    "activity": "47.72A",
+    "location": "ACAJOU CENTRE CCIAL LA GALLERIA 97232 LE LAMENTIN",
+    "websiteUrl": "https://www.catleia.com/",
+    "state": "DISQUALIFIED",
+    "score": 52,
+    "primaryCta": "Contact us",
+    "createdAt": "2026-09-28T16:29:57.092Z",
+    "updatedAt": "2026-09-28T16:32:16.053Z"
+  },
+  "contacts": [],
+  "contactability": {
+    "identity": {
+      "prospectId": "d136a9dd-d0ca-426b-9b0c-d2ce4cbfda1a",
+      "siren": "349915009",
+      "siret": "34991500900014"
+    },
+    "status": "MISSING",
+    "channels": [],
+    "preparation": null
+  },
+  "contactAcquisition": null,
+  "contactPresence": {
+    "status": "UNKNOWN",
+    "identity": {
+      "status": "VERIFIED",
+      "matched": true,
+      "reason": "identity bound",
+      "observations": [
+        {
+          "domain": "catleia.com"
+        }
+      ]
+    },
+    "phone": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "email": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "website": {
+      "status": "VERIFIED",
+      "values": [
+        "www.catleia.com"
+      ],
+      "evidence": [
+        {
+          "value": "www.catleia.com",
+          "sourceUrl": "www.catleia.com",
+          "kind": "social",
+          "evidenceType": "OWNED_WEBSITE"
+        }
+      ]
+    },
+    "social": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "instagram": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "facebook": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "tiktok": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "whatsapp": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "contactForm": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "sourcesProcessed": 0,
+    "sourcesChecked": [],
+    "reasons": [
+      "identity bound",
+      "bounded sources checked: 0"
+    ],
+    "enrichedAt": "2026-09-28T16:32:15.984Z",
+    "truncated": false
+  },
+  "prototype": null,
+  "salesRoom": null,
+  "commercialLinks": {
+    "prototypeUrl": null,
+    "prototypeEntryUrl": null,
+    "salesRoomUrl": null,
+    "salesRoomSlug": "catleia",
+    "salesRoomStatus": "ACTIVE",
+    "personalizedUrl": null,
+    "personalizedEntryEnabled": false,
+    "links": []
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "runnerId": "google-places-orchestrator-canary-v1",
+  "canaryVersion": "google-places-orchestrator-canary-v1",
+  "canonicalCanaryHash": "927bd69a5f62a6a873d92f18ee2598013bb050e443f7a76057cd5bb3187cce3c",
+  "requestBudget": 3,
+  "actualRequestCount": 3,
+  "defaultGoogleRemainedDisabled": true,
+  "zeroRealGoogleRequestsFromHarness": true,
+  "resultSchemaVersion": "google-places-orchestrator-canary-v1-live-results",
+  "generatedAt": "2026-09-16T18:54:23.517Z",
+  "results": [
+    {
+      "prospectId": "f5eedd9c-2e39-46eb-9663-1d9b3a7f6cad",
+      "canonicalName": "L'UNIVERS DU PNEU",
+      "orchestratorEligible": true,
+      "googleEnabledForCanary": true,
+      "requestSequence": 1,
+      "requestExecuted": true,
+      "requestCountContribution": 1,
+      "budgetBefore": 3,
+      "budgetAfter": 2,
+      "identityVerdict": "VERIFIED",
+      "identityReasonCodes": [
+        "DETERMINISTIC_SIGNALS_COMPATIBLE"
+      ],
+      "branchVerdict": "BRANCH_NOT_PROVEN",
+      "branchReasonCodes": [
+        "WEBSITE_DOMAIN_MISMATCH_EVEN_AFTER_IDENTITY_MATCH"
+      ],
+      "websiteCandidatePresent": true,
+      "phoneCandidateCount": 1,
+      "phoneTypes": {
+        "MOBILE": 0,
+        "LANDLINE": 1,
+        "FIXED_LINE_OR_MOBILE": 0,
+        "UNKNOWN": 0
+      },
+      "preferredMobileCandidatePresent": false,
+      "allGooglePhonesRemainUnverified": true,
+      "trustedPhoneCreated": false,
+      "contactabilityChanged": false,
+      "scoringChanged": false,
+      "qualificationChanged": false,
+      "whatsappInferred": false
+    },
+    {
+      "prospectId": "0ccd1a72-187c-4053-845f-3bc54121069d",
+      "canonicalName": "QUALICONSULT SECURITE",
+      "orchestratorEligible": true,
+      "googleEnabledForCanary": true,
+      "requestSequence": 2,
+      "requestExecuted": true,
+      "requestCountContribution": 1,
+      "budgetBefore": 2,
+      "budgetAfter": 1,
+      "identityVerdict": "REJECTED",
+      "identityReasonCodes": [
+        "BUSINESS_NAME_CONFLICT",
+        "LOCALITY_CONFLICT",
+        "ADDRESS_CONFLICT",
+        "WEBSITE_DOMAIN_CONFLICT",
+        "material identity conflict"
+      ],
+      "branchVerdict": "NOT_EVALUATED",
+      "branchReasonCodes": [],
+      "websiteCandidatePresent": false,
+      "phoneCandidateCount": 0,
+      "phoneTypes": {
+        "MOBILE": 0,
+        "LANDLINE": 0,
+        "FIXED_LINE_OR_MOBILE": 0,
+        "UNKNOWN": 0
+      },
+      "preferredMobileCandidatePresent": false,
+      "allGooglePhonesRemainUnverified": true,
+      "trustedPhoneCreated": false,
+      "contactabilityChanged": false,
+      "scoringChanged": false,
+      "qualificationChanged": false,
+      "whatsappInferred": false
+    },
+    {
+      "prospectId": "4d9337bf-c8cb-44ff-b192-6915b1eddffa",
+      "canonicalName": "UNION NATIONALE DU SPORT SCOLAIRE (UNSS)",
+      "orchestratorEligible": false,
+      "skipReason": "BUDGET_EXCEEDED",
+      "googleEnabledForCanary": true,
+      "requestSequence": 3,
+      "requestExecuted": false,
+      "requestCountContribution": 0,
+      "budgetBefore": 1,
+      "budgetAfter": 0,
+      "identityVerdict": "NOT_EVALUATED",
+      "identityReasonCodes": [],
+      "branchVerdict": "NOT_EVALUATED",
+      "branchReasonCodes": [],
+      "websiteCandidatePresent": false,
+      "phoneCandidateCount": 0,
+      "phoneTypes": {
+        "MOBILE": 0,
+        "LANDLINE": 0,
+        "FIXED_LINE_OR_MOBILE": 0,
+        "UNKNOWN": 0
+      },
+      "preferredMobileCandidatePresent": false,
+      "allGooglePhonesRemainUnverified": true,
+      "trustedPhoneCreated": false,
+      "contactabilityChanged": false,
+      "scoringChanged": false,
+      "qualificationChanged": false,
+      "whatsappInferred": false
+    }
+  ]
+}

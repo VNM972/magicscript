@@ -1,0 +1,52 @@
+import { acceptPainFirstSearchCandidate, MAX_RESULTS_PER_QUERY, painFirstQueryPlans } from './pain-first-staging';
+import type { PainFirstSearchCandidate } from './pain-first-staging';
+
+export interface ManualPainFirstSubmission {
+  conditionClass: string;
+  urlsText: string;
+}
+
+export interface ManualPainFirstRejection {
+  conditionClass: string;
+  resultPosition: number;
+  reason: 'CONDITION_REJECTED' | 'INPUT_LIMIT' | 'URL_REJECTED' | 'DUPLICATE_URL';
+}
+
+/** One complete run, with no transport, persistence, replacement, or authority promotion. */
+export function intakeManualPainFirstUrls(submissions: readonly ManualPainFirstSubmission[], acquiredAt: string): {
+  candidates: PainFirstSearchCandidate[];
+  rejections: ManualPainFirstRejection[];
+  acceptedCount: number;
+  rejectedCount: number;
+} {
+  const plans = painFirstQueryPlans();
+  const candidates: PainFirstSearchCandidate[] = [];
+  const rejections: ManualPainFirstRejection[] = [];
+  const positions = new Map<string, number>();
+  const seen = new Set<string>();
+  for (const submission of submissions) {
+    const plan = plans.find((item) => item.conditionClass === submission.conditionClass);
+    for (const resultUrl of submission.urlsText.split(/\r?\n/).map((line) => line.trim()).filter(Boolean)) {
+      const resultPosition = (positions.get(submission.conditionClass) ?? 0) + 1;
+      positions.set(submission.conditionClass, resultPosition);
+      const reject = (reason: ManualPainFirstRejection['reason']) => rejections.push({
+        conditionClass: submission.conditionClass, resultPosition, reason,
+      });
+      if (!plan) { reject('CONDITION_REJECTED'); continue; }
+      // Rejected and duplicate inputs still consume their submitted position: no fill pressure.
+      if (resultPosition > MAX_RESULTS_PER_QUERY) { reject('INPUT_LIMIT'); continue; }
+      const candidate: PainFirstSearchCandidate = {
+        schemaVersion: 1, queryPlanId: plan.planId, conditionClass: plan.conditionClass,
+        providerClass: 'MANUAL_OPERATOR', providerRunId: `manual-operator:${acquiredAt}`,
+        resultUrl, resultPosition, acquiredAt, authority: 'NONE',
+      };
+      // The R55 filter owns public URL validation, normalization, and source classification.
+      const accepted = acceptPainFirstSearchCandidate(candidate);
+      if (accepted.state !== 'URL_ACCEPTED') { reject('URL_REJECTED'); continue; }
+      if (seen.has(accepted.homepageUrl)) { reject('DUPLICATE_URL'); continue; }
+      seen.add(accepted.homepageUrl);
+      candidates.push({ ...candidate, resultUrl: accepted.homepageUrl });
+    }
+  }
+  return { candidates, rejections, acceptedCount: candidates.length, rejectedCount: rejections.length };
+}

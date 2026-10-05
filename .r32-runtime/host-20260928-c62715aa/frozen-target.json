@@ -1,0 +1,13 @@
+{
+  "business": "Villa Ancinel",
+  "legalName": "SARL ROBIN ANCINEL",
+  "siren": "879884922",
+  "siret": "87988492200011",
+  "municipality": "Le Diamant",
+  "sourceUrl": "https://villa-ancinel.com/",
+  "sourceType": "OWNED_WEBSITE",
+  "candidateCondition": "SITE_REBUILDING",
+  "factualReason": "Independently observed homepage H1: Site en cours de refonte",
+  "candidatesInspected": 1,
+  "publicFetchesBeforeResearch": 7
+}

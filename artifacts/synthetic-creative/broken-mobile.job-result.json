@@ -1,0 +1,72 @@
+{
+  "kind": "CREATIVE_WEB_DESIGN_SYNTHETIC",
+  "synthetic": true,
+  "fixtureId": "synthetic-broken-mobile",
+  "technicalJobStatus": "BLOCKED",
+  "creativeVerdict": "BLOCKED",
+  "before": {
+    "artifactFingerprint": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb",
+    "protectedFactsFingerprint": "efc52e8ddb60de2901005b1959b3f1f431ed383186b65a0620250ad92a190b17",
+    "protectedContractFingerprint": "1b8090533a9670458c020ab227b3009d35a51ce2411621de6d462a4a52ad40f2",
+    "fileInventory": [
+      "app/globals.css",
+      "app/page.tsx"
+    ],
+    "creativeReview": {
+      "status": "REWORK",
+      "findings": [
+        {
+          "code": "FLAT_COMPOSITION",
+          "category": "antiSlop",
+          "severity": "BLOCKING",
+          "message": "Repeated card/grid/panel composition."
+        },
+        {
+          "code": "HIERARCHY",
+          "category": "hierarchy",
+          "severity": "BLOCKING",
+          "message": "Insufficient heading hierarchy."
+        },
+        {
+          "code": "MOBILE_COMPOSITION",
+          "category": "mobile",
+          "severity": "WARNING",
+          "message": "No bounded mobile composition rule."
+        }
+      ],
+      "checkedAt": "2026-09-15T15:34:03.411Z",
+      "owner": "WEB_DESIGN"
+    },
+    "timestamp": "2026-09-15T15:34:03.407Z"
+  },
+  "qaPreflight": {
+    "phase": "QA_PREFLIGHT",
+    "passed": false,
+    "blockers": [
+      "MOBILE_TECHNICAL_VALIDITY"
+    ],
+    "checkedAt": "2026-09-15T15:34:03.411Z"
+  },
+  "iterations": [],
+  "qaFinal": {
+    "phase": "QA_FINAL",
+    "passed": false,
+    "blockers": [
+      "MOBILE_TECHNICAL_VALIDITY"
+    ],
+    "checkedAt": "2026-09-15T15:34:03.416Z"
+  },
+  "after": {
+    "artifactFingerprint": "5f177b85c214238d1fc0284583d212cd51bc60039e315fc5b5fa9132232f6afb",
+    "creativeVerdict": "BLOCKED",
+    "renderEvidence": null,
+    "timestamp": "2026-09-15T15:34:03.416Z"
+  },
+  "externalActions": [],
+  "startedAt": "2026-09-15T15:34:03.407Z",
+  "completedAt": "2026-09-15T15:34:03.416Z",
+  "blockers": [
+    "MOBILE_TECHNICAL_VALIDITY",
+    "MOBILE_TECHNICAL_VALIDITY"
+  ]
+}

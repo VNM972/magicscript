@@ -1,0 +1,2094 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "id": "MAGIC-SCRIPT",
+    "name": "Magic Script",
+    "version": "PROJECT_CONTROL_PLANE_V1",
+    "revision": 36,
+    "phase": "V1_FIELD_FROZEN"
+  },
+  "currentMissionId": null,
+  "nextAuthorizedMissionId": null,
+  "workPackages": [
+    {
+      "id": "PROJECT-CONTROL-PLANE-V1",
+      "title": "Project Control Plane V1, Project Orchestrator V1, and state migration",
+      "priority": "P0",
+      "status": "DONE",
+      "classification": "VERIFIED",
+      "dependencies": [],
+      "requiredPermissions": [
+        "LOCAL_READ",
+        "LOCAL_WRITE",
+        "LOCAL_TEST"
+      ],
+      "requiredRuntimeSafety": [
+        {
+          "control": "REAL_EMAIL_SEND",
+          "state": "DISABLED"
+        },
+        {
+          "control": "PRODUCTION_DEPLOY",
+          "state": "DISABLED"
+        }
+      ],
+      "doneCriteria": [
+        {
+          "id": "CONTROL-SINGLE-STATE",
+          "description": "One canonical steering state exists and validates",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-CONTROL-STATE",
+            "E-CONTROL-TESTS"
+          ]
+        },
+        {
+          "id": "CONTROL-ORCHESTRATOR",
+          "description": "Deterministic fail-closed project orchestrator exists",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-CONTROL-ORCHESTRATOR",
+            "E-CONTROL-TESTS"
+          ]
+        },
+        {
+          "id": "CONTROL-MIGRATION",
+          "description": "Verified current steering state is migrated without prompt-only facts",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H1-TESTS",
+            "E-H2-TESTS",
+            "E-H2-DATABASE",
+            "E-H25-GAP",
+            "E-H3-TESTS",
+            "E-WP09-TESTS"
+          ]
+        }
+      ],
+      "evidenceRefs": [
+        "E-CONTROL-STATE",
+        "E-CONTROL-ORCHESTRATOR",
+        "E-CONTROL-TESTS"
+      ],
+      "blockerRefs": [],
+      "checkpointRefs": [
+        "CP-0002-STAGE-1",
+        "CP-0003-STAGE-2",
+        "CP-0005-STAGE-3",
+        "CP-0006-FINAL-VALIDATION"
+      ]
+    },
+    {
+      "id": "H1",
+      "title": "Commercial Eligibility",
+      "priority": "P0",
+      "status": "DONE",
+      "classification": "VERIFIED",
+      "dependencies": [],
+      "requiredPermissions": [
+        "LOCAL_READ",
+        "LOCAL_WRITE",
+        "LOCAL_TEST"
+      ],
+      "requiredRuntimeSafety": [],
+      "doneCriteria": [
+        {
+          "id": "H1-GATE",
+          "description": "Deterministic NAF-aware commercial eligibility gate",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H1-CODE",
+            "E-H1-TESTS"
+          ]
+        },
+        {
+          "id": "H1-IDENTITY",
+          "description": "Research identity remains bound to SIREN, SIRET, city, and source URL",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H1-TESTS"
+          ]
+        }
+      ],
+      "evidenceRefs": [
+        "E-H1-CODE",
+        "E-H1-TESTS"
+      ],
+      "blockerRefs": [],
+      "checkpointRefs": []
+    },
+    {
+      "id": "H1.5",
+      "title": "Commercial Independence / Brand-Network Gate",
+      "priority": "P0",
+      "status": "DONE",
+      "classification": "VERIFIED",
+      "dependencies": [
+        "H1"
+      ],
+      "requiredPermissions": [
+        "LOCAL_READ",
+        "LOCAL_WRITE",
+        "LOCAL_TEST"
+      ],
+      "requiredRuntimeSafety": [],
+      "doneCriteria": [
+        {
+          "id": "H15-AUTONOMY",
+          "description": "Unverified network autonomy cannot become HIGH_PRIORITY",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H1-CODE",
+            "E-H1-TESTS"
+          ]
+        },
+        {
+          "id": "H15-COLLISION",
+          "description": "Brand collisions preserve identities and select one initial research representative",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H1-CODE",
+            "E-H1-TESTS"
+          ]
+        }
+      ],
+      "evidenceRefs": [
+        "E-H1-CODE",
+        "E-H1-TESTS"
+      ],
+      "blockerRefs": [],
+      "checkpointRefs": []
+    },
+    {
+      "id": "H2",
+      "title": "Safe discovery to research handoff",
+      "priority": "P0",
+      "status": "DONE",
+      "classification": "VERIFIED",
+      "dependencies": [
+        "H1",
+        "H1.5"
+      ],
+      "requiredPermissions": [
+        "LOCAL_READ",
+        "LOCAL_WRITE",
+        "LOCAL_TEST"
+      ],
+      "requiredRuntimeSafety": [
+        {
+          "control": "REAL_EMAIL_SEND",
+          "state": "DISABLED"
+        },
+        {
+          "control": "PRODUCTION_DEPLOY",
+          "state": "DISABLED"
+        }
+      ],
+      "doneCriteria": [
+        {
+          "id": "H2-INTERNAL",
+          "description": "Internal research and contact-discovery jobs can be queued without global autopilot",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H2-CODE",
+            "E-H2-TESTS"
+          ]
+        },
+        {
+          "id": "H2-BOUNDARY",
+          "description": "Internal processing does not unlock outreach or prototype automation",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H2-TESTS",
+            "E-RUNTIME-CONFIG"
+          ]
+        },
+        {
+          "id": "H2-VERTICAL-OBSERVATION",
+          "description": "Local D1 contains an intact pending research batch produced by the handoff",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H2-DATABASE"
+          ]
+        }
+      ],
+      "evidenceRefs": [
+        "E-H2-CODE",
+        "E-H2-TESTS",
+        "E-H2-DATABASE"
+      ],
+      "blockerRefs": [],
+      "checkpointRefs": []
+    },
+    {
+      "id": "H2.5",
+      "title": "Evidence Integrity Gate",
+      "priority": "P0",
+      "status": "DONE",
+      "classification": "VERIFIED",
+      "dependencies": [
+        "H1",
+        "H2"
+      ],
+      "requiredPermissions": [
+        "LOCAL_READ",
+        "LOCAL_WRITE",
+        "LOCAL_TEST"
+      ],
+      "requiredRuntimeSafety": [
+        {
+          "control": "REAL_EMAIL_SEND",
+          "state": "DISABLED"
+        },
+        {
+          "control": "PRODUCTION_DEPLOY",
+          "state": "DISABLED"
+        }
+      ],
+      "doneCriteria": [
+        {
+          "id": "H25-SOURCE-GATE",
+          "description": "Qualification cannot succeed from score inputs without valid supporting sources",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H25-GAP",
+            "E-H25-GATE",
+            "E-H25-BOUNDARY",
+            "E-H25-UNIT",
+            "E-H25-VERTICAL"
+          ]
+        },
+        {
+          "id": "H25-VERTICAL",
+          "description": "A named vertical fixture proves evidence rejection and acceptance end to end",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H25-VERTICAL"
+          ]
+        },
+        {
+          "id": "H25-PENDING-SAFETY",
+          "description": "Pending research jobs remain unconsumed during implementation validation",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H2-DATABASE",
+            "E-H25-QUEUE"
+          ]
+        }
+      ],
+      "evidenceRefs": [
+        "E-H25-GAP",
+        "E-H25-NORMALIZER",
+        "E-H2-DATABASE",
+        "E-H25-GATE",
+        "E-H25-BOUNDARY",
+        "E-H25-UNIT",
+        "E-H25-VERTICAL",
+        "E-H25-REGRESSION",
+        "E-H25-QUEUE",
+        "E-RUNTIME-CONFIG"
+      ],
+      "blockerRefs": [],
+      "checkpointRefs": [
+        "CP-0009-H2.5-DONE"
+      ]
+    },
+    {
+      "id": "H3",
+      "title": "BUILDER â€” Verified Phone Contactability",
+      "priority": "P1",
+      "status": "DONE",
+      "classification": "VERIFIED",
+      "dependencies": [
+        "H2.5"
+      ],
+      "requiredPermissions": [
+        "LOCAL_READ",
+        "LOCAL_WRITE",
+        "LOCAL_TEST"
+      ],
+      "requiredRuntimeSafety": [
+        {
+          "control": "REAL_OUTREACH",
+          "state": "DISABLED"
+        }
+      ],
+      "doneCriteria": [
+        {
+          "id": "H3-EMAIL",
+          "description": "Verified email contactability is identity-bound and human-send only",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H3-CODE",
+            "E-H3-TESTS",
+            "E-H3-REVIEWER-PASS-R3"
+          ]
+        },
+        {
+          "id": "H3-PHONE",
+          "description": "PHONE is PUBLISHED_VERIFIED only from exact H2.5 trustedPhone evidence and never infers WHATSAPP",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H3-REVIEWER-PASS-R3"
+          ]
+        },
+        {
+          "id": "H3-MULTI-CHANNEL",
+          "description": "Verified EMAIL and verified PHONE contracts coexist and objectively provide two channel types",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H3-REVIEWER-PASS-R3"
+          ]
+        },
+        {
+          "id": "H3-SAFETY",
+          "description": "PHONE preparation is human-dial only; DO_NOT_CONTACT blocks all channels; existing EMAIL suppression remains authoritative; no automatic dial, send, or outreach path is added",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H3-REVIEWER-PASS-R3"
+          ]
+        },
+        {
+          "id": "H3-REGRESSION",
+          "description": "H1, H2, H2.5, and existing EMAIL contactability regressions plus canonical project validation pass",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H3-REVIEWER-PASS-R3"
+          ]
+        }
+      ],
+      "evidenceRefs": [
+        "E-H3-CODE",
+        "E-H3-TESTS",
+        "E-H25-GATE",
+        "E-H25-BOUNDARY",
+        "E-H25-UNIT",
+        "E-H25-VERTICAL",
+        "E-POLICY",
+        "E-RUNTIME-CONFIG",
+        "E-H3-REVIEWER-PASS-R3"
+      ],
+      "blockerRefs": [
+        "B-H3-SINGLE-CHANNEL"
+      ],
+      "checkpointRefs": [
+        "CP-0010-H3-MISSION-READY",
+        "CP-0011-H3-VERIFIED"
+      ]
+    },
+    {
+      "id": "H4",
+      "title": "BUILDER â€” Fail-Closed Operator Contactability Projection",
+      "priority": "P2",
+      "status": "DONE",
+      "classification": "VERIFIED",
+      "dependencies": [
+        "H2.5",
+        "H3"
+      ],
+      "requiredPermissions": [
+        "LOCAL_READ",
+        "LOCAL_WRITE",
+        "LOCAL_TEST"
+      ],
+      "requiredRuntimeSafety": [
+        {
+          "control": "REAL_OUTREACH",
+          "state": "DISABLED"
+        }
+      ],
+      "doneCriteria": [
+        {
+          "id": "H4-SCOPE",
+          "description": "Implementation changes are limited to apps/control-center/lib/api.ts, apps/control-center/lib/api.test.ts, apps/control-center/components/ProspectPipeline.tsx, and apps/control-center/components/ProspectPipeline.test.tsx",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H4-REVIEWER-PASS"
+          ]
+        },
+        {
+          "id": "H4-PUBLISHED-VERIFIED",
+          "description": "PRÃŠT Ã€ CONTACTER requires PUBLISHED_VERIFIED contactability",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H4-REVIEWER-PASS"
+          ]
+        },
+        {
+          "id": "H4-IDENTITY",
+          "description": "The preparation belongs to the same prospect",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H4-REVIEWER-PASS"
+          ]
+        },
+        {
+          "id": "H4-CHANNEL",
+          "description": "The preparation channel matches a usable verified channel",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H4-REVIEWER-PASS"
+          ]
+        },
+        {
+          "id": "H4-PHONE-BINDING",
+          "description": "PHONE requires matching contactId and evidenceEventId, a public sourceUrl, requiresHumanDial true, and dialsAutomatically false",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H4-REVIEWER-PASS"
+          ]
+        },
+        {
+          "id": "H4-EMAIL-HUMAN-ONLY",
+          "description": "EMAIL retains existing human-send-only behavior",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H4-REVIEWER-PASS"
+          ]
+        },
+        {
+          "id": "H4-EMAIL-PREFERENCE",
+          "description": "EMAIL remains preferred when EMAIL and PHONE coexist",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H4-REVIEWER-PASS"
+          ]
+        },
+        {
+          "id": "H4-FAIL-CLOSED",
+          "description": "DO_NOT_CONTACT, OPPOSED, malformed, mismatched, missing, or automatic preparation yields no actionable contact control",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H4-REVIEWER-PASS"
+          ]
+        },
+        {
+          "id": "H4-CURRENT-ONLY",
+          "description": "CURRENT-only projection and empty-CURRENT behavior remain unchanged",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H4-REVIEWER-PASS"
+          ]
+        },
+        {
+          "id": "H4-NO-RUNTIME-COMMUNICATION",
+          "description": "No runtime communication capability, email sending, dialing, tel link, WhatsApp or SMS inference, outreach execution, or lifecycle mutation is added",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-H4-REVIEWER-PASS"
+          ]
+        }
+      ],
+      "evidenceRefs": [
+        "E-H4-HUMAN-DECISION",
+        "E-H4-REVIEWER-PASS"
+      ],
+      "blockerRefs": [
+        "B-H4-SCOPE-UNRESOLVED"
+      ],
+      "checkpointRefs": [
+        "CP-0012-H4-MISSION-READY",
+        "CP-0013-H4-VERIFIED"
+      ]
+    },
+    {
+      "id": "WP09",
+      "title": "Sales Room",
+      "priority": "P2",
+      "status": "DONE",
+      "classification": "VERIFIED",
+      "dependencies": [],
+      "requiredPermissions": [
+        "LOCAL_READ",
+        "LOCAL_WRITE",
+        "LOCAL_TEST"
+      ],
+      "requiredRuntimeSafety": [
+        {
+          "control": "REAL_EMAIL_SEND",
+          "state": "DISABLED"
+        },
+        {
+          "control": "PRODUCTION_DEPLOY",
+          "state": "DISABLED"
+        }
+      ],
+      "doneCriteria": [
+        {
+          "id": "WP09-CANONICAL-QUOTE",
+          "description": "Only the canonical Sales Room quote is accepted with durable proof",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-WP09-TESTS"
+          ]
+        },
+        {
+          "id": "WP09-PRICING",
+          "description": "Pricing derives from direct Sales Room messages and fixed legal configuration",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-WP09-TESTS"
+          ]
+        }
+      ],
+      "evidenceRefs": [
+        "E-WP09-CODE",
+        "E-WP09-TESTS"
+      ],
+      "blockerRefs": [],
+      "checkpointRefs": []
+    },
+    {
+      "id": "PILOT-01",
+      "title": "PILOT-01 â€” Controlled real research E2E validation (recorded, not executed)",
+      "priority": "P2",
+      "status": "DONE",
+      "classification": "VERIFIED",
+      "dependencies": [],
+      "requiredPermissions": [
+        "LOCAL_READ",
+        "LOCAL_WRITE",
+        "LOCAL_TEST"
+      ],
+      "requiredRuntimeSafety": [
+        {
+          "control": "REAL_EMAIL_SEND",
+          "state": "DISABLED"
+        },
+        {
+          "control": "PRODUCTION_DEPLOY",
+          "state": "DISABLED"
+        }
+      ],
+      "doneCriteria": [
+        {
+          "id": "PILOT01-BOUNDED-SCOPE",
+          "description": "Execution is bounded to max 3 existing prospects with verified identity; no outreach, sending, phone, deploy, paid API, or RUN_RESEARCH_SWARM consumption",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-PILOT01-CANARY-VALIDATION"
+          ]
+        },
+        {
+          "id": "PILOT01-FAIL-CLOSED",
+          "description": "Fail-closed gates remain authoritative: identity ambiguity, insufficient evidence, invalid contact channel, or unmet gate must never convert into false success",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-PILOT01-CANARY-VALIDATION"
+          ]
+        },
+        {
+          "id": "PILOT01-EXECUTION-AUTHORIZATION",
+          "description": "Execution requires an explicit later authorization after this recording mission",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-PILOT01-CANARY-VALIDATION"
+          ]
+        }
+      ],
+      "evidenceRefs": [],
+      "blockerRefs": [
+        "B-PILOT01-PROVENANCE"
+      ],
+      "checkpointRefs": [
+        "CP-0014-PILOT01-RECORDED",
+        "CP-0016-PILOT01-PREFLIGHT-RECONCILED",
+        "CP-0017-PILOT01-CANARY1-BLOCKED-PROVENANCE",
+        "CP-0023-RESUMED",
+        "CP-0025-CANARY1-FAIL-CLOSED",
+        "CP-0026-CANARY2-FAIL-CLOSED",
+        "CP-0027-CANARY3-NO-GO"
+      ]
+    },
+    {
+      "id": "PROVENANCE-REMEDIATION",
+      "title": "Provenance Remediation â€” Generic optional provenance propagation through the canonical orchestration path",
+      "priority": "P1",
+      "status": "DONE",
+      "classification": "VERIFIED",
+      "dependencies": [],
+      "requiredPermissions": [
+        "LOCAL_READ",
+        "LOCAL_WRITE",
+        "LOCAL_TEST"
+      ],
+      "requiredRuntimeSafety": [
+        {
+          "control": "REAL_EMAIL_SEND",
+          "state": "DISABLED"
+        },
+        {
+          "control": "PRODUCTION_DEPLOY",
+          "state": "DISABLED"
+        }
+      ],
+      "doneCriteria": [
+        {
+          "id": "PROVENANCE-PROPAGATION",
+          "description": "planProspect and /api/orchestrator/plan accept an optional provenance string and persist it into the enqueued job payload when present",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-CONTROL-ORCHESTRATOR",
+            "E-PROVENANCE-REMEDIATION-VALIDATED"
+          ]
+        },
+        {
+          "id": "PROVENANCE-BACKWARD-COMPATIBLE",
+          "description": "omitting provenance leaves existing job payload behavior unchanged",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-PROVENANCE-REMEDIATION-VALIDATED"
+          ]
+        },
+        {
+          "id": "PROVENANCE-VALIDATED",
+          "description": "focused typecheck and orchestrator tests pass proving provenance propagation and backward compatibility",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-PROVENANCE-REMEDIATION-VALIDATED"
+          ]
+        }
+      ],
+      "evidenceRefs": [],
+      "blockerRefs": [],
+      "checkpointRefs": [
+        "CP-0019-REMEDIATION-OPENED",
+        "CP-0021-REMEDIATION-IMPLEMENTED"
+      ]
+    },
+    {
+      "id": "EVIDENCE-CONTRACT-ALIGNMENT",
+      "title": "Evidence-Contract Alignment â€” Align Research Swarm source annotations with Evidence Integrity Gate claims while preserving fail-closed semantics",
+      "priority": "P1",
+      "status": "DONE",
+      "classification": "VERIFIED",
+      "dependencies": [],
+      "requiredPermissions": [
+        "LOCAL_READ",
+        "LOCAL_WRITE",
+        "LOCAL_TEST"
+      ],
+      "requiredRuntimeSafety": [
+        {
+          "control": "REAL_EMAIL_SEND",
+          "state": "DISABLED"
+        },
+        {
+          "control": "PRODUCTION_DEPLOY",
+          "state": "DISABLED"
+        }
+      ],
+      "doneCriteria": [
+        {
+          "id": "EC-SOURCE-BACKED-CLAIMS",
+          "description": "Research output exposes source-backed facts that support the required evidence-integrity score dimensions (commercialStrength, contactability, localFit, prototypeLeverage, digitalGap) through deterministic derivation from observed evidence, not from raw unsupported LLM assertions",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-EVIDENCE-CONTRACT-ALIGNMENT-VALIDATED"
+          ]
+        },
+        {
+          "id": "EC-FAIL-CLOSED-PRESERVED",
+          "description": "Existing unsupported claims remain fail-closed; evidence-integrity gate rejects claims without traceable source support or explicit deterministic derivation",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-EVIDENCE-CONTRACT-ALIGNMENT-VALIDATED"
+          ]
+        },
+        {
+          "id": "EC-CONTACT-EVIDENCE",
+          "description": "Official contact page phone/email evidence satisfies the structured phone evidence contract and avoids UNSUPPORTED_PHONE when genuinely present on an official source",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-EVIDENCE-CONTRACT-ALIGNMENT-VALIDATED"
+          ]
+        },
+        {
+          "id": "EC-WEBSITE-DISTRESS",
+          "description": "Official domain with explicit UNDER_CONSTRUCTION/rebuilding intent produces factual signals (siteStatus) that deterministically support digitalGap and prototypeLeverage but not commercialStrength or localFit",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-EVIDENCE-CONTRACT-ALIGNMENT-VALIDATED"
+          ]
+        },
+        {
+          "id": "EC-POSITIVE-PATH-REACHABLE",
+          "description": "A sufficiently evidenced fixture can pass the evidence-integrity stage legitimately, proving positive-path reachability is not blocked by the evidence contract itself",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-EVIDENCE-CONTRACT-ALIGNMENT-VALIDATED"
+          ]
+        },
+        {
+          "id": "EC-TESTS-PASS",
+          "description": "Focused evidence-integrity, derivation, and fail-closed regression tests pass; typechecks pass; backward compatible",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-EVIDENCE-CONTRACT-ALIGNMENT-VALIDATED"
+          ]
+        }
+      ],
+      "evidenceRefs": [
+        "E-EVIDENCE-CONTRACT-ALIGNMENT-VALIDATED"
+      ],
+      "blockerRefs": [
+        "B-EVIDENCE-CONTRACT-ALIGNMENT"
+      ],
+      "checkpointRefs": [
+        "CP-0029-ALIGNMENT-OPENED",
+        "CP-0031-ALIGNMENT-IMPLEMENTED"
+      ]
+    },
+    {
+      "id": "SCORE-EVIDENCE-CALIBRATION",
+      "title": "Score-Evidence Calibration â€” Constrain numeric scoreInputs magnitudes by source-backed deterministic caps so raw LLM scores cannot inflate qualification without commensurate factual evidence",
+      "priority": "P1",
+      "status": "DONE",
+      "classification": "VERIFIED",
+      "dependencies": [],
+      "requiredPermissions": [
+        "LOCAL_READ",
+        "LOCAL_WRITE",
+        "LOCAL_TEST"
+      ],
+      "requiredRuntimeSafety": [
+        {
+          "control": "REAL_EMAIL_SEND",
+          "state": "DISABLED"
+        },
+        {
+          "control": "PRODUCTION_DEPLOY",
+          "state": "DISABLED"
+        }
+      ],
+      "doneCriteria": [
+        {
+          "id": "SC-DETERMINISTIC-CAPS",
+          "description": "Each score dimension has a deterministic evidence-based cap. The capped min(modelScore, cap) is used in scoreProspect, not the raw LLM magnitude.",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-SCORE-EVIDENCE-CALIBRATION-VALIDATED"
+          ]
+        },
+        {
+          "id": "SC-ANTI-INFLATION",
+          "description": "A test proves that a model emitting extreme scores with weak evidence produces no stronger qualification than weak evidence warrants.",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-SCORE-EVIDENCE-CALIBRATION-VALIDATED"
+          ]
+        },
+        {
+          "id": "SC-QUAL-INTEGRITY",
+          "description": "After calibration, positive-path qualification is still reachable when evidence genuinely warrants it.",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-SCORE-EVIDENCE-CALIBRATION-VALIDATED"
+          ]
+        },
+        {
+          "id": "SC-FAIL-CLOSED",
+          "description": "Existing evidence-integrity fail-closed tests remain green; calibration does not bypass any gate.",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-SCORE-EVIDENCE-CALIBRATION-VALIDATED"
+          ]
+        },
+        {
+          "id": "SC-TESTS-PASS",
+          "description": "Typechecks pass, focused calibration tests pass, evidence-integrity regression passes.",
+          "status": "MET",
+          "evidenceRefs": [
+            "E-SCORE-EVIDENCE-CALIBRATION-VALIDATED"
+          ]
+        }
+      ],
+      "evidenceRefs": [
+        "E-SCORE-EVIDENCE-CALIBRATION-VALIDATED"
+      ],
+      "blockerRefs": [],
+      "checkpointRefs": [
+        "CP-0033-CALIBRATION-OPENED"
+      ]
+    }
+  ],
+  "frozenDecisions": [
+    {
+      "id": "D-SINGLE-STEERING-SOURCE",
+      "classification": "VERIFIED",
+      "statement": "project/PROJECT_STATE.json is the single canonical project steering source; overnight session state remains runtime bookkeeping only.",
+      "evidenceRefs": [
+        "E-CONTROL-STATE",
+        "E-OVERNIGHT-STATE"
+      ]
+    },
+    {
+      "id": "D-EXTERNAL-ACTIONS-CLOSED",
+      "classification": "VERIFIED",
+      "statement": "Push, production deployment, real outreach, real message sending, and paid APIs require separate explicit authorization.",
+      "evidenceRefs": [
+        "E-POLICY"
+      ]
+    },
+    {
+      "id": "D-RUNTIME-SAFETY-SUPERSEDES-STEERING",
+      "classification": "VERIFIED",
+      "statement": "Project steering never overrides runtime safety or provider configuration and must fail closed on conflict.",
+      "evidenceRefs": [
+        "E-POLICY",
+        "E-RUNTIME-CONFIG",
+        "E-CONTROL-ORCHESTRATOR"
+      ]
+    },
+    {
+      "id": "D-UNKNOWN-STAYS-UNKNOWN",
+      "classification": "VERIFIED",
+      "statement": "Missing evidence remains UNKNOWN or UNRESOLVED and cannot satisfy DONE criteria.",
+      "evidenceRefs": [
+        "E-CONTROL-ORCHESTRATOR",
+        "E-CONTROL-TESTS"
+      ]
+    },
+    {
+      "id": "D-H3-PHONE-HUMAN-DECISION",
+      "classification": "VERIFIED",
+      "statement": "The additional H3 channel is PHONE and the implementation role is BUILDER. PHONE may consume only H2.5-trusted phone evidence and may produce only human-initiated call preparation. A phone number never implies WHATSAPP. SMS, social DMs, forms, automatic dialing, automatic sending, outreach execution, deployment, paid APIs, research job consumption, unrelated UI redesign, and H4 are excluded.",
+      "evidenceRefs": [
+        "E-H25-GATE",
+        "E-H25-BOUNDARY",
+        "E-H25-UNIT",
+        "E-H25-VERTICAL",
+        "E-H3-CODE",
+        "E-H3-TESTS",
+        "E-POLICY"
+      ]
+    },
+    {
+      "id": "D-H4-FAIL-CLOSED-OPERATOR-CONTACTABILITY",
+      "classification": "VERIFIED",
+      "statement": "The approved H4 contract is Fail-Closed Operator Contactability Projection. The Deck may declare PRÃŠT Ã€ CONTACTER only from a structurally valid, identity-bound H3 EMAIL_DRAFT or PHONE_CALL_PREPARATION. Preparation must belong to the same prospect and its channel must match usable PUBLISHED_VERIFIED contactability. PHONE additionally requires matching contactId and evidenceEventId, a public sourceUrl, requiresHumanDial true, and dialsAutomatically false. EMAIL retains human-send-only behavior and is preferred when both channels coexist. DO_NOT_CONTACT, OPPOSED, malformed, mismatched, missing, or automatic preparation yields no actionable contact control. BUILDER scope is limited to apps/control-center/lib/api.ts, apps/control-center/lib/api.test.ts, apps/control-center/components/ProspectPipeline.tsx, and apps/control-center/components/ProspectPipeline.test.tsx. Sending email, dialing, tel links, inferring WhatsApp or SMS, outreach execution, lifecycle mutation, changes to H1, H2, H2.5, or H3, unrelated UI redesign, and any runtime communication capability are excluded.",
+      "evidenceRefs": [
+        "E-H4-HUMAN-DECISION",
+        "E-POLICY"
+      ]
+    }
+  ],
+  "permissions": [
+    {
+      "id": "LOCAL_READ",
+      "allowed": true,
+      "classification": "VERIFIED",
+      "evidenceRefs": [
+        "E-POLICY"
+      ]
+    },
+    {
+      "id": "LOCAL_WRITE",
+      "allowed": true,
+      "classification": "VERIFIED",
+      "evidenceRefs": [
+        "E-POLICY"
+      ]
+    },
+    {
+      "id": "LOCAL_TEST",
+      "allowed": true,
+      "classification": "VERIFIED",
+      "evidenceRefs": [
+        "E-POLICY"
+      ]
+    },
+    {
+      "id": "REMOTE_PUSH",
+      "allowed": false,
+      "classification": "VERIFIED",
+      "evidenceRefs": [
+        "E-POLICY"
+      ]
+    },
+    {
+      "id": "PRODUCTION_DEPLOY",
+      "allowed": false,
+      "classification": "VERIFIED",
+      "evidenceRefs": [
+        "E-POLICY"
+      ]
+    },
+    {
+      "id": "REAL_OUTREACH",
+      "allowed": false,
+      "classification": "VERIFIED",
+      "evidenceRefs": [
+        "E-POLICY"
+      ]
+    },
+    {
+      "id": "REAL_EMAIL_SEND",
+      "allowed": false,
+      "classification": "VERIFIED",
+      "evidenceRefs": [
+        "E-POLICY"
+      ]
+    },
+    {
+      "id": "REAL_WHATSAPP_SEND",
+      "allowed": false,
+      "classification": "VERIFIED",
+      "evidenceRefs": [
+        "E-POLICY"
+      ]
+    },
+    {
+      "id": "PAID_API",
+      "allowed": false,
+      "classification": "VERIFIED",
+      "evidenceRefs": [
+        "E-POLICY"
+      ]
+    }
+  ],
+  "runtimeSafety": [
+    {
+      "id": "RS-LOCAL-AUTOPILOT",
+      "control": "REAL_OUTREACH",
+      "state": "DISABLED",
+      "classification": "VERIFIED",
+      "evidenceRefs": [
+        "E-RUNTIME-CONFIG",
+        "E-H2-TESTS"
+      ],
+      "summary": "Local global autopilot is false; internal processing is separately enabled and bounded."
+    },
+    {
+      "id": "RS-LOCAL-EMAIL",
+      "control": "REAL_EMAIL_SEND",
+      "state": "DISABLED",
+      "classification": "VERIFIED",
+      "evidenceRefs": [
+        "E-RUNTIME-CONFIG",
+        "E-H2-TESTS"
+      ],
+      "summary": "Local real email sending is disabled."
+    },
+    {
+      "id": "RS-LOCAL-DEPLOY",
+      "control": "PRODUCTION_DEPLOY",
+      "state": "DISABLED",
+      "classification": "VERIFIED",
+      "evidenceRefs": [
+        "E-RUNTIME-CONFIG",
+        "E-H2-TESTS"
+      ],
+      "summary": "Local prototype deployment is disabled."
+    }
+  ],
+  "blockers": [
+    {
+      "id": "B-H3-SINGLE-CHANNEL",
+      "status": "RESOLVED",
+      "classification": "VERIFIED",
+      "summary": "Resolved by the explicit human decision selecting PHONE and by the verified H2.5 trustedPhone boundary, which permits a deterministic second-channel mission without additional product requirements.",
+      "evidenceRefs": [
+        "E-H3-CODE",
+        "E-H3-TESTS",
+        "E-H25-GATE",
+        "E-H25-BOUNDARY",
+        "E-H25-UNIT",
+        "E-H25-VERTICAL"
+      ]
+    },
+    {
+      "id": "B-H4-SCOPE-UNRESOLVED",
+      "status": "RESOLVED",
+      "classification": "VERIFIED",
+      "summary": "The human-approved fail-closed H4 contract, four-file BUILDER scope, DONE criteria, and exclusions are recorded canonically.",
+      "evidenceRefs": [
+        "E-H4-HUMAN-DECISION"
+      ]
+    },
+    {
+      "id": "B-PILOT01-PROVENANCE",
+      "status": "RESOLVED",
+      "classification": "VERIFIED",
+      "summary": "PILOT-01 Canary 1 is blocked: canonical /api/orchestrator/plan cannot propagate explicit job provenance to the persisted job payload, preventing a dedicated attributable canary job.",
+      "evidenceRefs": [
+        "E-PROVENANCE-REMEDIATION-VALIDATED"
+      ]
+    },
+    {
+      "id": "B-EVIDENCE-CONTRACT-ALIGNMENT",
+      "status": "RESOLVED",
+      "classification": "VERIFIED",
+      "summary": "V1 evidence-contract mismatch: the Evidence Integrity Gate requires source-supported claims for commercialStrength, contactability, localFit, prototypeLeverage, and digitalGap. The current Research Swarm produces factual source annotations (activity, website, phone, digitalGap) but does NOT produce source annotations for commercialStrength, contactability, localFit, or prototypeLeverage. Consequence: both executed PILOT-01 canaries (including a HIGH_PRIORITY prospect with valid SIRET and official website) were deterministically DISQUALIFIED before operator projection. Canary 3 NO_GO: no remaining DISCOVERED candidate had materially stronger evidence surface. Positive-path qualification is practically unreachable for typical target businesses under the current evidence-integrity contract. Fix must preserve fail-closed semantics â€” do NOT weaken the gate. RESOLVED by EVIDENCE-CONTRACT-ALIGNMENT: added deterministic deriveEvidenceClaims fed through a derivedClaims parameter into evaluateResearchEvidenceIntegrity so that source-backed facts (valid SIREN/SIRET, official website with navigation, phone from official contact page, source-backed activity claim, primary friction) legitimately support contactability/localFit/prototypeLeverage/commercialStrength/digitalGap; phone evidence contract fixed via source-note injection; siteStatus added for UNDER_CONSTRUCTION/REBUILDING signals. Tightened per final acceptance review: commercialStrength now requires a source-backed activity claim (not merely an activity string) + SIRET + website; localFit now requires non-REJECT commercialEligibility + location string (not merely SIREN/SIRET/city); PARKED/DOMAIN_FOR_SALE/UNREACHABLE do NOT get the rebuild boost. Fail-closed semantics preserved: claims without traceable sources or deterministic derivation remain rejected (core 208/208 PASS). Positive-path reachability proven for the tightened rules (Athena-style test with supported activity, PARKED/for-sale negative tests).",
+      "evidenceRefs": [
+        "E-PILOT01-CANARY-VALIDATION",
+        "E-EVIDENCE-CONTRACT-ALIGNMENT-VALIDATED"
+      ],
+      "resolutionRef": "EVIDENCE-CONTRACT-ALIGNMENT"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E-GIT",
+      "classification": "OBSERVED",
+      "kind": "GIT",
+      "reference": ".git/HEAD",
+      "summary": "Branch wp09-sales-room-bfa-20260904 at 47d693880be1a00075e08f0a8e38369752894fb2; dirty tree preserved."
+    },
+    {
+      "id": "E-POLICY",
+      "classification": "VERIFIED",
+      "kind": "CONFIG",
+      "reference": "CLAUDE.md",
+      "summary": "Permanent repository safety, creation, verification, and external-action policy."
+    },
+    {
+      "id": "E-PACKAGE",
+      "classification": "VERIFIED",
+      "kind": "CONFIG",
+      "reference": "package.json",
+      "summary": "Repository-native scripts and workspace commands."
+    },
+    {
+      "id": "E-OVERNIGHT-STATE",
+      "classification": "VERIFIED",
+      "kind": "CODE",
+      "reference": "core/overnight/session-state.ts",
+      "summary": "Existing compact session runtime state; not project steering authority."
+    },
+    {
+      "id": "E-CONTROL-STATE",
+      "classification": "VERIFIED",
+      "kind": "CODE",
+      "reference": "core/project/project-state.ts",
+      "summary": "Project Control Plane V1 schema and validator."
+    },
+    {
+      "id": "E-CONTROL-ORCHESTRATOR",
+      "classification": "VERIFIED",
+      "kind": "CODE",
+      "reference": "core/project/project-orchestrator.ts",
+      "summary": "Deterministic fail-closed project orchestrator and checkpoint transitions."
+    },
+    {
+      "id": "E-CONTROL-TESTS",
+      "classification": "VERIFIED",
+      "kind": "TEST",
+      "reference": "core/tests/project-control.test.ts",
+      "summary": "Focused Project Control Plane and orchestrator tests passed 8/8 on 2026-09-12."
+    },
+    {
+      "id": "E-H1-CODE",
+      "classification": "VERIFIED",
+      "kind": "CODE",
+      "reference": "core/scoring/commercial-eligibility.ts",
+      "summary": "Commercial Eligibility V2.6.0, network autonomy, and brand collision logic."
+    },
+    {
+      "id": "E-H1-TESTS",
+      "classification": "VERIFIED",
+      "kind": "TEST",
+      "reference": "core/tests/commercial-eligibility.test.ts",
+      "summary": "Commercial eligibility, identity, network autonomy, and collision tests passed 19/19 on 2026-09-12."
+    },
+    {
+      "id": "E-H2-CODE",
+      "classification": "VERIFIED",
+      "kind": "CODE",
+      "reference": "core/orchestrator/engine.ts",
+      "summary": "Internal processing is limited to research, scoring, and contact discovery; outbound/prototype remain gated."
+    },
+    {
+      "id": "E-H2-TESTS",
+      "classification": "VERIFIED",
+      "kind": "TEST",
+      "reference": "core/tests/orchestrator.test.ts",
+      "summary": "H2 internal processing and fail-closed safety witnesses passed within the 18/18 orchestrator test set on 2026-09-12."
+    },
+    {
+      "id": "E-H2-DATABASE",
+      "classification": "OBSERVED",
+      "kind": "DATABASE",
+      "reference": "apps/api-worker/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite",
+      "summary": "Read-only query on 2026-09-12 observed 14 PENDING RUN_RESEARCH_SWARM jobs from one 2026-09-10 batch; none were claimed."
+    },
+    {
+      "id": "E-H25-GAP",
+      "classification": "VERIFIED",
+      "kind": "CODE",
+      "reference": "apps/api-worker/src/index.ts",
+      "summary": "processResearchResult qualifies from scoreInputs and accepts sources as an optional empty array; no evidence-integrity gate precedes qualification."
+    },
+    {
+      "id": "E-H25-NORMALIZER",
+      "classification": "VERIFIED",
+      "kind": "CODE",
+      "reference": "apps/agent-runner/src/research-output.ts",
+      "summary": "Research normalization permits empty sources while retaining complete model-provided score inputs."
+    },
+    {
+      "id": "E-H25-GATE",
+      "classification": "VERIFIED",
+      "kind": "CODE",
+      "reference": "core/research/evidence-integrity.ts",
+      "summary": "The deterministic gate rejects absent, malformed, private, or claim-unmapped evidence and exposes only traceable website and phone claims for promotion."
+    },
+    {
+      "id": "E-H25-BOUNDARY",
+      "classification": "VERIFIED",
+      "kind": "CODE",
+      "reference": "apps/api-worker/src/index.ts",
+      "summary": "Research completion now applies the evidence gate before trusted scoring, prospect-field promotion, qualification, and downstream planning while retaining raw output separately."
+    },
+    {
+      "id": "E-H25-UNIT",
+      "classification": "VERIFIED",
+      "kind": "TEST",
+      "reference": "core/tests/evidence-integrity.test.ts",
+      "summary": "Five focused unit witnesses passed for empty, malformed, valid, unsupported-claim, and exact-traceability evidence cases."
+    },
+    {
+      "id": "E-H25-VERTICAL",
+      "classification": "VERIFIED",
+      "kind": "TEST",
+      "reference": "apps/api-worker/src/evidence-integrity.integration.test.mjs",
+      "summary": "Three named retail vertical fixtures passed end to end: empty evidence fails closed, accepted evidence qualifies, and unsupported website and phone claims are not promoted."
+    },
+    {
+      "id": "E-H25-REGRESSION",
+      "classification": "VERIFIED",
+      "kind": "TEST",
+      "reference": "core/tests/commercial-eligibility.test.ts; core/tests/orchestrator.test.ts; apps/agent-runner/src/research-output.test.ts",
+      "summary": "The focused H1/H2, evidence, normalization, and project-control suites passed 60/60; core, API worker, and runner typechecks passed."
+    },
+    {
+      "id": "E-H25-QUEUE",
+      "classification": "OBSERVED",
+      "kind": "DATABASE",
+      "reference": "E-H2-DATABASE (read-only repeat)",
+      "summary": "Read-only before-and-after counts remained 14 PENDING RUN_RESEARCH_SWARM jobs; implementation tests used only isolated in-memory fixtures."
+    },
+    {
+      "id": "E-H3-CODE",
+      "classification": "VERIFIED",
+      "kind": "CODE",
+      "reference": "core/orchestrator/contactability.ts",
+      "summary": "Current contactability channel type is EMAIL only and prepares a human-send draft."
+    },
+    {
+      "id": "E-H3-TESTS",
+      "classification": "VERIFIED",
+      "kind": "TEST",
+      "reference": "core/tests/contactability.test.ts",
+      "summary": "Identity-bound verified email and human-send-only contactability tests passed 7/7 on 2026-09-12."
+    },
+    {
+      "id": "E-WP09-CODE",
+      "classification": "VERIFIED",
+      "kind": "CODE",
+      "reference": "core/personalization/sales-room.ts",
+      "summary": "Canonical Sales Room state derivation."
+    },
+    {
+      "id": "E-WP09-TESTS",
+      "classification": "VERIFIED",
+      "kind": "TEST",
+      "reference": "apps/api-worker/src/sales-room.integration.test.mjs",
+      "summary": "Sales Room integration including WP09 canonical quote acceptance passed 5/5 on 2026-09-12."
+    },
+    {
+      "id": "E-RUNTIME-CONFIG",
+      "classification": "VERIFIED",
+      "kind": "CONFIG",
+      "reference": "apps/api-worker/wrangler.local.jsonc",
+      "summary": "Local autopilot=false, internal processing=true, sending=false, prototype deployment=false."
+    },
+    {
+      "id": "E-H3-REVIEWER-PASS-R3",
+      "classification": "VERIFIED",
+      "kind": "REPORT",
+      "reference": "project/PROJECT_STATE.json#evidence/E-H3-REVIEWER-PASS-R3",
+      "summary": "Independent Reviewer #3 returned PASS_AWAITING_CONTROL_PLANE_TRANSITION for H3",
+      "reviewerPass": {
+        "authority": "REVIEWER",
+        "missionId": "H3",
+        "decision": "PASS",
+        "result": "PASS_AWAITING_CONTROL_PLANE_TRANSITION",
+        "reviewedRevision": 10,
+        "reviewedCheckpointId": "CP-0010-H3-MISSION-READY",
+        "implementation": {
+          "algorithm": "SHA-256",
+          "digest": "d05ecd9b8474af9840fc8530784c6451297cf17556c2e7ea7fad43c801b61288",
+          "files": [
+            {
+              "path": "core/orchestrator/contactability.ts",
+              "sha256": "4586ee3b126df26ea1e36f6bb1158d39f237d07848df02437f465397c11563e6"
+            },
+            {
+              "path": "core/tests/contactability.test.ts",
+              "sha256": "3fa90c36bc4365be1dd40f280e9e9893aa9f58b41143d016f78b30138ad50348"
+            }
+          ]
+        },
+        "recordedAt": "2026-09-13T10:02:56.925Z"
+      }
+    },
+    {
+      "id": "E-H4-HUMAN-DECISION",
+      "classification": "VERIFIED",
+      "kind": "REPORT",
+      "reference": "project/PROJECT_STATE.json#frozenDecisions/D-H4-FAIL-CLOSED-OPERATOR-CONTACTABILITY",
+      "summary": "The human-approved H4 fail-closed projection contract and bounded four-file BUILDER scope are recorded without runtime implementation."
+    },
+    {
+      "id": "E-H4-REVIEWER-PASS",
+      "classification": "VERIFIED",
+      "kind": "REPORT",
+      "reference": "project/PROJECT_STATE.json#evidence/E-H4-REVIEWER-PASS",
+      "summary": "Reviewer returned PASS_AWAITING_CONTROL_PLANE_TRANSITION for H4",
+      "reviewerPass": {
+        "authority": "REVIEWER",
+        "missionId": "H4",
+        "decision": "PASS",
+        "result": "PASS_AWAITING_CONTROL_PLANE_TRANSITION",
+        "reviewedRevision": 12,
+        "reviewedCheckpointId": "CP-0012-H4-MISSION-READY",
+        "implementation": {
+          "algorithm": "SHA-256",
+          "digest": "f8878d22ca64a884e8ba734c210de885df012bc4105e4be62da1b83f8ea54a9c",
+          "files": [
+            {
+              "path": "apps/control-center/components/ProspectPipeline.test.tsx",
+              "sha256": "d527be8ebc750c1e19726490d707cf5414420d309788b8563a7a3a5e00f0def1"
+            },
+            {
+              "path": "apps/control-center/components/ProspectPipeline.tsx",
+              "sha256": "fdca0e30ec998cac78f40365ef13d828f7fae854a12cf3f4adf07dabe8709e70"
+            },
+            {
+              "path": "apps/control-center/lib/api.test.ts",
+              "sha256": "57b43447421dfdd2cdabf69de5f923d9c3b94a9eb5d6242aba1f2158c41f92c8"
+            },
+            {
+              "path": "apps/control-center/lib/api.ts",
+              "sha256": "a59be5601ecf62d8410b3f4dbfc34964519932497b4211f7e4b59273c1a1a2e4"
+            }
+          ]
+        },
+        "recordedAt": "2026-09-13T15:50:34.490Z"
+      }
+    },
+    {
+      "id": "E-PROVENANCE-REMEDIATION-VALIDATED",
+      "classification": "VERIFIED",
+      "kind": "TEST",
+      "reference": "core/tests/orchestrator.test.ts; core/orchestrator/engine.ts; apps/api-worker/src/index.ts",
+      "summary": "Provenance remediation validation that actually ran: core typecheck PASS, API worker typecheck PASS, runner typecheck PASS, core tests 202/202 PASS including 2 new provenance tests (propagation + backward-compatibility-without-provenance). No D1 operational execution, no canary execution, no outreach/deploy/network action."
+    },
+    {
+      "id": "E-PILOT01-CANARY-VALIDATION",
+      "classification": "VERIFIED",
+      "kind": "REPORT",
+      "reference": "project/PROJECT_STATE.json#checkpoints/CP-0025-CANARY1-FAIL-CLOSED; CP-0026-CANARY2-FAIL-CLOSED; CP-0027-CANARY3-NO-GO",
+      "summary": "PILOT-01 canaries observed: Canary 1 (SASU-YOUYOU-MARKET, SIRET 84274162100010) and Canary 2 (ELECTRONIQUE+, SIRET 39148567900016) each created exactly one RUN_RESEARCH_SWARM job via /api/orchestrator/plan with provenance=PILOT-01 verified in payload_json; both SUCCEEDED; both prospects DISQUALIFIED by the evidence-integrity gate (UNSUPPORTED_SCORE for commercialStrength/contactability/localFit/prototypeLeverage, UNSUPPORTED_PHONE); identity binding PASS (valid SIREN/SIRET from annuaire-entreprises.data.gouv.fr); no outreach/deploy/paid-API/fourth-prospect occurred. Canary 3 NO_GO: no stronger positive-path candidate existed among remaining 8 DISCOVERED prospects; no job created. Positive-path coverage remains unproven."
+    },
+    {
+      "id": "E-EVIDENCE-CONTRACT-ALIGNMENT-VALIDATED",
+      "classification": "VERIFIED",
+      "kind": "TEST",
+      "reference": "core/research/evidence-integrity.ts; core/tests/evidence-integrity.test.ts; apps/api-worker/src/index.ts; apps/agent-runner/src/research-output.ts; apps/agent-runner/src/research-output.test.ts",
+      "summary": "Evidence-Contract Alignment validation that actually ran: core typecheck PASS, API worker typecheck PASS, agent-runner typecheck PASS, core tests 208/208 PASS (6 new evidence-integrity tests: derivedClaims merge, fail-closed preserved with no sources, unsupported phone still fails, missing score dimensions still fail, PARKED/DOMAIN_FOR_SALE/UNREACHABLE negative tests, Athena-style rebuild test), agent-runner research-output tests 29/29 PASS (phone-note injection, siteStatus normalization, siteStatus default/unknown). Derivation tightened per final acceptance review: commercialStrength requires source-backed activity claim (not merely an activity string) + SIRET + website; localFit requires non-REJECT commercialEligibility + location + SIREN/SIRET/city. PARKED/DOMAIN_FOR_SALE/UNREACHABLE do NOT get the rebuild boost. Positive-path reachability proven for the tightened rules: a prospect with valid SIREN/SIRET, official website with navigation, phone from official contact page, source-backed activity claim, primary friction, non-REJECT eligibility, and location passes evidence integrity through deterministic rules. No D1 operational execution, no canary execution, no outreach/deploy/paid-API."
+    },
+    {
+      "id": "E-SCORE-EVIDENCE-CALIBRATION-VALIDATED",
+      "classification": "VERIFIED",
+      "kind": "TEST",
+      "reference": "core/research/evidence-calibration.ts; core/tests/evidence-calibration.test.ts; apps/api-worker/src/index.ts",
+      "summary": "Score-Evidence Calibration validation that actually ran: core typecheck PASS, API worker typecheck PASS, core tests 214/214 PASS (6 new calibration tests: weak evidence caps all dimensions to 0; website-only no commercial/local cap inflation; full evidence reaches positive-path and clears qualifier; UNDER_CONSTRUCTION/REBUILDING caps digitalGap+prototypeLeverage but NOT commercialStrength/localFit; PARKED/DOMAIN_FOR_SALE/UNREACHABLE get zero caps; capped score never exceeds raw). Production invariant verified: PARKED/DOMAIN_FOR_SALE cannot gain trusted-website/digitalGap/prototypeLeverage credit merely because websiteUrl exists, because (1) evidence-integrity trustedWebsiteUrl requires a same-origin source supporting 'website', and (2) calibration caps feed from hasTrustedWebsite (source-verified). Implementation and tests were performed before formal mission activation and are being retrospectively adopted. No D1 operational execution, no canary execution, no outreach/deploy/paid-API."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "CP-0002-STAGE-1",
+      "revision": 2,
+      "missionId": "PROJECT-CONTROL-PLANE-V1",
+      "stage": "STAGE-1",
+      "createdAt": "2026-09-12T20:33:20.568Z",
+      "summary": "Control plane schema, validator, status, next and checkpoint surfaces implemented",
+      "filesChanged": [
+        "project/PROJECT_STATE.json",
+        "core/project/project-state.ts",
+        "scripts/project-control.ts",
+        "core/tests/project-control.test.ts",
+        "package.json"
+      ],
+      "tests": [
+        "project-control 7/7",
+        "typecheck core PASS",
+        "project validate PASS"
+      ],
+      "unresolved": [
+        "H2.5 named vertical fixture evidence remains UNKNOWN",
+        "H4 bounded scope remains UNRESOLVED"
+      ],
+      "nextAction": "Verify deterministic project orchestrator and persist Stage 2 checkpoint"
+    },
+    {
+      "id": "CP-0003-STAGE-2",
+      "revision": 3,
+      "missionId": "PROJECT-CONTROL-PLANE-V1",
+      "stage": "STAGE-2",
+      "createdAt": "2026-09-12T20:33:21.568Z",
+      "summary": "Deterministic fail-closed project orchestrator implemented and focused tests green",
+      "filesChanged": [
+        "core/project/project-orchestrator.ts",
+        "core/project/index.ts",
+        "core/index.ts",
+        "core/tests/project-control.test.ts"
+      ],
+      "tests": [
+        "project-control 7/7",
+        "typecheck core PASS"
+      ],
+      "unresolved": [
+        "H2.5 named vertical fixture evidence remains UNKNOWN",
+        "H4 bounded scope remains UNRESOLVED"
+      ],
+      "nextAction": "Finalize repository-backed migration, complete control-plane mission and verify H2.5 derivation"
+    },
+    {
+      "id": "CP-0005-STAGE-3",
+      "revision": 5,
+      "missionId": "PROJECT-CONTROL-PLANE-V1",
+      "stage": "STAGE-3",
+      "createdAt": "2026-09-12T20:33:23.568Z",
+      "summary": "Repository-backed Magic Script steering state migrated; control-plane mission completed; H2.5 derived next",
+      "filesChanged": [
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "H1/H1.5 19/19",
+        "H2/H3 core 25/25 plus 7/7",
+        "Sales Room/manual integration 8/8",
+        "project status/validate/next PASS"
+      ],
+      "unresolved": [
+        "H2.5 named vertical fixture proof UNKNOWN",
+        "H4 bounded scope UNRESOLVED"
+      ],
+      "nextAction": "Run npm run project:validate and npm run project:next, then begin only the bounded H2.5 Evidence Integrity Gate mission"
+    },
+    {
+      "id": "CP-0006-FINAL-VALIDATION",
+      "revision": 6,
+      "missionId": "PROJECT-CONTROL-PLANE-V1",
+      "stage": "FINAL-VALIDATION",
+      "createdAt": "2026-09-12T20:34:00.000Z",
+      "summary": "Final focused validation passed; canonical next mission remains H2.5",
+      "filesChanged": [
+        "project/PROJECT_STATE.json",
+        "core/project/project-state.ts",
+        "core/project/project-orchestrator.ts",
+        "core/project/index.ts",
+        "core/index.ts",
+        "core/tests/project-control.test.ts",
+        "scripts/project-control.ts",
+        "package.json"
+      ],
+      "tests": [
+        "core focused 52/52",
+        "API focused 8/8",
+        "typecheck core PASS"
+      ],
+      "unresolved": [
+        "H2.5 named vertical fixture evidence remains UNKNOWN",
+        "H4 bounded scope remains UNRESOLVED"
+      ],
+      "nextAction": "Run npm run project:next, then implement H2.5 Evidence Integrity Gate without consuming the 14 pending research jobs"
+    },
+    {
+      "id": "CP-0009-H2.5-DONE",
+      "revision": 9,
+      "missionId": "H2.5",
+      "stage": "H2.5-DONE",
+      "createdAt": "2026-09-12T21:07:00.000Z",
+      "summary": "Evidence Integrity Gate implemented and verified at the qualification boundary",
+      "filesChanged": [
+        "core/research/evidence-integrity.ts",
+        "core/tests/evidence-integrity.test.ts",
+        "apps/api-worker/src/evidence-integrity.integration.test.mjs",
+        "apps/api-worker/src/index.ts",
+        "apps/agent-runner/src/research-output.ts",
+        "apps/agent-runner/src/research-output.test.ts",
+        "apps/agent-runner/src/prompts.ts",
+        "core/index.ts",
+        "core/project/project-state.ts",
+        "core/project/project-orchestrator.ts",
+        "core/tests/project-control.test.ts",
+        "scripts/project-control.ts",
+        "package.json",
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "H2.5 core plus H1 H2 regression 51/51",
+        "H2.5 runner and API integration 9/9",
+        "typecheck core PASS",
+        "typecheck API PASS",
+        "typecheck runner PASS",
+        "project validate PASS"
+      ],
+      "unresolved": [
+        "H3 remains PAUSED by B-H3-SINGLE-CHANNEL",
+        "H4 remains PAUSED by B-H4-SCOPE-UNRESOLVED"
+      ],
+      "nextAction": "Run npm run project:next and do not restart a PAUSED mission without separate authorization and blocker resolution"
+    },
+    {
+      "id": "CP-0010-H3-MISSION-READY",
+      "revision": 10,
+      "missionId": "H3",
+      "stage": "H3-MISSION-READY",
+      "createdAt": "2026-09-13T05:04:08.855Z",
+      "summary": "PHONE human decision recorded; H3 bounded and READY; no runtime implementation",
+      "filesChanged": [
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "project:validate PASS",
+        "project:next H3"
+      ],
+      "unresolved": [
+        "H3 implementation not performed",
+        "H4 remains PAUSED and UNRESOLVED"
+      ],
+      "nextAction": "BUILDER implement only H3 Verified Phone Contactability; no outreach WhatsApp deployment paid APIs research jobs or H4"
+    },
+    {
+      "id": "CP-0011-H3-VERIFIED",
+      "revision": 11,
+      "missionId": "H3",
+      "stage": "H3-VERIFIED",
+      "createdAt": "2026-09-13T10:02:56.925Z",
+      "summary": "Independent Reviewer #3 PASS recorded; H3 Verified Phone Contactability canonically closed",
+      "filesChanged": [
+        "core/project/project-state.ts",
+        "core/project/project-orchestrator.ts",
+        "scripts/project-control.ts",
+        "core/tests/project-control.test.ts",
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "focused project-control Reviewer PASS and stale/mismatch tests PASS"
+      ],
+      "unresolved": [
+        "B-H4-SCOPE-UNRESOLVED remains OPEN"
+      ],
+      "nextAction": "Resolve the bounded H4 scope blocker before any H4 authorization"
+    },
+    {
+      "id": "CP-0012-H4-MISSION-READY",
+      "revision": 12,
+      "missionId": "H4",
+      "stage": "H4-MISSION-READY",
+      "createdAt": "2026-09-13T10:20:12.508Z",
+      "summary": "Human product decision recorded; H4 fail-closed operator contactability projection bounded and READY; no runtime implementation",
+      "filesChanged": [
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "project:validate PASS",
+        "project:next H4"
+      ],
+      "unresolved": [
+        "H4 implementation not performed"
+      ],
+      "nextAction": "BUILDER implement only H4 Fail-Closed Operator Contactability Projection in the four authorized files; no runtime communication, lifecycle mutation, unrelated UI, deployment, outreach, paid APIs, or research execution"
+    },
+    {
+      "id": "CP-0013-H4-VERIFIED",
+      "revision": 13,
+      "missionId": "H4",
+      "stage": "H4-VERIFIED",
+      "createdAt": "2026-09-13T15:50:34.490Z",
+      "summary": "Reviewer PASS recorded; H4 Fail-Closed Operator Contactability Projection canonically closed",
+      "filesChanged": [
+        "apps/control-center/lib/api.ts",
+        "apps/control-center/lib/api.test.ts",
+        "apps/control-center/components/ProspectPipeline.tsx",
+        "apps/control-center/components/ProspectPipeline.test.tsx",
+        "core/project/project-orchestrator.ts",
+        "core/tests/project-control.test.ts",
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "focused H4 Control Center projection/component tests PASS 29/29",
+        "targeted Control Center typecheck PASS",
+        "focused project-control Reviewer PASS and stale/mismatch tests PASS"
+      ],
+      "unresolved": [],
+      "nextAction": "Record the bounded PILOT-01 controlled real research E2E validation mission; do not execute it"
+    },
+    {
+      "id": "CP-0014-PILOT01-RECORDED",
+      "revision": 14,
+      "missionId": "PILOT-01",
+      "stage": "PILOT01-RECORDED",
+      "createdAt": "2026-09-13T16:20:00.000Z",
+      "summary": "PILOT-01 recorded as a bounded canonical mission from founder human scope; execution is deferred to a later explicit authorization and was NOT performed during recording",
+      "filesChanged": [
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "project-control focused suite (state validate) PASS"
+      ],
+      "unresolved": [],
+      "nextAction": "PILOT-01 execution is not authorized yet; no RESEARCH_SWARM, discovery, contact, outreach, sending, deploy, or paid-API action may run until an explicit later authorization. Pending RUN_RESEARCH_SWARM jobs were not consumed during recording."
+    },
+    {
+      "id": "CP-0016-PILOT01-PREFLIGHT-RECONCILED",
+      "revision": 16,
+      "missionId": "PILOT-01",
+      "stage": "PILOT01-PREFLIGHT-RECONCILED",
+      "createdAt": "2026-09-14T06:37:47.000Z",
+      "summary": "Human preflight reconciliation recorded: the historical 14 PENDING RUN_RESEARCH_SWARM jobs were consumed by the pre-existing runner before PILOT-01 execution and are now terminal; no PILOT-01 session consumed them; current baseline has 0 PENDING RUN_RESEARCH_SWARM jobs; the unrelated OPCO ESCALATE_TO_HUMAN job must remain untouched; future canary execution may create exactly one dedicated PILOT-01 research job with unambiguous provenance",
+      "filesChanged": [
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "canonical state validated revision=15"
+      ],
+      "unresolved": [
+        "PILOT-01 execution not performed; canary prospect selection and pipeline not started"
+      ],
+      "nextAction": "Execute PILOT-01 Canary 1/3 only; do not execute prospect 2 or 3; do not consume pre-existing jobs"
+    },
+    {
+      "id": "CP-0017-PILOT01-CANARY1-BLOCKED-PROVENANCE",
+      "revision": 17,
+      "missionId": "PILOT-01",
+      "stage": "PILOT01-CANARY1-BLOCKED-PROVENANCE",
+      "createdAt": "2026-09-14T06:52:36.871Z",
+      "summary": "Canary 1 blocked: no research job created; /api/orchestrator/plan does not propagate provenance; direct D1JobQueue.enqueue bypasses canonical path; untagged execution weakens auditability; remediation required before Canary 1 resumes",
+      "filesChanged": [
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "pre-write canonical state verified at revision=16; post-write revision 17 validation pending"
+      ],
+      "unresolved": [
+        "PILOT-01 doneCriteria remain UNMET; provenance gap blocks canary execution"
+      ],
+      "nextAction": "Implement and validate provenance propagation through canonical orchestration path; resume Canary 1 only after remediation is proven"
+    },
+    {
+      "id": "CP-0019-REMEDIATION-OPENED",
+      "revision": 19,
+      "missionId": "PROVENANCE-REMEDIATION",
+      "stage": "REMEDIATION-OPENED",
+      "createdAt": "2026-09-14T07:13:55.768Z",
+      "summary": "Provenance Remediation mission opened as READY: generic optional provenance propagation through canonical /api/orchestrator/plan -> planProspect -> enqueueAction -> payload_json; no canary execution",
+      "filesChanged": [
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "pre-write canonical state verified at revision=18"
+      ],
+      "unresolved": [
+        "provenance remediation implementation pending; doneCriteria remain UNMET"
+      ],
+      "nextAction": "startMission(PROVENANCE-REMEDIATION); implement optional provenance; validate; stop for human review"
+    },
+    {
+      "id": "CP-0021-REMEDIATION-IMPLEMENTED",
+      "revision": 21,
+      "missionId": "PROVENANCE-REMEDIATION",
+      "stage": "REMEDIATION-IMPLEMENTED",
+      "createdAt": "2026-09-14T07:25:47.019Z",
+      "summary": "Provenance remediation implemented: optional provenance string accepted by /api/orchestrator/plan, propagated through planProspect and enqueueAction, stored in payload_json; validation: core typecheck PASS, core orchestrator tests 202/202 PASS incl. 2 new provenance tests, API worker typecheck PASS, runner typecheck PASS; backward compatibility proven (omitted provenance produces no payload key)",
+      "filesChanged": [
+        "apps/api-worker/src/index.ts",
+        "core/orchestrator/engine.ts",
+        "core/tests/orchestrator.test.ts"
+      ],
+      "tests": [
+        "core typecheck PASS; orchestrator tests 202/202 PASS (incl. provenance propagation and omission tests); API worker typecheck PASS; runner typecheck PASS"
+      ],
+      "unresolved": [
+        "doneCriteria remain UNMET; PILOT-01 blocked; B-PILOT01-PROVENANCE OPEN; no canary execution"
+      ],
+      "nextAction": "Human review of provenance remediation implementation; then: resolve B-PILOT01-PROVENANCE, resume PILOT-01, execute Canary 1/3 via /api/orchestrator/plan with provenance=PILOT-01"
+    },
+    {
+      "id": "CP-0023-RESUMED",
+      "revision": 23,
+      "missionId": "PILOT-01",
+      "stage": "RESUMED",
+      "createdAt": "2026-09-14T07:43:54.690Z",
+      "summary": "PILOT-01 resumed to READY: provenance remediation completed and validated (CP-0021), B-PILOT01-PROVENANCE resolved, provenance propagation supported through canonical orchestration path. Canary 1 is next permitted action. Canary 2/3 remain unauthorized. Canary 1 has NOT yet executed.",
+      "filesChanged": [
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "provenance remediation validation: core typecheck PASS",
+        "API worker typecheck PASS",
+        "runner typecheck PASS",
+        "core tests 202/202 PASS incl. provenance tests. completeMission(PROVENANCE-REMEDIATION) revision=22 VALID."
+      ],
+      "unresolved": [
+        "PILOT-01 doneCriteria remain UNMET; Canary 1 not yet executed; Canary 2/3 unauthorized"
+      ],
+      "nextAction": "Canonical startMission(PILOT-01); then execute Canary 1/3 via /api/orchestrator/plan with provenance=PILOT-01"
+    },
+    {
+      "id": "CP-0025-CANARY1-FAIL-CLOSED",
+      "revision": 25,
+      "missionId": "PILOT-01",
+      "stage": "CANARY1-FAIL-CLOSED",
+      "createdAt": "2026-09-14T08:02:36.455Z",
+      "summary": "Canary 1/3 executed: prospect SASU-YOUYOU-MARKET (SIRET 84274162100010) via /api/orchestrator/plan with provenance=PILOT-01. Exactly 1 RUN_RESEARCH_SWARM job f03af95e created. Provenance=PILOT-01 verified in payload_json. Research SUCCEEDED (public web sources only: annuaire-entreprises + official website). Prospect state DISCOVERED->DISQUALIFIED by fail-closed gates. Correct fail-closed behavior: identity bound (SIREN 842741621), activity 47.11B, contact phone found but unverified, opportunity C. No outreach, deploy, or source-code mutation. Canary 1 validated provenance mechanism end-to-end. PILOT-01 remains ACTIVE, not complete. Canary 2 is next authorized action. Canary 3 remains unauthorized.",
+      "filesChanged": [
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "Canary 1 observed: POST /api/orchestrator/plan returned {queuedJobId",
+        "nextAction:RUN_RESEARCH_SWARM}; D1 read-only verified payload_json.provenance===PILOT-01; job status RUNNING->SUCCEEDED in ~90s; evidence integrity PASS; identity binding PASS; commercial eligibility RESEARCH->DISQUALIFIED; fail-closed PASS; OPCO job unchanged; no outreach/deploy/code-change"
+      ],
+      "unresolved": [
+        "PILOT-01 doneCriteria remain UNMET; Canary 2 pending; Canary 3 unauthorized"
+      ],
+      "nextAction": "Canary 2: select stronger-evidence DISCOVERED prospect for positive-path coverage; execute via /api/orchestrator/plan with provenance=PILOT-01"
+    },
+    {
+      "id": "CP-0026-CANARY2-FAIL-CLOSED",
+      "revision": 26,
+      "missionId": "PILOT-01",
+      "stage": "CANARY2-FAIL-CLOSED",
+      "createdAt": "2026-09-14T08:17:48.196Z",
+      "summary": "Canary 2/3 executed: prospect ELECTRONIQUE+ (SIRET 39148567900016, HIGH_PRIORITY) via /api/orchestrator/plan with provenance=PILOT-01. Exactly 1 RUN_RESEARCH_SWARM job 66f07760 created. Provenance=PILOT-01 verified in payload_json. Job SUCCEEDED in ~95s. Evidence-integrity FAIL (UNSUPPORTED_SCORE: commercialStrength, contactability, localFit, prototypeLeverage; UNSUPPORTED_PHONE). Identity binding PASS (SIREN 391485679). Commercial eligibility HIGH_PRIORITY. Contact discovered but not verified. Operator projection not reached. Fail-closed behavior correct. No outreach/deploy/source-code change. PILOT-01 remains ACTIVE. Canary 3 now authorized by human decision.",
+      "filesChanged": [
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "Canary 2 observed: POST /api/orchestrator/plan returned queuedJobId; D1 read-only verified provenance=PILOT-01; job RUNNING->SUCCEEDED; evidence-integrity gate pass/fail; identity binding PASS; fail-closed PASS; OPCO PENDING job unchanged"
+      ],
+      "unresolved": [
+        "PILOT-01 doneCriteria remain UNMET; Canary 3 pending per human authorization"
+      ],
+      "nextAction": "Canary 3: inspect remaining DISCOVERED prospects for materially stronger evidence surface; GO/NO-GO decision; execute if possible"
+    },
+    {
+      "id": "CP-0027-CANARY3-NO-GO",
+      "revision": 27,
+      "missionId": "PILOT-01",
+      "stage": "CANARY3-NO-GO",
+      "createdAt": "2026-09-14T08:26:31.337Z",
+      "summary": "Canary 3/3 NO_GO: all remaining 8 DISCOVERED candidates inspected read-only; no materially stronger positive-path candidate existed (all lacked website/phone vs Canary 1/2 which had official websites). Canary 3 created NO job and caused NO D1 mutation. Canary 1 and Canary 2 already demonstrated fail-closed evidence-integrity behavior. Positive-path coverage remains unproven. No outreach/deploy/source-code change occurred. Human decision authorizes PILOT-01 closure. A separate V1 blocker must address the evidence-contract mismatch.",
+      "filesChanged": [
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "Canary 3 NO_GO: read-only candidate inspection complete; no job created; no prospect mutated; no test rerun"
+      ],
+      "unresolved": [
+        "Positive-path coverage unproven; V1 evidence-contract blocker to be recorded separately"
+      ],
+      "nextAction": "Close PILOT-01 canonically: mark doneCriteria MET, completeMission; then record EVIDENCE-CONTRACT-ALIGNMENT V1 blocker"
+    },
+    {
+      "id": "CP-0029-ALIGNMENT-OPENED",
+      "revision": 29,
+      "missionId": "EVIDENCE-CONTRACT-ALIGNMENT",
+      "stage": "ALIGNMENT-OPENED",
+      "createdAt": "2026-09-14T08:37:20.937Z",
+      "summary": "Evidence-Contract Alignment mission opened as READY: align Research Swarm source annotations with Evidence Integrity Gate claims via deterministic derivation from source-backed facts; preserve fail-closed semantics; website distress/rebuild signals; phone/email structural evidence",
+      "filesChanged": [
+        "project/PROJECT_STATE.json"
+      ],
+      "tests": [
+        "pre-write canonical state verified at revision=28"
+      ],
+      "unresolved": [
+        "All 6 doneCriteria UNMET; contract audit pending; implementation pending"
+      ],
+      "nextAction": "Contract audit; implement source-backed deterministic derivation; focused tests; positive-path validation"
+    },
+    {
+      "id": "CP-0031-ALIGNMENT-IMPLEMENTED",
+      "revision": 31,
+      "missionId": "EVIDENCE-CONTRACT-ALIGNMENT",
+      "stage": "ALIGNMENT-IMPLEMENTED",
+      "createdAt": "2026-09-14T09:01:03.887Z",
+      "summary": "Evidence-Contract Alignment implemented: derivedClaims parameter added to evaluateResearchEvidenceIntegrity; deterministic derivation function deriveEvidenceClaims computes contactability/localFit/prototypeLeverage/commercialStrength/digitalGap from source-backed facts; phone-injection normalizes source note; siteStatus for UNDER_CONSTRUCTION/REBUILDING signals; positive-path reachability proven via tests",
+      "filesChanged": [
+        "core/research/evidence-integrity.ts",
+        "apps/api-worker/src/index.ts",
+        "apps/agent-runner/src/research-output.ts",
+        "core/tests/evidence-integrity.test.ts",
+        "apps/agent-runner/src/research-output.test.ts"
+      ],
+      "tests": [
+        "core typecheck PASS",
+        "API worker typecheck PASS",
+        "agent-runner typecheck PASS; core tests 206/206 PASS (4 new derivation siteStatus tests); agent-runner tests 29/29 PASS (phone-note injection",
+        "siteStatus normalization",
+        "siteStatus default/unknown fallback)"
+      ],
+      "unresolved": [
+        "B-EVIDENCE-CONTRACT-ALIGNMENT remains OPEN pending completeMission"
+      ],
+      "nextAction": "Canonical completeMission(EVIDENCE-CONTRACT-ALIGNMENT); then resolve B-EVIDENCE-CONTRACT-ALIGNMENT"
+    },
+    {
+      "id": "CP-0033-CALIBRATION-OPENED",
+      "revision": 33,
+      "missionId": "SCORE-EVIDENCE-CALIBRATION",
+      "stage": "CALIBRATION-OPENED",
+      "createdAt": "2026-09-14T10:09:00.000Z",
+      "summary": "Score-Evidence Calibration mission opened. NOTE: the calibration layer (core/research/evidence-calibration.ts), its wiring in apps/api-worker/src/index.ts, and 6 focused calibration tests were implemented and passed BEFORE this checkpoint. These pre-existing changes and test results are being retrospectively adopted into this mission. Audit confirmed that raw LLM scoreInputs magnitudes reached scoreProspect through normalizeScores with only [0,100] range validation — no evidence-based magnitude constraint existed.",
+      "filesChanged": [
+        "core/research/evidence-calibration.ts",
+        "core/tests/evidence-calibration.test.ts",
+        "apps/api-worker/src/index.ts"
+      ],
+      "tests": [
+        "evidence-calibration 6/6 PASS",
+        "evidence-integrity regression 214/214 PASS (pre-activation)"
+      ],
+      "unresolved": [
+        "Done criteria remain UNMET; need to mark MET",
+        "add evidence",
+        "complete mission"
+      ],
+      "nextAction": "startMission; mark doneCriteria MET; add evidence; completeMission"
+    }
+  ],
+  "history": [
+    {
+      "id": "H-0002-CHECKPOINT-PROJECT-CONTROL-PLANE-V1",
+      "revision": 2,
+      "at": "2026-09-12T20:33:20.568Z",
+      "action": "CHECKPOINT",
+      "missionId": "PROJECT-CONTROL-PLANE-V1",
+      "fromStatus": "ACTIVE",
+      "toStatus": "ACTIVE",
+      "checkpointId": "CP-0002-STAGE-1"
+    },
+    {
+      "id": "H-0003-CHECKPOINT-PROJECT-CONTROL-PLANE-V1",
+      "revision": 3,
+      "at": "2026-09-12T20:33:21.568Z",
+      "action": "CHECKPOINT",
+      "missionId": "PROJECT-CONTROL-PLANE-V1",
+      "fromStatus": "ACTIVE",
+      "toStatus": "ACTIVE",
+      "checkpointId": "CP-0003-STAGE-2"
+    },
+    {
+      "id": "H-0004-COMPLETE-PROJECT-CONTROL-PLANE-V1",
+      "revision": 4,
+      "at": "2026-09-12T20:33:22.568Z",
+      "action": "COMPLETE",
+      "missionId": "PROJECT-CONTROL-PLANE-V1",
+      "fromStatus": "ACTIVE",
+      "toStatus": "DONE"
+    },
+    {
+      "id": "H-0005-CHECKPOINT-PROJECT-CONTROL-PLANE-V1",
+      "revision": 5,
+      "at": "2026-09-12T20:33:23.568Z",
+      "action": "CHECKPOINT",
+      "missionId": "PROJECT-CONTROL-PLANE-V1",
+      "fromStatus": "DONE",
+      "toStatus": "DONE",
+      "checkpointId": "CP-0005-STAGE-3"
+    },
+    {
+      "id": "H-0006-CHECKPOINT-PROJECT-CONTROL-PLANE-V1",
+      "revision": 6,
+      "at": "2026-09-12T20:34:00.000Z",
+      "action": "CHECKPOINT",
+      "missionId": "PROJECT-CONTROL-PLANE-V1",
+      "fromStatus": "DONE",
+      "toStatus": "DONE",
+      "checkpointId": "CP-0006-FINAL-VALIDATION"
+    },
+    {
+      "id": "H-0007-START-H2.5",
+      "revision": 7,
+      "at": "2026-09-12T21:03:42.014Z",
+      "action": "START",
+      "missionId": "H2.5",
+      "fromStatus": "READY",
+      "toStatus": "ACTIVE"
+    },
+    {
+      "id": "H-0008-COMPLETE-H2.5",
+      "revision": 8,
+      "at": "2026-09-12T21:06:43.598Z",
+      "action": "COMPLETE",
+      "missionId": "H2.5",
+      "fromStatus": "ACTIVE",
+      "toStatus": "DONE"
+    },
+    {
+      "id": "H-0009-CHECKPOINT-H2.5",
+      "revision": 9,
+      "at": "2026-09-12T21:07:00.000Z",
+      "action": "CHECKPOINT",
+      "missionId": "H2.5",
+      "fromStatus": "DONE",
+      "toStatus": "DONE",
+      "checkpointId": "CP-0009-H2.5-DONE"
+    },
+    {
+      "id": "H-0010-CHECKPOINT-H3",
+      "revision": 10,
+      "at": "2026-09-13T05:04:08.855Z",
+      "action": "CHECKPOINT",
+      "missionId": "H3",
+      "fromStatus": "READY",
+      "toStatus": "READY",
+      "checkpointId": "CP-0010-H3-MISSION-READY"
+    },
+    {
+      "id": "H-0011-REVIEW_PASS-H3",
+      "revision": 11,
+      "at": "2026-09-13T10:02:56.925Z",
+      "action": "REVIEW_PASS",
+      "missionId": "H3",
+      "fromStatus": "READY",
+      "toStatus": "DONE",
+      "checkpointId": "CP-0011-H3-VERIFIED"
+    },
+    {
+      "id": "H-0012-CHECKPOINT-H4",
+      "revision": 12,
+      "at": "2026-09-13T10:20:12.508Z",
+      "action": "CHECKPOINT",
+      "missionId": "H4",
+      "fromStatus": "PAUSED",
+      "toStatus": "READY",
+      "checkpointId": "CP-0012-H4-MISSION-READY"
+    },
+    {
+      "id": "H-0013-REVIEW_PASS-H4",
+      "revision": 13,
+      "at": "2026-09-13T15:50:34.490Z",
+      "action": "REVIEW_PASS",
+      "missionId": "H4",
+      "fromStatus": "READY",
+      "toStatus": "DONE",
+      "checkpointId": "CP-0013-H4-VERIFIED"
+    },
+    {
+      "id": "H-0014-CHECKPOINT-PILOT-01",
+      "revision": 14,
+      "at": "2026-09-13T16:20:00.000Z",
+      "action": "CHECKPOINT",
+      "missionId": "PILOT-01",
+      "fromStatus": "READY",
+      "toStatus": "READY",
+      "checkpointId": "CP-0014-PILOT01-RECORDED"
+    },
+    {
+      "id": "H-0015-START-PILOT-01",
+      "revision": 15,
+      "at": "2026-09-14T06:24:32.948Z",
+      "action": "START",
+      "missionId": "PILOT-01",
+      "fromStatus": "READY",
+      "toStatus": "ACTIVE"
+    },
+    {
+      "id": "H-0016-CHECKPOINT-PILOT-01",
+      "revision": 16,
+      "at": "2026-09-14T06:37:47.000Z",
+      "action": "CHECKPOINT",
+      "missionId": "PILOT-01",
+      "fromStatus": "ACTIVE",
+      "toStatus": "ACTIVE",
+      "checkpointId": "CP-0016-PILOT01-PREFLIGHT-RECONCILED"
+    },
+    {
+      "id": "H-0017-CHECKPOINT-PILOT-01",
+      "revision": 17,
+      "at": "2026-09-14T06:52:36.871Z",
+      "action": "CHECKPOINT",
+      "missionId": "PILOT-01",
+      "fromStatus": "ACTIVE",
+      "toStatus": "ACTIVE",
+      "checkpointId": "CP-0017-PILOT01-CANARY1-BLOCKED-PROVENANCE"
+    },
+    {
+      "id": "H-0018-BLOCK-PILOT-01",
+      "revision": 18,
+      "at": "2026-09-14T07:08:12.173Z",
+      "action": "BLOCK",
+      "missionId": "PILOT-01",
+      "fromStatus": "ACTIVE",
+      "toStatus": "BLOCKED"
+    },
+    {
+      "id": "H-0019-CHECKPOINT-PROVENANCE-REMEDIATION",
+      "revision": 19,
+      "at": "2026-09-14T07:13:55.768Z",
+      "action": "CHECKPOINT",
+      "missionId": "PROVENANCE-REMEDIATION",
+      "fromStatus": "READY",
+      "toStatus": "READY",
+      "checkpointId": "CP-0019-REMEDIATION-OPENED"
+    },
+    {
+      "id": "H-0020-START-PROVENANCE-REMEDIATION",
+      "revision": 20,
+      "at": "2026-09-14T07:17:51.578Z",
+      "action": "START",
+      "missionId": "PROVENANCE-REMEDIATION",
+      "fromStatus": "READY",
+      "toStatus": "ACTIVE"
+    },
+    {
+      "id": "H-0021-CHECKPOINT-PROVENANCE-REMEDIATION",
+      "revision": 21,
+      "at": "2026-09-14T07:25:47.019Z",
+      "action": "CHECKPOINT",
+      "missionId": "PROVENANCE-REMEDIATION",
+      "fromStatus": "ACTIVE",
+      "toStatus": "ACTIVE",
+      "checkpointId": "CP-0021-REMEDIATION-IMPLEMENTED"
+    },
+    {
+      "id": "H-0022-COMPLETE-PROVENANCE-REMEDIATION",
+      "revision": 22,
+      "at": "2026-09-14T07:41:26.426Z",
+      "action": "COMPLETE",
+      "missionId": "PROVENANCE-REMEDIATION",
+      "fromStatus": "ACTIVE",
+      "toStatus": "DONE"
+    },
+    {
+      "id": "H-0023-CHECKPOINT-PILOT-01",
+      "revision": 23,
+      "at": "2026-09-14T07:43:54.690Z",
+      "action": "CHECKPOINT",
+      "missionId": "PILOT-01",
+      "fromStatus": "READY",
+      "toStatus": "READY",
+      "checkpointId": "CP-0023-RESUMED"
+    },
+    {
+      "id": "H-0024-START-PILOT-01",
+      "revision": 24,
+      "at": "2026-09-14T07:46:10.804Z",
+      "action": "START",
+      "missionId": "PILOT-01",
+      "fromStatus": "READY",
+      "toStatus": "ACTIVE"
+    },
+    {
+      "id": "H-0025-CHECKPOINT-PILOT-01",
+      "revision": 25,
+      "at": "2026-09-14T08:02:36.455Z",
+      "action": "CHECKPOINT",
+      "missionId": "PILOT-01",
+      "fromStatus": "ACTIVE",
+      "toStatus": "ACTIVE",
+      "checkpointId": "CP-0025-CANARY1-FAIL-CLOSED"
+    },
+    {
+      "id": "H-0026-CHECKPOINT-PILOT-01",
+      "revision": 26,
+      "at": "2026-09-14T08:17:48.196Z",
+      "action": "CHECKPOINT",
+      "missionId": "PILOT-01",
+      "fromStatus": "ACTIVE",
+      "toStatus": "ACTIVE",
+      "checkpointId": "CP-0026-CANARY2-FAIL-CLOSED"
+    },
+    {
+      "id": "H-0027-CHECKPOINT-PILOT-01",
+      "revision": 27,
+      "at": "2026-09-14T08:26:31.337Z",
+      "action": "CHECKPOINT",
+      "missionId": "PILOT-01",
+      "fromStatus": "ACTIVE",
+      "toStatus": "ACTIVE",
+      "checkpointId": "CP-0027-CANARY3-NO-GO"
+    },
+    {
+      "id": "H-0028-COMPLETE-PILOT-01",
+      "revision": 28,
+      "at": "2026-09-14T08:30:14.308Z",
+      "action": "COMPLETE",
+      "missionId": "PILOT-01",
+      "fromStatus": "ACTIVE",
+      "toStatus": "DONE"
+    },
+    {
+      "id": "H-0029-CHECKPOINT-EVIDENCE-CONTRACT-ALIGNMENT",
+      "revision": 29,
+      "at": "2026-09-14T08:37:20.937Z",
+      "action": "CHECKPOINT",
+      "missionId": "EVIDENCE-CONTRACT-ALIGNMENT",
+      "fromStatus": "READY",
+      "toStatus": "READY",
+      "checkpointId": "CP-0029-ALIGNMENT-OPENED"
+    },
+    {
+      "id": "H-0030-START-EVIDENCE-CONTRACT-ALIGNMENT",
+      "revision": 30,
+      "at": "2026-09-14T08:38:10.000Z",
+      "action": "START",
+      "missionId": "EVIDENCE-CONTRACT-ALIGNMENT",
+      "fromStatus": "READY",
+      "toStatus": "ACTIVE"
+    },
+    {
+      "id": "H-0031-CHECKPOINT-EVIDENCE-CONTRACT-ALIGNMENT",
+      "revision": 31,
+      "at": "2026-09-14T09:01:03.887Z",
+      "action": "CHECKPOINT",
+      "missionId": "EVIDENCE-CONTRACT-ALIGNMENT",
+      "fromStatus": "ACTIVE",
+      "toStatus": "ACTIVE",
+      "checkpointId": "CP-0031-ALIGNMENT-IMPLEMENTED"
+    },
+    {
+      "id": "H-0032-COMPLETE-EVIDENCE-CONTRACT-ALIGNMENT",
+      "revision": 32,
+      "at": "2026-09-14T09:02:54.283Z",
+      "action": "COMPLETE",
+      "missionId": "EVIDENCE-CONTRACT-ALIGNMENT",
+      "fromStatus": "ACTIVE",
+      "toStatus": "DONE"
+    },
+    {
+      "id": "H-0033-CHECKPOINT-SCORE-EVIDENCE-CALIBRATION",
+      "revision": 33,
+      "at": "2026-09-14T10:09:00.000Z",
+      "action": "CHECKPOINT",
+      "missionId": "SCORE-EVIDENCE-CALIBRATION",
+      "fromStatus": "READY",
+      "toStatus": "READY",
+      "checkpointId": "CP-0033-CALIBRATION-OPENED"
+    },
+    {
+      "id": "H-0034-START-SCORE-EVIDENCE-CALIBRATION",
+      "revision": 34,
+      "at": "2026-09-14T10:10:00.000Z",
+      "action": "START",
+      "missionId": "SCORE-EVIDENCE-CALIBRATION",
+      "fromStatus": "READY",
+      "toStatus": "ACTIVE"
+    },
+    {
+      "id": "H-0035-COMPLETE-SCORE-EVIDENCE-CALIBRATION",
+      "revision": 35,
+      "at": "2026-09-14T10:12:00.000Z",
+      "action": "COMPLETE",
+      "missionId": "SCORE-EVIDENCE-CALIBRATION",
+      "fromStatus": "ACTIVE",
+      "toStatus": "DONE"
+    }
+  ]
+}

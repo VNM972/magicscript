@@ -14,6 +14,7 @@ import {
 } from './bu-handoff-pipeline';
 import { requiresHuman } from './escalation';
 import { getNextAction, type NextAction } from './next-action';
+import type { ActiveProductionSlotResult } from '../persistence/d1-production-slot-store';
 
 export interface OrchestratorDependencies {
   config: MagicScriptConfig;
@@ -23,6 +24,7 @@ export interface OrchestratorDependencies {
   prototypeCostGate?: (
     prospectId: string,
   ) => Promise<'FULL' | 'LIGHT' | 'NONE' | null>;
+  acquireActiveProductionSlot?: (prospectId: string) => Promise<ActiveProductionSlotResult>;
   idFactory?: () => string;
   now?: () => Date;
 }
@@ -204,6 +206,20 @@ export class OrchestratorEngine {
         nextAction,
         humanRequired: false,
       };
+    }
+
+    const productionEntryActions: readonly NextAction[] = [
+      'GENERATE_PROTOTYPE_STRATEGY', 'BUILD_PROTOTYPE', 'RUN_PROTOTYPE_QA',
+      'DEPLOY_PROTOTYPE', 'SEND_DEMO_LINK',
+    ];
+    if (productionEntryActions.includes(nextAction) && this.deps.acquireActiveProductionSlot) {
+      const admission = await this.deps.acquireActiveProductionSlot(prospect.id);
+      if (admission.outcome === 'CAPACITY_FULL' || admission.outcome === 'INELIGIBLE' || admission.outcome === 'INVALID') {
+        return {
+          prospectId, state: prospect.state, nextAction, humanRequired: false,
+          reason: `ACTIVE_PRODUCTION_SLOT_${admission.outcome}`,
+        };
+      }
     }
 
     const jobId = await this.enqueueAction(

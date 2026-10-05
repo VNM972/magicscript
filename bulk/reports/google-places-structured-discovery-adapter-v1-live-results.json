@@ -1,0 +1,303 @@
+{
+  "runnerId": "google-places-structured-discovery-adapter-v1",
+  "validationId": "google-places-production-validation-v1",
+  "canonicalControlsHash": "14dbf9dcff8540ba11e2edb2dcafa599a8c867fe87080ae81d0e4d37dcca31b2",
+  "requestBudget": 10,
+  "actualRequestCount": 10,
+  "queryContractVersion": "exploratory-parity-address.v1",
+  "resultSchemaVersion": "google-places-structured-discovery-adapter-live.v1",
+  "identityContractVersion": "google-places-structured-discovery.v1",
+  "zeroRealGoogleRequestsFromHarness": true,
+  "generatedAt": "2026-09-16T17:04:09.045Z",
+  "results": [
+    {
+      "prospectId": "445f1f9f-4d07-4c61-834a-c8116d4414bb",
+      "canonicalName": "ELECTRONIQUE +",
+      "requestSequence": 1,
+      "queryHash": "8a56c889a75d706ada9cc46a6c369cea82f3eab49dcf079e7234e8c0bcd24d5b",
+      "responseHash": "1d865265b2907727813fe7cca07a749603e69e6c110fb383821ad9e01c2095b5",
+      "httpStatus": 200,
+      "rawPlaceCount": 1,
+      "parsedCandidateCount": 1,
+      "identityVerdict": "VERIFIED",
+      "identityReasonCodes": [
+        "DETERMINISTIC_SIGNALS_COMPATIBLE"
+      ],
+      "branchVerdict": "UNKNOWN",
+      "branchReasonCodes": [],
+      "placeId": "ChIJEWy4pyahaowRnzGD79fwPPI",
+      "websiteCandidatePresent": false,
+      "phoneCandidateCount": 1,
+      "phoneCandidates": [
+        {
+          "phoneType": "LANDLINE",
+          "source": "GOOGLE_PLACES",
+          "trustStatus": "UNVERIFIED",
+          "isPreferredMobileCandidate": false,
+          "phoneComparisonToGold": "EXACT_MATCH"
+        }
+      ]
+    },
+    {
+      "prospectId": "8a14759d-8956-4e8b-82ef-51317362b72f",
+      "canonicalName": "POMPES FUNEBRES CARISTAN",
+      "requestSequence": 2,
+      "queryHash": "d64095660103e7ee65b480679b35e011d82909c95733f742f60cc67fad5b14da",
+      "responseHash": "9e177b18b7c986e0b4f49e713d29a1feb4cd49a13c50df94311cd2ecc5ae43b5",
+      "httpStatus": 200,
+      "rawPlaceCount": 1,
+      "parsedCandidateCount": 1,
+      "identityVerdict": "VERIFIED",
+      "identityReasonCodes": [
+        "DETERMINISTIC_SIGNALS_COMPATIBLE"
+      ],
+      "branchVerdict": "MISMATCH",
+      "branchReasonCodes": [
+        "WEBSITE_DOMAIN_MISMATCH_EVEN_AFTER_IDENTITY_MATCH"
+      ],
+      "placeId": "ChIJr_FZStS5aowRvyITQnEoXic",
+      "websiteCandidatePresent": true,
+      "phoneCandidateCount": 1,
+      "phoneCandidates": [
+        {
+          "phoneType": "MOBILE",
+          "source": "GOOGLE_PLACES",
+          "trustStatus": "UNVERIFIED",
+          "isPreferredMobileCandidate": true,
+          "phoneComparisonToGold": "EXACT_MATCH"
+        }
+      ]
+    },
+    {
+      "prospectId": "actiburo-regression-control",
+      "canonicalName": "ACTIBURO MARTINIQUE",
+      "requestSequence": 3,
+      "queryHash": "780322078043a68e025c738d33f5315dc2edd9de25782fb7475b646029b36458",
+      "responseHash": "5868139328d41bd5ffe1bb4b50549d9232b3acd635970c9b9fad4a17806d72d9",
+      "httpStatus": 200,
+      "rawPlaceCount": 1,
+      "parsedCandidateCount": 1,
+      "identityVerdict": "VERIFIED",
+      "identityReasonCodes": [
+        "DETERMINISTIC_SIGNALS_COMPATIBLE"
+      ],
+      "branchVerdict": "MISMATCH",
+      "branchReasonCodes": [
+        "WEBSITE_DOMAIN_MISMATCH_EVEN_AFTER_IDENTITY_MATCH"
+      ],
+      "placeId": "ChIJP1rxwR2haowRco_8ENTR_B0",
+      "websiteCandidatePresent": true,
+      "phoneCandidateCount": 1,
+      "phoneCandidates": [
+        {
+          "phoneType": "LANDLINE",
+          "source": "GOOGLE_PLACES",
+          "trustStatus": "UNVERIFIED",
+          "isPreferredMobileCandidate": false,
+          "phoneComparisonToGold": "EXACT_MATCH"
+        }
+      ]
+    },
+    {
+      "prospectId": "d12e10f8-6252-4f28-9c50-aa2742aa74c0",
+      "canonicalName": "KAY JUJU",
+      "requestSequence": 4,
+      "queryHash": "d576ab925c51c7c962e8caa376a920ee565d94e7be9b8a4a52b6e8d2cee69a7b",
+      "responseHash": "e96b028b9a34e32a632db4c0d86147e9e832cfecddc02ea2e3438f4464d303c3",
+      "httpStatus": 200,
+      "rawPlaceCount": 1,
+      "parsedCandidateCount": 1,
+      "identityVerdict": "VERIFIED",
+      "identityReasonCodes": [
+        "DETERMINISTIC_SIGNALS_COMPATIBLE"
+      ],
+      "branchVerdict": "UNKNOWN",
+      "branchReasonCodes": [],
+      "placeId": "ChIJ8eRv9yGhaowRnMBHOCkEFhc",
+      "websiteCandidatePresent": false,
+      "phoneCandidateCount": 1,
+      "phoneCandidates": [
+        {
+          "phoneType": "MOBILE",
+          "source": "GOOGLE_PLACES",
+          "trustStatus": "UNVERIFIED",
+          "isPreferredMobileCandidate": true,
+          "phoneComparisonToGold": "DIFFERENT_VALID_NUMBER"
+        }
+      ]
+    },
+    {
+      "prospectId": "fb951634-6f69-46f8-9f46-8db04e780e69",
+      "canonicalName": "ENVIE D AILLEURS",
+      "requestSequence": 5,
+      "queryHash": "6053250a7d466c113a620cc1e508ae80aedb56bfe177a3183dd5bcf0565aa13d",
+      "responseHash": "ee1274acb3b37678841a68a8027ac6150b9763193a0b7c8ac90d7dd5f2e5048b",
+      "httpStatus": 200,
+      "rawPlaceCount": 1,
+      "parsedCandidateCount": 1,
+      "identityVerdict": "VERIFIED",
+      "identityReasonCodes": [
+        "DETERMINISTIC_SIGNALS_COMPATIBLE"
+      ],
+      "branchVerdict": "MISMATCH",
+      "branchReasonCodes": [
+        "WEBSITE_DOMAIN_MISMATCH_EVEN_AFTER_IDENTITY_MATCH"
+      ],
+      "placeId": "ChIJT3WHcowhQIwR1_yO5OJAK3Y",
+      "websiteCandidatePresent": true,
+      "phoneCandidateCount": 1,
+      "phoneCandidates": [
+        {
+          "phoneType": "LANDLINE",
+          "source": "GOOGLE_PLACES",
+          "trustStatus": "UNVERIFIED",
+          "isPreferredMobileCandidate": false,
+          "phoneComparisonToGold": "DIFFERENT_VALID_NUMBER"
+        }
+      ]
+    },
+    {
+      "prospectId": "2d57e173-159e-4ae3-a77e-bdec4eaa246e",
+      "canonicalName": "SARL SOREIDOM",
+      "requestSequence": 6,
+      "queryHash": "51c52bcd77554f8b9b32d047fdbf6eabe8bbebb1f5d98a1eae4143dfcc6ba558",
+      "responseHash": "620ff6f34514c361c84926b80ee44cf9a2f7848258e5625052cdf8522e14856e",
+      "httpStatus": 200,
+      "rawPlaceCount": 2,
+      "parsedCandidateCount": 2,
+      "identityVerdict": "VERIFIED",
+      "identityReasonCodes": [
+        "DETERMINISTIC_SIGNALS_COMPATIBLE"
+      ],
+      "branchVerdict": "MISMATCH",
+      "branchReasonCodes": [
+        "WEBSITE_DOMAIN_MISMATCH_EVEN_AFTER_IDENTITY_MATCH"
+      ],
+      "placeId": "ChIJVVUBn2OYaowR8khlILsrk6g",
+      "websiteCandidatePresent": true,
+      "phoneCandidateCount": 1,
+      "phoneCandidates": [
+        {
+          "phoneType": "LANDLINE",
+          "source": "GOOGLE_PLACES",
+          "trustStatus": "UNVERIFIED",
+          "isPreferredMobileCandidate": false,
+          "phoneComparisonToGold": "DIFFERENT_VALID_NUMBER"
+        }
+      ]
+    },
+    {
+      "prospectId": "2ac64a6a-6920-4151-a90e-1820e367ec5d",
+      "canonicalName": "DEKRA LE LAMENTIN",
+      "requestSequence": 7,
+      "queryHash": "d4cd48a0625afa109bc0b3459c94457850244d2488d6fa848b6a67762bb5b972",
+      "responseHash": "11f2210cac2fa6c1cf15e2d9da7d995d13d8233e20f12818cbf92b15787b21a6",
+      "httpStatus": 200,
+      "rawPlaceCount": 1,
+      "parsedCandidateCount": 1,
+      "identityVerdict": "REJECTED",
+      "identityReasonCodes": [
+        "BUSINESS_NAME_CONFLICT",
+        "LOCALITY_CONFLICT",
+        "ADDRESS_CONFLICT",
+        "WEBSITE_DOMAIN_CONFLICT",
+        "material identity conflict"
+      ],
+      "branchVerdict": "NOT_EVALUATED",
+      "branchReasonCodes": [],
+      "placeId": null,
+      "websiteCandidatePresent": false,
+      "phoneCandidateCount": 0,
+      "phoneCandidates": []
+    },
+    {
+      "prospectId": "73443884-39de-4aae-a6e6-24a1433a12ee",
+      "canonicalName": "GENERALE D'OPTIQUE LES MANGLES",
+      "requestSequence": 8,
+      "queryHash": "6b15b26ce03be022d26ea26c1f21248105b45a6030bdd28bcbf35d2c27b2f896",
+      "responseHash": "5aee0a427d99b632f77064253621129abf3a2f08e82e8dd5d579ad5d238e579f",
+      "httpStatus": 200,
+      "rawPlaceCount": 2,
+      "parsedCandidateCount": 2,
+      "identityVerdict": "REJECTED",
+      "identityReasonCodes": [
+        "BUSINESS_NAME_CONFLICT",
+        "LOCALITY_CONFLICT",
+        "ADDRESS_CONFLICT",
+        "WEBSITE_DOMAIN_CONFLICT",
+        "material identity conflict",
+        "BUSINESS_NAME_CONFLICT",
+        "LOCALITY_CONFLICT",
+        "ADDRESS_CONFLICT",
+        "WEBSITE_DOMAIN_CONFLICT",
+        "material identity conflict"
+      ],
+      "branchVerdict": "NOT_EVALUATED",
+      "branchReasonCodes": [],
+      "placeId": null,
+      "websiteCandidatePresent": false,
+      "phoneCandidateCount": 0,
+      "phoneCandidates": []
+    },
+    {
+      "prospectId": "c7ebc520-44a6-411b-906a-690fbd4df2a3",
+      "canonicalName": "SUN LOISIRS MARTINIQUE",
+      "requestSequence": 9,
+      "queryHash": "4e2281843c48db6e70cd3c72d4a1b6310b0fdc1aef2b551bf710324f8a0ce16e",
+      "responseHash": "dd7b77a36849b07ddd42ff15046b85776d6c445e752f0a1782124628ff043384",
+      "httpStatus": 200,
+      "rawPlaceCount": 1,
+      "parsedCandidateCount": 1,
+      "identityVerdict": "VERIFIED",
+      "identityReasonCodes": [
+        "DETERMINISTIC_SIGNALS_COMPATIBLE"
+      ],
+      "branchVerdict": "MISMATCH",
+      "branchReasonCodes": [
+        "WEBSITE_DOMAIN_MISMATCH_EVEN_AFTER_IDENTITY_MATCH"
+      ],
+      "placeId": "ChIJSWypZOEdQIwRAyPciYDEkNE",
+      "websiteCandidatePresent": true,
+      "phoneCandidateCount": 1,
+      "phoneCandidates": [
+        {
+          "phoneType": "MOBILE",
+          "source": "GOOGLE_PLACES",
+          "trustStatus": "UNVERIFIED",
+          "isPreferredMobileCandidate": true,
+          "phoneComparisonToGold": "EXACT_MATCH"
+        }
+      ]
+    },
+    {
+      "prospectId": "bbd73175-accc-40a4-a24b-a9d147bfdfff",
+      "canonicalName": "LA BALADE DU SOLEIL",
+      "requestSequence": 10,
+      "queryHash": "ca25777bac27bcfc3cc22ef33e7ac9b6987ece33d82fea86e9077159184fd86a",
+      "responseHash": "f5ae0355c7fa28bdc53bd705633f86a3823562a1af4819efe119c30ceb96fe97",
+      "httpStatus": 200,
+      "rawPlaceCount": 1,
+      "parsedCandidateCount": 1,
+      "identityVerdict": "VERIFIED",
+      "identityReasonCodes": [
+        "DETERMINISTIC_SIGNALS_COMPATIBLE"
+      ],
+      "branchVerdict": "MISMATCH",
+      "branchReasonCodes": [
+        "WEBSITE_DOMAIN_MISMATCH_EVEN_AFTER_IDENTITY_MATCH"
+      ],
+      "placeId": "ChIJj9h7oFafaowRlhyJPaN0Sqs",
+      "websiteCandidatePresent": true,
+      "phoneCandidateCount": 1,
+      "phoneCandidates": [
+        {
+          "phoneType": "MOBILE",
+          "source": "GOOGLE_PLACES",
+          "trustStatus": "UNVERIFIED",
+          "isPreferredMobileCandidate": true,
+          "phoneComparisonToGold": "EXACT_MATCH"
+        }
+      ]
+    }
+  ]
+}

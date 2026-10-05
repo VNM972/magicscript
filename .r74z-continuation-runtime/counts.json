@@ -1,0 +1,9 @@
+{
+  "runnerInvocations": 1,
+  "claimRequests": 1,
+  "realClaims": 1,
+  "executorRuns": 1,
+  "successCallbacks": 1,
+  "failCallbacks": 0,
+  "qaInvocations": 1
+}

@@ -1,0 +1,27 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {acceptPainFirstSearchCandidate} from '../core/research/pain-first-staging.ts';
+import {extractSuppliedFirstPartyIdentity} from '../core/research/website-seed.ts';
+import {extractDigitalPainEvidence} from '../core/research/digital-pain-evidence.ts';
+import {projectPainFirstEvidenceToContactOpportunityPackV2} from '../core/admission/pain-first-agent1-projection.ts';
+import {decidePackIcp} from '../core/icp/icp-decision.ts';
+const dir='.r77z-runtime/';
+const write=(n:string,v:unknown)=>fs.writeFileSync(dir+n,JSON.stringify(v,null,2)+'\n');
+assert(!fs.existsSync(dir+'qualification.json'),'QUALIFICATION_CONSUMED');
+const item=JSON.parse(fs.readFileSync(dir+'selection.json','utf8')).pool[0];
+const inspection=JSON.parse(fs.readFileSync(dir+'candidate-1-inspection.json','utf8'));
+const accepted=acceptPainFirstSearchCandidate(item.candidate);assert.equal(accepted.state,'URL_ACCEPTED');if(accepted.state!=='URL_ACCEPTED')throw new Error('URL_REJECTED');
+assert.equal(inspection.staging.state,'PAIN_SIGNAL_CONFIRMED');
+const html=inspection.observation.suppliedHtml;const identity=extractSuppliedFirstPartyIdentity(html);assert.equal(identity.state,'IDENTITY_STRONG');
+const node=JSON.parse(html.match(/<script type="application\/ld\+json">([^]*?)<\/script>/)[1]);
+const email=node.email;assert.equal(typeof email,'string');assert(html.includes('mailto:'+email),'CONTACT_FETCHED_SOURCE_REQUIRED');
+const observedAt=inspection.observation.inspectedAt;
+const source={url:item.url,note:'Canonical bounded live homepage observation; same supplied HTML contains LocalBusiness identity, SIRET and explicit mailto contact.',supports:['website','digitalGap','identity','contact'],observedAt};
+const pain=extractDigitalPainEvidence([source],[{url:item.url,html,observedAt,snapshotDigest:'sha256:'+createHash('sha256').update(html).digest('hex')}]);assert.equal(pain.status,'VERIFIED');
+const projection=projectPainFirstEvidenceToContactOpportunityPackV2({candidateId:'r77z-androcam',candidate:accepted,evidence:{identity:{businessName:identity.identity!.exactOperatorName!,siren:identity.identity!.directSiren,siret:identity.identity!.directSiret,city:identity.identity!.municipality,location:[identity.identity!.postcode,identity.identity!.municipality].join(' '),sourceRefs:[item.url]},classification:{sourceRefs:[item.url]},research:{acceptedSources:[source],supportedClaims:source.supports,website:{status:'VERIFIED_PRESENT',url:item.url},digitalPainEvidence:pain},contacts:[{channel:'EMAIL',value:email,sourceUrl:item.url,sourceType:'OWNED_WEBSITE',validated:true,evidenceRef:item.url}]} });
+write('projection.json',projection);assert.equal(projection.status,'PROJECTABLE');if(projection.status!=='PROJECTABLE')throw new Error('PROJECTION_REJECTED');
+// Existing canonical pack field carries only text fetched from this homepage.
+projection.pack.opportunity.businessContext=node.description;
+const icp=decidePackIcp(projection.pack);write('pack.json',projection.pack);write('qualification.json',{projection:projection.status,icp,identityState:identity.state,contactLocator:'LocalBusiness.email corroborated by explicit mailto anchor',classification:'UNRESOLVED; unchanged PAIN_FIRST allowance',decisionAuthority:'UNRESOLVED; omitted rather than invented',registry:'Not required by current V2 admission contract; no R55 prospect-creation transition invoked',sourceDigest:pain.observations[0].snapshotDigest});
+console.log(JSON.stringify({projection:projection.status,icp}));

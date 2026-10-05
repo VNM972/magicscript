@@ -1,0 +1,206 @@
+{
+  "status": "PASS",
+  "atomicBatch": true,
+  "foreignKeyIntegrity": "PASS",
+  "existingRecordsPreserved": true,
+  "buildRevision": 1,
+  "revisionUniqueness": "CREATE TABLE \"v2_build_artifacts\" (\n  id TEXT PRIMARY KEY, build_version TEXT NOT NULL, design_artifact_id TEXT NOT NULL, design_request_id TEXT NOT NULL,\n  prospect_id TEXT NOT NULL, approved_revision INTEGER NOT NULL,\n  build_revision INTEGER NOT NULL DEFAULT 1 CHECK (typeof(build_revision) = 'integer' AND build_revision >= 1),\n  builder_version TEXT NOT NULL, source_path TEXT NOT NULL,\n  output_path TEXT NOT NULL, status TEXT NOT NULL, source_hash TEXT, artifact_json TEXT NOT NULL,\n  created_at TEXT NOT NULL, completed_at TEXT NOT NULL, updated_at TEXT NOT NULL,\n  FOREIGN KEY (design_artifact_id) REFERENCES v2_design_artifacts(id) ON DELETE CASCADE,\n  FOREIGN KEY (design_request_id) REFERENCES v2_design_requests(id) ON DELETE CASCADE,\n  FOREIGN KEY (prospect_id) REFERENCES prospects(id) ON DELETE CASCADE,\n  UNIQUE(design_artifact_id, builder_version, build_revision)\n)",
+  "migrationResults": [
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 0,
+        "changes": 0,
+        "last_row_id": 0,
+        "changed_db": true,
+        "size_after": 12460032,
+        "rows_read": 2,
+        "rows_written": 3
+      },
+      "results": []
+    },
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 0,
+        "changes": 0,
+        "last_row_id": 0,
+        "changed_db": true,
+        "size_after": 12464128,
+        "rows_read": 2,
+        "rows_written": 2
+      },
+      "results": []
+    },
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 0,
+        "changes": 0,
+        "last_row_id": 0,
+        "changed_db": true,
+        "size_after": 12480512,
+        "rows_read": 1,
+        "rows_written": 4
+      },
+      "results": []
+    },
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 1,
+        "changes": 1,
+        "last_row_id": 1,
+        "changed_db": true,
+        "size_after": 12480512,
+        "rows_read": 1,
+        "rows_written": 3
+      },
+      "results": []
+    },
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 11,
+        "changes": 2,
+        "last_row_id": 1,
+        "changed_db": true,
+        "size_after": 12464128,
+        "rows_read": 146,
+        "rows_written": 2
+      },
+      "results": []
+    },
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 5,
+        "changes": 0,
+        "last_row_id": 1,
+        "changed_db": false,
+        "size_after": 12464128,
+        "rows_read": 486,
+        "rows_written": 45
+      },
+      "results": []
+    },
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 1,
+        "changes": 0,
+        "last_row_id": 1,
+        "changed_db": true,
+        "size_after": 12468224,
+        "rows_read": 3,
+        "rows_written": 2
+      },
+      "results": []
+    },
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 0,
+        "changes": 1,
+        "last_row_id": 1,
+        "changed_db": true,
+        "size_after": 12468224,
+        "rows_read": 1,
+        "rows_written": 3
+      },
+      "results": []
+    },
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 0,
+        "changes": 0,
+        "last_row_id": 1,
+        "changed_db": false,
+        "size_after": 12468224,
+        "rows_read": 1,
+        "rows_written": 0
+      },
+      "results": []
+    },
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 0,
+        "changes": 0,
+        "last_row_id": 1,
+        "changed_db": true,
+        "size_after": 12464128,
+        "rows_read": 133,
+        "rows_written": 0
+      },
+      "results": []
+    },
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 1,
+        "changes": 0,
+        "last_row_id": 1,
+        "changed_db": true,
+        "size_after": 12460032,
+        "rows_read": 132,
+        "rows_written": 0
+      },
+      "results": []
+    },
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 0,
+        "changes": 0,
+        "last_row_id": 1,
+        "changed_db": true,
+        "size_after": 12464128,
+        "rows_read": 1,
+        "rows_written": 2
+      },
+      "results": []
+    },
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 8,
+        "changes": 1,
+        "last_row_id": 1,
+        "changed_db": true,
+        "size_after": 12464128,
+        "rows_read": 0,
+        "rows_written": 1
+      },
+      "results": []
+    },
+    {
+      "success": true,
+      "meta": {
+        "served_by": "miniflare.db",
+        "duration": 0,
+        "changes": 0,
+        "last_row_id": 1,
+        "changed_db": true,
+        "size_after": 12460032,
+        "rows_read": 132,
+        "rows_written": 0
+      },
+      "results": []
+    }
+  ]
+}

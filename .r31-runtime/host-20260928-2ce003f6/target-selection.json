@@ -1,0 +1,56 @@
+{
+  "httpFetches": 9,
+  "candidatesInspected": 5,
+  "candidates": [
+    {
+      "candidate": "clecod_ag",
+      "fetch": 5,
+      "url": "https://www.instagram.com/clecod_ag/",
+      "status": 200,
+      "location": "",
+      "title": "CLEC🔴D (@clecod_ag) • Instagram photos and videos",
+      "explicitStatement": "",
+      "error": ""
+    },
+    {
+      "candidate": "safeandlock.mq",
+      "fetch": 6,
+      "url": "https://www.instagram.com/safeandlock.mq/",
+      "status": 200,
+      "location": "",
+      "title": "Safe & Lock (@safeandlock.mq) • Instagram photos and videos",
+      "explicitStatement": "",
+      "error": ""
+    },
+    {
+      "candidate": "rosebaymartinique",
+      "fetch": 7,
+      "url": "https://www.instagram.com/rosebaymartinique/",
+      "status": 200,
+      "location": "",
+      "title": "La Rose Bay (@rosebaymartinique) • Instagram photos and videos",
+      "explicitStatement": "",
+      "error": ""
+    },
+    {
+      "candidate": "martinique_french_tailor",
+      "fetch": 8,
+      "url": "https://www.instagram.com/martinique_french_tailor/",
+      "status": 200,
+      "location": "",
+      "title": "The French Tailor Martinique (@martinique_french_tailor) • Instagram photos and videos",
+      "explicitStatement": "",
+      "error": ""
+    },
+    {
+      "candidate": "easymeca_mq",
+      "fetch": 9,
+      "url": "https://www.instagram.com/easymeca_mq/",
+      "status": 200,
+      "location": "",
+      "title": " (@easymeca_mq) • Instagram photos and videos",
+      "explicitStatement": "",
+      "error": ""
+    }
+  ]
+}

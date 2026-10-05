@@ -1,0 +1,68 @@
+{
+  "verifiedAt": "2026-10-04T10:05:07.670Z",
+  "status": "BLOCKED_NO_REAL_PROSPECT",
+  "zakariClassification": "EXPECTED_REJECTION",
+  "zakariRootCause": {
+    "function": "boundedHtml",
+    "file": "core/research/pain-first-homepage-transport.ts",
+    "line": 69,
+    "condition": "bytes > PAIN_FIRST_MAX_BODY_BYTES",
+    "limit": 250000,
+    "bytesObserved": 252625,
+    "completeBodySize": "UNKNOWN; stream cancelled at overflow",
+    "mapping": "null -> observeSinglePage UNSUPPORTED (line 114) -> FETCH_FAILED",
+    "intent": "Explicit R55/R58Z body bound; existing tests reject streamed overflow",
+    "utf8PrefixValid": true,
+    "binaryControls": false
+  },
+  "sourceFixApplied": false,
+  "zakariDiagnosisRequests": 1,
+  "zakariRepairRetries": 0,
+  "selectedProspect": "Evasion Nautique 972",
+  "prospectUrl": "https://evasionnautique972.com/",
+  "replacementRequests": 1,
+  "replacementResult": {
+    "pageState": "PAGE_OBSERVED",
+    "httpResultClass": "SUCCESS",
+    "title": "Évasion Nautique 972 — nouveau site en construction",
+    "h1": [
+      "Nouveau site en construction"
+    ],
+    "staging": "NO_PAIN_SIGNAL"
+  },
+  "prospectId": null,
+  "admission": "NOT_PERFORMED",
+  "slot": "NONE",
+  "design": "NONE",
+  "review": "NONE",
+  "build": "NONE",
+  "initialQa": "NONE",
+  "correctionCycle": false,
+  "finalQa": "NONE",
+  "newProductDefect": "NONE proven",
+  "reproducibility": "NOT_PROVEN",
+  "lastProvenStage": "Replacement PAGE_OBSERVED / SUCCESS",
+  "firstBrokenStage": "Replacement canonical digital-pain qualification: NO_PAIN_SIGNAL",
+  "d1RowsUnchanged": true,
+  "trackedDiffUnchanged": true,
+  "villaUnchanged": true,
+  "tests": "NONE; no source change",
+  "typecheck": "NONE; no source change",
+  "diffCheck": "PASS",
+  "nextAllowedAction": "Authorize one new distinct prospect selection and canonical inspection; advance only if canonical qualification succeeds.",
+  "usage": {
+    "credits": "USAGE_NOT_EXPOSED",
+    "modelReasoning": "USAGE_NOT_EXPOSED",
+    "codebaseMemoryTools": [
+      "list_projects",
+      "search_graph",
+      "get_code_snippet",
+      "check_index_coverage"
+    ],
+    "directCodeFilesRead": 10,
+    "shellFallback": "Bounded source reads because coverage metadata changed",
+    "webSearchCalls": 2,
+    "webSearchQueries": 5,
+    "discoveryDeviation": "Manual discovery used five search queries rather than the canonical two query strings; no result metadata promoted to evidence. Only one replacement was selected and inspected."
+  }
+}

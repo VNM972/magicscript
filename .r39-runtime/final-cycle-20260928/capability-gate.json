@@ -1,0 +1,11 @@
+{
+  "outboundHttps": true,
+  "model": "qwen2.5-coder:3b",
+  "reusedR36D1": true,
+  "runner": true,
+  "localProductionAvailable": true,
+  "browserCdp": true,
+  "api": true,
+  "pass": true,
+  "wrangler": true
+}

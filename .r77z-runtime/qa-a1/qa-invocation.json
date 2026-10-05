@@ -1,0 +1,8 @@
+{
+  "entrypoint": "executeVisualQa",
+  "at": "2026-10-04T11:02:11.659Z",
+  "realInvocations": 1,
+  "buildArtifactId": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1",
+  "attempt": 1,
+  "store": "Native magicscript-local D1VisualQaReportStore"
+}

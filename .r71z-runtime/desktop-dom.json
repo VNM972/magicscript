@@ -1,0 +1,333 @@
+{
+  "id": "r71z-villa-ancinel-desktop",
+  "captureSuccess": true,
+  "capturedAt": "2026-10-02T19:08:07.995Z",
+  "definition": {
+    "name": "DESKTOP",
+    "width": 1440,
+    "height": 900,
+    "deviceScaleFactor": 1,
+    "mobile": false
+  },
+  "renderedUrl": "http://127.0.0.1:12658/",
+  "screenshotPath": "D:\\MagicScript\\repository\\.r71z-runtime\\desktop.png",
+  "dom": {
+    "url": "http://127.0.0.1:12658/",
+    "title": "Villa Ancinel",
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "deviceScaleFactor": 1
+    },
+    "bodyText": "Villa Ancinel\nClarifier la valeur de Villa Ancinel\nContacter l’entreprise\n\nGENERAL_LOCAL_BUSINESS\n\nClarifier la valeur de Villa Ancinel\n\nUnderstand the offer and take the next practical action.\n\nContacter l’entreprise\n\nPRESENT A CREDIBLE LOCAL BUSINESS OFFER WITH A SIMPLE NEXT STEP.\n\nClarifier la valeur de Villa Ancinel\n\nVilla Ancinel\n\nUn accompagnement simple et clair pour passer à l’action.\n\nContacter l’entreprise\n\nAPPROVED STRUCTURE\n\nhero\n\nApproved structural placeholder; business content remains governed by the design artifact.\n\nAPPROVED STRUCTURE\n\noffer\n\nApproved structural placeholder; business content remains governed by the design artifact.\n\nAPPROVED STRUCTURE\n\nreassurance\n\nApproved structural placeholder; business content remains governed by the design artifact.\n\nAPPROVED STRUCTURE\n\ncontact\n\nApproved structural placeholder; business content remains governed by the design artifact.\n\nContacter l’entreprise\n\nCette démonstration présente la structure approuvée. Les coordonnées et actions opérationnelles restent à connecter.\n\nContacter l’entreprise\n\nVilla Ancinel\n\nMédias à fournir : logo if supplied ; approved business imagery if supplied",
+    "hero": {
+      "tag": "SECTION",
+      "text": "GENERAL_LOCAL_BUSINESS\n\nClarifier la valeur de Villa Ancinel\n\nUnderstand the offer and take the next practical action.\n\nContacter l’entreprise",
+      "left": 184.5,
+      "right": 1240.5,
+      "top": 73.59375,
+      "bottom": 723.28125,
+      "width": 1056,
+      "height": 649.6875,
+      "display": "block",
+      "visibility": "visible",
+      "opacity": "1"
+    },
+    "primaryCta": {
+      "tag": "A",
+      "text": "Contacter l’entreprise",
+      "left": 264.5,
+      "right": 461.28125,
+      "top": 560.09375,
+      "bottom": 611.28125,
+      "width": 196.78125,
+      "height": 51.1875,
+      "display": "inline-block",
+      "visibility": "visible",
+      "opacity": "1"
+    },
+    "controls": [
+      {
+        "tag": "A",
+        "text": "Villa Ancinel",
+        "left": 184.5,
+        "right": 282.71875,
+        "top": 16,
+        "bottom": 41.59375,
+        "width": 98.21875,
+        "height": 25.59375,
+        "display": "block",
+        "visibility": "visible",
+        "opacity": "1"
+      },
+      {
+        "tag": "A",
+        "text": "Clarifier la valeur de Villa Ancinel",
+        "left": 842.953125,
+        "right": 1073.15625,
+        "top": 16,
+        "bottom": 41.59375,
+        "width": 230.203125,
+        "height": 25.59375,
+        "display": "block",
+        "visibility": "visible",
+        "opacity": "1"
+      },
+      {
+        "tag": "A",
+        "text": "Contacter l’entreprise",
+        "left": 1089.15625,
+        "right": 1240.5,
+        "top": 16,
+        "bottom": 41.59375,
+        "width": 151.34375,
+        "height": 25.59375,
+        "display": "block",
+        "visibility": "visible",
+        "opacity": "1"
+      },
+      {
+        "tag": "A",
+        "text": "Contacter l’entreprise",
+        "left": 264.5,
+        "right": 461.28125,
+        "top": 560.09375,
+        "bottom": 611.28125,
+        "width": 196.78125,
+        "height": 51.1875,
+        "display": "inline-block",
+        "visibility": "visible",
+        "opacity": "1"
+      },
+      {
+        "tag": "A",
+        "text": "Contacter l’entreprise",
+        "left": 184.5,
+        "right": 383.28125,
+        "top": 1051.640625,
+        "bottom": 1104.828125,
+        "width": 198.78125,
+        "height": 53.1875,
+        "display": "inline-block",
+        "visibility": "visible",
+        "opacity": "1"
+      },
+      {
+        "tag": "A",
+        "text": "Contacter l’entreprise",
+        "left": 216.5,
+        "right": 413.28125,
+        "top": 2855.40625,
+        "bottom": 2906.59375,
+        "width": 196.78125,
+        "height": 51.1875,
+        "display": "inline-block",
+        "visibility": "visible",
+        "opacity": "1"
+      }
+    ],
+    "sections": [
+      {
+        "id": "",
+        "approvedSection": null,
+        "className": "hero",
+        "box": {
+          "tag": "SECTION",
+          "text": "GENERAL_LOCAL_BUSINESS\n\nClarifier la valeur de Villa Ancinel\n\nUnderstand the offer and take the next practical action.\n\nContacter l’entreprise",
+          "left": 184.5,
+          "right": 1240.5,
+          "top": 73.59375,
+          "bottom": 723.28125,
+          "width": 1056,
+          "height": 649.6875,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      },
+      {
+        "id": "home",
+        "approvedSection": null,
+        "className": "",
+        "box": {
+          "tag": "SECTION",
+          "text": "PRESENT A CREDIBLE LOCAL BUSINESS OFFER WITH A SIMPLE NEXT STEP.\n\nClarifier la valeur de Villa Ancinel\n\nVilla Ancinel\n\nUn accompagnement simple et clair pour passer à l’action.\n\nContacter l’entreprise",
+          "left": 184.5,
+          "right": 944.5,
+          "top": 723.28125,
+          "bottom": 1161.828125,
+          "width": 760,
+          "height": 438.546875,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      },
+      {
+        "id": "",
+        "approvedSection": "hero",
+        "className": "approved-structure",
+        "box": {
+          "tag": "SECTION",
+          "text": "APPROVED STRUCTURE\n\nhero\n\nApproved structural placeholder; business content remains governed by the design artifact.",
+          "left": 184.5,
+          "right": 944.5,
+          "top": 1161.828125,
+          "bottom": 1515.3125,
+          "width": 760,
+          "height": 353.484375,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      },
+      {
+        "id": "",
+        "approvedSection": "offer",
+        "className": "approved-structure",
+        "box": {
+          "tag": "SECTION",
+          "text": "APPROVED STRUCTURE\n\noffer\n\nApproved structural placeholder; business content remains governed by the design artifact.",
+          "left": 184.5,
+          "right": 944.5,
+          "top": 1515.3125,
+          "bottom": 1868.796875,
+          "width": 760,
+          "height": 353.484375,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      },
+      {
+        "id": "",
+        "approvedSection": "reassurance",
+        "className": "approved-structure",
+        "box": {
+          "tag": "SECTION",
+          "text": "APPROVED STRUCTURE\n\nreassurance\n\nApproved structural placeholder; business content remains governed by the design artifact.",
+          "left": 184.5,
+          "right": 944.5,
+          "top": 1868.796875,
+          "bottom": 2222.28125,
+          "width": 760,
+          "height": 353.484375,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      },
+      {
+        "id": "",
+        "approvedSection": "contact",
+        "className": "approved-structure",
+        "box": {
+          "tag": "SECTION",
+          "text": "APPROVED STRUCTURE\n\ncontact\n\nApproved structural placeholder; business content remains governed by the design artifact.",
+          "left": 184.5,
+          "right": 944.5,
+          "top": 2222.28125,
+          "bottom": 2575.765625,
+          "width": 760,
+          "height": 353.484375,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      },
+      {
+        "id": "contact",
+        "approvedSection": null,
+        "className": "contact",
+        "box": {
+          "tag": "SECTION",
+          "text": "Contacter l’entreprise\n\nCette démonstration présente la structure approuvée. Les coordonnées et actions opérationnelles restent à connecter.\n\nContacter l’entreprise",
+          "left": 184.5,
+          "right": 944.5,
+          "top": 2607.765625,
+          "bottom": 2939.59375,
+          "width": 760,
+          "height": 331.828125,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      }
+    ],
+    "links": [
+      {
+        "href": "#top",
+        "targetExists": true
+      },
+      {
+        "href": "#home",
+        "targetExists": true
+      },
+      {
+        "href": "#contact",
+        "targetExists": true
+      },
+      {
+        "href": "#contact",
+        "targetExists": true
+      },
+      {
+        "href": "#contact",
+        "targetExists": true
+      },
+      {
+        "href": "#top",
+        "targetExists": true
+      }
+    ],
+    "assets": [],
+    "view": {
+      "horizontalOverflow": -15,
+      "heroVisible": true,
+      "primaryCtaVisible": true,
+      "contentVisible": true,
+      "controlsWithinViewport": true
+    },
+    "observedSections": [
+      "hero",
+      "home",
+      "hero",
+      "offer",
+      "reassurance",
+      "contact",
+      "contact"
+    ],
+    "headings": [
+      "h1 Clarifier la valeur de Villa Ancinel",
+      "h2 Clarifier la valeur de Villa Ancinel",
+      "h2 hero",
+      "h2 offer",
+      "h2 reassurance",
+      "h2 contact",
+      "h2 Contacter l’entreprise"
+    ],
+    "internalLinkErrors": [],
+    "unresolvedMarkers": [],
+    "brokenAssets": []
+  },
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "network": [
+    {
+      "url": "http://127.0.0.1:12658/",
+      "status": 200,
+      "type": "Document"
+    },
+    {
+      "url": "http://127.0.0.1:12658/styles.css",
+      "status": 200,
+      "type": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:12658/favicon.ico",
+      "status": 404,
+      "type": "Other"
+    }
+  ]
+}

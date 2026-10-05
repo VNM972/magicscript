@@ -1,0 +1,13 @@
+{
+  "reusedR36D1": true,
+  "runner": true,
+  "localProductionAvailable": true,
+  "outboundHttps": true,
+  "api": true,
+  "browserCdp": true,
+  "pass": true,
+  "wrangler": true,
+  "model": "qwen2.5-coder:3b",
+  "deckRead": true,
+  "noFreshD1": true
+}

@@ -1,0 +1,758 @@
+{
+  "totalProspects": 95,
+  "realCommercial": 33,
+  "latestAcquisitionStatus": {
+    "SEARCH_PROVIDER_AVAILABLE": 33
+  },
+  "latestAcquisitionEvents": 33,
+  "latestSuccessfulTavily": 33,
+  "sourceTotals": {
+    "sources": 959,
+    "fetchSucceeded": 386,
+    "identityVerified": 276
+  },
+  "beforeVerified": 17,
+  "afterVerified": 10,
+  "beforeFields": {
+    "phone": 2,
+    "email": 1,
+    "instagram": 0,
+    "whatsapp": 0,
+    "contactForm": 2
+  },
+  "afterFields": {
+    "phone": 3,
+    "email": 4,
+    "instagram": 1,
+    "facebook": 4,
+    "tiktok": 7,
+    "whatsapp": 0,
+    "contactForm": 10
+  },
+  "statusCounts": {
+    "phone": {
+      "VERIFIED": 3,
+      "N/A": 28,
+      "UNKNOWN": 2,
+      "REJECTED": 0
+    },
+    "email": {
+      "VERIFIED": 4,
+      "N/A": 27,
+      "UNKNOWN": 2,
+      "REJECTED": 0
+    },
+    "instagram": {
+      "VERIFIED": 1,
+      "N/A": 30,
+      "UNKNOWN": 2,
+      "REJECTED": 0
+    },
+    "facebook": {
+      "VERIFIED": 4,
+      "N/A": 27,
+      "UNKNOWN": 2,
+      "REJECTED": 0
+    },
+    "tiktok": {
+      "VERIFIED": 7,
+      "N/A": 24,
+      "UNKNOWN": 2,
+      "REJECTED": 0
+    },
+    "whatsapp": {
+      "VERIFIED": 0,
+      "N/A": 31,
+      "UNKNOWN": 2,
+      "REJECTED": 0
+    },
+    "contactForm": {
+      "VERIFIED": 10,
+      "N/A": 21,
+      "UNKNOWN": 2,
+      "REJECTED": 0
+    }
+  },
+  "unknownProspects": 2,
+  "naProspects": 21,
+  "researchReplayCandidates": [
+    {
+      "id": "b154bdc2-86d7-49cc-b72b-7d48168ef6d4",
+      "name": "ACTIBURO",
+      "routes": [
+        "phone",
+        "email",
+        "contactForm"
+      ],
+      "acquisition": "SEARCH_PROVIDER_AVAILABLE"
+    },
+    {
+      "id": "49a20d08-d4db-4998-b236-311e7d737cdd",
+      "name": "GIE LIEMAN GESTION",
+      "routes": [
+        "phone",
+        "email",
+        "facebook",
+        "tiktok",
+        "contactForm"
+      ],
+      "acquisition": "SEARCH_PROVIDER_AVAILABLE"
+    },
+    {
+      "id": "ec045b5e-00be-44a3-a556-cfbc88cf56bb",
+      "name": "JEAN-PIERRE EUVRARD",
+      "routes": [
+        "email",
+        "tiktok",
+        "contactForm"
+      ],
+      "acquisition": "SEARCH_PROVIDER_AVAILABLE"
+    },
+    {
+      "id": "402627ff-a3ca-4493-82ff-a568d4f70bb0",
+      "name": "MICHEL BES",
+      "routes": [
+        "phone",
+        "email",
+        "tiktok",
+        "contactForm"
+      ],
+      "acquisition": "SEARCH_PROVIDER_AVAILABLE"
+    }
+  ],
+  "rows": [
+    {
+      "name": "ACTIBURO",
+      "id": "b154bdc2-86d7-49cc-b72b-7d48168ef6d4",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 12,
+      "identityVerified": 16,
+      "routes": [
+        "phone",
+        "email",
+        "contactForm"
+      ],
+      "presence": {
+        "phone": "VERIFIED",
+        "email": "VERIFIED",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "VERIFIED"
+      }
+    },
+    {
+      "name": "ATHENA TRADING",
+      "id": "73576dde-c29e-44ec-9a0d-fa7c0e0fb712",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 16,
+      "identityVerified": 14,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "AUDITION CONSEIL",
+      "id": "a5c8065e-4b34-40ec-b17e-5507f82b47a7",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 16,
+      "identityVerified": 11,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "BERNARD'S COFFEE SHOP",
+      "id": "7c2901b1-fab6-40c2-8645-ee6f51329544",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 10,
+      "identityVerified": 10,
+      "routes": [
+        "instagram",
+        "facebook",
+        "tiktok",
+        "contactForm"
+      ],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "VERIFIED",
+        "facebook": "VERIFIED",
+        "tiktok": "VERIFIED",
+        "whatsapp": "N/A",
+        "contactForm": "VERIFIED"
+      }
+    },
+    {
+      "name": "COPROPRIETE MARITIME - STRATEGE DES MERS",
+      "id": "5a8560d0-231a-4096-9200-8680ac5819a8",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 9,
+      "identityVerified": 5,
+      "routes": [
+        "facebook",
+        "tiktok",
+        "contactForm"
+      ],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "VERIFIED",
+        "tiktok": "VERIFIED",
+        "whatsapp": "N/A",
+        "contactForm": "VERIFIED"
+      }
+    },
+    {
+      "name": "CORAIL",
+      "id": "19706c05-657c-496d-8295-9ac5545c695a",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 12,
+      "identityVerified": 10,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "DARTY HABITAT NATURE ET DECOUVERTES",
+      "id": "85cfec6d-035d-47eb-b4bc-c09e09f9484e",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 12,
+      "identityVerified": 11,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "DISVEA",
+      "id": "c5e10d79-12f9-448b-8fe7-cf16a7a3969e",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 13,
+      "identityVerified": 12,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "ELECTRONIQUE +",
+      "id": "445f1f9f-4d07-4c61-834a-c8116d4414bb",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 15,
+      "identityVerified": 7,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "ENVIE D AILLEURS",
+      "id": "fb951634-6f69-46f8-9f46-8db04e780e69",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 15,
+      "identityVerified": 6,
+      "routes": [
+        "tiktok",
+        "contactForm"
+      ],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "VERIFIED",
+        "whatsapp": "N/A",
+        "contactForm": "VERIFIED"
+      }
+    },
+    {
+      "name": "EVELYNE PILLET (RENAUD)",
+      "id": "2467794e-98f4-422c-9e81-662193cc0d89",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 14,
+      "identityVerified": 3,
+      "routes": [],
+      "presence": {
+        "phone": "UNKNOWN",
+        "email": "UNKNOWN",
+        "instagram": "UNKNOWN",
+        "facebook": "UNKNOWN",
+        "tiktok": "UNKNOWN",
+        "whatsapp": "UNKNOWN",
+        "contactForm": "UNKNOWN"
+      }
+    },
+    {
+      "name": "GEORGES PLAVONIL",
+      "id": "0fb087b7-bd21-4591-9930-020b8653d7c6",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 11,
+      "identityVerified": 4,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "GEORGES SYLVESTRE (MARIE-NELLY)",
+      "id": "7847ee99-d76d-4fe1-920d-d94fab26df78",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 12,
+      "identityVerified": 6,
+      "routes": [],
+      "presence": {
+        "phone": "UNKNOWN",
+        "email": "UNKNOWN",
+        "instagram": "UNKNOWN",
+        "facebook": "UNKNOWN",
+        "tiktok": "UNKNOWN",
+        "whatsapp": "UNKNOWN",
+        "contactForm": "UNKNOWN"
+      }
+    },
+    {
+      "name": "GIE LIEMAN GESTION",
+      "id": "49a20d08-d4db-4998-b236-311e7d737cdd",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 19,
+      "fetchSucceeded": 10,
+      "identityVerified": 10,
+      "routes": [
+        "phone",
+        "email",
+        "facebook",
+        "tiktok",
+        "contactForm"
+      ],
+      "presence": {
+        "phone": "VERIFIED",
+        "email": "VERIFIED",
+        "instagram": "N/A",
+        "facebook": "VERIFIED",
+        "tiktok": "VERIFIED",
+        "whatsapp": "N/A",
+        "contactForm": "VERIFIED"
+      }
+    },
+    {
+      "name": "GRAZIELLA EUGENIE",
+      "id": "ad4d9766-c85d-447a-9e5d-91ca81dbcd5f",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 11,
+      "identityVerified": 4,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "GUY HOQUET L'IMMOBILIER",
+      "id": "d2c22cec-1091-4e81-8c50-cc90cb0f7216",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 13,
+      "identityVerified": 8,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "JACQUES ALLALI",
+      "id": "82ed270e-8e1f-4cff-95dc-ff0c8d1028ad",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 24,
+      "fetchSucceeded": 7,
+      "identityVerified": 2,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "JEAN-PIERRE EUVRARD",
+      "id": "ec045b5e-00be-44a3-a556-cfbc88cf56bb",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 26,
+      "fetchSucceeded": 12,
+      "identityVerified": 4,
+      "routes": [
+        "email",
+        "tiktok",
+        "contactForm"
+      ],
+      "presence": {
+        "phone": "N/A",
+        "email": "VERIFIED",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "VERIFIED",
+        "whatsapp": "N/A",
+        "contactForm": "VERIFIED"
+      }
+    },
+    {
+      "name": "KAY JUJU",
+      "id": "d12e10f8-6252-4f28-9c50-aa2742aa74c0",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 13,
+      "identityVerified": 10,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "L'UNIVERS DU PNEU",
+      "id": "f5eedd9c-2e39-46eb-9663-1d9b3a7f6cad",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 10,
+      "identityVerified": 4,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "LE BAYOU",
+      "id": "5d1ad3d5-b8ff-417d-97a2-b40ce7b8ce1c",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 9,
+      "identityVerified": 7,
+      "routes": [
+        "contactForm"
+      ],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "VERIFIED"
+      }
+    },
+    {
+      "name": "LE COMPTOIR MEDICAL",
+      "id": "96d973b1-f68b-4a01-959a-1ee8e40d053e",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 10,
+      "identityVerified": 17,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "MART'AUDIO",
+      "id": "9912f815-5406-4792-8218-bb2eeaf02862",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 10,
+      "identityVerified": 9,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "MICHEL BES",
+      "id": "402627ff-a3ca-4493-82ff-a568d4f70bb0",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 27,
+      "fetchSucceeded": 9,
+      "identityVerified": 7,
+      "routes": [
+        "phone",
+        "email",
+        "tiktok",
+        "contactForm"
+      ],
+      "presence": {
+        "phone": "VERIFIED",
+        "email": "VERIFIED",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "VERIFIED",
+        "whatsapp": "N/A",
+        "contactForm": "VERIFIED"
+      }
+    },
+    {
+      "name": "PASS' TRAVEL",
+      "id": "0fef5908-9927-426a-bc3f-80249ab45b68",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 12,
+      "identityVerified": 9,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "POINT MAT BRICO",
+      "id": "acc3f066-717d-42cc-a8a1-2984da954e3a",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 24,
+      "fetchSucceeded": 10,
+      "identityVerified": 6,
+      "routes": [
+        "facebook",
+        "contactForm"
+      ],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "VERIFIED",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "VERIFIED"
+      }
+    },
+    {
+      "name": "POMPES FUNEBRES CARISTAN",
+      "id": "8a14759d-8956-4e8b-82ef-51317362b72f",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 14,
+      "identityVerified": 4,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "SARL SOREIDOM",
+      "id": "2d57e173-159e-4ae3-a77e-bdec4eaa246e",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 29,
+      "fetchSucceeded": 12,
+      "identityVerified": 15,
+      "routes": [
+        "tiktok",
+        "contactForm"
+      ],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "VERIFIED",
+        "whatsapp": "N/A",
+        "contactForm": "VERIFIED"
+      }
+    },
+    {
+      "name": "SASU-YOUYOU-MARKET",
+      "id": "d0dafaae-aebe-46c2-a532-5264a5a0d4f4",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 9,
+      "identityVerified": 12,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "SAVOIE",
+      "id": "50c1fb37-77d1-42d3-8417-20f58aab8238",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 9,
+      "identityVerified": 4,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "SOCIETE MARTINIQUAISE DE LOCATION (SOMARLOC)",
+      "id": "cc39f49b-3306-44b5-af7c-7fd1dc9633d1",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 13,
+      "identityVerified": 11,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "VESPA ANTILLES",
+      "id": "b09ab56f-faa4-4125-8506-f28351a6af67",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 12,
+      "identityVerified": 7,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    },
+    {
+      "name": "VIP FINANCE",
+      "id": "0e93bc69-bc2d-420d-9159-5235f313d92e",
+      "acquisitionStatus": "SEARCH_PROVIDER_AVAILABLE",
+      "sources": 30,
+      "fetchSucceeded": 14,
+      "identityVerified": 11,
+      "routes": [],
+      "presence": {
+        "phone": "N/A",
+        "email": "N/A",
+        "instagram": "N/A",
+        "facebook": "N/A",
+        "tiktok": "N/A",
+        "whatsapp": "N/A",
+        "contactForm": "N/A"
+      }
+    }
+  ]
+}

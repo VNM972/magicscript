@@ -1,60 +1,9 @@
 import LiveRefresh from '../components/LiveRefresh';
-import OutreachReview from '../components/OutreachReview';
-import { getProposalDeck, type ProposalDeckItemV1 } from '../lib/deck';
-
+import DeckPipeline from '../components/DeckPipeline';
+import { getProposalDeck } from '../lib/deck';
 export const dynamic = 'force-dynamic';
-
-function signal(label: string, active: boolean): string {
-  return active ? label : '';
-}
-
-function formatDate(value: string | null): string {
-  if (!value) return '';
-  const date = new Date(value);
-  return Number.isFinite(date.getTime()) ? new Intl.DateTimeFormat('fr-FR', { dateStyle: 'medium', timeStyle: 'short' }).format(date) : '';
-}
-
-function ProspectCard({ item }: { item: ProposalDeckItemV1 }) {
-  const signals = [
-    signal('Viewed', item.engagement.viewed),
-    signal('Returned', item.engagement.returned),
-    signal('Shared', item.engagement.shared),
-    signal(item.engagement.meetingBooked ? `Meeting booked${item.engagement.meetingAt ? ` · ${formatDate(item.engagement.meetingAt)}` : ''}` : 'No meeting', item.engagement.meetingBooked || !item.engagement.meetingBooked),
-  ].filter(Boolean);
-  return (
-    <article className="prospect-card" data-prospect-id={item.prospectId}>
-      <div className="card-heading">
-        <div>
-          <p className="card-kicker">Proposal ready</p>
-          <h2>{item.businessName}</h2>
-          <p className="identity">{[item.vertical, item.location].filter(Boolean).join(' · ') || 'Local business'}</p>
-        </div>
-        <span className="ready-mark">READY</span>
-      </div>
-      <div className="card-grid">
-        <section><h3>Opportunity</h3><p>{item.opportunity || 'Opportunity identified by Agent 1.'}</p><p className="friction">{item.friction || 'Digital context available in the prepared Proposal.'}</p></section>
-        <section><h3>Contactability</h3><p className="contact-label">{item.contactability.label}</p>{item.contactability.email && <p className="contact-value">{item.contactability.email}</p>}{item.contactability.mobile && <p className="contact-value">{item.contactability.mobile}</p>}</section>
-      </div>
-      <div className="card-footer">
-        <div className="signals" aria-label="Engagement signals">{signals.map((value) => <span key={value} className={value === 'No meeting' ? 'signal quiet' : 'signal'}>{value}</span>)}</div>
-        <a className="proposal-link" href={item.proposalUrl || item.proposal.entryPath} target="_blank" rel="noreferrer">Open Proposal <span aria-hidden="true">↗</span></a>
-      </div>
-      <p className="proposal-meta">{item.proposal.id} · ready {formatDate(item.proposal.readyAt)}</p>
-      <OutreachReview item={item} />
-    </article>
-  );
-}
-
-export default async function Page() {
-  const deck = await getProposalDeck();
-  return <main className="shell">
-    <LiveRefresh intervalMs={5000} />
-    <header className="topbar">
-      <div><p className="eyebrow">MAGIC SCRIPT · COMMERCIAL OPERATIONS</p><h1>Operator Deck</h1><p className="lede">The prospects with a Proposal ready for human action.</p></div>
-      <div className="status"><span className="pulse" /> LIVE REFRESH</div>
-    </header>
-    <section className="deck-summary" aria-label="Deck summary"><div><strong>{deck.items.length}</strong><span>Proposal-ready prospects</span></div><p>Only canonical PROPOSAL_READY packages appear here. No outreach is sent from this surface.</p></section>
-    {deck.error ? <section className="state-panel error" role="alert"><h2>Deck unavailable</h2><p>{deck.error}</p><p>Try again in a moment. Internal diagnostics stay out of the operator view.</p></section> : deck.items.length === 0 ? <section className="state-panel"><div className="empty-icon">—</div><h2>No Proposal-ready prospects yet</h2><p>When a Proposal passes packaging, it will appear here with its commercial context and engagement signals.</p></section> : <section className="deck-list" aria-label="Proposal-ready prospects">{deck.items.map((item) => <ProspectCard key={item.proposal.id} item={item} />)}</section>}
-    <footer className="footer-note">Proposal preview is tracked through the existing public route. Sending and outreach remain deliberately outside M009.</footer>
-  </main>;
-}
+function DeckHeader() { const destinations = ['Prospects', 'Rendez-vous', 'Améliorations', 'Archives', 'Ruche']; return <header className="deck-header"><a className="brand" href="#top" aria-label="Magic Script, accueil"><span className="brand-mark">✦</span><span>MAGIC SCRIPT</span></a><label className="search-field"><span className="sr-only">Rechercher un prospect</span><input type="search" placeholder="Rechercher un prospect" /></label><nav className="main-nav" aria-label="Navigation principale">{destinations.map((destination) => <span className={destination === 'Prospects' ? 'nav-item active' : 'nav-item'} key={destination}>{destination}</span>)}<a className="nav-item" href="/pain-first-intake">Intake manuel</a></nav></header>; }
+function TodayPanel({ activeSlotCount }: { activeSlotCount: number }) { return <section className="operator-panel today-panel" aria-labelledby="today-title"><div className="section-heading"><p className="overline">Opérateur</p><h2 id="today-title">Aujourd'hui</h2></div><div className="attention-list"><div><strong>{activeSlotCount} / 20</strong><span>À contacter</span></div><div><strong>—</strong><span>Relances dues</span></div><div><strong>—</strong><span>RDV aujourd'hui</span></div><div><strong>—</strong><span>Devis à valider</span></div></div></section>; }
+function LivingHiveFrame() { return <section className="living-hive-frame" aria-labelledby="hive-title"><div className="hive-title"><p className="overline">Espace central</p><h2 id="hive-title">Living Hive</h2></div><div className="hive-mount" aria-label="Zone de montage Living Hive" /></section>; }
+function UpcomingPanel() { return <aside className="operator-panel upcoming-panel" aria-label="Contexte opérateur à venir">{[['PROCHAINS RDV', 'Aucun rendez-vous à venir'], ['RELANCES DUES', 'Aucune relance à afficher'], ['SIGNAUX IMPORTANTS', 'Aucun signal important']].map(([title, empty]) => <section className="upcoming-section" key={title}><h2>{title}</h2><p>{empty}</p></section>)}</aside>; }
+export default async function Page() { const deck = await getProposalDeck(); return <main className="deck-shell" id="top"><LiveRefresh intervalMs={5000} /><DeckHeader /><section className="cockpit-grid" aria-label="Cockpit opérateur"><TodayPanel activeSlotCount={deck.activeSlotCount} /><LivingHiveFrame /><UpcomingPanel /></section><section className="pipeline-section" aria-labelledby="pipeline-title"><div className="section-heading inline-heading"><div><p className="overline">Vue commerciale</p><h2 id="pipeline-title">Pipeline</h2></div><span className="placeholder-note">Projection canonique</span></div>{deck.error ? <section className="state-panel error" role="alert"><h2>Deck indisponible</h2><p>{deck.error}</p></section> : <section className="prospect-list" aria-labelledby="prospects-title"><div className="section-heading inline-heading"><div><p className="overline">Travail en cours</p><h2 id="prospects-title">Prospects</h2></div><span className="placeholder-note">{deck.items.length} prospect{deck.items.length > 1 ? 's' : ''}</span></div><DeckPipeline items={deck.items} /></section>}</section></main>; }

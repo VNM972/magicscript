@@ -1,0 +1,62 @@
+{
+  "httpStatus": 201,
+  "admission": {
+    "admitted": true,
+    "state": "INGESTED",
+    "reasonCode": "ADMITTED",
+    "canonicalProspectId": "v2-51972816600033",
+    "normalizedPack": {
+      "schemaVersion": "CONTACT_OPPORTUNITY_PACK_V2",
+      "packId": "agent1-r77z-androcam",
+      "source": {
+        "agent": "AGENT_1",
+        "provenance": "{\"sourcingLane\":\"PAIN_FIRST\",\"candidateId\":\"r77z-androcam\",\"stagedWebsiteUrl\":\"https://androcam-productions.com/\",\"domain\":\"androcam-productions.com\",\"acquiredAt\":\"2026-10-04T10:51:27.782Z\",\"digitalPainEvidence\":[{\"observedCondition\":\"SITE_REBUILDING\",\"sourceUrl\":\"https://androcam-productions.com/\",\"snapshotDigest\":\"sha256:fe8df54cebbeb0ecc3ac64736d3a37304044afeb91061574bfa21a20fee0c5d3\",\"locator\":\"h1\",\"observedAt\":\"2026-10-04T10:51:38.582Z\"}]}",
+        "receivedAt": "2026-10-04T10:55:06.132Z"
+      },
+      "identity": {
+        "businessName": "Androcam Productions",
+        "siren": "519728166",
+        "siret": "51972816600033",
+        "city": "Reims",
+        "location": "51100 Reims",
+        "websiteUrl": "https://androcam-productions.com/",
+        "domain": "androcam-productions.com"
+      },
+      "contacts": [
+        {
+          "channel": "EMAIL",
+          "value": "androcamprod@live.fr",
+          "sourceUrl": "https://androcam-productions.com/",
+          "sourceType": "OWNED_WEBSITE",
+          "normalizedValue": "androcamprod@live.fr",
+          "trustStatus": "DERIVED_VALID"
+        }
+      ],
+      "opportunity": {
+        "digitalFriction": "Site en cours de refonte",
+        "agent1Verdict": "QUALIFIED",
+        "icp": {
+          "digitalPainSignals": [
+            "Site en cours de refonte"
+          ],
+          "requiresUnprovenCapability": false,
+          "outsideCommercialIcp": false
+        },
+        "businessContext": "Photographe et vidéaste à Reims : films d'entreprise, événementiel, clips."
+      },
+      "evidence": [
+        {
+          "url": "https://androcam-productions.com/",
+          "note": "Canonical bounded live homepage observation; same supplied HTML contains LocalBusiness identity, SIRET and explicit mailto contact.\n{\"sourcingLane\":\"PAIN_FIRST\",\"candidateId\":\"r77z-androcam\",\"stagedWebsiteUrl\":\"https://androcam-productions.com/\",\"domain\":\"androcam-productions.com\",\"acquiredAt\":\"2026-10-04T10:51:27.782Z\",\"digitalPainEvidence\":[{\"observedCondition\":\"SITE_REBUILDING\",\"sourceUrl\":\"https://androcam-productions.com/\",\"snapshotDigest\":\"sha256:fe8df54cebbeb0ecc3ac64736d3a37304044afeb91061574bfa21a20fee0c5d3\",\"locator\":\"h1\",\"observedAt\":\"2026-10-04T10:51:38.582Z\"}]}",
+          "supports": [
+            "website",
+            "digitalGap",
+            "identity",
+            "contact"
+          ],
+          "observedAt": "2026-10-04T10:51:38.582Z"
+        }
+      ]
+    }
+  }
+}

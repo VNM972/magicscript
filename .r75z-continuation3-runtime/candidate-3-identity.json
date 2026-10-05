@@ -1,0 +1,12 @@
+{
+  "identity": {
+    "state": "IDENTITY_ABSENT"
+  },
+  "enrichment": {
+    "outcome": "NO_ELIGIBLE_LINK",
+    "finalIdentity": {
+      "state": "IDENTITY_ABSENT"
+    }
+  },
+  "registryRequest": null
+}

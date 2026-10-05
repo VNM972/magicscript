@@ -1,0 +1,13 @@
+{
+  "proposalLocalAvailable": true,
+  "repository": true,
+  "outboundHttps": true,
+  "browserCdp": true,
+  "deckRead": true,
+  "portsCollision": false,
+  "freshD1": true,
+  "runner": true,
+  "wrangler": true,
+  "api": true,
+  "builderLocalAvailable": true
+}

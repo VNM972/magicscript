@@ -1,0 +1,693 @@
+{
+  "at": "2026-10-04T16:20:07.501Z",
+  "dbPath": "D:\\MagicScript\\repository\\apps\\api-worker\\.wrangler\\state\\v3\\d1\\miniflare-D1DatabaseObject\\8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite",
+  "snapshot": {
+    "prospects": [
+      {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "company_name": "Magic Script Full Smoke Fixture",
+        "website_url": "https://example.com"
+      },
+      {
+        "id": "019e118b-54cd-4085-a61b-54a846fe950a",
+        "company_name": "REFUGE",
+        "website_url": "https://www.refuge.com"
+      },
+      {
+        "id": "01a0f0d1-2f45-46e6-bb9a-d4e38973174b",
+        "company_name": "QUALICONSULT EXPLOITATION",
+        "website_url": ""
+      },
+      {
+        "id": "0ccd1a72-187c-4053-845f-3bc54121069d",
+        "company_name": "QUALICONSULT SECURITE",
+        "website_url": "https://www.qualiconsult.com"
+      },
+      {
+        "id": "0e93bc69-bc2d-420d-9159-5235f313d92e",
+        "company_name": "VIP FINANCE",
+        "website_url": "https://www.vipfinance.com/"
+      },
+      {
+        "id": "0f81b0ed-1f57-421c-aaed-85015c431baa",
+        "company_name": "OFFICE CENTRAL DE COOPERATION A L ECOLE (OCCE)",
+        "website_url": "https://www.occe.fr"
+      },
+      {
+        "id": "0fb087b7-bd21-4591-9930-020b8653d7c6",
+        "company_name": "GEORGES PLAVONIL",
+        "website_url": "https://www.georgesplavonil.com/"
+      },
+      {
+        "id": "0fe9e90c-89e4-45c4-9e85-2e00a14cf54d",
+        "company_name": "BAMEXPAT",
+        "website_url": "https://www.bamexpat.com/"
+      },
+      {
+        "id": "0fef5908-9927-426a-bc3f-80249ab45b68",
+        "company_name": "PASS' TRAVEL",
+        "website_url": "https://pass-travel.com/"
+      },
+      {
+        "id": "10994b01-d40b-402d-8cd6-6594178e046e",
+        "company_name": "RESTAURANT_FIXTURE_FINAL",
+        "website_url": null
+      },
+      {
+        "id": "179b2145-1454-4919-b518-428f0dcf4760",
+        "company_name": "CONSTRUCTEL CONSTRUCTIONS TELECOMMUNICA.",
+        "website_url": "https://www.constructel-constructions.com"
+      },
+      {
+        "id": "19706c05-657c-496d-8295-9ac5545c695a",
+        "company_name": "CORAIL",
+        "website_url": "https://www.corail.fr/"
+      },
+      {
+        "id": "21420fbb-72bd-4a37-b34a-19f2ed77f4e0",
+        "company_name": "AG2R REUNICA-LA MARTINIQUE-LE LAMEN",
+        "website_url": ""
+      },
+      {
+        "id": "23151e23-579f-424d-a629-0430c5676722",
+        "company_name": "QUALICONSULT",
+        "website_url": "https://www.qualiconsult.com"
+      },
+      {
+        "id": "245570fb-dd7b-45af-9fd0-4c8c382d60cc",
+        "company_name": "FONDATION D ENTREPRISE LA MARTINIQUAISE",
+        "website_url": "https://www.fondation-dentreprise-la-martiniquaise.fr/"
+      },
+      {
+        "id": "2467794e-98f4-422c-9e81-662193cc0d89",
+        "company_name": "EVELYNE PILLET (RENAUD)",
+        "website_url": "https://www.evelypillet-renaud.com/"
+      },
+      {
+        "id": "24f8dd24-f3a1-4861-99cd-76e0b90cd79f",
+        "company_name": "QUI M'AIME ME SUIVE",
+        "website_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/80467048700037"
+      },
+      {
+        "id": "25d37ec7-c8fe-4cca-b9ec-a43c632482e3",
+        "company_name": "INRAE ANTILLES-GUYANE FORT-DE-FRANCE",
+        "website_url": "https://www.inrae.fr/centres/antilles-guyane"
+      },
+      {
+        "id": "2609319c-5578-4a37-99bb-1b0923a2f81f",
+        "company_name": "SNEMM",
+        "website_url": "https://www.snemm.fr"
+      },
+      {
+        "id": "275bb1e3-b999-4eba-83de-45d85c32b931",
+        "company_name": "SMAC",
+        "website_url": "https://www.smac.com"
+      },
+      {
+        "id": "2ac64a6a-6920-4151-a90e-1820e367ec5d",
+        "company_name": "DEKRA",
+        "website_url": "https://www.dekra-industrial.fr/fr/batiments-et-des-infrastructures/"
+      },
+      {
+        "id": "2b337d96-861e-46c4-b960-2c51f62c02ad",
+        "company_name": "TK ELEVATOR FRANCE",
+        "website_url": ""
+      },
+      {
+        "id": "2d57e173-159e-4ae3-a77e-bdec4eaa246e",
+        "company_name": "SARL SOREIDOM",
+        "website_url": null
+      },
+      {
+        "id": "2e9ed438-ac9b-47dd-8154-d82fa90b45d1",
+        "company_name": "IMEDIAS GROUP",
+        "website_url": "https://www.imediagroup.fr/"
+      },
+      {
+        "id": "3f3dfce6-697e-4ec0-b1b2-ead53c468709",
+        "company_name": "APAVE INFRASTRUCTURES ET CONSTRUCTION FRANCE",
+        "website_url": ""
+      },
+      {
+        "id": "402627ff-a3ca-4493-82ff-a568d4f70bb0",
+        "company_name": "MICHEL BES",
+        "website_url": null
+      },
+      {
+        "id": "445f1f9f-4d07-4c61-834a-c8116d4414bb",
+        "company_name": "ELECTRONIQUE +",
+        "website_url": "https://www.electroniqueplus.com/"
+      },
+      {
+        "id": "49a20d08-d4db-4998-b236-311e7d737cdd",
+        "company_name": "GIE LIEMAN GESTION",
+        "website_url": null
+      },
+      {
+        "id": "4b210f07-40a6-4760-a1d5-b375568f4abe",
+        "company_name": "RESTAURANT_FIXTURE",
+        "website_url": "https://example.test/restaurant"
+      },
+      {
+        "id": "4b76cb39-46bb-4583-ae06-2da7f055418a",
+        "company_name": "STELLIANT EXPERTISE & RISQUES CONSTRUCTION",
+        "website_url": ""
+      },
+      {
+        "id": "4cc2b65b-02e3-42bf-8bc7-a5787c351a4f",
+        "company_name": "UCPA SPORT VACANCES (UCPA)",
+        "website_url": "https://www.ucpa-sport-vacances.com"
+      },
+      {
+        "id": "4d9337bf-c8cb-44ff-b192-6915b1eddffa",
+        "company_name": "UNION NATIONALE DU SPORT SCOLAIRE (UNSS)",
+        "website_url": "https://www.unss.org"
+      },
+      {
+        "id": "4e2141e2-2182-4752-afb2-10a7d7dff06a",
+        "company_name": "BARBER_FIXTURE",
+        "website_url": "https://example.test/barber"
+      },
+      {
+        "id": "50c1fb37-77d1-42d3-8417-20f58aab8238",
+        "company_name": "SAVOIE",
+        "website_url": "https://www.savoie.com"
+      },
+      {
+        "id": "56a57399-1917-4455-a1ea-4d53e81bacf0",
+        "company_name": "FRATERNITE SACERDOTALE SAINT-PIE X",
+        "website_url": "https://www.fraternite-sacerdotale.fr/"
+      },
+      {
+        "id": "56cb7cd1-a762-45a8-ab21-af1165890d80",
+        "company_name": "ASSOCIATION POUR L'EMPLOI DES CADRES (APEC)",
+        "website_url": "https://www.apec.fr/"
+      },
+      {
+        "id": "57955a24-b74a-4176-bad3-db3083ac2656",
+        "company_name": "374202 MARTINIQUE RELAY ZR",
+        "website_url": "https://relay.fr"
+      },
+      {
+        "id": "57ea6ecb-6170-4aef-b135-c17652b03bf3",
+        "company_name": "TOTAL DILLON",
+        "website_url": ""
+      },
+      {
+        "id": "5a8560d0-231a-4096-9200-8680ac5819a8",
+        "company_name": "COPROPRIETE MARITIME - STRATEGE DES MERS",
+        "website_url": null
+      },
+      {
+        "id": "5bd05368-cdf3-444a-a2c1-b1ef5d1bb029",
+        "company_name": "RESTALLIANCE",
+        "website_url": "https://www.restalliance.fr"
+      },
+      {
+        "id": "5d1ad3d5-b8ff-417d-97a2-b40ce7b8ce1c",
+        "company_name": "LE BAYOU",
+        "website_url": "https://le-bayou.eventofy.com/"
+      },
+      {
+        "id": "6124bf69-ae35-419f-85e0-e491e0d52cf1",
+        "company_name": "ARTUS SERVICES",
+        "website_url": ""
+      },
+      {
+        "id": "649ae177-36d8-4804-a082-4069b95a0e86",
+        "company_name": "EURO INFORMATION SERVICES",
+        "website_url": "https://www.euroinfoservices.fr"
+      },
+      {
+        "id": "65271cb1-77be-40a5-8aa3-83aa3328391a",
+        "company_name": "SNEMM",
+        "website_url": "https://www.snemm.fr"
+      },
+      {
+        "id": "6776415d-1e66-4189-9ca0-9977dbb3169b",
+        "company_name": "SINTORIN FISCALITE",
+        "website_url": "https://www.sintorin.com/"
+      },
+      {
+        "id": "6ab95ee2-8fa3-48fb-a354-2137817634fc",
+        "company_name": "SA BATA OUTRE MER (BOM)",
+        "website_url": ""
+      },
+      {
+        "id": "6c5ec70e-5a81-46b8-b1d9-2445d302d5dc",
+        "company_name": "SGS FRANCE (SERCOVAM; VERNOLAB;COURTRAY)",
+        "website_url": "https://www.sgsfrance.com"
+      },
+      {
+        "id": "6d624316-cc4f-40bc-aa66-dabcd83d8b31",
+        "company_name": "TOTALENERGIES MARKETING ANTILLES GUYANE",
+        "website_url": ""
+      },
+      {
+        "id": "6fc49c02-26b8-4008-930f-523348f06c0e",
+        "company_name": "COSTA DEL SOL",
+        "website_url": null
+      },
+      {
+        "id": "7101af89-be8f-45ed-b17b-794cbff65755",
+        "company_name": "SACEM",
+        "website_url": ""
+      },
+      {
+        "id": "73443884-39de-4aae-a6e6-24a1433a12ee",
+        "company_name": "GENERALE D'OPTIQUE",
+        "website_url": "https://www.generale-optique.com/opticien/martinique"
+      },
+      {
+        "id": "73576dde-c29e-44ec-9a0d-fa7c0e0fb712",
+        "company_name": "ATHENA TRADING",
+        "website_url": "https://athena-trading.com"
+      },
+      {
+        "id": "776667fb-d60f-47ed-8d69-4e190b03ac4d",
+        "company_name": "SOL ANTILLES GUYANE (S A G)",
+        "website_url": "https://www.solantillesguyane.com"
+      },
+      {
+        "id": "7847ee99-d76d-4fe1-920d-d94fab26df78",
+        "company_name": "GEORGES SYLVESTRE (MARIE-NELLY)",
+        "website_url": "https://www.georges-sylvestre-marie-nelly.com/"
+      },
+      {
+        "id": "7c2901b1-fab6-40c2-8645-ee6f51329544",
+        "company_name": "BERNARD'S COFFEE SHOP",
+        "website_url": null
+      },
+      {
+        "id": "7f379533-3f01-40f3-a4d2-8c393c0716bf",
+        "company_name": "LE SOUVENIR FRANCAIS",
+        "website_url": null
+      },
+      {
+        "id": "80628c9c-e17d-4c58-996e-ce189b7a090f",
+        "company_name": "BOUYGUES ENERGIES & SERVICES (BOUYGUES ENERGIES & SERVICES)",
+        "website_url": ""
+      },
+      {
+        "id": "81f1e3ff-b2e5-4379-b27b-e923ac3a99bf",
+        "company_name": "BUREAU VERITAS CONSTRUCTION",
+        "website_url": "https://www.bureauveritasconstruction.com"
+      },
+      {
+        "id": "82ed270e-8e1f-4cff-95dc-ff0c8d1028ad",
+        "company_name": "JACQUES ALLALI",
+        "website_url": null
+      },
+      {
+        "id": "85cfec6d-035d-47eb-b4bc-c09e09f9484e",
+        "company_name": "DARTY HABITAT NATURE ET DECOUVERTES",
+        "website_url": "https://www.dartyhabitat.com/"
+      },
+      {
+        "id": "88827016-931f-4777-9e5e-1a2b8714c6d7",
+        "company_name": "DEKRA INDUSTRIAL",
+        "website_url": "https://www.dekra-industrial.fr/fr/batiments-et-des-infrastructures/"
+      },
+      {
+        "id": "8a14759d-8956-4e8b-82ef-51317362b72f",
+        "company_name": "POMPES FUNEBRES CARISTAN",
+        "website_url": null
+      },
+      {
+        "id": "8c48d357-d6b9-4c80-8e28-0e760c0c06c6",
+        "company_name": "OPERATEUR DE COMPETENCES DES ENTREPRISES DE PROXIMITE",
+        "website_url": "https://www.operateur-de-competences.fr"
+      },
+      {
+        "id": "96a77be3-680c-46fc-9882-8568b84219c1",
+        "company_name": "TOTALENERGIES RENOUVELABLES FRANCE",
+        "website_url": ""
+      },
+      {
+        "id": "96d973b1-f68b-4a01-959a-1ee8e40d053e",
+        "company_name": "LE COMPTOIR MEDICAL",
+        "website_url": "https://www.lecomptoirmedical.com/"
+      },
+      {
+        "id": "97b6bceb-a408-4c16-8ccb-90a65123b02b",
+        "company_name": "CNRS UMR7154 IPGP",
+        "website_url": "https://www.ipgp.fr (OVSM Martinique page: https://www.ipgp.fr/ovsm/)"
+      },
+      {
+        "id": "9912f815-5406-4792-8218-bb2eeaf02862",
+        "company_name": "MART'AUDIO",
+        "website_url": "https://www.mart-audio.com"
+      },
+      {
+        "id": "99333708-2b8c-4b22-8ef4-e8e58e2a5566",
+        "company_name": "SEGULA TECHNOLOGIES FRANCE",
+        "website_url": "https://www.segula-technologies.fr"
+      },
+      {
+        "id": "a38681c7-e7e6-470c-a90e-220088fe625e",
+        "company_name": "INEO INFRACOM",
+        "website_url": ""
+      },
+      {
+        "id": "a5c8065e-4b34-40ec-b17e-5507f82b47a7",
+        "company_name": "AUDITION CONSEIL",
+        "website_url": "https://audition-conseil.com/"
+      },
+      {
+        "id": "a97c4945-ece6-4590-9503-74180fe91f67",
+        "company_name": "CEF - YESSS ELECTRIQUE",
+        "website_url": "https://www.yesss-fr.com/agences-cef.php"
+      },
+      {
+        "id": "aa263c1d-36d8-47f0-b727-cea167dcbfbb",
+        "company_name": "RESIDENCE CIEL DE CASE",
+        "website_url": "https://www.residencecieldecase.com/"
+      },
+      {
+        "id": "acc3f066-717d-42cc-a8a1-2984da954e3a",
+        "company_name": "POINT MAT BRICO",
+        "website_url": null
+      },
+      {
+        "id": "ad4d9766-c85d-447a-9e5d-91ca81dbcd5f",
+        "company_name": "GRAZIELLA EUGENIE",
+        "website_url": "https://www.graziellaeugenie.com/"
+      },
+      {
+        "id": "af8c9cc6-4c49-4aa5-9365-40fc79fa480d",
+        "company_name": "Magic Script E2E Synthetic Prospect",
+        "website_url": "https://www.snemm.fr"
+      },
+      {
+        "id": "b09ab56f-faa4-4125-8506-f28351a6af67",
+        "company_name": "VESPA ANTILLES",
+        "website_url": "https://www.vespa-antilles.com"
+      },
+      {
+        "id": "b154bdc2-86d7-49cc-b72b-7d48168ef6d4",
+        "company_name": "ACTIBURO",
+        "website_url": "https://www.actiburo.com/"
+      },
+      {
+        "id": "b41082c6-84e8-4981-8163-9fbe1addeebf",
+        "company_name": "FINANCE CONSEIL",
+        "website_url": null
+      },
+      {
+        "id": "b6437e30-edf7-441c-87ac-828c56977807",
+        "company_name": "ASL DE LA MARTINIQUE",
+        "website_url": ""
+      },
+      {
+        "id": "bb428966-e820-4e76-89f2-457b879aceb4",
+        "company_name": "BUREAU VERITAS EXPLOITATION",
+        "website_url": "https://www.bureauveritas.com"
+      },
+      {
+        "id": "bbd73175-accc-40a4-a24b-a9d147bfdfff",
+        "company_name": "La Balade du Soleil",
+        "website_url": "labaladedusoleil.com"
+      },
+      {
+        "id": "c349c8cf-ccad-4580-b210-49ebfd2d1d8f",
+        "company_name": "SNEMM",
+        "website_url": "https://www.snemm.fr"
+      },
+      {
+        "id": "c5e10d79-12f9-448b-8fe7-cf16a7a3969e",
+        "company_name": "DISVEA",
+        "website_url": "https://www.disvea.com/"
+      },
+      {
+        "id": "c66cd2c2-9d8c-4d04-b83c-15f38a14058f",
+        "company_name": "AGPM-GESTION",
+        "website_url": "https://www.agpm-gestion.com"
+      },
+      {
+        "id": "c7ebc520-44a6-411b-906a-690fbd4df2a3",
+        "company_name": "Sun Loisirs Martinique",
+        "website_url": "https://sunloisirs.com/"
+      },
+      {
+        "id": "c965f79e-5aaa-4624-b73f-01e361c0be4e",
+        "company_name": "ARTUS MANAGEMENT",
+        "website_url": "https://www.artusmanagement.com"
+      },
+      {
+        "id": "cc39f49b-3306-44b5-af7c-7fd1dc9633d1",
+        "company_name": "SOCIETE MARTINIQUAISE DE LOCATION (SOMARLOC)",
+        "website_url": "https://www.somarloc.com/"
+      },
+      {
+        "id": "cf8479be-7c9b-46ce-9bc3-eea3b46223cb",
+        "company_name": "Aux Deux Gouttes d'Eau",
+        "website_url": null
+      },
+      {
+        "id": "d0dafaae-aebe-46c2-a532-5264a5a0d4f4",
+        "company_name": "SASU-YOUYOU-MARKET",
+        "website_url": "https://www.youyou-market.com/"
+      },
+      {
+        "id": "d11e064f-9a56-467a-933d-1142a210474e",
+        "company_name": "RODOLPHO ALEXANDER",
+        "website_url": "https://www.rodolphoalexander.com/"
+      },
+      {
+        "id": "d12e10f8-6252-4f28-9c50-aa2742aa74c0",
+        "company_name": "KAY JUJU",
+        "website_url": "https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju"
+      },
+      {
+        "id": "d2053b57-68a5-45d8-8fbb-e549096be39c",
+        "company_name": "SOMAREC",
+        "website_url": "https://www.somarec.com"
+      },
+      {
+        "id": "d2c22cec-1091-4e81-8c50-cc90cb0f7216",
+        "company_name": "GUY HOQUET L'IMMOBILIER",
+        "website_url": "https://www.menhir-immobilier.fr/"
+      },
+      {
+        "id": "d2d789c3-069d-4b6d-bd38-c8c6a3793453",
+        "company_name": "LADYBUG",
+        "website_url": null
+      },
+      {
+        "id": "d527af9a-735b-4ef8-8ef0-01b2880de8d3",
+        "company_name": "GROUPE FONTAINE COMPTABILITE ET ADMINISTRATION",
+        "website_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/75355242100012"
+      },
+      {
+        "id": "da0d4664-6a21-4a47-a0b3-daab7bd13b9d",
+        "company_name": "APAVE EXPLOITATION FRANCE",
+        "website_url": "https://find-us.apave.com/fr/martinique/fort-de-france/apave-martinique-113"
+      },
+      {
+        "id": "dd85cd4c-9348-45bb-bce8-84917b9bc76f",
+        "company_name": "SOCIETE NATIONALE D'ENTRAIDE DE LA MEDAILLE MILITAIRE (SNEMM)",
+        "website_url": "https://www.snemm.fr"
+      },
+      {
+        "id": "e098c79b-09a2-40e0-b48c-77e05dee1cbe",
+        "company_name": "SUNeLEK - WhatsApp E2E",
+        "website_url": null
+      },
+      {
+        "id": "e1182a15-88f4-4ce1-8071-19cf0b078fd2",
+        "company_name": "STATION VITO",
+        "website_url": ""
+      },
+      {
+        "id": "ec045b5e-00be-44a3-a556-cfbc88cf56bb",
+        "company_name": "JEAN-PIERRE EUVRARD",
+        "website_url": null
+      },
+      {
+        "id": "f401d5ae-49d0-46b0-97c4-8846d05cb25d",
+        "company_name": "SOC FIDUCIAIRE NAT JURIDIQUE FISCALE (FIDUCIAL SOFIRAL AVOCATS)",
+        "website_url": ""
+      },
+      {
+        "id": "f5eedd9c-2e39-46eb-9663-1d9b3a7f6cad",
+        "company_name": "L'UNIVERS DU PNEU",
+        "website_url": null
+      },
+      {
+        "id": "fa6850d4-8664-4429-8971-a67042a16a6f",
+        "company_name": "BEAUTY_FIXTURE",
+        "website_url": "https://example.test/beauty"
+      },
+      {
+        "id": "fad22438-7200-4bf1-92ec-437a5396e131",
+        "company_name": "SNEMM",
+        "website_url": "https://www.snemm.fr"
+      },
+      {
+        "id": "fb951634-6f69-46f8-9f46-8db04e780e69",
+        "company_name": "ENVIE D AILLEURS",
+        "website_url": ""
+      },
+      {
+        "id": "v2-51972816600033",
+        "company_name": "Androcam Productions",
+        "website_url": "https://androcam-productions.com/"
+      },
+      {
+        "id": "v2-87988492200011",
+        "company_name": "Villa Ancinel",
+        "website_url": "https://villa-ancinel.com/"
+      }
+    ],
+    "slots": [
+      {
+        "slot_id": 1,
+        "prospect_id": "v2-87988492200011",
+        "acquired_at": "2026-10-02T16:32:22.323Z",
+        "release_reason": null
+      },
+      {
+        "slot_id": 2,
+        "prospect_id": "v2-51972816600033",
+        "acquired_at": "2026-10-04T10:57:08.518Z",
+        "release_reason": null
+      },
+      {
+        "slot_id": 3,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 4,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 5,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 6,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 7,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 8,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 9,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 10,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 11,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 12,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 13,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 14,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 15,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 16,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 17,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 18,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 19,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 20,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      }
+    ],
+    "admissions": [
+      {
+        "prospect_id": "v2-51972816600033",
+        "pack_id": "agent1-r77z-androcam",
+        "schema_version": "CONTACT_OPPORTUNITY_PACK_V2",
+        "result": "ADMITTED",
+        "reason_code": "ADMITTED",
+        "received_at": "2026-10-04T10:57:08.446Z"
+      },
+      {
+        "prospect_id": "v2-87988492200011",
+        "pack_id": "agent1-r66z-villa-ancinel",
+        "schema_version": "CONTACT_OPPORTUNITY_PACK_V2",
+        "result": "ADMITTED",
+        "reason_code": "ADMITTED",
+        "received_at": "2026-10-02T16:32:22.244Z"
+      }
+    ]
+  },
+  "snapshotSha256": "4a0947505212e3aa7150164330969b639de4d130f368977b7b8f9584f86dd791",
+  "trackedDiffSha256": "3d987a3bc479ef4d629e192335d1d621e209fa3b70c6fd225c8b8d137e865ac1",
+  "canonicalFiles": {
+    "core/research/manual-pain-first-intake.ts": "f7663d1b1cfe4b406a1b4d4e7dbd38944201a9e0f4a04acfe0bc57ba665767f1",
+    "core/research/pain-first-staging.ts": "6b8e922b2749662fde6b513db08fce11ffd7266abee185a57a22e43873b02f7c",
+    "core/research/pain-first-homepage-transport.ts": "074e40b5c7db0bbf8de68de8b2e1dcd72f05206f42111e77461da4a657e77877",
+    "core/research/pain-first-homepage-network.ts": "aeeec20e01ec459fb57125698da0167b89506e55f1a85a15d786108104edd77f",
+    "core/research/pain-first-identity-enrichment.ts": "2d4f9c5a0949c40a71996ff2817c3b1c9cde7754d6e964111f30c216fa3f0dde",
+    "core/research/website-seed.ts": "a4c5460738fe1d9d0e2f4f459961d8517368846b5c0de1742db9ffb7b45698b4"
+  }
+}

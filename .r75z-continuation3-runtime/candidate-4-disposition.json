@@ -1,0 +1,14 @@
+{
+  "index": 4,
+  "name": "RB Agency",
+  "url": "https://rb-agency.fr/",
+  "discovery": "https://rb-agency.fr/fr/",
+  "pageState": "FETCH_FAILED",
+  "httpResultClass": "REDIRECT",
+  "qualification": "FETCH_FAILED",
+  "identity": null,
+  "enrichment": null,
+  "registryRequest": null,
+  "admission": "NOT_PERFORMED",
+  "reason": "REDIRECT"
+}

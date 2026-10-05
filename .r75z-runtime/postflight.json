@@ -1,0 +1,33 @@
+{
+  "verifiedAt": "2026-10-03T07:37:02.587Z",
+  "status": "BLOCKED_ENVIRONMENT",
+  "selectedCandidate": "Zakari",
+  "prospectId": null,
+  "source": "Canonical manual PAIN_FIRST discovery/intake",
+  "lastProvenStage": "Accepted homepage URL bookkeeping",
+  "firstBrokenStage": "Canonical live homepage inspection before qualification/admission",
+  "exactError": "FETCH_FAILED / NETWORK_ERROR",
+  "rootCause": "UNKNOWN underlying native HTTP transport error; separate read-only DNS prerequisite check succeeded with two answers. Inspector does not expose native error.",
+  "counts": {
+    "homepageInspectorInvocations": 1,
+    "inspectionRetries": 0,
+    "admissions": 0,
+    "slotAcquisitions": 0,
+    "runnerClaims": 0,
+    "executors": 0,
+    "qaInvocations": 0,
+    "correctionCycles": 0
+  },
+  "persistedMutations": "NONE in canonical D1",
+  "jobState": "NONE",
+  "attempts": 0,
+  "prospectState": "NOT_ADMITTED / no canonical prospect created",
+  "slotState": "No slot acquired; original slot table unchanged",
+  "productSourceFilesModified": [],
+  "trackedDiffUnchanged": true,
+  "canonicalD1RowsUnchanged": true,
+  "villaHistoryUnchanged": true,
+  "processesStarted": 0,
+  "reproducibility": "NOT_PROVEN",
+  "nextAllowedAction": "Restore canonical live homepage transport availability for the selected candidate in a separately authorized mission"
+}

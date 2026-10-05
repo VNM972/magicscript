@@ -1,0 +1,50 @@
+[
+  {
+    "ProcessId": 10920,
+    "ParentProcessId": 25244,
+    "Name": "node.exe",
+    "CreationDate": "2026-09-28T19:19:44.007773+02:00"
+  },
+  {
+    "ProcessId": 22660,
+    "ParentProcessId": 10920,
+    "Name": "conhost.exe",
+    "CreationDate": "2026-09-28T19:19:44.015865+02:00"
+  },
+  {
+    "ProcessId": 25080,
+    "ParentProcessId": 10920,
+    "Name": "node.exe",
+    "CreationDate": "2026-09-28T19:19:44.117205+02:00"
+  },
+  {
+    "ProcessId": 4756,
+    "ParentProcessId": 25080,
+    "Name": "esbuild.exe",
+    "CreationDate": "2026-09-28T19:19:45.571213+02:00"
+  },
+  {
+    "ProcessId": 23644,
+    "ParentProcessId": 25080,
+    "Name": "workerd.exe",
+    "CreationDate": "2026-09-28T19:19:45.732831+02:00"
+  },
+  {
+    "ProcessId": 27320,
+    "ParentProcessId": 23644,
+    "Name": "conhost.exe",
+    "CreationDate": "2026-09-28T19:19:45.747195+02:00"
+  },
+  {
+    "ProcessId": 25904,
+    "ParentProcessId": 25080,
+    "Name": "workerd.exe",
+    "CreationDate": "2026-09-28T19:19:46.194032+02:00"
+  },
+  {
+    "ProcessId": 25148,
+    "ParentProcessId": 25904,
+    "Name": "conhost.exe",
+    "CreationDate": "2026-09-28T19:19:46.204586+02:00"
+  }
+]

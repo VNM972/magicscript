@@ -1,0 +1,14 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+import {verifyBuildArtifactIntegrity} from '../core/builder/site-builder.ts';
+import {normalizePublicVerticalLabelHtml,canonicalBuildValue,buildArtifactIdFor} from '../core/builder/contracts.ts';
+const baseline=JSON.parse(fs.readFileSync('.r78zb-runtime/preflight.json','utf8')),parent=baseline.build,correction=JSON.parse(baseline.rows.v2_build_corrections[0].correction_json),design=JSON.parse(baseline.rows.v2_design_artifacts[0].artifact_json);
+await verifyBuildArtifactIntegrity(parent);
+const source=path.join(path.dirname(parent.sourcePath),'build-r2','source'),output=path.join(path.dirname(parent.sourcePath),'build-r2','dist');
+const read=(root:string)=>Object.fromEntries(fs.readdirSync(root).filter(n=>n!=='dist').sort().map(n=>[n,fs.readFileSync(path.join(root,n))]));
+const a=read(parent.sourcePath),b=read(source),c=read(output);assert.deepEqual(Object.keys(b),Object.keys(a));assert.deepEqual(b,c);
+assert.deepEqual(b['index.html'],Buffer.from(normalizePublicVerticalLabelHtml(a['index.html'].toString('utf8'),design.verticalProfile)));
+const manifest=JSON.parse(a['build-manifest.json'].toString());delete manifest.sourceHash;Object.assign(manifest,{buildArtifactId:buildArtifactIdFor(design.id,parent.builderVersion,2),builderVersion:parent.builderVersion,buildRevision:2,approvedRevision:1,previousBuildArtifactId:parent.id,correctionRequestId:correction.id,qaAttempt:2});
+assert.equal(canonicalBuildValue(JSON.parse(b['build-manifest.json'].toString())),canonicalBuildValue(manifest));
+for(const name of Object.keys(a))if(!['index.html','build-manifest.json'].includes(name))assert.deepEqual(a[name],b[name]);
+const hashes=Object.fromEntries(Object.entries(b).map(([n,v])=>[n,createHash('sha256').update(v).digest('hex')]));
+fs.writeFileSync('.r78zb-runtime/orphan-proof.json',JSON.stringify({status:'PASS',source,output,correctionId:correction.id,hashes},null,2)+'\n');console.log('ORPHAN_SAME_CORRECTION_IDENTITY=PASS');

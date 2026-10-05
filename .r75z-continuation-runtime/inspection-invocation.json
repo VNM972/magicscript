@@ -1,0 +1,10 @@
+{
+  "startedAt": "2026-10-03T08:18:50.466Z",
+  "canonicalEntryPoint": "createPainFirstLiveHomepageInspector",
+  "homepage": "https://www.zakari.fr/",
+  "sourceUrl": "https://www.zakari.fr/site-en-construction",
+  "invocations": 1,
+  "canonicalFetchRetryCount": 1,
+  "additionalRetries": 0,
+  "environmentAction": "Run native canonical inspection outside restricted execution sandbox; no transport overrides beyond native diagnostic listeners"
+}

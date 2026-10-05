@@ -1,0 +1,33 @@
+[
+  {
+    "path": "/api/runner/jobs/claim",
+    "method": "POST",
+    "at": "2026-10-04T15:04:10.717Z",
+    "status": 200
+  },
+  {
+    "path": "/api/runner/heartbeat",
+    "method": "POST",
+    "at": "2026-10-04T15:04:10.859Z",
+    "status": 200
+  },
+  {
+    "path": "/api/runner/jobs/job-v2-51972816600033-build-correction-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r2/succeed",
+    "method": "POST",
+    "at": "2026-10-04T15:04:10.929Z",
+    "status": 500,
+    "error": "{\n  \"error\": \"BUILD_INTEGRITY_MISMATCH\"\n}"
+  },
+  {
+    "path": "/api/runner/jobs/job-v2-51972816600033-build-correction-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r2/fail",
+    "method": "POST",
+    "at": "2026-10-04T15:04:10.988Z",
+    "status": 200
+  },
+  {
+    "path": "/api/runner/heartbeat",
+    "method": "POST",
+    "at": "2026-10-04T15:04:11.011Z",
+    "status": 200
+  }
+]

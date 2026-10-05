@@ -1,0 +1,13 @@
+{
+  "status": "CLOSED / UNSUPPORTED_QA_FINDING",
+  "lastProvenStage": "BUILD + fresh Chrome desktop/mobile capture",
+  "firstBrokenStage": "VISUAL_QA",
+  "reason": "Rendered internal vertical identifier GENERAL_LOCAL_BUSINESS; existing correction operations expose only ENSURE_LOCAL_FAVICON_V1, which cannot resolve PLACEHOLDER findings.",
+  "correctionCycleUsed": false,
+  "qaInvocations": 1,
+  "qaRetests": 0,
+  "prospectId": "v2-51972816600033",
+  "reportId": "qa-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+  "acceptanceComplete": false,
+  "reproducibility": "NOT_PROVEN"
+}

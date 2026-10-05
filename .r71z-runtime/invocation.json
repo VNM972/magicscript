@@ -1,0 +1,14 @@
+{
+  "entrypoint": "core/visual-qa/engine.ts::executeVisualQa",
+  "realInvocations": 1,
+  "startedAt": "2026-10-02T19:09:30.018Z",
+  "reportId": "qa-build-artifact-dr-v2-87988492200011-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-r1-a1",
+  "attempt": 1,
+  "inputFingerprints": {
+    "build": "a5cdb687d0607d238576d8c46afee70d6750f088c65a5652c5726e3b58dc6394",
+    "design": "178795ec92a8c079c65f2e521d8cb4a32314e4fe13ea46ce6ded6d7515377360",
+    "request": "604337cb5a6763e20ef0d2faf8d8e78e33d3dd52fb9be848a5f8e70b1502511d",
+    "evidence": "fd7c62f7275831efc1f06087fa06089b3b30d4e45370ed9ea6e68378e7d3975c"
+  },
+  "evidencePath": "D:\\MagicScript\\repository\\.r71z-runtime\\browser-evidence.json"
+}

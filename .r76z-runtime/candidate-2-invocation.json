@@ -1,0 +1,17 @@
+{
+  "candidate": {
+    "schemaVersion": 1,
+    "queryPlanId": "pain-first:1:SITE_UNDER_CONSTRUCTION:site%20en%20construction:MQ",
+    "conditionClass": "SITE_UNDER_CONSTRUCTION",
+    "providerClass": "MANUAL_BROWSER_SEARCH",
+    "providerRunId": "R76Z-query-3",
+    "resultUrl": "https://amelmartin.com/",
+    "resultTitle": "Amel Martin Photographe",
+    "resultPosition": 2,
+    "acquiredAt": "2026-10-04T10:20:11.011Z",
+    "authority": "NONE"
+  },
+  "startedAt": "2026-10-04T10:20:36.918Z",
+  "requests": 1,
+  "retries": 0
+}

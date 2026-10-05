@@ -1,0 +1,89 @@
+{
+  "verifiedAt": "2026-10-04T10:22:16.349Z",
+  "status": "BLOCKED_NO_REAL_PROSPECT",
+  "objective": "Second real acceptance",
+  "sourcingRootCause": [
+    "Deep search results were manually replaced with origin URLs, losing the location of the alleged notice",
+    "Past search hints were not checked against exact canonical notice recognition or prior evaluated exclusions",
+    "Search metadata and identity mentions do not guarantee live accepted signal or canonically extractable identity"
+  ],
+  "sourceChanges": [
+    "core/research/manual-pain-first-intake.ts",
+    "core/research/manual-pain-first-intake.test.ts"
+  ],
+  "implementation": "preselectPainFirstSearchResults; exact found URL through canonical validator; existing noticeType used for non-authoritative hints; evaluated exclusions; identity/locality hint ordering; stable deduplication; maximum 5 total, 3 per query; no changes to manual intake behavior or canonical qualification",
+  "integration": "Used by .r76z-runtime/run.mts for this live execution; not wired into Control Center UI",
+  "tests": {
+    "targeted": "38/38 PASS",
+    "typecheck": "core/tsconfig.json PASS",
+    "gitDiffCheck": "PASS",
+    "untrackedSourceDiffCheck": "PASS"
+  },
+  "liveQueries": 3,
+  "thirdQueryGeography": "Not restricted to Martinique; no canonical geographic or ICP override",
+  "preselection": {
+    "reviewedHints": 8,
+    "selected": 2,
+    "rejectedBeforeInspection": 6
+  },
+  "inspections": 2,
+  "environmentRetries": 0,
+  "results": [
+    {
+      "name": "PAGD Bâtiment",
+      "url": "https://www.pagd.fr/",
+      "pageState": "PAGE_OBSERVED",
+      "httpResultClass": "SUCCESS",
+      "title": "Site en construction",
+      "h1": [
+        ""
+      ],
+      "qualification": "PAIN_SIGNAL_CONFIRMED",
+      "identity": "IDENTITY_ABSENT",
+      "enrichment": "NO_ELIGIBLE_LINK",
+      "registryRequest": null,
+      "admission": "NOT_PERFORMED"
+    },
+    {
+      "name": "Amel Martin Photographe",
+      "url": "https://amelmartin.com/",
+      "pageState": "FETCH_FAILED",
+      "httpResultClass": "REDIRECT",
+      "qualification": "FETCH_FAILED",
+      "identity": null,
+      "enrichment": null,
+      "registryRequest": null,
+      "admission": "NOT_PERFORMED"
+    }
+  ],
+  "selectedProspect": null,
+  "prospectId": null,
+  "admissions": 0,
+  "slots": 0,
+  "designs": 0,
+  "reviews": 0,
+  "builds": 0,
+  "visualQaCalls": 0,
+  "correctionCycles": 0,
+  "reproducibility": "NOT_PROVEN",
+  "newProductDefect": "NONE proven",
+  "observedLimit": "One of two selected sites confirms PAIN_FIRST; identity remains absent. Other redirects. This small batch does not establish a general yield improvement.",
+  "canonicalFilesUnchanged": true,
+  "canonicalD1RowsUnchanged": true,
+  "preexistingTrackedDiffUnchanged": true,
+  "villaUnchanged": true,
+  "nextAllowedAction": "One bounded sourcing task to select homepage notice candidates with identity evidence compatible with the existing parser and a directly inspectable homepage; no parser or admission-rule weakening.",
+  "usage": {
+    "credits": "USAGE_NOT_EXPOSED",
+    "modelReasoning": "USAGE_NOT_EXPOSED",
+    "mcp": [
+      "list_projects",
+      "search_graph",
+      "get_code_snippet",
+      "trace_path",
+      "check_index_coverage"
+    ],
+    "shellFallback": "Targeted reads; coverage metadata changed",
+    "subagents": 0
+  }
+}

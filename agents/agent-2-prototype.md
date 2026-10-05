@@ -31,6 +31,8 @@ Identifier obligatoirement :
 
 Ne jamais commencer le prototype avant d’avoir compris pourquoi ce prospect a été sélectionné.
 
+Si le prospect possède un site source vérifié, relever également ses blocs visibles de navigation, ses grandes rubriques de contenu et ses CTA de conversion. Cette cartographie devient une contrainte minimale de l’architecture du prototype : chaque bloc observé doit être représenté dans le prototype, même si le lien reste une ancre, un état de démonstration ou un élément inactif clairement signalé.
+
 ## 3. VÉRIFICATION DES INFORMATIONS
 
 Avant d’intégrer une information concernant le prospect au prototype :
@@ -143,6 +145,24 @@ Les CTA secondaires doivent soutenir le CTA principal et ne pas entrer en concur
 
 Sur mobile, le CTA principal doit rester facile à trouver et à utiliser.
 
+Pour les prototypes Magic Script, lorsque le runtime fournit une `salesRoomUrl` vérifiée, le CTA principal conserve son libellé commercial propre au prospect mais pointe exactement vers cette Sales Room. Le prototype ne doit pas créer son propre formulaire de lead, sa propre réservation ni appeler directement les endpoints commerciaux de la Sales Room.
+
+Si aucune `salesRoomUrl` exploitable n'est fournie, ne jamais simuler une conversion réellement connectée. Le CTA doit rester explicitement démonstratif ou inactif.
+
+## 8 bis. PARITÉ DE NAVIGATION AVEC LE SITE SOURCE
+
+Lorsqu’un site source vérifié existe :
+
+- reprendre au minimum les libellés de sa navigation principale ;
+- reprendre aussi ses grands blocs de contenu et ses CTA visibles lorsqu’ils structurent le parcours ;
+- conserver les libellés observés et leur langue, sans les inventer ni les déduire du secteur ;
+- utiliser une architecture et un design originaux : ne pas copier le HTML, le CSS, les images ou les textes complets du site source ;
+- les liens peuvent rester inactifs, être des ancres ou afficher un état de démonstration, mais leur statut doit être compréhensible ;
+- ne jamais faire du site source l’unique destination ni le CTA principal du prototype ;
+- si aucun site source ou aucun menu vérifiable n’existe, le signaler dans la stratégie et expliquer l’absence de blocs à reprendre.
+
+La QA bloque le prototype si un bloc de navigation, de contenu majeur ou de conversion relevé dans la stratégie est omis.
+
 ## 9. MOBILE FIRST
 
 Concevoir en priorité pour mobile.
@@ -163,6 +183,12 @@ Vérifier particulièrement :
 - visibilité du CTA principal
 
 Le prototype desktop ne doit pas être simplement réduit pour mobile.
+
+## 9 bis. PASSAGE OBLIGATOIRE PAR LA BU WEB DESIGN
+
+Tout nouveau site test doit être transmis à `agents/agent-4-web-design.md` avant d’être ajouté à la vitrine, décliné en miniature finale ou publié. L’Agent 2 fournit le prototype, les faits confirmés, l’identité visuelle, le CTA prioritaire et les points restant à vérifier ; la BU Web Design rend le statut `PASS`, `PASS_WITH_NOTES` ou `BLOCKED`.
+
+Les sites déjà présents dans la vitrine ne doivent pas être refondus à cette étape. Ils sont soumis à une retouche minimale uniquement lorsqu’une erreur factuelle, un défaut bloquant de lisibilité, un problème de navigation ou une erreur de rendu est identifié.
 
 ## 10. TECHNOLOGIE
 

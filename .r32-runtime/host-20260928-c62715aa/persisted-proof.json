@@ -1,0 +1,702 @@
+{
+  "prospect": {
+    "id": "r32-villa-ancinel-c62715aa",
+    "companyName": "Villa Ancinel",
+    "legalName": "SARL ROBIN ANCINEL",
+    "siren": "879884922",
+    "siret": "87988492200011",
+    "city": "Le Diamant",
+    "sourceUrl": "https://villa-ancinel.com/",
+    "activity": "Location de la Villa Ancinel pour des sejours touristiques",
+    "location": "Le Diamant, Martinique",
+    "websiteUrl": "https://villa-ancinel.com/",
+    "phone": "+596 696 98 60 60",
+    "state": "DISQUALIFIED",
+    "score": 0,
+    "createdAt": "2026-09-28T08:41:19.832Z",
+    "updatedAt": "2026-09-28T08:46:06.015Z"
+  },
+  "jobs": [
+    {
+      "id": "r32-research-c62715aa",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "r32-villa-ancinel-c62715aa",
+      "payload_json": "{\"provenance\":\"r32-bounded-host-pilot\"}",
+      "status": "SUCCEEDED",
+      "attempts": 1,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T08:41:19.832Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T08:41:19.854Z",
+      "updated_at": "2026-09-28T08:46:06.034Z"
+    }
+  ],
+  "jobResults": [
+    {
+      "job_id": "r32-research-c62715aa",
+      "output_json": "{\"activity\":\"Location de la Villa Ancinel pour des sejours touristiques\",\"location\":\"Le Diamant, Martinique\",\"websiteUrl\":\"https://villa-ancinel.com/\",\"opportunity\":\"C\",\"primaryAsset\":\"https://villa-ancinel.com/\",\"primaryFriction\":\"Website refonte en cours\",\"primaryCta\":\"Réserver votre séjour\",\"brandAsset\":{\"status\":\"OFFICIAL_LOGO_FOUND\",\"reuseDecision\":\"REUSE_IF_RIGHTS_CLEAR\",\"note\":\"Logo visible sur la homepage et sur les mentions légales\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"assetUrl\":\"https://villa-ancinel.com/assets/logo.png\"},\"sourceNavigationBlocks\":[{\"label\":\"Accueil\",\"kind\":\"navigation\"},{\"label\":\"Location\",\"kind\":\"navigation\"},{\"label\":\"Contact\",\"kind\":\"navigation\"}],\"sourceNavigationNote\":\"Navigation visible sur la homepage\",\"contactPlan\":{\"recommendedChannel\":\"official_email\",\"targetRole\":\"owner_or_manager\",\"publicContactName\":\"Robin Ancinel\",\"routeReason\":\"Contact visible sur la homepage et les mentions légales\",\"nextAction\":\"Envoyer un email à contact@villa-ancinel.com\",\"sourceRefs\":[\"https://villa-ancinel.com/\"],\"confidence\":100},\"scoreInputs\":{\"digitalGap\":50,\"commercialStrength\":80,\"contactability\":0,\"localFit\":80,\"prototypeLeverage\":70,\"confidence\":90},\"sources\":[{\"url\":\"https://villa-ancinel.com/\",\"note\":\"Page publique observee: Site en cours de refonte. Notre site fait peau neuve. Location de la Villa Ancinel pour un sejour en Martinique. Telephone professionnel affiche +596 696 98 60 60. Email public contact@villa-ancinel.com.\",\"supports\":[\"digitalGap\",\"activity\",\"website\"]},{\"url\":\"https://villa-ancinel.com/mentions-legales/\",\"note\":\"Mentions legales: SARL ROBIN ANCINEL, SIRET 87988492200011, Quartier Longuet 97223 LE DIAMANT. Le site donne des informations relatives a la location de la Villa Ancinel.\",\"supports\":[\"activity\",\"website\"]},{\"url\":\"https://villa-ancinel.com/\",\"note\":\"Deterministically observed public phone (VISIBLE_PAGE_TEXT).\",\"supports\":[\"phone\",\"digitalGap\"]}],\"siteStatus\":\"UNKNOWN\",\"researchNormalization\":{\"applied\":true,\"reasons\":[\"model phone removed from canonical output pending independent evidence\",\"contactability score held until independent evidence is attached\"],\"safeScoring\":true},\"contactPresence\":{\"status\":\"VERIFIED\",\"identity\":{\"status\":\"VERIFIED\",\"matched\":true,\"reason\":\"identity bound\",\"observations\":[{\"name\":\"Site en cours de refonte - Villa Ancinel\",\"domain\":\"villa-ancinel.com\"},{\"name\":\"Home\"},{\"name\":\"Villa Ancinel\",\"domain\":\"villa-ancinel.com\"},{\"name\":\"Villa Ancinel\",\"domain\":\"villa-ancinel.com\"},{\"domain\":\"villa-ancinel.com\"},{\"domain\":\"villa-ancinel.com\"}]},\"phone\":{\"status\":\"VERIFIED\",\"values\":[\"+596 696 98 60 60\"],\"evidence\":[{\"value\":\"+596 696 98 60 60\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"kind\":\"phone\",\"evidenceType\":\"VISIBLE_PHONE\"}]},\"email\":{\"status\":\"VERIFIED\",\"values\":[\"contact@villa-ancinel.com\",\"admin@villa-ancinel.com\"],\"evidence\":[{\"value\":\"contact@villa-ancinel.com\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"kind\":\"email\",\"evidenceType\":\"MAILTO_HREF\"},{\"value\":\"admin@villa-ancinel.com\",\"sourceUrl\":\"https://villa-ancinel.com/mentions-legales/\",\"kind\":\"email\",\"evidenceType\":\"MAILTO_HREF\"}]},\"website\":{\"status\":\"VERIFIED\",\"values\":[\"https://villa-ancinel.com/\"],\"evidence\":[{\"value\":\"https://villa-ancinel.com/\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"kind\":\"social\",\"evidenceType\":\"OWNED_WEBSITE\"}]},\"social\":{\"status\":\"VERIFIED\",\"values\":[\"https://www.facebook.com/profile.php?id=61559078362985\",\"https://instagram.com/villa_ancinel\"],\"evidence\":[{\"value\":\"https://www.facebook.com/profile.php?id=61559078362985\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"kind\":\"social\",\"evidenceType\":\"SOCIAL_HREF\"},{\"value\":\"https://instagram.com/villa_ancinel\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"kind\":\"social\",\"evidenceType\":\"SOCIAL_HREF\"}]},\"instagram\":{\"status\":\"VERIFIED\",\"values\":[\"https://instagram.com/villa_ancinel\"],\"evidence\":[{\"value\":\"https://instagram.com/villa_ancinel\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"kind\":\"instagram\",\"evidenceType\":\"INSTAGRAM_HREF\"}]},\"facebook\":{\"status\":\"VERIFIED\",\"values\":[\"https://www.facebook.com/profile.php?id=61559078362985\"],\"evidence\":[{\"value\":\"https://www.facebook.com/profile.php?id=61559078362985\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"kind\":\"facebook\",\"evidenceType\":\"FACEBOOK_HREF\"}]},\"tiktok\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"whatsapp\":{\"status\":\"N/A\",\"values\":[],\"evidence\":[]},\"contactForm\":{\"status\":\"VERIFIED\",\"values\":[\"https://villa-ancinel.com/\",\"https://villa-ancinel.com/mentions-legales/\"],\"evidence\":[{\"value\":\"https://villa-ancinel.com/\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"kind\":\"contactForm\",\"evidenceType\":\"CONTACT_FORM\"},{\"value\":\"https://villa-ancinel.com/mentions-legales/\",\"sourceUrl\":\"https://villa-ancinel.com/mentions-legales/\",\"kind\":\"contactForm\",\"evidenceType\":\"CONTACT_FORM\"}]},\"sourcesProcessed\":2,\"sourcesChecked\":[\"https://villa-ancinel.com/\",\"https://villa-ancinel.com/mentions-legales/\"],\"reasons\":[\"identity bound\",\"bounded sources checked: 2\"],\"enrichedAt\":\"2026-09-28T08:46:05.757Z\",\"truncated\":false},\"derivedPhoneEvidence\":{\"phone\":\"+596 696 98 60 60\",\"normalizedDigits\":\"596696986060\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"evidenceType\":\"VISIBLE_PAGE_TEXT\",\"evidenceOrigin\":\"FETCHED_SOURCE\",\"independentlyObserved\":true,\"sourceOwnership\":\"OWNED_BUSINESS_SOURCE\",\"entityBound\":true},\"operatingEvidence\":{\"status\":\"VERIFIED\",\"facts\":[{\"kind\":\"SCHEMA_ORG_TYPE\",\"value\":\"ImageObject\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"evidenceType\":\"JSON_LD\"}]},\"digitalPainEvidence\":{\"status\":\"VERIFIED\",\"observations\":[{\"type\":\"REBUILDING\",\"observation\":\"Site en cours de refonte\",\"sourceUrl\":\"https://villa-ancinel.com/\",\"sourceType\":\"OWNED_WEBSITE\",\"evidenceType\":\"VISIBLE_SITE_NOTICE\",\"integrityStatus\":\"ACCEPTED\",\"inspectionMethod\":\"FETCHED_TITLE_H1\",\"observedAt\":\"2026-09-28T08:46:05.833Z\",\"snapshotDigest\":\"sha256:8e81fde88913fdf9677cbe8f04c77a8d8b0cc4c64339df5f096016ff3bc2fb01\",\"finalUrl\":\"https://villa-ancinel.com/\",\"supportingText\":\"Site en cours de refonte\",\"locator\":\"h1\"}]}}",
+      "created_at": "2026-09-28T08:46:05.930Z"
+    }
+  ],
+  "events": [
+    {
+      "id": "361c31a3-5fb4-4018-8735-4d3db4067bfe",
+      "prospectId": "r32-villa-ancinel-c62715aa",
+      "actor": "operator",
+      "type": "discovery.prospect_created",
+      "payload": {
+        "sourceUrl": "https://villa-ancinel.com/",
+        "manual": true,
+        "agent1Context": {
+          "seedStatus": "UNVERIFIED_RESEARCH_SEED",
+          "provenance": "r32-bounded-host-manual-intake",
+          "collectedAt": "2026-09-28T08:41:19.832Z",
+          "commercialSignal": "Le site indique une location de villa pour un sejour en Martinique.",
+          "digitalPresence": "Homepage https://villa-ancinel.com/ : title Site en cours de refonte - Villa Ancinel ; H1 Site en cours de refonte ; texte Notre site fait peau neuve. En attendant, vous pouvez d ores et deja reserver votre sejour a la Villa Ancinel, pour des vacances reussies en Martinique.",
+          "evidence": [
+            {
+              "url": "https://villa-ancinel.com/",
+              "note": "Page publique observee: Site en cours de refonte. Notre site fait peau neuve. Location de la Villa Ancinel pour un sejour en Martinique. Telephone professionnel affiche +596 696 98 60 60. Email public contact@villa-ancinel.com."
+            },
+            {
+              "url": "https://villa-ancinel.com/mentions-legales/",
+              "note": "Mentions legales: SARL ROBIN ANCINEL, SIRET 87988492200011, Quartier Longuet 97223 LE DIAMANT. Le site donne des informations relatives a la location de la Villa Ancinel."
+            }
+          ]
+        }
+      },
+      "createdAt": "2026-09-28T08:41:19.832Z"
+    },
+    {
+      "id": "996084bd-5a50-46eb-9f04-b4e91f6398b9",
+      "prospectId": "r32-villa-ancinel-c62715aa",
+      "actor": "scoring-agent",
+      "type": "research.scored",
+      "payload": {
+        "score": 0,
+        "band": "LOW",
+        "qualified": false,
+        "autoPrototypeEligible": false,
+        "sources": [
+          {
+            "url": "https://villa-ancinel.com/",
+            "note": "Page publique observee: Site en cours de refonte. Notre site fait peau neuve. Location de la Villa Ancinel pour un sejour en Martinique. Telephone professionnel affiche +596 696 98 60 60. Email public contact@villa-ancinel.com.",
+            "supports": [
+              "digitalGap",
+              "activity",
+              "website"
+            ]
+          },
+          {
+            "url": "https://villa-ancinel.com/mentions-legales/",
+            "note": "Mentions legales: SARL ROBIN ANCINEL, SIRET 87988492200011, Quartier Longuet 97223 LE DIAMANT. Le site donne des informations relatives a la location de la Villa Ancinel.",
+            "supports": [
+              "activity",
+              "website"
+            ]
+          },
+          {
+            "url": "https://villa-ancinel.com/",
+            "note": "Deterministically observed public phone (VISIBLE_PAGE_TEXT).",
+            "supports": [
+              "phone",
+              "digitalGap"
+            ]
+          }
+        ],
+        "evidenceIntegrity": {
+          "passed": false,
+          "reasons": [
+            "UNSUPPORTED_SCORE:localFit"
+          ],
+          "rejectedSourceCount": 0,
+          "supportedClaims": [
+            "digitalGap",
+            "commercialStrength",
+            "contactability",
+            "prototypeLeverage",
+            "activity",
+            "website",
+            "phone"
+          ]
+        },
+        "phoneEvidence": {
+          "phone": "+596 696 98 60 60",
+          "normalizedDigits": "596696986060",
+          "sourceUrl": "https://villa-ancinel.com/",
+          "evidenceType": "VISIBLE_PAGE_TEXT",
+          "evidenceOrigin": "FETCHED_SOURCE",
+          "independentlyObserved": true,
+          "sourceOwnership": "OWNED_BUSINESS_SOURCE",
+          "entityBound": true
+        },
+        "contactPresence": {
+          "status": "VERIFIED",
+          "identity": {
+            "status": "VERIFIED",
+            "matched": true,
+            "reason": "identity bound",
+            "observations": [
+              {
+                "name": "Site en cours de refonte - Villa Ancinel",
+                "domain": "villa-ancinel.com"
+              },
+              {
+                "name": "Home"
+              },
+              {
+                "name": "Villa Ancinel",
+                "domain": "villa-ancinel.com"
+              },
+              {
+                "name": "Villa Ancinel",
+                "domain": "villa-ancinel.com"
+              },
+              {
+                "domain": "villa-ancinel.com"
+              },
+              {
+                "domain": "villa-ancinel.com"
+              }
+            ]
+          },
+          "phone": {
+            "status": "VERIFIED",
+            "values": [
+              "+596 696 98 60 60"
+            ],
+            "evidence": [
+              {
+                "value": "+596 696 98 60 60",
+                "sourceUrl": "https://villa-ancinel.com/",
+                "kind": "phone",
+                "evidenceType": "VISIBLE_PHONE"
+              }
+            ]
+          },
+          "email": {
+            "status": "VERIFIED",
+            "values": [
+              "contact@villa-ancinel.com",
+              "admin@villa-ancinel.com"
+            ],
+            "evidence": [
+              {
+                "value": "contact@villa-ancinel.com",
+                "sourceUrl": "https://villa-ancinel.com/",
+                "kind": "email",
+                "evidenceType": "MAILTO_HREF"
+              },
+              {
+                "value": "admin@villa-ancinel.com",
+                "sourceUrl": "https://villa-ancinel.com/mentions-legales/",
+                "kind": "email",
+                "evidenceType": "MAILTO_HREF"
+              }
+            ]
+          },
+          "website": {
+            "status": "VERIFIED",
+            "values": [
+              "https://villa-ancinel.com/"
+            ],
+            "evidence": [
+              {
+                "value": "https://villa-ancinel.com/",
+                "sourceUrl": "https://villa-ancinel.com/",
+                "kind": "social",
+                "evidenceType": "OWNED_WEBSITE"
+              }
+            ]
+          },
+          "social": {
+            "status": "VERIFIED",
+            "values": [
+              "https://www.facebook.com/profile.php?id=61559078362985",
+              "https://instagram.com/villa_ancinel"
+            ],
+            "evidence": [
+              {
+                "value": "https://www.facebook.com/profile.php?id=61559078362985",
+                "sourceUrl": "https://villa-ancinel.com/",
+                "kind": "social",
+                "evidenceType": "SOCIAL_HREF"
+              },
+              {
+                "value": "https://instagram.com/villa_ancinel",
+                "sourceUrl": "https://villa-ancinel.com/",
+                "kind": "social",
+                "evidenceType": "SOCIAL_HREF"
+              }
+            ]
+          },
+          "instagram": {
+            "status": "VERIFIED",
+            "values": [
+              "https://instagram.com/villa_ancinel"
+            ],
+            "evidence": [
+              {
+                "value": "https://instagram.com/villa_ancinel",
+                "sourceUrl": "https://villa-ancinel.com/",
+                "kind": "instagram",
+                "evidenceType": "INSTAGRAM_HREF"
+              }
+            ]
+          },
+          "facebook": {
+            "status": "VERIFIED",
+            "values": [
+              "https://www.facebook.com/profile.php?id=61559078362985"
+            ],
+            "evidence": [
+              {
+                "value": "https://www.facebook.com/profile.php?id=61559078362985",
+                "sourceUrl": "https://villa-ancinel.com/",
+                "kind": "facebook",
+                "evidenceType": "FACEBOOK_HREF"
+              }
+            ]
+          },
+          "tiktok": {
+            "status": "N/A",
+            "values": [],
+            "evidence": []
+          },
+          "whatsapp": {
+            "status": "N/A",
+            "values": [],
+            "evidence": []
+          },
+          "contactForm": {
+            "status": "VERIFIED",
+            "values": [
+              "https://villa-ancinel.com/",
+              "https://villa-ancinel.com/mentions-legales/"
+            ],
+            "evidence": [
+              {
+                "value": "https://villa-ancinel.com/",
+                "sourceUrl": "https://villa-ancinel.com/",
+                "kind": "contactForm",
+                "evidenceType": "CONTACT_FORM"
+              },
+              {
+                "value": "https://villa-ancinel.com/mentions-legales/",
+                "sourceUrl": "https://villa-ancinel.com/mentions-legales/",
+                "kind": "contactForm",
+                "evidenceType": "CONTACT_FORM"
+              }
+            ]
+          },
+          "sourcesProcessed": 2,
+          "sourcesChecked": [
+            "https://villa-ancinel.com/",
+            "https://villa-ancinel.com/mentions-legales/"
+          ],
+          "reasons": [
+            "identity bound",
+            "bounded sources checked: 2"
+          ],
+          "enrichedAt": "2026-09-28T08:46:05.757Z",
+          "truncated": false
+        },
+        "operatingEvidence": {
+          "status": "UNKNOWN",
+          "facts": []
+        },
+        "digitalPainEvidence": {
+          "status": "UNKNOWN",
+          "observations": []
+        },
+        "brandAsset": {
+          "status": "UNKNOWN",
+          "reuseDecision": "CREATE_ONLY_IF_NO_USABLE_IDENTITY",
+          "note": "Aucun actif de marque structurÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© dans cette sortie de recherche."
+        }
+      },
+      "createdAt": "2026-09-28T08:46:06.024Z"
+    }
+  ],
+  "phone": null,
+  "scoredAuthority": {
+    "acceptedSources": [
+      {
+        "url": "https://villa-ancinel.com/",
+        "note": "Page publique observee: Site en cours de refonte. Notre site fait peau neuve. Location de la Villa Ancinel pour un sejour en Martinique. Telephone professionnel affiche +596 696 98 60 60. Email public contact@villa-ancinel.com.",
+        "supports": [
+          "digitalGap",
+          "activity",
+          "website"
+        ]
+      },
+      {
+        "url": "https://villa-ancinel.com/mentions-legales/",
+        "note": "Mentions legales: SARL ROBIN ANCINEL, SIRET 87988492200011, Quartier Longuet 97223 LE DIAMANT. Le site donne des informations relatives a la location de la Villa Ancinel.",
+        "supports": [
+          "activity",
+          "website"
+        ]
+      },
+      {
+        "url": "https://villa-ancinel.com/",
+        "note": "Deterministically observed public phone (VISIBLE_PAGE_TEXT).",
+        "supports": [
+          "phone",
+          "digitalGap"
+        ]
+      }
+    ],
+    "supportedClaims": [
+      "digitalGap",
+      "commercialStrength",
+      "contactability",
+      "prototypeLeverage",
+      "activity",
+      "website",
+      "phone"
+    ],
+    "trustedPhone": {
+      "phone": "+596 696 98 60 60",
+      "normalizedDigits": "596696986060",
+      "sourceUrl": "https://villa-ancinel.com/",
+      "evidenceType": "VISIBLE_PAGE_TEXT",
+      "evidenceOrigin": "FETCHED_SOURCE",
+      "independentlyObserved": true,
+      "sourceOwnership": "OWNED_BUSINESS_SOURCE",
+      "entityBound": true
+    },
+    "contactPresence": {
+      "status": "VERIFIED",
+      "identity": {
+        "status": "VERIFIED",
+        "matched": true,
+        "reason": "identity bound",
+        "observations": [
+          {
+            "name": "Site en cours de refonte - Villa Ancinel",
+            "domain": "villa-ancinel.com"
+          },
+          {
+            "name": "Home"
+          },
+          {
+            "name": "Villa Ancinel",
+            "domain": "villa-ancinel.com"
+          },
+          {
+            "name": "Villa Ancinel",
+            "domain": "villa-ancinel.com"
+          },
+          {
+            "domain": "villa-ancinel.com"
+          },
+          {
+            "domain": "villa-ancinel.com"
+          }
+        ]
+      },
+      "phone": {
+        "status": "VERIFIED",
+        "values": [
+          "+596 696 98 60 60"
+        ],
+        "evidence": [
+          {
+            "value": "+596 696 98 60 60",
+            "sourceUrl": "https://villa-ancinel.com/",
+            "kind": "phone",
+            "evidenceType": "VISIBLE_PHONE"
+          }
+        ]
+      },
+      "email": {
+        "status": "VERIFIED",
+        "values": [
+          "contact@villa-ancinel.com",
+          "admin@villa-ancinel.com"
+        ],
+        "evidence": [
+          {
+            "value": "contact@villa-ancinel.com",
+            "sourceUrl": "https://villa-ancinel.com/",
+            "kind": "email",
+            "evidenceType": "MAILTO_HREF"
+          },
+          {
+            "value": "admin@villa-ancinel.com",
+            "sourceUrl": "https://villa-ancinel.com/mentions-legales/",
+            "kind": "email",
+            "evidenceType": "MAILTO_HREF"
+          }
+        ]
+      },
+      "website": {
+        "status": "VERIFIED",
+        "values": [
+          "https://villa-ancinel.com/"
+        ],
+        "evidence": [
+          {
+            "value": "https://villa-ancinel.com/",
+            "sourceUrl": "https://villa-ancinel.com/",
+            "kind": "social",
+            "evidenceType": "OWNED_WEBSITE"
+          }
+        ]
+      },
+      "social": {
+        "status": "VERIFIED",
+        "values": [
+          "https://www.facebook.com/profile.php?id=61559078362985",
+          "https://instagram.com/villa_ancinel"
+        ],
+        "evidence": [
+          {
+            "value": "https://www.facebook.com/profile.php?id=61559078362985",
+            "sourceUrl": "https://villa-ancinel.com/",
+            "kind": "social",
+            "evidenceType": "SOCIAL_HREF"
+          },
+          {
+            "value": "https://instagram.com/villa_ancinel",
+            "sourceUrl": "https://villa-ancinel.com/",
+            "kind": "social",
+            "evidenceType": "SOCIAL_HREF"
+          }
+        ]
+      },
+      "instagram": {
+        "status": "VERIFIED",
+        "values": [
+          "https://instagram.com/villa_ancinel"
+        ],
+        "evidence": [
+          {
+            "value": "https://instagram.com/villa_ancinel",
+            "sourceUrl": "https://villa-ancinel.com/",
+            "kind": "instagram",
+            "evidenceType": "INSTAGRAM_HREF"
+          }
+        ]
+      },
+      "facebook": {
+        "status": "VERIFIED",
+        "values": [
+          "https://www.facebook.com/profile.php?id=61559078362985"
+        ],
+        "evidence": [
+          {
+            "value": "https://www.facebook.com/profile.php?id=61559078362985",
+            "sourceUrl": "https://villa-ancinel.com/",
+            "kind": "facebook",
+            "evidenceType": "FACEBOOK_HREF"
+          }
+        ]
+      },
+      "tiktok": {
+        "status": "N/A",
+        "values": [],
+        "evidence": []
+      },
+      "whatsapp": {
+        "status": "N/A",
+        "values": [],
+        "evidence": []
+      },
+      "contactForm": {
+        "status": "VERIFIED",
+        "values": [
+          "https://villa-ancinel.com/",
+          "https://villa-ancinel.com/mentions-legales/"
+        ],
+        "evidence": [
+          {
+            "value": "https://villa-ancinel.com/",
+            "sourceUrl": "https://villa-ancinel.com/",
+            "kind": "contactForm",
+            "evidenceType": "CONTACT_FORM"
+          },
+          {
+            "value": "https://villa-ancinel.com/mentions-legales/",
+            "sourceUrl": "https://villa-ancinel.com/mentions-legales/",
+            "kind": "contactForm",
+            "evidenceType": "CONTACT_FORM"
+          }
+        ]
+      },
+      "sourcesProcessed": 2,
+      "sourcesChecked": [
+        "https://villa-ancinel.com/",
+        "https://villa-ancinel.com/mentions-legales/"
+      ],
+      "reasons": [
+        "identity bound",
+        "bounded sources checked: 2"
+      ],
+      "enrichedAt": "2026-09-28T08:46:05.757Z",
+      "truncated": false
+    },
+    "evidenceIntegrityPassed": false,
+    "digitalPainEvidence": {
+      "status": "UNKNOWN",
+      "observations": []
+    },
+    "operatingEvidence": {
+      "status": "UNKNOWN",
+      "facts": []
+    },
+    "websiteAbsent": false,
+    "requiresUnprovenCapability": false,
+    "outsideCommercialIcp": false
+  },
+  "adapted": {
+    "status": "INSUFFICIENT_EVIDENCE",
+    "reasons": [
+      {
+        "code": "DIGITAL_PAIN_UNPROVEN",
+        "detail": "Digital pain must be grounded in an accepted persisted claim."
+      },
+      {
+        "code": "COMMERCIAL_FAMILY_UNRESOLVED",
+        "detail": "No canonical family is established by existing authority."
+      }
+    ]
+  },
+  "counts": {
+    "prospects": 1,
+    "jobs": 1,
+    "job_results": 1,
+    "events": 2,
+    "admissions": 0,
+    "outreach": 0,
+    "prototypes": 0,
+    "proposals": 0,
+    "provider_cursor_rows": 0,
+    "occupied_slots": 0
+  },
+  "slots": [
+    {
+      "slot_id": 1,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 2,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 3,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 4,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 5,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 6,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 7,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 8,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 9,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 10,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 11,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 12,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 13,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 14,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 15,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 16,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 17,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 18,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 19,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 20,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    }
+  ]
+}

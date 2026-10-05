@@ -1,0 +1,26 @@
+[
+  {
+    "path": "/api/runner/jobs/claim",
+    "method": "POST",
+    "at": "2026-10-04T15:21:05.089Z",
+    "status": 200
+  },
+  {
+    "path": "/api/runner/heartbeat",
+    "method": "POST",
+    "at": "2026-10-04T15:21:05.211Z",
+    "status": 200
+  },
+  {
+    "path": "/api/runner/jobs/job-v2-51972816600033-build-correction-build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br2-r3/succeed",
+    "method": "POST",
+    "at": "2026-10-04T15:21:05.290Z",
+    "status": 200
+  },
+  {
+    "path": "/api/runner/heartbeat",
+    "method": "POST",
+    "at": "2026-10-04T15:21:05.411Z",
+    "status": 200
+  }
+]

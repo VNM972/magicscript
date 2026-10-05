@@ -1,0 +1,11 @@
+{
+  "reviewedAt": "2026-10-04T15:21:35.318Z",
+  "buildArtifactId": "build-artifact-dr-v2-51972816600033-DESIGN_REQUEST_V1-DESIGN_ARTIFACT_V1-r1-builder-v1-br3",
+  "screenshots": [
+    "D:\\MagicScript\\repository\\.r78zb-runtime\\qa-a3\\desktop.png",
+    "D:\\MagicScript\\repository\\.r78zb-runtime\\qa-a3\\mobile.png"
+  ],
+  "publicLabel": "Entreprise locale",
+  "internalEnumVisible": false,
+  "review": "Fresh desktop/mobile screenshots corroborated with captured DOM; canonical QA evidence retained without altering engine or approved copy."
+}

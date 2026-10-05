@@ -1,0 +1,142 @@
+[
+  {
+    "LocalAddress": "::",
+    "LocalPort": 49670,
+    "OwningProcess": 1252
+  },
+  {
+    "LocalAddress": "::",
+    "LocalPort": 49669,
+    "OwningProcess": 5244
+  },
+  {
+    "LocalAddress": "::",
+    "LocalPort": 49667,
+    "OwningProcess": 2980
+  },
+  {
+    "LocalAddress": "::",
+    "LocalPort": 49666,
+    "OwningProcess": 2192
+  },
+  {
+    "LocalAddress": "::",
+    "LocalPort": 49665,
+    "OwningProcess": 1128
+  },
+  {
+    "LocalAddress": "::",
+    "LocalPort": 49664,
+    "OwningProcess": 1304
+  },
+  {
+    "LocalAddress": "::1",
+    "LocalPort": 42050,
+    "OwningProcess": 3212
+  },
+  {
+    "LocalAddress": "::",
+    "LocalPort": 8264,
+    "OwningProcess": 17352
+  },
+  {
+    "LocalAddress": "::",
+    "LocalPort": 7680,
+    "OwningProcess": 4728
+  },
+  {
+    "LocalAddress": "::",
+    "LocalPort": 445,
+    "OwningProcess": 4
+  },
+  {
+    "LocalAddress": "::",
+    "LocalPort": 135,
+    "OwningProcess": 1616
+  },
+  {
+    "LocalAddress": "0.0.0.0",
+    "LocalPort": 49670,
+    "OwningProcess": 1252
+  },
+  {
+    "LocalAddress": "0.0.0.0",
+    "LocalPort": 49669,
+    "OwningProcess": 5244
+  },
+  {
+    "LocalAddress": "0.0.0.0",
+    "LocalPort": 49667,
+    "OwningProcess": 2980
+  },
+  {
+    "LocalAddress": "0.0.0.0",
+    "LocalPort": 49666,
+    "OwningProcess": 2192
+  },
+  {
+    "LocalAddress": "0.0.0.0",
+    "LocalPort": 49665,
+    "OwningProcess": 1128
+  },
+  {
+    "LocalAddress": "0.0.0.0",
+    "LocalPort": 49664,
+    "OwningProcess": 1304
+  },
+  {
+    "LocalAddress": "127.0.0.1",
+    "LocalPort": 41005,
+    "OwningProcess": 16868
+  },
+  {
+    "LocalAddress": "127.0.0.1",
+    "LocalPort": 41004,
+    "OwningProcess": 16868
+  },
+  {
+    "LocalAddress": "127.0.0.1",
+    "LocalPort": 39255,
+    "OwningProcess": 10264
+  },
+  {
+    "LocalAddress": "127.0.0.1",
+    "LocalPort": 11434,
+    "OwningProcess": 14804
+  },
+  {
+    "LocalAddress": "127.0.0.1",
+    "LocalPort": 9749,
+    "OwningProcess": 22896
+  },
+  {
+    "LocalAddress": "127.0.0.1",
+    "LocalPort": 9080,
+    "OwningProcess": 6276
+  },
+  {
+    "LocalAddress": "0.0.0.0",
+    "LocalPort": 8080,
+    "OwningProcess": 7620
+  },
+  {
+    "LocalAddress": "0.0.0.0",
+    "LocalPort": 5040,
+    "OwningProcess": 5468
+  },
+  {
+    "LocalAddress": "127.0.0.1",
+    "LocalPort": 3080,
+    "OwningProcess": 14664
+  },
+  {
+    "LocalAddress": "192.168.1.23",
+    "LocalPort": 139,
+    "OwningProcess": 4
+  },
+  {
+    "LocalAddress": "0.0.0.0",
+    "LocalPort": 135,
+    "OwningProcess": 1616
+  }
+]

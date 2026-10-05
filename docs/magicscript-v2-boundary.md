@@ -91,6 +91,38 @@ The internal Control Center now exposes a compact commercial Operator Deck backe
 
 M009 final acceptance is proven by `artifacts/v2/deck/m009-final-acceptance.json`: the production Control Center build succeeded; the real local Deck rendered in Chrome/CDP; Proposal-ready fixtures appeared while non-ready fixtures stayed hidden; the Proposal link returned HTTP 200; viewed, returned, shared, and meeting signals were visible; legacy diagnostics and send behavior were absent; and a desktop screenshot was captured. Operator send and Agent 3 remain deferred to M010.
 
+## V2-M010 documentary closure — CLOSED / PASS
+
+**MILESTONE=V2-M010**
+**STATUS=PASS / CLOSED**
+**CLASSIFICATION=M010_CAN_CLOSE_NOW**
+
+The independent closure review compositionally proves all original mandatory M010 requirement groups. Evidence is accepted across focused deterministic tests, real Worker/D1 runtime evidence, runner evidence, browser/UI evidence, and persisted acceptance artifacts. No authoritative V2 governance document requires one monolithic acceptance execution containing every M010 invariant.
+
+| Requirement | Status |
+|---|---|
+| M010-R01 — Grounded deterministic drafts | PROVEN |
+| M010-R02 — Immutable revisions | PROVEN |
+| M010-R03 — Exact revision/fingerprint approval | PROVEN |
+| M010-R04 — Approved historical r1 / successor r2 / stale rejection | PROVEN |
+| M010-R05 — Operator-controlled EMAIL only / no automatic initial send | PROVEN |
+| M010-R06 — Atomic reservation and idempotence | PROVEN |
+| M010-R07 — Successful send projections | PROVEN |
+| M010-R08 — Suppression / invalid-send protection | PROVEN |
+| M010-R09 — Deterministic failure semantics | PROVEN |
+| M010-R10 — Manual MOBILE confirmation only | PROVEN |
+| M010-R11 — Operator Deck preparation / Contacted projection / safety boundary | PROVEN |
+
+- **PRODUCT_BLOCKERS=0**
+- **UNPROVEN_MANDATORY_REQUIREMENTS=0**
+- **MONOLITHIC_ACCEPTANCE_REQUIRED=NO**
+- **REAL_EXTERNAL_EMAIL_SENT_DURING_ACCEPTANCE=NO**
+- **BACKEND_SMS_SEND=NO**
+- **BACKEND_WHATSAPP_SEND=NO**
+- Historical harness/infrastructure failures are not current product blockers; the canonical retry lifecycle is `PENDING → RUNNING → SENDING → failure evidence → /fail → PENDING` when retryable, eventually `DEAD_LETTER` after exhausted retries.
+- Optional, non-blocking hardening remains deferred: explicit duplicate-success callback invocation, duplicate-failure callback invocation, a second MOBILE confirmation invocation in the monolithic runner, and further monolithic harness cleanup. None keeps M010 open.
+- Scope remains limited to M010. Call Copilot, Buzz, Commercial Playbook, automation, payment, later tunnel requirements, and M011 are not included or started.
+
 ## M008 implementation — Proposal Packaging V1 (IMPLEMENTED)
 
 Proposal Packaging V1 consumes a genuinely passed `VISUAL_QA_REPORT_V1` and creates one canonical `PROPOSAL_V1` while preserving build, proposal and prospect provenance. The tracked Proposal link resolves through the isolated public Proposal route; first view, return visit and share events are recorded as `PROPOSAL_VIEWED`, `RETURN_VISIT` and `SHARE_CLICKED`. The public booking entry path is available without exposing private contact/debug data. Proposal creation is deterministic and idempotent for the same approved build and QA evidence. M001 operator-send protections remain preserved. No Sales Room, Deck, outreach or deployment is reintroduced.

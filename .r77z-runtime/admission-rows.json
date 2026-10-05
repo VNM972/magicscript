@@ -1,0 +1,79 @@
+{
+  "prospects": [
+    {
+      "id": "v2-51972816600033",
+      "company_name": "Androcam Productions",
+      "legal_name": null,
+      "activity": null,
+      "location": "51100 Reims",
+      "website_url": "https://androcam-productions.com/",
+      "opportunity": null,
+      "state": "INGESTED",
+      "score": null,
+      "primary_friction": "Site en cours de refonte",
+      "primary_asset": "Photographe et vidéaste à Reims : films d'entreprise, événementiel, clips.",
+      "primary_cta": null,
+      "created_at": "2026-10-04T10:57:08.446Z",
+      "updated_at": "2026-10-04T10:57:08.446Z",
+      "phone": null,
+      "siren": "519728166",
+      "siret": "51972816600033",
+      "city": "Reims",
+      "source_url": null,
+      "activity_taxonomy": null,
+      "commercial_eligibility": null,
+      "brand_key": null,
+      "brand_collision_group": null,
+      "initial_research_representative": null,
+      "v2_domain": "androcam-productions.com"
+    }
+  ],
+  "v2_admissions": [
+    {
+      "prospect_id": "v2-51972816600033",
+      "pack_id": "agent1-r77z-androcam",
+      "schema_version": "CONTACT_OPPORTUNITY_PACK_V2",
+      "result": "ADMITTED",
+      "reason_code": "ADMITTED",
+      "received_at": "2026-10-04T10:57:08.446Z"
+    }
+  ],
+  "v2_design_requests": [
+    {
+      "id": "dr-v2-51972816600033-DESIGN_REQUEST_V1",
+      "prospect_id": "v2-51972816600033",
+      "version": "DESIGN_REQUEST_V1",
+      "pack_id": "agent1-r77z-androcam",
+      "request_json": "{\"id\":\"dr-v2-51972816600033-DESIGN_REQUEST_V1\",\"version\":\"DESIGN_REQUEST_V1\",\"prospectId\":\"v2-51972816600033\",\"admission\":{\"packId\":\"agent1-r77z-androcam\",\"schemaVersion\":\"CONTACT_OPPORTUNITY_PACK_V2\"},\"identity\":{\"businessName\":\"Androcam Productions\",\"siren\":\"519728166\",\"siret\":\"51972816600033\",\"city\":\"Reims\",\"location\":\"51100 Reims\",\"websiteUrl\":\"https://androcam-productions.com/\",\"domain\":\"androcam-productions.com\"},\"opportunity\":{\"digitalFriction\":\"Site en cours de refonte\",\"agent1Verdict\":\"QUALIFIED\",\"icp\":{\"digitalPainSignals\":[\"Site en cours de refonte\"],\"requiresUnprovenCapability\":false,\"outsideCommercialIcp\":false},\"businessContext\":\"Photographe et vidéaste à Reims : films d'entreprise, événementiel, clips.\"},\"designInput\":{\"currentWebsiteUrl\":\"https://androcam-productions.com/\",\"businessVertical\":\"GENERAL_LOCAL_BUSINESS\",\"brandContext\":\"Photographe et vidéaste à Reims : films d'entreprise, événementiel, clips.\",\"frictionTrigger\":\"Site en cours de refonte\",\"evidence\":[{\"url\":\"https://androcam-productions.com/\",\"note\":\"Canonical bounded live homepage observation; same supplied HTML contains LocalBusiness identity, SIRET and explicit mailto contact.\\n{\\\"sourcingLane\\\":\\\"PAIN_FIRST\\\",\\\"candidateId\\\":\\\"r77z-androcam\\\",\\\"stagedWebsiteUrl\\\":\\\"https://androcam-productions.com/\\\",\\\"domain\\\":\\\"androcam-productions.com\\\",\\\"acquiredAt\\\":\\\"2026-10-04T10:51:27.782Z\\\",\\\"digitalPainEvidence\\\":[{\\\"observedCondition\\\":\\\"SITE_REBUILDING\\\",\\\"sourceUrl\\\":\\\"https://androcam-productions.com/\\\",\\\"snapshotDigest\\\":\\\"sha256:fe8df54cebbeb0ecc3ac64736d3a37304044afeb91061574bfa21a20fee0c5d3\\\",\\\"locator\\\":\\\"h1\\\",\\\"observedAt\\\":\\\"2026-10-04T10:51:38.582Z\\\"}]}\",\"supports\":[\"website\",\"digitalGap\",\"identity\",\"contact\"],\"observedAt\":\"2026-10-04T10:51:38.582Z\"}]},\"createdAt\":\"2026-10-04T10:57:08.489Z\"}",
+      "created_at": "2026-10-04T10:57:08.489Z"
+    }
+  ],
+  "v2_design_artifacts": [],
+  "v2_design_reviews": [],
+  "v2_build_artifacts": [],
+  "v2_visual_qa_reports": [],
+  "v2_build_corrections": [],
+  "jobs": [
+    {
+      "id": "job-v2-51972816600033-DESIGN_REQUEST_V1",
+      "kind": "V2_DESIGN_REQUEST",
+      "prospect_id": "v2-51972816600033",
+      "payload_json": "{\"designRequestId\":\"dr-v2-51972816600033-DESIGN_REQUEST_V1\",\"designRequestVersion\":\"DESIGN_REQUEST_V1\",\"prospectId\":\"v2-51972816600033\",\"admittedPackId\":\"agent1-r77z-androcam\"}",
+      "status": "PENDING",
+      "attempts": 0,
+      "max_attempts": 3,
+      "run_after": "2026-10-04T10:57:08.489Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-10-04T10:57:08.510Z",
+      "updated_at": "2026-10-04T10:57:08.510Z"
+    }
+  ],
+  "slot": {
+    "slot_id": 2,
+    "prospect_id": "v2-51972816600033",
+    "acquired_at": "2026-10-04T10:57:08.518Z",
+    "release_reason": null
+  }
+}

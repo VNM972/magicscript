@@ -1,0 +1,164 @@
+[
+  {
+    "results": [
+      {
+        "prospects": 0,
+        "jobs": 0,
+        "job_results": 0,
+        "events": 0,
+        "admissions": 0,
+        "outreach": 0,
+        "prototypes": 0,
+        "proposals": 0,
+        "provider_cursor_rows": 0,
+        "occupied_slots": 0
+      }
+    ],
+    "success": true,
+    "meta": {
+      "duration": 3
+    }
+  },
+  {
+    "results": [
+      {
+        "slot_id": 1,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 2,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 3,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 4,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 5,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 6,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 7,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 8,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 9,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 10,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 11,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 12,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 13,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 14,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 15,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 16,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 17,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 18,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 19,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      },
+      {
+        "slot_id": 20,
+        "prospect_id": null,
+        "acquired_at": null,
+        "release_reason": null
+      }
+    ],
+    "success": true,
+    "meta": {
+      "duration": 0
+    }
+  },
+  {
+    "results": [],
+    "success": true,
+    "meta": {
+      "duration": 1
+    }
+  },
+  {
+    "results": [],
+    "success": true,
+    "meta": {
+      "duration": 0
+    }
+  }
+]

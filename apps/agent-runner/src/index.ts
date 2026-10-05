@@ -2,6 +2,7 @@ import { realpathSync } from 'node:fs';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { hostname, tmpdir } from 'node:os';
 import { join, resolve, sep } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 import { MagicScriptApi, type ClaimedJob } from './api';
 import { isControlledTestRecipient, loadAmenMailConfig } from './email/config';
@@ -22,6 +23,7 @@ import { ensurePrototypeScaffold } from './prototype-scaffold';
 import { normalizeResearchResult } from './research-output';
 import { enrichResearchResultWithPhoneEvidence } from './phone-evidence';
 import { enrichResearchResultWithContactPresence } from './presence-enrichment';
+import { enrichResearchResultWithOperatingEvidence } from './operating-evidence';
 import {
   repairPrototypePrimaryCtaSource,
 } from './prototype-conversion-source';
@@ -35,10 +37,10 @@ import {
   executeSyntheticPrototypeQa as executeCanonicalSyntheticPrototypeQa,
 } from './prototype-qa';
 import { runSyntheticCreativeJob, SYNTHETIC_CREATIVE_JOB_KIND, type SyntheticCreativeInput } from './synthetic-creative-job';
-import { toCanonicalAgent1Batch } from './agent1-canonical';
 import { executeVerticalDesigner } from '../../../core/design/design-artifact';
 import { buildDeterministicReview, validateDesignReview } from '../../../core/design/design-review';
-import { executeBuilder } from '../../../core/builder/site-builder';
+import { executeBuilder, executeBuildCorrection } from '../../../core/builder/site-builder';
+import { validateBuildCorrectionContext } from '../../../core/builder/contracts';
 import { executeVisualQa } from '../../../core/visual-qa/engine';
 
 const baseUrl = process.env.MAGICSCRIPT_API_BASE_URL?.replace(/\/$/, '');
@@ -97,6 +99,8 @@ const fakeTransportEnabled = process.env.MAGICSCRIPT_FAKE_TRANSPORT === 'true';
 const sendingEnabled = process.env.MAGICSCRIPT_SENDING_ENABLED === 'true';
 const testEmailMode = process.env.MAGICSCRIPT_TEST_EMAIL_MODE === 'true';
 const testRecipient = process.env.MAGICSCRIPT_TEST_RECIPIENT?.trim().toLowerCase();
+const fakeTransportFailureProspectId =
+  process.env.MAGICSCRIPT_FAKE_TRANSPORT_FAILURE_PROSPECT_ID?.trim();
 const amenConfigured =
   emailProvider === 'amen-smtp' &&
   Boolean(process.env.MAGICSCRIPT_EMAIL_USERNAME?.trim()) &&
@@ -149,8 +153,43 @@ async function executeAmenSend(claim: ClaimedJob): Promise<Record<string, unknow
     const message = claim.outreachDraft;
     const contact = message?.contact_id ? claim.contacts.find((candidate) => candidate.id === message.contact_id) : selectValidatedContact(claim);
     if (!message || !contact || !contact.isValidated || contact.isSuppressed) throw new Error('No validated unsuppressed contact is available');
-    const idempotencyKey = `${claim.job.prospectId ?? claim.job.id}:EMAIL:${(claim.job.payload as Record<string, unknown>).draftRevision ?? 'unknown'}:INITIAL`;
-    return { provider: 'fake', providerMessageId: `fake-${idempotencyKey}`, recipient: contact.email, testMode: true, deliveredExternally: false, idempotencyKey, sendCount: 1 };
+    if (claim.job.kind !== 'SEND_EMAIL' || !claim.job.prospectId) {
+      const idempotencyKey = `${claim.job.prospectId ?? claim.job.id}:EMAIL:${claim.job.payload.draftRevision ?? 'unknown'}:INITIAL`;
+      return { provider: 'fake', providerMessageId: `fake-${idempotencyKey}`, recipient: contact.email, testMode: true, deliveredExternally: false, idempotencyKey, sendCount: 1 };
+    }
+    if (!testEmailMode) throw new Error('Fake SEND_EMAIL requires explicit test email mode');
+    if (!message.subject?.trim() || !message.body_text?.trim()) throw new Error('Verified outreach message is missing subject or body');
+    const draftId = typeof claim.job.payload.v2DraftId === 'string' ? claim.job.payload.v2DraftId : '';
+    const proposalLink = typeof claim.job.payload.proposalLink === 'string' ? claim.job.payload.proposalLink : '';
+    const revision = Number(claim.job.payload.draftRevision);
+    const fingerprint = typeof claim.job.payload.fingerprint === 'string' ? claim.job.payload.fingerprint : '';
+    if (!draftId || !proposalLink || !Number.isInteger(revision) || revision < 1 || !fingerprint) {
+      throw new Error('Fake SEND_EMAIL is missing canonical draft correlation');
+    }
+    const idempotencyKey = `${claim.job.prospectId}:EMAIL:${revision}:INITIAL`;
+    const outcome = fakeTransportFailureProspectId === claim.job.prospectId ? 'FAILURE' : 'SUCCESS';
+    return sendWithPersistentReservation({
+      reservation: api,
+      jobId: claim.job.id,
+      messageId: message.id,
+      sendMail: async () => {
+        await api.recordFakeTransportAttempt(claim.job.id, {
+          provider: 'fake',
+          outcome,
+          recipient: contact.email,
+          subject: message.subject!,
+          body: message.body_text,
+          proposalLink,
+          draftId,
+          revision,
+          fingerprint,
+          idempotencyKey,
+          sendCount: 1,
+        });
+        if (outcome === 'FAILURE') throw new Error('Deterministic fake transport failure');
+        return { provider: 'fake', providerMessageId: `fake-${idempotencyKey}`, recipient: contact.email, testMode: true, deliveredExternally: false, outcome, idempotencyKey, sendCount: 1 };
+      },
+    });
   }
   if (emailProvider !== 'amen-smtp') {
     throw new Error(`${claim.job.kind} claimed with unsupported provider: ${emailProvider}`);
@@ -281,7 +320,11 @@ async function executeSyntheticCreative(claim: ClaimedJob, jobDir: string): Prom
 async function enrichResearchOutput(parsed: unknown, prospect: NonNullable<ClaimedJob['prospect']>): Promise<Record<string, unknown>> {
   const normalized = normalizeResearchResult(parsed, prospect);
   const withPresence = await enrichResearchResultWithContactPresence(normalized);
-  return enrichResearchResultWithPhoneEvidence(withPresence);
+  const withPhone = await enrichResearchResultWithPhoneEvidence(withPresence);
+  return enrichResearchResultWithOperatingEvidence(withPhone, undefined, {
+    companyName: prospect.companyName,
+    city: prospect.location ?? '',
+  });
 }
 
 async function executeAgentJob(claim: ClaimedJob, jobDir: string): Promise<unknown> {
@@ -553,6 +596,30 @@ async function executeV2Build(claim: ClaimedJob): Promise<unknown> {
   return executeBuilder({ artifact: claim.designArtifact as any, designRequest: claim.designRequest as any });
 }
 
+export async function executeV2BuildCorrection(claim: ClaimedJob): Promise<unknown> {
+  const context = claim.buildCorrectionContext;
+  if (claim.job.kind !== 'V2_BUILD_CORRECTION' || !context || !claim.job.prospectId
+    || claim.prospect?.id !== claim.job.prospectId
+    || context.productionSlot?.prospectId !== claim.job.prospectId
+    || !context.productionSlot.acquiredAt || !Number.isInteger(context.productionSlot.slotId)
+    || context.productionSlot.slotId < 1) throw new Error('INVALID_CORRECTION_REQUEST: owned held slot and canonical context required');
+  const input = { request: context.correctionRequest, targetBuild: context.targetBuild,
+    qaReport: context.qaReport, designRequest: context.designRequest,
+    approvedDesignArtifact: context.approvedDesignArtifact,
+    existingCorrectedBuild: context.existingCorrectedBuild ?? undefined };
+  const revisions = validateBuildCorrectionContext(input);
+  const expected = { correctionRequestId: context.correctionRequest.id,
+    buildArtifactId: context.targetBuild.id, targetBuildRevision: revisions.targetBuildRevision,
+    nextBuildRevision: revisions.nextBuildRevision, qaReportId: context.qaReport.id,
+    designRequestId: context.designRequest.id, approvedDesignArtifactId: context.approvedDesignArtifact.id };
+  if (context.correctionRequest.prospectId !== claim.job.prospectId
+    || claim.job.id !== `job-${claim.job.prospectId}-build-correction-${context.targetBuild.id}-r${revisions.nextBuildRevision}`
+    || Object.entries(expected).some(([key, value]) => claim.job.payload[key] !== value)) {
+    throw new Error('INVALID_CORRECTION_REQUEST: conflicting job linkage');
+  }
+  return executeBuildCorrection(input);
+}
+
 async function executeV2VisualQa(claim: ClaimedJob): Promise<unknown> {
   if (!claim.designArtifact || !claim.designRequest || !claim.prototypeContext?.repo_path) throw new Error('V2 visual QA requires design, request, and local output context');
   const evidencePath = join(claim.prototypeContext.repo_path, 'browser-evidence.json');
@@ -644,7 +711,7 @@ async function executePrototypeDeploy(
 }
 
 
-async function runOne(): Promise<boolean> {
+export async function runOne(): Promise<boolean> {
   const claim = await api.claim();
   if (!claim) return false;
 
@@ -675,19 +742,15 @@ async function runOne(): Promise<boolean> {
                 throw new Error('Commercial sending requires explicit operator action');
               })())
         : claim.job.kind === 'DISCOVER_PROSPECTS'
-          ? await (async () => {
-              const discovered = await executeAgentJob(claim, executionDir);
-              const batch = toCanonicalAgent1Batch(discovered, {
-                batchId: claim.job.id,
-                provenance: 'agent1-runtime-discovery',
-              });
-              const ingestion = await api.ingestAgent1Batch(batch);
-              return { prospects: [], canonicalAgent1Batch: batch, ingestion };
+          ? (() => {
+              throw new Error('Model-generated discovery is disabled; discovery must use a provider-backed source');
             })()
         : claim.job.kind === 'BUILD_PROTOTYPE'
           ? await executePrototypeBuild(claim, executionDir)
           : claim.job.kind === 'V2_BUILD_SITE'
             ? await executeV2Build(claim)
+          : claim.job.kind === 'V2_BUILD_CORRECTION'
+            ? await executeV2BuildCorrection(claim)
           : claim.job.kind === 'CREATIVE_WEB_DESIGN_SYNTHETIC'
             ? await executeSyntheticCreative(claim, executionDir)
           : claim.job.kind === 'RUN_PROTOTYPE_QA'
@@ -833,4 +896,7 @@ async function main(): Promise<void> {
   }
 }
 
-await main();
+const directEntry = process.argv[1]
+  ? import.meta.url === pathToFileURL(resolve(process.argv[1])).href
+  : false;
+if (directEntry) await main();

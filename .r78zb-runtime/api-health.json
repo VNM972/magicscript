@@ -1,0 +1,16 @@
+﻿{
+    "ok":  true,
+    "service":  "magicscript-api",
+    "databaseConfigured":  true,
+    "apiAuthConfigured":  true,
+    "runnerAuthConfigured":  true,
+    "stackId":  "12d56c31-afc5-4b70-89ec-7541dc7b8b7f",
+    "autopilotEnabled":  false,
+    "sendingEnabled":  false,
+    "emailProvider":  "disabled",
+    "fakeTransportEnabled":  false,
+    "effectiveOutboundMode":  "disabled",
+    "testEmailMode":  false,
+    "testRecipientConfigured":  false,
+    "prototypeDeployEnabled":  false
+}

@@ -1,0 +1,12 @@
+{
+  "index": 6,
+  "name": "Arc Institut",
+  "url": "https://www.arcinstitut.com/",
+  "pageState": "FETCH_FAILED",
+  "httpResultClass": "REDIRECT",
+  "qualification": "FETCH_FAILED",
+  "identity": null,
+  "enrichment": null,
+  "admission": "NOT_PERFORMED",
+  "reason": "REDIRECT"
+}

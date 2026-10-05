@@ -1,0 +1,132 @@
+{
+  "canaryVersion": "google-places-orchestrator-canary-v1",
+  "createdAt": "2026-09-16T18:10:21.400Z",
+  "maxGoogleRequests": 3,
+  "maxRequestsPerProspect": 1,
+  "sample": [
+    {
+      "prospectId": "f5eedd9c-2e39-46eb-9663-1d9b3a7f6cad",
+      "canonicalName": "L'UNIVERS DU PNEU",
+      "classification": "RESEARCH",
+      "eligibility": {
+        "realCommercial": true,
+        "internal": false,
+        "synthetic": false,
+        "technicalTest": false,
+        "excluded": false,
+        "humanBlocked": false,
+        "contactDiscoveryEligible": true,
+        "state": "DISQUALIFIED",
+        "score": 80,
+        "commercialEligibility": "RESEARCH",
+        "evidence": [
+          "REAL_COMMERCIAL_PROSPECT",
+          "NOT_INTERNAL",
+          "NOT_SYNTHETIC",
+          "NOT_TECHNICAL_TEST",
+          "NOT_EXCLUDED",
+          "NOT_HUMAN_BLOCKED",
+          "CONTACT_DISCOVERY_ELIGIBLE"
+        ]
+      },
+      "selectionReason": "A) WEAK_OR_NO_CONTACT: contactability MISSING, no website, no phone recorded; highest-score eligible real commercial local business in this category.",
+      "knownContactSummary": {
+        "contactabilityStatus": "MISSING",
+        "channelCount": 0,
+        "hasPhone": false,
+        "hasEmail": false,
+        "websiteUrl": null
+      },
+      "humanBlockStatus": "NOT_BLOCKED",
+      "orchestratorIdentityFields": {
+        "canonicalLocality": "LE MORNE-ROUGE",
+        "canonicalAddress": "HAUT DU BOURG AVENUE JEAN JAURES 97260 LE MORNE-ROUGE",
+        "canonicalPostalCode": "97260",
+        "canonicalWebsite": null
+      }
+    },
+    {
+      "prospectId": "0ccd1a72-187c-4053-845f-3bc54121069d",
+      "canonicalName": "QUALICONSULT SECURITE",
+      "classification": "ELIGIBLE",
+      "eligibility": {
+        "realCommercial": true,
+        "internal": false,
+        "synthetic": false,
+        "technicalTest": false,
+        "excluded": false,
+        "humanBlocked": false,
+        "contactDiscoveryEligible": true,
+        "state": "PROTOTYPE_READY",
+        "score": 77,
+        "commercialEligibility": "ELIGIBLE",
+        "evidence": [
+          "REAL_COMMERCIAL_PROSPECT",
+          "NOT_INTERNAL",
+          "NOT_SYNTHETIC",
+          "NOT_TECHNICAL_TEST",
+          "NOT_EXCLUDED",
+          "NOT_HUMAN_BLOCKED",
+          "CONTACT_DISCOVERY_ELIGIBLE"
+        ]
+      },
+      "selectionReason": "B) EXISTING_FIRST_PARTY_CONTACT: PUBLISHED_VERIFIED first-party email contact exists for comparison; real commercial local business with official site.",
+      "knownContactSummary": {
+        "contactabilityStatus": "PUBLISHED_VERIFIED",
+        "channelCount": 1,
+        "hasPhone": false,
+        "hasEmail": true,
+        "websiteUrl": "https://www.qualiconsult.com"
+      },
+      "humanBlockStatus": "NOT_BLOCKED",
+      "orchestratorIdentityFields": {
+        "canonicalLocality": "DUCOS",
+        "canonicalAddress": "20 LOTISSEMENT LA SERENITE 17 ALLEE DES COLOMBES 97224 DUCOS",
+        "canonicalPostalCode": "97224",
+        "canonicalWebsite": "https://www.qualiconsult.com"
+      }
+    },
+    {
+      "prospectId": "4d9337bf-c8cb-44ff-b192-6915b1eddffa",
+      "canonicalName": "UNION NATIONALE DU SPORT SCOLAIRE (UNSS)",
+      "classification": "ELIGIBLE",
+      "eligibility": {
+        "realCommercial": true,
+        "internal": false,
+        "synthetic": false,
+        "technicalTest": false,
+        "excluded": false,
+        "humanBlocked": false,
+        "contactDiscoveryEligible": true,
+        "state": "DISQUALIFIED",
+        "score": 62,
+        "commercialEligibility": "ELIGIBLE",
+        "evidence": [
+          "REAL_COMMERCIAL_PROSPECT",
+          "NOT_INTERNAL",
+          "NOT_SYNTHETIC",
+          "NOT_TECHNICAL_TEST",
+          "NOT_EXCLUDED",
+          "NOT_HUMAN_BLOCKED",
+          "CONTACT_DISCOVERY_ELIGIBLE"
+        ]
+      },
+      "selectionReason": "C) PARTIAL_CONTACT_WEBSITE_ANCHOR: website identity anchor present, no phone recorded; real commercial local business for testing Google identity+branch binding.",
+      "knownContactSummary": {
+        "contactabilityStatus": "MISSING",
+        "channelCount": 0,
+        "hasPhone": false,
+        "hasEmail": false,
+        "websiteUrl": "https://www.unss.org"
+      },
+      "humanBlockStatus": "NOT_BLOCKED",
+      "orchestratorIdentityFields": {
+        "canonicalLocality": "LAMENTIN",
+        "canonicalAddress": "MANGOT VULCIN RTE DU VERT PRE 97232 LE LAMENTIN",
+        "canonicalPostalCode": "97232",
+        "canonicalWebsite": "https://www.unss.org"
+      }
+    }
+  ],
+  "canonicalCanaryHash": "927bd69a5f62a6a873d92f18ee2598013bb050e443f7a76057cd5bb3187cce3c"
+}

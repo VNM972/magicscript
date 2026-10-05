@@ -20,13 +20,14 @@ export interface PersonalizedEntryInput {
 }
 
 export interface CommercialLink {
-  label: 'Voir votre proposition' | 'Accéder à la Sales Room';
+  label: 'Voir votre proposition';
   url: string;
 }
 
 export interface PersonalizedEntryLinks {
   prototypeUrl: string | null;
   prototypeEntryUrl: string | null;
+  /** Legacy Sales Room metadata retained for internal compatibility; never emitted as an entry link. */
   salesRoomUrl: string | null;
   salesRoomSlug: string | null;
   salesRoomStatus: SalesRoomStatus;
@@ -105,14 +106,7 @@ export function buildPersonalizedEntryLinks(
       ? new URL(`/p/${encodeURIComponent(salesRoomSlug)}`, baseUrl).toString()
       : null;
 
-  if (
-    !prototypeUrl ||
-    !baseUrl ||
-    !salesRoomSlug ||
-    !prototypeEntryUrl ||
-    !salesRoomUrl ||
-    salesRoomStatus === 'DISABLED'
-  ) {
+  if (!prototypeUrl || !baseUrl || !salesRoomSlug || !prototypeEntryUrl || salesRoomStatus === 'DISABLED') {
     return {
       prototypeUrl,
       prototypeEntryUrl,
@@ -131,11 +125,8 @@ export function buildPersonalizedEntryLinks(
     salesRoomUrl,
     salesRoomSlug,
     salesRoomStatus,
-    personalizedUrl: salesRoomUrl,
+    personalizedUrl: prototypeEntryUrl,
     personalizedEntryEnabled: true,
-    links: [
-      { label: 'Voir votre proposition', url: prototypeUrl },
-      { label: 'Accéder à la Sales Room', url: salesRoomUrl },
-    ],
+    links: [{ label: 'Voir votre proposition', url: prototypeUrl }],
   };
 }

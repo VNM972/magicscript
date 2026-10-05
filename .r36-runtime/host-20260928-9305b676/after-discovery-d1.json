@@ -1,0 +1,324 @@
+{
+  "prospects": [
+    {
+      "id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "company_name": "BODY ILES",
+      "legal_name": "BODY ILES",
+      "siren": "443976352",
+      "siret": "44397635200015",
+      "city": "FORT-DE-FRANCE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/44397635200015",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "HIGH_PRIORITY",
+      "brand_key": "BODY ILES",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "96.02B",
+      "location": "64 RUE VICTOR HUGO 97200 FORT-DE-FRANCE",
+      "website_url": null,
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISCOVERED",
+      "score": 79,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": null,
+      "created_at": "2026-09-28T16:06:36.768Z",
+      "updated_at": "2026-09-28T16:06:36.768Z"
+    },
+    {
+      "id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "company_name": "DATEX ANTILLES-GUYANE",
+      "legal_name": "DATEX ANTILLES-GUYANE",
+      "siren": "420481202",
+      "siret": "42048120200067",
+      "city": "FORT DE FRANCE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/42048120200067",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "HIGH_PRIORITY",
+      "brand_key": "DATEX ANTILLES GUYANE",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "56.29A",
+      "location": "CTRE AFF DILL VALMENIERE  EURYDICE D RTE DE LA POINTE DES SABLES 97200 FORT DE FRANCE",
+      "website_url": null,
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISCOVERED",
+      "score": 78,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": null,
+      "created_at": "2026-09-28T16:06:36.792Z",
+      "updated_at": "2026-09-28T16:06:36.792Z"
+    },
+    {
+      "id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "company_name": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+      "legal_name": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+      "siren": "189729015",
+      "siret": "18972901500017",
+      "city": "FORT-DE-FRANCE",
+      "source_url": "https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017",
+      "activity_taxonomy": "NAF_2008",
+      "commercial_eligibility": "RESEARCH",
+      "brand_key": "CERCLE DE LA BASE DE DEFENSE DES ANTILLES",
+      "brand_collision_group": null,
+      "initial_research_representative": 1,
+      "activity": "56.29B",
+      "location": "LD MORNE DESAIX 97200 FORT-DE-FRANCE",
+      "website_url": null,
+      "phone": null,
+      "v2_domain": null,
+      "opportunity": null,
+      "state": "DISCOVERED",
+      "score": 70,
+      "primary_friction": null,
+      "primary_asset": null,
+      "primary_cta": null,
+      "created_at": "2026-09-28T16:06:36.810Z",
+      "updated_at": "2026-09-28T16:06:36.810Z"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "32d48920-04a5-4337-a852-6e12447e6aae",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"32d48920-04a5-4337-a852-6e12447e6aae:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"f07cc11d-1765-43c1-ba40-3acfa1762b0f\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"f07cc11d-1765-43c1-ba40-3acfa1762b0f\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:f07cc11d-1765-43c1-ba40-3acfa1762b0f\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "PENDING",
+      "attempts": 0,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T16:06:36.779Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T16:06:36.782Z",
+      "updated_at": "2026-09-28T16:06:36.782Z"
+    },
+    {
+      "id": "cb690f4e-2009-4b37-bb4c-b4f7bcfc5df4",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"cb690f4e-2009-4b37-bb4c-b4f7bcfc5df4:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "PENDING",
+      "attempts": 0,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T16:06:36.802Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T16:06:36.802Z",
+      "updated_at": "2026-09-28T16:06:36.802Z"
+    },
+    {
+      "id": "79e987b7-a933-423d-8ccb-6f5a16f9bc02",
+      "kind": "RUN_RESEARCH_SWARM",
+      "prospect_id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "payload_json": "{\"state\":\"DISCOVERED\",\"hubId\":\"GENERALISTE\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\",\"handoff\":{\"id\":\"79e987b7-a933-423d-8ccb-6f5a16f9bc02:handoff\",\"sourceAgent\":\"orchestrator\",\"nextOwner\":\"MO Généraliste\",\"objective\":\"Exécuter l’action RUN_RESEARCH_SWARM.\",\"context\":{\"prospectId\":\"a219368b-3ea7-4860-93e5-de7abaff8b11\",\"action\":\"RUN_RESEARCH_SWARM\",\"businessUnit\":\"BU Généraliste\",\"masterOfWork\":\"MO Généraliste\",\"specialistId\":\"specialist-generalist-research\"},\"inputs\":[\"a219368b-3ea7-4860-93e5-de7abaff8b11\",\"RUN_RESEARCH_SWARM\"],\"constraints\":[\"no-external-send\",\"preserve-validated-facts\"],\"expectedOutput\":[\"result:RUN_RESEARCH_SWARM\"],\"verifier\":{\"id\":\"job-result-verifier\",\"requiredChecks\":[\"schema-valid\",\"no-external-action\"]},\"provenance\":[{\"source\":\"orchestrator\",\"reference\":\"prospect:a219368b-3ea7-4860-93e5-de7abaff8b11\"}],\"confidence\":\"UNKNOWN\",\"blockers\":[],\"decisionScope\":[\"job:RUN_RESEARCH_SWARM\"],\"hubId\":\"GENERALISTE\"}}",
+      "status": "PENDING",
+      "attempts": 0,
+      "max_attempts": 3,
+      "run_after": "2026-09-28T16:06:36.820Z",
+      "last_error": null,
+      "claimed_by": null,
+      "claimed_at": null,
+      "created_at": "2026-09-28T16:06:36.821Z",
+      "updated_at": "2026-09-28T16:06:36.821Z"
+    }
+  ],
+  "job_results": [],
+  "events": [
+    {
+      "id": "6b186629-429c-4492-b3ad-d99dc7f754bf",
+      "prospect_id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44397635200015\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"443976352|44397635200015\",\"researchIdentity\":{\"siren\":\"443976352\",\"siret\":\"44397635200015\",\"companyName\":\"BODY ILES\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44397635200015\"},\"classification\":\"HIGH_PRIORITY\",\"score\":79,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T16:06:36.768Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":19,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}",
+      "created_at": "2026-09-28T16:06:36.768Z"
+    },
+    {
+      "id": "755534d9-501d-44f8-92f9-372ca4beb946",
+      "prospect_id": "f07cc11d-1765-43c1-ba40-3acfa1762b0f",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"32d48920-04a5-4337-a852-6e12447e6aae\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T16:06:36.786Z"
+    },
+    {
+      "id": "e4e85c52-5fc7-42cf-afcb-2f8aef02a10d",
+      "prospect_id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/42048120200067\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"420481202|42048120200067\",\"researchIdentity\":{\"siren\":\"420481202\",\"siret\":\"42048120200067\",\"companyName\":\"DATEX ANTILLES-GUYANE\",\"city\":\"FORT DE FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/42048120200067\"},\"classification\":\"HIGH_PRIORITY\",\"score\":78,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T16:06:36.792Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":14,\"sector\":14,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}",
+      "created_at": "2026-09-28T16:06:36.792Z"
+    },
+    {
+      "id": "db7f88c1-e4af-451d-af33-53c6f6ed5c0b",
+      "prospect_id": "950e1928-a9e5-4ff3-8ea0-33fe3ef48e6c",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"cb690f4e-2009-4b37-bb4c-b4f7bcfc5df4\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T16:06:36.805Z"
+    },
+    {
+      "id": "f27478a0-a646-423b-8a0e-b9d52928c103",
+      "prospect_id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "actor": "research-agent",
+      "type": "discovery.prospect_created",
+      "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"189729015|18972901500017\",\"researchIdentity\":{\"siren\":\"189729015\",\"siret\":\"18972901500017\",\"companyName\":\"CERCLE DE LA BASE DE DEFENSE DES ANTILLES\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18972901500017\"},\"classification\":\"RESEARCH\",\"score\":70,\"agent1Context\":{\"commercialSignal\":null,\"digitalPresence\":null,\"opportunity\":null,\"score\":null,\"primaryFriction\":null,\"primaryAsset\":null,\"primaryCta\":null,\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-28T16:06:36.810Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":14,\"sector\":14,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}",
+      "created_at": "2026-09-28T16:06:36.810Z"
+    },
+    {
+      "id": "36c4bbaa-6a37-47ed-976b-2ef05e33fb48",
+      "prospect_id": "a219368b-3ea7-4860-93e5-de7abaff8b11",
+      "actor": "orchestrator",
+      "type": "orchestrator.job_queued",
+      "payload_json": "{\"action\":\"RUN_RESEARCH_SWARM\",\"jobId\":\"79e987b7-a933-423d-8ccb-6f5a16f9bc02\",\"jobKind\":\"RUN_RESEARCH_SWARM\"}",
+      "created_at": "2026-09-28T16:06:36.822Z"
+    },
+    {
+      "id": "57c6e7f4-7176-4dd0-9415-e95b2cba8fa4",
+      "prospect_id": null,
+      "actor": "system",
+      "type": "discovery.recherche_entreprises_batch",
+      "payload_json": "{\"page\":1,\"nextPage\":2,\"totalPages\":742,\"priorityPagesScanned\":3,\"fallbackPage\":null,\"scanned\":9,\"candidates\":8,\"created\":3,\"skipped\":1,\"intakeMode\":\"AUTOPILOT\",\"authRequired\":false,\"monetaryCost\":0,\"candidateDiagnostics\":{\"enabled\":true,\"complete\":true,\"total\":8,\"retained\":8,\"candidateDecisions\":[{\"occurrence\":1,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":1,\"stableIdentity\":\"18972901500017\",\"displayName\":\"CERCLE DE LA BASE DE DEFENSE DES ANTILLES\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"56.29B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":70,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":2,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":1,\"stableIdentity\":\"42048120200067\",\"displayName\":\"DATEX ANTILLES-GUYANE\",\"municipality\":\"FORT DE FRANCE\",\"naf\":\"56.29A\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"HIGH_PRIORITY\",\"finalEligibilityScore\":78,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":3,\"sourceWindow\":\"FOOD_SERVICE\",\"sourcePage\":1,\"stableIdentity\":\"31572855000015\",\"displayName\":\"GEORGES VILOCY\",\"municipality\":\"SCHOELCHER\",\"naf\":\"41.20A\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":2,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"LOW_PRIORITY\",\"finalEligibilityScore\":47,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":4,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":1,\"stableIdentity\":\"42492676400020\",\"displayName\":\"EPIL'ECLAT\",\"municipality\":\"SCHOELCHER\",\"naf\":\"96.02B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"REJECT\",\"finalEligibilityScore\":38,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":5,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":1,\"stableIdentity\":\"44397635200015\",\"displayName\":\"BODY ILES\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"96.02B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"HIGH_PRIORITY\",\"finalEligibilityScore\":79,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"CREATED\",\"canonicalReason\":\"CREATED\",\"persistenceAttempted\":true},{\"occurrence\":6,\"sourceWindow\":\"HAIR_BEAUTY\",\"sourcePage\":1,\"stableIdentity\":\"47830809100030\",\"displayName\":\"NATHOU BEAUTE\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"96.02B\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"LOW_PRIORITY\",\"finalEligibilityScore\":50,\"constraints\":[],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":7,\"sourceWindow\":\"LOCAL_RETAIL\",\"sourcePage\":1,\"stableIdentity\":\"30316059200018\",\"displayName\":\"SA BATA OUTRE MER (BOM)\",\"municipality\":\"FORT-DE-FRANCE\",\"naf\":\"47.72A\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":1,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":66,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false},{\"occurrence\":8,\"sourceWindow\":\"LOCAL_RETAIL\",\"sourcePage\":1,\"stableIdentity\":\"39335043400469\",\"displayName\":\"ECOMAX GUADELOUPE\",\"municipality\":\"LE LAMENTIN\",\"naf\":\"70.10Z\",\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"tier\":3,\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"finalEligibilityClass\":\"RESEARCH\",\"finalEligibilityScore\":61,\"constraints\":[\"NAF_70_10Z_NEUTRAL_SECTOR\",\"ICP_FIRST_WAVE_RESEARCH_CAP\"],\"dedupeOutcome\":\"NONE\",\"outcome\":\"SKIPPED\",\"canonicalReason\":\"CAP_REACHED\",\"persistenceAttempted\":false}]}}",
+      "created_at": "2026-09-28T16:06:36.833Z"
+    }
+  ],
+  "v2_admissions": [],
+  "active_production_slots": [
+    {
+      "slot_id": 1,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 2,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 3,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 4,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 5,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 6,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 7,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 8,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 9,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 10,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 11,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 12,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 13,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 14,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 15,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 16,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 17,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 18,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 19,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    },
+    {
+      "slot_id": 20,
+      "prospect_id": null,
+      "acquired_at": null,
+      "release_reason": null
+    }
+  ],
+  "v2_design_requests": [],
+  "v2_design_artifacts": [],
+  "v2_design_reviews": [],
+  "v2_build_artifacts": [],
+  "v2_visual_qa_reports": [],
+  "v2_proposals": [],
+  "outreach_messages": [],
+  "contacts": [],
+  "phone_trust_states": [],
+  "prototypes": []
+}

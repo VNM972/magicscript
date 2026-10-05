@@ -1,0 +1,833 @@
+﻿[
+  {
+    "results": [
+      {
+        "commercial_eligibility": null,
+        "state": "DISQUALIFIED",
+        "count": 30
+      },
+      {
+        "commercial_eligibility": null,
+        "state": "HUMAN_ACTION_REQUIRED",
+        "count": 10
+      },
+      {
+        "commercial_eligibility": null,
+        "state": "PROTOTYPE_READY",
+        "count": 14
+      },
+      {
+        "commercial_eligibility": null,
+        "state": "QUALIFIED",
+        "count": 1
+      },
+      {
+        "commercial_eligibility": null,
+        "state": "WAITING_REPLY",
+        "count": 3
+      },
+      {
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "state": "DISCOVERED",
+        "count": 2
+      },
+      {
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "state": "DISQUALIFIED",
+        "count": 9
+      },
+      {
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "state": "HUMAN_ACTION_REQUIRED",
+        "count": 1
+      },
+      {
+        "commercial_eligibility": "RESEARCH",
+        "state": "DISCOVERED",
+        "count": 3
+      },
+      {
+        "commercial_eligibility": "RESEARCH",
+        "state": "DISQUALIFIED",
+        "count": 18
+      },
+      {
+        "commercial_eligibility": "RESEARCH",
+        "state": "PROTOTYPE_REQUIRED",
+        "count": 4
+      }
+    ],
+    "success": true,
+    "meta": {
+      "duration": 1
+    }
+  },
+  {
+    "results": [
+      {
+        "id": "57955a24-b74a-4176-bad3-db3083ac2656",
+        "company_name": "374202 MARTINIQUE RELAY ZR",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/54209533619484\"}"
+      },
+      {
+        "id": "b154bdc2-86d7-49cc-b72b-7d48168ef6d4",
+        "company_name": "ACTIBURO",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/43770942100014\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"437709421|43770942100014\",\"researchIdentity\":{\"siren\":\"437709421\",\"siret\":\"43770942100014\",\"companyName\":\"ACTIBURO\",\"city\":\"LE LAMENTIN\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/43770942100014\"},\"classification\":\"RESEARCH\",\"score\":79,\"scoreBreakdown\":{\"locality\":30,\"size\":19,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"]}"
+      },
+      {
+        "id": "21420fbb-72bd-4a37-b34a-19f2ed77f4e0",
+        "company_name": "AG2R REUNICA-LA MARTINIQUE-LE LAMEN",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/80194705201832\"}"
+      },
+      {
+        "id": "c66cd2c2-9d8c-4d04-b83c-15f38a14058f",
+        "company_name": "AGPM-GESTION",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/32337904000724\"}"
+      },
+      {
+        "id": "da0d4664-6a21-4a47-a0b3-daab7bd13b9d",
+        "company_name": "APAVE EXPLOITATION FRANCE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/90386961801515\"}"
+      },
+      {
+        "id": "3f3dfce6-697e-4ec0-b1b2-ead53c468709",
+        "company_name": "APAVE INFRASTRUCTURES ET CONSTRUCTION FRANCE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/90386907100857\"}"
+      },
+      {
+        "id": "c965f79e-5aaa-4624-b73f-01e361c0be4e",
+        "company_name": "ARTUS MANAGEMENT",
+        "state": "HUMAN_ACTION_REQUIRED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/10004928700715\"}"
+      },
+      {
+        "id": "6124bf69-ae35-419f-85e0-e491e0d52cf1",
+        "company_name": "ARTUS SERVICES",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/10005082200194\"}"
+      },
+      {
+        "id": "b6437e30-edf7-441c-87ac-828c56977807",
+        "company_name": "ASL DE LA MARTINIQUE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/42843526700821\"}"
+      },
+      {
+        "id": "56cb7cd1-a762-45a8-ab21-af1165890d80",
+        "company_name": "ASSOCIATION POUR L'EMPLOI DES CADRES (APEC)",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/77567223101532\"}"
+      },
+      {
+        "id": "73576dde-c29e-44ec-9a0d-fa7c0e0fb712",
+        "company_name": "ATHENA TRADING",
+        "state": "PROTOTYPE_REQUIRED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/82071984700015\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"820719847|82071984700015\",\"researchIdentity\":{\"siren\":\"820719847\",\"siret\":\"82071984700015\",\"companyName\":\"ATHENA TRADING\",\"city\":\"LE LAMENTIN\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/82071984700015\"},\"classification\":\"RESEARCH\",\"score\":67,\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":5,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "a5c8065e-4b34-40ec-b17e-5507f82b47a7",
+        "company_name": "AUDITION CONSEIL",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44337074700034\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"443370747|44337074700034\",\"researchIdentity\":{\"siren\":\"443370747\",\"siret\":\"44337074700034\",\"companyName\":\"AUDITION CONSEIL\",\"city\":\"SCHOELCHER\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44337074700034\"},\"classification\":\"RESEARCH\",\"score\":74,\"scoreBreakdown\":{\"locality\":30,\"size\":19,\"autonomy\":20,\"sector\":5,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"]}"
+      },
+      {
+        "id": "cf8479be-7c9b-46ce-9bc3-eea3b46223cb",
+        "company_name": "Aux Deux Gouttes d'Eau",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://search.yahoo.com/search?p=%22Aux+Deux+Gouttes+d%27Eau%22+poterie+Martinique\"}"
+      },
+      {
+        "id": "4e2141e2-2182-4752-afb2-10a7d7dff06a",
+        "company_name": "BARBER_FIXTURE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://example.test/barber\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"523456789|52345678900002\",\"researchIdentity\":{\"siren\":\"523456789\",\"siret\":\"52345678900002\",\"companyName\":\"BARBER_FIXTURE\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://example.test/barber\"},\"classification\":\"HIGH_PRIORITY\",\"score\":90,\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":10,\"recency\":10},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "fa6850d4-8664-4429-8971-a67042a16a6f",
+        "company_name": "BEAUTY_FIXTURE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://example.test/beauty\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"623456789|62345678900003\",\"researchIdentity\":{\"siren\":\"623456789\",\"siret\":\"62345678900003\",\"companyName\":\"BEAUTY_FIXTURE\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://example.test/beauty\"},\"classification\":\"HIGH_PRIORITY\",\"score\":90,\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":10,\"recency\":10},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "7c2901b1-fab6-40c2-8645-ee6f51329544",
+        "company_name": "BERNARD'S COFFEE SHOP",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://recherche-entreprises.api.gouv.fr/search?q=Bernard%27s%20Coffee\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"892355967|89235596700027\",\"researchIdentity\":{\"siren\":\"892355967\",\"siret\":\"89235596700027\",\"companyName\":\"BERNARD'S COFFEE SHOP\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://recherche-entreprises.api.gouv.fr/search?q=Bernard%27s%20Coffee\"},\"classification\":\"HIGH_PRIORITY\",\"score\":85,\"agent1Context\":{\"commercialSignal\":\"Active local establishment; current open establishment since 2025-03-01\",\"digitalPresence\":\"Current public identity evidence located; owned website not established\",\"opportunity\":null,\"score\":null,\"primaryFriction\":\"Owned website and conversion path unverified\",\"primaryAsset\":\"Local coffee kiosk and coffee activity\",\"primaryCta\":\"Unknown pending Research\",\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[{\"confidence\":98,\"supports\":[\"identity\",\"location\",\"activity\",\"active_status\"],\"url\":\"https://recherche-entreprises.api.gouv.fr/search?q=Bernard%27s%20Coffee\",\"observedAt\":\"2026-09-15T16:23:17.9584647Z\",\"note\":\"Official French public registry result identifies active BERNARD'S COFFEE SHOP, SIREN/SIRET, Fort-de-France kiosk address, NAF 10.83Z and open establishment.\"}],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-15T16:23:18.408Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":5,\"recency\":10},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "80628c9c-e17d-4c58-996e-ce189b7a090f",
+        "company_name": "BOUYGUES ENERGIES & SERVICES (BOUYGUES ENERGIES & SERVICES)",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/77566487302141\"}"
+      },
+      {
+        "id": "81f1e3ff-b2e5-4379-b27b-e923ac3a99bf",
+        "company_name": "BUREAU VERITAS CONSTRUCTION",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/79018278600984\"}"
+      },
+      {
+        "id": "bb428966-e820-4e76-89f2-457b879aceb4",
+        "company_name": "BUREAU VERITAS EXPLOITATION",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/79018467501209\"}"
+      },
+      {
+        "id": "a97c4945-ece6-4590-9503-74180fe91f67",
+        "company_name": "CEF - YESSS ELECTRIQUE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/31988334402707\"}"
+      },
+      {
+        "id": "97b6bceb-a408-4c16-8ccb-90a65123b02b",
+        "company_name": "CNRS UMR7154 IPGP",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18008901308711\"}"
+      },
+      {
+        "id": "179b2145-1454-4919-b518-428f0dcf4760",
+        "company_name": "CONSTRUCTEL CONSTRUCTIONS TELECOMMUNICA.",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44283546800160\"}"
+      },
+      {
+        "id": "5a8560d0-231a-4096-9200-8680ac5819a8",
+        "company_name": "COPROPRIETE MARITIME - STRATEGE DES MERS",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/35409310600046\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"354093106|35409310600046\",\"researchIdentity\":{\"siren\":\"354093106\",\"siret\":\"35409310600046\",\"companyName\":\"COPROPRIETE MARITIME - STRATEGE DES MERS\",\"city\":\"LE FRANCOIS\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/35409310600046\"},\"classification\":\"RESEARCH\",\"score\":63,\"scoreBreakdown\":{\"locality\":30,\"size\":8,\"autonomy\":20,\"sector\":5,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"]}"
+      },
+      {
+        "id": "19706c05-657c-496d-8295-9ac5545c695a",
+        "company_name": "CORAIL",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/38276057700025\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.5.1\",\"identityKey\":\"382760577|38276057700025\",\"researchIdentity\":{\"siren\":\"382760577\",\"siret\":\"38276057700025\",\"companyName\":\"CORAIL\",\"city\":\"LE LAMENTIN\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/38276057700025\"},\"classification\":\"RESEARCH\",\"score\":71,\"scoreBreakdown\":{\"locality\":30,\"size\":7,\"autonomy\":20,\"sector\":14,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "85cfec6d-035d-47eb-b4bc-c09e09f9484e",
+        "company_name": "DARTY HABITAT NATURE ET DECOUVERTES",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/33164760200019\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"331647602|33164760200019\",\"researchIdentity\":{\"siren\":\"331647602\",\"siret\":\"33164760200019\",\"companyName\":\"DARTY HABITAT NATURE ET DECOUVERTES\",\"city\":\"LE LAMENTIN\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/33164760200019\"},\"classification\":\"RESEARCH\",\"score\":68,\"scoreBreakdown\":{\"locality\":30,\"size\":8,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"]}"
+      },
+      {
+        "id": "2ac64a6a-6920-4151-a90e-1820e367ec5d",
+        "company_name": "DEKRA",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/43780779501507\"}"
+      },
+      {
+        "id": "88827016-931f-4777-9e5e-1a2b8714c6d7",
+        "company_name": "DEKRA INDUSTRIAL",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/43325083401844\"}"
+      },
+      {
+        "id": "c5e10d79-12f9-448b-8fe7-cf16a7a3969e",
+        "company_name": "DISVEA",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/53127268000012\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"531272680|53127268000012\",\"researchIdentity\":{\"siren\":\"531272680\",\"siret\":\"53127268000012\",\"companyName\":\"DISVEA\",\"city\":\"LE LAMENTIN\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/53127268000012\"},\"classification\":\"RESEARCH\",\"score\":72,\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "445f1f9f-4d07-4c61-834a-c8116d4414bb",
+        "company_name": "ELECTRONIQUE +",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/39148567900016\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.5.1\",\"identityKey\":\"391485679|39148567900016\",\"researchIdentity\":{\"siren\":\"391485679\",\"siret\":\"39148567900016\",\"companyName\":\"ELECTRONIQUE +\",\"city\":\"LE LAMENTIN\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/39148567900016\"},\"classification\":\"HIGH_PRIORITY\",\"score\":80,\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "fb951634-6f69-46f8-9f46-8db04e780e69",
+        "company_name": "ENVIE D AILLEURS",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/51391970400017\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"513919704|51391970400017\",\"researchIdentity\":{\"siren\":\"513919704\",\"siret\":\"51391970400017\",\"companyName\":\"ENVIE D AILLEURS\",\"city\":\"SAINTE-LUCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/51391970400017\"},\"classification\":\"RESEARCH\",\"score\":79,\"scoreBreakdown\":{\"locality\":30,\"size\":19,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"]}"
+      },
+      {
+        "id": "649ae177-36d8-4804-a082-4069b95a0e86",
+        "company_name": "EURO INFORMATION SERVICES",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/38445469000940\"}"
+      },
+      {
+        "id": "2467794e-98f4-422c-9e81-662193cc0d89",
+        "company_name": "EVELYNE PILLET (RENAUD)",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/31638139100010\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"316381391|31638139100010\",\"researchIdentity\":{\"siren\":\"316381391\",\"siret\":\"31638139100010\",\"companyName\":\"EVELYNE PILLET (RENAUD)\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/31638139100010\"},\"classification\":\"RESEARCH\",\"score\":72,\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "b41082c6-84e8-4981-8163-9fbe1addeebf",
+        "company_name": "FINANCE CONSEIL",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/97220001811817\"}"
+      },
+      {
+        "id": "56a57399-1917-4455-a1ea-4d53e81bacf0",
+        "company_name": "FRATERNITE SACERDOTALE SAINT-PIE X",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/33291154400184\"}"
+      },
+      {
+        "id": "73443884-39de-4aae-a6e6-24a1433a12ee",
+        "company_name": "GENERALE D'OPTIQUE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/49278795703870\"}"
+      },
+      {
+        "id": "0fb087b7-bd21-4591-9930-020b8653d7c6",
+        "company_name": "GEORGES PLAVONIL",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/32381187700014\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"323811877|32381187700014\",\"researchIdentity\":{\"siren\":\"323811877\",\"siret\":\"32381187700014\",\"companyName\":\"GEORGES PLAVONIL\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/32381187700014\"},\"classification\":\"RESEARCH\",\"score\":67,\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":5,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "7847ee99-d76d-4fe1-920d-d94fab26df78",
+        "company_name": "GEORGES SYLVESTRE (MARIE-NELLY)",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/32420302500048\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"324203025|32420302500048\",\"researchIdentity\":{\"siren\":\"324203025\",\"siret\":\"32420302500048\",\"companyName\":\"GEORGES SYLVESTRE (MARIE-NELLY)\",\"city\":\"SCHOELCHER\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/32420302500048\"},\"classification\":\"RESEARCH\",\"score\":68,\"scoreBreakdown\":{\"locality\":30,\"size\":8,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "49a20d08-d4db-4998-b236-311e7d737cdd",
+        "company_name": "GIE LIEMAN GESTION",
+        "state": "DISCOVERED",
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44331040400019\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.5.1\",\"identityKey\":\"443310404|44331040400019\",\"researchIdentity\":{\"siren\":\"443310404\",\"siret\":\"44331040400019\",\"companyName\":\"GIE LIEMAN GESTION\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44331040400019\"},\"classification\":\"HIGH_PRIORITY\",\"score\":75,\"scoreBreakdown\":{\"locality\":30,\"size\":11,\"autonomy\":20,\"sector\":14,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "ad4d9766-c85d-447a-9e5d-91ca81dbcd5f",
+        "company_name": "GRAZIELLA EUGENIE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/38471632000054\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"384716320|38471632000054\",\"researchIdentity\":{\"siren\":\"384716320\",\"siret\":\"38471632000054\",\"companyName\":\"GRAZIELLA EUGENIE\",\"city\":\"DUCOS\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/38471632000054\"},\"classification\":\"RESEARCH\",\"score\":67,\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":5,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"ICP_FIRST_WAVE_RESEARCH_CAP\"]}"
+      },
+      {
+        "id": "d2c22cec-1091-4e81-8c50-cc90cb0f7216",
+        "company_name": "GUY HOQUET L'IMMOBILIER",
+        "state": "PROTOTYPE_REQUIRED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/51870544700010\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"518705447|51870544700010\",\"researchIdentity\":{\"siren\":\"518705447\",\"siret\":\"51870544700010\",\"companyName\":\"GUY HOQUET L'IMMOBILIER\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/51870544700010\"},\"classification\":\"RESEARCH\",\"score\":67,\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":5,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"]}"
+      },
+      {
+        "id": "a38681c7-e7e6-470c-a90e-220088fe625e",
+        "company_name": "INEO INFRACOM",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/40986794200586\"}"
+      },
+      {
+        "id": "25d37ec7-c8fe-4cca-b9ec-a43c632482e3",
+        "company_name": "INRAE ANTILLES-GUYANE FORT-DE-FRANCE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/18007003901613\"}"
+      },
+      {
+        "id": "82ed270e-8e1f-4cff-95dc-ff0c8d1028ad",
+        "company_name": "JACQUES ALLALI",
+        "state": "DISCOVERED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/31568706100020\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.5.1\",\"identityKey\":\"315687061|31568706100020\",\"researchIdentity\":{\"siren\":\"315687061\",\"siret\":\"31568706100020\",\"companyName\":\"JACQUES ALLALI\",\"city\":\"SCHOELCHER\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/31568706100020\"},\"classification\":\"RESEARCH\",\"score\":72,\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "ec045b5e-00be-44a3-a556-cfbc88cf56bb",
+        "company_name": "JEAN-PIERRE EUVRARD",
+        "state": "DISCOVERED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/41113428100012\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.5.1\",\"identityKey\":\"411134281|41113428100012\",\"researchIdentity\":{\"siren\":\"411134281\",\"siret\":\"41113428100012\",\"companyName\":\"JEAN-PIERRE EUVRARD\",\"city\":\"FORT DE FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/41113428100012\"},\"classification\":\"RESEARCH\",\"score\":67,\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":5,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NAF_70_10Z_NEUTRAL_SECTOR\"]}"
+      },
+      {
+        "id": "d12e10f8-6252-4f28-9c50-aa2742aa74c0",
+        "company_name": "KAY JUJU",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"920247814|92024781400014\",\"researchIdentity\":{\"siren\":\"920247814\",\"siret\":\"92024781400014\",\"companyName\":\"KAY JUJU\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju\"},\"classification\":\"HIGH_PRIORITY\",\"score\":85,\"agent1Context\":{\"commercialSignal\":\"Active local establishment; one open establishment\",\"digitalPresence\":\"Current public identity evidence located; owned website not established\",\"opportunity\":null,\"score\":null,\"primaryFriction\":\"Owned website and conversion path unverified\",\"primaryAsset\":\"Local commercial establishment\",\"primaryCta\":\"Unknown pending Research\",\"prototypeRecommendation\":null,\"agent2Type\":null,\"evidence\":[{\"confidence\":98,\"supports\":[\"identity\",\"location\",\"activity\",\"active_status\"],\"url\":\"https://recherche-entreprises.api.gouv.fr/search?q=Kay%20Juju\",\"observedAt\":\"2026-09-15T16:23:17.9574388Z\",\"note\":\"Official French public registry result identifies active KAY JUJU, SIREN/SIRET, Fort-de-France address, NAF 56.10C and one open establishment.\"}],\"seedStatus\":\"UNVERIFIED_RESEARCH_SEED\",\"provenance\":\"agent1-canonical-v1\",\"collectedAt\":\"2026-09-15T16:23:18.398Z\"},\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":5,\"recency\":10},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "f5eedd9c-2e39-46eb-9663-1d9b3a7f6cad",
+        "company_name": "L'UNIVERS DU PNEU",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/52192424100016\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"521924241|52192424100016\",\"researchIdentity\":{\"siren\":\"521924241\",\"siret\":\"52192424100016\",\"companyName\":\"L'UNIVERS DU PNEU\",\"city\":\"LE MORNE-ROUGE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/52192424100016\"},\"classification\":\"RESEARCH\",\"score\":80,\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"]}"
+      },
+      {
+        "id": "5d1ad3d5-b8ff-417d-97a2-b40ce7b8ce1c",
+        "company_name": "LE BAYOU",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://recherche-entreprises.api.gouv.fr/search?q=Le%20Bayou%20Fort-de-France\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"924776784|92477678400010\",\"researchIdentity\":{\"siren\":\"924776784\",\"siret\":\"92477678400010\",\"companyName\":\"LE BAYOU\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://recherche-entreprises.api.gouv.fr/search?q=Le%20Bayou%20Fort-de-France\"},\"classification\":\"HIGH_PRIORITY\",\"score\":94,\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":14,\"recency\":10},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "96d973b1-f68b-4a01-959a-1ee8e40d053e",
+        "company_name": "LE COMPTOIR MEDICAL",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/38857192900040\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.5.1\",\"identityKey\":\"388571929|38857192900040\",\"researchIdentity\":{\"siren\":\"388571929\",\"siret\":\"38857192900040\",\"companyName\":\"LE COMPTOIR MEDICAL\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/38857192900040\"},\"classification\":\"RESEARCH\",\"score\":71,\"scoreBreakdown\":{\"locality\":30,\"size\":11,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "7f379533-3f01-40f3-a4d2-8c393c0716bf",
+        "company_name": "LE SOUVENIR FRANCAIS",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/77567618220517\"}"
+      },
+      {
+        "id": "bbd73175-accc-40a4-a24b-a9d147bfdfff",
+        "company_name": "La Balade du Soleil",
+        "state": "HUMAN_ACTION_REQUIRED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://www.tripadvisor.com/Attraction_Review-g147293-d11813290-Reviews-La_Balade_du_Soleil-Martinique.html\"}"
+      },
+      {
+        "id": "9912f815-5406-4792-8218-bb2eeaf02862",
+        "company_name": "MART'AUDIO",
+        "state": "PROTOTYPE_REQUIRED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/93381442800019\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"933814428|93381442800019\",\"researchIdentity\":{\"siren\":\"933814428\",\"siret\":\"93381442800019\",\"companyName\":\"MART'AUDIO\",\"city\":\"LE LAMENTIN\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/93381442800019\"},\"classification\":\"RESEARCH\",\"score\":72,\"scoreBreakdown\":{\"locality\":30,\"size\":8,\"autonomy\":20,\"sector\":10,\"recency\":4},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "402627ff-a3ca-4493-82ff-a568d4f70bb0",
+        "company_name": "MICHEL BES",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/32826063300065\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.5.1\",\"identityKey\":\"328260633|32826063300065\",\"researchIdentity\":{\"siren\":\"328260633\",\"siret\":\"32826063300065\",\"companyName\":\"MICHEL BES\",\"city\":\"FORT DE FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/32826063300065\"},\"classification\":\"HIGH_PRIORITY\",\"score\":77,\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":15,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "af8c9cc6-4c49-4aa5-9365-40fc79fa480d",
+        "company_name": "Magic Script E2E Synthetic Prospect",
+        "state": "WAITING_REPLY",
+        "commercial_eligibility": null,
+        "type": null,
+        "payload_json": null
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000001",
+        "company_name": "Magic Script Full Smoke Fixture",
+        "state": "WAITING_REPLY",
+        "commercial_eligibility": null,
+        "type": null,
+        "payload_json": null
+      },
+      {
+        "id": "0f81b0ed-1f57-421c-aaed-85015c431baa",
+        "company_name": "OFFICE CENTRAL DE COOPERATION A L ECOLE (OCCE)",
+        "state": "HUMAN_ACTION_REQUIRED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/77568907801637\"}"
+      },
+      {
+        "id": "8c48d357-d6b9-4c80-8e28-0e760c0c06c6",
+        "company_name": "OPERATEUR DE COMPETENCES DES ENTREPRISES DE PROXIMITE",
+        "state": "HUMAN_ACTION_REQUIRED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/87903689500974\"}"
+      },
+      {
+        "id": "0fef5908-9927-426a-bc3f-80249ab45b68",
+        "company_name": "PASS' TRAVEL",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/53297265000016\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"532972650|53297265000016\",\"researchIdentity\":{\"siren\":\"532972650\",\"siret\":\"53297265000016\",\"companyName\":\"PASS' TRAVEL\",\"city\":\"LE LAMENTIN\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/53297265000016\"},\"classification\":\"RESEARCH\",\"score\":67,\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":5,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "acc3f066-717d-42cc-a8a1-2984da954e3a",
+        "company_name": "POINT MAT BRICO",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/83378726000011\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.5.1\",\"identityKey\":\"833787260|83378726000011\",\"researchIdentity\":{\"siren\":\"833787260\",\"siret\":\"83378726000011\",\"companyName\":\"POINT MAT BRICO\",\"city\":\"LE LAMENTIN\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/83378726000011\"},\"classification\":\"RESEARCH\",\"score\":71,\"scoreBreakdown\":{\"locality\":30,\"size\":11,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "8a14759d-8956-4e8b-82ef-51317362b72f",
+        "company_name": "POMPES FUNEBRES CARISTAN",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/81959134800019\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"819591348|81959134800019\",\"researchIdentity\":{\"siren\":\"819591348\",\"siret\":\"81959134800019\",\"companyName\":\"POMPES FUNEBRES CARISTAN\",\"city\":\"BASSE POINTE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/81959134800019\"},\"classification\":\"HIGH_PRIORITY\",\"score\":80,\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "23151e23-579f-424d-a629-0430c5676722",
+        "company_name": "QUALICONSULT",
+        "state": "HUMAN_ACTION_REQUIRED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/40144985501616\"}"
+      },
+      {
+        "id": "01a0f0d1-2f45-46e6-bb9a-d4e38973174b",
+        "company_name": "QUALICONSULT EXPLOITATION",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44284892501022\"}"
+      },
+      {
+        "id": "0ccd1a72-187c-4053-845f-3bc54121069d",
+        "company_name": "QUALICONSULT SECURITE",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/40320025601497\"}"
+      },
+      {
+        "id": "019e118b-54cd-4085-a61b-54a846fe950a",
+        "company_name": "REFUGE",
+        "state": "HUMAN_ACTION_REQUIRED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/77569199100969\"}"
+      },
+      {
+        "id": "5bd05368-cdf3-444a-a2c1-b1ef5d1bb029",
+        "company_name": "RESTALLIANCE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/39112579601194\"}"
+      },
+      {
+        "id": "4b210f07-40a6-4760-a1d5-b375568f4abe",
+        "company_name": "RESTAURANT_FIXTURE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://example.test/restaurant\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"423456789|42345678900001\",\"researchIdentity\":{\"siren\":\"423456789\",\"siret\":\"42345678900001\",\"companyName\":\"RESTAURANT_FIXTURE\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://example.test/restaurant\"},\"classification\":\"HIGH_PRIORITY\",\"score\":94,\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":14,\"recency\":10},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "10994b01-d40b-402d-8cd6-6594178e046e",
+        "company_name": "RESTAURANT_FIXTURE_FINAL",
+        "state": "DISCOVERED",
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://example.test/restaurant-final\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"723456789|72345678900001\",\"researchIdentity\":{\"siren\":\"723456789\",\"siret\":\"72345678900001\",\"companyName\":\"RESTAURANT_FIXTURE_FINAL\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://example.test/restaurant-final\"},\"classification\":\"HIGH_PRIORITY\",\"score\":94,\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":14,\"recency\":10},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "6ab95ee2-8fa3-48fb-a354-2137817634fc",
+        "company_name": "SA BATA OUTRE MER (BOM)",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/30316059200018\"}"
+      },
+      {
+        "id": "7101af89-be8f-45ed-b17b-794cbff65755",
+        "company_name": "SACEM",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/77567573904501\"}"
+      },
+      {
+        "id": "2d57e173-159e-4ae3-a77e-bdec4eaa246e",
+        "company_name": "SARL SOREIDOM",
+        "state": "DISCOVERED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/35251954000020\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.5.1\",\"identityKey\":\"352519540|35251954000020\",\"researchIdentity\":{\"siren\":\"352519540\",\"siret\":\"35251954000020\",\"companyName\":\"SARL SOREIDOM\",\"city\":\"LE ROBERT\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/35251954000020\"},\"classification\":\"RESEARCH\",\"score\":72,\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "d0dafaae-aebe-46c2-a532-5264a5a0d4f4",
+        "company_name": "SASU-YOUYOU-MARKET",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/84274162100010\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.5.1\",\"identityKey\":\"842741621|84274162100010\",\"researchIdentity\":{\"siren\":\"842741621\",\"siret\":\"84274162100010\",\"companyName\":\"SASU-YOUYOU-MARKET\",\"city\":\"LE LAMENTIN\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/84274162100010\"},\"classification\":\"RESEARCH\",\"score\":80,\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NETWORK_AUTONOMY_CHECK_REQUIRED\"]}"
+      },
+      {
+        "id": "50c1fb37-77d1-42d3-8417-20f58aab8238",
+        "company_name": "SAVOIE",
+        "state": "HUMAN_ACTION_REQUIRED",
+        "commercial_eligibility": "HIGH_PRIORITY",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/51884234900012\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"518842349|51884234900012\",\"researchIdentity\":{\"siren\":\"518842349\",\"siret\":\"51884234900012\",\"companyName\":\"SAVOIE\",\"city\":\"LE LAMENTIN\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/51884234900012\"},\"classification\":\"HIGH_PRIORITY\",\"score\":80,\"scoreBreakdown\":{\"locality\":30,\"size\":20,\"autonomy\":20,\"sector\":10,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      },
+      {
+        "id": "99333708-2b8c-4b22-8ef4-e8e58e2a5566",
+        "company_name": "SEGULA TECHNOLOGIES FRANCE",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/92516555700321\"}"
+      },
+      {
+        "id": "6c5ec70e-5a81-46b8-b1d9-2445d302d5dc",
+        "company_name": "SGS FRANCE (SERCOVAM; VERNOLAB;COURTRAY)",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/55203165002043\"}"
+      },
+      {
+        "id": "275bb1e3-b999-4eba-83de-45d85c32b931",
+        "company_name": "SMAC",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/68204083702255\"}"
+      },
+      {
+        "id": "fad22438-7200-4bf1-92ec-437a5396e131",
+        "company_name": "SNEMM",
+        "state": "HUMAN_ACTION_REQUIRED",
+        "commercial_eligibility": null,
+        "type": null,
+        "payload_json": null
+      },
+      {
+        "id": "c349c8cf-ccad-4580-b210-49ebfd2d1d8f",
+        "company_name": "SNEMM",
+        "state": "HUMAN_ACTION_REQUIRED",
+        "commercial_eligibility": null,
+        "type": null,
+        "payload_json": null
+      },
+      {
+        "id": "65271cb1-77be-40a5-8aa3-83aa3328391a",
+        "company_name": "SNEMM",
+        "state": "HUMAN_ACTION_REQUIRED",
+        "commercial_eligibility": null,
+        "type": null,
+        "payload_json": null
+      },
+      {
+        "id": "2609319c-5578-4a37-99bb-1b0923a2f81f",
+        "company_name": "SNEMM",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": null,
+        "payload_json": null
+      },
+      {
+        "id": "f401d5ae-49d0-46b0-97c4-8846d05cb25d",
+        "company_name": "SOC FIDUCIAIRE NAT JURIDIQUE FISCALE (FIDUCIAL SOFIRAL AVOCATS)",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/97050449401701\"}"
+      },
+      {
+        "id": "cc39f49b-3306-44b5-af7c-7fd1dc9633d1",
+        "company_name": "SOCIETE MARTINIQUAISE DE LOCATION (SOMARLOC)",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44471474500015\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"444714745|44471474500015\",\"researchIdentity\":{\"siren\":\"444714745\",\"siret\":\"44471474500015\",\"companyName\":\"SOCIETE MARTINIQUAISE DE LOCATION (SOMARLOC)\",\"city\":\"LE LAMENTIN\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44471474500015\"},\"classification\":\"RESEARCH\",\"score\":66,\"scoreBreakdown\":{\"locality\":30,\"size\":11,\"autonomy\":20,\"sector\":5,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NAF_70_10Z_NEUTRAL_SECTOR\",\"ICP_FIRST_WAVE_RESEARCH_CAP\",\"NETWORK_AUTONOMY_CHECK_REQUIRED\"]}"
+      },
+      {
+        "id": "dd85cd4c-9348-45bb-bce8-84917b9bc76f",
+        "company_name": "SOCIETE NATIONALE D'ENTRAIDE DE LA MEDAILLE MILITAIRE (SNEMM)",
+        "state": "WAITING_REPLY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/34200649103104\"}"
+      },
+      {
+        "id": "776667fb-d60f-47ed-8d69-4e190b03ac4d",
+        "company_name": "SOL ANTILLES GUYANE (S A G)",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/30316001400047\"}"
+      },
+      {
+        "id": "d2053b57-68a5-45d8-8fbb-e549096be39c",
+        "company_name": "SOMAREC",
+        "state": "PROTOTYPE_READY",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/38790371900012\"}"
+      },
+      {
+        "id": "e1182a15-88f4-4ce1-8071-19cf0b078fd2",
+        "company_name": "STATION VITO",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/54209559100062\"}"
+      },
+      {
+        "id": "4b76cb39-46bb-4583-ae06-2da7f055418a",
+        "company_name": "STELLIANT EXPERTISE & RISQUES CONSTRUCTION",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44901287100157\"}"
+      },
+      {
+        "id": "e098c79b-09a2-40e0-b48c-77e05dee1cbe",
+        "company_name": "SUNeLEK - WhatsApp E2E",
+        "state": "QUALIFIED",
+        "commercial_eligibility": null,
+        "type": null,
+        "payload_json": null
+      },
+      {
+        "id": "c7ebc520-44a6-411b-906a-690fbd4df2a3",
+        "company_name": "Sun Loisirs Martinique",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://www.domain-mapou.com/entreprise/sun-loisirs-martinique\"}"
+      },
+      {
+        "id": "2b337d96-861e-46c4-b960-2c51f62c02ad",
+        "company_name": "TK ELEVATOR FRANCE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/72202474202798\"}"
+      },
+      {
+        "id": "57ea6ecb-6170-4aef-b135-c17652b03bf3",
+        "company_name": "TOTAL DILLON",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/38332444910312\"}"
+      },
+      {
+        "id": "6d624316-cc4f-40bc-aa66-dabcd83d8b31",
+        "company_name": "TOTALENERGIES MARKETING ANTILLES GUYANE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/67204971500069\"}"
+      },
+      {
+        "id": "96a77be3-680c-46fc-9882-8568b84219c1",
+        "company_name": "TOTALENERGIES RENOUVELABLES FRANCE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/43483627600692\"}"
+      },
+      {
+        "id": "4cc2b65b-02e3-42bf-8bc7-a5787c351a4f",
+        "company_name": "UCPA SPORT VACANCES (UCPA)",
+        "state": "HUMAN_ACTION_REQUIRED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/77568204001147\"}"
+      },
+      {
+        "id": "4d9337bf-c8cb-44ff-b192-6915b1eddffa",
+        "company_name": "UNION NATIONALE DU SPORT SCOLAIRE (UNSS)",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": null,
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/77567565503261\"}"
+      },
+      {
+        "id": "b09ab56f-faa4-4125-8506-f28351a6af67",
+        "company_name": "VESPA ANTILLES",
+        "state": "PROTOTYPE_REQUIRED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/35079310500015\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"350793105|35079310500015\",\"researchIdentity\":{\"siren\":\"350793105\",\"siret\":\"35079310500015\",\"companyName\":\"VESPA ANTILLES\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/35079310500015\"},\"classification\":\"RESEARCH\",\"score\":67,\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":5,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[\"NAF_70_10Z_NEUTRAL_SECTOR\",\"ICP_FIRST_WAVE_RESEARCH_CAP\"]}"
+      },
+      {
+        "id": "0e93bc69-bc2d-420d-9159-5235f313d92e",
+        "company_name": "VIP FINANCE",
+        "state": "DISQUALIFIED",
+        "commercial_eligibility": "RESEARCH",
+        "type": "discovery.prospect_created",
+        "payload_json": "{\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44526805500016\",\"gateVersion\":\"COMMERCIAL_ELIGIBILITY_V2.6.0\",\"identityKey\":\"445268055|44526805500016\",\"researchIdentity\":{\"siren\":\"445268055\",\"siret\":\"44526805500016\",\"companyName\":\"VIP FINANCE\",\"city\":\"FORT-DE-FRANCE\",\"sourceUrl\":\"https://annuaire-entreprises.data.gouv.fr/etablissement/44526805500016\"},\"classification\":\"RESEARCH\",\"score\":67,\"scoreBreakdown\":{\"locality\":30,\"size\":12,\"autonomy\":20,\"sector\":5,\"recency\":0},\"sectorSource\":\"LOCAL_ESTABLISHMENT_ACTIVITY\",\"activityTaxonomy\":\"NAF_2008\",\"brandCollisionGroup\":null,\"constraints\":[]}"
+      }
+    ],
+    "success": true,
+    "meta": {
+      "duration": 7
+    }
+  }
+]

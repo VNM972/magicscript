@@ -1,0 +1,114 @@
+{
+  "prospect": {
+    "id": "58264bc4-f64f-4245-920f-e448601dea89",
+    "companyName": "JEAN-PIERRE LEMOINE-BUSSEROLLES",
+    "legalName": "JEAN-PIERRE LEMOINE-BUSSEROLLES",
+    "siren": "313279739",
+    "siret": "31327973900079",
+    "city": "FORT-DE-FRANCE",
+    "sourceUrl": "https://annuaire-entreprises.data.gouv.fr/etablissement/31327973900079",
+    "activityTaxonomy": "NAF_2008",
+    "commercialEligibility": "RESEARCH",
+    "brandKey": "JEAN PIERRE LEMOINE BUSSEROLLES",
+    "initialResearchRepresentative": true,
+    "activity": "70.10Z",
+    "location": "VILLA DUQUESNAY MORNE SUREY 97200 FORT-DE-FRANCE",
+    "websiteUrl": "https://www.jeanpierrelemoinebusserolles.com/",
+    "state": "DISQUALIFIED",
+    "score": 48,
+    "primaryCta": "contact form",
+    "createdAt": "2026-09-28T16:29:57.39Z",
+    "updatedAt": "2026-09-28T16:37:07.483Z"
+  },
+  "contacts": [],
+  "contactability": {
+    "identity": {
+      "prospectId": "58264bc4-f64f-4245-920f-e448601dea89",
+      "siren": "313279739",
+      "siret": "31327973900079"
+    },
+    "status": "MISSING",
+    "channels": [],
+    "preparation": null
+  },
+  "contactAcquisition": null,
+  "contactPresence": {
+    "status": "REJECTED",
+    "identity": {
+      "status": "REJECTED",
+      "matched": false,
+      "reason": "identity mismatch",
+      "observations": [
+        {
+          "domain": "facebook.com"
+        }
+      ]
+    },
+    "phone": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "email": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "website": {
+      "status": "UNKNOWN",
+      "values": [],
+      "evidence": []
+    },
+    "social": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "instagram": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "facebook": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "tiktok": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "whatsapp": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "contactForm": {
+      "status": "N/A",
+      "values": [],
+      "evidence": []
+    },
+    "sourcesProcessed": 1,
+    "sourcesChecked": [
+      "https://www.facebook.com/jeanpierrelemoinebusserolles"
+    ],
+    "reasons": [
+      "bounded sources checked: 1"
+    ],
+    "enrichedAt": "2026-09-28T16:37:07.399Z",
+    "truncated": false
+  },
+  "prototype": null,
+  "salesRoom": null,
+  "commercialLinks": {
+    "prototypeUrl": null,
+    "prototypeEntryUrl": null,
+    "salesRoomUrl": null,
+    "salesRoomSlug": "jean-pierre-lemoine-busserolles",
+    "salesRoomStatus": "ACTIVE",
+    "personalizedUrl": null,
+    "personalizedEntryEnabled": false,
+    "links": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "pageState": "FETCH_FAILED",
+  "observation": {
+    "schemaVersion": 1,
+    "requestedUrl": "https://www.zakari.fr/",
+    "inspectedAt": "2026-10-03T08:18:50.466Z",
+    "httpResultClass": "UNSUPPORTED"
+  },
+  "staging": {
+    "state": "FETCH_FAILED",
+    "authority": "NON_AUTHORITATIVE"
+  }
+}

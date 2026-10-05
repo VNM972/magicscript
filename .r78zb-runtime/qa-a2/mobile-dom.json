@@ -1,0 +1,326 @@
+{
+  "id": "r78zb-androcam-mobile",
+  "captureSuccess": true,
+  "capturedAt": "2026-10-04T15:19:27.306Z",
+  "definition": {
+    "name": "MOBILE",
+    "width": 390,
+    "height": 844,
+    "deviceScaleFactor": 1,
+    "mobile": false
+  },
+  "renderedUrl": "http://127.0.0.1:11640/",
+  "screenshotPath": "D:\\MagicScript\\repository\\.r78zb-runtime\\qa-a2\\mobile.png",
+  "dom": {
+    "url": "http://127.0.0.1:11640/",
+    "title": "Androcam Productions",
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "deviceScaleFactor": 1
+    },
+    "bodyText": "Androcam Productions\nClarifier la valeur de Androcam Productions\nContacter l’entreprise\n\nENTREPRISE LOCALE\n\nClarifier la valeur de Androcam Productions\n\nUnderstand the offer and take the next practical action.\n\nContacter l’entreprise\n\nPRESENT A CREDIBLE LOCAL BUSINESS OFFER WITH A SIMPLE NEXT STEP.\n\nClarifier la valeur de Androcam Productions\n\nAndrocam Productions\n\nUn accompagnement simple et clair pour passer à l’action.\n\nContacter l’entreprise\n\nAPPROVED STRUCTURE\n\nhero\n\nApproved structural placeholder; business content remains governed by the design artifact.\n\nAPPROVED STRUCTURE\n\noffer\n\nApproved structural placeholder; business content remains governed by the design artifact.\n\nAPPROVED STRUCTURE\n\nreassurance\n\nApproved structural placeholder; business content remains governed by the design artifact.\n\nAPPROVED STRUCTURE\n\ncontact\n\nApproved structural placeholder; business content remains governed by the design artifact.\n\nContacter l’entreprise\n\nCette démonstration présente la structure approuvée. Les coordonnées et actions opérationnelles restent à connecter.\n\nContacter l’entreprise\n\nAndrocam Productions\n\nMédias à fournir : logo if supplied ; approved business imagery if supplied",
+    "hero": {
+      "tag": "SECTION",
+      "text": "ENTREPRISE LOCALE\n\nClarifier la valeur de Androcam Productions\n\nUnderstand the offer and take the next practical action.\n\nContacter l’entreprise",
+      "left": 20,
+      "right": 355,
+      "top": 140.78125,
+      "bottom": 635.25,
+      "width": 335,
+      "height": 494.46875,
+      "display": "block",
+      "visibility": "visible",
+      "opacity": "1"
+    },
+    "primaryCta": {
+      "tag": "A",
+      "text": "Contacter l’entreprise",
+      "left": 40,
+      "right": 236.78125,
+      "top": 520.0625,
+      "bottom": 571.25,
+      "width": 196.78125,
+      "height": 51.1875,
+      "display": "inline-block",
+      "visibility": "visible",
+      "opacity": "1"
+    },
+    "controls": [
+      {
+        "tag": "A",
+        "text": "Androcam Productions",
+        "left": 20,
+        "right": 115.3125,
+        "top": 36.796875,
+        "bottom": 87.984375,
+        "width": 95.3125,
+        "height": 51.1875,
+        "display": "block",
+        "visibility": "visible",
+        "opacity": "1"
+      },
+      {
+        "tag": "A",
+        "text": "Clarifier la valeur de Androcam Productions",
+        "left": 131.3125,
+        "right": 355,
+        "top": 16,
+        "bottom": 67.1875,
+        "width": 223.6875,
+        "height": 51.1875,
+        "display": "block",
+        "visibility": "visible",
+        "opacity": "1"
+      },
+      {
+        "tag": "A",
+        "text": "Contacter l’entreprise",
+        "left": 131.3125,
+        "right": 282.65625,
+        "top": 83.1875,
+        "bottom": 108.78125,
+        "width": 151.34375,
+        "height": 25.59375,
+        "display": "block",
+        "visibility": "visible",
+        "opacity": "1"
+      },
+      {
+        "tag": "A",
+        "text": "Contacter l’entreprise",
+        "left": 40,
+        "right": 236.78125,
+        "top": 520.0625,
+        "bottom": 571.25,
+        "width": 196.78125,
+        "height": 51.1875,
+        "display": "inline-block",
+        "visibility": "visible",
+        "opacity": "1"
+      },
+      {
+        "tag": "A",
+        "text": "Contacter l’entreprise",
+        "left": 20,
+        "right": 218.78125,
+        "top": 984.234375,
+        "bottom": 1037.421875,
+        "width": 198.78125,
+        "height": 53.1875,
+        "display": "inline-block",
+        "visibility": "visible",
+        "opacity": "1"
+      },
+      {
+        "tag": "A",
+        "text": "Contacter l’entreprise",
+        "left": 52,
+        "right": 248.78125,
+        "top": 2786.828125,
+        "bottom": 2838.015625,
+        "width": 196.78125,
+        "height": 51.1875,
+        "display": "inline-block",
+        "visibility": "visible",
+        "opacity": "1"
+      }
+    ],
+    "sections": [
+      {
+        "id": "",
+        "approvedSection": null,
+        "className": "hero",
+        "box": {
+          "tag": "SECTION",
+          "text": "ENTREPRISE LOCALE\n\nClarifier la valeur de Androcam Productions\n\nUnderstand the offer and take the next practical action.\n\nContacter l’entreprise",
+          "left": 20,
+          "right": 355,
+          "top": 140.78125,
+          "bottom": 635.25,
+          "width": 335,
+          "height": 494.46875,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      },
+      {
+        "id": "home",
+        "approvedSection": null,
+        "className": "",
+        "box": {
+          "tag": "SECTION",
+          "text": "PRESENT A CREDIBLE LOCAL BUSINESS OFFER WITH A SIMPLE NEXT STEP.\n\nClarifier la valeur de Androcam Productions\n\nAndrocam Productions\n\nUn accompagnement simple et clair pour passer à l’action.\n\nContacter l’entreprise",
+          "left": 20,
+          "right": 355,
+          "top": 635.25,
+          "bottom": 1094.421875,
+          "width": 335,
+          "height": 459.171875,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      },
+      {
+        "id": "",
+        "approvedSection": "hero",
+        "className": "approved-structure",
+        "box": {
+          "tag": "SECTION",
+          "text": "APPROVED STRUCTURE\n\nhero\n\nApproved structural placeholder; business content remains governed by the design artifact.",
+          "left": 20,
+          "right": 355,
+          "top": 1094.421875,
+          "bottom": 1441.6875,
+          "width": 335,
+          "height": 347.265625,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      },
+      {
+        "id": "",
+        "approvedSection": "offer",
+        "className": "approved-structure",
+        "box": {
+          "tag": "SECTION",
+          "text": "APPROVED STRUCTURE\n\noffer\n\nApproved structural placeholder; business content remains governed by the design artifact.",
+          "left": 20,
+          "right": 355,
+          "top": 1441.6875,
+          "bottom": 1788.953125,
+          "width": 335,
+          "height": 347.265625,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      },
+      {
+        "id": "",
+        "approvedSection": "reassurance",
+        "className": "approved-structure",
+        "box": {
+          "tag": "SECTION",
+          "text": "APPROVED STRUCTURE\n\nreassurance\n\nApproved structural placeholder; business content remains governed by the design artifact.",
+          "left": 20,
+          "right": 355,
+          "top": 1788.953125,
+          "bottom": 2136.21875,
+          "width": 335,
+          "height": 347.265625,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      },
+      {
+        "id": "",
+        "approvedSection": "contact",
+        "className": "approved-structure",
+        "box": {
+          "tag": "SECTION",
+          "text": "APPROVED STRUCTURE\n\ncontact\n\nApproved structural placeholder; business content remains governed by the design artifact.",
+          "left": 20,
+          "right": 355,
+          "top": 2136.21875,
+          "bottom": 2483.484375,
+          "width": 335,
+          "height": 347.265625,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      },
+      {
+        "id": "contact",
+        "approvedSection": null,
+        "className": "contact",
+        "box": {
+          "tag": "SECTION",
+          "text": "Contacter l’entreprise\n\nCette démonstration présente la structure approuvée. Les coordonnées et actions opérationnelles restent à connecter.\n\nContacter l’entreprise",
+          "left": 20,
+          "right": 355,
+          "top": 2515.484375,
+          "bottom": 2871.015625,
+          "width": 335,
+          "height": 355.53125,
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1"
+        }
+      }
+    ],
+    "links": [
+      {
+        "href": "#top",
+        "targetExists": true
+      },
+      {
+        "href": "#home",
+        "targetExists": true
+      },
+      {
+        "href": "#contact",
+        "targetExists": true
+      },
+      {
+        "href": "#contact",
+        "targetExists": true
+      },
+      {
+        "href": "#contact",
+        "targetExists": true
+      },
+      {
+        "href": "#top",
+        "targetExists": true
+      }
+    ],
+    "assets": [],
+    "view": {
+      "horizontalOverflow": -15,
+      "heroVisible": true,
+      "primaryCtaVisible": true,
+      "contentVisible": true,
+      "controlsWithinViewport": true
+    },
+    "observedSections": [
+      "hero",
+      "home",
+      "hero",
+      "offer",
+      "reassurance",
+      "contact",
+      "contact"
+    ],
+    "headings": [
+      "h1 Clarifier la valeur de Androcam Productions",
+      "h2 Clarifier la valeur de Androcam Productions",
+      "h2 hero",
+      "h2 offer",
+      "h2 reassurance",
+      "h2 contact",
+      "h2 Contacter l’entreprise"
+    ],
+    "internalLinkErrors": [],
+    "unresolvedMarkers": [],
+    "brokenAssets": []
+  },
+  "consoleErrors": [],
+  "network": [
+    {
+      "url": "http://127.0.0.1:11640/",
+      "status": 200,
+      "type": "Document"
+    },
+    {
+      "url": "http://127.0.0.1:11640/styles.css",
+      "status": 200,
+      "type": "Stylesheet"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "diagnostics": [
+    {
+      "stage": "REQUEST",
+      "hostname": "www.zakari.fr",
+      "path": "/"
+    },
+    {
+      "stage": "TLS",
+      "authorized": true
+    },
+    {
+      "stage": "RESPONSE",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "content-length": null,
+        "content-encoding": null,
+        "content-disposition": null
+      }
+    }
+  ],
+  "bytesObserved": 252625,
+  "bytesRetained": 252625
+}

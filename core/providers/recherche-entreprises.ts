@@ -1,6 +1,9 @@
 export interface RechercheEntreprisesEtablissement {
   siret?: string;
   activite_principale?: string | null;
+  est_siege?: boolean | null;
+  date_creation?: string | null;
+  tranche_effectif_salarie?: string | null;
   adresse?: string | null;
   code_postal?: string | null;
   libelle_commune?: string | null;
@@ -17,6 +20,12 @@ export interface RechercheEntreprisesResult {
   etat_administratif?: string | null;
   activite_principale?: string | null;
   section_activite_principale?: string | null;
+  nature_juridique?: string | null;
+  date_creation?: string | null;
+  categorie_entreprise?: string | null;
+  tranche_effectif_salarie?: string | null;
+  nombre_etablissements_ouverts?: number | null;
+  est_service_public?: boolean | null;
   siege?: RechercheEntreprisesEtablissement | null;
   matching_etablissements?: RechercheEntreprisesEtablissement[] | null;
 }
@@ -58,6 +67,8 @@ export class RechercheEntreprisesClient {
   async search(input: {
     departement: string;
     sections?: string[];
+    companyCategory?: string;
+    activityCodes?: readonly string[];
     page?: number;
     perPage?: number;
   }): Promise<RechercheEntreprisesPage> {
@@ -82,6 +93,13 @@ export class RechercheEntreprisesClient {
         'section_activite_principale',
         input.sections.join(','),
       );
+    }
+
+    if (input.companyCategory) {
+      url.searchParams.set('categorie_entreprise', input.companyCategory);
+    }
+    if (input.activityCodes?.length) {
+      url.searchParams.set('activite_principale', input.activityCodes.join(','));
     }
 
     const response = await this.fetchFn(url, {
@@ -162,6 +180,27 @@ export function rechercheEntrepriseLocation(
 
   if (postalCode && city) return `${postalCode} ${city}`;
   return postalCode || city || undefined;
+}
+
+export function rechercheEntrepriseCity(
+  result: RechercheEntreprisesResult,
+  establishment?: RechercheEntreprisesEtablissement,
+): string | undefined {
+  return (
+    establishment?.libelle_commune?.trim() ||
+    result.siege?.libelle_commune?.trim() ||
+    undefined
+  );
+}
+
+export function rechercheEntrepriseLegalName(
+  result: RechercheEntreprisesResult,
+): string | undefined {
+  return (
+    result.nom_raison_sociale?.trim() ||
+    result.nom_complet?.trim() ||
+    undefined
+  );
 }
 
 export function rechercheEntrepriseActivity(

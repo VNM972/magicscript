@@ -1,0 +1,10 @@
+{
+  "shadow": true,
+  "status": "INSUFFICIENT_EVIDENCE",
+  "reasons": [
+    {
+      "code": "DIGITAL_PAIN_UNPROVEN",
+      "detail": "Digital pain must be grounded in an accepted persisted claim."
+    }
+  ]
+}
