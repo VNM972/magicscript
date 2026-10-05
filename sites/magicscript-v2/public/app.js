@@ -278,6 +278,8 @@
     const messageStatus = salesRoom.querySelector('[data-message-status]');
     const messageSubmit = messageForm?.querySelector('button[type="submit"]');
     const meetingButton = salesRoom.querySelector('[data-room-meeting]');
+    const bookingCtaContainer = salesRoom.querySelector('[data-booking-cta-container]');
+    const bookingCta = salesRoom.querySelector('[data-room-booking-cta]');
     const canonicalBookingPath = currentFixture.booking?.bookingPath;
     const canonicalBookingTarget = typeof canonicalBookingPath === 'string' && /^\/api\/public\/proposals\/[^/?#]+\/booking$/.test(canonicalBookingPath)
       ? canonicalBookingPath
@@ -297,8 +299,6 @@
     const bookingStatus = salesRoom.querySelector('[data-booking-status]');
     const bookingManage = salesRoom.querySelector('[data-booking-manage]');
     const bookingCancel = salesRoom.querySelector('[data-booking-cancel]');
-    const bookingCtaContainer = salesRoom.querySelector('[data-booking-cta-container]');
-    const bookingCta = salesRoom.querySelector('[data-room-booking-cta]');
     const bookingName = salesRoom.querySelector('[data-booking-name]');
     const bookingPhone = salesRoom.querySelector('[data-booking-phone]');
     const messageLink = salesRoom.querySelector('[data-room-message-link]');

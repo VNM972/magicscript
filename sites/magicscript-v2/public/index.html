@@ -11,6 +11,15 @@
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/mpatrimoine-integration.css">
   <link rel="stylesheet" href="/work-previews.css">
+  <script>
+    (function() {
+      // Preserve an API base supplied by a future build step, including disabled mode.
+      if (typeof window.__MAGICSCRIPT_SALES_ROOM_API_BASE__ === 'string') return;
+      var h = window.location.hostname;
+      var isLocal = h === 'localhost' || h === '127.0.0.1';
+      window.__MAGICSCRIPT_SALES_ROOM_API_BASE__ = isLocal ? 'http://127.0.0.1:8787' : '';
+    })();
+  </script>
   <script src="/app.js" defer></script>
 </head>
 <body>
