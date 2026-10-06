@@ -4,6 +4,7 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-08-29",
   "vars": {
+    "CAL_COM_WEBHOOK_SECRET": "dev-cal-secret",
     "MAGICSCRIPT_AUTOPILOT_ENABLED": "false",
     "MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED": "true",
     "MAGICSCRIPT_SENDING_ENABLED": "false",

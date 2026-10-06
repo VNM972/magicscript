@@ -178,6 +178,7 @@ function latestContactPresence(events: Array<{ type: string; createdAt: string; 
 
 interface Env {
   DB?: D1DatabaseLike;
+  CAL_COM_WEBHOOK_SECRET?: string;
   MAGICSCRIPT_AUTOPILOT_ENABLED?: string;
   MAGICSCRIPT_INTERNAL_PROCESSING_ENABLED?: string;
   MAGICSCRIPT_SENDING_ENABLED?: string;
@@ -646,6 +647,13 @@ function json(data: unknown, init: ResponseInit = {}): Response {
 }
 
 function corsHeaders(env: Env, request: Request): HeadersInit {
+  if (new URL(request.url).pathname === '/api/public/cal-com-webhook') {
+    return {
+      'access-control-allow-origin': '*',
+      'access-control-allow-methods': 'POST,OPTIONS',
+      'access-control-allow-headers': 'content-type,x-cal-com-webhook-secret',
+    };
+  }
   const configuredOrigins = [
     env.MAGICSCRIPT_CONTROL_CENTER_ORIGIN?.trim(),
     env.MAGICSCRIPT_PUBLIC_SALES_ROOM_INGESTION_ENABLED === 'true'
@@ -4511,6 +4519,9 @@ type MeetingRow = {
   created_at: string;
   updated_at: string;
   company_name?: string;
+  legal_name?: string | null;
+  cal_uid?: string | null;
+  metadata?: string | null;
   prospect_state?: string;
 };
 
@@ -5022,13 +5033,16 @@ async function listControlCenterMeetings(
   db: D1DatabaseLike,
   url: URL,
 ): Promise<Record<string, unknown>> {
-  const range = url.searchParams.get('from') && url.searchParams.get('to')
-    ? {
-        startAtUtc: new Date(url.searchParams.get('from') as string).toISOString(),
-        endAtUtc: new Date(url.searchParams.get('to') as string).toISOString(),
-      }
-    : getWeekRangeUtc(new Date().toISOString(), 'Europe/Paris');
-  const meetings = await listMeetingsInRange(db, range.startAtUtc, range.endAtUtc);
+  const now = Date.now();
+  const from = new Date(url.searchParams.get('from') ?? now - 30 * 86400000);
+  const to = new Date(url.searchParams.get('to') ?? now + 90 * 86400000);
+  const status = url.searchParams.get('status');
+  const result = await db.prepare(`SELECT m.*, p.company_name, p.legal_name
+    FROM meetings m JOIN prospects p ON p.id = m.prospect_id
+    WHERE m.start_at_utc >= ? AND m.start_at_utc < ? AND (? IS NULL OR m.status = ?)
+    ORDER BY m.start_at_utc ASC, m.created_at ASC`)
+    .bind(from.toISOString(), to.toISOString(), status, status).all<MeetingRow>();
+  const meetings = result.results ?? [];
   const views = await Promise.all(
     meetings.map(async (meeting) => {
       const briefing = await db
@@ -5040,7 +5054,14 @@ async function listControlCenterMeetings(
         )
         .bind(meeting.id)
         .first<{ id: string }>();
-      return { ...meetingView(meeting), briefingAvailable: Boolean(briefing) };
+      let metadata: unknown = null;
+      try { metadata = meeting.metadata ? JSON.parse(meeting.metadata) : null; } catch { /* Legacy malformed metadata is omitted. */ }
+      return {
+        ...meetingView(meeting), briefingAvailable: Boolean(briefing),
+        id: meeting.id, prospectName: meeting.company_name ?? null,
+        prospectCompany: meeting.legal_name || meeting.company_name || null,
+        calUid: meeting.cal_uid ?? null, metadata,
+      };
     }),
   );
   return { ok: true, timeZone: 'Europe/Paris', meetings: views };
@@ -8828,11 +8849,124 @@ async function ingestAgent1Batch(batch: Agent1CandidateBatch, env: Env, db: D1Da
   return { ok: true, batchId: batch.batchId, schemaVersion: batch.schemaVersion, jobId, ...processed };
 }
 
+async function handleCalComWebhook(request: Request, env: Env): Promise<Response> {
+  const expected = env.CAL_COM_WEBHOOK_SECRET;
+  const supplied = request.headers.get('x-cal-com-webhook-secret');
+  if (!expected || !supplied) return json({ error: 'Unauthorized' }, { status: 401 });
+  const encoder = new TextEncoder();
+  const [expectedDigest, suppliedDigest] = await Promise.all([
+    crypto.subtle.digest('SHA-256', encoder.encode(expected)),
+    crypto.subtle.digest('SHA-256', encoder.encode(supplied)),
+  ]);
+  const subtle = crypto.subtle as SubtleCrypto & {
+    timingSafeEqual(a: ArrayBuffer, b: ArrayBuffer): boolean;
+  };
+  if (!subtle.timingSafeEqual(expectedDigest, suppliedDigest)) {
+    return json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const body: unknown = await request.json().catch(() => null);
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
+    return json({ error: 'Invalid JSON payload' }, { status: 400 });
+  }
+  const { triggerEvent, payload } = body as Record<string, unknown>;
+  const db = requireDb(env);
+  const now = new Date().toISOString();
+  const audit = async (type: string, data: Record<string, unknown>) => {
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(), actor: 'system', type, payload: data, createdAt: now,
+    });
+  };
+  if (typeof triggerEvent !== 'string' || !['BOOKING_CREATED', 'BOOKING_CANCELLED', 'BOOKING_RESCHEDULED'].includes(triggerEvent)) {
+    const calUid = payload && typeof payload === 'object' && !Array.isArray(payload)
+      ? (payload as Record<string, unknown>).uid ?? null : null;
+    await audit('cal_com.webhook_invalid', { triggerEvent: triggerEvent ?? null, calUid, reason: 'UNKNOWN_TRIGGER_EVENT' });
+    return json({ error: 'Unknown triggerEvent' }, { status: 400 });
+  }
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    return json({ error: 'Invalid booking payload' }, { status: 400 });
+  }
+  const booking = payload as Record<string, unknown>;
+  const uid = typeof booking.uid === 'string' ? booking.uid.trim() : '';
+  if (!uid) return json({ error: 'uid is required' }, { status: 400 });
+  const existing = await db.prepare('SELECT id, prospect_id FROM meetings WHERE cal_uid = ?')
+    .bind(uid).first<{ id: string; prospect_id: string }>();
+  if (existing && triggerEvent === 'BOOKING_CREATED') return json({ duplicate: true });
+
+  const attendees = Array.isArray(booking.attendees)
+    ? booking.attendees.filter((attendee): attendee is Record<string, unknown> =>
+        Boolean(attendee) && typeof attendee === 'object' && !Array.isArray(attendee))
+    : [];
+  let prospectId = existing?.prospect_id;
+  let matchedAttendee: Record<string, unknown> | undefined;
+  if (!prospectId) {
+    for (const attendee of attendees) {
+      if (typeof attendee.email !== 'string') continue;
+      const contact = await db.prepare('SELECT prospect_id FROM contacts WHERE email = ? AND is_validated = 1 LIMIT 1')
+        .bind(attendee.email.trim()).first<{ prospect_id: string }>();
+      if (contact) {
+        prospectId = contact.prospect_id;
+        matchedAttendee = attendee;
+        break;
+      }
+    }
+  }
+  if (!prospectId || (!existing && triggerEvent !== 'BOOKING_CREATED')) {
+    await audit('cal_com.webhook_unmatched', { triggerEvent, calUid: uid, booking });
+    return json({ matched: false, logged: true });
+  }
+  const metadata = JSON.stringify({
+    title: booking.title ?? null, attendees, additionalNotes: booking.additionalNotes ?? null,
+  });
+  if (triggerEvent === 'BOOKING_CANCELLED') {
+    await db.prepare("UPDATE meetings SET status = 'CANCELLED', cancelled_at = ?, updated_at = ?, metadata = ? WHERE cal_uid = ?")
+      .bind(now, now, metadata, uid).run();
+    return json({ matched: true, id: existing!.id, status: 'CANCELLED' });
+  }
+  const start = typeof booking.startTime === 'string' ? Date.parse(booking.startTime) : NaN;
+  const end = typeof booking.endTime === 'string' ? Date.parse(booking.endTime) : NaN;
+  if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) {
+    return json({ error: 'Valid startTime and endTime are required' }, { status: 400 });
+  }
+  const startAt = new Date(start).toISOString();
+  const endAt = new Date(end).toISOString();
+  if (triggerEvent === 'BOOKING_RESCHEDULED') {
+    const result = await db.prepare(`UPDATE meetings SET start_at_utc = ?, end_at_utc = ?,
+      status = 'RESCHEDULED', rescheduled_from_id = id, cancelled_at = NULL, updated_at = ?, metadata = ?
+      WHERE cal_uid = ? AND NOT EXISTS (
+        SELECT 1 FROM meetings other WHERE other.start_at_utc = ? AND other.status = 'CONFIRMED' AND other.id <> meetings.id
+      )`).bind(startAt, endAt, now, metadata, uid, startAt).run();
+    if (!result.meta?.changes) return json({ error: 'Meeting slot already occupied' }, { status: 409 });
+    return json({ matched: true, id: existing!.id, status: 'RESCHEDULED' });
+  }
+  const id = crypto.randomUUID();
+  const phone = typeof matchedAttendee?.phoneNumber === 'string' ? matchedAttendee.phoneNumber : '';
+  try {
+    const result = await db.prepare(`INSERT INTO meetings (
+      id, prospect_id, sales_room_slug, communication_mode, start_at_utc, end_at_utc,
+      prospect_timezone, phone, status, confirmed_at, idempotency_key, created_at, updated_at, cal_uid, metadata
+    ) VALUES (?, ?, '', ?, ?, ?, 'UTC', ?, 'CONFIRMED', ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(cal_uid) WHERE cal_uid IS NOT NULL DO NOTHING`)
+      .bind(id, prospectId, phone ? 'phone' : 'email', startAt, endAt, phone, now, `cal-com:${uid}`, now, now, uid, metadata).run();
+    if (!result.meta?.changes) return json({ duplicate: true });
+  } catch (error) {
+    if (error instanceof Error && error.message.includes('UNIQUE constraint failed: meetings.start_at_utc')) {
+      return json({ error: 'Meeting slot already occupied' }, { status: 409 });
+    }
+    throw error;
+  }
+  return json({ matched: true, id, status: 'CONFIRMED' });
+}
+
 async function handle(request: Request, env: Env): Promise<Response> {
   const url = new URL(request.url);
 
   if (request.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: corsHeaders(env, request) });
+  }
+
+  if (request.method === 'POST' && url.pathname === '/api/public/cal-com-webhook') {
+    return handleCalComWebhook(request, env);
   }
 
   if (request.method === 'GET' && url.pathname === '/health') {
@@ -8888,7 +9022,8 @@ async function handle(request: Request, env: Env): Promise<Response> {
     if (unauthorized) return unauthorized;
     const staleStack = requireRunnerStack(request, env);
     if (staleStack) return staleStack;
-  } else if (request.method === 'POST' && url.pathname === '/api/agent1/batches') {
+  } else if ((request.method === 'POST' && url.pathname === '/api/agent1/batches') ||
+    (request.method === 'GET' && url.pathname === '/api/meetings')) {
     const unauthorized = requireApiOrRunnerAuth(request, env);
     if (unauthorized) return unauthorized;
   } else if (url.pathname.startsWith('/api/')) {
@@ -10012,6 +10147,15 @@ async function handle(request: Request, env: Env): Promise<Response> {
   }
 
   if (request.method === 'GET' && url.pathname === '/api/meetings') {
+    const from = url.searchParams.get('from');
+    const to = url.searchParams.get('to');
+    const status = url.searchParams.get('status');
+    const start = from === null ? Date.now() - 30 * 86400000 : Date.parse(from);
+    const end = to === null ? Date.now() + 90 * 86400000 : Date.parse(to);
+    if (!Number.isFinite(start) || !Number.isFinite(end) || start >= end ||
+      (status !== null && !['CONFIRMED', 'CANCELLED', 'RESCHEDULED'].includes(status))) {
+      return json({ error: 'Invalid meetings range or status' }, { status: 400 });
+    }
     return json(await listControlCenterMeetings(requireDb(env), url));
   }
 

@@ -28,6 +28,36 @@ export interface ProposalDeckItemV1 {
 
 export interface DeckResponse { items: ProposalDeckItemV1[]; activeSlotCount: number; capacity: 20; error?: string }
 
+export interface MeetingItem {
+  id: string;
+  prospectId: string;
+  prospectName: string | null;
+  prospectCompany: string | null;
+  startAtUtc: string;
+  endAtUtc: string;
+  status: 'CONFIRMED' | 'CANCELLED' | 'RESCHEDULED';
+  phone: string;
+  communicationMode: 'phone' | 'email';
+  calUid: string | null;
+  metadata: { title?: string; additionalNotes?: string; attendees?: unknown[] } | null;
+}
+
+export async function getMeetings(): Promise<{ meetings: MeetingItem[]; error?: string }> {
+  try {
+    if (!apiBase) throw new Error('API non configurée');
+    const headers = new Headers();
+    const token = process.env.MAGICSCRIPT_API_TOKEN || (isProduction ? undefined : 'dev-api-token');
+    if (token) headers.set('authorization', `Bearer ${token}`);
+    const response = await fetch(`${apiBase}/api/meetings`, { cache: 'no-store', headers });
+    if (!response.ok) throw new Error('Rendez-vous indisponibles');
+    const payload = await response.json() as { meetings: MeetingItem[] };
+    if (!Array.isArray(payload.meetings)) throw new Error('Rendez-vous invalides');
+    return { meetings: payload.meetings };
+  } catch {
+    return { meetings: [], error: 'Les rendez-vous sont momentanément indisponibles.' };
+  }
+}
+
 export type ProspectInventoryItem = Omit<ProposalDeckItemV1, 'engagement'> & { engagement?: ProposalDeckItemV1['engagement'] };
 type InventoryProspect = ProspectSummary & {
   city?: string;
