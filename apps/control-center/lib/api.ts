@@ -1117,6 +1117,38 @@ async function getJson<T>(path: string): Promise<T> {
   return (await response.json()) as T;
 }
 
+export interface SwarmSnapshot {
+  connected: boolean;
+  units: BusinessUnitVisibilityRow[];
+  runningJobCount: number | null;
+}
+
+/** Read-only cockpit snapshot, using the existing canonical BU projection. */
+export async function getSwarmSnapshot(): Promise<SwarmSnapshot> {
+  try {
+    // Keep local D1 reads sequential, as in getControlCenterData.
+    const { jobs } = await getJson<{ jobs: Job[] }>('/api/jobs?status=RUNNING');
+    const { prospects } = await getJson<{ prospects: ProspectSummary[] }>('/api/prospects');
+    if (!Array.isArray(jobs) || !Array.isArray(prospects)) throw new Error('Invalid swarm snapshot');
+    const running = jobs.filter((job) => job.status === 'RUNNING');
+    const visibility = projectBusinessUnitVisibility(prospects, running);
+    // Include jobs without a routable prospect; never silently lose them.
+    const routedIds = new Set(prospects.filter((prospect) => visibility.rows.some(
+      (row) => prospect.hubId === row.key || prospect.businessUnit === row.businessUnit,
+    )).map((prospect) => prospect.id));
+    const unknown = { ...visibility.unknown, activeJobCount: running.filter(
+      (job) => !job.prospectId || !routedIds.has(job.prospectId),
+    ).length };
+    return {
+      connected: true,
+      units: [...visibility.rows, ...(unknown.prospectCount || unknown.activeJobCount ? [unknown] : [])],
+      runningJobCount: running.length,
+    };
+  } catch {
+    return { connected: false, units: projectBusinessUnitVisibility([], []).rows, runningJobCount: null };
+  }
+}
+
 export async function getControlCenterData(): Promise<ControlCenterData> {
   try {
     const health = await getJson<ApiHealth>('/health');
