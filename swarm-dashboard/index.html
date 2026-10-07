@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#080808">
+  <title>Swarm — Magic Script</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080808;--ink:#F3F0E9;--muted:#93938d;--line:#ffffff16;--gold:#D9A441;--violet:#8065FF;--red:#E5484D;--green:#45C98B}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",sans-serif;font-size:14px}button,select,textarea{font:inherit}button,select{color:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}button:focus-visible,select:focus-visible,textarea:focus-visible,[role=button]:focus-visible{outline:2px solid var(--gold);outline-offset:5px}button{border:0}svg{display:block}::selection{background:#d9a44155}
+    .shell{max-width:1680px;margin:auto;padding:0 40px}.topbar{height:88px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;font-size:16px;font-weight:650;letter-spacing:-.6px}.brand svg{width:30px;height:30px;color:var(--gold)}.brand small{font-size:10px;font-weight:400;letter-spacing:2px;color:var(--muted);display:block;margin-top:3px}.top-note,.eyebrow,.mono{font-family:"SFMono-Regular",Consolas,monospace}.top-note{font-size:10px;letter-spacing:1.5px;color:var(--muted);display:flex;align-items:center;gap:10px}.dot{width:6px;height:6px;border-radius:50%;background:var(--gold);display:inline-block}.top-center{color:#bab9b2;font-size:12px}.top-center span{color:#575752;margin:0 12px}
+    .intro{padding:39px 0 32px;display:flex;align-items:end;justify-content:space-between;gap:24px}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:10px;color:var(--gold)}h1{font-size:clamp(30px,3.2vw,46px);font-weight:450;letter-spacing:-2px;line-height:1.1;margin:14px 0 13px}h1 em{font-family:Georgia,serif;font-weight:400;color:#aaa99f}.subtitle{color:var(--muted);font-size:13px;margin:0;line-height:1.7}.outline{background:transparent;border:1px solid #ffffff25;padding:11px 16px;border-radius:5px;font-size:12px;white-space:nowrap}.outline:hover{background:#ffffff08;border-color:#ffffff55}.icon{margin-right:8px;color:var(--gold)}
+    .metrics{display:grid;grid-template-columns:1.15fr 1fr 1fr 1fr;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:23px 0;margin-bottom:25px}.metric{padding:0 26px;border-left:1px solid var(--line)}.metric:first-child{padding-left:0;border:0}.metric-label{font-size:10px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:12px}.metric-value{font-size:24px;letter-spacing:-.8px;font-weight:450}.metric-value small{font-size:11px;color:var(--muted);letter-spacing:0;margin-left:9px}.health{display:inline-flex;gap:3px;margin-left:16px;vertical-align:middle}.health i{height:14px;width:3px;background:var(--green);opacity:.55}.health i:last-child{opacity:.15}.running{color:var(--green);font-size:18px;letter-spacing:-.4px}.running .dot{background:var(--green);margin-right:8px;box-shadow:0 0 12px #45c98b55}
+    .workspace{display:grid;grid-template-columns:minmax(0,1fr) 280px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#0b0c0b}.observatory{min-width:0;position:relative;background:radial-gradient(ellipse at 68% 53%,#40321b10,transparent 65%),#090a09}.scene-head{position:absolute;z-index:1;left:23px;right:23px;top:22px;display:flex;justify-content:space-between;pointer-events:none}.scene-title{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#a9aaa2}.scene-title .dot{background:var(--green);margin-right:8px}.scene-counter{color:#75786e;font-size:10px}.map-wrap{min-height:470px;display:flex;align-items:center;overflow:hidden}.map{width:100%;height:auto;min-height:470px;max-height:650px}.map .wire{stroke:var(--ink);stroke-width:1;stroke-opacity:.15;fill:none;vector-effect:non-scaling-stroke}.bu-orbit{fill:none;stroke:#cbb685;stroke-opacity:.07;stroke-width:1;vector-effect:non-scaling-stroke}.bu-name{fill:var(--ink);font-size:20px;font-weight:450;letter-spacing:-.5px}.bu-meta{fill:#93938d;font-family:Consolas,monospace;font-size:10px;letter-spacing:1.6px}.dust{animation:breathe 7s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}.dust:nth-child(even){animation-delay:-3s}.entity{color:var(--gold);cursor:pointer;outline:none}.entity .aura{fill:currentColor;opacity:0;filter:url(#halo)}.entity .core{fill:#10120f;stroke:currentColor;stroke-width:1.5}.entity .ring{fill:none;stroke:currentColor;stroke-width:1;opacity:.6}.entity .spin{fill:none;stroke:currentColor;stroke-width:2;stroke-dasharray:17 105;transform-box:fill-box;transform-origin:center;opacity:0}.entity .glyph{fill:currentColor}.entity .selected-ring{fill:none;stroke:var(--ink);stroke-width:.7;stroke-dasharray:2 6;opacity:0}.entity[aria-pressed=true] .selected-ring,.entity:focus-visible .selected-ring{opacity:.65}.entity .node-name{fill:var(--ink);font-size:11px;letter-spacing:.25px}.entity .status-name{fill:currentColor;font-size:9px;font-family:Consolas,monospace}.entity[data-status=idle]{color:#a2a49c;opacity:.5}.entity[data-status=processing] .aura{opacity:.22;animation:glow 3s ease-in-out infinite}.entity[data-status=processing] .spin{opacity:1;animation:rotate 6s linear infinite}.entity[data-status=waiting_gatekeeper]{color:var(--violet)}.entity[data-status=waiting_gatekeeper] .aura{opacity:.3;animation:glow 3.5s ease-in-out infinite}.entity[data-status=waiting_gatekeeper] .ring{animation:glow 3.5s ease-in-out infinite}.entity[data-status=error]{color:var(--red)}.entity .disturbance{fill:none;stroke:currentColor;opacity:0}.entity[data-status=error] .disturbance{animation:ripple 2.4s ease-out infinite;transform-box:fill-box;transform-origin:center}.entity[data-status=error] .aura{opacity:.25}.entity[data-status=success]{color:var(--green)}.entity[data-status=success] .aura{opacity:.16}.traveler{fill:#ffe5a6;filter:url(#spark)}
+    .map-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 22px 20px}.map-hint{font-size:10px;color:var(--muted)}.controls{display:flex;gap:7px}.control{background:#141512;border:1px solid #ffffff19;border-radius:4px;min-height:36px;padding:7px 11px;font-size:11px;color:#c9c9bf}.control:hover{background:#20211c}.control.primary{color:var(--gold);border-color:#d9a44135}.legend{padding:16px 22px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:18px;color:var(--muted);font-size:10px}.legend span{display:flex;align-items:center;gap:6px}.legend i{height:5px;width:5px;border-radius:50%;background:var(--c)}
+    aside{border-left:1px solid var(--line);padding:23px 22px;background:#10110e}.aside-heading{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}.aside-heading span:last-child{color:#585b50}.agent-icon{margin-top:29px;width:44px;height:44px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold);background:#d9a4410c;box-shadow:0 0 25px #d9a4410a}.agent-icon::after{content:"";width:8px;height:8px;background:currentColor;border-radius:50%}h2{font-size:24px;font-weight:450;letter-spacing:-.8px;margin:15px 0 7px}.agent-id{font-size:10px;color:var(--muted)}.detail-list{margin:27px 0 21px}.detail-row{display:flex;justify-content:space-between;gap:10px;margin:16px 0;font-size:11px}.detail-row dt{color:var(--muted)}.detail-row dd{margin:0;text-align:right}.badge{color:var(--gold)}.progress-track{height:3px;background:#ffffff0c;margin-top:11px;border-radius:4px;overflow:hidden}.progress-fill{height:100%;background:var(--gold);width:64%;transition:width .35s}.progress-label{display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}.divider{height:1px;background:var(--line);margin:25px 0 20px}label.field-label{display:block;color:var(--muted);font-size:10px;margin-bottom:10px}select{width:100%;min-height:39px;border-radius:4px;border:1px solid #ffffff20;background:#161712;padding:8px;font-size:11px}.micro{font-size:10px;color:#929389;line-height:1.7;margin:10px 0 0}.event-label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}.event-list{list-style:none;padding:0;margin:13px 0 0}.event-list li{font-size:11px;color:#cecec3;border-left:1px solid #d9a44166;padding:0 0 0 11px;margin:13px 0;line-height:1.6}.event-list time{display:block;color:#808376;font-size:9px;font-family:Consolas,monospace}.footer{display:flex;justify-content:space-between;gap:15px;color:#818579;font-size:10px;padding:19px 0 25px}.footer strong{font-weight:400;color:#b7b8ad}.paused *, .paused *::after{animation-play-state:paused!important}
+    dialog{width:min(720px,calc(100% - 32px));max-height:90vh;background:#12130f;color:var(--ink);border:1px solid #ffffff25;border-radius:9px;padding:25px}dialog::backdrop{background:#000b;backdrop-filter:blur(6px)}.dialog-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.dialog-head h2{margin:0;font-size:22px}textarea{width:100%;height:330px;margin-top:20px;resize:vertical;background:#080808;color:#d8c69f;border:1px solid #ffffff20;padding:15px;font:12px/1.6 Consolas,monospace;border-radius:4px}.dialog-actions{display:flex;justify-content:space-between;gap:10px;margin-top:14px;align-items:center}.error-message{color:#ff8185;font-size:12px;line-height:1.5}.notice{min-height:16px;color:var(--gold);font-size:11px}
+    @keyframes rotate{to{transform:rotate(360deg)}}@keyframes breathe{from{opacity:.55;transform:scale(.99)}to{opacity:1;transform:scale(1.015)}}@keyframes glow{0%,100%{opacity:.18}50%{opacity:.5}}@keyframes ripple{0%{transform:scale(.7);opacity:.6}100%{transform:scale(2);opacity:0}}
+    @media(min-width:1500px){.map-wrap{min-height:560px}}@media(max-width:1050px){.shell{padding:0 24px}.workspace{grid-template-columns:minmax(0,1fr) 245px}.map-bottom{flex-direction:column;align-items:start}.map{min-height:420px}.map-wrap{min-height:420px}.top-center{display:none}.health{display:none}}
+    @media(max-width:760px){.shell{padding:0 18px}.topbar{height:75px}.top-note{font-size:8px;letter-spacing:.8px}.intro{padding:28px 0;display:block}h1{font-size:35px}.intro .outline{margin-top:20px}.metrics{grid-template-columns:1fr 1fr;gap:24px 0;padding:20px 0}.metric{padding:0 20px}.metric:nth-child(3){border:0;padding:0}.metric-value{font-size:23px}.workspace{grid-template-columns:1fr}.map-wrap{min-height:330px}.map{min-height:330px}.scene-head{left:16px;right:16px;top:18px}.scene-counter{display:none}.map-bottom{padding:0 16px 18px;gap:12px}.controls{width:100%;flex-wrap:wrap}.control{min-height:44px;flex:1}.legend{padding:15px 16px;gap:14px}aside{border-left:0;border-top:1px solid var(--line);padding:22px}.agent-icon{float:right;margin-top:20px}.detail-list{margin-top:23px}.footer{font-size:9px;line-height:1.8;flex-direction:column;gap:3px}select{min-height:44px}.dialog-actions{align-items:start;flex-direction:column}}
+    .mobile-picker{display:none}@media(max-width:760px){.mobile-picker{display:block;width:100%;font-size:11px;color:var(--muted)}.mobile-picker select{display:block;margin-top:9px;color:var(--ink)}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m16 2 12 7v14l-12 7L4 23V9Z" fill="none" stroke="currentColor"/><path d="m4 9 12 7 12-7M16 16v14M10 6v13l12 7" fill="none" stroke="currentColor" opacity=".6"/></svg><div>magic script<small>INTELLIGENCE STUDIO</small></div></div>
+      <div class="top-center">Espace de travail <span>/</span> Observatoire</div>
+      <div class="top-note"><i class="dot"></i> MAQUETTE INTERACTIVE</div>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="page-title"><div><div class="eyebrow">Swarm visuel / 01</div><h1>L’intelligence, <em>en mouvement.</em></h1><p class="subtitle">Observer les connexions. Comprendre l’activité. Ressentir la ruche.</p></div><button class="outline" id="json-open"><span class="icon">{ }</span> Explorer le JSON</button></section>
+      <section class="metrics" aria-label="Indicateurs du JSON">
+        <div class="metric"><span class="metric-label">État de la ruche</span><div class="metric-value running" id="swarm-state"></div></div>
+        <div class="metric"><span class="metric-label">Santé du système</span><div class="metric-value"><span id="health"></span><span class="health" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div></div>
+        <div class="metric"><span class="metric-label">Jobs actifs</span><div class="metric-value"><span id="jobs"></span><small>dans le JSON</small></div></div>
+        <div class="metric"><span class="metric-label">Unités connectées</span><div class="metric-value"><span id="units"></span><small>business units</small></div></div>
+      </section>
+      <section class="workspace" aria-label="Observatoire interactif">
+        <div class="observatory">
+          <div class="scene-head"><span class="scene-title"><i class="dot"></i> Champ d’activité</span><span class="scene-counter mono" id="scene-count"></span></div>
+          <div class="map-wrap"><svg class="map" id="map" viewBox="-50 45 990 610" aria-labelledby="map-title map-desc"><title id="map-title">Ruche d’agents Magic Script</title><desc id="map-desc">Sélectionnez un agent ou un gatekeeper pour inspecter son état. Les positions des unités proviennent du JSON.</desc><defs><filter id="halo" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="13"/></filter><filter id="spark" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="3"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter><pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".6" fill="#b6bca0" opacity=".09"/></pattern></defs><rect id="grid-bg" x="-50" y="45" width="990" height="610" fill="url(#grid)"/><g id="connections"></g><g id="clusters"></g><g id="entities"></g><g id="transfers" aria-hidden="true"></g></svg></div>
+          <div class="map-bottom"><label class="mobile-picker" for="entity-select">Observer un organisme<select id="entity-select"></select></label><span class="map-hint">↳ Sélectionnez un organisme pour l’observer</span><div class="controls"><button class="control" id="pause" aria-pressed="false">Ⅱ Pause</button><button class="control" id="reset" title="Restaurer le JSON d’exemple">↺ Réinitialiser</button><button class="control primary" id="transfer">Simuler un transfert ↗</button></div></div>
+          <div class="legend" aria-label="Légende des états"><span><i style="--c:#93938d"></i>Idle</span><span><i style="--c:#D9A441"></i>Processing</span><span><i style="--c:#8065FF"></i>Validation</span><span><i style="--c:#E5484D"></i>Erreur</span><span><i style="--c:#45C98B"></i>Succès</span></div>
+        </div>
+        <aside aria-label="Inspecteur d’agent"><div class="aside-heading"><span>Organisme sélectionné</span><span>↗</span></div><div class="agent-icon" id="agent-icon" aria-hidden="true"></div><h2 id="agent-name"></h2><div class="agent-id mono" id="agent-id"></div><dl class="detail-list"><div class="detail-row"><dt>Business unit</dt><dd id="agent-bu"></dd></div><div class="detail-row"><dt>Rôle</dt><dd id="agent-role"></dd></div><div class="detail-row"><dt>État</dt><dd class="badge" id="agent-state"></dd></div></dl><div class="progress-label"><span>Progression fournie</span><span class="mono" id="progress-value"></span></div><div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div><div class="divider"></div><label class="field-label" for="status-select">Tester un état visuel</label><select id="status-select"><option value="idle">Idle · en veille</option><option value="processing">Processing · en cours</option><option value="waiting_gatekeeper">Validation · en attente</option><option value="error">Erreur · perturbation</option><option value="success">Succès · terminé</option></select><p class="micro">Simulation locale. Aucune action sur les agents réels.</p><div class="divider"></div><div class="event-label">Traces de la maquette</div><ul class="event-list" id="events" aria-live="polite"></ul></aside>
+      </section>
+      <footer class="footer"><span><strong>MAGIC SCRIPT</strong> &nbsp; / &nbsp; Organic computational minimalism</span><span>Source : JSON d’exemple · Données simulées · Aucun flux de production</span></footer>
+      <div class="notice" id="notice" role="status"></div>
+    </main>
+  </div>
+  <dialog id="json-dialog" aria-labelledby="json-title"><div class="dialog-head"><h2 id="json-title">La ruche, à la source.</h2><button class="outline" id="json-close" aria-label="Fermer le JSON">Fermer ×</button></div><p class="micro">Modifiez les données et leurs positions x/y. L’application reste entièrement locale.</p><label class="field-label" for="json-input">Données du Swarm</label><textarea id="json-input" spellcheck="false"></textarea><div class="error-message" id="json-error" role="alert"></div><div class="dialog-actions"><span class="micro">Les indicateurs affichent les valeurs de swarm.</span><button class="outline" id="json-apply">Appliquer le JSON ↗</button></div></dialog>
+  <script id="swarm-data" type="application/json">
+  {
+    "swarm": { "status": "running", "health": 0.98, "activeJobs": 3 },
+    "businessUnits": [
+      { "id": "bu-discovery", "name": "Discovery", "position": { "x": 160, "y": 280 } },
+      { "id": "bu-build", "name": "Build", "position": { "x": 720, "y": 410 } }
+    ],
+    "agents": [
+      { "id": "agent-01", "name": "Prospect 01", "businessUnitId": "bu-discovery", "status": "idle" },
+      { "id": "agent-02", "name": "Builder 01", "businessUnitId": "bu-build", "status": "processing", "progress": 0.64 }
+    ],
+    "gatekeepers": [
+      { "id": "gk-01", "name": "GK Build", "businessUnitId": "bu-build", "status": "processing" }
+    ]
+  }
+  </script>
+  <script>
+    'use strict';
+    // Autonomous mock: no fetch, external dependency, storage, or production actions.
+    const initialData = JSON.parse(document.getElementById('swarm-data').textContent);
+    let data = structuredClone(initialData), selectedId = 'agent-02', paused = false;
+    const $ = id => document.getElementById(id);
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const colors = {idle:'#93938d', processing:'#D9A441', waiting_gatekeeper:'#8065FF', error:'#E5484D', success:'#45C98B'};
+    const labels = {idle:'En veille', processing:'En cours', waiting_gatekeeper:'Validation requise', error:'Erreur', success:'Terminé'};
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    let flights = [], paths = [], animationId = null, lastTime = null;
+    function svg(tag, attrs = {}, content) {
+      const element = document.createElementNS(SVG_NS, tag);
+      for (const [key, value] of Object.entries(attrs)) element.setAttribute(key, value);
+      if (content !== undefined) element.textContent = content;
+      return element;
+    }
+    function entities() { return [...data.agents.map(a => ({...a, role:'Agent'})), ...data.gatekeepers.map(a => ({...a, role:'Gatekeeper'}))]; }
+    function seeded(seed) { let n = [...seed].reduce((a,c) => Math.imul(a,31) + c.charCodeAt(0) | 0, 7); return () => { n = Math.imul(n,1664525) + 1013904223 | 0; return (n >>> 0) / 4294967296; }; }
+    function log(message) {
+      const li = document.createElement('li'), time = document.createElement('time');
+      time.dateTime = new Date().toISOString(); time.textContent = new Date().toLocaleTimeString('fr-FR');
+      li.append(document.createTextNode(message), time); $('events').prepend(li);
+      while ($('events').children.length > 3) $('events').lastElementChild.remove();
+    }
+    function stopFlights() { if (animationId !== null) cancelAnimationFrame(animationId); animationId = null; lastTime = null; flights = []; $('transfers').replaceChildren(); }
+    function render() {
+      stopFlights(); paths = [];
+      for (const id of ['connections','clusters','entities']) $(id).replaceChildren();
+      const units = data.businessUnits, all = entities();
+      $('entity-select').replaceChildren(...all.map(agent=>{const option=document.createElement('option');option.value=agent.id;option.textContent=`${agent.name} · ${agent.role}`;return option;}));
+      $('entity-select').disabled=all.length===0;
+      $('health').textContent = `${Math.round(data.swarm.health * 100)} %`;
+      $('jobs').textContent = String(data.swarm.activeJobs).padStart(2,'0');
+      $('units').textContent = String(units.length).padStart(2,'0');
+      $('swarm-state').replaceChildren(); const dot = document.createElement('i'); dot.className = 'dot';
+      $('swarm-state').append(dot, document.createTextNode(data.swarm.status === 'running' ? 'En activité' : data.swarm.status));
+      $('swarm-state').style.color = data.swarm.status === 'running' ? colors.success : colors.idle;
+      dot.style.background = data.swarm.status === 'running' ? colors.success : colors.idle;
+      $('scene-count').textContent = `${units.length} BUs / ${data.agents.length} agents / ${data.gatekeepers.length} GK`;
+      const bounds = {x:Math.min(...units.map(b=>b.position.x))-210,y:Math.min(...units.map(b=>b.position.y))-235};
+      bounds.w = Math.max(...units.map(b=>b.position.x))-bounds.x+220;
+      bounds.h = Math.max(...units.map(b=>b.position.y))-bounds.y+245;
+      $('map').setAttribute('viewBox',`${bounds.x} ${bounds.y} ${bounds.w} ${bounds.h}`);
+      for (const [key,value] of Object.entries({x:bounds.x,y:bounds.y,width:bounds.w,height:bounds.h})) $('grid-bg').setAttribute(key,value);
+      // The sample has no connection list: a visual chain follows BU array order.
+      units.slice(1).forEach((bu,index) => {
+        const from = units[index], a=from.position, b=bu.position;
+        const path=svg('path',{d:`M ${a.x} ${a.y} C ${a.x+(b.x-a.x)*.4} ${a.y-80}, ${a.x+(b.x-a.x)*.6} ${b.y+80}, ${b.x} ${b.y}`,class:'wire'});
+        $('connections').append(path); paths.push({path,from,to:bu});
+      });
+      units.forEach((bu,index) => {
+        const group=svg('g',{transform:`translate(${bu.position.x} ${bu.position.y})`,'data-bu-id':bu.id});
+        const random=seeded(bu.id), members=all.filter(a=>a.businessUnitId===bu.id), active=members.some(a=>a.status!=='idle');
+        group.append(svg('circle',{r:144,class:'bu-orbit'}),svg('ellipse',{rx:161,ry:131,class:'bu-orbit',transform:'rotate(-25)'}));
+        for(let layer=0;layer<3;layer++) {
+          const dust=svg('g',{class:'dust'});
+          for(let j=0;j<145;j++) {
+            const angle=random()*Math.PI*2, radius=70+random()*67;
+            const organic=radius*(1+.075*Math.sin(angle*3+index)+.04*Math.cos(angle*5));
+            dust.append(svg('circle',{cx:Math.cos(angle)*organic,cy:Math.sin(angle)*organic*.91,r:.45+random()*1.05,fill:active?'#D9A441':'#b6baa0',opacity:.10+random()*.49}));
+          }
+          group.append(dust);
+        }
+        group.append(svg('text',{x:0,y:184,'text-anchor':'middle',class:'bu-name'},bu.name),svg('text',{x:0,y:204,'text-anchor':'middle',class:'bu-meta'},`BU / ${String(index+1).padStart(2,'0')} · ${members.length} ORGANISME${members.length>1?'S':''}`));
+        $('clusters').append(group);
+        members.forEach((agent,i) => {
+          // Optional entity positions are absolute; otherwise orbit around the parent BU.
+          const angle=-Math.PI*.83+i*Math.PI*2/members.length;
+          const x=agent.position?.x ?? bu.position.x+(members.length===1?0:Math.cos(angle)*65);
+          const y=agent.position?.y ?? bu.position.y+(members.length===1?0:Math.sin(angle)*65);
+          const node=svg('g',{class:'entity',transform:`translate(${x} ${y})`,role:'button',tabindex:0,'data-id':agent.id,'data-status':agent.status,'aria-pressed':String(agent.id===selectedId),'aria-label':`${agent.name}, ${agent.role}, ${labels[agent.status]}`});
+          node.append(svg('circle',{r:36,class:'aura'}),svg('circle',{r:32,class:'disturbance'}),svg('circle',{r:21,class:'ring'}),svg('circle',{r:17,class:'core'}),svg('circle',{r:24,class:'spin'}),svg('circle',{r:30,class:'selected-ring'}));
+          if(agent.role==='Gatekeeper') node.append(svg('circle',{r:26,class:'ring'}));
+          node.append(svg('circle',{r:3.5,class:'glyph'}),svg('text',{x:0,y:48,'text-anchor':'middle',class:'node-name'},agent.name),svg('text',{x:0,y:63,'text-anchor':'middle',class:'status-name'},agent.role==='Gatekeeper'?'GATEKEEPER':labels[agent.status].toUpperCase()));
+          node.addEventListener('click',()=>select(agent.id));
+          node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();select(agent.id);}});
+          $('entities').append(node);
+        });
+      });
+      $('transfer').disabled = paths.length===0 || paused;
+      if(!all.some(a=>a.id===selectedId)) selectedId=all[0]?.id ?? null;
+      select(selectedId);
+    }
+    function select(id) {
+      selectedId=id; const agent=entities().find(a=>a.id===id);
+      $('entity-select').value=id ?? '';
+      for(const node of $('entities').children) node.setAttribute('aria-pressed',String(node.dataset.id===id));
+      $('status-select').disabled=!agent;
+      $('agent-name').textContent=agent?.name ?? 'Aucun organisme'; $('agent-id').textContent=agent?.id ?? 'Ajoutez un agent dans le JSON';
+      $('agent-bu').textContent=data.businessUnits.find(b=>b.id===agent?.businessUnitId)?.name ?? '—';
+      $('agent-role').textContent=agent?.role ?? '—'; $('agent-state').textContent=agent?labels[agent.status]:'—';
+      const color=colors[agent?.status] ?? colors.idle;
+      $('agent-state').style.color=color; $('agent-icon').style.color=color; $('agent-icon').style.borderColor=color;
+      $('agent-icon').style.outline=agent?.role==='Gatekeeper'?`1px solid ${color}`:'none'; $('agent-icon').style.outlineOffset='4px';
+      const progress=agent?.progress;
+      $('progress-value').textContent=progress===undefined?'Non documentée':`${Math.round(progress*100)} %`;
+      $('progress-fill').style.width=`${(progress??0)*100}%`; $('progress-fill').style.background=color;
+      if(agent) $('status-select').value=agent.status;
+    }
+    $('entity-select').addEventListener('change',event=>select(event.target.value));
+    $('status-select').addEventListener('change',event=>{
+      const agent=[...data.agents,...data.gatekeepers].find(a=>a.id===selectedId); if(!agent)return;
+      agent.status=event.target.value; render(); log(`${agent.name} · ${labels[agent.status]} (simulé)`);
+    });
+    function animate(now) {
+      animationId=null; if(paused || document.hidden) {lastTime=null;return;}
+      const elapsed=lastTime===null?0:Math.min(now-lastTime,80); lastTime=now;
+      flights=flights.filter(flight=>{
+        flight.elapsed+=elapsed; const t=Math.min(flight.elapsed/2600,1), point=flight.path.getPointAtLength(flight.length*t);
+        flight.node.setAttribute('cx',point.x); flight.node.setAttribute('cy',point.y);
+        if(t===1){flight.node.remove();log(`Transfert simulé reçu · ${flight.to.name}`);return false;} return true;
+      });
+      if(flights.length) animationId=requestAnimationFrame(animate); else lastTime=null;
+    }
+    function resumeFlights(){lastTime=null;if(flights.length && !paused && !document.hidden && animationId===null)animationId=requestAnimationFrame(animate);}
+    $('transfer').addEventListener('click',()=>{
+      if(!paths.length || paused)return;
+      if(flights.length>=8){$('notice').textContent='Huit transferts simulés sont déjà en cours.';return;}
+      const route=paths[0]; $('notice').textContent='';
+      if(motion.matches){log(`Transfert simulé · ${route.from.name} → ${route.to.name} (mouvement réduit)`);return;}
+      const node=svg('circle',{r:3,class:'traveler'}),point=route.path.getPointAtLength(0);
+      node.setAttribute('cx',point.x);node.setAttribute('cy',point.y);$('transfers').append(node);
+      flights.push({...route,node,length:route.path.getTotalLength(),elapsed:0});
+      log(`Transfert simulé · ${route.from.name} → ${route.to.name}`);resumeFlights();
+    });
+    function setPaused(value){paused=value;document.body.classList.toggle('paused',paused);$('pause').setAttribute('aria-pressed',String(paused));$('pause').textContent=paused?'▶ Reprendre':'Ⅱ Pause';$('transfer').disabled=paused||!paths.length;if(!paused)resumeFlights();}
+    $('pause').addEventListener('click',()=>setPaused(!paused));
+    $('reset').addEventListener('click',()=>{data=structuredClone(initialData);selectedId='agent-02';setPaused(false);$('events').replaceChildren();$('notice').textContent='';render();log('JSON d’exemple restauré');});
+    document.addEventListener('visibilitychange',()=>{document.body.classList.toggle('paused',paused||document.hidden);if(!document.hidden)resumeFlights();});
+    motion.addEventListener('change',()=>{if(motion.matches){stopFlights();$('notice').textContent='Mouvement réduit activé : animations désactivées.';}});
+    function validate(value){
+      const fail=message=>{throw new Error(message);};
+      if(!value || !value.swarm || !Array.isArray(value.businessUnits)||!Array.isArray(value.agents)||!Array.isArray(value.gatekeepers))fail('Structure attendue : swarm, businessUnits, agents et gatekeepers.');
+      if(typeof value.swarm.status!=='string'||!value.swarm.status.trim()||value.swarm.status.length>60||!Number.isFinite(value.swarm.health)||value.swarm.health<0||value.swarm.health>1||!Number.isSafeInteger(value.swarm.activeJobs)||value.swarm.activeJobs<0)fail('Swarm : status textuel, health entre 0 et 1, activeJobs entier positif ou nul.');
+      if(!value.businessUnits.length||value.businessUnits.length>20||value.agents.length+value.gatekeepers.length>100)fail('La maquette accepte 1 à 20 BUs et 100 organismes maximum.');
+      const ids=new Set(), position=p=>p&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&Math.abs(p.x)<=10000&&Math.abs(p.y)<=10000;
+      for(const item of [...value.businessUnits,...value.agents,...value.gatekeepers]){
+        if(!item||typeof item.id!=='string'||!item.id.trim()||item.id.length>100||ids.has(item.id)||typeof item.name!=='string'||!item.name.trim()||item.name.length>80)fail('Chaque élément doit avoir un id unique (100 caractères max.) et un nom (80 caractères max.).');ids.add(item.id);
+      }
+      const buIds=new Set(value.businessUnits.map(b=>b.id));
+      for(const bu of value.businessUnits)if(!position(bu.position))fail('Chaque BU doit avoir une position x/y numérique comprise entre −10000 et 10000.');
+      for(const agent of [...value.agents,...value.gatekeepers]){
+        if(!buIds.has(agent.businessUnitId)||!Object.hasOwn(labels,agent.status))fail('Chaque organisme doit référencer une BU existante et un état reconnu.');
+        if(agent.progress!==undefined&&(!Number.isFinite(agent.progress)||agent.progress<0||agent.progress>1))fail('La progression doit être comprise entre 0 et 1.');
+        if(agent.position!==undefined&&!position(agent.position))fail('Une position d’organisme doit contenir x/y numériques entre −10000 et 10000.');
+      }
+    }
+    $('json-open').addEventListener('click',()=>{$('json-input').value=JSON.stringify(data,null,2);$('json-error').textContent='';$('json-dialog').showModal();});
+    $('json-close').addEventListener('click',()=>$('json-dialog').close());
+    $('json-apply').addEventListener('click',()=>{try{const next=JSON.parse($('json-input').value);validate(next);data=next;render();log('Nouveau JSON chargé localement');$('json-dialog').close();}catch(error){$('json-error').textContent=error instanceof SyntaxError?'JSON invalide : vérifiez les virgules, guillemets et accolades.':error.message;}});
+    validate(data);render();log('Instantané d’exemple chargé');
+  </script>
+</body>
+</html>
