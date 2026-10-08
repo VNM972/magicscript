@@ -41,13 +41,13 @@ test('WP-08 validator resolves a local href constant on the primary CTA', () => 
 
 test('WP-08 validator normalizes CTA accents and punctuation', () => {
   const findings = validatePrototypeConversionSource(
-    `<a href="${salesRoomUrl}">Découvrir les actions de la SNEMM</a>`,
+    `<a href="${salesRoomUrl}">Découvrir les actions de la PAULINE COIFFURE</a>`,
     {
       salesRoomUrl,
       ctaTarget: 'SALES_ROOM',
     },
     [
-      'Decouvrir les actions de la SNEMM.',
+      'Decouvrir les actions de la PAULINE COIFFURE.',
     ],
   );
 

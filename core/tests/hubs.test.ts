@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { DESIGN_SYSTEM_HUB, resolveSwarmHub } from '../hubs/registry';
 
-test('routes SNEMM to the memory and military associations hub', () => {
+test('routes PAULINE COIFFURE to the memory and military associations hub', () => {
   const hub = resolveSwarmHub({
-    companyName: 'SNEMM',
+    companyName: 'PAULINE COIFFURE',
     activity: 'Association nationale d’entraide et de mémoire',
     primaryAsset: 'Accompagnement des militaires et vétérans',
   });

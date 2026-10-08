@@ -136,8 +136,8 @@ test('contact-level opposition stays out of CURRENT even when lifecycle is not D
 
 test('same-name history stays as separate legal records with every id preserved', () => {
   const rows = [
-    { ...prospect({ id: 'legacy-a', companyName: 'SNEMM' }), commercialView: deriveProspectCommercialView(prospect({ id: 'legacy-a' }), []) },
-    { ...prospect({ id: 'legacy-b', companyName: 'SNEMM' }), commercialView: deriveProspectCommercialView(prospect({ id: 'legacy-b' }), []) },
+    { ...prospect({ id: 'legacy-a', companyName: 'APAVE' }), commercialView: deriveProspectCommercialView(prospect({ id: 'legacy-a' }), []) },
+    { ...prospect({ id: 'legacy-b', companyName: 'APAVE' }), commercialView: deriveProspectCommercialView(prospect({ id: 'legacy-b' }), []) },
   ];
   const partition = partitionProspectsByCommercialView(rows);
   assert.deepEqual(partition.legacy.map((item) => item.id), [
@@ -184,12 +184,12 @@ test('previous eligibility policy events remain legacy until rescored', () => {
 test('operator exclusions reject both historical and current-gate businesses', () => {
   for (const events of [[], [gateEvent]]) {
     assert.deepEqual(
-      deriveProspectCommercialView(prospect({ companyName: 'SNEMM', state: 'WAITING_REPLY' }), events),
+      deriveProspectCommercialView(prospect({ companyName: 'APAVE', state: 'WAITING_REPLY' }), events),
       { category: 'REJECTED', gateVersion: null, reason: 'OPERATOR_EXCLUDED_IDENTITY' },
     );
   }
   const rows = ['legacy-a', 'legacy-b'].map((id) => {
-    const row = prospect({ id, companyName: 'SNEMM', state: 'DO_NOT_CONTACT' });
+    const row = prospect({ id, companyName: 'APAVE', state: 'DO_NOT_CONTACT' });
     return { ...row, commercialView: deriveProspectCommercialView(row, []) };
   });
   const partition = partitionProspectsByCommercialView(rows);

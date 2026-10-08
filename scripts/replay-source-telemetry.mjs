@@ -4,7 +4,7 @@ import { parseContactPresence } from '../core/contact-presence/enrichment.ts';
 import { sourceTelemetryId, pathOriginFor, normalizeIdentityStatus, normalizeFailureReason, extractionFromPresence } from '../core/contact-acquisition/telemetry.ts';
 function stableHash(value){let h1=0x811c9dc5,h2=0x9e3779b9;for(let i=0;i<value.length;i++){const c=value.charCodeAt(i);h1=Math.imul(h1^c,16777619);h2=Math.imul(h2^c,2246822519);}return `${(h1>>>0).toString(16).padStart(8,'0')}${(h2>>>0).toString(16).padStart(8,'0')}`;}
 const db=new DatabaseSync(process.env.MAGICSCRIPT_D1_PATH||'apps/api-worker/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite');
-const blocked=/SNEMM|SUNELEK|Magic Script|FIXTURE|UCPA|La Balade du Soleil/i;
+const blocked=/SUNELEK|Magic Script|FIXTURE|UCPA|La Balade du Soleil/i;
 const rows=db.prepare(`SELECT p.*,(SELECT e.payload_json FROM events e WHERE e.prospect_id=p.id AND e.type='contact_acquisition.completed' ORDER BY e.created_at DESC LIMIT 1) acq,(SELECT e.payload_json FROM events e WHERE e.prospect_id=p.id AND e.type='contact_presence.enriched' ORDER BY e.created_at DESC LIMIT 1) cp FROM prospects p`).all().filter(p=>p.commercial_eligibility&&!blocked.test(p.company_name));
 const now='2026-09-16T00:00:00.000Z';let all=0,attempted=0,succeeded=0,failed=0,identity=0;
 for(const p of rows){const acq=JSON.parse(p.acq||'{}');const presence=JSON.parse(p.cp||'{}').contactPresence||{};const canonicalUrls=new Set();for(const key of ['phone','email','instagram','facebook','tiktok','whatsapp','contactForm'])for(const e of presence[key]?.evidence||[])canonicalUrls.add(e.sourceUrl);

@@ -10,8 +10,8 @@ test('replay event identity is stable and idempotent', () => {
 });
 
 test('migration classification preserves special exclusions', () => {
-  const blocked = /SNEMM|SUNELEK|Magic Script|FIXTURE|UCPA|La Balade du Soleil/i;
-  assert.equal(blocked.test('SNEMM'), true);
+  const blocked = /PAULINE COIFFURE|SUNELEK|Magic Script|FIXTURE|UCPA|La Balade du Soleil/i;
+  assert.equal(blocked.test('PAULINE COIFFURE'), true);
   assert.equal(blocked.test('UCPA SPORT VACANCES (UCPA)'), true);
   assert.equal(blocked.test('ACTIBURO'), false);
 });

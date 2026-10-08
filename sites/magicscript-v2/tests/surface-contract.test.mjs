@@ -28,7 +28,7 @@ test('keeps the public brand, prototype and Sales Room surfaces distinct', () =>
 });
 
 test('uses safe readable slugs and does not expose credentials in Sales Room URLs', () => {
-  assert.match(app, /slug: 'snemm'/);
+  assert.match(app, /slug: 'demo-site'/);
   assert.doesNotMatch(app, /\/p\/\$\{encodeURIComponent\(fixtureKey\)\}/);
   assert.doesNotMatch(app, /password|mot de passe|login requis/i);
 });

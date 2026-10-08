@@ -56,10 +56,8 @@ test('Magic Script stable business identity is INTERNAL', () => {
   assert.equal(canonicalProspectDomain('https://www.magicscript.fr/a'), 'magicscript.fr');
 });
 
-test('operator exclusions cover all sixteen businesses and their legal aliases', () => {
+test('operator exclusions cover all fifteen businesses and their legal aliases', () => {
   const names = [
-    'SNEMM', "Société Nationale d'Entraide de la Médaille Militaire",
-    "SOCIETE NATIONALE D'ENTRAIDE DE LA MEDAILLE MILITAIRE (SNEMM)",
     "L'Univers du Pneu", 'NORD PNEU CARAIBES',
     "Guy Hoquet L'Immobilier", 'MENHIR IMMOBILIER FRANCHISE',
     'La Balade du Soleil', 'SOMARLOC', 'SOCIETE MARTINIQUAISE DE LOCATION (SOMARLOC)',
@@ -89,16 +87,16 @@ test('stable operator identities match renamed businesses and other establishmen
     assert.equal(match?.decision, 'OPERATOR_EXCLUDED');
     assert.equal(match?.matchedBy, 'SIREN');
   }
-  for (const websiteUrl of ['https://www.snemm.fr/contact', 'https://labaladedusoleil.com/', 'https://find-us.apave.com/fr/martinique']) {
+  for (const websiteUrl of ['https://labaladedusoleil.com/', 'https://find-us.apave.com/fr/martinique']) {
     assert.equal(classifyDoNotProspectIdentity({ websiteUrl })?.decision, 'OPERATOR_EXCLUDED');
   }
 });
 
 test('operator aliases and domains never exclude unrelated names or shared registries', () => {
-  for (const companyName of ['Partenaire de SNEMM', 'LADYBUG CAFE', 'KAY JUJU BIS', 'STATION VITOIS']) {
+  for (const companyName of ['LADYBUG CAFE', 'KAY JUJU BIS', 'STATION VITOIS']) {
     assert.equal(classifyDoNotProspectIdentity({ companyName }), null);
   }
-  for (const websiteUrl of ['https://annuaire-entreprises.data.gouv.fr/etablissement/123', 'https://recherche-entreprises.api.gouv.fr/search?q=autre', 'https://snemm.fr.example.test/']) {
+  for (const websiteUrl of ['https://annuaire-entreprises.data.gouv.fr/etablissement/123', 'https://recherche-entreprises.api.gouv.fr/search?q=autre']) {
     assert.equal(classifyDoNotProspectIdentity({ websiteUrl }), null);
   }
 });

@@ -11,7 +11,7 @@ const { startPreviewServer } = require('./local-preview-server.cjs');
 
 const REPOSITORY_ROOT = path.resolve(__dirname, '..');
 const PREVIEW_ROOT = path.join(REPOSITORY_ROOT, 'sites', 'magicscript-v2', 'public');
-const DEFAULT_FIXTURE = 'snemm';
+const DEFAULT_FIXTURE = 'demo';
 const VIEWPORTS = {
   desktop: { name: 'desktop', width: 1280, height: 720 },
   mobile: { name: 'mobile', width: 390, height: 844 },
@@ -22,9 +22,9 @@ function usage() {
     'Usage: node scripts/qa-surface.cjs [options]',
     '',
     'Options:',
-    '  --route <path>              Route to test, for example /p/snemm',
+    '  --route <path>              Route to test, for example /p/demo',
     '  --surface <name>            public | prototype | all',
-    '  --fixture <slug>            Fixture slug (default: snemm)',
+    '  --fixture <slug>            Fixture slug (default: demo)',
     '  --viewport <name>           desktop | mobile | both (default: both)',
     '  --output-dir <directory>   Screenshot/report directory',
     '  --port <number>             Preferred local preview port (default: 4173)',
@@ -372,7 +372,7 @@ function truncate(value, max = 300) {
 }
 
 function expectations(surface) {
-  if (surface === 'prototype') return { markers: ['snemm', 'voir votre proposition'] };
+  if (surface === 'prototype') return { markers: ['demo', 'voir votre proposition'] };
   return { markers: ['magic script'] };
 }
 

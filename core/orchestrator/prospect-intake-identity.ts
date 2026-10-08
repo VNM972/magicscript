@@ -3,7 +3,7 @@ import { normalizeCommercialName } from '../scoring/commercial-eligibility';
 export type DoNotProspectDecision = 'KNOWN_PROJECT' | 'INTERNAL' | 'OPERATOR_EXCLUDED';
 
 export type DoNotProspectEntityKey =
-  | 'SUNELEK' | 'MAGIC_SCRIPT' | 'SNEMM' | 'NORD_PNEU_CARAIBES'
+  | 'SUNELEK' | 'MAGIC_SCRIPT' | 'NORD_PNEU_CARAIBES'
   | 'MENHIR_IMMOBILIER' | 'LA_BALADE_DU_SOLEIL' | 'SOMARLOC'
   | 'YOUYOU_MARKET' | 'APAVE' | 'GROUPE_FONTAINE' | 'FIDUCIAL_SOFIRAL'
   | 'STATION_VITO' | 'ENVIE_D_AILLEURS' | 'JEAN_PIERRE_EUVRARD'
@@ -53,15 +53,6 @@ const DO_NOT_PROSPECT_IDENTITIES: readonly DoNotProspectIdentity[] = [
     sirens: ['504451477'],
     domains: ['magicscript.fr'],
     displayAliases: ['MAGIC SCRIPT'],
-  },
-  {
-    entityKey: 'SNEMM', decision: 'OPERATOR_EXCLUDED',
-    sirets: [], sirens: [], domains: ['snemm.fr'],
-    displayAliases: [
-      'SNEMM',
-      "SOCIETE NATIONALE D'ENTRAIDE DE LA MEDAILLE MILITAIRE",
-      "SOCIETE NATIONALE D'ENTRAIDE DE LA MEDAILLE MILITAIRE (SNEMM)",
-    ],
   },
   {
     entityKey: 'NORD_PNEU_CARAIBES', decision: 'OPERATOR_EXCLUDED',

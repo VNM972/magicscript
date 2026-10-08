@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 const bytes=fs.readFileSync('.tmp-tavily-final-d1.json'); const text=bytes.toString('utf8').replace(/^\uFEFF/,''); const rows=JSON.parse(text)[0].results;
 const before={WITH_AT_LEAST_ONE_VERIFIED_CONTACT:17,WITH_VERIFIED_PHONE:2,WITH_VERIFIED_EMAIL:1,WITH_VERIFIED_INSTAGRAM:0,WITH_VERIFIED_WHATSAPP:0,WITH_VERIFIED_CONTACT_FORM:2};
-const blocked=/SNEMM|SUNELEK|Magic Script|FIXTURE|UCPA|La Balade du Soleil/i;
+const blocked=/SUNELEK|Magic Script|FIXTURE|UCPA|La Balade du Soleil/i;
 const commercial=rows.filter(p=>p.commercial_eligibility && !blocked.test(p.company_name));
 function parse(v){try{return v?JSON.parse(v):null}catch{return null}}
 function latestPresence(p){const x=parse(p.presence_payload); return x?.contactPresence||null}

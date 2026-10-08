@@ -1,8 +1,8 @@
 import { DatabaseSync } from 'node:sqlite';
 const db = new DatabaseSync(process.env.MAGICSCRIPT_D1_PATH || 'apps/api-worker/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite');
 const rows=db.prepare(`SELECT p.*, (SELECT e.payload_json FROM events e WHERE e.prospect_id=p.id AND e.type='contact_presence.enriched' ORDER BY e.created_at DESC LIMIT 1) AS cp FROM prospects p ORDER BY p.company_name`).all();
-const blocked=/SNEMM|SUNELEK|Magic Script|FIXTURE|UCPA|La Balade du Soleil/i;
-const classify=p=>blocked.test(p.company_name)?( /SNEMM|SUNELEK/.test(p.company_name)?'INTERNAL_RELATION':/FIXTURE|Magic Script/.test(p.company_name)?'SYNTHETIC_FIXTURE':'HUMAN_BLOCKED'):(p.commercial_eligibility? 'REAL_COMMERCIAL_ELIGIBLE':'UNKNOWN_CLASSIFICATION');
+const blocked=/SUNELEK|Magic Script|FIXTURE|UCPA|La Balade du Soleil/i;
+const classify=p=>blocked.test(p.company_name)?( /SUNELEK/.test(p.company_name)?'INTERNAL_RELATION':/FIXTURE|Magic Script/.test(p.company_name)?'SYNTHETIC_FIXTURE':'HUMAN_BLOCKED'):(p.commercial_eligibility? 'REAL_COMMERCIAL_ELIGIBLE':'UNKNOWN_CLASSIFICATION');
 const all=rows.map(p=>{let cp={};try{cp=JSON.parse(p.cp||'{}').contactPresence||{}}catch{};return {...p,category:classify(p),cp}});
 const real=all.filter(p=>p.category==='REAL_COMMERCIAL_ELIGIBLE'); const elig=real.filter(p=>['HIGH_PRIORITY','RESEARCH'].includes(p.commercial_eligibility));
 const verified=k=>elig.filter(p=>p.cp?.[k]?.status==='VERIFIED').length;

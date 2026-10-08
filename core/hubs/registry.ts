@@ -39,7 +39,7 @@ export const SWARM_HUBS: readonly SwarmHubDefinition[] = [
     businessUnit: 'BU Associations mémoire militaire',
     masterOfWork: 'MO Associations mémoire militaire',
     purpose: 'Observer les associations, institutions mémorielles et parcours d’entraide.',
-    matchTerms: ['snemm', 'militaire', 'militaires', 'vétéran', 'anciens combattants', 'mémoire', 'entraide', 'médaille'],
+    matchTerms: ['militaire', 'militaires', 'vétéran', 'anciens combattants', 'mémoire', 'entraide', 'médaille'],
     publicResearchScope: ['associations de mémoire', 'anciens combattants', 'entraide militaire', 'médailles militaires'],
     concurrencyCap: 1,
   },

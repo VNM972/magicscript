@@ -1,8 +1,8 @@
 (() => {
-  const snemFixture = {
-    slug: 'snemm',
-    company: 'SNEMM',
-    title: 'Une vitrine plus lisible pour SNEMM.',
+  const demoFixture = {
+    slug: 'demo-site',
+    company: 'DEMO SITE',
+    title: 'Une vitrine plus lisible pour Demo Site.',
     description: 'Un aperçu dédié pour rendre votre mission, vos parcours et votre réseau plus immédiats.',
     siteLabel: 'ENTRAIDE · MÉMOIRE · HONNEUR',
     siteHeadline: 'Une présence qui rassemble.',
@@ -17,14 +17,14 @@
     logoUrl: null,
     contactName: null,
     contactEmail: null,
-    prototypeUrl: 'https://snemm-2609319c.magicscript-demos-a185c139.pages.dev/',
+    prototypeUrl: 'https://demo-site.pages.dev/',
     salesRoomStatus: 'ACTIVE',
   };
-  const disabledSnemFixture = { ...snemFixture, salesRoomStatus: 'DISABLED' };
+  const disabledSnemFixture = { ...demoFixture, salesRoomStatus: 'DISABLED' };
   const personalizedFixtures = {
-    'fixture-snemm-v2': snemFixture,
-    snemm: snemFixture,
-    'fixture-snemm-disabled': disabledSnemFixture,
+    'fixture-demo-v2': demoFixture,
+    demo: demoFixture,
+    'fixture-demo-disabled': disabledSnemFixture,
   };
 
   const routeSegments = window.location.pathname.split('/').filter(Boolean);

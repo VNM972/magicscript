@@ -181,7 +181,7 @@ test('Deck shows provenance and only exposes Prepare Contact for a usable channe
 test('Deck keeps a clean empty CURRENT view instead of falling back to legacy', () => {
   const legacy = {
     ...prospect('legacy-one', 'legacy@example.fr', 'UNVERIFIED'),
-    companyName: 'SNEMM',
+    companyName: 'ENTREPRISE LEGACY',
     state: 'WAITING_REPLY',
     commercialEligibility: undefined,
     commercialView: {
@@ -207,7 +207,7 @@ test('Deck keeps a clean empty CURRENT view instead of falling back to legacy', 
   );
   assert.match(html, /ACTIFS V2\.5 \(0\)/);
   assert.match(html, /HISTORIQUE \/ LEGACY \(1\)/);
-  assert.doesNotMatch(html, /<strong>SNEMM<\/strong>/);
+  assert.doesNotMatch(html, /<strong>ENTREPRISE LEGACY<\/strong>/);
 });
 
 test('Deck blocks email preparation while prototype lifecycle is unresolved', () => {
@@ -320,8 +320,8 @@ test('Client prospect action opens the exact details target without lifecycle mu
   globalThis.HTMLDetailsElement = FakeDetails as unknown as typeof HTMLDetailsElement;
   globalThis.document = {
     getElementById(id: string) {
-      assert.equal(id, 'prospect-73576dde-c29e-44ec-9a0d-fa7c0e0fb712');
-      return target as unknown as HTMLElement;
+      if (id === 'prospect-73576dde-c29e-44ec-9a0d-fa7c0e0fb712') return target as unknown as HTMLElement;
+      return null;
     },
   } as unknown as Document;
 

@@ -5,7 +5,7 @@ import { TavilySearchProvider } from '../core/contact-acquisition/tavily.ts';
 import { fetchSourcePage } from '../core/research/source-fetcher.ts';
 
 const db = new DatabaseSync(process.env.MAGICSCRIPT_D1_PATH || 'apps/api-worker/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/8d99d9a73b43bbdb8f14112bf19dd6ef1e9b7dc6151dc67a34b1807411d91355.sqlite');
-const blocked = /SNEMM|SUNELEK|Magic Script|FIXTURE|UCPA|La Balade du Soleil/i;
+const blocked = /SUNELEK|Magic Script|FIXTURE|UCPA|La Balade du Soleil/i;
 const rows = db.prepare(`SELECT * FROM prospects ORDER BY id`).all();
 const eligible = rows.filter((p) => ['HIGH_PRIORITY', 'RESEARCH'].includes(p.commercial_eligibility) && !blocked.test(p.company_name));
 const now = new Date().toISOString(); const results=[];

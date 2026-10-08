@@ -7,7 +7,7 @@ const dbPath = process.env.MAGICSCRIPT_D1_PATH || 'apps/api-worker/.wrangler/sta
 const db = new DatabaseSync(dbPath);
 const algorithmVersion = 'contact-presence-enrichment-v1-replay-2026-09-16';
 const now = new Date().toISOString();
-const blockedNames = /SNEMM|SUNELEK|Magic Script|FIXTURE|UCPA|La Balade du Soleil/i;
+const blockedNames = /SUNELEK|Magic Script|FIXTURE|UCPA|La Balade du Soleil/i;
 const rows = db.prepare(`SELECT p.*, (SELECT e.payload_json FROM events e WHERE e.prospect_id=p.id AND e.type='research.scored' ORDER BY e.created_at DESC LIMIT 1) AS research_payload FROM prospects p ORDER BY p.id`).all();
 const eligible = rows.filter((p) => ['HIGH_PRIORITY', 'RESEARCH'].includes(p.commercial_eligibility) && !blockedNames.test(p.company_name));
 const results = [];
