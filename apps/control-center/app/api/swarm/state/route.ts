@@ -10,7 +10,7 @@ type Rule = {
   properties?: Record<string, Rule>; additionalProperties?: boolean; items?: Rule;
   minimum?: number; maximum?: number; minLength?: number; format?: string;
 };
-type Contract = Rule & { $defs: Record<string, Rule>; default: SwarmState };
+type Contract = Rule & { $defs: Record<string, Rule>; default: SwarmState; 'x-jobRoles': Record<string, string> };
 let contractPromise: Promise<Contract> | undefined;
 
 function loadContract(): Promise<Contract> {
@@ -72,21 +72,82 @@ function validateReferences(state: SwarmState) {
   }
 }
 
-export async function GET() {
+type WorkerJob = {
+  id: string; kind: string; prospectId?: string | null; status: SwarmState['jobs'][number]['status'];
+  claimedAt?: string | null; createdAt: string; updatedAt: string;
+};
+type WorkerEvent = { id: string; type: string; createdAt: string };
+
+async function readWorker<T>(endpoint: string, signal: AbortSignal): Promise<T> {
+  // Keep credentials on the server, with the same local defaults as lib/api.ts.
+  const production = process.env.NODE_ENV === 'production';
+  const base = (process.env.MAGICSCRIPT_API_BASE_URL || (production ? '' : 'http://127.0.0.1:8787')).replace(/\/$/, '');
+  if (!base) throw Error('Worker URL missing');
+  const token = process.env.MAGICSCRIPT_API_TOKEN || (production ? undefined : 'dev-api-token');
+  const response = await fetch(base + endpoint, {
+    cache: 'no-store', signal, headers: token ? { authorization: `Bearer ${token}` } : {},
+  });
+  if (!response.ok) throw Error('Worker unavailable');
+  return response.json() as Promise<T>;
+}
+
+function projectState(schema: Contract, jobs: WorkerJob[], events: WorkerEvent[]): SwarmState {
+  // Use the shared topology and role mapping, following core/swarm_state_writer.py.
+  const state = structuredClone(schema.default);
+  const terminal = new Set(['SUCCEEDED', 'FAILED', 'DEAD_LETTER']);
+  const roles = new Map(state.agents.map(agent => [agent.id, agent]));
+  const units = new Map(state.businessUnits.map(unit => [unit.id, unit]));
+  const selectedJobs = [
+    ...jobs.filter(job => !terminal.has(job.status)).sort((a, b) => a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id)),
+    ...jobs.filter(job => terminal.has(job.status)).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt) || a.id.localeCompare(b.id)).slice(0, 100),
+  ];
+  for (const job of selectedJobs) {
+    const base = roles.get(schema['x-jobRoles'][job.kind]);
+    let agent: SwarmState['agents'][number] | undefined;
+    if (base && !terminal.has(job.status)) {
+      agent = base;
+      if (base.currentJobId !== null) {
+        agent = { ...base, id: base.id + ':' + job.id, type: 'execution' };
+        state.agents.push(agent);
+        units.get(agent.businessUnitId)!.agentIds.push(agent.id);
+      }
+      Object.assign(agent, {
+        currentJobId: job.id, progress: null, startedAt: job.claimedAt ? new Date(job.claimedAt).toISOString() : null,
+        status: job.status === 'RUNNING' || job.status === 'SENDING' ? 'processing' : job.status === 'SEND_UNKNOWN' ? 'waiting_gatekeeper' : 'idle',
+      });
+    }
+    const bu = base?.businessUnitId ?? null;
+    state.jobs.push({ id: job.id, prospectId: job.prospectId ?? null, status: job.status,
+      currentBusinessUnitId: bu, currentAgentId: agent?.id ?? null,
+      progress: job.status === 'SUCCEEDED' ? 1 : null, route: bu ? [bu] : [] });
+  }
+  for (const unit of state.businessUnits) {
+    const statuses = new Set(state.agents.filter(agent => agent.businessUnitId === unit.id).map(agent => agent.status));
+    unit.status = (['error', 'waiting_gatekeeper', 'processing'] as const).find(status => statuses.has(status)) ?? 'idle';
+  }
+  state.events = events.slice(0, 50).map(event => ({
+    id: event.id, timestamp: new Date(event.createdAt).toISOString(), type: event.type, message: event.type,
+    severity: /error|failed|dead_letter|rejected/i.test(event.type) ? 'error' : /warning|invalid|unknown/i.test(event.type) ? 'warning' : 'info',
+  }));
+  const active = state.jobs.filter(job => job.status === 'RUNNING' || job.status === 'SENDING').length;
+  state.swarm.status = active ? 'processing' : state.jobs.some(job => ['SEND_UNKNOWN', 'FAILED', 'DEAD_LETTER'].includes(job.status)) ? 'attention' : 'idle';
+  state.swarm.activeJobs = active;
+  state.swarm.activeAgents = state.agents.filter(agent => agent.status === 'processing').length;
+  state.metadata = { timestamp: new Date().toISOString(), schemaVersion: '1.0.0', sourceStatus: 'ready' };
+  return state;
+}
+
+export async function GET(request: Request) {
   try {
     const schema = await loadContract();
-    let state: SwarmState;
-    try {
-      state = JSON.parse(await readFile(path.join(process.cwd(), 'public/swarm-state.json'), 'utf8'));
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
-      state = structuredClone(schema.default);
-      state.metadata.timestamp = new Date().toISOString();
-    }
+    const signal = AbortSignal.any([request.signal, AbortSignal.timeout(3500)]);
+    // Sequential reads match the existing local D1 client path.
+    const { jobs } = await readWorker<{ jobs: WorkerJob[] }>('/api/jobs', signal);
+    const { events } = await readWorker<{ events: WorkerEvent[] }>('/api/events?limit=50', signal);
+    if (!Array.isArray(jobs) || !Array.isArray(events)) throw Error('Invalid Worker response');
+    const state = projectState(schema, jobs, events);
     validate(state, schema, schema);
     validateReferences(state);
-    const age = Date.now() - Date.parse(state.metadata.timestamp);
-    if (age > 20_000 || age < -5_000) throw Error('Stale snapshot');
     return Response.json(state, { headers });
   } catch {
     return Response.json({ error: 'Moteur indisponible' }, { status: 503, headers });
