@@ -297,15 +297,19 @@ test('safe manual intake is identity-bound, local-only, and operator-visible bef
     assert.deepEqual(payload.funnel, {
       pagesScanned: 2,
       rawScanned: 7,
-      targetActivityCandidates: 4,
+      targetActivityCandidates: 3,
       knownProjectExcluded: 1,
       internalExcluded: 1,
       duplicatesExcluded: 2,
       invalidExcluded: 1,
-      outOfScopeExcluded: 1,
+      outOfScopeExcluded: 0,
       otherExcluded: 0,
       newProspectsCreated: 1,
     });
+    const publicRejection = db.database.prepare("SELECT payload_json FROM events WHERE type = 'discovery.hard_rejected' AND json_extract(payload_json, '$.siret') = ?")
+      .get('33333333300033');
+    assert.equal(JSON.parse(publicRejection.payload_json).reason, 'SECTEUR_PUBLIC');
+    assert.equal(db.database.prepare('SELECT COUNT(*) AS count FROM prospects WHERE siret = ?').get('33333333300033').count, 0);
     assert.equal(payload.createdProspects[0].siren, '444444444');
     assert.equal(payload.createdProspects[0].siret, '44444444400044');
     assert.equal(payload.createdProspects[0].lifecycle, 'DISCOVERED');
@@ -538,16 +542,23 @@ test('first-wave selection outranks provider order, then uses bounded research f
     assert.ok(payload.decisions.some((decision) => decision.reason === 'DUPLICATE_SIRET'));
     assert.ok(payload.decisions.some((decision) => decision.reason === 'OUT_OF_SCOPE'));
     const created = payload.decisions.filter((decision) => decision.decision === 'CREATED').map((decision) => decision.companyName);
-    assert.equal(created[0], 'LOCAL BUSINESS 1');
+    assert.equal(created[0], 'LOCAL BUSINESS 6');
+    assert.ok(!created.includes('LOCAL BUSINESS 1'));
     assert.ok(created.indexOf('LOCAL BUSINESS 6') < created.indexOf('LOCAL BUSINESS 3'));
     assert.ok(created.indexOf('LOCAL BUSINESS 7') < created.indexOf('LOCAL BUSINESS 3'));
     assert.ok(created.indexOf('LOCAL BUSINESS 3') < created.indexOf('LOCAL BUSINESS 2'));
     assert.ok(!created.includes('LOCAL BUSINESS 80'));
     assert.ok(!created.includes('LOCAL BUSINESS 81'));
     const networkEvent = db.database.prepare(
-      "SELECT payload_json FROM events WHERE type = 'discovery.prospect_created' AND prospect_id = (SELECT id FROM prospects WHERE company_name = 'LOCAL BUSINESS 1')",
-    ).get();
-    assert.ok(JSON.parse(networkEvent.payload_json).constraints.includes('NETWORK_AUTONOMY_CHECK_REQUIRED'));
+      "SELECT payload_json FROM events WHERE type = 'discovery.hard_rejected' AND json_extract(payload_json, '$.siret') = ?",
+    ).get(networkRetail.siege.siret);
+    assert.equal(JSON.parse(networkEvent.payload_json).reason, 'RESEAU_NON_AUTONOME');
+    assert.equal(db.database.prepare('SELECT COUNT(*) AS count FROM prospects WHERE siret = ?').get(networkRetail.siege.siret).count, 0);
+    const publicEvent = db.database.prepare(
+      "SELECT payload_json FROM events WHERE type = 'discovery.hard_rejected' AND json_extract(payload_json, '$.siret') = ?",
+    ).get(publicEntity.siege.siret);
+    assert.equal(JSON.parse(publicEvent.payload_json).reason, 'SECTEUR_PUBLIC');
+    assert.equal(db.database.prepare('SELECT COUNT(*) AS count FROM prospects WHERE siret = ?').get(publicEntity.siege.siret).count, 0);
     assert.equal(db.database.prepare('SELECT COUNT(*) AS count FROM jobs').get().count, 0);
   } finally {
     globalThis.fetch = originalFetch;
@@ -667,13 +678,14 @@ test('opt-in candidate diagnostic captures created tier and final eligibility', 
 });
 
 test('canonical rejected candidate retains final class score and reason without save attempt', async () => {
-  await withDiagnosticBatch({ priorityPages: [[diagnosticFixture(3, { publicEntity: true })]], flag: 'true' }, (batch) => {
-    const [decision] = batch.candidateDiagnostics.candidateDecisions;
-    assert.equal(decision.finalEligibilityClass, 'REJECT');
-    assert.equal(typeof decision.finalEligibilityScore, 'number');
-    assert.equal(decision.canonicalReason, 'OUT_OF_SCOPE');
-    assert.equal(decision.outcome, 'REJECTED');
-    assert.equal(decision.persistenceAttempted, false);
+  await withDiagnosticBatch({ priorityPages: [[diagnosticFixture(3, { publicEntity: true })]], flag: 'true' }, (batch, db) => {
+    assert.deepEqual(batch.candidateDiagnostics.candidateDecisions, []);
+    const event = db.database.prepare("SELECT payload_json FROM events WHERE type = 'discovery.hard_rejected'").get();
+    assert.deepEqual(JSON.parse(event.payload_json), {
+      reason: 'SECTEUR_PUBLIC', siret: '81000000300010', companyName: 'DIAGNOSTIC BUSINESS 3',
+    });
+    assert.equal(db.database.prepare('SELECT COUNT(*) AS count FROM prospects').get().count, 0);
+    assert.equal(db.database.prepare("SELECT COUNT(*) AS count FROM events WHERE type = 'discovery.prospect_created'").get().count, 0);
   });
 });
 
@@ -1001,13 +1013,15 @@ test('R26 merged Tier 1 RESEARCH precedes weaker Tier 2/3 and canonical REJECT c
     BROAD_FALLBACK: [diagnosticFixture(3604, { activity: '47.78C' })],
   } }, ({ payload, batch, db }) => {
     const created = payload.decisions.filter((decision) => decision.decision === 'CREATED').map((decision) => decision.siren);
-    assert.deepEqual(created, [networkBeauty.siren, '810003604', tier2.siren, weak.siren]);
-    assert.equal(db.database.prepare('SELECT commercial_eligibility FROM prospects WHERE siren = ?').get(networkBeauty.siren).commercial_eligibility, 'RESEARCH');
-    const decision = batch.candidateDiagnostics.candidateDecisions.find((item) => item.stableIdentity === rejected.siege.siret);
-    assert.equal(decision.outcome, 'REJECTED');
-    assert.equal(decision.finalEligibilityClass, 'REJECT');
-    assert.equal(decision.persistenceAttempted, false);
-    assert.equal(payload.funnel.newProspectsCreated, 4);
+    assert.deepEqual(created, ['810003604', tier2.siren, weak.siren]);
+    for (const [candidate, reason] of [[networkBeauty, 'RESEAU_NON_AUTONOME'], [rejected, 'SECTEUR_PUBLIC']]) {
+      const event = db.database.prepare("SELECT payload_json FROM events WHERE type = 'discovery.hard_rejected' AND json_extract(payload_json, '$.siret') = ?")
+        .get(candidate.siege.siret);
+      assert.equal(JSON.parse(event.payload_json).reason, reason);
+      assert.equal(db.database.prepare('SELECT COUNT(*) AS count FROM prospects WHERE siren = ?').get(candidate.siren).count, 0);
+      assert.equal(batch.candidateDiagnostics.candidateDecisions.some((item) => item.stableIdentity === candidate.siege.siret), false);
+    }
+    assert.equal(payload.funnel.newProspectsCreated, 3);
   });
 });
 
@@ -1019,14 +1033,21 @@ test('R26 LOW_PRIORITY and REJECT supply triggers one fallback with no forced cr
   low.matching_etablissements[0].est_siege = false;
   low.siege.siret = `${low.siren}00020`;
   const rejected = diagnosticFixture(3701, { publicEntity: true });
-  await withStratifiedCycle({ supply: { LOCAL_RETAIL: [low, rejected], BROAD_FALLBACK: [low, rejected] } }, ({ calls, payload, batch }) => {
+  await withStratifiedCycle({ supply: { LOCAL_RETAIL: [low, rejected], BROAD_FALLBACK: [low, rejected] } }, ({ calls, payload, batch, db }) => {
     assert.equal(calls.length, 4);
     assert.equal(payload.funnel.newProspectsCreated, 0);
     const decisions = batch.candidateDiagnostics.candidateDecisions;
-    assert.equal(decisions.length, 4);
+    assert.equal(decisions.length, 2);
     assert.ok(decisions.some((decision) => decision.finalEligibilityClass === 'LOW_PRIORITY'));
-    assert.ok(decisions.every((decision) => ['LOW_PRIORITY', 'REJECT'].includes(decision.finalEligibilityClass)));
+    assert.ok(decisions.every((decision) => decision.finalEligibilityClass === 'LOW_PRIORITY'));
     assert.ok(decisions.every((decision) => decision.outcome === 'REJECTED' && !decision.persistenceAttempted));
+    const events = db.database.prepare("SELECT payload_json FROM events WHERE type = 'discovery.hard_rejected'").all();
+    assert.equal(events.length, 2);
+    assert.ok(events.every((event) => {
+      const rejection = JSON.parse(event.payload_json);
+      return rejection.reason === 'SECTEUR_PUBLIC' && rejection.siret === rejected.siege.siret;
+    }));
+    assert.equal(db.database.prepare('SELECT COUNT(*) AS count FROM prospects').get().count, 0);
   });
 });
 

@@ -155,6 +155,7 @@ import { acceptedOperatingEvidence } from '../../../core/research/operating-evid
 import { acceptedDigitalPainEvidence } from '../../../core/research/digital-pain-evidence';
 import { ownedWebsiteFromPresence, type PersistedContactPresence } from '../../../core/admission/persisted-agent1-evidence';
 import { firstWaveDiscoveryTier, rankFirstWaveDiscoveryCandidates } from '../../../core/providers/first-wave-discovery';
+import { hardRejectReason } from '../../../core/orchestrator/discovery-hard-reject';
 import { loadServerCommercialContext, prepareServerCommercialDraft, evaluateServerCommercialEdit, qualityLinkage, validateReloadQualityLinkage, requireCurrentQuality } from './commercial-lifecycle';
 
 function latestContactAcquisition(events: Array<{ type: string; createdAt: string; payload?: unknown }>): unknown {
@@ -1322,7 +1323,7 @@ async function discoverViaRechercheEntreprises(
     return { page, nextPage };
   };
 
-  const normalizePage = (page: Awaited<ReturnType<RechercheEntreprisesClient['search']>>): DiscoveryResult['prospects'] => {
+  const normalizePage = async (page: Awaited<ReturnType<RechercheEntreprisesClient['search']>>): Promise<DiscoveryResult['prospects']> => {
     const candidates: DiscoveryResult['prospects'] = [];
 
   for (const result of page.results) {
@@ -1411,6 +1412,15 @@ async function discoverViaRechercheEntreprises(
       result,
       localEstablishment,
     );
+    const reason = hardRejectReason({
+      siret, companyCategory: result.categorie_entreprise, companyEmployeeBand: result.tranche_effectif_salarie,
+      legalNature: result.nature_juridique, publicOrParapublic: result.est_service_public,
+      requiresNetworkAutonomyCheck: Boolean(legalName) && normalizeCommercialName(companyName) !== normalizeCommercialName(legalName), autonomyEvidence: 'UNVERIFIED',
+    });
+    if (reason) {
+      await new D1EventStore(db).append({ id: crypto.randomUUID(), actor: 'research-agent', type: 'discovery.hard_rejected', payload: { reason, siret, companyName }, createdAt: new Date().toISOString() });
+      continue;
+    }
     const eligibility = scoreCommercialEligibility({
       siren: result.siren,
       siret,
@@ -1490,7 +1500,7 @@ async function discoverViaRechercheEntreprises(
   for (const query of FIRST_WAVE_PRIORITY_QUERIES) {
     const priority = await searchPage(query.key, { companyCategory: 'PME', activityCodes: query.activityCodes });
     priorityPages.push(priority);
-    const pageCandidates = normalizePage(priority.page);
+    const pageCandidates = await normalizePage(priority.page);
     retainCandidates(pageCandidates, query.sourceWindow, priority.page.page);
     priorityCandidates.push(...pageCandidates);
   }
@@ -1509,7 +1519,7 @@ async function discoverViaRechercheEntreprises(
   let remainder: ProcessedDiscoveryResult = { created: [], skipped: [], decisions: [] };
   if (firstProcessed.created.length < maxCreated) {
     fallback = await searchPage('martinique-page', { sections: ['F', 'G', 'I', 'L', 'M', 'N', 'R', 'S'] });
-    fallbackCandidates = normalizePage(fallback.page);
+    fallbackCandidates = await normalizePage(fallback.page);
     retainCandidates(fallbackCandidates, 'BROAD_FALLBACK', fallback.page.page);
     const remainingPriority = priorityCandidates.filter(
       (candidate) => firstWaveDiscoveryTier(candidate.eligibility) !== 1,
@@ -1779,6 +1789,15 @@ async function discoverViaSirene(
     const legalName =
       establishment.uniteLegale?.denominationUniteLegale?.trim() || undefined;
     const sourceUrl = sirenePublicSourceUrl(establishment.siret);
+    const reason = hardRejectReason({
+      siret: establishment.siret, companyCategory: establishment.uniteLegale?.categorieEntreprise,
+      companyEmployeeBand: establishment.uniteLegale?.trancheEffectifsUniteLegale, legalNature: establishment.uniteLegale?.categorieJuridiqueUniteLegale,
+      requiresNetworkAutonomyCheck: Boolean(legalName) && normalizeCommercialName(companyName) !== normalizeCommercialName(legalName), autonomyEvidence: 'UNVERIFIED',
+    });
+    if (reason) {
+      await new D1EventStore(db).append({ id: crypto.randomUUID(), actor: 'research-agent', type: 'discovery.hard_rejected', payload: { reason, siret: establishment.siret, companyName }, createdAt: new Date().toISOString() });
+      continue;
+    }
     const eligibility = scoreCommercialEligibility({
       siren: establishment.siren,
       siret: establishment.siret,
@@ -9254,8 +9273,14 @@ async function handle(request: Request, env: Env): Promise<Response> {
       .bind(jobId, JSON.stringify({ contractVersion: AGENT1_CANDIDATE_BATCH_VERSION, provenance: batch.provenance, batchId: batch.batchId, candidates: batch.candidates }), now)
       .run();
 
-    const discovery = {
-      prospects: batch.candidates.map((candidate) => ({
+    const discovery: DiscoveryResult = { prospects: [] };
+    for (const candidate of batch.candidates) {
+      const reason = hardRejectReason(candidate);
+      if (reason) {
+        await new D1EventStore(db).append({ id: crypto.randomUUID(), actor: 'research-agent', type: 'discovery.hard_rejected', payload: { reason, siret: candidate.siret ?? null, companyName: candidate.companyName }, createdAt: now });
+        continue;
+      }
+      discovery.prospects.push({
         companyName: candidate.companyName,
         legalName: candidate.legalName,
         siren: candidate.siren,
@@ -9295,8 +9320,8 @@ async function handle(request: Request, env: Env): Promise<Response> {
           asOfDate: now.slice(0, 10),
           autonomyEvidence: 'UNVERIFIED',
         }),
-      })),
-    } as DiscoveryResult;
+      });
+    }
     const processed = await processDiscoveryResult(discovery, env, db, { planAfterCreate: false });
     await new D1EventStore(db).append({
       id: crypto.randomUUID(),
