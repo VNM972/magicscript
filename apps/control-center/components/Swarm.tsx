@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from 'react';
-import type { SwarmSnapshot } from '../lib/api';
+import { fetchSwarmState, type SwarmState, type SwarmSnapshot } from '../lib/api';
 import styles from './Swarm.module.css';
 
 type Status = 'idle' | 'processing' | 'waiting_gatekeeper' | 'success' | 'error';
@@ -10,37 +10,6 @@ type Entity = { id: string; name: string; bu: number; dx: number; dy: number; ga
 type State = { status: Status; since: number; revision: number };
 type Curve = { a: Point; b: Point; c: Point; d: Point };
 const TAU = Math.PI * 2;
-const UNITS = ['DISCOVERY', 'RESEARCH', 'BUILD', 'DELIVERY'];
-const ENTITIES: Entity[] = [
-  { id: 'scout', name: 'Signal Scout', bu: 0, dx: -24, dy: -8, initial: 'processing' },
-  { id: 'qualifier', name: 'Qualifier', bu: 0, dx: 30, dy: 30, initial: 'idle' },
-  { id: 'analyst', name: 'Deep Research', bu: 1, dx: -20, dy: 6, initial: 'processing' },
-  { id: 'fact', name: 'Fact Checker', bu: 1, dx: 30, dy: 35, initial: 'waiting_gatekeeper' },
-  { id: 'designer', name: 'Creative Builder', bu: 2, dx: -26, dy: -10, initial: 'processing' },
-  { id: 'qa', name: 'Visual QA', bu: 2, dx: 30, dy: 32, initial: 'idle' },
-  { id: 'publisher', name: 'Delivery Agent', bu: 3, dx: -25, dy: 8, initial: 'error' },
-  { id: 'g-discovery', name: 'Discovery Gate', bu: 0, dx: 48, dy: -46, gate: true, initial: 'success' },
-  { id: 'g-research', name: 'Research Gate', bu: 1, dx: 48, dy: -48, gate: true, initial: 'waiting_gatekeeper' },
-  { id: 'g-build', name: 'Build Gate', bu: 2, dx: 46, dy: -48, gate: true, initial: 'success' },
-  { id: 'g-delivery', name: 'Delivery Gate', bu: 3, dx: 44, dy: -46, gate: true, initial: 'error' },
-];
-const EDGES = [
-  { id: 'e1', from: 'scout', to: 'g-discovery', job: '01' },
-  { id: 'e2', from: 'g-discovery', to: 'analyst', job: '01' },
-  { id: 'e3', from: 'analyst', to: 'fact', job: '02' },
-  { id: 'e4', from: 'fact', to: 'g-research', job: '02' },
-  { id: 'e5', from: 'g-research', to: 'designer', job: '02' },
-  { id: 'e6', from: 'designer', to: 'g-build', job: '03' },
-  { id: 'e7', from: 'g-build', to: 'publisher', job: '03' },
-  { id: 'e8', from: 'publisher', to: 'g-delivery', job: '04' },
-  { id: 'e9', from: 'g-delivery', to: 'qualifier', job: '04' },
-];
-const JOBS = [
-  { id: '01', label: 'Détection', route: 'Discovery → Research' },
-  { id: '02', label: 'Analyse', route: 'Research → Build' },
-  { id: '03', label: 'Création', route: 'Build → Delivery' },
-  { id: '04', label: 'Validation', route: 'Delivery → Discovery' },
-];
 const LABELS: Record<Status, string> = { idle: 'En veille', processing: 'En cours', waiting_gatekeeper: 'Validation requise', success: 'Terminé', error: 'Perturbation' };
 const COLORS: Record<Status, string> = { idle: '#39393F', processing: '#D9A441', waiting_gatekeeper: '#8065FF', success: '#45C98B', error: '#E5484D' };
 
@@ -59,19 +28,21 @@ function onCurve(c: Curve, t: number): Point {
   return { x: s ** 3 * c.a.x + 3 * s * s * t * c.b.x + 3 * s * t * t * c.c.x + t ** 3 * c.d.x,
     y: s ** 3 * c.a.y + 3 * s * s * t * c.b.y + 3 * s * t * t * c.c.y + t ** 3 * c.d.y };
 }
-function layout(width: number, height: number) {
+function layout(width: number, height: number, entities: Entity[], edges: { from: string; to: string }[], units: SwarmState['businessUnits']) {
   const radius = Math.min(120, Math.max(77, width * .135));
-  const centers = width < 520
-    ? [{ x: width * .27, y: height * .22 }, { x: width * .74, y: height * .42 }, { x: width * .28, y: height * .65 }, { x: width * .73, y: height * .84 }]
-    : [{ x: width * .22, y: height * .33 }, { x: width * .76, y: height * .25 }, { x: width * .68, y: height * .73 }, { x: width * .22, y: height * .75 }];
-  const points = Object.fromEntries(ENTITIES.map(e => [e.id, { x: centers[e.bu].x + e.dx, y: centers[e.bu].y + e.dy }]));
-  return { centers, radius, points, curves: EDGES.map((e, i) => curve(points[e.from], points[e.to], i % 2 ? -1 : 1)) };
+  const positions = units.length ? units.map(unit => unit.position) : [{ x: .22, y: .33 }, { x: .76, y: .25 }, { x: .68, y: .73 }, { x: .22, y: .75 }];
+  const mobile = [{ x: .27, y: .22 }, { x: .74, y: .42 }, { x: .28, y: .65 }, { x: .73, y: .84 }];
+  const centers = positions.map((position, i) => {
+    const p = width >= 520 ? position : positions.length === 4 ? mobile[i] : { x: i % 2 ? .73 : .27, y: (i + .8) / (positions.length + .7) };
+    return { x: width * p.x, y: height * p.y };
+  });
+  const points = Object.fromEntries(entities.map(e => [e.id, { x: centers[e.bu].x + e.dx, y: centers[e.bu].y + e.dy }]));
+  return { centers, radius, points, curves: edges.map((e, i) => curve(points[e.from], points[e.to], i % 2 ? -1 : 1)) };
 }
-function makeField(width: number, height: number) {
+function makeField(width: number, height: number, centers: Point[], radius: number) {
   const random = seeded(972);
-  const { centers, radius } = layout(width, height);
   const clusters = centers.map((center, cluster) => {
-    const points = Array.from({ length: 950 }, (_, i) => {
+    const points = Array.from({ length: Math.floor(3800 / centers.length) }, (_, i) => {
       const angle = random() * TAU, latitude = Math.acos(2 * random() - 1);
       const lobes = 1 + .21 * Math.sin(angle * 3 + cluster) + .14 * Math.cos(latitude * 5 + angle * 2);
       const r = radius * (.35 + .65 * Math.pow(random(), .3)) * lobes;
@@ -108,33 +79,84 @@ function makeField(width: number, height: number) {
 }
 
 export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
-  // Art-direction simulation only. Preserve the parent page's API prop contract.
-  const [states, setStates] = useState<Record<string, State>>(() => Object.fromEntries(ENTITIES.map(e =>
-    [e.id, { status: e.initial, since: 0, revision: 0 }])));
+  // The parent prop remains compatible; this scene reads the versioned local snapshot.
+  const [data, setData] = useState<SwarmState | null>(null);
+  const [connection, setConnection] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [states, setStates] = useState<Record<string, State>>({});
+  const transitions = useRef(new Map<string, string>());
   const [size, setSize] = useState({ width: 800, height: 610 });
   const [paused, setPaused] = useState(false), [reduced, setReduced] = useState(false), [visible, setVisible] = useState(true);
   const [zoom, setZoom] = useState<number | null>(null);
   const [selection, setSelection] = useState<string | null>(null), [trace, setTrace] = useState<string | null>(null);
-  const [logs, setLogs] = useState(['00:00  Champ organique initialisé', '00:00  Simulation locale · aucun agent réel']);
   const stage = useRef<HTMLDivElement>(null), canvas = useRef<HTMLCanvasElement>(null), closeButton = useRef<HTMLButtonElement>(null);
   const trigger = useRef<SVGElement | null>(null), pulses = useRef(new Map<string, SVGCircleElement>());
   const clock = useRef(0), frameNumber = useRef(0);
   const id = useId();
-  const geometry = useMemo(() => layout(size.width, size.height), [size]);
-  const tracedEdges = useMemo(() => new Set(EDGES.filter(e => e.job === trace).map(e => e.id)), [trace]);
-  const tracedEntities = useMemo(() => new Set(EDGES.filter(e => e.job === trace).flatMap(e => [e.from, e.to])), [trace]);
-  const tracedUnits = useMemo(() => new Set(ENTITIES.filter(e => tracedEntities.has(e.id)).map(e => e.bu)), [tracedEntities]);
-  const live = useRef({ states, trace, tracedUnits, tracedEdges });
-  useEffect(() => { live.current = { states, trace, tracedUnits, tracedEdges }; }, [states, trace, tracedUnits, tracedEdges]);
-  function log(message: string) {
-    const seconds = Math.floor(clock.current);
-    const stamp = String(Math.floor(seconds / 60)).padStart(2, '0') + ':' + String(seconds % 60).padStart(2, '0');
-    setLogs(previous => [stamp + '  ' + message, ...previous].slice(0, 3));
-  }
-  function changeState(entity: Entity, status: Status) {
-    setStates(previous => ({ ...previous, [entity.id]: { status, since: Date.now(), revision: previous[entity.id].revision + 1 } }));
-    log(entity.name + ' · ' + LABELS[status] + ' (simulé)');
-  }
+  // Status-only polls do not regenerate the particle field or restart its animation.
+  const topologyKey = JSON.stringify({
+    units: data?.businessUnits.map(({ id, name, position, agentIds }) => ({ id, name, position, agentIds, status: 'idle' })) ?? [],
+    agents: data?.agents.map(({ id, name, businessUnitId }) => ({ id, name, businessUnitId })) ?? [],
+    gates: data?.gatekeepers.map(({ id, name, businessUnitId }) => ({ id, name, businessUnitId })) ?? [],
+    edges: data?.edges.map(({ id, source, target }) => ({ id, from: source, to: target })) ?? [],
+  });
+  const topology = useMemo(() => JSON.parse(topologyKey) as {
+    units: SwarmState['businessUnits'];
+    agents: { id: string; name: string; businessUnitId: string }[];
+    gates: { id: string; name: string; businessUnitId: string }[];
+    edges: { id: string; from: string; to: string }[];
+  }, [topologyKey]);
+  const ENTITIES = useMemo<Entity[]>(() => [...topology.agents, ...topology.gates].map(entity => {
+    const gate = topology.gates.some(g => g.id === entity.id);
+    const peers = topology.agents.filter(a => a.businessUnitId === entity.businessUnitId);
+    const slot = peers.findIndex(a => a.id === entity.id);
+    const angle = slot * 2.4;
+    return { id: entity.id, name: entity.name, bu: topology.units.findIndex(b => b.id === entity.businessUnitId),
+      dx: gate ? 46 : peers.length <= 2 ? slot ? 30 : -24 : Math.cos(angle) * 50,
+      dy: gate ? -48 : peers.length <= 2 ? slot ? 30 : -8 : Math.sin(angle) * 50, gate, initial: 'idle' };
+  }), [topology]);
+  const EDGES = topology.edges;
+  const UNITS = topology.units.map(unit => unit.name);
+  const JOBS = data?.jobs ?? [];
+  const geometry = useMemo(() => layout(size.width, size.height, ENTITIES, topology.edges, topology.units), [size, ENTITIES, topology]);
+  const tracedEdges = useMemo(() => new Set(data?.edges.filter(e => trace && e.activeJobIds.includes(trace)).map(e => e.id)), [data, trace]);
+  const tracedEntities = useMemo(() => new Set([
+    ...(data?.edges.filter(e => trace && e.activeJobIds.includes(trace)).flatMap(e => [e.source, e.target]) ?? []),
+    ...(data?.agents.filter(a => trace && a.currentJobId === trace).map(a => a.id) ?? []),
+  ]), [data, trace]);
+  const tracedUnits = useMemo(() => new Set(topology.units.flatMap((unit, i) =>
+    data?.jobs.find(job => job.id === trace)?.route.includes(unit.id) ? [i] : [])), [data, trace, topology]);
+  const live = useRef({ states, trace, tracedUnits, tracedEdges, edges: data?.edges, connected: connection === 'ready' });
+  useEffect(() => { live.current = { states, trace, tracedUnits, tracedEdges, edges: data?.edges, connected: connection === 'ready' }; }, [states, trace, tracedUnits, tracedEdges, data, connection]);
+  useEffect(() => {
+    let disposed = false, controller: AbortController | null = null;
+    async function refresh() {
+      if (controller) return;
+      controller = new AbortController();
+      const timeout = setTimeout(() => controller?.abort(), 4000);
+      try {
+        const next = await fetchSwarmState(controller.signal);
+        if (disposed) return;
+        setData(next);
+        setConnection(next.metadata.sourceStatus === 'ready' ? 'ready' : 'error');
+        const incoming = [
+          ...next.agents.map(a => ({ id: a.id, status: a.status, key: a.status + ':' + a.currentJobId + ':' + a.startedAt })),
+          ...next.gatekeepers.map(g => ({ id: g.id, status: ({ idle: 'idle', waiting: 'waiting_gatekeeper', approved: 'success', rejected: 'error' } as const)[g.status], key: g.status + ':' + g.currentJobId })),
+        ];
+        const changed = new Set(incoming.filter(a => transitions.current.get(a.id) !== a.key).map(a => a.id));
+        transitions.current = new Map(incoming.map(a => [a.id, a.key]));
+        setStates(previous => Object.fromEntries(incoming.map(a => [a.id, changed.has(a.id)
+          ? { status: a.status, since: Date.now(), revision: (previous[a.id]?.revision ?? 0) + 1 }
+          : previous[a.id]])));
+        setSelection(previous => previous && !incoming.some(a => a.id === previous) && !next.edges.some(e => e.id === previous) ? null : previous);
+        setTrace(previous => previous && !next.jobs.some(j => j.id === previous) ? null : previous);
+      } catch {
+        if (!disposed) setConnection('error');
+      } finally { clearTimeout(timeout); controller = null; }
+    }
+    void refresh();
+    const interval = setInterval(() => { void refresh(); }, 5000);
+    return () => { disposed = true; clearInterval(interval); controller?.abort(); };
+  }, []);
   function closeInspector() { setSelection(null); trigger.current?.focus(); }
   useEffect(() => {
     const element = stage.current;
@@ -150,34 +172,15 @@ export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
     media.addEventListener('change', updateMotion); document.addEventListener('visibilitychange', updateVisibility);
     return () => { resize.disconnect(); media.removeEventListener('change', updateMotion); document.removeEventListener('visibilitychange', updateVisibility); };
   }, []);
-  // Irregular independent transitions. No per-frame React updates.
-  useEffect(() => {
-    if (paused || reduced || !visible) return;
-    let timer: ReturnType<typeof setTimeout>;
-    const random = seeded(71 + frameNumber.current);
-    function step() {
-      const candidates = ENTITIES.filter(e => !e.gate && e.id !== 'publisher');
-      const entity = candidates[Math.floor(random() * candidates.length)];
-      setStates(previous => {
-        const current = previous[entity.id];
-        const next: Status = current.status === 'idle' ? 'processing' : current.status === 'processing' ? 'waiting_gatekeeper' : current.status === 'waiting_gatekeeper' ? 'success' : 'idle';
-        return { ...previous, [entity.id]: { status: next, since: Date.now(), revision: current.revision + 1 } };
-      });
-      log(entity.name + ' · évolution du scénario simulé');
-      timer = setTimeout(step, 2900 + random() * 4200);
-    }
-    timer = setTimeout(step, 4100);
-    return () => clearTimeout(timer);
-  }, [paused, reduced, visible]);
   // Agent success lasts 1.5 s; a gatekeeper's approval remains visible.
   useEffect(() => {
-    const timers = ENTITIES.filter(e => !e.gate && states[e.id].status === 'success').map(e => setTimeout(() => {
+    const timers = ENTITIES.filter(e => !e.gate && states[e.id]?.status === 'success').map(e => setTimeout(() => {
       setStates(previous => previous[e.id].status !== 'success' ? previous : {
         ...previous, [e.id]: { status: 'idle', since: Date.now(), revision: previous[e.id].revision + 1 },
       });
     }, Math.max(0, 1500 - (Date.now() - states[e.id].since))));
     return () => timers.forEach(clearTimeout);
-  }, [states]);
+  }, [states, ENTITIES]);
   useEffect(() => {
     if (!selection) return;
     closeButton.current?.focus();
@@ -191,7 +194,7 @@ export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
     const { width, height } = size, dpr = Math.min(window.devicePixelRatio || 1, 2);
     element.width = Math.round(width * dpr); element.height = Math.round(height * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const field = makeField(width, height);
+    const field = makeField(width, height, geometry.centers, geometry.radius);
     let raf = 0, last = 0;
     const canAnimate = !paused && !reduced && visible;
     function draw(now: number) {
@@ -235,7 +238,7 @@ export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
         }
       });
       ENTITIES.forEach(entity => {
-        if (current.states[entity.id].status !== 'error') return;
+        if (current.states[entity.id]?.status !== 'error') return;
         const p = geometry.points[entity.id];
         ctx.globalAlpha = current.trace && !current.tracedUnits.has(entity.bu) ? .15 : 1;
         const flare = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 60);
@@ -249,7 +252,7 @@ export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
           if (!pulse) continue;
           const duration = .7 + (i % 6) * .09, cycle = 2.5 + (i % 4) * .39;
           const progress = ((t + i * .31 - n * .24 + cycle * 4) % cycle) / duration;
-          const enabled = !reduced && current.states[edge.from].status !== 'idle' && progress <= 1;
+          const enabled = !reduced && current.connected && current.edges?.some(e => e.id === edge.id && e.status === 'active' && e.activeJobIds.length > 0) && progress <= 1;
           pulse.style.opacity = enabled ? String(current.trace && !current.tracedEdges.has(edge.id) ? .15 : .95) : '0';
           if (enabled) { const p = onCurve(geometry.curves[i], progress); pulse.setAttribute('transform', 'translate(' + p.x + ' ' + p.y + ')'); }
         }
@@ -261,7 +264,9 @@ export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
     }
     draw(performance.now());
     return () => cancelAnimationFrame(raf);
-  }, [size, geometry, paused, reduced, visible, trace]);
+  }, [size, geometry, paused, reduced, visible, trace, ENTITIES, EDGES]);
+  const selectedAgent = data?.agents.find(a => a.id === selection);
+  const selectedGate = data?.gatekeepers.find(g => g.id === selection);
   const selected = ENTITIES.find(e => e.id === selection), selectedEdge = EDGES.find(e => e.id === selection);
   const zoomPoint = zoom === null ? null : geometry.centers[zoom];
   const activate = (event: KeyboardEvent<SVGElement>, action: () => void) => {
@@ -269,37 +274,37 @@ export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
   };
   function inspect(entityId: string, element: SVGElement) { trigger.current = element; setSelection(entityId); }
 
-  return <div className={styles.swarm} data-swarm="organic" data-paused={paused || !visible} data-reduced-motion={reduced}>
+  return <div className={styles.swarm} data-swarm="organic" data-connection={connection} data-snapshot={data?.metadata.timestamp} data-paused={paused || !visible} data-reduced-motion={reduced}>
     <div className={styles.edition}>NEURAL FIELD <span>02 / 04</span></div>
-    <div className={styles.toolbar}><span className={styles.simulation}><i /> Simulation visuelle</span>
+    <div className={styles.toolbar}><span className={styles.simulation} role="status"><i /> {connection === 'loading' ? 'Connexion au moteur...' : connection === 'error' ? 'Moteur indisponible' : 'SQLite · ' + data?.swarm.activeJobs + ' jobs actifs'}</span>
       <div><button type="button" onClick={() => { setZoom(null); setTrace(null); }} disabled={zoom === null && trace === null}>Vue globale</button>
         <button type="button" aria-pressed={paused} onClick={() => setPaused(p => !p)}>{paused ? 'Reprendre' : 'Pause'}</button></div></div>
     <div className={styles.stage} ref={stage}>
-      <div className={styles.coordinates} aria-hidden="true">MS / OBSERVATORY<br />4 BUs · 7 AGENTS · 4 GATES</div>
+      <div className={styles.coordinates} aria-hidden="true">MS / OBSERVATORY<br />{UNITS.length} BUs · {data?.agents.length ?? 0} AGENTS · {data?.gatekeepers.length ?? 0} GATES</div>
       <div className={styles.world} style={{ transform: zoomPoint ? 'scale(1.18)' : 'scale(1)', transformOrigin: zoomPoint ? zoomPoint.x + 'px ' + zoomPoint.y + 'px' : '50% 50%' }}>
         <canvas ref={canvas} className={styles.canvas} aria-hidden="true" />
         <svg className={styles.svg} viewBox={'0 0 ' + size.width + ' ' + size.height} aria-labelledby={id + '-title ' + id + '-desc'}>
           <title id={id + '-title'}>Ruche organique Magic Script</title>
-          <desc id={id + '-desc'}>Simulation interactive. Quatre galaxies dorées reliées par des fibres. Sélectionnez un agent pour l’inspecter, une business unit pour zoomer, un job pour tracer son parcours.</desc>
-          {geometry.centers.map((center, index) => <g key={UNITS[index]} className={styles.bu} data-dimmed={!!trace && !tracedUnits.has(index)}
+          <desc id={id + '-desc'}>État local de la ruche. Galaxies dorées décoratives et agents connectés à SQLite. Sélectionnez un agent pour l’inspecter, une business unit pour zoomer, un job pour tracer son parcours.</desc>
+          {geometry.centers.slice(0, UNITS.length).map((center, index) => <g key={UNITS[index]} className={styles.bu} data-dimmed={!!trace && !tracedUnits.has(index)}
             role="button" tabIndex={0} aria-label={'Zoom ' + UNITS[index]} aria-pressed={zoom === index}
             onClick={() => setZoom(previous => previous === index ? null : index)}
             onKeyDown={event => activate(event, () => setZoom(previous => previous === index ? null : index))}>
             <ellipse cx={center.x} cy={center.y} rx={geometry.radius} ry={geometry.radius * .84} className={styles.buHit} />
-            <text x={center.x} y={center.y - geometry.radius - 16} textAnchor="middle" className={styles.buLabel}>{UNITS[index]} <tspan>· {index === 3 ? '1 AGENT' : '2 AGENTS'}</tspan></text>
+            <text x={center.x} y={center.y - geometry.radius - 16} textAnchor="middle" className={styles.buLabel}>{UNITS[index]} <tspan>· {topology.units[index].agentIds.length} AGENTS</tspan></text>
             <path d={'M' + (center.x - 12) + ',' + (center.y - geometry.radius - 7) + 'h24'} className={styles.buMarker} />
           </g>)}
           <g className={styles.routes}>{EDGES.map((edge, i) => <g key={edge.id} className={styles.edge} data-dimmed={!!trace && !tracedEdges.has(edge.id)}
-            role="button" tabIndex={0} aria-label={'Connexion ' + edge.from + ' vers ' + edge.to + ', job ' + edge.job}
-            onClick={event => { setTrace(edge.job); inspect(edge.id, event.currentTarget); }}
-            onKeyDown={event => activate(event, () => { setTrace(edge.job); inspect(edge.id, event.currentTarget); })}>
+            role="button" tabIndex={0} aria-label={'Connexion ' + edge.from + ' vers ' + edge.to}
+            onClick={event => { setTrace(data?.edges.find(e => e.id === edge.id)?.activeJobIds[0] ?? null); inspect(edge.id, event.currentTarget); }}
+            onKeyDown={event => activate(event, () => { setTrace(data?.edges.find(e => e.id === edge.id)?.activeJobIds[0] ?? null); inspect(edge.id, event.currentTarget); })}>
             <path d={path(geometry.curves[i])} className={styles.edgeLine} data-traced={tracedEdges.has(edge.id)} />
             <path d={path(geometry.curves[i])} className={styles.edgeHit} />
           </g>)}</g>
           <g aria-hidden="true" className={styles.pulses}>{EDGES.flatMap(edge => [0, 1, 2].map(n =>
             <circle key={edge.id + '-' + n} r={n === 0 ? 2.3 : 1.5} ref={node => { const key = edge.id + '-' + n; if (node) pulses.current.set(key, node); else pulses.current.delete(key); }} />))}</g>
           {ENTITIES.map(entity => {
-            const p = geometry.points[entity.id], state = states[entity.id];
+            const p = geometry.points[entity.id], state = states[entity.id] ?? { status: 'idle' as Status, since: 0, revision: 0 };
             return <g key={entity.id} transform={'translate(' + p.x + ' ' + p.y + ')'} className={styles.organism}
               data-entity={entity.id} data-dimmed={!!trace && !tracedEntities.has(entity.id)} role="button" tabIndex={0}
               aria-label={entity.name + ', ' + (entity.gate ? 'Gatekeeper, ' : '') + LABELS[state.status]}
@@ -317,23 +322,37 @@ export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
       </div>
       <div className={styles.sceneNote} aria-hidden="true">ORGANIC COMPUTATIONAL MINIMALISM <span>∞</span></div>
       {selection && <aside className={styles.inspector} role="dialog" aria-modal="false" aria-labelledby={id + '-inspector'}>
-        <div className={styles.inspectorTop}><span>INSPECTOR / SIMULATION</span><button type="button" ref={closeButton} onClick={closeInspector} aria-label="Fermer l’inspecteur">×</button></div>
-        <div className={styles.inspectorSymbol} style={{ color: selected ? COLORS[states[selected.id].status] : '#D9A441' }}>{selected?.gate ? '◇' : '◎'}</div>
+        <div className={styles.inspectorTop}><span>INSPECTOR / SQLITE</span><button type="button" ref={closeButton} onClick={closeInspector} aria-label="Fermer l’inspecteur">×</button></div>
+        <div className={styles.inspectorSymbol} style={{ color: selected ? COLORS[states[selected.id]?.status ?? 'idle'] : '#D9A441' }}>{selected?.gate ? '◇' : '◎'}</div>
         <h3 id={id + '-inspector'}>{selected?.name ?? 'Connexion ' + selectedEdge?.id}</h3>
-        <p>{selected ? UNITS[selected.bu] : JOBS.find(job => job.id === selectedEdge?.job)?.route}</p>
+        <p>{selected ? UNITS[selected.bu] : selectedEdge ? selectedEdge.from + ' → ' + selectedEdge.to : ''}</p>
         <dl><div><dt>Type</dt><dd>{selected ? selected.gate ? 'Gatekeeper' : 'Agent' : 'Connexion'}</dd></div>
-          <div><dt>État</dt><dd>{selected ? LABELS[states[selected.id].status] : 'Trajet simulé'}</dd></div><div><dt>Source</dt><dd>Scénario local</dd></div></dl>
-        {selected && <fieldset><legend>Explorer les états visuels</legend><div className={styles.stateButtons}>
-          {(['idle', 'processing', 'waiting_gatekeeper', 'success', 'error'] as Status[]).map(status =>
-            <button type="button" key={status} aria-pressed={states[selected.id].status === status} onClick={() => changeState(selected, status)}>{LABELS[status]}</button>)}</div></fieldset>}
-        <p className={styles.disclaimer}>Aucune action sur les agents réels.</p>
+          <div><dt>État</dt><dd>{selected ? LABELS[states[selected.id]?.status ?? 'idle'] : data?.edges.find(e => e.id === selectedEdge?.id)?.status}</dd></div><div><dt>Source</dt><dd>{connection === 'ready' ? 'SQLite local' : 'Dernier instantané'}</dd></div></dl>
+        {selected && <dl>
+          <div><dt>Job</dt><dd style={{ overflowWrap: 'anywhere', minWidth: 0 }}>{selectedAgent?.currentJobId ?? selectedGate?.currentJobId ?? 'Aucun'}</dd></div>
+          <div><dt>Progression</dt><dd>{selectedAgent?.progress == null ? 'Non documentée' : Math.round(selectedAgent.progress * 100) + ' %'}</dd></div>
+          <div><dt>Démarrage</dt><dd>{selectedAgent?.startedAt ? new Date(selectedAgent.startedAt).toLocaleTimeString('fr-FR') : 'Non documenté'}</dd></div>
+          {selectedGate && <div><dt>Décision</dt><dd>{selectedGate.decision ?? 'Non documentée'}</dd></div>}
+        </dl>}
+        <p className={styles.disclaimer}>Lecture seule · {connection === 'ready' ? 'instantané actualisé toutes les 5 s' : 'source indisponible, données éventuellement anciennes'}.</p>
       </aside>}
     </div>
-    <div className={styles.jobs}><div className={styles.stripTitle}>TRACE / JOBS SIMULÉS <span>{trace ? 'JOB ' + trace : 'Choisir un parcours'}</span></div>
-      <div className={styles.jobList}>{JOBS.map(job => <button key={job.id} type="button" aria-pressed={trace === job.id} onClick={() => { setTrace(previous => previous === job.id ? null : job.id); log('Trace ' + job.id + ' · ' + job.route); }}>
-        <span>{job.id}</span>{job.label}<i>↗</i></button>)}</div></div>
-    <footer className={styles.telemetry}><div className={styles.stripTitle}>TÉLÉMÉTRIE <span>LOCAL / SIMULÉ</span></div>
-      <ol aria-label="Dernières traces simulées">{logs.map((entry, index) => <li key={index + '-' + entry}><span>{entry.slice(0, 5)}</span>{entry.slice(7)}</li>)}</ol>
+    <div className={styles.jobs}><div className={styles.stripTitle}>TRACE / JOBS <span>{data?.swarm.activeJobs ?? 0} actifs · {data?.swarm.activeAgents ?? 0} agents en cours</span></div>
+      <label className={styles.disclaimer} htmlFor={id + '-job'}>Parcours observé </label>
+      <select id={id + '-job'} aria-label="Tracer un job" value={trace ?? ''} onChange={event => setTrace(event.target.value || null)}
+        style={{ maxWidth: '100%', background: '#121214', color: '#F3F0E9', minHeight: 44 }}>
+        <option value="">Choisir un job ({JOBS.length})</option>
+        {JOBS.map(job => <option key={job.id} value={job.id}>{job.id} · {job.status}</option>)}
+      </select>
+      <div className={styles.jobList}>{JOBS.slice(0, 4).map(job => <button key={job.id} type="button" aria-pressed={trace === job.id}
+        title={job.id} onClick={() => setTrace(previous => previous === job.id ? null : job.id)}>
+        <span>{job.id.slice(-6)}</span>{job.status}<i>↗</i></button>)}</div>
+      {trace && <p className={styles.disclaimer}>Étapes attestées : {JOBS.find(job => job.id === trace)?.route.map(unit => topology.units.find(b => b.id === unit)?.name ?? unit).join(' → ') || 'Non documentées'}</p>}
+    </div>
+    <footer className={styles.telemetry}><div className={styles.stripTitle}>TÉLÉMÉTRIE <span>{connection === 'ready' ? 'SQLITE / 5 S' : 'HORS CONNEXION'}</span></div>
+      <ol aria-label="Derniers événements SQLite">{data?.events.length ? data.events.slice(0, 3).map(event =>
+        <li key={event.id} title={event.timestamp + ' · ' + event.severity + ' · ' + event.message}><span>{new Date(event.timestamp).toLocaleTimeString('fr-FR')}</span>{event.message}</li>)
+        : <li>Aucun événement disponible</li>}</ol>
       <div className={styles.telemetryBottom}><span><i /> 4 200 particules · Canvas + SVG</span><span>{reduced ? 'Mouvement réduit' : paused ? 'Animation en pause' : 'Champ continu'}</span></div>
     </footer>
   </div>;

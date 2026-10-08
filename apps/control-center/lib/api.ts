@@ -5,6 +5,27 @@ import {
 } from '@magicscript/core';
 import { projectProspectBuSummaries } from './bu-summary';
 
+/** Wire contract: docs/SWARM_STATE_SCHEMA.md (validated by /api/swarm/state). */
+export type SwarmAgentStatus = 'idle' | 'processing' | 'waiting_gatekeeper' | 'success' | 'error';
+export interface SwarmState {
+  metadata: { timestamp: string; schemaVersion: '1.0.0'; sourceStatus: 'ready' | 'missing' };
+  swarm: { id: string; name: string; status: 'idle' | 'processing' | 'attention' | 'unavailable'; health: number | null; activeJobs: number; activeAgents: number };
+  businessUnits: { id: string; name: string; status: SwarmAgentStatus; position: { x: number; y: number }; agentIds: string[] }[];
+  agents: { id: string; name: string; type: string; businessUnitId: string; status: SwarmAgentStatus; currentJobId: string | null; progress: number | null; startedAt: string | null }[];
+  gatekeepers: { id: string; name: string; businessUnitId: string; status: 'idle' | 'waiting' | 'approved' | 'rejected'; currentJobId: string | null; decision: 'approved' | 'rejected' | null }[];
+  edges: { id: string; source: string; target: string; status: 'idle' | 'active' | 'error'; activeJobIds: string[] }[];
+  jobs: { id: string; prospectId: string | null; status: 'PENDING' | 'RUNNING' | 'SENDING' | 'SEND_UNKNOWN' | 'SUCCEEDED' | 'FAILED' | 'DEAD_LETTER'; currentBusinessUnitId: string | null; currentAgentId: string | null; progress: number | null; route: string[] }[];
+  events: { id: string; timestamp: string; type: string; severity: 'info' | 'warning' | 'error'; message: string }[];
+}
+
+export async function fetchSwarmState(signal?: AbortSignal): Promise<SwarmState> {
+  const response = await fetch('/api/swarm/state', { cache: 'no-store', signal });
+  if (!response.ok) throw new Error('Moteur indisponible');
+  const state: SwarmState = await response.json();
+  if (state.metadata?.schemaVersion !== '1.0.0') throw new Error('Contrat Swarm incompatible');
+  return state;
+}
+
 export interface ApiHealth {
   ok: boolean;
   service: string;
