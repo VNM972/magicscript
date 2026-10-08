@@ -9349,6 +9349,17 @@ async function handle(request: Request, env: Env): Promise<Response> {
         evidence: candidate.evidence,
         // Deliberately recomputed from registry identity/activity. Manual score
         // and opportunity fields are audit data only and cannot bypass gates.
+        //
+        // PROVISIONAL VALUES (companyCategory, companyEmployeeBand,
+        // isHeadOffice, numberOpenEstablishments, legalNature) :
+        // Le candidat Agent 1 ne porte PAS ces champs. Ils sont volontairement
+        // fixes a PME / 01 / siege / 1 etablissement / SAS pour laisser passer
+        // l'eligibilite provisoire d'intake. La VERIFICATION REELLE (taille,
+        // categorie, nature juridique) est faite plus tard par le Sirene hook
+        // (hardRejectReason) qui lit les vrais champs du registre officiel.
+        // Ces valeurs ne doivent JAMAIS servir a un scoring final : le score
+        // final vient de scoreCommercialEligibility re-execute sur les donnees
+        // Sirene reelles.
         eligibility: scoreCommercialEligibility({
           siren: candidate.siren ?? '',
           siret: candidate.siret ?? '',
