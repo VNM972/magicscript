@@ -366,23 +366,76 @@ interface ProcessedDiscoveryResult {
 
 type DiscoveryCandidate = DiscoveryResult['prospects'][number];
 
-export const NATIONAL_CHAIN_KEYWORDS = ['FRANCHISE', 'FRANCHISEE', 'RESEAU', 'NATIONAL'] as const;
+export const NATIONAL_CHAIN_KEYWORDS = [
+  'FRANCHISE',
+  'FRANCHISEE',
+  'RESEAU',
+  'NATIONAL',
+  'SUCCURSALE',
+  'SUCCURSALISTE',
+  'CHAINE',
+] as const;
+
 export const NATIONAL_CHAIN_GROUP_BRANDS = ['ATLANTIC'] as const;
 
+export const NATIONAL_CHAIN_STANDALONE_BRANDS = [
+  // Restauration
+  'KFC', 'MCDONALD', 'MCDONALD S', 'BURGER KING', 'QUICK', 'SUBWAY',
+  'DOMINO S PIZZA', 'PIZZA HUT', 'O TACOS',
+  'BRIOCHE DOREE', 'COLUMBUS CAFE', 'CLASS CROUTE',
+  'POMME DE PAIN', 'BAGELSTEIN', 'DEL ARTE', 'BUFFALO GRILL',
+  'COURTEPAILLE', 'LEON DE BRUXELLES', 'HIPPOPOTAMUS',
+  'BIG FERNAND', 'NINKASI',
+  // Beaute / coiffure
+  'JEAN LOUIS DAVID', 'FRANCK PROVOST', 'TCHIP COIFFURE', 'CAMILLE ALBANE',
+  'SAINT ALGUE', 'JACQUES DESSANGE', 'DESSANGE',
+  'BEAUTY SUCCESS', 'BODY MINUTE', 'YVES ROCHER', 'NOCIBE', 'MARIONNAUD', 'SEPHORA',
+  // Alimentaire / proximite
+  'CARREFOUR MARKET', 'CARREFOUR CONTACT', 'CARREFOUR CITY',
+  'LEADER PRICE', 'SUPER U', 'HYPER U', 'U EXPRESS',
+  'CASINO SHOP', 'MONOPRIX', 'FRANPRIX', 'PROXI', 'VIVAL', 'SPAR',
+  '8 A HUIT', 'BIOCOOP', 'NATURALIA', 'PICARD', 'LA VIE CLAIRE',
+  // Mode / equipement / maison
+  'KIABI', 'CELIO', 'JENNYFER', 'PIMKIE', 'CACHE CACHE',
+  'ETAM', 'UNDIZ', 'ORCHESTRA', 'VERTBAUDET',
+  'CHAUSSEA', 'GEMO', 'BESSON CHAUSSURES', 'FOOT LOCKER', 'INTERSPORT',
+  'DECATHLON', 'GO SPORT', 'BUREAU VALLEE', 'FNAC', 'DARTY',
+  'CONFORAMA', 'CUIR CENTER',
+  // Optique
+  'OPTIC 2000', 'ALAIN AFFLELOU', 'AFFLELOU', 'KRYS', 'ATOL', 'GENERALE D OPTIQUE',
+] as const;
+
 export function findNationalChainKeyword(candidate: Pick<DiscoveryCandidate, 'companyName' | 'legalName' | 'displayName' | 'alias' | 'aliases'>): string | undefined {
-  const names = [candidate.companyName, candidate.legalName, candidate.displayName, candidate.alias, ...(Array.isArray(candidate.aliases) ? candidate.aliases : [])]
-    .filter((name): name is string => typeof name === 'string');
+  const names = [
+    candidate.companyName,
+    candidate.legalName,
+    candidate.displayName,
+    candidate.alias,
+    ...(Array.isArray(candidate.aliases) ? candidate.aliases : []),
+  ].filter((name): name is string => typeof name === 'string');
+
   for (const name of names) {
-    const words = normalizeCommercialName(name).split(' ');
-    const keyword = NATIONAL_CHAIN_KEYWORDS.find((value) => words.includes(value));
-    if (keyword) return keyword;
-    if (words.includes('GROUPE')) {
-      const brand = NATIONAL_CHAIN_GROUP_BRANDS.find((value) => words.includes(value));
-      if (brand) return `GROUPE ${brand}`;
+    const normalized = normalizeCommercialName(name);
+    if (!normalized) continue;
+    const padded = ` ${normalized} `;
+
+    for (const keyword of NATIONAL_CHAIN_KEYWORDS) {
+      if (padded.includes(` ${keyword} `)) return keyword;
+    }
+
+    if (padded.includes(' GROUPE ')) {
+      for (const brand of NATIONAL_CHAIN_GROUP_BRANDS) {
+        if (padded.includes(` ${brand} `)) return `GROUPE ${brand}`;
+      }
+    }
+
+    for (const brand of NATIONAL_CHAIN_STANDALONE_BRANDS) {
+      if (padded.includes(` ${brand} `)) return brand;
     }
   }
   return undefined;
 }
+
 type CandidateDiagnosticOutcome = 'CREATED' | 'REJECTED' | 'DEDUPED' | 'SKIPPED';
 interface CandidateDiagnosticDecision {
   occurrence: number;

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFileSync } from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';
-import worker, { findNationalChainKeyword, NATIONAL_CHAIN_KEYWORDS, NATIONAL_CHAIN_GROUP_BRANDS, processDiscoveryResult } from './index.ts';
+import worker, { findNationalChainKeyword, NATIONAL_CHAIN_KEYWORDS, NATIONAL_CHAIN_GROUP_BRANDS, NATIONAL_CHAIN_STANDALONE_BRANDS, processDiscoveryResult } from './index.ts';
 import { scoreCommercialEligibility } from '../../../core/scoring/commercial-eligibility.ts';
 
 class FixtureD1 {
@@ -53,8 +53,11 @@ function candidate(companyName, index = 1, overrides = {}) {
 }
 
 test('normalized whole-word policy covers operator examples and preserves the four recap names', () => {
-  assert.deepEqual(NATIONAL_CHAIN_KEYWORDS, ['FRANCHISE', 'FRANCHISEE', 'RESEAU', 'NATIONAL']);
+  assert.deepEqual(NATIONAL_CHAIN_KEYWORDS, ['FRANCHISE', 'FRANCHISEE', 'RESEAU', 'NATIONAL', 'SUCCURSALE', 'SUCCURSALISTE', 'CHAINE']);
   assert.deepEqual(NATIONAL_CHAIN_GROUP_BRANDS, ['ATLANTIC']);
+  assert.ok(NATIONAL_CHAIN_STANDALONE_BRANDS.includes('KFC'));
+  assert.ok(NATIONAL_CHAIN_STANDALONE_BRANDS.includes('JEAN LOUIS DAVID'));
+  assert.ok(NATIONAL_CHAIN_STANDALONE_BRANDS.includes('DECATHLON'));
   for (const [name, expected] of [
     ["Guy Hoquet L'Immobilier", undefined],
     ['MENHIR IMMOBILIER FRANCHISE', 'FRANCHISE'],
@@ -71,6 +74,21 @@ test('normalized whole-word policy covers operator examples and preserves the fo
     ['Atlantic', undefined],
     ['Ananke', undefined], ["Sun'Fly", undefined],
     ['FUTURE MARTINIQUE', undefined], ['Candide', undefined],
+    // Marques standalone (positives)
+    ['KFC MARTINIQUE', 'KFC'],
+    ['SUBWAY FORT DE FRANCE', 'SUBWAY'],
+    ['Restaurant BRIOCHE DOREE', 'BRIOCHE DOREE'],
+    ['Coiffure JEAN LOUIS DAVID', 'JEAN LOUIS DAVID'],
+    ['DECATHLON GUADELOUPE', 'DECATHLON'],
+    ['BURGER KING CAYENNE', 'BURGER KING'],
+    ['PIZZA HUT LAMENTIN', 'PIZZA HUT'],
+    ['CARREFOUR MARKET DILLON', 'CARREFOUR MARKET'],
+    // Marques standalone (negatives : collisions partielles)
+    ['Pauline Coiffure', undefined],
+    ['Julienne Pizzeria', undefined],
+    ['La Halle aux Poissons', undefined],
+    ['Boulangerie Martin', undefined],
+    ['Carrefour des Arts', undefined],
   ]) assert.equal(findNationalChainKeyword({ companyName: name }), expected, name);
 
   for (const fields of [
