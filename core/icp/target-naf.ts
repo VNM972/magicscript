@@ -13,6 +13,10 @@
 export const TARGET_NAF_DIVISIONS = ['45', '47', '55', '56', '95', '96'] as const;
 export type TargetNafDivision = typeof TARGET_NAF_DIVISIONS[number];
 
+/** Codes 5-char exacts autorises hors divisions cibles (cas metier specifiques).
+ *  90.03B = tatouage et piercing (NAF rev.2 2020, section R). */
+export const TARGET_NAF_EXACT_CODES = ['90.03B'] as const;
+
 export const BROAD_DISCOVERY_NAF_DIVISIONS = [
   '41', '42', '43',
   '45', '47',
@@ -69,6 +73,18 @@ export function isTargetNafDivision(code?: string | null): boolean {
   const division = nafDivision(code);
   if (!division) return false;
   return (TARGET_NAF_DIVISIONS as readonly string[]).includes(division);
+}
+
+/**
+ * Politique cible reelle MagicScript :
+ * - division dans TARGET_NAF_DIVISIONS, OU
+ * - code exact dans TARGET_NAF_EXACT_CODES (ex: 90.03B tatouage/piercing).
+ */
+export function isTargetNafActivity(code?: string | null): boolean {
+  const normalized = normalizeNafCode(code);
+  if (!normalized) return false;
+  if ((TARGET_NAF_EXACT_CODES as readonly string[]).includes(normalized)) return true;
+  return isTargetNafDivision(normalized);
 }
 
 export function strongIcpScoreForNaf(code?: string | null): number | undefined {

@@ -30,9 +30,15 @@ test('official local restaurant, hair/beauty and division 47 activities are firs
   assert.equal(firstWaveDiscoveryTier(candidate(14, '56.bad').eligibility), 2);
 });
 
-test('existing target-activity list is research-plausible without inventing a V2 family', () => {
-  for (const activity of ['43.22B', '45.31Z', '71.20B', '55.20Z']) {
+test('target-activity list is research-plausible without inventing a V2 family', () => {
+  // Cible reelle (Phase C-2) : divisions 45,47,55,56,95,96 + 90.03B exact.
+  // Ces codes sont tier 2 (research-plausible) sans etre tier 1.
+  for (const activity of ['45.31Z', '55.20Z', '95.22Z']) {
     assert.equal(firstWaveDiscoveryTier(candidate(3, activity).eligibility), 2, activity);
+  }
+  // Divisions historiques larges desormais hors cible (Phase C-2) : tier 3.
+  for (const activity of ['43.22B', '71.20B']) {
+    assert.equal(firstWaveDiscoveryTier(candidate(3, activity).eligibility), 3, activity);
   }
   for (const activity of ['70.10Z', '70.22Z']) {
     assert.equal(firstWaveDiscoveryTier(candidate(4, activity).eligibility), 3, activity);
@@ -62,7 +68,7 @@ test('network uncertainty preserves research eligibility and first-wave tier', (
 
 test('when first-wave supply is short, tier 2 precedes tier 3 without changing intake eligibility', () => {
   const broad = candidate(11, '70.10Z');
-  const plausible = candidate(12, '43.22B');
+  const plausible = candidate(12, '45.31Z');
   assert.equal(broad.eligibility.classification, 'RESEARCH');
   assert.deepEqual(rankFirstWaveDiscoveryCandidates([broad, plausible]).map((item) => item.siret), [plausible.siret, broad.siret]);
 });

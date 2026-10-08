@@ -7,6 +7,8 @@ import {
   STRONG_ICP_NAF_DIVISION_SCORES,
   TARGET_NAF_DIVISIONS,
   isBroadDiscoveryNafActivity,
+  TARGET_NAF_EXACT_CODES,
+  isTargetNafActivity,
   isTargetNafDivision,
   nafDivision,
   strongIcpScoreForNaf,
@@ -74,6 +76,25 @@ test('isTargetNafDivision restricts to the six real-target divisions', () => {
   assert.equal(isTargetNafDivision('43.22B'), false);
   assert.equal(isTargetNafDivision('70.10Z'), false);
   assert.equal(isTargetNafDivision(undefined), false);
+});
+
+test('TARGET_NAF_EXACT_CODES contains the tattoo/piercing code', () => {
+  assert.deepEqual([...TARGET_NAF_EXACT_CODES], ['90.03B']);
+});
+
+test('isTargetNafActivity accepts target divisions and the exact tattoo code', () => {
+  assert.equal(isTargetNafActivity('56.10A'), true);
+  assert.equal(isTargetNafActivity('47.11A'), true);
+  assert.equal(isTargetNafActivity('45.20A'), true);
+  assert.equal(isTargetNafActivity('55.20Z'), true);
+  assert.equal(isTargetNafActivity('95.22Z'), true);
+  assert.equal(isTargetNafActivity('96.02A'), true);
+  assert.equal(isTargetNafActivity('90.03B'), true); // tatouage/piercing
+  assert.equal(isTargetNafActivity(' 90.03B '), true); // normalization
+  assert.equal(isTargetNafActivity('90.02Z'), false); // SACEM / arts
+  assert.equal(isTargetNafActivity('43.22B'), false); // construction
+  assert.equal(isTargetNafActivity('70.10Z'), false);
+  assert.equal(isTargetNafActivity(undefined), false);
 });
 
 test('strongIcpScoreForNaf returns the historical weights', () => {

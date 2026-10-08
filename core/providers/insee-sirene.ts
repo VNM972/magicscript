@@ -1,4 +1,4 @@
-import { isBroadDiscoveryNafActivity } from '../icp/target-naf';
+import { isTargetNafActivity } from '../icp/target-naf';
 export interface SireneAddress {
   numeroVoieEtablissement?: string | null;
   indiceRepetitionEtablissement?: string | null;
@@ -150,8 +150,12 @@ export function sireneLocation(
   return city || postalCode || undefined;
 }
 
+/**
+ * Cible reelle MagicScript : 45,47,55,56,95,96 + codes exacts autorises
+ * (90.03B tatouage/piercing). Voir core/icp/target-naf.ts.
+ */
 export function isMagicScriptTargetActivity(code?: string | null): boolean {
-  return isBroadDiscoveryNafActivity(code);
+  return isTargetNafActivity(code);
 }
 
 export function sirenePublicSourceUrl(siret: string): string {
