@@ -62,15 +62,15 @@ function makeField(width: number, height: number, centers: Point[], radius: numb
   });
   // Decorative fibres are batched on Canvas; semantic routes remain SVG.
   const bundles = centers.map((a, i) => {
-    const d = centers[(i + 1) % centers.length], fibres = new Path2D();
-    for (let j = 0; j < 230; j++) {
+    const d = centers[(i + 1) % centers.length];
+    return Array.from({ length: 230 }, () => {
       const spread = (random() - .5) * radius * 1.5, bend = (random() - .5) * 95;
       const arrival = spread * .7 + (random() - .5) * radius * .6;
-      fibres.moveTo(a.x + (random() - .5) * radius, a.y + spread);
-      fibres.bezierCurveTo(a.x + (d.x - a.x) * .3, a.y + spread + bend,
-        a.x + (d.x - a.x) * .7, d.y + arrival + bend * .6, d.x + (random() - .5) * radius, d.y + arrival);
-    }
-    return fibres;
+      return { a: { x: a.x + (random() - .5) * radius, y: a.y + spread },
+        b: { x: a.x + (d.x - a.x) * .3, y: a.y + spread + bend },
+        c: { x: a.x + (d.x - a.x) * .7, y: d.y + arrival + bend * .6 },
+        d: { x: d.x + (random() - .5) * radius, y: d.y + arrival }, phase: random() * TAU };
+    });
   });
   const ambient = Array.from({ length: 400 }, () => ({ x: random() * width, y: random() * height, phase: random() * TAU, speed: 1 + random() * 2 }));
   return { clusters, bundles, ambient };
@@ -190,8 +190,13 @@ export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
       ctx.fillStyle = 'rgba(217,164,65,.25)';
       for (const p of field.ambient) ctx.fillRect((p.x + t * p.speed) % width, p.y + Math.sin(t * .09 + p.phase) * 12, .8, .8);
       field.bundles.forEach((bundle, i) => {
-        ctx.save(); ctx.translate(Math.sin(t * .17 + i) * 2, Math.cos(t * .13 + i) * 2);
-        ctx.strokeStyle = 'rgba(217,164,65,.105)'; ctx.lineWidth = .45; ctx.stroke(bundle); ctx.restore();
+        ctx.beginPath();
+        for (const fibre of bundle) {
+          const dx = Math.sin(t * .8 + fibre.phase + i) * 1.5, dy = Math.cos(t * .65 + fibre.phase) * 1.5;
+          ctx.moveTo(fibre.a.x, fibre.a.y);
+          ctx.bezierCurveTo(fibre.b.x + dx, fibre.b.y + dy, fibre.c.x - dy, fibre.c.y + dx, fibre.d.x, fibre.d.y);
+        }
+        ctx.strokeStyle = 'rgba(217,164,65,.105)'; ctx.lineWidth = .45; ctx.stroke();
       });
       field.clusters.forEach((cluster, index) => {
         const { center, points, projected, links } = cluster;
@@ -199,10 +204,14 @@ export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
         glow.addColorStop(0, 'rgba(217,164,65,.13)'); glow.addColorStop(1, 'rgba(217,164,65,0)');
         ctx.fillStyle = glow; ctx.fillRect(center.x - 180, center.y - 180, 360, 360);
         const rotation = t * .038 + index * .7, co = Math.cos(rotation), si = Math.sin(rotation);
+        // Ambient motion is decorative and independent of operational activity.
+        const breath = 1 + .01 * (1 - Math.cos(t * TAU / (4 + index % 3) + index));
         for (let i = 0; i < points.length; i++) {
           const p = points[i], z = p.z * co - p.x * si, depth = 1 + z / 550;
-          projected[i * 3] = center.x + (p.x * co + p.z * si) * depth + Math.sin(t * .24 + p.phase) * 3;
-          projected[i * 3 + 1] = center.y + p.y * depth + Math.cos(t * .19 + p.phase) * 3;
+          const wanderX = Math.sin(t * .55 + p.phase) * 2 + Math.sin(t * .91 + p.phase * 1.7);
+          const wanderY = Math.cos(t * .49 + p.phase) * 2 + Math.sin(t * .83 + p.phase * 2.3);
+          projected[i * 3] = center.x + ((p.x * co + p.z * si) * depth + wanderX) * breath;
+          projected[i * 3 + 1] = center.y + (p.y * depth + wanderY) * breath;
           projected[i * 3 + 2] = z;
         }
         ctx.beginPath();
