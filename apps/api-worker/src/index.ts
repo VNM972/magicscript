@@ -1,3 +1,4 @@
+import { FIRST_WAVE_ACTIVITY_CODES } from '../../../core/icp/target-naf';
 import { D1BuildCorrectionStore } from '../../../core/persistence/d1-visual-qa-store';
 import { canonicalBuildValue, effectiveBuildRevision, validateBuildCorrectionContext, validateCorrectedBuildArtifact, ensureLocalFaviconHtml, deterministicFaviconBytes, normalizePublicVerticalLabelHtml, publicVerticalLabel, type BuildArtifactV1 } from '../../../core/builder/contracts';
 import {
@@ -1254,31 +1255,24 @@ async function setProviderState(
     .run();
 }
 
-// Strategy C: exact NAF rev. 2 codes within the frozen division-47 authority.
+// Strategy C: exact NAF rev. 2 codes.
 // INSEE: https://www.insee.fr/fr/statistiques/fichier/2120875/Nomenclatures_NAF_Reedition_2020.pdf
+// Codes centralised in core/icp/target-naf.ts.
 const FIRST_WAVE_PRIORITY_QUERIES = [
   {
     sourceWindow: 'FOOD_SERVICE',
     key: 'martinique-first-wave-food-page',
-    activityCodes: ['56.10A', '56.10B', '56.10C', '56.21Z', '56.29A', '56.29B', '56.30Z'],
+    activityCodes: FIRST_WAVE_ACTIVITY_CODES.FOOD_SERVICE,
   },
   {
     sourceWindow: 'HAIR_BEAUTY',
     key: 'martinique-first-wave-beauty-page',
-    activityCodes: ['96.02A', '96.02B'],
+    activityCodes: FIRST_WAVE_ACTIVITY_CODES.HAIR_BEAUTY,
   },
   {
     sourceWindow: 'LOCAL_RETAIL',
     key: 'martinique-first-wave-retail-page',
-    activityCodes: [
-      '47.11A', '47.11B', '47.11C', '47.11D', '47.11E', '47.11F', '47.19A', '47.19B',
-      '47.21Z', '47.22Z', '47.23Z', '47.24Z', '47.25Z', '47.26Z', '47.29Z', '47.30Z',
-      '47.41Z', '47.42Z', '47.43Z', '47.51Z', '47.52A', '47.52B', '47.53Z', '47.54Z',
-      '47.59A', '47.59B', '47.61Z', '47.62Z', '47.63Z', '47.64Z', '47.65Z', '47.71Z',
-      '47.72A', '47.72B', '47.73Z', '47.74Z', '47.75Z', '47.76Z', '47.77Z', '47.78A',
-      '47.78B', '47.78C', '47.79Z', '47.81Z', '47.82Z', '47.89Z', '47.91A', '47.91B',
-      '47.99A', '47.99B',
-    ],
+    activityCodes: FIRST_WAVE_ACTIVITY_CODES.LOCAL_RETAIL,
   },
 ] as const;
 

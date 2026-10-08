@@ -1,3 +1,4 @@
+import { STRONG_ICP_NAF_DIVISION_SCORES } from '../icp/target-naf';
 export const COMMERCIAL_ELIGIBILITY_GATE_VERSION =
   'COMMERCIAL_ELIGIBILITY_V2.6.0' as const;
 
@@ -84,16 +85,7 @@ const ASSOCIATION_LEGAL_NATURES = new Set([
 
 const INSTITUTIONAL_LEGAL_NATURES = new Set(['7381', '7389']);
 
-// NAF division-level policy keeps customer-facing local activity explicit while
-// preventing broad M/N section weights from promoting weak first-wave targets.
-const STRONG_ICP_NAF_DIVISION_SCORES = new Map([
-  ['45', 10], // motor-vehicle trade and repair
-  ['47', 10], // retail
-  ['55', 14], // accommodation
-  ['56', 14], // restaurants, food service and bars
-  ['95', 10], // selected consumer repair
-  ['96', 10], // personal services, including hair and beauty
-]);
+// NAF division-level policy is centralised in core/icp/target-naf.ts.
 
 const NON_TARGET_NAF_ACTIVITIES = new Set(['70.10Z', '82.11Z']);
 

@@ -1,3 +1,4 @@
+import { isBroadDiscoveryNafActivity } from '../icp/target-naf';
 export interface SireneAddress {
   numeroVoieEtablissement?: string | null;
   indiceRepetitionEtablissement?: string | null;
@@ -150,20 +151,7 @@ export function sireneLocation(
 }
 
 export function isMagicScriptTargetActivity(code?: string | null): boolean {
-  if (!code) return false;
-
-  const prefixes = [
-    '41', '42', '43',
-    '45', '47',
-    '55', '56',
-    '68',
-    '71', '73', '74', '77', '79',
-    '81',
-    '90', '91', '93',
-    '95', '96',
-  ];
-
-  return prefixes.some((prefix) => code.startsWith(prefix));
+  return isBroadDiscoveryNafActivity(code);
 }
 
 export function sirenePublicSourceUrl(siret: string): string {
