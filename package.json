@@ -19,6 +19,8 @@
     "dev:runner": "npm --workspace magic-script-agent-runner run dev",
     "typecheck:runner": "npm --workspace magic-script-agent-runner run typecheck",
     "smoke:swarm": "node scripts/smoke-swarm.mjs",
+    "swarm:daemon": "python -B scripts/run-swarm-state-daemon.py",
+    "swarm:once": "python -B scripts/run-swarm-state-daemon.py --once",
     "start:local:swarm": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-local-swarm.ps1",
     "stop:local:swarm": "powershell -ExecutionPolicy Bypass -File .\\scripts\\stop-local-swarm.ps1",
     "ms:start": "powershell -ExecutionPolicy Bypass -File .\\scripts\\magic-script.ps1 start",

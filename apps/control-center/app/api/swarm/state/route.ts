@@ -91,6 +91,22 @@ async function readWorker<T>(endpoint: string, signal: AbortSignal): Promise<T> 
   return response.json() as Promise<T>;
 }
 
+async function readLocalFallback(schema: Contract): Promise<SwarmState | null> {
+  try {
+    const text = await readFile(path.resolve(process.cwd(), 'public/swarm-state.json'), 'utf8');
+    const state = JSON.parse(text) as SwarmState;
+    const writtenAt = Date.parse(state.metadata?.timestamp ?? '');
+    const age = Date.now() - writtenAt;
+    if (!Number.isFinite(writtenAt) || age < 0 || age >= 20_000) return null;
+    state.metadata.sourceStatus = 'ready';
+    validate(state, schema, schema);
+    validateReferences(state);
+    return state;
+  } catch {
+    return null;
+  }
+}
+
 function projectState(schema: Contract, jobs: WorkerJob[], events: WorkerEvent[]): SwarmState {
   // Use the shared topology and role mapping, following core/swarm_state_writer.py.
   const state = structuredClone(schema.default);
@@ -150,6 +166,9 @@ export async function GET(request: Request) {
     validateReferences(state);
     return Response.json(state, { headers });
   } catch {
+    const schema = await loadContract().catch(() => null);
+    const fallback = schema ? await readLocalFallback(schema) : null;
+    if (fallback) return Response.json(fallback, { headers });
     return Response.json({ error: 'Moteur indisponible' }, { status: 503, headers });
   }
 }

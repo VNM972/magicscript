@@ -4,7 +4,7 @@ Source unique : le JSON Schema ci-dessous est chargé par Python et Next.js. Son
 
 ## Sémantique
 
-- Horodatages UTC RFC 3339. sourceStatus=ready signifie lecture réussie, pas moteur sain. missing est le repli API sans fichier. JSON invalide ou instantané de plus de 20 secondes : HTTP 503.
+- Horodatages UTC RFC 3339. sourceStatus=ready signifie lecture réussie, pas moteur sain. La route Next lit d'abord le Worker, puis le JSON local en fallback si la voie Worker échoue ; le fallback exige un instantané valide de moins de 20 secondes. missing est le repli API sans fichier. JSON invalide ou instantané périmé : HTTP 503.
 - Quatre BUs représentent des phases visuelles, pas les verticales SWARM_HUBS. Positions normalisées [0,1], répartition verticale adaptée sur mobile.
 - Sept agents de base représentent des rôles, pas sept processus attestés. Des jobs simultanés créent des instances role:jobId, sans écraser la concurrence.
 - Tous les jobs non terminaux et les 100 terminaux les plus récents sont inclus ; 50 événements récents. activeJobs compte RUNNING/SENDING, activeAgents compte processing. PENDING reste idle ; SEND_UNKNOWN devient waiting_gatekeeper (intervention nécessaire, sans approbation prouvée).
@@ -27,7 +27,7 @@ JSON public = artefact local à ne pas committer ; expose les identifiants opér
 
 Depuis la racine du dépôt, PowerShell :
 - git switch feature/swarm-backend-connection
-- python -B scripts/run-swarm-state-daemon.py
+- npm run swarm:daemon en parallèle du dev control-center si on veut le fallback actif
 - Autre terminal : npm run dev:control-center
 - Ouvrir http://localhost:3000, Living Hive.
 
