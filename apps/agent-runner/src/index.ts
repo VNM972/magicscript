@@ -1,8 +1,10 @@
+import { spawn } from 'node:child_process';
 import { realpathSync } from 'node:fs';
+import { isFixtureOrInternalName } from './deploy-guardrail';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { hostname, tmpdir } from 'node:os';
 import { join, resolve, sep } from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import { MagicScriptApi, type ClaimedJob } from './api';
 import { isControlledTestRecipient, loadAmenMailConfig } from './email/config';
@@ -711,6 +713,66 @@ async function executePrototypeDeploy(
 }
 
 
+/**
+ * Fixture guardrail: refuse de deployer un prospect dont le nom ressemble a
+ * une fixture de test / un fixture interne. Empeche tout deploiement accidentel
+ * d'un faux client (SNEMM etait une fixture synthetique qui a deja cause un
+ * deploiement par erreur). Toute fixture refusee ecrit un .deploy-result.json
+ * avec status='skipped:fixture_guardrail' pour audit.
+ */
+async function deployPrototypeToNetlify(
+  workDir: string,
+  output: unknown,
+  companyName: string | null | undefined,
+): Promise<void> {
+  const NETLIFY_AUTH_TOKEN = process.env.NETLIFY_AUTH_TOKEN;
+  try {
+    // ---- Fixture guardrail (avant toute chose) ----
+    const normalizedName = (companyName ?? '').trim();
+    if (isFixtureOrInternalName(normalizedName)) {
+      const reason = normalizedName
+        ? `Fixture ou prospect interne refuse: "${normalizedName}"`
+        : 'Nom de prospect absent';
+      process.stdout.write(`Netlify deploy skipped (guardrail): ${reason}\n`);
+      await writeFile(join(workDir, '.deploy-result.json'), JSON.stringify({
+        site_id: null, deploy_id: null, url: null, deployed_at: null,
+        status: 'skipped:fixture_guardrail', reason,
+      }, null, 2) + '\n');
+      return;
+    }
+    const build = output && typeof output === 'object' ? output as Record<string, unknown> : {};
+    if (build.buildPassed !== true || build.staticOutputReady !== true) {
+      const reason = `Build not ready: buildPassed=${String(build.buildPassed)}, staticOutputReady=${String(build.staticOutputReady)}`;
+      process.stdout.write(`Netlify deploy skipped: ${reason}\n`);
+      await writeFile(join(workDir, '.deploy-result.json'), JSON.stringify({
+        site_id: null, deploy_id: null, url: null, deployed_at: null,
+        status: 'skipped', reason,
+      }, null, 2) + '\n');
+      return;
+    }
+    if (!NETLIFY_AUTH_TOKEN?.trim()) {
+      process.stdout.write('Netlify deploy skipped: NETLIFY_AUTH_TOKEN absent.\n');
+      return;
+    }
+    const script = fileURLToPath(new URL('../../../scripts/deploy-prototype.mjs', import.meta.url));
+    await new Promise<void>((resolveDeploy, rejectDeploy) => {
+      const child = spawn(process.execPath, [script, workDir], {
+        env: { ...process.env, NETLIFY_AUTH_TOKEN },
+        stdio: 'inherit', windowsHide: true, timeout: 180_000,
+      });
+      child.once('error', rejectDeploy);
+      child.once('close', (code, signal) => {
+        if (code === 0) resolveDeploy();
+        else rejectDeploy(new Error(`exit ${code}, signal ${signal ?? 'none'}`));
+      });
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    const safeMessage = NETLIFY_AUTH_TOKEN ? message.split(NETLIFY_AUTH_TOKEN).join('<redacted>') : message;
+    process.stderr.write(`Netlify deploy failed (best-effort): ${safeMessage}\n`);
+  }
+}
+
 export async function runOne(): Promise<boolean> {
   const claim = await api.claim();
   if (!claim) return false;
@@ -762,6 +824,9 @@ export async function runOne(): Promise<boolean> {
               : await executeAgentJob(claim, executionDir);
 
     await api.succeed(claim.job.id, output);
+    if (claim.job.kind === 'BUILD_PROTOTYPE') {
+      await deployPrototypeToNetlify(executionDir, output, claim.prospect?.companyName);
+    }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     process.stderr.write(
