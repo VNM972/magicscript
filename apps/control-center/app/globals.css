@@ -103,3 +103,37 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .pipeline-filters a, .prospects-summary a { text-decoration: none; }
 @media (max-width: 1050px) { .prospect-link { grid-template-columns: repeat(2, minmax(0, 1fr)); }.prospect-link .open-action { grid-column: 1 / -1; text-align: center; }.prospect-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 700px) { .prospect-link, .prospect-facts { grid-template-columns: minmax(0, 1fr); }.prospect-link .open-action { grid-column: auto; } }
+
+/* Only the home cockpit fills the viewport; detail pages retain document scrolling. */
+@media (min-width: 1051px) {
+  .deck-dashboard {
+    height: 100vh;
+    height: 100dvh;
+    padding: 12px 0;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) clamp(160px, 18dvh, 200px);
+    gap: 12px;
+    overflow: hidden;
+  }
+  .deck-dashboard > .cockpit-grid {
+    margin-top: 0;
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .deck-dashboard .living-hive-frame { min-height: 0; display: flex; }
+  .deck-dashboard .operator-panel {
+    min-height: 0;
+    min-width: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+  }
+  .deck-dashboard > .pipeline-section {
+    margin-top: 0;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+    padding: 14px 22px;
+  }
+}

@@ -117,7 +117,12 @@ export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
   const EDGES = topology.edges;
   const UNITS = topology.units.map(unit => unit.name);
   const JOBS = data?.jobs ?? [];
-  const geometry = useMemo(() => layout(size.width, size.height, ENTITIES, topology.edges, topology.units), [size, ENTITIES, topology]);
+  // One uniform scale keeps the Canvas and SVG aligned as the available height shrinks.
+  const scene = useMemo(() => {
+    const scale = size.width >= 520 ? Math.min(1, size.height / 610) : 1;
+    return { width: size.width / scale, height: size.height / scale, scale };
+  }, [size]);
+  const geometry = useMemo(() => layout(scene.width, scene.height, ENTITIES, topology.edges, topology.units), [scene, ENTITIES, topology]);
   const tracedEdges = useMemo(() => new Set(data?.edges.filter(e => trace && e.activeJobIds.includes(trace)).map(e => e.id)), [data, trace]);
   const tracedEntities = useMemo(() => new Set([
     ...(data?.edges.filter(e => trace && e.activeJobIds.includes(trace)).flatMap(e => [e.source, e.target]) ?? []),
@@ -191,9 +196,9 @@ export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
   useEffect(() => {
     const element = canvas.current, ctx = element?.getContext('2d', { alpha: false });
     if (!element || !ctx) return;
-    const { width, height } = size, dpr = Math.min(window.devicePixelRatio || 1, 2);
-    element.width = Math.round(width * dpr); element.height = Math.round(height * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const { width, height } = scene, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    element.width = Math.round(size.width * dpr); element.height = Math.round(size.height * dpr);
+    ctx.setTransform(dpr * scene.scale, 0, 0, dpr * scene.scale, 0, 0);
     const field = makeField(width, height, geometry.centers, geometry.radius);
     let raf = 0, last = 0;
     const canAnimate = !paused && !reduced && visible;
@@ -264,7 +269,7 @@ export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
     }
     draw(performance.now());
     return () => cancelAnimationFrame(raf);
-  }, [size, geometry, paused, reduced, visible, trace, ENTITIES, EDGES]);
+  }, [size, scene, geometry, paused, reduced, visible, trace, ENTITIES, EDGES]);
   const selectedAgent = data?.agents.find(a => a.id === selection);
   const selectedGate = data?.gatekeepers.find(g => g.id === selection);
   const selected = ENTITIES.find(e => e.id === selection), selectedEdge = EDGES.find(e => e.id === selection);
@@ -281,9 +286,9 @@ export default function Swarm(_props: { snapshot: SwarmSnapshot }) {
         <button type="button" aria-pressed={paused} onClick={() => setPaused(p => !p)}>{paused ? 'Reprendre' : 'Pause'}</button></div></div>
     <div className={styles.stage} ref={stage}>
       <div className={styles.coordinates} aria-hidden="true">MS / OBSERVATORY<br />{UNITS.length} BUs · {data?.agents.length ?? 0} AGENTS · {data?.gatekeepers.length ?? 0} GATES</div>
-      <div className={styles.world} style={{ transform: zoomPoint ? 'scale(1.18)' : 'scale(1)', transformOrigin: zoomPoint ? zoomPoint.x + 'px ' + zoomPoint.y + 'px' : '50% 50%' }}>
+      <div className={styles.world} style={{ transform: zoomPoint ? 'scale(1.18)' : 'scale(1)', transformOrigin: zoomPoint ? zoomPoint.x * scene.scale + 'px ' + zoomPoint.y * scene.scale + 'px' : '50% 50%' }}>
         <canvas ref={canvas} className={styles.canvas} aria-hidden="true" />
-        <svg className={styles.svg} viewBox={'0 0 ' + size.width + ' ' + size.height} aria-labelledby={id + '-title ' + id + '-desc'}>
+        <svg className={styles.svg} viewBox={'0 0 ' + scene.width + ' ' + scene.height} preserveAspectRatio="xMidYMid meet" aria-labelledby={id + '-title ' + id + '-desc'}>
           <title id={id + '-title'}>Ruche organique Magic Script</title>
           <desc id={id + '-desc'}>État local de la ruche. Galaxies dorées décoratives et agents connectés à SQLite. Sélectionnez un agent pour l’inspecter, une business unit pour zoomer, un job pour tracer son parcours.</desc>
           {geometry.centers.slice(0, UNITS.length).map((center, index) => <g key={UNITS[index]} className={styles.bu} data-dimmed={!!trace && !tracedUnits.has(index)}
