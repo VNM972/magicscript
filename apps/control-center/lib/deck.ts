@@ -82,7 +82,13 @@ export async function getProspectInventory(): Promise<{ items: ProspectInventory
     if (!response.ok) throw new Error('Inventaire indisponible');
     const payload = await response.json() as { prospects: InventoryProspect[] };
     if (!Array.isArray(payload.prospects)) throw new Error('Inventaire invalide');
-    return { items: payload.prospects.map((prospect) => {
+    // B4a (2026-10-09) : la page /prospects devient la vue DECK.
+    // Seuls les prospects dont la demo est prete (demo_url non null +
+    // demo_ready=true) sont affiches. Le pool / les autres etats sont
+    // consultables via la page /pool (a venir).
+    return { items: payload.prospects
+      .filter((prospect) => Boolean(prospect.demo_url) && prospect.demo_ready)
+      .map((prospect) => {
       const channels = prospect.contactability?.status === 'PUBLISHED_VERIFIED' ? prospect.contactability.channels : [];
       const email = channels.find((channel) => channel.type === 'EMAIL')?.value ?? null;
       const mobile = channels.find((channel) => channel.type === 'PHONE')?.value ?? null;
@@ -97,6 +103,38 @@ export async function getProspectInventory(): Promise<{ items: ProspectInventory
     }) };
   } catch {
     return { items: [], error: 'L’inventaire des prospects est momentanément indisponible.' };
+  }
+}
+
+export async function getPoolInventory(): Promise<{ items: ProspectInventoryItem[]; error?: string }> {
+  // B4b (2026-10-09) : vue POOL. Renvoie tous les prospects en state='POOL'
+  // (non retenus pour la preparation de demo). Consultation uniquement.
+  try {
+    if (!apiBase) throw new Error('API non configuree');
+    const headers = new Headers();
+    const token = process.env.MAGICSCRIPT_API_TOKEN || (isProduction ? undefined : 'dev-api-token');
+    if (token) headers.set('authorization', `Bearer ${token}`);
+    const response = await fetch(`${apiBase}/api/prospects`, { cache: 'no-store', headers });
+    if (!response.ok) throw new Error('Pool indisponible');
+    const payload = await response.json() as { prospects: InventoryProspect[] };
+    if (!Array.isArray(payload.prospects)) throw new Error('Pool invalide');
+    return { items: payload.prospects
+      .filter((prospect) => prospect.state === 'POOL')
+      .map((prospect) => {
+        const channels = prospect.contactability?.status === 'PUBLISHED_VERIFIED' ? prospect.contactability.channels : [];
+        const email = channels.find((channel) => channel.type === 'EMAIL')?.value ?? null;
+        const mobile = channels.find((channel) => channel.type === 'PHONE')?.value ?? null;
+        return {
+          prospectId: prospect.id, businessName: prospect.companyName,
+          entry_source: prospect.entry_source, demo_url: prospect.demo_url, demo_ready: prospect.demo_ready,
+          location: prospect.city ?? prospect.location ?? null, vertical: prospect.activity ?? null,
+          opportunity: prospect.primaryAsset ?? null, friction: prospect.primaryFriction ?? null,
+          ...prospect.commercialPipeline,
+          contactability: { label: email && mobile ? 'Email + Mobile' : email ? 'Email' : mobile ? 'Mobile' : 'None', email, mobile },
+        };
+      }) };
+  } catch {
+    return { items: [], error: 'Le pool est momentanement indisponible.' };
   }
 }
 

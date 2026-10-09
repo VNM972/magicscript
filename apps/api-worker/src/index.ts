@@ -5516,6 +5516,67 @@ function interestFollowUpBody(sequence: 1 | 2, prospect: Prospect): string {
   ].join('\n');
 }
 
+/**
+ * Sweep B2 (2026-10-09) : transitionne les prospects en PROTOTYPE_REQUIRED
+ * dont le dernier Cost Gate dit NONE vers POOL. Les prospects sans site web
+ * (LIGHT / FULL) restent dans la file webdesigner.
+ * Un event system est ecrit pour audit.
+ */
+async function sweepPrototypeGateToPool(
+  env: Env,
+  db: D1DatabaseLike,
+): Promise<{ moved: number; skipped: number; scanned: number }> {
+  const repo = new D1ProspectRepository(db);
+  const eventStore = new D1EventStore(db);
+  const rows = await db
+    .prepare("SELECT id FROM prospects WHERE state = 'PROTOTYPE_REQUIRED'")
+    .all<{ id: string }>();
+  let moved = 0;
+  let skipped = 0;
+  const candidates = rows.results ?? [];
+  for (const row of candidates) {
+    const prospect = await repo.getProspect(row.id);
+    if (!prospect) {
+      skipped += 1;
+      continue;
+    }
+    let evaluation;
+    try {
+      evaluation = await evaluateAndPersistPrototypeCostGate(db, prospect);
+    } catch {
+      skipped += 1;
+      continue;
+    }
+    if (evaluation.authorization !== 'NONE') {
+      skipped += 1;
+      continue;
+    }
+    try {
+      await repo.transitionProspect(
+        row.id,
+        'POOL',
+        `Prototype Cost Gate: ${evaluation.decision}`,
+      );
+      await eventStore.append({
+        id: crypto.randomUUID(),
+        prospectId: row.id,
+        actor: 'system',
+        type: 'prototype.gate_swept_to_pool',
+        payload: {
+          decision: evaluation.decision,
+          authorization: evaluation.authorization,
+          policyScore: evaluation.policy_score,
+        },
+        createdAt: new Date().toISOString(),
+      });
+      moved += 1;
+    } catch {
+      skipped += 1;
+    }
+  }
+  return { moved, skipped, scanned: candidates.length };
+}
+
 async function schedulePrototypeCostGateJ30Drafts(
   env: Env,
   db: D1DatabaseLike,
@@ -10237,6 +10298,36 @@ async function handle(request: Request, env: Env): Promise<Response> {
     });
   }
 
+  if (request.method === 'POST' && url.pathname.startsWith('/api/prospects/') && url.pathname.endsWith('/demo-url')) {
+    // Bug C fix (2026-10-09) : persiste l'URL Netlify apres deploiement reussi.
+    // Le runner appelle cet endpoint apres avoir lu .deploy-result.json.
+    const match = url.pathname.match(/^\/api\/prospects\/([^/]+)\/demo-url$/);
+    if (!match) return json({ error: 'Invalid demo-url path' }, { status: 400 });
+    const prospectId = decodeURIComponent(match[1]);
+    const body = (await request.json().catch(() => ({}))) as { url?: string };
+    const demoUrl = typeof body.url === 'string' ? body.url.trim() : '';
+    if (!demoUrl || !/^https?:\/\//i.test(demoUrl)) {
+      return json({ error: 'Valid http(s) demo url required' }, { status: 400 });
+    }
+    const db = requireDb(env);
+    const exists = await new D1ProspectRepository(db).getProspect(prospectId);
+    if (!exists) return json({ error: 'Prospect not found' }, { status: 404 });
+    const now = new Date().toISOString();
+    await db
+      .prepare('UPDATE prospects SET demo_url = ?, demo_ready = 1, updated_at = ? WHERE id = ?')
+      .bind(demoUrl, now, prospectId)
+      .run();
+    await new D1EventStore(db).append({
+      id: crypto.randomUUID(),
+      prospectId,
+      actor: 'system',
+      type: 'prototype.demo_url_recorded',
+      payload: { url: demoUrl },
+      createdAt: now,
+    });
+    return json({ ok: true, prospectId, demoUrl, demoReady: true });
+  }
+
   if (request.method === 'GET' && url.pathname === '/api/meetings') {
     const from = url.searchParams.get('from');
     const to = url.searchParams.get('to');
@@ -11274,6 +11365,14 @@ async function handle(request: Request, env: Env): Promise<Response> {
     return json(await reconcileAutopilot(env, requireDb(env)));
   }
 
+  if (request.method === 'POST' && url.pathname === '/api/system/sweep-pool') {
+    // B3 (2026-10-09) : sweep manuel PROTOTYPE_REQUIRED -> POOL.
+    // Utile pour tester sans attendre le cron (qui tourne toutes les 6h).
+    const db = requireDb(env);
+    const result = await sweepPrototypeGateToPool(env, db);
+    return json({ ok: true, ...result });
+  }
+
   if (request.method === 'POST' && url.pathname === '/api/system/drain') {
     const db = requireDb(env);
     const recovery = await recoverStaleJobs(env, db);
@@ -12179,6 +12278,7 @@ export default {
       env,
       env.DB,
     );
+    await sweepPrototypeGateToPool(env, env.DB);
     await scheduleInterestFollowupDrafts(env, env.DB);
     await scheduleDueFollowUps(env, env.DB);
     await scheduleMeetingReminders(env.DB);

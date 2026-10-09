@@ -724,7 +724,7 @@ async function deployPrototypeToNetlify(
   workDir: string,
   output: unknown,
   companyName: string | null | undefined,
-): Promise<void> {
+): Promise<string | null> {
   const NETLIFY_AUTH_TOKEN = process.env.NETLIFY_AUTH_TOKEN;
   try {
     // ---- Fixture guardrail (avant toute chose) ----
@@ -738,7 +738,7 @@ async function deployPrototypeToNetlify(
         site_id: null, deploy_id: null, url: null, deployed_at: null,
         status: 'skipped:fixture_guardrail', reason,
       }, null, 2) + '\n');
-      return;
+      return null;
     }
     const build = output && typeof output === 'object' ? output as Record<string, unknown> : {};
     if (build.buildPassed !== true || build.staticOutputReady !== true) {
@@ -748,11 +748,11 @@ async function deployPrototypeToNetlify(
         site_id: null, deploy_id: null, url: null, deployed_at: null,
         status: 'skipped', reason,
       }, null, 2) + '\n');
-      return;
+      return null;
     }
     if (!NETLIFY_AUTH_TOKEN?.trim()) {
       process.stdout.write('Netlify deploy skipped: NETLIFY_AUTH_TOKEN absent.\n');
-      return;
+      return null;
     }
     const script = fileURLToPath(new URL('../../../scripts/deploy-prototype.mjs', import.meta.url));
     await new Promise<void>((resolveDeploy, rejectDeploy) => {
@@ -766,10 +766,23 @@ async function deployPrototypeToNetlify(
         else rejectDeploy(new Error(`exit ${code}, signal ${signal ?? 'none'}`));
       });
     });
+    // Bug C fix : lire .deploy-result.json pour recuperer l'URL publiee
+    const resultPath = join(workDir, '.deploy-result.json');
+    try {
+      const raw = await readFile(resultPath, 'utf8');
+      const parsed = JSON.parse(raw) as { url?: string | null; status?: string };
+      if (parsed.status === 'ready' && typeof parsed.url === 'string' && parsed.url.trim()) {
+        return parsed.url.trim();
+      }
+      return null;
+    } catch {
+      return null;
+    }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     const safeMessage = NETLIFY_AUTH_TOKEN ? message.split(NETLIFY_AUTH_TOKEN).join('<redacted>') : message;
     process.stderr.write(`Netlify deploy failed (best-effort): ${safeMessage}\n`);
+    return null;
   }
 }
 
@@ -825,7 +838,17 @@ export async function runOne(): Promise<boolean> {
 
     await api.succeed(claim.job.id, output);
     if (claim.job.kind === 'BUILD_PROTOTYPE') {
-      await deployPrototypeToNetlify(executionDir, output, claim.prospect?.companyName);
+      const demoUrl = await deployPrototypeToNetlify(executionDir, output, claim.prospect?.companyName);
+      if (demoUrl && claim.job.prospectId) {
+        try {
+          await api.reportDemoUrl(claim.job.prospectId, demoUrl);
+          process.stdout.write(`Demo URL recorded: ${demoUrl}\n`);
+        } catch (error) {
+          // Best-effort : si l'enregistrement echoue, on n'annule pas le deploiement.
+          const msg = error instanceof Error ? error.message : String(error);
+          process.stderr.write(`Demo URL persistence failed (best-effort): ${msg}\n`);
+        }
+      }
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);

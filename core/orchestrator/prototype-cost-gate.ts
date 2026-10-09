@@ -126,7 +126,12 @@ function hasSufficientPrecontactQualification(input: PrototypeCostGateInput): bo
   const score = input.prospectScore ?? 0;
   const commercialSignals = [input.primaryFriction, input.primaryAsset, input.primaryCta]
     .filter(hasValue).length;
-  return (input.opportunity === 'A' || input.opportunity === 'B') && score >= 60 && commercialSignals >= 2;
+  // Critere refondu (Phase F, 2026-10-09) : un prospect est eligible au
+  // prototype pre-contact s'il n'a PAS de site web fonctionnel, avec un
+  // score minimal et au moins un signal commercial. L'opportunity A/B
+  // n'est plus requise (bloquait ~90% des prospects, cf. audit du 09/10).
+  const noFunctionalWebsite = !hasValue(input.websiteUrl);
+  return noFunctionalWebsite && score >= 40 && commercialSignals >= 1;
 }
 
 function addDaysIso(value: string, days: number): string {

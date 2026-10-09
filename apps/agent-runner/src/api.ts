@@ -278,6 +278,24 @@ export class MagicScriptApi {
     }
   }
 
+  async reportDemoUrl(prospectId: string, url: string): Promise<void> {
+    // Bug C fix (2026-10-09) : persiste l'URL de demo apres deploiement
+    // Netlify reussi. Le worker ecrit demo_url + demo_ready=1 sur le prospect.
+    const response = await fetch(
+      `${this.baseUrl}/api/prospects/${encodeURIComponent(prospectId)}/demo-url`,
+      {
+        method: 'POST',
+        headers: this.headers(),
+        body: JSON.stringify({ url }),
+      },
+    );
+    if (!response.ok) {
+      throw new Error(
+        `Demo URL report failed ${response.status}: ${await response.text()}`,
+      );
+    }
+  }
+
   async fail(jobId: string, error: string, retryDelayMs = 30_000): Promise<void> {
     const response = await fetch(
       `${this.baseUrl}/api/runner/jobs/${encodeURIComponent(jobId)}/fail`,

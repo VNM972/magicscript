@@ -26,6 +26,7 @@ export type NextAction =
 
 const stateToAction: Record<ProspectState, NextAction> = {
   INGESTED: 'STOP',
+  POOL: 'STOP',
   SAS_PENDING: 'STOP',
   DISCOVERED: 'RUN_RESEARCH_SWARM',
   RESEARCHING: 'WAIT',

@@ -90,3 +90,36 @@ test('ineligible states fail closed', () => {
   assert.equal(result.authorization, 'NONE');
   assert.deepEqual(result.reasonCodes, ['FUNNEL_STAGE_NOT_ELIGIBLE']);
 });
+test('prospect without functional website qualifies precontact even with modest score', () => {
+  // Vision Phase F : un prospect SANS site web entre en file prototype
+  // meme sans opportunite A/B, avec un score modeste et un seul signal.
+  const result = evaluate({
+    state: 'PROTOTYPE_REQUIRED',
+    opportunity: 'C',
+    prospectScore: 50,
+    websiteUrl: null,
+    primaryFriction: 'Website manquant',
+    primaryAsset: null,
+    primaryCta: null,
+  });
+  assert.equal(result.authorization, 'LIGHT');
+  assert.equal(result.decision, 'LIGHT');
+  assert.ok(result.reasonCodes.includes('COMMERCIAL_QUALIFICATION_SUFFICIENT'));
+});
+
+test('prospect with existing website is blocked even with excellent score', () => {
+  // Vision Phase F : la presence d'un site web fonctionnel bloque
+  // le prototype pre-contact, peu importe le score ou l'opportunite.
+  const result = evaluate({
+    state: 'PROTOTYPE_REQUIRED',
+    opportunity: 'A',
+    prospectScore: 95,
+    websiteUrl: 'https://example.com',
+    primaryFriction: 'Friction',
+    primaryAsset: 'Asset',
+    primaryCta: 'CTA',
+  });
+  assert.equal(result.authorization, 'NONE');
+  assert.equal(result.decision, 'NO-GO');
+  assert.ok(result.reasonCodes.includes('COMMERCIAL_QUALIFICATION_INSUFFICIENT'));
+});

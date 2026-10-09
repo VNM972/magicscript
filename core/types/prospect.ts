@@ -48,7 +48,8 @@ export type ProspectState =
   | 'CLOSED_LOST'
   | 'INFORMATION_REQUEST_RECEIVED'
   | 'INFORMATION_RESPONSE_DRAFTED'
-  | 'INFORMATION_RESPONSE_VERIFIED';
+  | 'INFORMATION_RESPONSE_VERIFIED'
+  | 'POOL';
 
 export interface Prospect {
   id: string;

@@ -7,8 +7,8 @@ const destinations = [
   ['Rendez-vous', '/rendez-vous'],
   ['Améliorations', '/ameliorations'],
   ['Archives', '/archives'],
-  ['Ruche', '/ruche'],
   ['Intake manuel', '/pain-first-intake'],
+  ['Pool', '/pool'],
 ] as const;
 
 export default function DeckHeader() {
