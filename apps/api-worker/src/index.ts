@@ -1,4 +1,4 @@
-import { FIRST_WAVE_ACTIVITY_CODES } from '../../../core/icp/target-naf';
+import { FIRST_WAVE_ACTIVITY_CODES, isTargetNafActivity } from '../../../core/icp/target-naf';
 import { D1BuildCorrectionStore } from '../../../core/persistence/d1-visual-qa-store';
 import { canonicalBuildValue, effectiveBuildRevision, validateBuildCorrectionContext, validateCorrectedBuildArtifact, ensureLocalFaviconHtml, deterministicFaviconBytes, normalizePublicVerticalLabelHtml, publicVerticalLabel, type BuildArtifactV1 } from '../../../core/builder/contracts';
 import {
@@ -1466,6 +1466,14 @@ async function discoverViaRechercheEntreprises(
     });
     if (reason) {
       await new D1EventStore(db).append({ id: crypto.randomUUID(), actor: 'research-agent', type: 'discovery.hard_rejected', payload: { reason, siret, companyName }, createdAt: new Date().toISOString() });
+      continue;
+    }
+    // Cible NAF reelle (Phase C-2) : 6 divisions + 90.03B. Bloque
+    // silencieusement les NAF hors cible remontes par le fallback sections
+    // (M, N, G etendue...) sans polluer la table d'events (evite le meme
+    // probleme que les 3224 deploy_blocked identiques).
+    const localNaf = localEstablishment.activite_principale ?? result.activite_principale;
+    if (!isTargetNafActivity(localNaf)) {
       continue;
     }
     const eligibility = scoreCommercialEligibility({
